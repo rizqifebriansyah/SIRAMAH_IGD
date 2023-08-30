@@ -45,12 +45,13 @@
     </div>
     <!-- ./col -->
     <div class="row" style="margin-left: 30px;">
-        <div class="col-md-6">
+        <div class="col-md-9">
             <table id="datapendaftaran" class="table tabl6644e-sm text-sm  table-bordered table-hover">
                 <thead class="bg-warning">
                     <th>Tgl</th>
                     <th>No Antrian</th>
                     <th>Status</th>
+                    <th>Keterangan</th>
                 </thead>
                 <tbody>
                     <tr>
@@ -61,6 +62,9 @@
 
                             </a>
                         </td>
+                        <td>
+                            Rawat Inap
+                        </td>
                     </tr>
                     <tr>
                         <td>2023-02-08 </td>
@@ -69,6 +73,9 @@
                                 <i class="" aria-hidden="true">Selesai</i>
 
                             </a>
+                        </td>
+                        <td>
+                            Pulang
                         </td>
                     </tr>
                     <tr>
@@ -79,6 +86,9 @@
 
                             </a>
                         </td>
+                        <td>
+                            -
+                        </td>
                     </tr>
                     <tr>
                         <td>2023-02-08 </td>
@@ -87,6 +97,9 @@
                                 <i class="" aria-hidden="true">Selesai</i>
 
                             </a>
+                        </td>
+                        <td>
+                            Rawat Inap
                         </td>
                     </tr>
                     <tr>
@@ -97,15 +110,19 @@
 
                             </a>
                         </td>
+                        <td>
+                            -
+                        </td>
                     </tr>
                 </tbody>
 
             </table>
         </div>
     </div>
-    <div class="col-md-4">
-        <a class="btn  bg-primary">
-            <h1>Ambil Antrian</h1>
+    <div class="col-md-3" style="margin-left: 200px;">
+        <a class="btn  bg-success" style="width: 200px; height:500px">
+            <h1>AMBIL <br> A <br>N <br>T <br>R <br>I<br>A <br>N <br>
+        IGD</h1>
         </a>
     </div>
 </div>
