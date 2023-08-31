@@ -75,7 +75,7 @@
     </style>
 </head>
 
-<body id="content2" class="hold-transition sidebar-mini" >
+<body id="content2" class="hold-transition sidebar-mini" style="background: url('public/img/green.jpg') center;background-size: 1600px 900px;">
 
     <div class="preloader2" id="loader2">
         <div class="loading">
