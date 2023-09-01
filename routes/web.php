@@ -19,4 +19,6 @@ Route::get('/', function () {
 });
 
 Route::get('/antrian', [AntrianController::class, 'index']);
+Route::post('/ambilantrian', [AntrianController::class, 'ambilantrian'])->name('ambilantrian');
+
 

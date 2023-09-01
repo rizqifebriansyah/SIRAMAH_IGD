@@ -75,7 +75,7 @@
     </style>
 </head>
 
-<body id="content2" class="hold-transition sidebar-mini" style="background: url('public/img/green.jpg') center;background-size: 1600px 900px;">
+<body id="content2" class="hold-transition sidebar-mini" style="background-color:black">
 
     <div class="preloader2" id="loader2">
         <div class="loading">
@@ -83,7 +83,7 @@
             <p>Harap Tunggu</p>
         </div>
     </div>
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" >
+    <nav class="navbar navbar-expand-lg  fixed-top" style="background-color: #006600;" >
         <div class="container">
             <a class="navbar-brand text-dark">
                 <img src="{{ asset('public/img/rsss.png') }}" width="50" height="50" class="d-inline-block align-top ml-2 mr-2" alt="">
