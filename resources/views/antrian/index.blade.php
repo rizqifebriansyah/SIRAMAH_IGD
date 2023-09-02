@@ -14,7 +14,7 @@
     <center>BED MONITORING</center>
 </h1>
 
-<div style="margin-left:20px;height:500px;width:1850px;border:1px solid   Serif;overflow:auto;">
+<div style="margin-left:20px;height:655px;width:1850px;border:1px solid   Serif;overflow:auto;">
     <div class="row antrian" style="margin-top:30px; margin-left:10px">
         @foreach ($bed as $b)
         <div class="col-lg-2 col-2 jumlahpasien" style="margin-left: 20px;">
@@ -27,9 +27,27 @@
                 <div class="small-box" style="background:forestgreen;color:white;font-weight:bold">
 
                     @endif
+                    @if ($b->KODE_UNIT == 3)
                     <h5 style="margin-top: 10px;">
-                        <center>{{$b -> RUANG}}</center>
+                        <center>KELAS I / {{$b -> RUANG}}</center>
                     </h5>
+                    @elseif ($b->KODE_UNIT == 4)
+                    <h5 style="margin-top: 10px;">
+                        <center>KELAS II / {{$b -> RUANG}}</center>
+                    </h5>
+                    @elseif ($b->KODE_UNIT == 5)
+                    <h5 style="margin-top: 10px;">
+                        <center>KELAS III / {{$b -> RUANG}}</center>
+                    </h5>
+                    @elseif ($b->KODE_UNIT == 2)
+                    <h5 style="margin-top: 10px;">
+                        <center>VIP / {{$b -> RUANG}}</center>
+                    </h5>
+                    @elseif ($b->KODE_UNIT == 1)
+                    <h5 style="margin-top: 10px;">
+                        <center>SUPER VIP / {{$b -> RUANG}}</center>
+                    </h5>
+                    @endif
 
                     <div class="row">
                         <div class="col-md-5" style="margin-left: 20px;">

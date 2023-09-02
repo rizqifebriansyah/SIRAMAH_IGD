@@ -37,6 +37,8 @@ class AntrianController extends Controller
     {
         $kode_header = DB::select("CALL GET_NOMOR_LAYANAN_HEADER('1002')");
         $kode_header  = $kode_header[0]->no_trx_layanan;
+        $now = Carbon::now();
+
         // $id_detail = $this->createLayanandetail();
 
 
@@ -64,7 +66,7 @@ class AntrianController extends Controller
             $printer->initialize();
             $printer->setFont(Printer::FONT_B);
             $printer->setJustification(Printer::JUSTIFY_CENTER);
-            $printer->text(date('d/m/Y H:i:s') . "\n");
+            $printer->text($now. "\n");
             $printer->setLineSpacing(5);
             $printer->text("\n");
 
@@ -80,12 +82,7 @@ class AntrianController extends Controller
             $printer->text($kode_header . "\n");
             $printer->text("\n");
 
-            $printer->initialize();
-            $printer->setFont(Printer::FONT_C);
-            $printer->setTextSize(2, 2);
-            $printer->setJustification(Printer::JUSTIFY_CENTER);
-            $printer->text("LOKET : UMUM" . "\n");
-            $printer->text("\n\n\n");
+            
 
             $printer->initialize();
             $printer->setFont(Printer::FONT_A);

@@ -89,7 +89,7 @@
                 <img src="{{ asset('public/img/rsss.png') }}" width="50" height="50" class="d-inline-block align-top ml-2 mr-2" alt="">
             </a>
             <a class="navbar-brand text-light">
-                <h1 style="font-size:30px;">SiRAMAH IGD</h1>
+                <h1 style="font-size:30px;">SiRAMAH </h1>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
