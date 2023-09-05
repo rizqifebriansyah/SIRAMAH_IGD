@@ -15,7 +15,7 @@
 </h1>
 
 <div style="margin-left:20px;height:655px;width:1850px;border:1px solid   Serif;overflow:auto;">
-    <div class="row antrian" style="margin-top:30px; margin-left:10px">
+    <div class="row antrian" style="margin-top:30px; margin-left:50px">
         @foreach ($bed as $b)
         <div class="col-lg-2 col-2 jumlahpasien" style="margin-left: 20px;">
             <!-- small box -->
@@ -46,6 +46,10 @@
                     @elseif ($b->KODE_UNIT == 1)
                     <h5 style="margin-top: 10px;">
                         <center>SUPER VIP / {{$b -> RUANG}}</center>
+                    </h5>
+                    @else
+                    <h5 style="margin-top: 10px;">
+                        <center>{{$b -> RUANG}}</center>
                     </h5>
                     @endif
 
