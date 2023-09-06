@@ -3,7 +3,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Models\ts_antrian_igd;
 use Mike42\Escpos\EscposImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -50,7 +50,10 @@ class AntrianController extends Controller
         $now = Carbon::now();
 
         // $id_detail = $this->createLayanandetail();
+        $header = ts_antrian_igd::create([
+            'no_antri' => $kode_header,
 
+        ]);
 
 
         try {
@@ -83,7 +86,7 @@ class AntrianController extends Controller
             $printer->initialize();
             $printer->setFont(Printer::FONT_A);
             $printer->setJustification(Printer::JUSTIFY_CENTER);
-            $printer->text("Nomor Kunjungan Anda Adalah :\n");
+            $printer->text("Nomor Kunjungan IGD UMUM :\n");
             $printer->text("\n");
 
             $printer->initialize();
@@ -115,7 +118,10 @@ class AntrianController extends Controller
         $now = Carbon::now();
 
         // $id_detail = $this->createLayanandetail();
+        $header = ts_antrian_igd::create([
+            'no_antri' => $kode_header,
 
+        ]);
 
 
         try {
@@ -148,7 +154,7 @@ class AntrianController extends Controller
             $printer->initialize();
             $printer->setFont(Printer::FONT_A);
             $printer->setJustification(Printer::JUSTIFY_CENTER);
-            $printer->text("Nomor Kunjungan Anda Adalah :\n");
+            $printer->text("Nomor Kunjungan IGD KEBIDANAN :\n");
             $printer->text("\n");
 
             $printer->initialize();
@@ -176,8 +182,8 @@ class AntrianController extends Controller
     }
     public function createantrianumum()
     {
-        $q = DB::select('SELECT id,kode_header,RIGHT(kode_header,6) AS kd_max  FROM mt_kode_order_header 
-        WHERE DATE(tgl_header) = CURDATE()
+        $q = DB::connection('mysql2')->select('SELECT id,no_antri,RIGHT(no_antri,3) AS kd_max  FROM tp_karcis_igd
+        WHERE DATE(tgl) = CURDATE()
         ORDER BY id DESC
         LIMIT 1');
         $kd = "";
@@ -190,12 +196,12 @@ class AntrianController extends Controller
             $kd = "001";
         }
         date_default_timezone_set('Asia/Jakarta');
-        return "A".  $kd;
+        return "A" .  $kd;
     }
     public function createantrianbidan()
     {
-        $q = DB::select('SELECT id,kode_header,RIGHT(kode_header,6) AS kd_max  FROM mt_kode_order_header 
-        WHERE DATE(tgl_header) = CURDATE()
+        $q = DB::connection('mysql2')->select('SELECT id,no_antri,RIGHT(no_antri,3) AS kd_max  FROM tp_karcis_igd
+        WHERE DATE(tgl) = CURDATE()
         ORDER BY id DESC
         LIMIT 1');
         $kd = "";
@@ -208,6 +214,6 @@ class AntrianController extends Controller
             $kd = "001";
         }
         date_default_timezone_set('Asia/Jakarta');
-        return "B".  $kd;
+        return "B" .  $kd;
     }
 }

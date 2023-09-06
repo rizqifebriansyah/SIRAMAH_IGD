@@ -33,9 +33,9 @@ Route::post('/ambilantrianumum', [AntrianController::class, 'ambilantrianumum'])
 
 
 
- //Route Dokter
-    Route::get('dokter', [DokterController::class, 'index'])->name('dokter');
-    Route::get('triase', [DokterController::class, 'triase'])->name('triase');
 
+//Route Dokter
+Route::get('dokter', [DokterController::class, 'index'])->name('dokter');
+Route::get('triase', [DokterController::class, 'triase'])->name('triase');
+Route::post('assesmentdokter', [DokterController::class, 'assesmentdokter'])->name('assesmentdokter');
 
-    

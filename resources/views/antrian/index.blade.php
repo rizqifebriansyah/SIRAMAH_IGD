@@ -161,7 +161,6 @@
             success: function(data) {
                 spinner.hide();
                 window.location.reload();
-                0
             }
         });
     });
