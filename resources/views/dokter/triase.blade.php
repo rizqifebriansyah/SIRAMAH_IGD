@@ -129,7 +129,7 @@
         $("#datapasien").DataTable({
             "responsive": false,
             "lengthChange": false,
-            "pageLength": 5,
+            "pageLength": 10,
             "autoWidth": false,
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         });

@@ -32,7 +32,7 @@
                 <li class="nav-header">ASSESSMENT DOKTER</li>
                 <li class="nav-item">
                     <a href="{{ route('triase') }}" class="nav-link @if($menu == 'triase' ) active @endif">
-                        <i class="nav-icon fas fa-book-open"></i>
+                        <i class="nav-icon fas fa-book-medical"></i>
                         <p>
                             TRIASE
                         </p>

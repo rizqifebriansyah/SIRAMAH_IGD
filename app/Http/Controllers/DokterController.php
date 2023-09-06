@@ -15,7 +15,7 @@ class DokterController extends Controller
       return view(
          'dokter.index',
          [
-            'title' => 'SiRAMAH Dokter',
+            'title' => 'SiRAMAH DOKTER',
             'menu' => $menu
          ]
       );
@@ -30,7 +30,7 @@ class DokterController extends Controller
       return view(
          'dokter.triase',
          [
-            'title' => 'SiRAMAH Dokter',
+            'title' => 'SiRAMAH DOKTER',
             'menu' => $menu,
             'antrian' => $antrian
          ]
@@ -45,7 +45,7 @@ class DokterController extends Controller
       return view(
          'dokter.assesmentdokterview',
          [
-            'title' => 'SiRAMAH Dokter',
+            'title' => 'SiRAMAH DOKTER',
             'noantri' => $noantri,
             'tgl' => $tgl
             
