@@ -52,4 +52,38 @@ class DokterController extends Controller
          ]
       );
    }
+
+   public function formdewasa(){
+
+      return view(
+         'dokter.formdewasa',
+         [
+            'title' => 'SiRAMAH DOKTER',
+            
+            
+         ]
+      );
+   }
+   public function formanak(){
+
+      return view(
+         'dokter.formanak',
+         [
+            'title' => 'SiRAMAH DOKTER',
+            
+            
+         ]
+      );
+   }
+   public function formbayi(){
+
+      return view(
+         'dokter.formbayi',
+         [
+            'title' => 'SiRAMAH DOKTER',
+            
+            
+         ]
+      );
+   }
 }

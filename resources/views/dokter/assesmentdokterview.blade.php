@@ -42,17 +42,17 @@
                     <div class="card-body p-0">
                         <ul class="nav nav-pills flex-column">
                             <li class="nav-item" id="pemeriksaan">
-                                <a href="#" class="nav-link" onclick="formpemeriksaandokter()">
+                                <a href="#" class="nav-link formtriasedewasa">
                                     <i class="fas fa-male mr-2"></i>TRIASE DEWASA
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link" onclick="resume()">
+                                <a href="#" class="nav-link formtriaseanak" >
                                     <i class="fas fa-child mr-2"></i> TRIASE ANAK
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link" onclick="resume()">
+                                <a href="#" class="nav-link formtriasebayi" >
                                     <i class="fas fa-baby mr-2"></i> TRIASE ANAK
                                 </a>
                             </li>
@@ -65,17 +65,96 @@
             </div>
 
             <div class="col-md-10">
+
                 <div class="card">
 
-                    <div class="card-body">
+
+                    <div class="card card-info form">
 
 
                     </div>
-                </div>
+                    
 
+
+
+                </div>
             </div>
+
 
         </div>
 
     </div>
 </section>
+
+
+<script>
+    $(".formtriasedewasa").click(function() {
+        spinner = $('#loader2');
+        spinner.show();
+
+
+        $.ajax({
+            type: "post",
+            data: {
+                _token: "{{ csrf_token() }}",
+
+            },
+            url: '<?= route('formdewasa') ?>',
+            error: function(data) {
+                spinner.hide();
+                alert('oke!!')
+            },
+            success: function(response) {
+                spinner.hide();
+                $('.form').html(response);
+
+            }
+        });
+    });
+    $(".formtriaseanak").click(function() {
+        spinner = $('#loader2');
+        spinner.show();
+
+
+        $.ajax({
+            type: "post",
+            data: {
+                _token: "{{ csrf_token() }}",
+
+            },
+            url: '<?= route('formanak') ?>',
+            error: function(data) {
+                spinner.hide();
+                alert('oke!!')
+            },
+            success: function(response) {
+                spinner.hide();
+                $('.form').html(response);
+
+            }
+        });
+    });
+    $(".formtriasebayi").click(function() {
+        spinner = $('#loader2');
+        spinner.show();
+
+
+        $.ajax({
+            type: "post",
+            data: {
+                _token: "{{ csrf_token() }}",
+
+            },
+            url: '<?= route('formbayi') ?>',
+            error: function(data) {
+                spinner.hide();
+                alert('oke!!')
+            },
+            success: function(response) {
+                spinner.hide();
+                $('.form').html(response);
+
+            }
+        });
+    });
+</script>
