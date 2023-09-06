@@ -33,10 +33,20 @@ class AntrianController extends Controller
 
         ]);
     }
-    public function ambilantrian()
+    public function ambildata()
     {
-        $kode_header = DB::select("CALL GET_NOMOR_LAYANAN_HEADER('1002')");
-        $kode_header  = $kode_header[0]->no_trx_layanan;
+
+        $bed = DB::select('CALL SP_BRIDGING_SIRANAP2()');
+        return view('antrian.index', [
+            'title' => 'SIRAMAH_IGD ANTRIAN',
+            'bed' => $bed
+
+        ]);
+    }
+
+    public function ambilantrianumum()
+    {
+        $kode_header = $this->createantrianumum('A');
         $now = Carbon::now();
 
         // $id_detail = $this->createLayanandetail();
@@ -66,14 +76,14 @@ class AntrianController extends Controller
             $printer->initialize();
             $printer->setFont(Printer::FONT_B);
             $printer->setJustification(Printer::JUSTIFY_CENTER);
-            $printer->text($now. "\n");
+            $printer->text($now . "\n");
             $printer->setLineSpacing(5);
             $printer->text("\n");
 
             $printer->initialize();
             $printer->setFont(Printer::FONT_A);
             $printer->setJustification(Printer::JUSTIFY_CENTER);
-            $printer->text("Nomor Antrian Anda Adalah :\n");
+            $printer->text("Nomor Kunjungan Anda Adalah :\n");
             $printer->text("\n");
 
             $printer->initialize();
@@ -82,7 +92,7 @@ class AntrianController extends Controller
             $printer->text($kode_header . "\n");
             $printer->text("\n");
 
-            
+
 
             $printer->initialize();
             $printer->setFont(Printer::FONT_A);
@@ -98,5 +108,106 @@ class AntrianController extends Controller
         } catch (\Exception $e) {
             echo "Couldn't print to this printer: " . $e->getMessage() . "\n";
         }
+    }
+    public function ambilantrianbidan()
+    {
+        $kode_header = $this->createantrianbidan('B');
+        $now = Carbon::now();
+
+        // $id_detail = $this->createLayanandetail();
+
+
+
+        try {
+            /**
+             * Printer Harus Dishare
+             * Nama Printer Contoh: Generic
+             */
+            // $connector = new WindowsPrintConnector("EPSON TM-T82X Receipt");
+            $connector = new WindowsPrintConnector("printantrian");
+
+            // $connector = new WindowsPrintConnector("smb://192.168.2.200/EPSON TM-T82X Receipt");
+            // $connector = new WindowsPrintConnector("smb://192.168.2.23/EPSON TM-T82X Receipt");
+
+            $printer = new Printer($connector);
+
+            /** RATA TENGAH */
+            $title = "TEST PRINTER ANTRIAN";
+            $printer->initialize();
+            $printer->setFont(Printer::FONT_A);
+            $printer->setJustification(Printer::JUSTIFY_CENTER);
+            $printer->text("\n");
+
+            $printer->initialize();
+            $printer->setFont(Printer::FONT_B);
+            $printer->setJustification(Printer::JUSTIFY_CENTER);
+            $printer->text($now . "\n");
+            $printer->setLineSpacing(5);
+            $printer->text("\n");
+
+            $printer->initialize();
+            $printer->setFont(Printer::FONT_A);
+            $printer->setJustification(Printer::JUSTIFY_CENTER);
+            $printer->text("Nomor Kunjungan Anda Adalah :\n");
+            $printer->text("\n");
+
+            $printer->initialize();
+            $printer->setJustification(Printer::JUSTIFY_CENTER);
+            $printer->setTextSize(3, 2);
+            $printer->text($kode_header . "\n");
+            $printer->text("\n");
+
+
+
+            $printer->initialize();
+            $printer->setFont(Printer::FONT_A);
+            $printer->setJustification(Printer::JUSTIFY_CENTER);
+            $printer->text("Silahkan Menunggu Antrian Anda\n");
+            $printer->text("Terima Kasih\n");
+            $printer->text("\n");
+
+            $printer->cut();
+
+            /* Close printer */
+            $printer->close();
+        } catch (\Exception $e) {
+            echo "Couldn't print to this printer: " . $e->getMessage() . "\n";
+        }
+    }
+    public function createantrianumum()
+    {
+        $q = DB::select('SELECT id,kode_header,RIGHT(kode_header,6) AS kd_max  FROM mt_kode_order_header 
+        WHERE DATE(tgl_header) = CURDATE()
+        ORDER BY id DESC
+        LIMIT 1');
+        $kd = "";
+        if (count($q) > 0) {
+            foreach ($q as $k) {
+                $tmp = ((int) $k->kd_max) + 1;
+                $kd = sprintf("%03s", $tmp);
+            }
+        } else {
+            $kd = "001";
+        }
+        date_default_timezone_set('Asia/Jakarta');
+        return "A".  $kd;
+    }
+    public function createantrianbidan()
+    {
+        $q = DB::select('SELECT id,kode_header,RIGHT(kode_header,6) AS kd_max  FROM mt_kode_order_header 
+        WHERE DATE(tgl_header) = CURDATE()
+        ORDER BY id DESC
+        LIMIT 1');
+        $kd = "";
+        if (count($q) > 0) {
+            foreach ($q as $k) {
+                $tmp = ((int) $k->kd_max) + 1;
+                $kd = sprintf("%03s", $tmp);
+            }
+        } else {
+            $kd = "001";
+        }
+        date_default_timezone_set('Asia/Jakarta');
+        return "B".  $kd;
     }
 }

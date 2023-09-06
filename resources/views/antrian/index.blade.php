@@ -1,11 +1,20 @@
 @extends('antrian.header')
 
 @section('container')
+<div class="index">
 <div class="row" style="margin-top: 100px; margin-left:20px">
-    <div class="col-md-12">
+    <div class="col-md-5" style="margin-right: 10px;">
         <center>
             <a class="btn  bg-warning ambilantrian" id="ambilantrian" style="width: 1000px; height:100px">
-                <h1>AMBIL ANTRIAN I.G.D</h1>
+                <h1>I.G.D UMUM</h1>
+            </a>
+        </center>
+    </div>
+  
+    <div class="col-md-5" style="margin-left: 20px;">
+        <center>
+            <a class="btn  bg-warning ambilantrianbidan" id="ambilantrianbidan" style="width: 1000px; height:100px">
+                <h1>I.G.D KEBIDANAN</h1>
             </a>
         </center>
     </div>
@@ -93,19 +102,49 @@
         </marquee>
         <img class="img-fluid imgbanner rounded" style="width: 100%" alt="Responsive image" src="http://192.168.2.212/bedmonitoring/assets/img/footer2.png">
     </div>
-    <script>
-        spinner = $('#loader2');
-        spinner.hide();
-        $(function() {
-            $("#datapendaftaran").DataTable({
-                "responsive": false,
-                "lengthChange": false,
-                "pageLength": 5,
-                "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-            });
+</div>
+</div>
+<script>
+    spinner = $('#loader2');
+    spinner.hide();
+    $(document).ready(function() {
+        window.setTimeout(function() {
+            ambildata()
+          
+        }, 360000);
+
+    });
+
+    function ambildata() {
+
+        $.ajax({
+            data: {
+                _token: "{{ csrf_token() }}",
+            },
+            type: "post",
+            url: " {{ route('ambildata') }}",
+
+            error: function(data) {
+                spinner.hide();
+                alert('oke!!')
+            },
+            success: function(response) {
+                spinner.hide();
+                $('.index').html(response);
+
+            }
         });
-        $(".ambilantrian").click(function() {
+    }
+    $(function() {
+        $("#datapendaftaran").DataTable({
+            "responsive": false,
+            "lengthChange": false,
+            "pageLength": 5,
+            "autoWidth": false,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        });
+    });
+    $(".ambilantrian").click(function() {
         spinner = $('#loader2');
         spinner.show();
 
@@ -114,16 +153,38 @@
             data: {
                 _token: "{{ csrf_token() }}",
             },
-            url: " {{ route('ambilantrian') }}",
+            url: " {{ route('ambilantrianumum') }}",
             error: function(data) {
                 spinner.hide();
                 alert('error!!')
             },
             success: function(data) {
                 spinner.hide();
-
+                window.location.reload();
+                0
             }
         });
     });
-    </script>
-    @endsection
+    $(".ambilantrianbidan").click(function() {
+        spinner = $('#loader2');
+        spinner.show();
+
+        $.ajax({
+            type: "post",
+            data: {
+                _token: "{{ csrf_token() }}",
+            },
+            url: " {{ route('ambilantrianbidan') }}",
+            error: function(data) {
+                spinner.hide();
+                alert('error!!')
+            },
+            success: function(data) {
+                spinner.hide();
+                window.location.reload();
+                0
+            }
+        });
+    });
+</script>
+@endsection
