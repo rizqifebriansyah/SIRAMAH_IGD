@@ -26,7 +26,7 @@ class DokterController extends Controller
       $now = Carbon::now()->format('Y-m-d');
 
       $antrian = DB::connection('mysql2')->select('SELECT no_antri, tgl, status FROM tp_karcis_igd
-      WHERE DATE (?)', [$now]);
+      WHERE DATE(tgl) BETWEEN ? AND ?', [$now, $now]);
       return view(
          'dokter.triase',
          [

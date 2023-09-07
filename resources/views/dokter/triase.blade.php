@@ -102,14 +102,14 @@
                             @if ($a->status == 1)
                             <button class="badge badge-danger assesmentperawat"> belum diisi </button> |
                             @else
-                            <button class="badge badge-danger assesmentperawat"> belum diisi </button> | dewi indah sari
+                            <button class="badge badge-success assesmentperawat"> Sudah diisi </button> | 
                             @endif
                         </td>
                         <td class="status2">
                             @if ($a->status == 1)
                             <button class="badge badge-danger assesmentdokter"> belum diisi </button> |
                             @else
-                            <button class="badge badge-danger assesmentdokter"> belum diisi </button> | dewi indah sari
+                            <button class="badge badge-success assesmentdokter"> Sudah diisi </button> | 
                             @endif
                         </td>
 

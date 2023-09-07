@@ -196,7 +196,8 @@ class AntrianController extends Controller
             $kd = "001";
         }
         date_default_timezone_set('Asia/Jakarta');
-        return "A" .  $kd;
+        return "A". date('ymd') . $kd;
+
     }
     public function createantrianbidan()
     {
@@ -214,6 +215,7 @@ class AntrianController extends Controller
             $kd = "001";
         }
         date_default_timezone_set('Asia/Jakarta');
-        return "B" .  $kd;
+        date_default_timezone_set('Asia/Jakarta');
+        return "B". date('ymd') . $kd;
     }
 }

@@ -47,12 +47,12 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link formtriaseanak" >
+                                <a href="#" class="nav-link formtriaseanak">
                                     <i class="fas fa-child mr-2"></i> TRIASE ANAK
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link formtriasebayi" >
+                                <a href="#" class="nav-link formtriasebayi">
                                     <i class="fas fa-baby mr-2"></i> TRIASE ANAK
                                 </a>
                             </li>
@@ -70,10 +70,10 @@
 
 
                     <div class="card card-info form">
-
+                        <h1>Selamat Datang </h1>
 
                     </div>
-                    
+
 
 
 
