@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
+use function Laravel\Prompts\select;
 
 class DokterController extends Controller
 {
@@ -30,9 +31,25 @@ class DokterController extends Controller
       return view(
          'dokter.triase',
          [
-            'title' => 'SiRAMAH DOKTER',
+            'title' => 'TRIASE DOKTER',
             'menu' => $menu,
             'antrian' => $antrian
+         ]
+      );
+   }
+   public function asses()
+   {
+      $menu = 'asses';
+
+      $now = Carbon::now()->format('Y-m-d');
+      $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$now')");
+
+      return view(
+         'dokter.asses',
+         [
+            'title' => 'ERM DOKTER',
+            'menu' => $menu,
+            'pasienigd' => $pasienigd
          ]
       );
    }
@@ -45,44 +62,78 @@ class DokterController extends Controller
       return view(
          'dokter.assesmentdokterview',
          [
-            'title' => 'SiRAMAH DOKTER',
+            'title' => 'ERM DOKTER',
             'noantri' => $noantri,
             'tgl' => $tgl
-            
+
+         ]
+      );
+   }
+   public function ermdokter(Request $request)
+   {
+      $norm = $request->norm;
+      $namapx = $request->namapx;
+      $jk = $request->jk;
+
+
+
+      return view(
+         'dokter.ermdokterview',
+         [
+            'title' => 'ERM DOKTER',
+            'norm' => $norm,
+            'namapx' => $namapx,
+            'jk'=> $jk
+
          ]
       );
    }
 
-   public function formdewasa(){
+   public function formdewasa()
+   {
 
       return view(
          'dokter.formdewasa',
          [
             'title' => 'SiRAMAH DOKTER',
-            
-            
+
+
          ]
       );
    }
-   public function formanak(){
+   public function formermdokter()
+   {
+
+      return view(
+         'dokter.formermdokter',
+         [
+            'title' => 'SiRAMAH DOKTER',
+
+
+         ]
+      );
+   }
+   public function formanak()
+   {
 
       return view(
          'dokter.formanak',
          [
             'title' => 'SiRAMAH DOKTER',
-            
-            
+
+
          ]
       );
    }
-   public function formbayi(){
+   public function formbayi()
+   {
 
       return view(
          'dokter.formbayi',
          [
             'title' => 'SiRAMAH DOKTER',
-            
-            
+
+
          ]
       );
    }

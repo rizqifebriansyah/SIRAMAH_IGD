@@ -5,9 +5,15 @@
 
                 <div class="card card-primary card-outline">
                     <div class="card-body box-profile">
-
-                        <h1 class=" text-center">{{$noantri}}</h1>
-                        <p class="text-muted text-center">PASIEN NO ANTRIAN</p>
+                        <div class="text-center">
+                            @if ($jk == 'L')
+                            <img class="profile-user-img img-fluid img-circle" src="{{ asset('public/adminlte/dist/img/avatar.png')}}" alt="User profile picture">
+                            @else
+                            <img class="profile-user-img img-fluid img-circle" src="{{ asset('public/adminlte/dist/img/avatar3.png')}}" alt="User profile picture">
+                            @endif
+                        </div>
+                        <h4 class=" text-center">{{$namapx}}</h4>
+                        <p class="text-muted text-center">PASIEN INSTALASI GAWAT DARURAT</p>
                         <ul class="list-group list-group-unbordered mb-3">
                             <li class="list-group-item">
                                 <b>TD</b> <a class="float-right">120/100 mmhg</a>
@@ -42,20 +48,16 @@
                     <div class="card-body p-0">
                         <ul class="nav nav-pills flex-column">
                             <li class="nav-item" id="pemeriksaan">
-                                <a href="#" class="nav-link formtriasedewasa">
-                                    <i class="fas fa-male mr-2"></i>TRIASE DEWASA
+                                <a href="#" class="nav-link cpptdokter">
+                                    <i class="fas fa-male mr-2"></i>Catatan Perkembangan Pasien Terintegrasi (CPPT)
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link formtriaseanak">
-                                    <i class="fas fa-child mr-2"></i> TRIASE ANAK
+                            <li class="nav-item" id="pemeriksaan">
+                                <a href="#" class="nav-link resumecppt">
+                                    <i class="fas fa-filter mr-2"></i>Resume
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link formtriasebayi">
-                                    <i class="fas fa-baby mr-2"></i> TRIASE ANAK
-                                </a>
-                            </li>
+
                         </ul>
                     </div>
                     <!-- /.card-body -->
@@ -69,14 +71,14 @@
                     <div class="card">
 
 
-                        <div class="card card-info form">
+                        <div class="card card-info formermdokter">
                             <h1>Selamat Datang </h1>
 
                         </div>
 
 
-                    </div>
 
+                    </div>
                 </div>
             </div>
 
@@ -88,7 +90,7 @@
 
 
 <script>
-    $(".formtriasedewasa").click(function() {
+    $(".cpptdokter").click(function() {
         spinner = $('#loader2');
         spinner.show();
 
@@ -99,60 +101,14 @@
                 _token: "{{ csrf_token() }}",
 
             },
-            url: '<?= route('formdewasa') ?>',
+            url: '<?= route('formermdokter') ?>',
             error: function(data) {
                 spinner.hide();
                 alert('oke!!')
             },
             success: function(response) {
                 spinner.hide();
-                $('.form').html(response);
-
-            }
-        });
-    });
-    $(".formtriaseanak").click(function() {
-        spinner = $('#loader2');
-        spinner.show();
-
-
-        $.ajax({
-            type: "post",
-            data: {
-                _token: "{{ csrf_token() }}",
-
-            },
-            url: '<?= route('formanak') ?>',
-            error: function(data) {
-                spinner.hide();
-                alert('oke!!')
-            },
-            success: function(response) {
-                spinner.hide();
-                $('.form').html(response);
-
-            }
-        });
-    });
-    $(".formtriasebayi").click(function() {
-        spinner = $('#loader2');
-        spinner.show();
-
-
-        $.ajax({
-            type: "post",
-            data: {
-                _token: "{{ csrf_token() }}",
-
-            },
-            url: '<?= route('formbayi') ?>',
-            error: function(data) {
-                spinner.hide();
-                alert('oke!!')
-            },
-            success: function(response) {
-                spinner.hide();
-                $('.form').html(response);
+                $('.formermdokter').html(response);
 
             }
         });

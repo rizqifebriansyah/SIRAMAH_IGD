@@ -1,27 +1,28 @@
 @extends('dokter.header')
 @section('container')
 <style>
-    .scroll {
-        display: block;
+    
 
-        padding: 5px;
-        margin-top: 5px;
-        width: 1300px;
-        height: 650px;
-        overflow: scroll;
-    }
-
-    .auto {
-        display: block;
-        border: 1px solid red;
-        padding: 5px;
-        margin-top: 5px;
-        width: 1300px;
-        height: 650px;
-        overflow: auto;
-    }
+.scroll{
+    display:block;
+    
+    padding:5px;
+    margin-top:5px;
+    width:1300px;
+    height:678px;
+    overflow:scroll;
+}
+.auto{
+     display:block;
+     border: 1px solid red;
+     padding:5px;
+     margin-top:5px;
+     width:1300px;
+     height:678px;
+     overflow:auto;
+}
 </style>
-<div class="card-body assesmentdokterview">
+<div class="card-body ermdokterview">
     <div class="row " style="align-content: 10px;">
         <h4 class="col-md-2">Data Pasien IGD</h4>
         <div class="modal  col-md-12" id="formtambahpasien" aria-labelledby="formtambahpasienLabel" aria-hidden="true">
@@ -107,32 +108,44 @@
     </div>
     <div class="row " style="align-content: center; margin-top:20px">
         <div class="col-md-12">
-            <table id="datapasien" class="table  table-sm text-sm table-bordered table-hover">
+            <table id="datapasienigd" class="table  table-sm text-sm table-bordered table-hover">
                 <thead class="bg-light">
-                    <th>Tanggal Masuk</th>
-                    <th>Nomor Antrian</th>
-                    <th>Assesment Perawat</th>
-                    <th>Assesment Dokter</th>
+                    <th style="text-align: center;">Tanggal Masuk</th>
+                    <th style="text-align: center;">NoRM</th>
+                    <th style="text-align: center;">JK</th>
+                    <th style="text-align: center;">Diagnosa</th>
+                    <th style="text-align: center;">Assesment Perawat</th>
+
+                    <th style="text-align: center;">Assesment Dokter</th>
+
+
                 </thead>
                 <tbody>
-                    @foreach ($antrian as $key=>$a)
+                    @foreach ($pasienigd as $key=>$a)
                     <tr>
-                        <td class="tgl">{{$a->tgl}}</td>
-                        <td class="noantri">{{$a->no_antri}}</td>
-                        <td class="status1">
-                            @if ($a->status == 1)
-                            <button class="badge badge-danger assesmentperawat"> belum diisi </button> |
+                        <td style="text-align: center;" class="no_rm">{{$a->no_rm}}</td>
+                        <td style="text-align: center;" class="namapx">{{$a->nama_px}}</td>
+                        <td style="text-align: center;" class="jk">{{$a->jenis_kelamin}}</td>
+                        <td class="diag2" style="text-align: center;">
+                            {{$a->DIAGX}}
+                        </td>
+
+
+                        <td class="status1" style="text-align: center;">
+                            @if ($a->DIAGX == NULL)
+                            <button class="badge badge-danger "> belum diisi </button>
                             @else
-                            <button class="badge badge-success assesmentperawat"> Sudah diisi </button> |
+                            <button class="badge badge-success ermdokter"> Sudah Diisi </button>
                             @endif
                         </td>
-                        <td class="status2">
-                            @if ($a->status == 1)
-                            <button class="badge badge-danger assesmentdokter"> belum diisi </button> |
+                        <td class="status2" style="text-align: center;">
+                            @if ($a->DIAGX == NULL)
+                            <button class="badge badge-danger ermdokter"> belum diisi </button>
                             @else
-                            <button class="badge badge-success assesmentdokter"> Sudah diisi </button> |
+                            <button class="badge badge-success ermdokter"> {{$a->nama_dpjp}} </button>
                             @endif
                         </td>
+
 
                     </tr>
                     @endforeach
@@ -147,7 +160,7 @@
 <script>
     document.getElementById('tanggal_kunjungan').valueAsDate = new Date()
     $(function() {
-        $("#datapasien").DataTable({
+        $("#datapasienigd").DataTable({
             "responsive": false,
             "lengthChange": false,
             "pageLength": 10,
@@ -156,38 +169,39 @@
         });
     });
 
-
-
-    $(".assesmentdokter").click(function() {
+    $(".ermdokter").click(function() {
         spinner = $('#loader2');
         spinner.show();
         var $row = $(this).closest("tr");
-        var tgl = $row.find(".tgl").text();
-        var noantri = $row.find(".noantri").text();
+        var norm = $row.find(".norm").text();
+        var namapx = $row.find(".namapx").text();
+        var jk = $row.find(".jk").text();
         var status1 = $row.find(".status1").text();
         var status2 = $row.find(".status2").text();
-
         $.ajax({
             type: "post",
             data: {
                 _token: "{{ csrf_token() }}",
-                tgl,
-                noantri,
+                norm,
+                namapx,
+                jk,
                 status1,
                 status2
+
             },
-            url: '<?= route('assesmentdokter') ?>',
+            url: '<?= route('ermdokter') ?>',
             error: function(data) {
                 spinner.hide();
                 alert('oke!!')
             },
             success: function(response) {
                 spinner.hide();
-                $('.assesmentdokterview').html(response);
+                $('.ermdokterview').html(response);
 
             }
         });
     });
 </script>
+
 
 @endsection

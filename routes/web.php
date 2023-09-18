@@ -37,7 +37,15 @@ Route::post('/ambilantrianumum', [AntrianController::class, 'ambilantrianumum'])
 //Route Dokter
 Route::get('dokter', [DokterController::class, 'index'])->name('dokter');
 Route::get('triase', [DokterController::class, 'triase'])->name('triase');
+Route::get('asses', [DokterController::class, 'asses'])->name('asses');
+
 Route::post('assesmentdokter', [DokterController::class, 'assesmentdokter'])->name('assesmentdokter');
+Route::post('ermdokter', [DokterController::class, 'ermdokter'])->name('ermdokter');
+
+
+//form-form
+Route::post('formermdokter', [DokterController::class, 'formermdokter'])->name('formermdokter');
+
 Route::post('formdewasa', [DokterController::class, 'formdewasa'])->name('formdewasa');
 Route::post('formanak', [DokterController::class, 'formanak'])->name('formanak');
 Route::post('formbayi', [DokterController::class, 'formbayi'])->name('formbayi');

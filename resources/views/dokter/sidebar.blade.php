@@ -40,10 +40,10 @@
                 </li>
                 <li class="nav-header">PELAYANAN</li>
                 <li class="nav-item">
-                    <a class="nav-link ">
+                    <a href="{{ route('asses') }}" class="nav-link @if($menu == 'asses' ) active @endif">
                         <i class="nav-icon fas fa-archive"></i>
                         <p>
-                            E-RM Pasien
+                            Assesment Pasien
                         </p>
                     </a>
                 </li>
