@@ -107,13 +107,13 @@
 <script>
     spinner = $('#loader2');
     spinner.hide();
-    $(document).ready(function() {
-        window.setTimeout(function() {
-            ambildata()
+    // $(document).ready(function() {
+    //     window.setTimeout(function() {
+    //         ambildata()
 
-        }, 360000);
+    //     }, 360000);
 
-    });
+    // });
 
     function ambildata() {
         spinner = $('#loader2');

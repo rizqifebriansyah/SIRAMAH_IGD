@@ -47,8 +47,12 @@ Route::post('ermdokter', [DokterController::class, 'ermdokter'])->name('ermdokte
 Route::post('formermdokter', [DokterController::class, 'formermdokter'])->name('formermdokter');
 
 Route::post('formdewasa', [DokterController::class, 'formdewasa'])->name('formdewasa');
-Route::post('formanak', [DokterController::class, 'formanak'])->name('formanak');
-Route::post('formbayi', [DokterController::class, 'formbayi'])->name('formbayi');
+Route::post('resumetriase', [DokterController::class, 'resumetriase'])->name('resumetriase');
+
+
+//simpan
+
+Route::post('simpanpemeriksaantriase', [DokterController::class, 'simpanpemeriksaantriase'])->name('simpanpemeriksaantriase');
 
 
 

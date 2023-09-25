@@ -111,6 +111,9 @@
                 <thead class="bg-light">
                     <th>Tanggal Masuk</th>
                     <th>Nomor Antrian</th>
+                    <th>NoRM</th>
+                    <th>Nama Pasien</th>
+
                     <th>Assesment Perawat</th>
                     <th>Assesment Dokter</th>
                 </thead>
@@ -119,15 +122,19 @@
                     <tr>
                         <td class="tgl">{{$a->tgl}}</td>
                         <td class="noantri">{{$a->no_antri}}</td>
+                        <td class="norm">{{$a->no_rm}}</td>
+                        
+                        <td class="namapx">{{$a->nama_px}}</td>
+
                         <td class="status1">
                             @if ($a->status == 1)
-                            <button class="badge badge-danger assesmentperawat"> belum diisi </button> |
+                            <button class="badge badge-danger assesmentperawat"> belum daftar </button> |
                             @else
-                            <button class="badge badge-success assesmentperawat"> Sudah diisi </button> |
+                            <button class="badge badge-success assesmentperawat"> Sudah daftar </button> |
                             @endif
                         </td>
                         <td class="status2">
-                            @if ($a->status == 1)
+                            @if ($a->status_triase == 0)
                             <button class="badge badge-danger assesmentdokter"> belum diisi </button> |
                             @else
                             <button class="badge badge-success assesmentdokter"> Sudah diisi </button> |

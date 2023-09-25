@@ -52,6 +52,7 @@ class AntrianController extends Controller
         // $id_detail = $this->createLayanandetail();
         $header = ts_antrian_igd::create([
             'no_antri' => $kode_header,
+            'created_at' => $now
 
         ]);
 
@@ -120,6 +121,8 @@ class AntrianController extends Controller
         // $id_detail = $this->createLayanandetail();
         $header = ts_antrian_igd::create([
             'no_antri' => $kode_header,
+            'created_at' => $now
+
 
         ]);
 

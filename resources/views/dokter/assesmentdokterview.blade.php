@@ -7,6 +7,7 @@
                     <div class="card-body box-profile">
 
                         <h1 class=" text-center">{{$noantri}}</h1>
+                        <input type="text" name="antrian" id="antrian" hidden value="{{$noantri}}">
                         <p class="text-muted text-center">PASIEN NO ANTRIAN</p>
                         <ul class="list-group list-group-unbordered mb-3">
                             <li class="list-group-item">
@@ -47,15 +48,11 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link formtriaseanak">
-                                    <i class="fas fa-child mr-2"></i> TRIASE ANAK
+                                <a href="#" class="nav-link resumetriase">
+                                    <i class="fas fa-child mr-2"></i> Resume Triase
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link formtriasebayi">
-                                    <i class="fas fa-baby mr-2"></i> TRIASE ANAK
-                                </a>
-                            </li>
+
                         </ul>
                     </div>
                     <!-- /.card-body -->
@@ -111,41 +108,20 @@
             }
         });
     });
-    $(".formtriaseanak").click(function() {
+    $(".resumetriase").click(function() {
         spinner = $('#loader2');
         spinner.show();
+        antrian = $('#antrian').val()
 
 
         $.ajax({
             type: "post",
             data: {
                 _token: "{{ csrf_token() }}",
+                antrian
 
             },
-            url: '<?= route('formanak') ?>',
-            error: function(data) {
-                spinner.hide();
-                alert('oke!!')
-            },
-            success: function(response) {
-                spinner.hide();
-                $('.form').html(response);
-
-            }
-        });
-    });
-    $(".formtriasebayi").click(function() {
-        spinner = $('#loader2');
-        spinner.show();
-
-
-        $.ajax({
-            type: "post",
-            data: {
-                _token: "{{ csrf_token() }}",
-
-            },
-            url: '<?= route('formbayi') ?>',
+            url: '<?= route('resumetriase') ?>',
             error: function(data) {
                 spinner.hide();
                 alert('oke!!')
