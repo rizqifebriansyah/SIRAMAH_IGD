@@ -134,7 +134,7 @@ class DokterController extends Controller
          ]
       );
    }
- 
+
 
 
    public function simpanpemeriksaantriase(Request $request)
@@ -160,6 +160,13 @@ class DokterController extends Controller
          'pernafasan' => $request->hentinafas . '   ' . $request->distrespenafasan . '   ' . $request->sesaknafas . '   ' . $request->freknafas . '   ' . $request->freknafas1 . '   ' . $request->rr . '   ' . $request->SaO2 . '   ' . $request->sianosis,
          'sirkulasi' => $request->hentijantung . '   ' . $request->naditerabalemah . '   ' . $request->muntahpasien . '   ' . $request->nadikuat . '   ' . $request->nadikuat1 . '   ' . $request->naditidakteraba . '   ' . $request->hr1 . '   ' . $request->takikardia . '   ' . $request->freknadinormal . '   ' . $request->freknadinormal1 . '   ' . $request->akraldingin . '   ' . $request->hr2 . '   ' . $request->tds . '   ' . $request->tds1 . '   ' . $request->tds2 . '   ' . $request->pucat . '   ' . $request->tdd . '   ' . $request->tdd1 . '   ' . $request->tdd2 . '   ' . $request->akraldingin1 . '   ' . $request->pendarahan . '   ' . $request->muntah1 . '   ' . $request->crt . '   ' . $request->diastolik . '   ' . $request->pendarahan1,
          'gejala_spesifik' => $request->nyeri . '   ' . $request->demam . '   ' . $request->aspirasi . '   ' . $request->nyeri1 . '   ' . $request->sepsis . '   ' . $request->nyeri2 . '   ' . $request->trauma1 . '   ' . $request->luka . '   ' . $request->nyeri3 . '   ' . $request->kolik . '   ' . $request->sulit . '   ' . $request->kontrol . '   ' . $request->multiple . '   ' . $request->terauma . '   ' . $request->sedang1 . '   ' . $request->imunisasi . '   ' . $request->lokal . '   ' . $request->gangguan . '   ' . $request->terauma1 . '   ' . $request->psikiatri . '   ' . $request->racun . '   ' . $request->psikosis . '   ' . $request->radang . '   ' . $request->ngamuk . '   ' . $request->defisit . '   ' . $request->reaksi . '   ' . $request->defisit1 . '   ' . $request->kejang1 . '   ' . $request->nyeri3,
+         'kesadaran_pasien' => $request->kesadaranlain,
+         'status_psikologi' => $request->statusps,
+         'keluhan_utama' => $request->kelut,
+         'visum' => $request->pemfis,
+         'diagnosa_triase' => $request->ditri,
+         'tatalaksana' => $request->talak,
+         'pasien_pulang' => $request->kondisi,
          'tgl_masuk_triase' => $now,
          'tg_entri_triase' => $now
 

@@ -7,7 +7,7 @@
         <div class="card-header text-bold bg-warning" style="text-align: center;">+ ASSESMENT DOKTER +</div>
         <form action="" class="form_pemeriksaan_1">
             <div class="card-body">
-
+                <!-- assesmen dokter -->
                 <table class="table">
                     <tbody>
                         <tr>
@@ -52,6 +52,7 @@
                         </tr>
                     </tbody>
                 </table>
+                <!--Riwayat Obat-->
 
                 <div class="accordion" id="accordionExample1">
                     <div class="card">
@@ -121,6 +122,7 @@
 
                     </tbody>
                 </table>
+                <!-- tindak lanjut -->
 
 
                 <div class="accordion" id="accordionExample2">
@@ -193,7 +195,7 @@
                     </div>
                 </div>
 
-
+                <!-- laboratorium -->
                 <div class="accordion" id="accordionExample5">
                     <div class="card">
                         <div class="card-header bg-danger" id="headingOne">
@@ -259,6 +261,8 @@
                     </div>
                 </div>
 
+
+                <!-- radiologi -->
                 <div class="accordion" id="accordionExample6">
                     <div class="card">
                         <div class="card-header bg-danger" id="headingOne">
@@ -323,6 +327,8 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Cara Keluar -->
 
                 <div class="accordion" id="accordionExample3">
                     <div class="card">
@@ -408,6 +414,7 @@
                     </div>
                 </div>
 
+                <!-- Keadaan Pasien  -->
 
                 <div class="accordion" id="accordionExample4">
                     <div class="card">

@@ -1,3 +1,8 @@
+<style>
+
+</style>
+
+
 <div class="card-header">
     <h3 class="card-title">TRIASE DEWASA</h3>
 </div>
@@ -7,7 +12,7 @@
         <div class="card-header text-bold bg-success">+ SKRINING PASIEN IGD +</div>
         <form action="" class="formpemeriksaantriase">
             <div class="card-body">
-
+                <!-- skrining pasien -->
                 <table class="table">
                     <tbody>
                         <tr>
@@ -89,7 +94,7 @@
                 </table>
 
 
-
+                <!-- triase ats  -->
                 <div class="accordion" id="accordionExample">
 
                     <div class="card-header bg-secondary" id="headingOne">
@@ -1280,7 +1285,237 @@
                     </div>
 
                 </div>
-                <div type="button" class="btn float-right btn-success simpantriase">SIMPAN</div>
+
+                <!-- triase   -->
+                <div class="accordion" id="accordionExample1" style="margin-top: 10px;">
+
+                    <div class="card-header bg-secondary" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link btn-block text-left text-light font-weight" type="button" data-toggle="collapse" data-target="#collapseOne1" aria-expanded="true" aria-controls="collapseOne1">
+                                <i class="bi bi-ticket-detailed mr-1 ml-1"></i> TRIASE
+                            </button>
+                        </h2>
+                    </div>
+
+                    <div id="collapseOne1" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample1">
+                        <div class="card-body bg-light">
+
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td class="text-bold font-italic">kesadaran : </td>
+
+                                        <td>
+                                            <div class="form-group form-check">
+                                                <input type="checkbox" class="form-check-input" id="kesadaran_lain" name="kesadaran_lain" value="Compos Mentis">
+                                                <label class="form-check-label" for="exampleCheck1">Compos Mentis
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group form-check">
+                                                <input type="checkbox" class="form-check-input" id="kesadaran_lain" name="kesadaran_lain" value="Letargik">
+                                                <label class="form-check-label" for="exampleCheck1">Letargik
+                                                </label>
+                                            </div>
+                                        </td>
+
+
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="4">
+
+                                            <textarea class="form-control" id="kesadaran_lain" name="kesadaran_lain" placeholder=""></textarea>
+
+                                        </td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td class="text-bold font-italic">Status Psikologi</td>
+
+                                        <td>
+                                            <div class="form-group form-check">
+                                                <input type="checkbox" class="form-check-input" id="statusps" name="statusps" value="Marah">
+                                                <label class="form-check-label" for="exampleCheck1">Marah
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group form-check">
+                                                <input type="checkbox" class="form-check-input" id="statusps" name="statusps" value="Depresi">
+                                                <label class="form-check-label" for="exampleCheck1">Depresi
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group form-check">
+                                                <input type="checkbox" class="form-check-input" id="statusps" name="statusps" value="Takut">
+                                                <label class="form-check-label" for="exampleCheck1">Takut
+                                                </label>
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            <div class="form-group form-check">
+                                                <input type="checkbox" class="form-check-input" id="statusps" name="statusps" value="Gelisah">
+                                                <label class="form-check-label" for="exampleCheck1">Gelisah
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group form-check">
+                                                <input type="checkbox" class="form-check-input" id="statusps" name="statusps" value="Psikotik">
+                                                <label class="form-check-label" for="exampleCheck1">Psikotik
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group form-check">
+                                                <input type="checkbox" class="form-check-input" id="statusps" name="statusps" value="Cemas">
+                                                <label class="form-check-label" for="exampleCheck1">Cemas
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            <div class="form-group form-check">
+                                                <input type="checkbox" class="form-check-input" id="statusps" name="statusps" value="Kecenderungan bunuh diri">
+                                                <label class="form-check-label" for="exampleCheck1">Kecenderungan bunuh diri
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group form-check">
+                                                <input type="checkbox" class="form-check-input" id="statusps" name="statusps" value="Tidak Ada Masalah">
+                                                <label class="form-check-label" for="exampleCheck1">Tidak Ada Masalah
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group form-check">
+                                                <input type="checkbox" class="form-check-input" id="statusps" name="statusps" value="lain-lain">
+                                                <label class="form-check-label" for="exampleCheck1">lain-lain <input type="text">
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-bold font-italic">Keluhan Utama</td>
+                                        <td colspan="4">
+
+                                            <textarea class="form-control" id="kelut" name="kelut" placeholder=""></textarea>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-bold font-italic">Pemeriksaan Fisik (Temuan Signifikan) :</td>
+                                        <td colspan="4">
+
+                                            <textarea class="form-control" id="pemfis" name="pemfis" placeholder=""></textarea>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-bold font-italic">Diagnosa Triase :</td>
+                                        <td colspan="4">
+
+                                            <textarea class="form-control" id="ditri" name="ditri" placeholder=""></textarea>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-bold font-italic">Tata Laksana :</td>
+                                        <td colspan="4">
+
+                                            <textarea class="form-control" id="talak" name="talak" placeholder=""></textarea>
+
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+
+
+
+
+                        </div>
+
+
+
+
+                    </div>
+
+                </div>
+
+                <div class="accordion" id="accordionExample4" style="margin-top: 10px;">
+                    <div class="card">
+                        <div class="card-header bg-secondary" id="headingOne">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link btn-block text-left text-light font-weight" type="button" data-toggle="collapse" data-target="#collapseOne4" aria-expanded="true" aria-controls="collapseOne4">
+                                    <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Keadaan Pasien Saat Keluar
+                                </button>
+                            </h2>
+                        </div>
+
+                        <div id="collapseOne4" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample4">
+                            <div class="card-body bg-light">
+
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="kondisi" name="kondisi" value="Sembuh">
+                                                    <label class="form-check-label" for="exampleCheck1">Sembuh
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="kondisi" name="kondisi" value="Tidak Sembuh">
+                                                    <label class="form-check-label" for="exampleCheck1">Tidak Sembuh
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="kondisi" name="kondisi" value="Perbaikan">
+                                                    <label class="form-check-label" for="exampleCheck1">Perbaikan
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="kondisi" name="kondisi" value="Meninggal">
+                                                    <label class="form-check-label" for="exampleCheck1">Meninggal
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td colspan="4">
+
+                                                <textarea class="form-control" id="kondisi" name="kondisi" placeholder=""></textarea>
+
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div type="button" class="btn float-right btn-success simpantriase" style="margin-top: 20px;">SIMPAN</div>
             </div>
         </form>
 
@@ -1401,6 +1636,14 @@
         var kejang1 = $("#kejang1:checked").val();
         var nyeri3 = $("#nyeri3:checked").val();
 
+        //triase lain
+        var kesadaranlain = $("#kesadaran_lain:checked").val();
+        var statusps = $("#statusps:checked").val();
+        var kelut = $("#kelut").val();
+        var pemfis = $("#pemfis").val();
+        var ditri = $("#ditri").val();
+        var talak = $("#talak").val();
+        var kondisi = $("#kondisi").val();
 
         Swal.fire({
             title: "Yakin Simpan TRIASE?",
@@ -1428,11 +1671,11 @@
                         pemeriksaanfisik: $('#pemeriksaanfisik').val(),
                         klasifikasipasien: $('#klasifikasipasien:checked').val(),
                         riwayatpenyakit: $('#riwayatpenyakit').val(),
-                        kategoritriase : $("#kategoritriase:checked").val(),
+                        kategoritriase: $("#kategoritriase:checked").val(),
                         // bedah : $("#bedah:checked").val(),
                         // obgyn : $("#obgyn:checked").val(),
                         // anak : $("#anak:checked").val(),
-                        jenisats : $("#jenisats:checked").val(),
+                        jenisats: $("#jenisats:checked").val(),
 
                         // ats1 : $("#ats1:checked").val(),
                         // ats2 : $("#ats2:checked").val(),
@@ -1526,7 +1769,16 @@
                         reaksi: $('#reaksi:checked').val(),
                         defisit1: $('#defisit1:checked').val(),
                         kejang1: $('#kejang1:checked').val(),
-                        nyeri3: $('#nyeri3:checked').val()
+                        nyeri3: $('#nyeri3:checked').val(),
+
+
+                         kesadaranlain : $("#kesadaran_lain:checked").val(),
+                         statusps : $("#statusps:checked").val(),
+                         kelut : $("#kelut").val(),
+                         pemfis : $("#pemfis").val(),
+                         ditri : $("#ditri").val(),
+                         talak : $("#talak").val(),
+                         kondisi : $("#kondisi").val()
 
 
 
