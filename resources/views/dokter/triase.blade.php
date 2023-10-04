@@ -102,12 +102,12 @@
         </div>
 
         <div>
-            <button type="submit" class="btn btn-primary" onclick="lihatpasienex()"> <i class="bi bi-search-heart"></i> </button>
+            <button type="submit" class="btn btn-primary" onclick="carinotriase()"> <i class="bi bi-search-heart"></i> </button>
         </div>
     </div>
     <div class="row " style="align-content: center; margin-top:20px">
-        <div class="col-md-12">
-            <table id="datapasien" class="table  table-sm text-sm table-bordered table-hover">
+        <div class="col-md-12 tabletriase">
+            <table id="tabletriase" class="table  table-sm text-sm table-bordered table-hover">
                 <thead class="bg-light">
                     <th>Tanggal Masuk</th>
                     <th>Nomor Antrian</th>
@@ -123,7 +123,7 @@
                         <td class="tgl">{{$a->tgl}}</td>
                         <td class="noantri">{{$a->no_antri}}</td>
                         <td class="norm">{{$a->no_rm}}</td>
-                        
+
                         <td class="namapx">{{$a->nama_px}}</td>
 
                         <td class="status1">
@@ -154,7 +154,7 @@
 <script>
     document.getElementById('tanggal_kunjungan').valueAsDate = new Date()
     $(function() {
-        $("#datapasien").DataTable({
+        $("#tabletriase").DataTable({
             "responsive": false,
             "lengthChange": false,
             "pageLength": 10,
@@ -163,6 +163,28 @@
         });
     });
 
+
+    function carinotriase() {
+        
+        tgl_kunjungan = $('#tanggal_kunjungan').val()
+
+        $.ajax({
+            type: "post",
+            data: {
+                _token: " {{ csrf_token() }}",
+                tgl_kunjungan
+
+            },
+            url: " {{ route('carinotriase') }}",
+            error: function(data) {
+                alert('error!!!')
+            },
+            success: function(response) {
+                $('.tabletriase').html(response);
+            }
+        })
+
+    }
 
 
     $(".assesmentdokter").click(function() {

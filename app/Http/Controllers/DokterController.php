@@ -39,6 +39,22 @@ class DokterController extends Controller
          ]
       );
    }
+
+   public function carinotriase(Request $request)
+   {
+      $tgl = $request->tgl_kunjungan;
+      $antrian = DB::connection('mysql2')->select('SELECT no_antri, tgl, no_rm, nama_px, status, status_triase FROM tp_karcis_igd
+      WHERE DATE(tgl) BETWEEN ? AND ?', [$tgl, $tgl]);
+   
+
+      return view(
+         'dokter.tabletriase',
+         [
+            'title' => 'TRIASE DOKTER',
+            'antrian' => $antrian
+         ]
+      );
+   }
    public function asses()
    {
       $menu = 'asses';

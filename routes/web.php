@@ -55,4 +55,7 @@ Route::post('resumetriase', [DokterController::class, 'resumetriase'])->name('re
 Route::post('simpanpemeriksaantriase', [DokterController::class, 'simpanpemeriksaantriase'])->name('simpanpemeriksaantriase');
 
 
+//cari
+Route::post('carinotriase', [DokterController::class, 'carinotriase'])->name('carinotriase');
+
 
