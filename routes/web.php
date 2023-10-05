@@ -41,6 +41,11 @@ Route::get('asses', [DokterController::class, 'asses'])->name('asses');
 
 Route::post('assesmentdokter', [DokterController::class, 'assesmentdokter'])->name('assesmentdokter');
 Route::post('ermdokter', [DokterController::class, 'ermdokter'])->name('ermdokter');
+Route::post('riwayatcppt', [DokterController::class, 'riwayatcppt'])->name('riwayatcppt');
+Route::post('triasedewasa', [DokterController::class, 'triasedewasa'])->name('triasedewasa');
+Route::post('triaseanak', [DokterController::class, 'triaseanak'])->name('triaseanak');
+
+
 
 
 //form-form
@@ -48,6 +53,7 @@ Route::post('formermdokter', [DokterController::class, 'formermdokter'])->name('
 
 Route::post('formdewasa', [DokterController::class, 'formdewasa'])->name('formdewasa');
 Route::post('resumetriase', [DokterController::class, 'resumetriase'])->name('resumetriase');
+
 
 
 //simpan

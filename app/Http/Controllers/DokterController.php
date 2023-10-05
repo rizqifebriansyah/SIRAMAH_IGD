@@ -45,7 +45,7 @@ class DokterController extends Controller
       $tgl = $request->tgl_kunjungan;
       $antrian = DB::connection('mysql2')->select('SELECT no_antri, tgl, no_rm, nama_px, status, status_triase FROM tp_karcis_igd
       WHERE DATE(tgl) BETWEEN ? AND ?', [$tgl, $tgl]);
-   
+
 
       return view(
          'dokter.tabletriase',
@@ -92,21 +92,68 @@ class DokterController extends Controller
       $norm = $request->norm;
       $namapx = $request->namapx;
       $jk = $request->jk;
+      $kj = $request->kj;
 
-
+      $cek = DB::select('SELECT
+      fc_nama_unit1(kode_unit) AS nama_unit
+      ,a.*
+      
+      FROM assesmen_dokters a
+      WHERE  id_pasien = ?', [$norm]);
 
       return view(
          'dokter.ermdokterview',
          [
             'title' => 'ERM DOKTER',
+            'cek' => $cek,
             'norm' => $norm,
             'namapx' => $namapx,
             'jk' => $jk
-
          ]
       );
    }
 
+   public function riwayatcppt(Request $request)
+   {
+      $norm = $request->norm;
+      $cek = DB::select('SELECT
+      fc_nama_unit1(kode_unit) AS nama_unit
+      ,a.*
+      
+      FROM assesmen_dokters a
+      WHERE  id_pasien = ?', [$norm]);
+
+      return view(
+         'dokter.riwayatpoli',
+         [
+            'norm' => $norm,
+            'cek' => $cek
+         ]
+      );
+   }
+
+   public function triaseanak(){
+      return view(
+         'dokter.triaseanak',
+         [
+            'title' => 'SiRAMAH DOKTER',
+
+
+         ]
+      );
+   }
+   public function triasedewasa()
+   {
+
+      return view(
+         'dokter.triasedewasa',
+         [
+            'title' => 'SiRAMAH DOKTER',
+
+
+         ]
+      );
+   }
    public function formdewasa()
    {
 

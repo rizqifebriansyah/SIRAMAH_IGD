@@ -115,6 +115,8 @@
                     <th style="text-align: center;">JK</th>
                     <th style="text-align: center;">Diagnosa</th>
                     <th style="text-align: center;">Assesment Perawat</th>
+                    <th hidden style="text-align: center;">kodekunjungan</th>
+
 
                     <th style="text-align: center;">Assesment Dokter</th>
 
@@ -123,9 +125,11 @@
                 <tbody>
                     @foreach ($pasienigd as $key=>$a)
                     <tr>
-                        <td style="text-align: center;" class="no_rm">{{$a->no_rm}}</td>
+                        <td style="text-align: center;" class="norm">{{$a->no_rm}}</td>
                         <td style="text-align: center;" class="namapx">{{$a->nama_px}}</td>
                         <td style="text-align: center;" class="jk">{{$a->jenis_kelamin}}</td>
+                        <td hidden style="text-align: center;" class="kj">{{$a->kode_kunjungan}}</td>
+
                         <td class="diag2" style="text-align: center;">
                             {{$a->DIAGX}}
                         </td>
@@ -142,7 +146,7 @@
                             @if ($a->DIAGX == NULL)
                             <button class="badge badge-danger ermdokter"> belum diisi </button>
                             @else
-                            <button class="badge badge-success ermdokter"> {{$a->nama_dpjp}} </button>
+                            <button class="badge badge-success ermdokter"> Sudah Diisi </button> | {{$a->nama_dpjp}}
                             @endif
                         </td>
 
@@ -177,6 +181,8 @@
         var namapx = $row.find(".namapx").text();
         var jk = $row.find(".jk").text();
         var status1 = $row.find(".status1").text();
+        var kj = $row.find(".kj").text();
+
         var status2 = $row.find(".status2").text();
         $.ajax({
             type: "post",
@@ -185,6 +191,7 @@
                 norm,
                 namapx,
                 jk,
+                kj,
                 status1,
                 status2
 
