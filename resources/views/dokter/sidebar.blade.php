@@ -47,8 +47,17 @@
                         </p>
                     </a>
                 </li>
-                
-                
+                <li class="nav-header">KPO</li>
+                <li class="nav-item">
+                    <a href="{{ route('kpo') }}" class="nav-link @if($menu == 'kpo' ) active @endif">
+                        <i class="nav-icon fas fa-archive"></i>
+                        <p>
+                            KPO Elektronik
+                        </p>
+                    </a>
+                </li>
+
+
                 <li class="nav-item">
                     <a class="nav-link">
                         <i class="nav-icon far fa-circle text-warning"></i>
