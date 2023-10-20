@@ -44,7 +44,7 @@
                         <ul class="nav nav-pills flex-column">
                             <li class="nav-item" id="pemeriksaan">
                                 <a href="#" class="nav-link formtriasedewasa">
-                                    <i class="fas fa-male mr-2"></i>TRIASE DEWASA
+                                    <i class="fas fa-male mr-2"></i>TRIASE 
                                 </a>
                             </li>
                             <li class="nav-item">

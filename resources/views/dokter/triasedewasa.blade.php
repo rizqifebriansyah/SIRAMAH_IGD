@@ -3,7 +3,7 @@
 <div class="card-header bg-secondary" id="headingOne">
     <h2 class="mb-0">
         <button class="btn btn-link btn-block text-left text-light font-weight" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-            <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Triase (ATS : Australian Triage Scale)
+            <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Triase (ATS : Australian Triage Scale) DEWASA
         </button>
     </h2>
 </div>
