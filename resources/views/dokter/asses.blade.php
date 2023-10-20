@@ -1,26 +1,25 @@
 @extends('dokter.header')
 @section('container')
 <style>
-    
+    .scroll {
+        display: block;
 
-.scroll{
-    display:block;
-    
-    padding:5px;
-    margin-top:5px;
-    width:1300px;
-    height:678px;
-    overflow:scroll;
-}
-.auto{
-     display:block;
-     border: 1px solid red;
-     padding:5px;
-     margin-top:5px;
-     width:1300px;
-     height:678px;
-     overflow:auto;
-}
+        padding: 5px;
+        margin-top: 5px;
+        width: 1400px;
+        height: 700px;
+        overflow: scroll;
+    }
+
+    .auto {
+        display: block;
+        border: 1px solid red;
+        padding: 5px;
+        margin-top: 5px;
+        width: 1400px;
+        height: 700px;
+        overflow: auto;
+    }
 </style>
 <div class="card-body ermdokterview">
     <div class="row " style="align-content: 10px;">

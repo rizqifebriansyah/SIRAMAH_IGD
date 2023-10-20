@@ -29,7 +29,7 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-header">ASSESSMENT DOKTER</li>
+                <li class="nav-header">TRIASE DOKTER</li>
                 <li class="nav-item">
                     <a href="{{ route('triase') }}" class="nav-link @if($menu == 'triase' ) active @endif">
                         <i class="nav-icon fas fa-book-medical"></i>
@@ -38,70 +38,17 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-header">PELAYANAN</li>
+                <li class="nav-header">ASSESMEN</li>
                 <li class="nav-item">
                     <a href="{{ route('asses') }}" class="nav-link @if($menu == 'asses' ) active @endif">
                         <i class="nav-icon fas fa-archive"></i>
                         <p>
-                            Assesment Pasien
+                            Assesment Dokter
                         </p>
                     </a>
                 </li>
-                <li class="nav-header">KEUANGAN</li>
-                <li class="nav-item">
-                    <a class="nav-link ">
-                        <i class="nav-icon fas fa-archive"></i>
-                        <p>
-                            KASIR
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-header">DATA MASTER</li>
-                <li class="nav-item">
-                    <a class="nav-link">
-                        <i class="nav-icon fas fa-home"></i>
-                        <p>
-                            Dashboard
-                        </p>
-                    </a>
-                    <a class="nav-link ">
-                        <i class="nav-icon fas fa-table"></i>
-                        <p>
-                            Pasien
-                        </p>
-                    </a>
-                    <a class="nav-link">
-                        <i class="nav-icon fas fa-table"></i>
-                        <p>
-                            Pegawai
-                        </p>
-                    </a>
-                    <a class="nav-link ">
-                        <i class="nav-icon fas fa-table"></i>
-                        <p>
-                            Data User
-                        </p>
-                    </a>
-                    <a class="nav-link">
-                        <i class="nav-icon fas fa-table"></i>
-                        <p>
-                            Data Diagnosa
-                        </p>
-                    </a>
-                    <a class="nav-link">
-                        <i class="nav-icon fas fa-table"></i>
-                        <p>
-                            Data Tarif
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-header">Akun</li>
-                <li class="nav-item">
-                    <a class="nav-link">
-                        <i class="nav-icon far fa-circle text-danger"></i>
-                        <p class="text">Info Akun</p>
-                    </a>
-                </li>
+                
+                
                 <li class="nav-item">
                     <a class="nav-link">
                         <i class="nav-icon far fa-circle text-warning"></i>

@@ -4,11 +4,76 @@
 
 <div class="card-body">
     <div class="card">
-        <div class="card-header text-bold bg-warning" style="text-align: center;">+ ASSESMENT DOKTER +</div>
+        <div class="card-header text-bold bg-warning" style="text-align: center;">S.O.A.P</div>
         <form action="" class="form_pemeriksaan_1">
             <div class="card-body">
                 <!-- assesmen dokter -->
                 <table class="table">
+                    <tbody>
+                        <div class="row">
+                            <div class="col-sm-3">
+
+                                <div class="form-group">
+                                    <center>
+                                        <h3>Subject</h3>
+                                    </center>
+                                    <textarea class="form-control" rows="4" placeholder=""></textarea>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+
+                                <div class="form-group">
+                                    <center>
+                                        <h3>Object</h3>
+                                    </center>
+                                    <textarea class="form-control" rows="4" placeholder=""></textarea>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+
+                                <div class="form-group">
+                                    <center>
+                                        <h3>Assesmen</h3>
+                                    </center>
+                                    <textarea class="form-control" rows="4" placeholder=""></textarea>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+
+                                <div class="form-group">
+                                    <center>
+                                        <h3>Predicate</h3>
+                                    </center>
+                                    <textarea class="form-control" rows="4" placeholder=""></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </tbody>
+                </table>
+                <div class="accordion" id="accordionExample8">
+                    <div class="card">
+                        <div class="card-header bg-success" id="headingOne">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link btn-block text-left text-light font-weight" type="button"
+                                    data-toggle="collapse" data-target="#collapseOne8" aria-expanded="true"
+                                    aria-controls="collapseOne8">
+                                    <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Order Obat
+                                </button>
+                            </h2>
+                        </div>
+
+                        <div id="collapseOne8" class="collapse" aria-labelledby="headingOne"
+                            data-parent="#accordionExample8">
+                            <div class="card-body bg-light">
+                                <iframe src="http://192.168.2.125/kpoelektronik/" width="1255px"
+                                    height="750px"></iframe>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- <table class="table">
                     <tbody>
                         <tr>
                             <td class="text-bold font-italic">Keluhan Utama</td>
@@ -193,32 +258,38 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
                 <!-- laboratorium -->
                 <div class="accordion" id="accordionExample5">
                     <div class="card">
                         <div class="card-header bg-danger" id="headingOne">
                             <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left text-light font-weight" type="button" data-toggle="collapse" data-target="#collapseOne5" aria-expanded="true" aria-controls="collapseOne5">
+                                <button class="btn btn-link btn-block text-left text-light font-weight" type="button"
+                                    data-toggle="collapse" data-target="#collapseOne5" aria-expanded="true"
+                                    aria-controls="collapseOne5">
                                     <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Order Laboratorium
                                 </button>
                             </h2>
                         </div>
 
-                        <div id="collapseOne5" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample5">
+                        <div id="collapseOne5" class="collapse" aria-labelledby="headingOne"
+                            data-parent="#accordionExample5">
                             <div class="card-body bg-light">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="exampleFormControlSelect1">Diagnosa Pemeriksaan Penunjang</label>
-                                            <input type="text" id="diagnosapemeriksaanpenunjang" class="form-control" value="">
+                                            <label for="exampleFormControlSelect1">Diagnosa Pemeriksaan
+                                                Penunjang</label>
+                                            <input type="text" id="diagnosapemeriksaanpenunjang" class="form-control"
+                                                value="">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="exampleFormControlSelect1">Tanggal Pemeriksaan Penunjang</label>
-                                            <input type="date" id="tanggalperiksapenunjang" name="tanggalperiksapenunjang" value="" class="form-control">
+                                            <input type="date" id="tanggalperiksapenunjang"
+                                                name="tanggalperiksapenunjang" value="" class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -229,10 +300,12 @@
                                                 <th>Nama tindakan</th>
                                             </thead>
                                             <tbody>
-                                                @foreach($layananlab as $t)
-                                                <tr class="pilihlayanan" jenis="nonpaket" namatindakan="{{ $t->Tindakan }}" tarif="{{ $t->tarif }}" kode="{{ $t->kode }}">
-                                                    <td>{{ $t->Tindakan }}</td>
-                                                </tr>
+                                                @foreach ($layananlab as $t)
+                                                    <tr class="pilihlayanan" jenis="nonpaket"
+                                                        namatindakan="{{ $t->Tindakan }}" tarif="{{ $t->tarif }}"
+                                                        kode="{{ $t->kode }}">
+                                                        <td>{{ $t->Tindakan }}</td>
+                                                    </tr>
                                                 @endforeach
                                             </tbody>
                                         </table>
@@ -267,25 +340,32 @@
                     <div class="card">
                         <div class="card-header bg-danger" id="headingOne">
                             <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left text-light font-weight" type="button" data-toggle="collapse" data-target="#collapseOne6" aria-expanded="true" aria-controls="collapseOne6">
+                                <button class="btn btn-link btn-block text-left text-light font-weight" type="button"
+                                    data-toggle="collapse" data-target="#collapseOne6" aria-expanded="true"
+                                    aria-controls="collapseOne6">
                                     <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Order Radiologi
                                 </button>
                             </h2>
                         </div>
 
-                        <div id="collapseOne6" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample6">
+                        <div id="collapseOne6" class="collapse" aria-labelledby="headingOne"
+                            data-parent="#accordionExample6">
                             <div class="card-body bg-light">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="exampleFormControlSelect1">Diagnosa Pemeriksaan Penunjang</label>
-                                            <input type="text" id="diagnosapemeriksaanpenunjang" class="form-control" value="">
+                                            <label for="exampleFormControlSelect1">Diagnosa Pemeriksaan
+                                                Penunjang</label>
+                                            <input type="text" id="diagnosapemeriksaanpenunjang"
+                                                class="form-control" value="">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="exampleFormControlSelect1">Tanggal Pemeriksaan Penunjang</label>
-                                            <input type="date" id="tanggalperiksapenunjang1" name="tanggalperiksapenunjang1" value="" class="form-control">
+                                            <label for="exampleFormControlSelect1">Tanggal Pemeriksaan
+                                                Penunjang</label>
+                                            <input type="date" id="tanggalperiksapenunjang1"
+                                                name="tanggalperiksapenunjang1" value="" class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -296,10 +376,12 @@
                                                 <th>Nama tindakan</th>
                                             </thead>
                                             <tbody>
-                                                @foreach($layanan as $t)
-                                                <tr class="pilihlayanan1" jenis="nonpaket" namatindakan="{{ $t->Tindakan }}" tarif="{{ $t->tarif }}" kode="{{ $t->kode }}">
-                                                    <td>{{ $t->Tindakan }}</td>
-                                                </tr>
+                                                @foreach ($layanan as $t)
+                                                    <tr class="pilihlayanan1" jenis="nonpaket"
+                                                        namatindakan="{{ $t->Tindakan }}" tarif="{{ $t->tarif }}"
+                                                        kode="{{ $t->kode }}">
+                                                        <td>{{ $t->Tindakan }}</td>
+                                                    </tr>
                                                 @endforeach
                                             </tbody>
                                         </table>
@@ -334,13 +416,17 @@
                     <div class="card">
                         <div class="card-header bg-secondary" id="headingOne">
                             <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left text-light font-weight" type="button" data-toggle="collapse" data-target="#collapseOne3" aria-expanded="true" aria-controls="collapseOne3">
-                                    <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Cara Keluar Dari Instalasi Gawat Darurat
+                                <button class="btn btn-link btn-block text-left text-light font-weight" type="button"
+                                    data-toggle="collapse" data-target="#collapseOne3" aria-expanded="true"
+                                    aria-controls="collapseOne3">
+                                    <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Cara Keluar Dari Instalasi Gawat
+                                    Darurat
                                 </button>
                             </h2>
                         </div>
 
-                        <div id="collapseOne3" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample3">
+                        <div id="collapseOne3" class="collapse" aria-labelledby="headingOne"
+                            data-parent="#accordionExample3">
                             <div class="card-body bg-light">
 
                                 <table class="table">
@@ -348,28 +434,35 @@
                                         <tr>
                                             <td>
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="rawatinap" name="rawatinap" value="Rawat Inap">
+                                                    <input type="checkbox" class="form-check-input" id="rawatinap"
+                                                        name="rawatinap" value="Rawat Inap">
                                                     <label class="form-check-label" for="exampleCheck1">Rawat Inap
                                                     </label>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="kamaroperasi" name="kamaroperasi" value="Kamar Operasi">
+                                                    <input type="checkbox" class="form-check-input" id="kamaroperasi"
+                                                        name="kamaroperasi" value="Kamar Operasi">
                                                     <label class="form-check-label" for="exampleCheck1">Kamar Operasi
                                                     </label>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="pulangsendiri" name="pulangsendiri" value="Pulang atas permintaan sendiri">
-                                                    <label class="form-check-label" for="exampleCheck1">Pulang atas permintaan sendiri
+                                                    <input type="checkbox" class="form-check-input"
+                                                        id="pulangsendiri" name="pulangsendiri"
+                                                        value="Pulang atas permintaan sendiri">
+                                                    <label class="form-check-label" for="exampleCheck1">Pulang atas
+                                                        permintaan sendiri
                                                     </label>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="kamarjenazah1" name="kamarjenazah1" value="Kamar Jenazah">
+                                                    <input type="checkbox" class="form-check-input"
+                                                        id="kamarjenazah1" name="kamarjenazah1"
+                                                        value="Kamar Jenazah">
                                                     <label class="form-check-label" for="exampleCheck1">Kamar Jenazah
                                                     </label>
                                                 </div>
@@ -378,22 +471,29 @@
                                         <tr>
                                             <td colspan="2">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="pulangdokter" name="pulangdokter" value="Pulang Atas Persetujuan Dokter">
-                                                    <label class="form-check-label" for="exampleCheck1">Pulang Atas Persetujuan Dokter
+                                                    <input type="checkbox" class="form-check-input" id="pulangdokter"
+                                                        name="pulangdokter" value="Pulang Atas Persetujuan Dokter">
+                                                    <label class="form-check-label" for="exampleCheck1">Pulang Atas
+                                                        Persetujuan Dokter
                                                     </label>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="alihrawat" name="alihrawat" value="Alih Rawat ke RS Lain">
-                                                    <label class="form-check-label" for="exampleCheck1">Alih Rawat ke RS Lain
+                                                    <input type="checkbox" class="form-check-input" id="alihrawat"
+                                                        name="alihrawat" value="Alih Rawat ke RS Lain">
+                                                    <label class="form-check-label" for="exampleCheck1">Alih Rawat ke
+                                                        RS Lain
                                                     </label>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="melarikandiri" name="melarikandiri" value="Melarikan Didri">
-                                                    <label class="form-check-label" for="exampleCheck1">Melarikan Didri
+                                                    <input type="checkbox" class="form-check-input"
+                                                        id="melarikandiri" name="melarikandiri"
+                                                        value="Melarikan Didri">
+                                                    <label class="form-check-label" for="exampleCheck1">Melarikan
+                                                        Didri
                                                     </label>
                                                 </div>
                                             </td>
@@ -420,13 +520,16 @@
                     <div class="card">
                         <div class="card-header bg-secondary" id="headingOne">
                             <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left text-light font-weight" type="button" data-toggle="collapse" data-target="#collapseOne4" aria-expanded="true" aria-controls="collapseOne4">
+                                <button class="btn btn-link btn-block text-left text-light font-weight" type="button"
+                                    data-toggle="collapse" data-target="#collapseOne4" aria-expanded="true"
+                                    aria-controls="collapseOne4">
                                     <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Keadaan Pasien Saat Keluar
                                 </button>
                             </h2>
                         </div>
 
-                        <div id="collapseOne4" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample4">
+                        <div id="collapseOne4" class="collapse" aria-labelledby="headingOne"
+                            data-parent="#accordionExample4">
                             <div class="card-body bg-light">
 
                                 <table class="table">
@@ -434,28 +537,32 @@
                                         <tr>
                                             <td>
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="sembuh" name="sembuh" value="Sembuh">
+                                                    <input type="checkbox" class="form-check-input" id="sembuh"
+                                                        name="sembuh" value="Sembuh">
                                                     <label class="form-check-label" for="exampleCheck1">Sembuh
                                                     </label>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="tidaksembuh" name="tidaksembuh" value="Tidak Sembuh">
+                                                    <input type="checkbox" class="form-check-input" id="tidaksembuh"
+                                                        name="tidaksembuh" value="Tidak Sembuh">
                                                     <label class="form-check-label" for="exampleCheck1">Tidak Sembuh
                                                     </label>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="perbaikan" name="perbaikan" value="Perbaikan">
+                                                    <input type="checkbox" class="form-check-input" id="perbaikan"
+                                                        name="perbaikan" value="Perbaikan">
                                                     <label class="form-check-label" for="exampleCheck1">Perbaikan
                                                     </label>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="Meninggal" name="Meninggal" value="Meninggal">
+                                                    <input type="checkbox" class="form-check-input" id="Meninggal"
+                                                        name="Meninggal" value="Meninggal">
                                                     <label class="form-check-label" for="exampleCheck1">Meninggal
                                                     </label>
                                                 </div>
@@ -530,7 +637,7 @@
                 jenis +
                 '"></div><div class="form-group col-md-1"><label for="inputPassword4">Jumlah</label><input type="" class="form-control form-control-sm" id="" name="qty" value="1"></div><div class="form-group col-md-1"><label for="inputPassword4">Disc</label><input type="" class="form-control form-control-sm" id="" name="disc" value="0"></div><div class="form-group col-md-1"><label for="inputPassword4">Cyto</label><input type="" class="form-control form-control-sm" id="" name="cyto" value="0"></div><i class="bi bi-x-square remove_field form-group col-md-2 text-danger"></i></div>'
             );
-            $(wrapper).on("click", ".remove_field", function(e) { //user click on remove 
+            $(wrapper).on("click", ".remove_field", function(e) { //user click on remove
                 e.preventDefault();
                 $(this).parent('div').remove();
                 x--;
@@ -561,7 +668,7 @@
                 jenis +
                 '"></div><div class="form-group col-md-1"><label for="inputPassword4">Jumlah</label><input type="" class="form-control form-control-sm" id="" name="qty" value="1"></div><div class="form-group col-md-1"><label for="inputPassword4">Disc</label><input type="" class="form-control form-control-sm" id="" name="disc" value="0"></div><div class="form-group col-md-1"><label for="inputPassword4">Cyto</label><input type="" class="form-control form-control-sm" id="" name="cyto" value="0"></div><i class="bi bi-x-square remove_field form-group col-md-2 text-danger"></i></div>'
             );
-            $(wrapper).on("click", ".remove_field", function(e) { //user click on remove 
+            $(wrapper).on("click", ".remove_field", function(e) { //user click on remove
                 e.preventDefault();
                 $(this).parent('div').remove();
                 x--;

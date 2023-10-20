@@ -3,7 +3,7 @@
 @section('container')
 <div class="index">
     <div class="row" style="margin-top: 100px; margin-left:20px">
-        <div class="col-md-5" style="margin-right: 10px;">
+        <div class="col-md-4" style="margin-right: 10px;">
             <center>
                 <a class="btn  bg-warning ambilantrian" id="ambilantrian" style="width: 1000px; height:100px">
                     <h1>I.G.D UMUM</h1>
@@ -11,7 +11,7 @@
             </center>
         </div>
 
-        <div class="col-md-5" style="margin-left: 20px;">
+        <div class="col-md-4" style="margin-left: 20px;">
             <center>
                 <a class="btn  bg-warning ambilantrianbidan" id="ambilantrianbidan" style="width: 1000px; height:100px">
                     <h1>I.G.D KEBIDANAN</h1>
@@ -19,12 +19,17 @@
             </center>
         </div>
     </div>
-    <h1 style="color:antiquewhite">
-        <center>BED MONITORING</center>
-    </h1>
+</div>
+<div class="row" style="margin-top: 10px; margin-left:20px">
 
-    <div style="margin-left:20px;height:655px;width:1850px;border:1px solid   Serif;overflow:auto;">
-        <div class="row antrian" style="margin-top:30px; margin-left:50px">
+
+
+    <div style="margin-left:20px;height:555px;width:1700px;border:1px solid   Serif;overflow:auto;">
+        <h1 style="color:antiquewhite">
+            <center>BED MONITORING</center>
+        </h1>
+        <div class="row antrian" style="margin-top:10px; margin-left:50px">
+
             @foreach ($bed as $b)
             <div class="col-lg-2 col-2 jumlahpasien" style="margin-left: 20px;">
                 <!-- small box -->
