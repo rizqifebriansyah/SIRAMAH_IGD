@@ -59,8 +59,8 @@
 
 
                 <li class="nav-item">
-                    <a class="nav-link">
-                        <i class="nav-icon far fa-circle text-warning"></i>
+                    <a class="nav-link" onclick="logout()">
+                        <i class="nav-icon far fa-circle text-warning" ></i>
                         <p>Logout</p>
                     </a>
                 </li>

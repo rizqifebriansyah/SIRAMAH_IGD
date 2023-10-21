@@ -18,8 +18,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [LoginController::class, 'index']);
-Route::post('login', [LoginController::class, 'authenticate'])->middleware('guest')->name('login');
-Route::post('register', [LoginController::class, 'register'])->middleware('guest')->name('register');
+Route::post('login', [LoginController::class, 'authenticate'])->name('login');
+// Route::post('register', [LoginController::class, 'register'])->middleware('guest')->name('register');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('cariunit', [LoginController::class, 'cariunit'])->name('cariunit');
 

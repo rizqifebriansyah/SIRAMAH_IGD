@@ -639,11 +639,11 @@
         var max_fields = 10; //maximum input boxes allowed
         var wrapper = $(".input_fields_wrap"); //Fields wrapper
         var x = 1; //initlal text box count
-        kodelab = $(this).attr('kode')
-        namatindakanlab = $(this).attr('namatindakan')
-        tariflab = $(this).attr('tarif')
-        idlab = $(this).attr('id')
-        jenislab = $(this).attr('jenis')
+        kode = $(this).attr('kode')
+        namatindakan = $(this).attr('namatindakan')
+        tarif = $(this).attr('tarif')
+        id = $(this).attr('id')
+        jenis = $(this).attr('jenis')
 
 
         // e.preventDefault();
@@ -670,11 +670,11 @@
         var max_fields = 10; //maximum input boxes allowed
         var wrapper = $(".input_fields_wrap1"); //Fields wrapper
         var x = 1; //initlal text box count
-        koderad = $(this).attr('kode')
-        namatindakanrad = $(this).attr('namatindakan')
-        tarifrad = $(this).attr('tarif')
-        idrad = $(this).attr('id')
-        jenisrad = $(this).attr('jenis')
+        kode = $(this).attr('kode')
+        namatindakan = $(this).attr('namatindakan')
+        tarif = $(this).attr('tarif')
+        id = $(this).attr('id')
+        jenis = $(this).attr('jenis')
 
 
         // e.preventDefault();

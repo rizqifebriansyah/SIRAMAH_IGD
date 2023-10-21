@@ -19,7 +19,7 @@
 
           <!-- Messages Dropdown Menu -->
           <li class="nav-item dropdown">
-              <a class="nav-link" data-toggle="dropdown" href="#">
+              <a class="nav-link" data-toggle="dropdown" onclick="logout()" href="#">
                   {{-- <i class="far fa-comments"></i> --}}
                   <i class="bi bi-box-arrow-right"></i>
               </a>
