@@ -212,7 +212,10 @@
         </div>
     </div>
 </div>
-
+<script>
+    spinner = $('#loader2');
+    spinner.hide();
+</script>
 <script>
     document.getElementById('tanggal_kunjungan').valueAsDate = new Date()
     $(function() {
@@ -235,5 +238,3 @@
 </script>
 
 @endsection
-
-

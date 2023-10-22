@@ -161,6 +161,9 @@
 </div>
 
 <script>
+    spinner = $('#loader2');
+    spinner.hide();
+    
     document.getElementById('tanggal_kunjungan').valueAsDate = new Date()
     $(function() {
         $("#datapasienigd").DataTable({

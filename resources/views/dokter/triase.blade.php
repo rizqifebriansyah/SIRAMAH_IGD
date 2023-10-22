@@ -152,6 +152,9 @@
 </div>
 
 <script>
+    spinner = $('#loader2');
+    spinner.hide();
+
     document.getElementById('tanggal_kunjungan').valueAsDate = new Date()
     $(function() {
         $("#tabletriase").DataTable({
@@ -165,7 +168,8 @@
 
 
     function carinotriase() {
-        
+        spinner = $('#loader2');
+        spinner.show();
         tgl_kunjungan = $('#tanggal_kunjungan').val()
 
         $.ajax({
@@ -177,9 +181,13 @@
             },
             url: " {{ route('carinotriase') }}",
             error: function(data) {
+                spinner.hide();
+
                 alert('error!!!')
             },
             success: function(response) {
+                spinner.hide();
+
                 $('.tabletriase').html(response);
             }
         })

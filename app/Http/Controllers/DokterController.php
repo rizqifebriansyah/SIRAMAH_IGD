@@ -183,13 +183,15 @@ class DokterController extends Controller
     {
         $layananlab = DB::select("CALL SP_PANGGIL_TARIF_LAB('1','')");
         $layanan = DB::select("CALL SP_CARI_TARIF_PELAYANAN_RAD('1','','1')");
+        $diagnosa = DB::select('SELECT * FROM mt_jenis_diagnosa_medis');
 
         return view(
             'dokter.formermdokter',
             [
                 'title' => 'SiRAMAH DOKTER',
                 'layananlab' => $layananlab,
-                'layanan' => $layanan
+                'layanan' => $layanan,
+                'diagnosa' => $diagnosa
 
 
             ]
