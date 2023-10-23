@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [LoginController::class, 'index']);
-Route::post('login', [LoginController::class, 'authenticate'])->name('login');
+Route::post('login', [LoginController::class, 'authenticate'])->middleware('guest')->name('login');
 // Route::post('register', [LoginController::class, 'register'])->middleware('guest')->name('register');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('cariunit', [LoginController::class, 'cariunit'])->name('cariunit');
@@ -34,39 +34,30 @@ Route::post('/ambilantrianumum', [AntrianController::class, 'ambilantrianumum'])
 
 
 
-//Route Dokter
-Route::get('dokter', [DokterController::class, 'index'])->name('dokter');
-Route::get('triase', [DokterController::class, 'triase'])->name('triase');
-Route::get('asses', [DokterController::class, 'asses'])->name('asses');
-Route::get('kpo', [DokterController::class, 'kpo'])->name('kpo');
 
+    //Route Dokter
+    Route::get('dokter', [DokterController::class, 'index'])->name('dokter');
+    Route::get('triase', [DokterController::class, 'triase'])->name('triase');
+    Route::get('asses', [DokterController::class, 'asses'])->name('asses');
+    Route::get('kpo', [DokterController::class, 'kpo'])->name('kpo');
 
-Route::post('assesmentdokter', [DokterController::class, 'assesmentdokter'])->name('assesmentdokter');
-Route::post('ermdokter', [DokterController::class, 'ermdokter'])->name('ermdokter');
-Route::post('riwayatcppt', [DokterController::class, 'riwayatcppt'])->name('riwayatcppt');
-Route::post('triasedewasa', [DokterController::class, 'triasedewasa'])->name('triasedewasa');
-Route::post('triaseanak', [DokterController::class, 'triaseanak'])->name('triaseanak');
-Route::post('hasillabo', [DokterController::class, 'hasillabo'])->name('hasillabo');
-Route::post('hasilradio', [DokterController::class, 'hasilradio'])->name('hasilradio');
+    //form-form
+    Route::post('assesmentdokter', [DokterController::class, 'assesmentdokter'])->name('assesmentdokter');
+    Route::post('ermdokter', [DokterController::class, 'ermdokter'])->name('ermdokter');
+    Route::post('riwayatcppt', [DokterController::class, 'riwayatcppt'])->name('riwayatcppt');
+    Route::post('triasedewasa', [DokterController::class, 'triasedewasa'])->name('triasedewasa');
+    Route::post('triaseanak', [DokterController::class, 'triaseanak'])->name('triaseanak');
+    Route::post('hasillabo', [DokterController::class, 'hasillabo'])->name('hasillabo');
+    Route::post('hasilradio', [DokterController::class, 'hasilradio'])->name('hasilradio');
+    Route::post('formermdokter', [DokterController::class, 'formermdokter'])->name('formermdokter');
+    Route::post('formdewasa', [DokterController::class, 'formdewasa'])->name('formdewasa');
+    Route::post('resumetriase', [DokterController::class, 'resumetriase'])->name('resumetriase');
 
+    //simpan
+    Route::post('simpanpemeriksaantriase', [DokterController::class, 'simpanpemeriksaantriase'])->name('simpanpemeriksaantriase');
+    Route::post('simpanassemen', [DokterController::class, 'simpanassemen'])->name('simpanassemen');
 
+    //cari
+    Route::post('carinotriase', [DokterController::class, 'carinotriase'])->name('carinotriase');
 
-
-
-//form-form
-Route::post('formermdokter', [DokterController::class, 'formermdokter'])->name('formermdokter');
-
-Route::post('formdewasa', [DokterController::class, 'formdewasa'])->name('formdewasa');
-Route::post('resumetriase', [DokterController::class, 'resumetriase'])->name('resumetriase');
-
-
-
-//simpan
-
-Route::post('simpanpemeriksaantriase', [DokterController::class, 'simpanpemeriksaantriase'])->name('simpanpemeriksaantriase');
-
-
-//cari
-Route::post('carinotriase', [DokterController::class, 'carinotriase'])->name('carinotriase');
-
-
+    //Akhir route dokter

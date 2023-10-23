@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
@@ -35,7 +36,6 @@ class LoginController extends Controller
             } elseif ($hak == 4) {
                 return redirect()->intended('dokter');
             }
-            dd($hak);
         }
         return back()->with('loginError', 'Login gagal !');
     }

@@ -19,6 +19,8 @@
                         <h3 class="text-center">{{ $norm }}</h3>
                         <input type="text" name="norm" id="norm" value="{{ $norm }}" hidden>
                         <input type="text" name="kj" id="kj" value="{{ $kj }}" hidden>
+                        <input type="text" name="tglmasuk" id="tglmasuk" value="{{ $tglmasuk }}" hidden>
+
 
                         <p class="text-muted text-center">PASIEN INSTALASI GAWAT DARURAT</p>
                         <ul class="list-group list-group-unbordered mb-3">

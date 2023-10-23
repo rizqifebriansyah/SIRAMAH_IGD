@@ -115,6 +115,8 @@
                     <th style="text-align: center;">Diagnosa</th>
                     <th style="text-align: center;">Assesment Perawat</th>
                     <th hidden style="text-align: center;">kodekunjungan</th>
+                    <th hidden style="text-align: center;">tgl_masuk</th>
+
 
 
                     <th style="text-align: center;">Assesment Dokter</th>
@@ -128,6 +130,8 @@
                         <td style="text-align: center;" class="namapx">{{$a->nama_px}}</td>
                         <td style="text-align: center;" class="jk">{{$a->jenis_kelamin}}</td>
                         <td hidden style="text-align: center;" class="kj">{{$a->kode_kunjungan}}</td>
+                        <td hidden style="text-align: center;" class="tglmasuk">{{$a->tgl_masuk}}</td>
+
 
                         <td class="diag2" style="text-align: center;">
                             {{$a->DIAGX}}
@@ -163,7 +167,7 @@
 <script>
     spinner = $('#loader2');
     spinner.hide();
-    
+
     document.getElementById('tanggal_kunjungan').valueAsDate = new Date()
     $(function() {
         $("#datapasienigd").DataTable({
@@ -184,7 +188,7 @@
         var jk = $row.find(".jk").text();
         var status1 = $row.find(".status1").text();
         var kj = $row.find(".kj").text();
-
+        var tglmasuk = $row.find(".tglmasuk").text();
         var status2 = $row.find(".status2").text();
         $.ajax({
             type: "post",
@@ -195,7 +199,8 @@
                 jk,
                 kj,
                 status1,
-                status2
+                status2,
+                tglmasuk
 
             },
             url: '<?= route('ermdokter') ?>',

@@ -5,7 +5,7 @@
 <div class="card-body">
     <div class="card">
         <div class="card-header text-bold bg-warning" style="text-align: center;">S.O.A.P</div>
-        <form action="" class="form_pemeriksaan_1">
+        <form action="" class="formerm">
             <div class="card-body">
                 <!-- assesmen dokter -->
                 <table class="table">
@@ -42,9 +42,9 @@
 
                                 <div class="form-group">
                                     <center>
-                                        <h3>Predicate</h3>
+                                        <h3>Planning</h3>
                                     </center>
-                                    <textarea class="form-control" id="preidcate" name="preidcate" rows="4" placeholder=""></textarea>
+                                    <textarea class="form-control" id="planning" name="planning" rows="4" placeholder=""></textarea>
                                 </div>
                             </div>
                         </div>
@@ -55,7 +55,7 @@
                                     <center>
                                         <h3>Evaluasi 30 menit pertama</h3>
                                     </center>
-                                    <textarea class="form-control" id="30p" name="30p" rows="4" placeholder=""></textarea>
+                                    <textarea class="form-control" id="tigap" name="tigap" rows="4" placeholder=""></textarea>
                                 </div>
                             </div>
                             <div class="col-sm-4">
@@ -64,7 +64,7 @@
                                     <center>
                                         <h3>Evaluasi 30 menit kedua</h3>
                                     </center>
-                                    <textarea class="form-control" id="30k" name="30k" rows="4" placeholder=""></textarea>
+                                    <textarea class="form-control" id="tigak" name="tigak" rows="4" placeholder=""></textarea>
                                 </div>
                             </div>
                             <div class="col-sm-4">
@@ -73,15 +73,15 @@
                                     <center>
                                         <h3>Diagnosa</h3>
                                     </center>
-                    
+
                                     <div class="dropdown">
-                                        <button onclick="myFunction()" class="dropbtn float-center">Cari Diagnosa</button>
+                                        <button onclick="myFunction()" class="dropbtn ">Cari
+                                            Diagnosa</button>
                                         <div id="myDropdown" class="dropdown-content">
-                                            <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
-                                            @foreach ($diagnosa as $i=>$t)
-
-                                            <a href="#{{$t -> nama_diag}}">{{$t -> nama_diag}}</a>
-
+                                            <input type="text" id="diagnosa" name="diagnosa"
+                                                placeholder="Search.."  onkeyup="filterFunction()">
+                                            @foreach ($diagnosa as $i => $t)
+                                                <a href="#{{ $t->nama_diag }}">{{ $t->nama_diag }}</a>
                                             @endforeach
 
                                         </div>
@@ -97,15 +97,19 @@
                     <div class="card">
                         <div class="card-header bg-success" id="headingOne">
                             <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left text-light font-weight" type="button" data-toggle="collapse" data-target="#collapseOne8" aria-expanded="true" aria-controls="collapseOne8">
+                                <button class="btn btn-link btn-block text-left text-light font-weight" type="button"
+                                    data-toggle="collapse" data-target="#collapseOne8" aria-expanded="true"
+                                    aria-controls="collapseOne8">
                                     <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Order Obat
                                 </button>
                             </h2>
                         </div>
 
-                        <div id="collapseOne8" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample8">
+                        <div id="collapseOne8" class="collapse" aria-labelledby="headingOne"
+                            data-parent="#accordionExample8">
                             <div class="card-body bg-light">
-                                <iframe src="http://192.168.2.125/kpoelektronik/" width="1255px" height="750px"></iframe>
+                                <iframe src="http://192.168.2.125/kpoelektronik/" width="1255px"
+                                    height="750px"></iframe>
 
                             </div>
                         </div>
@@ -304,26 +308,32 @@
                     <div class="card">
                         <div class="card-header bg-danger" id="headingOne">
                             <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left text-light font-weight" type="button" data-toggle="collapse" data-target="#collapseOne5" aria-expanded="true" aria-controls="collapseOne5">
+                                <button class="btn btn-link btn-block text-left text-light font-weight" type="button"
+                                    data-toggle="collapse" data-target="#collapseOne5" aria-expanded="true"
+                                    aria-controls="collapseOne5">
                                     <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Order Laboratorium
                                 </button>
                             </h2>
                         </div>
 
-                        <div id="collapseOne5" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample5">
+                        <div id="collapseOne5" class="collapse" aria-labelledby="headingOne"
+                            data-parent="#accordionExample5">
                             <div class="card-body bg-light">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="exampleFormControlSelect1">Diagnosa Pemeriksaan
                                                 Penunjang</label>
-                                            <input type="text" id="diagnosalabo" name="diagnosalabo" class="form-control" value="">
+                                            <input type="text" id="diagnosalabo" name="diagnosalabo"
+                                                class="form-control" value="">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="exampleFormControlSelect1">Tanggal Pemeriksaan Penunjang</label>
-                                            <input type="date" id="tanggalperiksapenunjang" name="tanggalperiksapenunjang" value="" class="form-control">
+                                            <label for="exampleFormControlSelect1">Tanggal Pemeriksaan
+                                                Penunjang</label>
+                                            <input type="date" id="tanggalperiksapenunjang"
+                                                name="tanggalperiksapenunjang" value="" class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -335,9 +345,11 @@
                                             </thead>
                                             <tbody>
                                                 @foreach ($layananlab as $t)
-                                                <tr class="pilihlayanan" jenis="nonpaket" namatindakan="{{ $t->Tindakan }}" tarif="{{ $t->tarif }}" kode="{{ $t->kode }}">
-                                                    <td>{{ $t->Tindakan }}</td>
-                                                </tr>
+                                                    <tr class="pilihlayanan" jenis="nonpaket"
+                                                        namatindakan="{{ $t->Tindakan }}" tarif="{{ $t->tarif }}"
+                                                        kode="{{ $t->kode }}">
+                                                        <td>{{ $t->Tindakan }}</td>
+                                                    </tr>
                                                 @endforeach
                                             </tbody>
                                         </table>
@@ -372,27 +384,32 @@
                     <div class="card">
                         <div class="card-header bg-danger" id="headingOne">
                             <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left text-light font-weight" type="button" data-toggle="collapse" data-target="#collapseOne6" aria-expanded="true" aria-controls="collapseOne6">
+                                <button class="btn btn-link btn-block text-left text-light font-weight" type="button"
+                                    data-toggle="collapse" data-target="#collapseOne6" aria-expanded="true"
+                                    aria-controls="collapseOne6">
                                     <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Order Radiologi
                                 </button>
                             </h2>
                         </div>
 
-                        <div id="collapseOne6" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample6">
+                        <div id="collapseOne6" class="collapse" aria-labelledby="headingOne"
+                            data-parent="#accordionExample6">
                             <div class="card-body bg-light">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="exampleFormControlSelect1">Diagnosa Pemeriksaan
                                                 Penunjang</label>
-                                            <input type="text" id="diagnosaradio" name="diagnosaradio" class="form-control" value="">
+                                            <input type="text" id="diagnosaradio" name="diagnosaradio"
+                                                class="form-control" value="">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="exampleFormControlSelect1">Tanggal Pemeriksaan
                                                 Penunjang</label>
-                                            <input type="date" id="tanggalperiksapenunjang1" name="tanggalperiksapenunjang1" value="" class="form-control">
+                                            <input type="date" id="tanggalperiksapenunjang1"
+                                                name="tanggalperiksapenunjang1" value="" class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -404,9 +421,11 @@
                                             </thead>
                                             <tbody>
                                                 @foreach ($layanan as $t)
-                                                <tr class="pilihlayanan1" jenis="nonpaket" namatindakan="{{ $t->Tindakan }}" tarif="{{ $t->tarif }}" kode="{{ $t->kode }}">
-                                                    <td>{{ $t->Tindakan }}</td>
-                                                </tr>
+                                                    <tr class="pilihlayanan1" jenis="nonpaket"
+                                                        namatindakan="{{ $t->Tindakan }}" tarif="{{ $t->tarif }}"
+                                                        kode="{{ $t->kode }}">
+                                                        <td>{{ $t->Tindakan }}</td>
+                                                    </tr>
                                                 @endforeach
                                             </tbody>
                                         </table>
@@ -441,86 +460,34 @@
                     <div class="card">
                         <div class="card-header bg-secondary" id="headingOne">
                             <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left text-light font-weight" type="button" data-toggle="collapse" data-target="#collapseOne3" aria-expanded="true" aria-controls="collapseOne3">
+                                <button class="btn btn-link btn-block text-left text-light font-weight" type="button"
+                                    data-toggle="collapse" data-target="#collapseOne3" aria-expanded="true"
+                                    aria-controls="collapseOne3">
                                     <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Cara Keluar Dari Instalasi Gawat
                                     Darurat
                                 </button>
                             </h2>
                         </div>
 
-                        <div id="collapseOne3" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample3">
+                        <div id="collapseOne3" class="collapse" aria-labelledby="headingOne"
+                            data-parent="#accordionExample3">
                             <div class="card-body bg-light">
 
-                                <table class="table">
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="rawatinap" name="rawatinap" value="Rawat Inap">
-                                                    <label class="form-check-label" for="exampleCheck1">Rawat Inap
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="kamaroperasi" name="kamaroperasi" value="Kamar Operasi">
-                                                    <label class="form-check-label" for="exampleCheck1">Kamar Operasi
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="pulangsendiri" name="pulangsendiri" value="Pulang atas permintaan sendiri">
-                                                    <label class="form-check-label" for="exampleCheck1">Pulang atas
-                                                        permintaan sendiri
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="kamarjenazah1" name="kamarjenazah1" value="Kamar Jenazah">
-                                                    <label class="form-check-label" for="exampleCheck1">Kamar Jenazah
-                                                    </label>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2">
-                                                <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="pulangdokter" name="pulangdokter" value="Pulang Atas Persetujuan Dokter">
-                                                    <label class="form-check-label" for="exampleCheck1">Pulang Atas
-                                                        Persetujuan Dokter
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="alihrawat" name="alihrawat" value="Alih Rawat ke RS Lain">
-                                                    <label class="form-check-label" for="exampleCheck1">Alih Rawat ke
-                                                        RS Lain
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="melarikandiri" name="melarikandiri" value="Melarikan Didri">
-                                                    <label class="form-check-label" for="exampleCheck1">Melarikan
-                                                        Didri
-                                                    </label>
-                                                </div>
-                                            </td>
 
-                                        </tr>
-                                        <tr>
-                                            <td colspan="4">
+                                            @foreach ($alasanpulang as $i => $p)
+                                                    <div class="form-group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="pulang" id="pulang"
+                                                                value="{{ $p->alasan_pulang }}">
+                                                            <label
+                                                                class="form-check-label">{{ $p->alasan_pulang }}</label>
+                                                        </div>
 
-                                                <textarea class="form-control" id="keteranganpulang" name="keteranganpulang" placeholder=""></textarea>
+                                                    </div>
+                                            @endforeach
 
-                                            </td>
-                                        </tr>
 
-                                    </tbody>
-                                </table>
                             </div>
                         </div>
                     </div>
@@ -532,13 +499,16 @@
                     <div class="card">
                         <div class="card-header bg-secondary" id="headingOne">
                             <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left text-light font-weight" type="button" data-toggle="collapse" data-target="#collapseOne4" aria-expanded="true" aria-controls="collapseOne4">
+                                <button class="btn btn-link btn-block text-left text-light font-weight" type="button"
+                                    data-toggle="collapse" data-target="#collapseOne4" aria-expanded="true"
+                                    aria-controls="collapseOne4">
                                     <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Keadaan Pasien Saat Keluar
                                 </button>
                             </h2>
                         </div>
 
-                        <div id="collapseOne4" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample4">
+                        <div id="collapseOne4" class="collapse" aria-labelledby="headingOne"
+                            data-parent="#accordionExample4">
                             <div class="card-body bg-light">
 
                                 <table class="table">
@@ -546,28 +516,32 @@
                                         <tr>
                                             <td>
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="sembuh" name="sembuh" value="Sembuh">
+                                                    <input type="checkbox" class="form-check-input" id="sembuh"
+                                                        name="sembuh" value="Sembuh">
                                                     <label class="form-check-label" for="exampleCheck1">Sembuh
                                                     </label>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="tidaksembuh" name="tidaksembuh" value="Tidak Sembuh">
+                                                    <input type="checkbox" class="form-check-input" id="tidaksembuh"
+                                                        name="tidaksembuh" value="Tidak Sembuh">
                                                     <label class="form-check-label" for="exampleCheck1">Tidak Sembuh
                                                     </label>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="perbaikan" name="perbaikan" value="Perbaikan">
+                                                    <input type="checkbox" class="form-check-input" id="perbaikan"
+                                                        name="perbaikan" value="Perbaikan">
                                                     <label class="form-check-label" for="exampleCheck1">Perbaikan
                                                     </label>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="Meninggal" name="Meninggal" value="Meninggal">
+                                                    <input type="checkbox" class="form-check-input" id="Meninggal"
+                                                        name="Meninggal" value="Meninggal">
                                                     <label class="form-check-label" for="exampleCheck1">Meninggal
                                                     </label>
                                                 </div>
@@ -587,6 +561,8 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div type="button" class="btn float-right btn-success simpanasses" style="margin-top: 20px;">SIMPAN
                 </div>
 
             </div>
@@ -687,7 +663,7 @@
 
     function filterFunction() {
         var input, filter, ul, li, a, i;
-        input = document.getElementById("myInput");
+        input = document.getElementById("diagnosa");
         filter = input.value.toUpperCase();
         div = document.getElementById("myDropdown");
         a = div.getElementsByTagName("a");
@@ -700,4 +676,89 @@
             }
         }
     }
+
+    $(".simpanasses").click(function() {
+        var data = $('.formerm').serializeArray();
+        var subject = $('#subject').val()
+        var objek = $('#objek').val()
+        var assesmen = $('#assesmen').val()
+        var planning = $('#planning').val()
+        var tigap = $('#tigap').val()
+        var tigak = $('#tigak').val()
+        var norm = $('#norm').val()
+        var kj = $('#kj').val()
+        var tglmasuk = $('#tglmasuk').val()
+
+
+
+
+        // var sumberdata = $("#sumberdata:checked").val();
+        Swal.fire({
+            title: "Yakin Simpan Assesmen?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Ya',
+            cancelButtonColor: '#d33',
+            cancelButtonText: "Batal"
+
+        }).then(result => {
+            //jika klik ya maka arahkan ke proses.php
+            if (result.isConfirmed) {
+                $.ajax({
+                    async: true,
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        data: JSON.stringify(data),
+                        subject: $('#subject').val(),
+                        objek: $('#objek').val(),
+                        assesmen: $('#assesmen').val(),
+                        planning: $('#planning').val(),
+                        tigap: $('#tigap').val(),
+                        tigak: $('#tigak').val(),
+                        norm: $('#norm').val(),
+                        kj: $('#kj').val(),
+                        tglmasuk: $('#tglmasuk').val(),
+
+
+
+
+                    },
+                    url: '<?= route('simpanassemen') ?>',
+
+                    error: function(data) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Sepertinya ada masalah ...',
+                            footer: ''
+                        })
+                    },
+                    success: function(data) {
+                        console.log(data)
+                        if (data.kode == 500) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: data.message,
+                                footer: ''
+                            })
+                        } else {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'OK',
+                                text: 'data berhasil disimpan',
+                                footer: ''
+                            })
+
+
+                        }
+                    }
+                });
+            }
+        })
+        return false;
+    });
 </script>

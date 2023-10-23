@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\erm_cppt_dokter;
 use App\Models\ts_antrian_igd;
 use App\Models\ts_triase;
 use Illuminate\Http\Request;
@@ -14,28 +15,37 @@ class DokterController extends Controller
 {
     public function index()
     {
+        $user = auth()->user()->nama;
+
         $menu = 'dokter';
         return view(
             'dokter.index',
             [
                 'title' => 'SiRAMAH DOKTER',
-                'menu' => $menu
+                'menu' => $menu,
+                'user' => $user
             ]
         );
     }
     public function kpo()
     {
+        $user = auth()->user()->nama;
+
         $menu = 'kpo';
         return view(
             'dokter.kpo',
             [
                 'title' => 'SiRAMAH DOKTER',
-                'menu' => $menu
+                'menu' => $menu,
+                'user' => $user
+
             ]
         );
     }
     public function triase()
     {
+        $user = auth()->user()->nama;
+
         $menu = 'triase';
         $now = Carbon::now()->format('Y-m-d');
 
@@ -46,7 +56,8 @@ class DokterController extends Controller
             [
                 'title' => 'TRIASE DOKTER',
                 'menu' => $menu,
-                'antrian' => $antrian
+                'antrian' => $antrian,
+                'user' => $user
             ]
         );
     }
@@ -69,16 +80,18 @@ class DokterController extends Controller
     public function asses()
     {
         $menu = 'asses';
+        $user = auth()->user()->nama;
+
 
         $now = Carbon::now()->format('Y-m-d');
         $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$now')");
-
         return view(
             'dokter.asses',
             [
                 'title' => 'ERM DOKTER',
                 'menu' => $menu,
-                'pasienigd' => $pasienigd
+                'pasienigd' => $pasienigd,
+                'user' => $user
             ]
         );
     }
@@ -104,6 +117,7 @@ class DokterController extends Controller
         $namapx = $request->namapx;
         $jk = $request->jk;
         $kj = $request->kj;
+        $tglmasuk = $request->tglmasuk;
 
         $cek = DB::select('SELECT
       fc_nama_unit1(kode_unit) AS nama_unit
@@ -120,7 +134,8 @@ class DokterController extends Controller
                 'norm' => $norm,
                 'namapx' => $namapx,
                 'jk' => $jk,
-                'kj' => $kj
+                'kj' => $kj,
+                'tglmasuk' => $tglmasuk
             ]
         );
     }
@@ -184,6 +199,7 @@ class DokterController extends Controller
         $layananlab = DB::select("CALL SP_PANGGIL_TARIF_LAB('1','')");
         $layanan = DB::select("CALL SP_CARI_TARIF_PELAYANAN_RAD('1','','1')");
         $diagnosa = DB::select('SELECT * FROM mt_jenis_diagnosa_medis');
+        $alasanplg  = DB::select('SELECT * FROM mt_alasan_pulang');
 
         return view(
             'dokter.formermdokter',
@@ -191,7 +207,8 @@ class DokterController extends Controller
                 'title' => 'SiRAMAH DOKTER',
                 'layananlab' => $layananlab,
                 'layanan' => $layanan,
-                'diagnosa' => $diagnosa
+                'diagnosa' => $diagnosa,
+                'alasanpulang' => $alasanplg
 
 
             ]
@@ -281,6 +298,43 @@ class DokterController extends Controller
         $update = DB::connection('mysql2')->select('UPDATE tp_karcis_igd
       SET status_triase = 1
       WHERE no_antri = ?', [$antrian]);
+
+        $back = [
+            'kode' => 200,
+            'message' => 'Berhasil'
+        ];
+        echo json_encode($back);
+        die;
+    }
+    public function simpanassemen(Request $request)
+    {
+        $a = $request->all();
+        $now = Carbon::now();
+        $user = auth()->user()->id_simrs;
+        $kp = auth()->user()->kode_paramedis;
+
+
+        $assesmen = erm_cppt_dokter::create([
+            'id_cppt_dokter'=> $user,
+            'tgl_kunjungan' => $request->tglmasuk,
+
+            'tgl_input' => $now,
+            'kode_unit' => '1002',
+            'kode_kunjungan' => $request->kj,
+            'no_rm' => $request->norm,
+            'subyektif' => $request->subject,
+            'obyektif' => $request->objek,
+            'assesment' => $request->assesmen,
+            'planning' => $request->planning,
+            '30_pertama' => $request->tigap,
+            '30_kedua'=> $request->tigak,
+            'kode_paramedis' => $kp,
+            'status' => '1'
+
+        ]);
+
+
+
 
         $back = [
             'kode' => 200,
