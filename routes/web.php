@@ -69,5 +69,8 @@ Route::group(['middleware' => ['hak_akses:4', 'auth']], function () {
     // perawat igd
     Route::get('perawat', [PerawatController::class, 'index'])->name('perawat');
     Route::get('assesperawat', [PerawatController::class, 'assesperawat'])->name('assesperawat');
+    Route::post('ermperawat', [PerawatController::class, 'ermperawat'])->name('ermperawat');
+    Route::post('formermperawat', [PerawatController::class, 'formermperawat'])->name('formermperawat');
+    Route::post('simpanassemenperawat', [PerawatController::class, 'simpanassemenperawat'])->name('simpanassemenperawat');
 
 });

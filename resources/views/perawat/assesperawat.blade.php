@@ -21,7 +21,7 @@
         overflow: auto;
     }
 </style>
-<div class="card-body ermdokterview">
+<div class="card-body ermperawatview">
     <div class="row " style="align-content: 10px;">
         <h4 class="col-md-2">Data Pasien IGD</h4>
         <div class="modal  col-md-12" id="formtambahpasien" aria-labelledby="formtambahpasienLabel" aria-hidden="true">
@@ -140,16 +140,16 @@
 
                         <td class="status1" style="text-align: center;">
                             @if ($a->DIAGX == NULL)
-                            <button class="badge badge-danger "> belum diisi </button>
+                            <button class="badge badge-danger ermperawat"> belum diisi </button>
                             @else
-                            <button class="badge badge-success ermdokter"> Sudah Diisi </button>
+                            <button class="badge badge-success ermperawat"> Sudah Diisi </button>
                             @endif
                         </td>
                         <td class="status2" style="text-align: center;">
                             @if ($a->DIAGX == NULL)
-                            <button class="badge badge-danger ermdokter"> belum diisi </button>
+                            <button class="badge badge-danger "> belum diisi </button>
                             @else
-                            <button class="badge badge-success ermdokter"> Sudah Diisi </button> | {{$a->nama_dpjp}}
+                            <button class="badge badge-success "> Sudah Diisi </button> | {{$a->nama_dpjp}}
                             @endif
                         </td>
 
@@ -179,7 +179,7 @@
         });
     });
 
-    $(".ermdokter").click(function() {
+    $(".ermperawat").click(function() {
         spinner = $('#loader2');
         spinner.show();
         var $row = $(this).closest("tr");
@@ -203,14 +203,14 @@
                 tglmasuk
 
             },
-            url: '<?= route('ermdokter') ?>',
+            url: '<?= route('ermperawat') ?>',
             error: function(data) {
                 spinner.hide();
                 alert('oke!!')
             },
             success: function(response) {
                 spinner.hide();
-                $('.ermdokterview').html(response);
+                $('.ermperawatview').html(response);
 
             }
         });
