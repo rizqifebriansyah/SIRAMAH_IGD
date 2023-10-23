@@ -34,7 +34,7 @@ class LoginController extends Controller
                 return redirect()->intended('dokter');
 
             } elseif ($hak == 4) {
-                return redirect()->intended('dokter');
+                return redirect()->intended('perawat');
             }
         }
         return back()->with('loginError', 'Login gagal !');

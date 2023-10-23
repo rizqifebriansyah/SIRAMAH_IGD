@@ -3,6 +3,8 @@
 use App\Http\Controllers\AntrianController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DokterController;
+use App\Http\Controllers\PerawatController;
+
 
 use Illuminate\Support\Facades\Route;
 
@@ -19,10 +21,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [LoginController::class, 'index']);
 Route::post('login', [LoginController::class, 'authenticate'])->middleware('guest')->name('login');
-// Route::post('register', [LoginController::class, 'register'])->middleware('guest')->name('register');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
-Route::get('cariunit', [LoginController::class, 'cariunit'])->name('cariunit');
-
 
 
 //Route Antrian
@@ -34,6 +33,7 @@ Route::post('/ambilantrianumum', [AntrianController::class, 'ambilantrianumum'])
 
 
 
+Route::group(['middleware' => ['hak_akses:5', 'auth']], function () {
 
     //Route Dokter
     Route::get('dokter', [DokterController::class, 'index'])->name('dokter');
@@ -59,5 +59,15 @@ Route::post('/ambilantrianumum', [AntrianController::class, 'ambilantrianumum'])
 
     //cari
     Route::post('carinotriase', [DokterController::class, 'carinotriase'])->name('carinotriase');
+});
+//Akhir route dokter
 
-    //Akhir route dokter
+
+
+Route::group(['middleware' => ['hak_akses:4', 'auth']], function () {
+
+    // perawat igd
+    Route::get('perawat', [PerawatController::class, 'index'])->name('perawat');
+    Route::get('assesperawat', [PerawatController::class, 'assesperawat'])->name('assesperawat');
+
+});
