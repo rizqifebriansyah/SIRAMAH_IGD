@@ -31,10 +31,10 @@ class LoginController extends Controller
             $unit = auth()->user()->unit;
             if ($hak == 5) {
 
-                return redirect()->intended('dokter');
+                return redirect()->intended('asses');
 
             } elseif ($hak == 4) {
-                return redirect()->intended('perawat');
+                return redirect()->intended('assesperawat');
             }
         }
         return back()->with('loginError', 'Login gagal !');

@@ -48,16 +48,16 @@
                                 </div>
                             </div>
                         </div>
-                      
+
                     </tbody>
                 </table>
 
-               
-
-             
 
 
-               
+
+
+
+
 
                 <!-- Cara Keluar -->
 
@@ -65,32 +65,25 @@
                     <div class="card">
                         <div class="card-header bg-secondary" id="headingOne">
                             <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left text-light font-weight" type="button"
-                                    data-toggle="collapse" data-target="#collapseOne3" aria-expanded="true"
-                                    aria-controls="collapseOne3">
+                                <button class="btn btn-link btn-block text-left text-light font-weight" type="button" data-toggle="collapse" data-target="#collapseOne3" aria-expanded="true" aria-controls="collapseOne3">
                                     <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Cara Keluar Dari Instalasi Gawat
                                     Darurat
                                 </button>
                             </h2>
                         </div>
 
-                        <div id="collapseOne3" class="collapse" aria-labelledby="headingOne"
-                            data-parent="#accordionExample3">
+                        <div id="collapseOne3" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample3">
                             <div class="card-body bg-light">
 
+                                <div class="form-group" data-select2-id="29">
+                                    <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true">
+                                        @foreach ($alasanpulang as $i => $p)
+                                        <option selected="selected" data-select2-id="{{ $p->alasan_pulang }}">{{ $p->alasan_pulang }}</option>
+                                        @endforeach
+                                    </select>
 
-                                            @foreach ($alasanpulang as $i => $p)
-                                                    <div class="form-group">
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="radio"
-                                                                name="pulang" id="pulang"
-                                                                value="{{ $p->alasan_pulang }}">
-                                                            <label
-                                                                class="form-check-label">{{ $p->alasan_pulang }}</label>
-                                                        </div>
-
-                                                    </div>
-                                            @endforeach
+                                </div>
+                             
 
 
                             </div>
@@ -104,16 +97,13 @@
                     <div class="card">
                         <div class="card-header bg-secondary" id="headingOne">
                             <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left text-light font-weight" type="button"
-                                    data-toggle="collapse" data-target="#collapseOne4" aria-expanded="true"
-                                    aria-controls="collapseOne4">
+                                <button class="btn btn-link btn-block text-left text-light font-weight" type="button" data-toggle="collapse" data-target="#collapseOne4" aria-expanded="true" aria-controls="collapseOne4">
                                     <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Keadaan Pasien Saat Keluar
                                 </button>
                             </h2>
                         </div>
 
-                        <div id="collapseOne4" class="collapse" aria-labelledby="headingOne"
-                            data-parent="#accordionExample4">
+                        <div id="collapseOne4" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample4">
                             <div class="card-body bg-light">
 
                                 <table class="table">
@@ -121,32 +111,28 @@
                                         <tr>
                                             <td>
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="sembuh"
-                                                        name="sembuh" value="Sembuh">
+                                                    <input type="checkbox" class="form-check-input" id="sembuh" name="sembuh" value="Sembuh">
                                                     <label class="form-check-label" for="exampleCheck1">Sembuh
                                                     </label>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="tidaksembuh"
-                                                        name="tidaksembuh" value="Tidak Sembuh">
+                                                    <input type="checkbox" class="form-check-input" id="tidaksembuh" name="tidaksembuh" value="Tidak Sembuh">
                                                     <label class="form-check-label" for="exampleCheck1">Tidak Sembuh
                                                     </label>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="perbaikan"
-                                                        name="perbaikan" value="Perbaikan">
+                                                    <input type="checkbox" class="form-check-input" id="perbaikan" name="perbaikan" value="Perbaikan">
                                                     <label class="form-check-label" for="exampleCheck1">Perbaikan
                                                     </label>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="Meninggal"
-                                                        name="Meninggal" value="Meninggal">
+                                                    <input type="checkbox" class="form-check-input" id="Meninggal" name="Meninggal" value="Meninggal">
                                                     <label class="form-check-label" for="exampleCheck1">Meninggal
                                                     </label>
                                                 </div>
@@ -178,7 +164,6 @@
 </div>
 
 <script>
-  
     $(".simpanassesperawat").click(function() {
         var data = $('.formerm').serializeArray();
         var subject = $('#subject').val()
