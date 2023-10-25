@@ -76,14 +76,14 @@ class PerawatController extends Controller
     }
     public function formermperawat()
     {
-       
+
         $alasanplg  = DB::select('SELECT * FROM mt_alasan_pulang');
 
         return view(
             'perawat.formermperawat',
             [
                 'title' => 'SiRAMAH DOKTER',
-                
+
                 'alasanpulang' => $alasanplg
 
 
@@ -91,6 +91,50 @@ class PerawatController extends Controller
         );
     }
 
+    public function riwayatcpptperawat(Request $request)
+    {
+        $norm = $request->norm;
+        $cek = DB::select('SELECT
+      fc_nama_unit1(kode_unit) AS nama_unit
+      ,a.*
+
+      FROM assesmen_dokters a
+      WHERE  id_pasien = ?', [$norm]);
+
+        return view(
+            'perawat.riwayatpoliklinik',
+            [
+                'norm' => $norm,
+                'cek' => $cek
+            ]
+        );
+    }
+    public function hasillabperawat(Request $request)
+    {
+        $kodekunjungan = $request->kj;
+        $cek = DB::select('select * from ts_layanan_header where kode_kunjungan = ? and kode_unit = ?', [$kodekunjungan, '3002']);
+
+        if (count($cek) == 0) {
+            echo "<h4 class='text-danger'> Tidak Ada Hasil Laboratorium ...</h5>";
+        } else {
+            return view('perawat.hasillabo', compact(
+                ['cek']
+            ));
+        }
+    }
+
+    public function hasilradioperawat(Request $request)
+    {
+        $kodekunjungan = $request->kj;
+        $cek = DB::select('select *,date(tgl_baca) as tanggalnya,fc_acc_number_ris(id_detail) as acc_number from ts_hasil_expertisi where kode_kunjungan = ?', [$kodekunjungan]);
+        if (count($cek) == 0) {
+            echo "<h4 class='text-danger'> Tidak Ada Hasil Radiologi ...</h5>";
+        } else {
+            return view('perawat.hasilradioperawat', compact(
+                ['cek']
+            ));
+        }
+    }
     public function simpanassemenperawat(Request $request)
     {
         $a = $request->all();

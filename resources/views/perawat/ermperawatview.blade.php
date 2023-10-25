@@ -43,7 +43,7 @@
                                 <b>Usia</b> <a class="float-right">35 Th</a>
                             </li>
                         </ul>
-                        <a href="#" class="btn btn-primary btn-block riwayatcppt"><b>Catatan Medis</b></a>
+                        <a href="#" class="btn btn-primary btn-block riwayatcpptperawat"><b>Catatan Medis</b></a>
 
 
 
@@ -94,11 +94,11 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="card-header">
-                                            <a class=" btn btn-info btn-sm hasillab ">
+                                            <a class=" btn btn-info btn-sm hasillabperawat ">
                                                 <i class="bi bi-journal-text"></i>
                                                 Hasil laboratorium
                                             </a>
-                                            <a class=" btn btn-info btn-sm hasilradio">
+                                            <a class=" btn btn-info btn-sm hasilradioperawat">
                                                 <i class="bi bi-journal-text "></i>
                                                 Hasil Radiologi
                                             </a>
@@ -665,7 +665,7 @@
 
 
 
-    $(".riwayatcppt").click(function() {
+    $(".riwayatcpptperawat").click(function() {
         spinner = $('#loader2');
         spinner.show();
         norm = $('#norm').val()
@@ -678,7 +678,7 @@
                 norm
 
             },
-            url: '<?= route('riwayatcppt') ?>',
+            url: '<?= route('riwayatcpptperawat') ?>',
             error: function(data) {
                 spinner.hide();
                 alert('oke!!')
@@ -713,7 +713,7 @@
             }
         });
     });
-    $(".hasillab").click(function() {
+    $(".hasillabperawat").click(function() {
         spinner = $('#loader2');
         spinner.show();
         kj = $('#kj').val()
@@ -726,7 +726,7 @@
                 _token: "{{ csrf_token() }}",
                 kj: $('#kj').val(),
             },
-            url: " {{ route('hasillabo') }}",
+            url: " {{ route('hasillabperawat') }}",
 
             error: function(data) {
                 spinner.hide();
@@ -739,7 +739,7 @@
         });
     });
 
-    $(".hasilradio").click(function() {
+    $(".hasilradioperawat").click(function() {
         spinner = $('#loader2');
         spinner.show();
         kj = $('#kj').val()
@@ -752,7 +752,7 @@
                 _token: "{{ csrf_token() }}",
                 kj: $('#kj').val(),
             },
-            url: " {{ route('hasilradio') }}",
+            url: " {{ route('hasilradioperawat') }}",
 
             error: function(data) {
                 spinner.hide();

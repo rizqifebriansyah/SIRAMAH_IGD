@@ -4,9 +4,110 @@
 
 <div class="card-body">
     <div class="card">
-
-        <div class="card-header text-bold bg-warning" style="text-align: center;">S.O.A.P</div>
         <form action="" class="formerm">
+
+            <div class="accordion" id="accordionExample9">
+                <div class="card">
+                    <div class="card-header bg-secondary" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link btn-block text-left text-light font-weight" type="button"
+                                data-toggle="collapse" data-target="#collapseOne9" aria-expanded="true"
+                                aria-controls="collapseOne9">
+                                <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Tanda-tanda Vital
+                            </button>
+                        </h2>
+                    </div>
+
+                    <div id="collapseOne9" class="collapse" aria-labelledby="headingOne"
+                        data-parent="#accordionExample9">
+                        <div class="card-body bg-light">
+
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td class="text-bold font-italic">Tekanan Darah</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control"
+                                                    placeholder="Tekanan darah pasien ..."
+                                                    aria-label="Recipient's username" id="tekanandarah"
+                                                    name="tekanandarah" aria-describedby="basic-addon2" value="">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" id="basic-addon2">mmHg</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="text-bold font-italic">Frekuensi Nadi</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control"
+                                                    placeholder="Frekuensi nadi pasien ..." id="frekuensinadi"
+                                                    name="frekuensinadi" aria-label="Recipient's username"
+                                                    aria-describedby="basic-addon2" value="">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" id="basic-addon2">x/menit</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-bold font-italic">Frekuensi Nafas</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control"
+                                                    placeholder="Frekuensi Nafas Pasien ..." name="frekuensinafas"
+                                                    id="frekuensinafas" aria-label="Recipient's username"
+                                                    aria-describedby="basic-addon2" value="">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" id="basic-addon2">x/menit</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="text-bold font-italic">Suhu</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control"
+                                                    placeholder="Suhu tubuh pasien ..." aria-label="Suhu tubuh pasien"
+                                                    name="suhutubuh" id="suhutubuh" aria-describedby="basic-addon2"
+                                                    value="">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" id="basic-addon2">°C</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-bold font-italic">Berat Badan / tinggi badan / IMT</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control"
+                                                    placeholder="Berat badan Pasien ..." name="beratbadan"
+                                                    id="beratbadan" aria-label="Recipient's username"
+                                                    aria-describedby="basic-addon2" value="">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" id="basic-addon2">Kg</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="text-bold font-italic">Umur</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" placeholder="Umur pasien ..."
+                                                    aria-label="Suhu tubuh pasien" name="usia" id="usia"
+                                                    aria-describedby="basic-addon2" value="">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" id="basic-addon2">th</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-header text-bold bg-warning" style="text-align: center;">S.O.A.P</div>
             <div class="card-body">
                 <!-- assesmen dokter -->
                 <table class="table">
