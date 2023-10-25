@@ -36,6 +36,12 @@
                             <li class="list-group-item">
                                 <b>Suhu</b> <a class="float-right">36 °C</a>
                             </li>
+                            <li class="list-group-item">
+                                <b>Berat badan</b> <a class="float-right">50 Kg</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Usia</b> <a class="float-right">35 Th</a>
+                            </li>
                         </ul>
                         <a href="#" class="btn btn-primary btn-block riwayatcppt"><b>Catatan Medis</b></a>
 

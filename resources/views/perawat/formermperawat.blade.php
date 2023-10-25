@@ -4,8 +4,110 @@
 
 <div class="card-body">
     <div class="card">
-        <div class="card-header text-bold bg-warning" style="text-align: center;">S.O.A.P</div>
         <form action="" class="formerm">
+
+            <div class="accordion" id="accordionExample9">
+                <div class="card">
+                    <div class="card-header bg-secondary" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link btn-block text-left text-light font-weight" type="button"
+                                data-toggle="collapse" data-target="#collapseOne9" aria-expanded="true"
+                                aria-controls="collapseOne9">
+                                <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Tanda-tanda Vital
+                            </button>
+                        </h2>
+                    </div>
+
+                    <div id="collapseOne9" class="collapse" aria-labelledby="headingOne"
+                        data-parent="#accordionExample9">
+                        <div class="card-body bg-light">
+
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td class="text-bold font-italic">Tekanan Darah</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control"
+                                                    placeholder="Tekanan darah pasien ..."
+                                                    aria-label="Recipient's username" id="tekanandarah"
+                                                    name="tekanandarah" aria-describedby="basic-addon2" value="">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" id="basic-addon2">mmHg</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="text-bold font-italic">Frekuensi Nadi</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control"
+                                                    placeholder="Frekuensi nadi pasien ..." id="frekuensinadi"
+                                                    name="frekuensinadi" aria-label="Recipient's username"
+                                                    aria-describedby="basic-addon2" value="">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" id="basic-addon2">x/menit</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-bold font-italic">Frekuensi Nafas</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control"
+                                                    placeholder="Frekuensi Nafas Pasien ..." name="frekuensinafas"
+                                                    id="frekuensinafas" aria-label="Recipient's username"
+                                                    aria-describedby="basic-addon2" value="">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" id="basic-addon2">x/menit</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="text-bold font-italic">Suhu</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control"
+                                                    placeholder="Suhu tubuh pasien ..." aria-label="Suhu tubuh pasien"
+                                                    name="suhutubuh" id="suhutubuh" aria-describedby="basic-addon2"
+                                                    value="">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" id="basic-addon2">°C</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-bold font-italic">Berat Badan / tinggi badan / IMT</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control"
+                                                    placeholder="Berat badan Pasien ..." name="beratbadan"
+                                                    id="beratbadan" aria-label="Recipient's username"
+                                                    aria-describedby="basic-addon2" value="">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" id="basic-addon2">Kg</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="text-bold font-italic">Umur</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" placeholder="Umur pasien ..."
+                                                    aria-label="Suhu tubuh pasien" name="usia" id="usia"
+                                                    aria-describedby="basic-addon2" value="">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" id="basic-addon2">th</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-header text-bold bg-warning" style="text-align: center;">S.O.A.P</div>
             <div class="card-body">
                 <!-- assesmen dokter -->
                 <table class="table">
@@ -65,25 +167,30 @@
                     <div class="card">
                         <div class="card-header bg-secondary" id="headingOne">
                             <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left text-light font-weight" type="button" data-toggle="collapse" data-target="#collapseOne3" aria-expanded="true" aria-controls="collapseOne3">
+                                <button class="btn btn-link btn-block text-left text-light font-weight" type="button"
+                                    data-toggle="collapse" data-target="#collapseOne3" aria-expanded="true"
+                                    aria-controls="collapseOne3">
                                     <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Cara Keluar Dari Instalasi Gawat
                                     Darurat
                                 </button>
                             </h2>
                         </div>
 
-                        <div id="collapseOne3" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample3">
+                        <div id="collapseOne3" class="collapse" aria-labelledby="headingOne"
+                            data-parent="#accordionExample3">
                             <div class="card-body bg-light">
 
                                 <div class="form-group" data-select2-id="29">
-                                    <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true">
+                                    <select class="form-control select2 select2-hidden-accessible"
+                                        style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true">
                                         @foreach ($alasanpulang as $i => $p)
-                                        <option selected="selected" data-select2-id="{{ $p->alasan_pulang }}">{{ $p->alasan_pulang }}</option>
+                                            <option selected="selected" data-select2-id="{{ $p->alasan_pulang }}">
+                                                {{ $p->alasan_pulang }}</option>
                                         @endforeach
                                     </select>
 
                                 </div>
-                             
+
 
 
                             </div>
@@ -97,13 +204,16 @@
                     <div class="card">
                         <div class="card-header bg-secondary" id="headingOne">
                             <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left text-light font-weight" type="button" data-toggle="collapse" data-target="#collapseOne4" aria-expanded="true" aria-controls="collapseOne4">
+                                <button class="btn btn-link btn-block text-left text-light font-weight" type="button"
+                                    data-toggle="collapse" data-target="#collapseOne4" aria-expanded="true"
+                                    aria-controls="collapseOne4">
                                     <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Keadaan Pasien Saat Keluar
                                 </button>
                             </h2>
                         </div>
 
-                        <div id="collapseOne4" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample4">
+                        <div id="collapseOne4" class="collapse" aria-labelledby="headingOne"
+                            data-parent="#accordionExample4">
                             <div class="card-body bg-light">
 
                                 <table class="table">
@@ -111,28 +221,32 @@
                                         <tr>
                                             <td>
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="sembuh" name="sembuh" value="Sembuh">
+                                                    <input type="checkbox" class="form-check-input" id="sembuh"
+                                                        name="sembuh" value="Sembuh">
                                                     <label class="form-check-label" for="exampleCheck1">Sembuh
                                                     </label>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="tidaksembuh" name="tidaksembuh" value="Tidak Sembuh">
+                                                    <input type="checkbox" class="form-check-input" id="tidaksembuh"
+                                                        name="tidaksembuh" value="Tidak Sembuh">
                                                     <label class="form-check-label" for="exampleCheck1">Tidak Sembuh
                                                     </label>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="perbaikan" name="perbaikan" value="Perbaikan">
+                                                    <input type="checkbox" class="form-check-input" id="perbaikan"
+                                                        name="perbaikan" value="Perbaikan">
                                                     <label class="form-check-label" for="exampleCheck1">Perbaikan
                                                     </label>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="Meninggal" name="Meninggal" value="Meninggal">
+                                                    <input type="checkbox" class="form-check-input" id="Meninggal"
+                                                        name="Meninggal" value="Meninggal">
                                                     <label class="form-check-label" for="exampleCheck1">Meninggal
                                                     </label>
                                                 </div>
@@ -153,7 +267,8 @@
                         </div>
                     </div>
                 </div>
-                <div type="button" class="btn float-right btn-success simpanassesperawat" style="margin-top: 20px;">SIMPAN
+                <div type="button" class="btn float-right btn-success simpanassesperawat" style="margin-top: 20px;">
+                    SIMPAN
                 </div>
 
             </div>

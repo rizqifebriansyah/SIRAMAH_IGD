@@ -16,8 +16,69 @@
                 <table class="table">
                     <tbody>
                         <tr>
+                            <td class="text-bold font-italic">Tekanan Darah</td>
+                            <td>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Tekanan darah pasien ..." aria-label="Recipient's username" id="tekanandarah" name="tekanandarah" aria-describedby="basic-addon2" value="">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="basic-addon2">mmHg</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="text-bold font-italic">Frekuensi Nadi</td>
+                            <td>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Frekuensi nadi pasien ..." id="frekuensinadi" name="frekuensinadi" aria-label="Recipient's username" aria-describedby="basic-addon2" value="">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="basic-addon2">x/menit</span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-bold font-italic">Frekuensi Nafas</td>
+                            <td>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Frekuensi Nafas Pasien ..." name="frekuensinafas" id="frekuensinafas" aria-label="Recipient's username" aria-describedby="basic-addon2" value="">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="basic-addon2">x/menit</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="text-bold font-italic">Suhu</td>
+                            <td>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Suhu tubuh pasien ..." aria-label="Suhu tubuh pasien" name="suhutubuh" id="suhutubuh" aria-describedby="basic-addon2" value="">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="basic-addon2">°C</span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-bold font-italic">Berat Badan / tinggi badan / IMT</td>
+                            <td>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Berat badan Pasien ..." name="beratbadan" id="beratbadan" aria-label="Recipient's username" aria-describedby="basic-addon2" value="">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="basic-addon2">Kg</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="text-bold font-italic">Umur</td>
+                            <td>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Umur pasien ..." aria-label="Suhu tubuh pasien" name="usia" id="usia" aria-describedby="basic-addon2" value="">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="basic-addon2">th</span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
                             <td class="text-bold font-italic">Nama pasien</td>
-                            <td colspan="2">
+                            <td colspan="3">
 
                                 <textarea class="form-control" id="namapasien" name="namapasien" placeholder="Ketik nama pasien ..."></textarea>
 
@@ -45,7 +106,7 @@
                         </tr>
                         <tr>
                             <td class="text-bold font-italic">Primary Survey</td>
-                            <td colspan="2">
+                            <td colspan="3">
                                 <h5> A (Airway) , B (Breathing), C (Circulation), D (Disability), E (Exposure)</h5>
                                 <h5 class="text-bold">Keterangan</h5>
                                 <textarea class="form-control" id="primarysurvey" name="primarysurvey" placeholder="Ketik primary survey ..."></textarea>
@@ -60,28 +121,7 @@
 
                             </td>
                         </tr>
-                        <tr>
-                            <td class="text-bold font-italic">Klasifikasi Pasien</td>
 
-                            <td>
-
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="form-group form-check">
-                                            <input type="checkbox" class="form-check-input" id="klasifikasipasien" name="klasifikasipasien" value="IGD">
-                                            <label class="form-check-label" for="exampleCheck1">IGD</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group form-check">
-                                            <input type="checkbox" class="form-check-input" id="klasifikasipasien" name="klasifikasipasien" value="POLI KLINIK">
-                                            <label class="form-check-label" for="exampleCheck1">Poliklinik
-                                            </label>
-                                        </div>
-                                    </div>
-
-                            </td>
-                        </tr>
                         <tr>
                             <td class="text-bold font-italic">Riwayat Penyakit / Pengobatan Sebelumnya</td>
                             <td colspan="3">
@@ -343,7 +383,7 @@
     $(".triasedewasa").click(function() {
         spinner = $('#loader2');
         spinner.show();
-        
+
 
 
         $.ajax({
@@ -367,7 +407,7 @@
     $(".triaseanak").click(function() {
         spinner = $('#loader2');
         spinner.show();
-        
+
 
 
         $.ajax({

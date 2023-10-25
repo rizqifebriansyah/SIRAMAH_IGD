@@ -22,6 +22,12 @@
                             <li class="list-group-item">
                                 <b>Suhu</b> <a class="float-right">36 °C</a>
                             </li>
+                            <li class="list-group-item">
+                                <b>Berat badan</b> <a class="float-right">50 Kg</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Usia</b> <a class="float-right">35 Th</a>
+                            </li>
                         </ul>
                         <a href="#" class="btn btn-primary btn-block"><b>Catatan Medis</b></a>
 
@@ -44,7 +50,7 @@
                         <ul class="nav nav-pills flex-column">
                             <li class="nav-item" id="pemeriksaan">
                                 <a href="#" class="nav-link formtriasedewasa">
-                                    <i class="fas fa-male mr-2"></i>TRIASE 
+                                    <i class="fas fa-male mr-2"></i>TRIASE
                                 </a>
                             </li>
                             <li class="nav-item">
