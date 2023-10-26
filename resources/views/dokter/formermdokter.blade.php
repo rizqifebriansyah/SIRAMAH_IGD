@@ -24,14 +24,12 @@
 
                             <table class="table">
                                 <tbody>
+                                    @if ($ttv == NULL)
                                     <tr>
                                         <td class="text-bold font-italic">Tekanan Darah</td>
                                         <td>
                                             <div class="input-group">
-                                                <input type="text" class="form-control"
-                                                    placeholder="Tekanan darah pasien ..."
-                                                    aria-label="Recipient's username" id="tekanandarah"
-                                                    name="tekanandarah" aria-describedby="basic-addon2" value="">
+                                                <input type="text" class="form-control" placeholder="Tekanan darah pasien ..." aria-label="Recipient's username" id="tekanandarah" name="tekanandarah" aria-describedby="basic-addon2" value="">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text" id="basic-addon2">mmHg</span>
                                                 </div>
@@ -40,10 +38,7 @@
                                         <td class="text-bold font-italic">Frekuensi Nadi</td>
                                         <td>
                                             <div class="input-group">
-                                                <input type="text" class="form-control"
-                                                    placeholder="Frekuensi nadi pasien ..." id="frekuensinadi"
-                                                    name="frekuensinadi" aria-label="Recipient's username"
-                                                    aria-describedby="basic-addon2" value="">
+                                                <input type="text" class="form-control" placeholder="Frekuensi nadi pasien ..." id="frekuensinadi" name="frekuensinadi" aria-label="Recipient's username" aria-describedby="basic-addon2" value="">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text" id="basic-addon2">x/menit</span>
                                                 </div>
@@ -54,10 +49,7 @@
                                         <td class="text-bold font-italic">Frekuensi Nafas</td>
                                         <td>
                                             <div class="input-group">
-                                                <input type="text" class="form-control"
-                                                    placeholder="Frekuensi Nafas Pasien ..." name="frekuensinafas"
-                                                    id="frekuensinafas" aria-label="Recipient's username"
-                                                    aria-describedby="basic-addon2" value="">
+                                                <input type="text" class="form-control" placeholder="Frekuensi Nafas Pasien ..." name="frekuensinafas" id="frekuensinafas" aria-label="Recipient's username" aria-describedby="basic-addon2" value="">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text" id="basic-addon2">x/menit</span>
                                                 </div>
@@ -66,10 +58,7 @@
                                         <td class="text-bold font-italic">Suhu</td>
                                         <td>
                                             <div class="input-group">
-                                                <input type="text" class="form-control"
-                                                    placeholder="Suhu tubuh pasien ..." aria-label="Suhu tubuh pasien"
-                                                    name="suhutubuh" id="suhutubuh" aria-describedby="basic-addon2"
-                                                    value="">
+                                                <input type="text" class="form-control" placeholder="Suhu tubuh pasien ..." aria-label="Suhu tubuh pasien" name="suhutubuh" id="suhutubuh" aria-describedby="basic-addon2" value="">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text" id="basic-addon2">°C</span>
                                                 </div>
@@ -80,10 +69,7 @@
                                         <td class="text-bold font-italic">Berat Badan / tinggi badan / IMT</td>
                                         <td>
                                             <div class="input-group">
-                                                <input type="text" class="form-control"
-                                                    placeholder="Berat badan Pasien ..." name="beratbadan"
-                                                    id="beratbadan" aria-label="Recipient's username"
-                                                    aria-describedby="basic-addon2" value="">
+                                                <input type="text" class="form-control" placeholder="Berat badan Pasien ..." name="beratbadan" id="beratbadan" aria-label="Recipient's username" aria-describedby="basic-addon2" value="">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text" id="basic-addon2">Kg</span>
                                                 </div>
@@ -92,15 +78,75 @@
                                         <td class="text-bold font-italic">Umur</td>
                                         <td>
                                             <div class="input-group">
-                                                <input type="text" class="form-control" placeholder="Umur pasien ..."
-                                                    aria-label="Suhu tubuh pasien" name="usia" id="usia"
-                                                    aria-describedby="basic-addon2" value="">
+                                                <input type="text" class="form-control" placeholder="Umur pasien ..." aria-label="Suhu tubuh pasien" name="usia" id="usia" aria-describedby="basic-addon2" value="">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text" id="basic-addon2">th</span>
                                                 </div>
                                             </div>
                                         </td>
                                     </tr>
+                                    @else
+                                    <tr>
+                                        <td class="text-bold font-italic">Tekanan Darah</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" placeholder="Tekanan darah pasien ..." aria-label="Recipient's username" id="tekanandarah" name="tekanandarah" aria-describedby="basic-addon2" value="{{ $ttv[0]->tekanan_darah }}">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" id="basic-addon2">mmHg</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="text-bold font-italic">Frekuensi Nadi</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" placeholder="Frekuensi nadi pasien ..." id="frekuensinadi" name="frekuensinadi" aria-label="Recipient's username" aria-describedby="basic-addon2" value="{{ $ttv[0]->frekuensi_nadi }}">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" id="basic-addon2">x/menit</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-bold font-italic">Frekuensi Nafas</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" placeholder="Frekuensi Nafas Pasien ..." name="frekuensinafas" id="frekuensinafas" aria-label="Recipient's username" aria-describedby="basic-addon2" value="{{ $ttv[0]->frekuensi_nafas }}">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" id="basic-addon2">x/menit</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="text-bold font-italic">Suhu</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" placeholder="Suhu tubuh pasien ..." aria-label="Suhu tubuh pasien" name="suhutubuh" id="suhutubuh" aria-describedby="basic-addon2" value="{{ $ttv[0]->suhu }}">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" id="basic-addon2">°C</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-bold font-italic">Berat Badan / tinggi badan / IMT</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" placeholder="Berat badan Pasien ..." name="beratbadan" id="beratbadan" aria-label="Recipient's username" aria-describedby="basic-addon2" value="{{ $ttv[0]->berat_badan }}">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" id="basic-addon2">Kg</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="text-bold font-italic">Umur</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" placeholder="Umur pasien ..." aria-label="Suhu tubuh pasien" name="usia" id="usia" aria-describedby="basic-addon2" value="{{ $ttv[0]->umur }}">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" id="basic-addon2">th</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    @endif
                                 </tbody>
                             </table>
                         </div>

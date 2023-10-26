@@ -118,6 +118,7 @@ class DokterController extends Controller
         $jk = $request->jk;
         $kj = $request->kj;
         $tglmasuk = $request->tglmasuk;
+        $ttv = DB::connection('mysql2')->select('SELECT tekanan_darah, frekuensi_nafas, frekuensi_nadi, suhu, berat_badan, umur FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
 
         $cek = DB::select('SELECT
       fc_nama_unit1(kode_unit) AS nama_unit
@@ -135,7 +136,8 @@ class DokterController extends Controller
                 'namapx' => $namapx,
                 'jk' => $jk,
                 'kj' => $kj,
-                'tglmasuk' => $tglmasuk
+                'tglmasuk' => $tglmasuk,
+                'ttv' => $ttv
             ]
         );
     }
@@ -185,22 +187,28 @@ class DokterController extends Controller
     public function formdewasa()
     {
 
+
         return view(
             'dokter.formdewasa',
             [
+
                 'title' => 'SiRAMAH DOKTER',
 
 
             ]
         );
     }
-    public function formermdokter()
+    public function formermdokter(Request $request)
     {
+        $kj = $request->kj;
+        $norm = $request->norm;
+
         $layananlab = DB::select("CALL SP_PANGGIL_TARIF_LAB('1','')");
         $layanan = DB::select("CALL SP_CARI_TARIF_PELAYANAN_RAD('1','','1')");
         $diagnosa = DB::select('SELECT * FROM mt_jenis_diagnosa_medis');
         $alasanplg  = DB::select('SELECT * FROM mt_alasan_pulang');
-
+        $ttv = DB::connection('mysql2')->select('SELECT tekanan_darah, frekuensi_nafas, frekuensi_nadi, suhu, berat_badan, umur FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
+        $assesdok = DB::connection('mysql2')->select('SELECT * FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
         return view(
             'dokter.formermdokter',
             [
@@ -208,7 +216,9 @@ class DokterController extends Controller
                 'layananlab' => $layananlab,
                 'layanan' => $layanan,
                 'diagnosa' => $diagnosa,
-                'alasanpulang' => $alasanplg
+                'alasanpulang' => $alasanplg,
+                'ttv' => $ttv,
+                'assesdok' => $assesdok
 
 
             ]
@@ -315,7 +325,7 @@ class DokterController extends Controller
 
 
         $assesmen = erm_cppt_dokter::create([
-            'id_cppt_dokter'=> $user,
+            'id_cppt_dokter' => $user,
             'tgl_kunjungan' => $request->tglmasuk,
 
             'tgl_input' => $now,
@@ -327,7 +337,7 @@ class DokterController extends Controller
             'assesment' => $request->assesmen,
             'planning' => $request->planning,
             '30_pertama' => $request->tigap,
-            '30_kedua'=> $request->tigak,
+            '30_kedua' => $request->tigak,
             'kode_paramedis' => $kp,
             'status' => '1'
 

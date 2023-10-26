@@ -53,7 +53,7 @@ class PerawatController extends Controller
         $jk = $request->jk;
         $kj = $request->kj;
         $tglmasuk = $request->tglmasuk;
-
+        $ttv = DB::connection('mysql2')->select('SELECT tekanan_darah, frekuensi_nafas, frekuensi_nadi, suhu, berat_badan, umur FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
         $cek = DB::select('SELECT
       fc_nama_unit1(kode_unit) AS nama_unit
       ,a.*
@@ -70,20 +70,23 @@ class PerawatController extends Controller
                 'namapx' => $namapx,
                 'jk' => $jk,
                 'kj' => $kj,
-                'tglmasuk' => $tglmasuk
+                'tglmasuk' => $tglmasuk,
+                'ttv' => $ttv
             ]
         );
     }
-    public function formermperawat()
+    public function formermperawat(Request $request)
     {
+        $kj = $request->kj;
+        $norm = $request->norm;
 
         $alasanplg  = DB::select('SELECT * FROM mt_alasan_pulang');
-
+        $assesper = DB::connection('mysql2')->select('SELECT * FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
         return view(
             'perawat.formermperawat',
             [
                 'title' => 'SiRAMAH DOKTER',
-
+                'assesper' => $assesper,
                 'alasanpulang' => $alasanplg
 
 
@@ -143,7 +146,13 @@ class PerawatController extends Controller
         $kp = auth()->user()->kode_paramedis;
 
         $assesmen = erm_cppt_perawat::create([
-            'id_cppt_dokter'=> $user,
+            'id_cppt_dokter' => $user,
+            'tekanan_darah' => $request->tekanandarah,
+            'frekuensi_nadi' => $request->frekuensinadi,
+            'frekuensi_nafas' => $request->frekuensinafas,
+            'suhu' => $request->suhutubuh,
+            'berat_badan' => $request->beratbadan,
+            'umur' => $request->usia,
             'tgl_kunjungan' => $request->tglmasuk,
             'tgl_input' => $now,
             'kode_unit' => '1002',
@@ -155,6 +164,7 @@ class PerawatController extends Controller
             'planning' => $request->planning,
             'kode_paramedis' => $kp,
             'status' => '1'
+
 
         ]);
 
@@ -168,5 +178,42 @@ class PerawatController extends Controller
         echo json_encode($back);
         die;
     }
-}
+    public function updateassemenperawat(Request $request)
+    {
+        $a = $request->all();
+        $tekanandarah = $request->tekanandarah;
+        $frekuensinadi = $request->frekuensinadi;
+        $frekuensinafas = $request->frekuensinafas;
+        $suhu = $request->suhutubuh;
+        $beratbadan = $request->beratbadan;
+        $umur = $request->usia;
+        $subyektif = $request->subject;
+        $obyektif = $request->objek;
+        $assesment = $request->assesmen;
+        $planning = $request->planning;
+        $kj = $request->kj;
+        $norm = $request->norm;
+        $now = Carbon::now();
+        $user = auth()->user()->id_simrs;
+        $kp = auth()->user()->kode_paramedis;
+        $update = DB::connection('mysql2')->select('UPDATE erm_cppt_perawat
+        SET tekanan_darah = ? , frekuensi_nadi = ?, frekuensi_nafas = ? , suhu = ?, berat_badan = ? , umur = ?,
+        subyektif = ? , obyektif = ?, assesment = ? , planning = ?
+        WHERE no_rm = ? AND kode_kunjungan = ?', [$tekanandarah,$frekuensinadi, $frekuensinafas, $suhu, $beratbadan,  $umur,$subyektif,  $obyektif,$assesment,$planning,$norm,$kj]);
 
+
+
+
+
+
+
+
+
+        $back = [
+            'kode' => 200,
+            'message' => 'Berhasil'
+        ];
+        echo json_encode($back);
+        die;
+    }
+}

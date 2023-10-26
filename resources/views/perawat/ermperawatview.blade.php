@@ -21,32 +21,55 @@
                         <input type="text" name="kj" id="kj" value="{{ $kj }}" hidden>
                         <input type="text" name="tglmasuk" id="tglmasuk" value="{{ $tglmasuk }}" hidden>
 
+                        @if ($ttv == null)
+                            <p class="text-muted text-center">PASIEN INSTALASI GAWAT DARURAT</p>
+                            <ul class="list-group list-group-unbordered mb-3">
+                                <li class="list-group-item">
+                                    <b>TD</b> <a class="float-right"> mmhg</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Nadi</b> <a class="float-right"> x/menit</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Frekuensi Pernafasan</b> <a class="float-right"> x/menit</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Suhu</b> <a class="float-right"> °C</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Berat badan</b> <a class="float-right"> Kg</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Usia</b> <a class="float-right"> Th</a>
+                                </li>
+                            </ul>
+                        @else
+                            <p class="text-muted text-center">PASIEN INSTALASI GAWAT DARURAT</p>
+                            <ul class="list-group list-group-unbordered mb-3">
+                                <li class="list-group-item">
+                                    <b>TD</b> <a class="float-right">{{ $ttv[0]->tekanan_darah }} mmhg</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Nadi</b> <a class="float-right">{{ $ttv[0]->frekuensi_nadi }} x/menit</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Frekuensi Pernafasan</b> <a class="float-right">{{ $ttv[0]->frekuensi_nafas }}
+                                        x/menit</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Suhu</b> <a class="float-right">{{ $ttv[0]->suhu }} °C</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Berat badan</b> <a class="float-right">{{ $ttv[0]->berat_badan }} Kg</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Usia</b> <a class="float-right">{{ $ttv[0]->umur }} Th</a>
+                                </li>
+                            </ul>
+                        @endif
 
-                        <p class="text-muted text-center">PASIEN INSTALASI GAWAT DARURAT</p>
-                        <ul class="list-group list-group-unbordered mb-3">
-                            <li class="list-group-item">
-                                <b>TD</b> <a class="float-right">120/100 mmhg</a>
-                            </li>
-                            <li class="list-group-item">
-                                <b>Nadi</b> <a class="float-right">60 x/menit</a>
-                            </li>
-                            <li class="list-group-item">
-                                <b>Frekuensi Pernafasan</b> <a class="float-right">30 x/menit</a>
-                            </li>
-                            <li class="list-group-item">
-                                <b>Suhu</b> <a class="float-right">36 °C</a>
-                            </li>
-                            <li class="list-group-item">
-                                <b>Berat badan</b> <a class="float-right">50 Kg</a>
-                            </li>
-                            <li class="list-group-item">
-                                <b>Usia</b> <a class="float-right">35 Th</a>
-                            </li>
-                        </ul>
-                        <a href="#" class="btn btn-primary btn-block riwayatcpptperawat"><b>Catatan Medis</b></a>
-
-
-
+                        <a href="#" class="btn btn-primary btn-block riwayatcpptperawat"><b>Catatan
+                                Medis</b></a>
                     </div>
 
                 </div>
@@ -63,7 +86,7 @@
                     <div class="card-body p-0">
                         <ul class="nav nav-pills flex-column">
                             <li class="nav-item" id="pemeriksaan">
-                                <a href="#" class="nav-link cpptdokter">
+                                <a href="#" class="nav-link cpptperawat">
                                     <i class="fas fa-male mr-2"></i>Catatan Perkembangan Pasien Terintegrasi (CPPT)
                                 </a>
                             </li>
@@ -690,15 +713,19 @@
             }
         });
     });
-    $(".cpptdokter").click(function() {
+    $(".cpptperawat").click(function() {
         spinner = $('#loader2');
         spinner.show();
+        kj = $('#kj').val()
+        norm = $('#norm').val()
 
 
         $.ajax({
             type: "post",
             data: {
                 _token: "{{ csrf_token() }}",
+                norm,
+                kj
 
             },
             url: '<?= route('formermperawat') ?>',

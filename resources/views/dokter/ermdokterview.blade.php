@@ -22,27 +22,52 @@
                         <input type="text" name="tglmasuk" id="tglmasuk" value="{{ $tglmasuk }}" hidden>
 
 
-                        <p class="text-muted text-center">PASIEN INSTALASI GAWAT DARURAT</p>
-                        <ul class="list-group list-group-unbordered mb-3">
-                            <li class="list-group-item">
-                                <b>TD</b> <a class="float-right">120/100 mmhg</a>
-                            </li>
-                            <li class="list-group-item">
-                                <b>Nadi</b> <a class="float-right">60 x/menit</a>
-                            </li>
-                            <li class="list-group-item">
-                                <b>Frekuensi Pernafasan</b> <a class="float-right">30 x/menit</a>
-                            </li>
-                            <li class="list-group-item">
-                                <b>Suhu</b> <a class="float-right">36 °C</a>
-                            </li>
-                            <li class="list-group-item">
-                                <b>Berat badan</b> <a class="float-right">50 Kg</a>
-                            </li>
-                            <li class="list-group-item">
-                                <b>Usia</b> <a class="float-right">35 Th</a>
-                            </li>
-                        </ul>
+                        @if ($ttv == null)
+                            <p class="text-muted text-center">PASIEN INSTALASI GAWAT DARURAT</p>
+                            <ul class="list-group list-group-unbordered mb-3">
+                                <li class="list-group-item">
+                                    <b>TD</b> <a class="float-right"> mmhg</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Nadi</b> <a class="float-right"> x/menit</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Frekuensi Pernafasan</b> <a class="float-right"> x/menit</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Suhu</b> <a class="float-right"> °C</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Berat badan</b> <a class="float-right"> Kg</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Usia</b> <a class="float-right"> Th</a>
+                                </li>
+                            </ul>
+                        @else
+                            <p class="text-muted text-center">PASIEN INSTALASI GAWAT DARURAT</p>
+                            <ul class="list-group list-group-unbordered mb-3">
+                                <li class="list-group-item">
+                                    <b>TD</b> <a class="float-right">{{ $ttv[0]->tekanan_darah }} mmhg</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Nadi</b> <a class="float-right">{{ $ttv[0]->frekuensi_nadi }} x/menit</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Frekuensi Pernafasan</b> <a class="float-right">{{ $ttv[0]->frekuensi_nafas }}
+                                        x/menit</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Suhu</b> <a class="float-right">{{ $ttv[0]->suhu }} °C</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Berat badan</b> <a class="float-right">{{ $ttv[0]->berat_badan }} Kg</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Usia</b> <a class="float-right">{{ $ttv[0]->umur }} Th</a>
+                                </li>
+                            </ul>
+                        @endif
                         <a href="#" class="btn btn-primary btn-block riwayatcppt"><b>Catatan Medis</b></a>
 
 
@@ -693,13 +718,15 @@
     $(".cpptdokter").click(function() {
         spinner = $('#loader2');
         spinner.show();
-
+        kj = $('#kj').val()
+        norm = $('#norm').val()
 
         $.ajax({
             type: "post",
             data: {
                 _token: "{{ csrf_token() }}",
-
+                norm,
+                kj
             },
             url: '<?= route('formermdokter') ?>',
             error: function(data) {
