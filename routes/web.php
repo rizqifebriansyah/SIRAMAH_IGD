@@ -56,6 +56,8 @@ Route::group(['middleware' => ['hak_akses:5', 'auth']], function () {
     //simpan
     Route::post('simpanpemeriksaantriase', [DokterController::class, 'simpanpemeriksaantriase'])->name('simpanpemeriksaantriase');
     Route::post('simpanassemen', [DokterController::class, 'simpanassemen'])->name('simpanassemen');
+    Route::post('updateassemen', [DokterController::class, 'updateassemen'])->name('updateassemen');
+
 
     //cari
     Route::post('carinotriase', [DokterController::class, 'carinotriase'])->name('carinotriase');

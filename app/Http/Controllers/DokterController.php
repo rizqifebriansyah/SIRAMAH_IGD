@@ -208,7 +208,7 @@ class DokterController extends Controller
         $diagnosa = DB::select('SELECT * FROM mt_jenis_diagnosa_medis');
         $alasanplg  = DB::select('SELECT * FROM mt_alasan_pulang');
         $ttv = DB::connection('mysql2')->select('SELECT tekanan_darah, frekuensi_nafas, frekuensi_nadi, suhu, berat_badan, umur FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
-        $assesdok = DB::connection('mysql2')->select('SELECT * FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
+        $assesdok = DB::connection('mysql2')->select('SELECT * FROM erm_cppt_dokter WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
         return view(
             'dokter.formermdokter',
             [
@@ -336,14 +336,42 @@ class DokterController extends Controller
             'obyektif' => $request->objek,
             'assesment' => $request->assesmen,
             'planning' => $request->planning,
-            '30_pertama' => $request->tigap,
-            '30_kedua' => $request->tigak,
+            'tiga_pertama' => $request->tigap,
+            'tiga_kedua' => $request->tigak,
             'kode_paramedis' => $kp,
             'status' => '1'
 
         ]);
 
 
+
+
+        $back = [
+            'kode' => 200,
+            'message' => 'Berhasil'
+        ];
+        echo json_encode($back);
+        die;
+    }
+    public function updateassemen(Request $request)
+    {
+        $a = $request->all();
+        $now = Carbon::now();
+        $user = auth()->user()->id_simrs;
+        $kp = auth()->user()->kode_paramedis;
+        $subyektif = $request->subject;
+        $obyektif = $request->objek;
+        $assesment = $request->assesmen;
+        $planning = $request->planning;
+        $tiga_pertama = $request->tigap;
+        $tiga_kedua = $request->tigak;
+        $kj = $request->kj;
+        $norm = $request->norm;
+
+        $update = DB::connection('mysql2')->select('UPDATE erm_cppt_dokter
+        SET
+        subyektif = ? , obyektif = ?, assesment = ? , planning = ?, tiga_pertama = ?, tiga_kedua =?
+        WHERE no_rm = ? AND kode_kunjungan = ?', [$subyektif,  $obyektif, $assesment, $planning, $tiga_pertama, $tiga_kedua, $norm, $kj]);
 
 
         $back = [
