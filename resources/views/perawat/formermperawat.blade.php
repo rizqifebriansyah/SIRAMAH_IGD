@@ -317,10 +317,11 @@
                                                     <input type="text" class="form-control"
                                                         placeholder="Frekuensi nadi pasien ..." id="frekuensinadi"
                                                         name="frekuensinadi" aria-label="Recipient's username"
-                                                        aria-describedby="basic-addon2" value="{{ $assesper[0]->frekuensi_nadi }}">
+                                                        aria-describedby="basic-addon2"
+                                                        value="{{ $assesper[0]->frekuensi_nadi }}">
                                                     <div class="input-group-append">
-                                                        <span class="input-group-text"
-                                                            id="basic-addon2"> x/menit</span>
+                                                        <span class="input-group-text" id="basic-addon2">
+                                                            x/menit</span>
                                                     </div>
                                                 </div>
                                             </td>
@@ -332,10 +333,11 @@
                                                     <input type="text" class="form-control"
                                                         placeholder="Frekuensi Nafas Pasien ..." name="frekuensinafas"
                                                         id="frekuensinafas" aria-label="Recipient's username"
-                                                        aria-describedby="basic-addon2" value="{{ $assesper[0]->frekuensi_nafas }}">
+                                                        aria-describedby="basic-addon2"
+                                                        value="{{ $assesper[0]->frekuensi_nafas }}">
                                                     <div class="input-group-append">
-                                                        <span class="input-group-text"
-                                                            id="basic-addon2"> x/menit</span>
+                                                        <span class="input-group-text" id="basic-addon2">
+                                                            x/menit</span>
                                                     </div>
                                                 </div>
                                             </td>
@@ -360,7 +362,8 @@
                                                     <input type="text" class="form-control"
                                                         placeholder="Berat badan Pasien ..." name="beratbadan"
                                                         id="beratbadan" aria-label="Recipient's username"
-                                                        aria-describedby="basic-addon2" value="{{ $assesper[0]->berat_badan }}">
+                                                        aria-describedby="basic-addon2"
+                                                        value="{{ $assesper[0]->berat_badan }}">
                                                     <div class="input-group-append">
                                                         <span class="input-group-text" id="basic-addon2"> Kg</span>
                                                     </div>
@@ -464,7 +467,8 @@
                                             style="width: 100%;" data-select2-id="1" tabindex="-1"
                                             aria-hidden="true">
                                             @foreach ($alasanpulang as $i => $p)
-                                                <option selected="selected" data-select2-id="{{ $p->alasan_pulang }}">
+                                                <option selected="selected"
+                                                    data-select2-id="{{ $p->alasan_pulang }}">
                                                     {{ $p->alasan_pulang }}</option>
                                             @endforeach
                                         </select>
@@ -563,6 +567,45 @@
 </div>
 
 <script>
+    function ambildata() {
+
+        $.ajax({
+            data: {
+                _token: "{{ csrf_token() }}",
+            },
+            type: "post",
+            url: " {{ route('ermperawat') }}",
+            error: function(data) {
+                spinner.hide();
+                alert('oke!!')
+            },
+            success: function(response) {
+                spinner.hide();
+                $('.ermperawat1').html(response);
+
+            }
+        });
+    }
+
+    function ambildata_form() {
+
+        $.ajax({
+            data: {
+                _token: "{{ csrf_token() }}",
+            },
+            type: "post",
+            url: " {{ route('formermperawat') }}",
+            error: function(data) {
+                spinner.hide();
+                alert('oke!!')
+            },
+            success: function(response) {
+                spinner.hide();
+                $('.formermperawat').html(response);
+
+            }
+        });
+    }
     $(".simpanassesperawat").click(function() {
         var data = $('.formerm').serializeArray();
         var tekanandarah = $('#tekanandarah').val()
@@ -642,10 +685,12 @@
                                 footer: ''
                             })
 
-
                         }
+
                     }
                 });
+                ambildata(),
+                ambildata_form()
             }
         })
         return false;

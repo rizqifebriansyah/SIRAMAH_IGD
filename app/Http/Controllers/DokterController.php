@@ -240,6 +240,19 @@ class DokterController extends Controller
         );
     }
 
+    public function resumecpptdokter(Request $request)
+    {
+
+        $resume = DB::connection('mysql2')->select('SELECT * FROM erm_cppt_dokter
+        WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $request->kj]);
+        return view(
+            'dokter.resumecpptdokter',
+            [
+                'title' => 'ERM DOKTER',
+                'resume' => $resume
+            ]
+        );
+    }
     public function hasillabo(Request $request)
     {
         $kodekunjungan = $request->kj;

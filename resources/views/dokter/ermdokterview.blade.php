@@ -93,7 +93,7 @@
                                 </a>
                             </li>
                             <li class="nav-item" id="pemeriksaan">
-                                <a href="#" class="nav-link resumecppt">
+                                <a href="#" class="nav-link resumecpptdokter">
                                     <i class="fas fa-filter mr-2"></i>Resume
                                 </a>
                             </li>
@@ -788,6 +788,33 @@
             success: function(response) {
                 spinner.hide();
                 $('.hasil').html(response);
+            }
+        });
+    });
+    $(".resumecpptdokter").click(function() {
+        spinner = $('#loader2');
+        spinner.show();
+        kj = $('#kj').val()
+        norm = $('#norm').val()
+
+
+        $.ajax({
+            type: "post",
+            data: {
+                _token: "{{ csrf_token() }}",
+                kj,
+                norm
+
+            },
+            url: '<?= route('resumecpptdokter') ?>',
+            error: function(data) {
+                spinner.hide();
+                alert('oke!!')
+            },
+            success: function(response) {
+                spinner.hide();
+                $('.formermperawat').html(response);
+
             }
         });
     });

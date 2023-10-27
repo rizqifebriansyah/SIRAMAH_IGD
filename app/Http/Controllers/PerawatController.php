@@ -94,6 +94,20 @@ class PerawatController extends Controller
         );
     }
 
+
+    public function resumecpptperawat(Request $request)
+    {
+
+        $resume = DB::connection('mysql2')->select('SELECT * FROM erm_cppt_perawat
+        WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $request->kj]);
+        return view(
+            'perawat.resumecpptperawat',
+            [
+                'title' => 'ERM PERAWAT',
+                'resume' => $resume
+            ]
+        );
+    }
     public function riwayatcpptperawat(Request $request)
     {
         $norm = $request->norm;

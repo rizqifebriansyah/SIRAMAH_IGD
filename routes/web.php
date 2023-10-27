@@ -52,6 +52,7 @@ Route::group(['middleware' => ['hak_akses:5', 'auth']], function () {
     Route::post('formermdokter', [DokterController::class, 'formermdokter'])->name('formermdokter');
     Route::post('formdewasa', [DokterController::class, 'formdewasa'])->name('formdewasa');
     Route::post('resumetriase', [DokterController::class, 'resumetriase'])->name('resumetriase');
+    Route::post('resumecpptdokter', [DokterController::class, 'resumecpptdokter'])->name('resumecpptdokter');
 
     //simpan
     Route::post('simpanpemeriksaantriase', [DokterController::class, 'simpanpemeriksaantriase'])->name('simpanpemeriksaantriase');
@@ -76,6 +77,8 @@ Route::group(['middleware' => ['hak_akses:4', 'auth']], function () {
     Route::post('riwayatcpptperawat', [PerawatController::class, 'riwayatcpptperawat'])->name('riwayatcpptperawat');
     Route::post('hasillabperawat', [PerawatController::class, 'hasillabperawat'])->name('hasillabperawat');
     Route::post('hasilradioperawat', [PerawatController::class, 'hasilradioperawat'])->name('hasilradioperawat');
+    Route::post('resumecpptperawat', [PerawatController::class, 'resumecpptperawat'])->name('resumecpptperawat');
+
 
 
     Route::post('simpanassemenperawat', [PerawatController::class, 'simpanassemenperawat'])->name('simpanassemenperawat');

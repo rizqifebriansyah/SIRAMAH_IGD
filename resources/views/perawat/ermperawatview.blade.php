@@ -1,6 +1,6 @@
 <section class="content">
     <div class="container-fluid">
-        <div class="row">
+        <div class="row ermperawatview1">
             <div class="col-md-2">
 
                 <div class="card card-primary card-outline">
@@ -91,7 +91,7 @@
                                 </a>
                             </li>
                             <li class="nav-item" id="pemeriksaan">
-                                <a href="#" class="nav-link resumecppt">
+                                <a href="#" class="nav-link resumecpptperawat">
                                     <i class="fas fa-filter mr-2"></i>Resume
                                 </a>
                             </li>
@@ -788,6 +788,33 @@
             success: function(response) {
                 spinner.hide();
                 $('.hasil').html(response);
+            }
+        });
+    });
+    $(".resumecpptperawat").click(function() {
+        spinner = $('#loader2');
+        spinner.show();
+        kj = $('#kj').val()
+        norm = $('#norm').val()
+
+
+        $.ajax({
+            type: "post",
+            data: {
+                _token: "{{ csrf_token() }}",
+                kj,
+                norm
+
+            },
+            url: '<?= route('resumecpptperawat') ?>',
+            error: function(data) {
+                spinner.hide();
+                alert('oke!!')
+            },
+            success: function(response) {
+                spinner.hide();
+                $('.formermperawat').html(response);
+
             }
         });
     });
