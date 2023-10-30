@@ -1502,4 +1502,88 @@
         })
         return false;
     });
+    $(".simpanasses").click(function() {
+        var data = $('.formerm').serializeArray();
+        var subject = $('#subject').val()
+        var objek = $('#objek').val()
+        var assesmen = $('#assesmen').val()
+        var planning = $('#planning').val()
+        var tigap = $('#tigap').val()
+        var tigak = $('#tigak').val()
+        var norm = $('#norm').val()
+        var kj = $('#kj').val()
+        var tglmasuk = $('#tglmasuk').val()
+
+
+
+
+        // var sumberdata = $("#sumberdata:checked").val();
+        Swal.fire({
+            title: "Yakin Simpan Assesmen?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Ya',
+            cancelButtonColor: '#d33',
+            cancelButtonText: "Batal"
+
+        }).then(result => {
+            //jika klik ya maka arahkan ke proses.php
+            if (result.isConfirmed) {
+                $.ajax({
+                    async: true,
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        data: JSON.stringify(data),
+                        subject: $('#subject').val(),
+                        objek: $('#objek').val(),
+                        assesmen: $('#assesmen').val(),
+                        planning: $('#planning').val(),
+                        tigap: $('#tigap').val(),
+                        tigak: $('#tigak').val(),
+                        norm: $('#norm').val(),
+                        kj: $('#kj').val(),
+                        tglmasuk: $('#tglmasuk').val(),
+
+
+
+
+                    },
+                    url: '<?= route('simpanassesmen') ?>',
+
+                    error: function(data) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Sepertinya ada masalah ...',
+                            footer: ''
+                        })
+                    },
+                    success: function(data) {
+                        console.log(data)
+                        if (data.kode == 500) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: data.message,
+                                footer: ''
+                            })
+                        } else {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'OK',
+                                text: 'data berhasil disimpan',
+                                footer: ''
+                            })
+
+
+                        }
+                    }
+                });
+            }
+        })
+        return false;
+    });
 </script>

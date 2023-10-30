@@ -27,7 +27,7 @@
                                 </tr>
                                 <tr>
                                     <td class="text-bold">OBJECT</td>
-                                    <td>: {{$resume[0]->subyektif}}</td>
+                                    <td>: {{$resume[0]->obyektif}}</td>
                                 </tr>
                                 <tr>
                                     <td class="text-bold text-italic">ASSESMEN</td>

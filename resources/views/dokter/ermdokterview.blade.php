@@ -813,7 +813,7 @@
             },
             success: function(response) {
                 spinner.hide();
-                $('.formermperawat').html(response);
+                $('.formermdokter').html(response);
 
             }
         });

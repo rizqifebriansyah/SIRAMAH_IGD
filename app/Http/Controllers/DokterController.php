@@ -77,6 +77,22 @@ class DokterController extends Controller
             ]
         );
     }
+
+    public function caripasienigd(Request $request)
+    {
+        $tgl = $request->tglkunjungan;
+        $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$tgl')");
+
+
+        return view(
+            'dokter.tablepasienigd',
+            [
+                'title' => 'ERM DOKTER',
+                'pasienigd' => $pasienigd,
+
+            ]
+        );
+    }
     public function asses()
     {
         $menu = 'asses';
@@ -329,7 +345,7 @@ class DokterController extends Controller
         echo json_encode($back);
         die;
     }
-    public function simpanassemen(Request $request)
+    public function simpanassesmen(Request $request)
     {
         $a = $request->all();
         $now = Carbon::now();
