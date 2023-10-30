@@ -367,6 +367,10 @@ class DokterController extends Controller
             'planning' => $request->planning,
             'tiga_pertama' => $request->tigap,
             'tiga_kedua' => $request->tigak,
+            'diagnosa' => $request->diagnosa. $request->diagnosa1,
+            'cara_pulang' => $request->alpul. $request->alpul1,
+            'keadaan_pulang' => $request->kopul. $request->kopul1,
+
             'kode_paramedis' => $kp,
             'status' => '1'
 

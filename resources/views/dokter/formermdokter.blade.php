@@ -199,113 +199,114 @@
             </div>
             <div class="card-header text-bold bg-warning" style="text-align: center;">S.O.A.P</div>
             <div class="card-body">
-                @if ($assesdok == NULL)
-                     <!-- assesmen dokter -->
-                <table class="table">
-                    <tbody>
+                @if ($assesdok == null)
+                    <!-- assesmen dokter -->
+                    <table class="table">
+                        <tbody>
 
-                        <div class="row">
-                            <div class="col-sm-3">
+                            <div class="row">
+                                <div class="col-sm-3">
 
-                                <div class="form-group">
-                                    <center>
-                                        <h3>Subject</h3>
-                                    </center>
-                                    <textarea class="form-control" id="subject" name="subject" rows="4" placeholder=""></textarea>
+                                    <div class="form-group">
+                                        <center>
+                                            <h3>Subject</h3>
+                                        </center>
+                                        <textarea class="form-control" id="subject" name="subject" rows="4" placeholder=""></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+
+                                    <div class="form-group">
+                                        <center>
+                                            <h3>Object</h3>
+                                        </center>
+                                        <textarea class="form-control" id="objek" name="objek" rows="4" placeholder=""></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+
+                                    <div class="form-group">
+                                        <center>
+                                            <h3>Assesmen</h3>
+                                        </center>
+                                        <textarea class="form-control" id="assesmen" name="assesmen" rows="4" placeholder=""></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+
+                                    <div class="form-group">
+                                        <center>
+                                            <h3>Planning</h3>
+                                        </center>
+                                        <textarea class="form-control" id="planning" name="planning" rows="4" placeholder=""></textarea>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="row">
+                                <div class="col-sm-4">
 
-                                <div class="form-group">
-                                    <center>
-                                        <h3>Object</h3>
-                                    </center>
-                                    <textarea class="form-control" id="objek" name="objek" rows="4" placeholder=""></textarea>
+                                    <div class="form-group">
+                                        <center>
+                                            <h3>Evaluasi 30 menit pertama</h3>
+                                        </center>
+                                        <textarea class="form-control" id="tigap" name="tigap" rows="4" placeholder=""></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+
+                                    <div class="form-group">
+                                        <center>
+                                            <h3>Evaluasi 30 menit kedua</h3>
+                                        </center>
+                                        <textarea class="form-control" id="tigak" name="tigak" rows="4" placeholder=""></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>DIAGNOSA</label>
+                                        <select class="form-control select2" name="diagnosa" id="diagnosa">
+                                            <option value=""> -- Select One --</option>
+                                            @foreach ($diagnosa as $i => $t)
+                                                <option value="{{ $t->nama_diag }}">{{ $t->nama_diag }}
+                                                </option>
+                                            @endforeach
+
+                                        </select>
+                                        <label>Diagnosa Lain</label>
+                                        <textarea class="form-control" id="diagnosa1" name="diagnosa1" rows="2" placeholder=""></textarea>
+
+                                    </div>
+
                                 </div>
                             </div>
-                            <div class="col-sm-3">
+                        </tbody>
+                    </table>
 
-                                <div class="form-group">
-                                    <center>
-                                        <h3>Assesmen</h3>
-                                    </center>
-                                    <textarea class="form-control" id="assesmen" name="assesmen" rows="4" placeholder=""></textarea>
-                                </div>
+                    <!-- KPO -->
+                    <div class="accordion" id="accordionExample8">
+                        <div class="card">
+                            <div class="card-header bg-success" id="headingOne">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left text-light font-weight"
+                                        type="button" data-toggle="collapse" data-target="#collapseOne8"
+                                        aria-expanded="true" aria-controls="collapseOne8">
+                                        <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Order Obat
+                                    </button>
+                                </h2>
                             </div>
-                            <div class="col-sm-3">
 
-                                <div class="form-group">
-                                    <center>
-                                        <h3>Planning</h3>
-                                    </center>
-                                    <textarea class="form-control" id="planning" name="planning" rows="4" placeholder=""></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-
-                                <div class="form-group">
-                                    <center>
-                                        <h3>Evaluasi 30 menit pertama</h3>
-                                    </center>
-                                    <textarea class="form-control" id="tigap" name="tigap" rows="4" placeholder=""></textarea>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-
-                                <div class="form-group">
-                                    <center>
-                                        <h3>Evaluasi 30 menit kedua</h3>
-                                    </center>
-                                    <textarea class="form-control" id="tigak" name="tigak" rows="4" placeholder=""></textarea>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group" data-select2-id="29">
-                                    <center>
-                                        <h3>Diagnosa</h3>
-                                    </center>
-                                    <select class="form-control select2 select2-hidden-accessible"
-                                        style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true">
-                                        @foreach ($diagnosa as $i => $t)
-                                            <option selected="selected" data-select2-id="{{ $t->nama_diag }}">
-                                                {{ $t->nama_diag }}</option>
-                                        @endforeach
-                                    </select>
+                            <div id="collapseOne8" class="collapse" aria-labelledby="headingOne"
+                                data-parent="#accordionExample8">
+                                <div class="card-body bg-light">
+                                    <iframe src="http://192.168.2.125/kpoelektronik/" width="1255px"
+                                        height="750px"></iframe>
 
                                 </div>
-
-                            </div>
-                        </div>
-                    </tbody>
-                </table>
-
-                <!-- KPO -->
-                <div class="accordion" id="accordionExample8">
-                    <div class="card">
-                        <div class="card-header bg-success" id="headingOne">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left text-light font-weight" type="button"
-                                    data-toggle="collapse" data-target="#collapseOne8" aria-expanded="true"
-                                    aria-controls="collapseOne8">
-                                    <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Order Obat
-                                </button>
-                            </h2>
-                        </div>
-
-                        <div id="collapseOne8" class="collapse" aria-labelledby="headingOne"
-                            data-parent="#accordionExample8">
-                            <div class="card-body bg-light">
-                                <iframe src="http://192.168.2.125/kpoelektronik/" width="1255px"
-                                    height="750px"></iframe>
-
                             </div>
                         </div>
                     </div>
-                </div>
 
-                {{-- <table class="table">
+                    {{-- <table class="table">
                     <tbody>
                         <tr>
                             <td class="text-bold font-italic">Keluhan Utama</td>
@@ -492,72 +493,74 @@
                     </div>
                 </div> --}}
 
-                <!-- laboratorium -->
-                <div class="accordion" id="accordionExample5">
-                    <div class="card">
-                        <div class="card-header bg-danger" id="headingOne">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left text-light font-weight" type="button"
-                                    data-toggle="collapse" data-target="#collapseOne5" aria-expanded="true"
-                                    aria-controls="collapseOne5">
-                                    <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Order Laboratorium
-                                </button>
-                            </h2>
-                        </div>
+                    <!-- laboratorium -->
+                    <div class="accordion" id="accordionExample5">
+                        <div class="card">
+                            <div class="card-header bg-danger" id="headingOne">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left text-light font-weight"
+                                        type="button" data-toggle="collapse" data-target="#collapseOne5"
+                                        aria-expanded="true" aria-controls="collapseOne5">
+                                        <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Order Laboratorium
+                                    </button>
+                                </h2>
+                            </div>
 
-                        <div id="collapseOne5" class="collapse" aria-labelledby="headingOne"
-                            data-parent="#accordionExample5">
-                            <div class="card-body bg-light">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="exampleFormControlSelect1">Diagnosa Pemeriksaan
-                                                Penunjang</label>
-                                            <input type="text" id="diagnosalabo" name="diagnosalabo"
-                                                class="form-control" value="">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="exampleFormControlSelect1">Tanggal Pemeriksaan
-                                                Penunjang</label>
-                                            <input type="date" id="tanggalperiksapenunjang"
-                                                name="tanggalperiksapenunjang" value="" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <table id="tablelab" class="table table-sm mt-3 table-hover">
-                                            <thead>
-                                                <th>Nama tindakan</th>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($layananlab as $t)
-                                                    <tr class="pilihlayanan" jenis="nonpaket"
-                                                        namatindakan="{{ $t->Tindakan }}" tarif="{{ $t->tarif }}"
-                                                        kode="{{ $t->kode }}">
-                                                        <td>{{ $t->Tindakan }}</td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="card">
-                                            <div class="card-header bg-secondary">Tindakan / Layanan Pasien</div>
-                                            <div class="card-body">
-                                                <form action="" method="post" class="formlab">
-                                                    <div class="input_fields_wrap">
-                                                        <div>
-                                                        </div>
-
-
-                                                    </div>
-                                                </form>
+                            <div id="collapseOne5" class="collapse" aria-labelledby="headingOne"
+                                data-parent="#accordionExample5">
+                                <div class="card-body bg-light">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="exampleFormControlSelect1">Diagnosa Pemeriksaan
+                                                    Penunjang</label>
+                                                <input type="text" id="diagnosalabo" name="diagnosalabo"
+                                                    class="form-control" value="">
                                             </div>
-                                            <div class="card-footer">
-                                                <p>pilih layanan untuk pasien</p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="exampleFormControlSelect1">Tanggal Pemeriksaan
+                                                    Penunjang</label>
+                                                <input type="date" id="tanggalperiksapenunjang"
+                                                    name="tanggalperiksapenunjang" value=""
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <table id="tablelab" class="table table-sm mt-3 table-hover">
+                                                <thead>
+                                                    <th>Nama tindakan</th>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($layananlab as $t)
+                                                        <tr class="pilihlayanan" jenis="nonpaket"
+                                                            namatindakan="{{ $t->Tindakan }}"
+                                                            tarif="{{ $t->tarif }}" kode="{{ $t->kode }}">
+                                                            <td>{{ $t->Tindakan }}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="card">
+                                                <div class="card-header bg-secondary">Tindakan / Layanan Pasien</div>
+                                                <div class="card-body">
+                                                    <form action="" method="post" class="formlab">
+                                                        <div class="input_fields_wrap">
+                                                            <div>
+                                                            </div>
+
+
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <p>pilih layanan untuk pasien</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -565,75 +568,76 @@
                             </div>
                         </div>
                     </div>
-                </div>
 
 
-                <!-- radiologi -->
-                <div class="accordion" id="accordionExample6">
-                    <div class="card">
-                        <div class="card-header bg-danger" id="headingOne">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left text-light font-weight" type="button"
-                                    data-toggle="collapse" data-target="#collapseOne6" aria-expanded="true"
-                                    aria-controls="collapseOne6">
-                                    <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Order Radiologi
-                                </button>
-                            </h2>
-                        </div>
+                    <!-- radiologi -->
+                    <div class="accordion" id="accordionExample6">
+                        <div class="card">
+                            <div class="card-header bg-danger" id="headingOne">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left text-light font-weight"
+                                        type="button" data-toggle="collapse" data-target="#collapseOne6"
+                                        aria-expanded="true" aria-controls="collapseOne6">
+                                        <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Order Radiologi
+                                    </button>
+                                </h2>
+                            </div>
 
-                        <div id="collapseOne6" class="collapse" aria-labelledby="headingOne"
-                            data-parent="#accordionExample6">
-                            <div class="card-body bg-light">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="exampleFormControlSelect1">Diagnosa Pemeriksaan
-                                                Penunjang</label>
-                                            <input type="text" id="diagnosaradio" name="diagnosaradio"
-                                                class="form-control" value="">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="exampleFormControlSelect1">Tanggal Pemeriksaan
-                                                Penunjang</label>
-                                            <input type="date" id="tanggalperiksapenunjang1"
-                                                name="tanggalperiksapenunjang1" value="" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <table id="tableradio" class="table table-sm mt-3 table-hover">
-                                            <thead>
-                                                <th>Nama tindakan</th>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($layanan as $t)
-                                                    <tr class="pilihlayanan1" jenis="nonpaket"
-                                                        namatindakan="{{ $t->Tindakan }}"
-                                                        tarif="{{ $t->tarif }}" kode="{{ $t->kode }}">
-                                                        <td>{{ $t->Tindakan }}</td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="card">
-                                            <div class="card-header bg-secondary">Tindakan / Layanan Pasien</div>
-                                            <div class="card-body">
-                                                <form action="" method="post" class="formradio">
-                                                    <div class="input_fields_wrap1">
-                                                        <div>
-                                                        </div>
-
-
-                                                    </div>
-                                                </form>
+                            <div id="collapseOne6" class="collapse" aria-labelledby="headingOne"
+                                data-parent="#accordionExample6">
+                                <div class="card-body bg-light">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="exampleFormControlSelect1">Diagnosa Pemeriksaan
+                                                    Penunjang</label>
+                                                <input type="text" id="diagnosaradio" name="diagnosaradio"
+                                                    class="form-control" value="">
                                             </div>
-                                            <div class="card-footer">
-                                                <p>pilih layanan untuk pasien</p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="exampleFormControlSelect1">Tanggal Pemeriksaan
+                                                    Penunjang</label>
+                                                <input type="date" id="tanggalperiksapenunjang1"
+                                                    name="tanggalperiksapenunjang1" value=""
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <table id="tableradio" class="table table-sm mt-3 table-hover">
+                                                <thead>
+                                                    <th>Nama tindakan</th>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($layanan as $t)
+                                                        <tr class="pilihlayanan1" jenis="nonpaket"
+                                                            namatindakan="{{ $t->Tindakan }}"
+                                                            tarif="{{ $t->tarif }}" kode="{{ $t->kode }}">
+                                                            <td>{{ $t->Tindakan }}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="card">
+                                                <div class="card-header bg-secondary">Tindakan / Layanan Pasien</div>
+                                                <div class="card-body">
+                                                    <form action="" method="post" class="formradio">
+                                                        <div class="input_fields_wrap1">
+                                                            <div>
+                                                            </div>
+
+
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <p>pilih layanan untuk pasien</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -641,223 +645,193 @@
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Cara Keluar -->
+                    <!-- Cara Keluar -->
 
-                <div class="accordion" id="accordionExample3">
-                    <div class="card">
-                        <div class="card-header bg-secondary" id="headingOne">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left text-light font-weight" type="button"
-                                    data-toggle="collapse" data-target="#collapseOne3" aria-expanded="true"
-                                    aria-controls="collapseOne3">
-                                    <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Cara Keluar Dari Instalasi Gawat
-                                    Darurat
-                                </button>
-                            </h2>
-                        </div>
+                    <div class="accordion" id="accordionExample3">
+                        <div class="card">
+                            <div class="card-header bg-secondary" id="headingOne">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left text-light font-weight"
+                                        type="button" data-toggle="collapse" data-target="#collapseOne3"
+                                        aria-expanded="true" aria-controls="collapseOne3">
+                                        <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Cara Keluar Dari Instalasi
+                                        Gawat
+                                        Darurat
+                                    </button>
+                                </h2>
+                            </div>
 
-                        <div id="collapseOne3" class="collapse" aria-labelledby="headingOne"
-                            data-parent="#accordionExample3">
-                            <div class="card-body bg-light">
-
-
-                                <div class="form-group" data-select2-id="29">
-                                    <select class="form-control select2 select2-hidden-accessible"
-                                        style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true">
+                            <div id="collapseOne3" class="collapse" aria-labelledby="headingOne"
+                                data-parent="#accordionExample3">
+                                <div class="card-body bg-light">
+                                    <select class="form-control select2" name="kopul" id="kopul">
+                                        <option value=""> -- Select One --</option>
                                         @foreach ($alasanpulang as $i => $p)
-                                            <option selected="selected" data-select2-id="{{ $p->alasan_pulang }}">
-                                                {{ $p->alasan_pulang }}</option>
+                                            <option value="Pasien Anak">Pasien Anak
+                                            </option>
+                                            <option value="Pasien Bedah">Pasien Bedah
+                                            </option>
+                                            <option value="Pasien Non Bedah">Pasien Non Bedah
+                                            </option>
+                                            <option value="Pasien Kebidanan">Pasien Kebidanan
+                                            </option>
+                                            <option value="Pasien Psikomatic">Pasien Psikomatic
+                                            </option>
                                         @endforeach
+
                                     </select>
+                                    <label>Lain-lain</label>
+                                    <textarea class="form-control" id="kopul1" name="kopul1" rows="2" placeholder=""></textarea>
 
                                 </div>
-
-
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Keadaan Pasien  -->
+                    <!-- Keadaan Pasien  -->
 
-                <div class="accordion" id="accordionExample4">
-                    <div class="card">
-                        <div class="card-header bg-secondary" id="headingOne">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left text-light font-weight" type="button"
-                                    data-toggle="collapse" data-target="#collapseOne4" aria-expanded="true"
-                                    aria-controls="collapseOne4">
-                                    <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Keadaan Pasien Saat Keluar
-                                </button>
-                            </h2>
-                        </div>
+                    <div class="accordion" id="accordionExample4">
+                        <div class="card">
+                            <div class="card-header bg-secondary" id="headingOne">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left text-light font-weight"
+                                        type="button" data-toggle="collapse" data-target="#collapseOne4"
+                                        aria-expanded="true" aria-controls="collapseOne4">
+                                        <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Keadaan Pasien Saat Keluar
+                                    </button>
+                                </h2>
+                            </div>
 
-                        <div id="collapseOne4" class="collapse" aria-labelledby="headingOne"
-                            data-parent="#accordionExample4">
-                            <div class="card-body bg-light">
+                            <div id="collapseOne4" class="collapse" aria-labelledby="headingOne"
+                                data-parent="#accordionExample4">
+                                <div class="card-body bg-light">
+                                    <select class="form-control select2" name="kopul" id="kopul">
+                                        <option value=""> -- Select One --</option>
+                                        @foreach ($alasanpulang as $i => $p)
+                                            <option value="{{ $p->alasan_pulang }}">{{ $p->alasan_pulang }}
+                                            </option>
+                                        @endforeach
 
-                                <table class="table">
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="sembuh"
-                                                        name="sembuh" value="Sembuh">
-                                                    <label class="form-check-label" for="exampleCheck1">Sembuh
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="tidaksembuh"
-                                                        name="tidaksembuh" value="Tidak Sembuh">
-                                                    <label class="form-check-label" for="exampleCheck1">Tidak Sembuh
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="perbaikan"
-                                                        name="perbaikan" value="Perbaikan">
-                                                    <label class="form-check-label" for="exampleCheck1">Perbaikan
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="Meninggal"
-                                                        name="Meninggal" value="Meninggal">
-                                                    <label class="form-check-label" for="exampleCheck1">Meninggal
-                                                    </label>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                    </select>
+                                    <label>Lain-lain</label>
+                                    <textarea class="form-control" id="kopul1" name="kopul1" rows="2" placeholder=""></textarea>
 
-                                        <tr>
-                                            <td colspan="4">
-
-                                                <textarea class="form-control" id="keteranganpulang" name="keteranganpulang" placeholder=""></textarea>
-
-                                            </td>
-                                        </tr>
-
-                                    </tbody>
-                                </table>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div type="button" class="btn float-right btn-success simpanasses" style="margin-top: 20px;">SIMPAN
-                </div>
+                    <div type="button" class="btn float-right btn-success simpanasses" style="margin-top: 20px;">
+                        SIMPAN
+                    </div>
                 @else
-                     <!-- assesmen dokter -->
-                <table class="table">
-                    <tbody>
+                    <!-- assesmen dokter -->
+                    <table class="table">
+                        <tbody>
 
-                        <div class="row">
-                            <div class="col-sm-3">
+                            <div class="row">
+                                <div class="col-sm-3">
 
-                                <div class="form-group">
-                                    <center>
-                                        <h3>Subject</h3>
-                                    </center>
-                                    <textarea class="form-control" id="subject" name="subject" rows="4" placeholder="">{{ $assesdok[0]->subyektif }}</textarea>
+                                    <div class="form-group">
+                                        <center>
+                                            <h3>Subject</h3>
+                                        </center>
+                                        <textarea class="form-control" id="subject" name="subject" rows="4" placeholder="">{{ $assesdok[0]->subyektif }}</textarea>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+
+                                    <div class="form-group">
+                                        <center>
+                                            <h3>Object</h3>
+                                        </center>
+                                        <textarea class="form-control" id="objek" name="objek" rows="4" placeholder="">{{ $assesdok[0]->obyektif }}</textarea>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+
+                                    <div class="form-group">
+                                        <center>
+                                            <h3>Assesmen</h3>
+                                        </center>
+                                        <textarea class="form-control" id="assesmen" name="assesmen" rows="4" placeholder="">{{ $assesdok[0]->assesment }}</textarea>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+
+                                    <div class="form-group">
+                                        <center>
+                                            <h3>Planning</h3>
+                                        </center>
+                                        <textarea class="form-control" id="planning" name="planning" rows="4" placeholder="">{{ $assesdok[0]->planning }}</textarea>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="row">
+                                <div class="col-sm-4">
 
-                                <div class="form-group">
-                                    <center>
-                                        <h3>Object</h3>
-                                    </center>
-                                    <textarea class="form-control" id="objek" name="objek" rows="4" placeholder="">{{ $assesdok[0]->obyektif }}</textarea>
+                                    <div class="form-group">
+                                        <center>
+                                            <h3>Evaluasi 30 menit pertama</h3>
+                                        </center>
+                                        <textarea class="form-control" id="tigap" name="tigap" rows="4" placeholder="">{{ $assesdok[0]->tiga_pertama }}</textarea>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+
+                                    <div class="form-group">
+                                        <center>
+                                            <h3>Evaluasi 30 menit kedua</h3>
+                                        </center>
+                                        <textarea class="form-control" id="tigak" name="tigak" rows="4" placeholder="">{{ $assesdok[0]->tiga_kedua }}</textarea>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>DIAGNOSA</label>
+                                        <select class="form-control select2" name="diagnosa" id="diagnosa">
+                                            <option value=""> {{ $assesdok[0]->diagnosa }}</option>
+                                            @foreach ($diagnosa as $i => $t)
+                                                <option value="{{ $t->nama_diag }}">{{ $t->nama_diag }}
+                                                </option>
+                                            @endforeach
+
+                                        </select>
+                                        <label>Diagnosa Lain</label>
+                                        <textarea class="form-control" id="diagnosa1" name="diagnosa1" rows="2" placeholder=""></textarea>
+
+                                    </div>
+
                                 </div>
                             </div>
-                            <div class="col-sm-3">
+                        </tbody>
+                    </table>
 
-                                <div class="form-group">
-                                    <center>
-                                        <h3>Assesmen</h3>
-                                    </center>
-                                    <textarea class="form-control" id="assesmen" name="assesmen" rows="4" placeholder="">{{ $assesdok[0]->assesment }}</textarea>
-                                </div>
+                    <!-- KPO -->
+                    <div class="accordion" id="accordionExample8">
+                        <div class="card">
+                            <div class="card-header bg-success" id="headingOne">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left text-light font-weight"
+                                        type="button" data-toggle="collapse" data-target="#collapseOne8"
+                                        aria-expanded="true" aria-controls="collapseOne8">
+                                        <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Order Obat
+                                    </button>
+                                </h2>
                             </div>
-                            <div class="col-sm-3">
 
-                                <div class="form-group">
-                                    <center>
-                                        <h3>Planning</h3>
-                                    </center>
-                                    <textarea class="form-control" id="planning" name="planning" rows="4" placeholder="">{{ $assesdok[0]->planning }}</textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-
-                                <div class="form-group">
-                                    <center>
-                                        <h3>Evaluasi 30 menit pertama</h3>
-                                    </center>
-                                    <textarea class="form-control" id="tigap" name="tigap" rows="4" placeholder="">{{ $assesdok[0]->tiga_pertama }}</textarea>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-
-                                <div class="form-group">
-                                    <center>
-                                        <h3>Evaluasi 30 menit kedua</h3>
-                                    </center>
-                                    <textarea class="form-control" id="tigak" name="tigak" rows="4" placeholder="">{{ $assesdok[0]->tiga_kedua }}</textarea>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group" data-select2-id="29">
-                                    <center>
-                                        <h3>Diagnosa</h3>
-                                    </center>
-                                    <select class="form-control select2 select2-hidden-accessible"
-                                        style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true">
-                                        @foreach ($diagnosa as $i => $t)
-                                            <option selected="selected" data-select2-id="{{ $t->nama_diag }}">
-                                                {{ $t->nama_diag }}</option>
-                                        @endforeach
-                                    </select>
+                            <div id="collapseOne8" class="collapse" aria-labelledby="headingOne"
+                                data-parent="#accordionExample8">
+                                <div class="card-body bg-light">
+                                    <iframe src="http://192.168.2.125/kpoelektronik/" width="1255px"
+                                        height="750px"></iframe>
 
                                 </div>
-
-                            </div>
-                        </div>
-                    </tbody>
-                </table>
-
-                <!-- KPO -->
-                <div class="accordion" id="accordionExample8">
-                    <div class="card">
-                        <div class="card-header bg-success" id="headingOne">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left text-light font-weight" type="button"
-                                    data-toggle="collapse" data-target="#collapseOne8" aria-expanded="true"
-                                    aria-controls="collapseOne8">
-                                    <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Order Obat
-                                </button>
-                            </h2>
-                        </div>
-
-                        <div id="collapseOne8" class="collapse" aria-labelledby="headingOne"
-                            data-parent="#accordionExample8">
-                            <div class="card-body bg-light">
-                                <iframe src="http://192.168.2.125/kpoelektronik/" width="1255px"
-                                    height="750px"></iframe>
-
                             </div>
                         </div>
                     </div>
-                </div>
 
-                {{-- <table class="table">
+                    {{-- <table class="table">
                     <tbody>
                         <tr>
                             <td class="text-bold font-italic">Keluhan Utama</td>
@@ -1044,72 +1018,74 @@
                     </div>
                 </div> --}}
 
-                <!-- laboratorium -->
-                <div class="accordion" id="accordionExample5">
-                    <div class="card">
-                        <div class="card-header bg-danger" id="headingOne">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left text-light font-weight" type="button"
-                                    data-toggle="collapse" data-target="#collapseOne5" aria-expanded="true"
-                                    aria-controls="collapseOne5">
-                                    <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Order Laboratorium
-                                </button>
-                            </h2>
-                        </div>
+                    <!-- laboratorium -->
+                    <div class="accordion" id="accordionExample5">
+                        <div class="card">
+                            <div class="card-header bg-danger" id="headingOne">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left text-light font-weight"
+                                        type="button" data-toggle="collapse" data-target="#collapseOne5"
+                                        aria-expanded="true" aria-controls="collapseOne5">
+                                        <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Order Laboratorium
+                                    </button>
+                                </h2>
+                            </div>
 
-                        <div id="collapseOne5" class="collapse" aria-labelledby="headingOne"
-                            data-parent="#accordionExample5">
-                            <div class="card-body bg-light">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="exampleFormControlSelect1">Diagnosa Pemeriksaan
-                                                Penunjang</label>
-                                            <input type="text" id="diagnosalabo" name="diagnosalabo"
-                                                class="form-control" value="">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="exampleFormControlSelect1">Tanggal Pemeriksaan
-                                                Penunjang</label>
-                                            <input type="date" id="tanggalperiksapenunjang"
-                                                name="tanggalperiksapenunjang" value="" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <table id="tablelab" class="table table-sm mt-3 table-hover">
-                                            <thead>
-                                                <th>Nama tindakan</th>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($layananlab as $t)
-                                                    <tr class="pilihlayanan" jenis="nonpaket"
-                                                        namatindakan="{{ $t->Tindakan }}" tarif="{{ $t->tarif }}"
-                                                        kode="{{ $t->kode }}">
-                                                        <td>{{ $t->Tindakan }}</td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="card">
-                                            <div class="card-header bg-secondary">Tindakan / Layanan Pasien</div>
-                                            <div class="card-body">
-                                                <form action="" method="post" class="formlab">
-                                                    <div class="input_fields_wrap">
-                                                        <div>
-                                                        </div>
-
-
-                                                    </div>
-                                                </form>
+                            <div id="collapseOne5" class="collapse" aria-labelledby="headingOne"
+                                data-parent="#accordionExample5">
+                                <div class="card-body bg-light">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="exampleFormControlSelect1">Diagnosa Pemeriksaan
+                                                    Penunjang</label>
+                                                <input type="text" id="diagnosalabo" name="diagnosalabo"
+                                                    class="form-control" value="">
                                             </div>
-                                            <div class="card-footer">
-                                                <p>pilih layanan untuk pasien</p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="exampleFormControlSelect1">Tanggal Pemeriksaan
+                                                    Penunjang</label>
+                                                <input type="date" id="tanggalperiksapenunjang"
+                                                    name="tanggalperiksapenunjang" value=""
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <table id="tablelab" class="table table-sm mt-3 table-hover">
+                                                <thead>
+                                                    <th>Nama tindakan</th>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($layananlab as $t)
+                                                        <tr class="pilihlayanan" jenis="nonpaket"
+                                                            namatindakan="{{ $t->Tindakan }}"
+                                                            tarif="{{ $t->tarif }}" kode="{{ $t->kode }}">
+                                                            <td>{{ $t->Tindakan }}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="card">
+                                                <div class="card-header bg-secondary">Tindakan / Layanan Pasien</div>
+                                                <div class="card-body">
+                                                    <form action="" method="post" class="formlab">
+                                                        <div class="input_fields_wrap">
+                                                            <div>
+                                                            </div>
+
+
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <p>pilih layanan untuk pasien</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -1117,75 +1093,76 @@
                             </div>
                         </div>
                     </div>
-                </div>
 
 
-                <!-- radiologi -->
-                <div class="accordion" id="accordionExample6">
-                    <div class="card">
-                        <div class="card-header bg-danger" id="headingOne">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left text-light font-weight" type="button"
-                                    data-toggle="collapse" data-target="#collapseOne6" aria-expanded="true"
-                                    aria-controls="collapseOne6">
-                                    <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Order Radiologi
-                                </button>
-                            </h2>
-                        </div>
+                    <!-- radiologi -->
+                    <div class="accordion" id="accordionExample6">
+                        <div class="card">
+                            <div class="card-header bg-danger" id="headingOne">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left text-light font-weight"
+                                        type="button" data-toggle="collapse" data-target="#collapseOne6"
+                                        aria-expanded="true" aria-controls="collapseOne6">
+                                        <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Order Radiologi
+                                    </button>
+                                </h2>
+                            </div>
 
-                        <div id="collapseOne6" class="collapse" aria-labelledby="headingOne"
-                            data-parent="#accordionExample6">
-                            <div class="card-body bg-light">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="exampleFormControlSelect1">Diagnosa Pemeriksaan
-                                                Penunjang</label>
-                                            <input type="text" id="diagnosaradio" name="diagnosaradio"
-                                                class="form-control" value="">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="exampleFormControlSelect1">Tanggal Pemeriksaan
-                                                Penunjang</label>
-                                            <input type="date" id="tanggalperiksapenunjang1"
-                                                name="tanggalperiksapenunjang1" value="" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <table id="tableradio" class="table table-sm mt-3 table-hover">
-                                            <thead>
-                                                <th>Nama tindakan</th>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($layanan as $t)
-                                                    <tr class="pilihlayanan1" jenis="nonpaket"
-                                                        namatindakan="{{ $t->Tindakan }}"
-                                                        tarif="{{ $t->tarif }}" kode="{{ $t->kode }}">
-                                                        <td>{{ $t->Tindakan }}</td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="card">
-                                            <div class="card-header bg-secondary">Tindakan / Layanan Pasien</div>
-                                            <div class="card-body">
-                                                <form action="" method="post" class="formradio">
-                                                    <div class="input_fields_wrap1">
-                                                        <div>
-                                                        </div>
-
-
-                                                    </div>
-                                                </form>
+                            <div id="collapseOne6" class="collapse" aria-labelledby="headingOne"
+                                data-parent="#accordionExample6">
+                                <div class="card-body bg-light">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="exampleFormControlSelect1">Diagnosa Pemeriksaan
+                                                    Penunjang</label>
+                                                <input type="text" id="diagnosaradio" name="diagnosaradio"
+                                                    class="form-control" value="">
                                             </div>
-                                            <div class="card-footer">
-                                                <p>pilih layanan untuk pasien</p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="exampleFormControlSelect1">Tanggal Pemeriksaan
+                                                    Penunjang</label>
+                                                <input type="date" id="tanggalperiksapenunjang1"
+                                                    name="tanggalperiksapenunjang1" value=""
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <table id="tableradio" class="table table-sm mt-3 table-hover">
+                                                <thead>
+                                                    <th>Nama tindakan</th>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($layanan as $t)
+                                                        <tr class="pilihlayanan1" jenis="nonpaket"
+                                                            namatindakan="{{ $t->Tindakan }}"
+                                                            tarif="{{ $t->tarif }}" kode="{{ $t->kode }}">
+                                                            <td>{{ $t->Tindakan }}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="card">
+                                                <div class="card-header bg-secondary">Tindakan / Layanan Pasien</div>
+                                                <div class="card-body">
+                                                    <form action="" method="post" class="formradio">
+                                                        <div class="input_fields_wrap1">
+                                                            <div>
+                                                            </div>
+
+
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <p>pilih layanan untuk pasien</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -1193,36 +1170,42 @@
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Cara Keluar -->
+                    <!-- Cara Keluar -->
 
-                <div class="accordion" id="accordionExample3">
-                    <div class="card">
-                        <div class="card-header bg-secondary" id="headingOne">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left text-light font-weight" type="button"
-                                    data-toggle="collapse" data-target="#collapseOne3" aria-expanded="true"
-                                    aria-controls="collapseOne3">
-                                    <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Cara Keluar Dari Instalasi Gawat
-                                    Darurat
-                                </button>
-                            </h2>
-                        </div>
+                    <div class="accordion" id="accordionExample3">
+                        <div class="card">
+                            <div class="card-header bg-secondary" id="headingOne">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left text-light font-weight"
+                                        type="button" data-toggle="collapse" data-target="#collapseOne3"
+                                        aria-expanded="true" aria-controls="collapseOne3">
+                                        <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Cara Keluar Dari Instalasi
+                                        Gawat
+                                        Darurat
+                                    </button>
+                                </h2>
+                            </div>
 
-                        <div id="collapseOne3" class="collapse" aria-labelledby="headingOne"
-                            data-parent="#accordionExample3">
-                            <div class="card-body bg-light">
+                            <div id="collapseOne3" class="collapse" aria-labelledby="headingOne"
+                                data-parent="#accordionExample3">
+                                <div class="card-body bg-light">
 
 
-                                <div class="form-group" data-select2-id="29">
-                                    <select class="form-control select2 select2-hidden-accessible"
-                                        style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true">
+                                    <select class="form-control select2" name="alpul" id="alpul">
+                                        <option value=""> {{ $assesdok[0]->cara_pulang }}</option>
                                         @foreach ($alasanpulang as $i => $p)
-                                            <option selected="selected" data-select2-id="{{ $p->alasan_pulang }}">
-                                                {{ $p->alasan_pulang }}</option>
+                                            <option value="{{ $p->alasan_pulang }}">{{ $p->alasan_pulang }}
+                                            </option>
                                         @endforeach
+
                                     </select>
+                                    <label>Lain-lain</label>
+                                    <textarea class="form-control" id="alpul1" name="alpul1" rows="2" placeholder=""></textarea>
+
+
+
+
 
                                 </div>
 
@@ -1230,86 +1213,88 @@
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- Keadaan Pasien  -->
-
-                <div class="accordion" id="accordionExample4">
-                    <div class="card">
-                        <div class="card-header bg-secondary" id="headingOne">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left text-light font-weight" type="button"
-                                    data-toggle="collapse" data-target="#collapseOne4" aria-expanded="true"
-                                    aria-controls="collapseOne4">
-                                    <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Keadaan Pasien Saat Keluar
-                                </button>
-                            </h2>
-                        </div>
-
-                        <div id="collapseOne4" class="collapse" aria-labelledby="headingOne"
-                            data-parent="#accordionExample4">
-                            <div class="card-body bg-light">
-
-                                <table class="table">
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="sembuh"
-                                                        name="sembuh" value="Sembuh">
-                                                    <label class="form-check-label" for="exampleCheck1">Sembuh
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="tidaksembuh"
-                                                        name="tidaksembuh" value="Tidak Sembuh">
-                                                    <label class="form-check-label" for="exampleCheck1">Tidak Sembuh
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="perbaikan"
-                                                        name="perbaikan" value="Perbaikan">
-                                                    <label class="form-check-label" for="exampleCheck1">Perbaikan
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="Meninggal"
-                                                        name="Meninggal" value="Meninggal">
-                                                    <label class="form-check-label" for="exampleCheck1">Meninggal
-                                                    </label>
-                                                </div>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td colspan="4">
-
-                                                <textarea class="form-control" id="keteranganpulang" name="keteranganpulang" placeholder=""></textarea>
-
-                                            </td>
-                                        </tr>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div type="button" class="btn float-right btn-success updateasses" style="margin-top: 20px;">SIMPAN
-                </div>
-                @endif
-
-
             </div>
 
-        </form>
+            <!-- Keadaan Pasien  -->
+
+            <div class="accordion" id="accordionExample4">
+                <div class="card">
+                    <div class="card-header bg-secondary" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link btn-block text-left text-light font-weight" type="button"
+                                data-toggle="collapse" data-target="#collapseOne4" aria-expanded="true"
+                                aria-controls="collapseOne4">
+                                <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Keadaan Pasien Saat Keluar
+                            </button>
+                        </h2>
+                    </div>
+
+                    <div id="collapseOne4" class="collapse" aria-labelledby="headingOne"
+                        data-parent="#accordionExample4">
+                        <div class="card-body bg-light">
+
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="form-group form-check">
+                                                <input type="checkbox" class="form-check-input" id="sembuh"
+                                                    name="sembuh" value="Sembuh">
+                                                <label class="form-check-label" for="exampleCheck1">Sembuh
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group form-check">
+                                                <input type="checkbox" class="form-check-input" id="tidaksembuh"
+                                                    name="tidaksembuh" value="Tidak Sembuh">
+                                                <label class="form-check-label" for="exampleCheck1">Tidak
+                                                    Sembuh
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group form-check">
+                                                <input type="checkbox" class="form-check-input" id="perbaikan"
+                                                    name="perbaikan" value="Perbaikan">
+                                                <label class="form-check-label" for="exampleCheck1">Perbaikan
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group form-check">
+                                                <input type="checkbox" class="form-check-input" id="Meninggal"
+                                                    name="Meninggal" value="Meninggal">
+                                                <label class="form-check-label" for="exampleCheck1">Meninggal
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="4">
+
+                                            <textarea class="form-control" id="keteranganpulang" name="keteranganpulang" placeholder=""></textarea>
+
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div type="button" class="btn float-right btn-success updateasses" style="margin-top: 20px;">
+                SIMPAN
+            </div>
+            @endif
+
+
     </div>
+
+    </form>
+</div>
 </div>
 </div>
 
@@ -1513,8 +1498,12 @@
         var norm = $('#norm').val()
         var kj = $('#kj').val()
         var tglmasuk = $('#tglmasuk').val()
-
-
+        var diagnosa = $('#diagnosa').val()
+        var diagnosa1 = $('#diagnosa1').val()
+        var alpul = $('#alpul').val()
+        var alpul1 = $('#alpul1').val()
+        var kopul = $('#kopul').val()
+        var kopul1 = $('#kopul1').val()
 
 
         // var sumberdata = $("#sumberdata:checked").val();
@@ -1545,11 +1534,13 @@
                         tigak: $('#tigak').val(),
                         norm: $('#norm').val(),
                         kj: $('#kj').val(),
+                        diagnosa: $('#diagnosa').val(),
+                        diagnosa1: $('#diagnosa1').val(),
+                        alpul: $('#alpul').val(),
+                        alpul1: $('#alpul1').val(),
+                        kopul: $('#kopul').val(),
+                        kopul1: $('#kopul1').val(),
                         tglmasuk: $('#tglmasuk').val(),
-
-
-
-
                     },
                     url: '<?= route('simpanassesmen') ?>',
 
