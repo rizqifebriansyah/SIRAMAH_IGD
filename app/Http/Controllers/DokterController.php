@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\erm_cppt_dokter;
 use App\Models\ts_antrian_igd;
+use App\Models\mt_kode_igd_header;
+use App\Models\ts_layanan_detail_igd;
+use App\Models\ts_layanan_header_igd;
 use App\Models\ts_triase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -259,13 +262,13 @@ class DokterController extends Controller
     public function resumecpptdokter(Request $request)
     {
 
-        $resume = DB::connection('mysql2')->select('SELECT * FROM erm_cppt_dokter
+        $resumedok = DB::connection('mysql2')->select('SELECT * FROM erm_cppt_dokter
         WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $request->kj]);
         return view(
             'dokter.resumecpptdokter',
             [
                 'title' => 'ERM DOKTER',
-                'resume' => $resume
+                'resumedok' => $resumedok
             ]
         );
     }
@@ -348,33 +351,65 @@ class DokterController extends Controller
     public function simpanassesmen(Request $request)
     {
         $a = $request->all();
+        $dt = Carbon::now()->timezone('Asia/Jakarta');
+        $date = $dt->toDateString();
+        $time = $dt->toTimeString();
         $now = Carbon::now();
         $user = auth()->user()->id_simrs;
         $kp = auth()->user()->kode_paramedis;
 
+        // $assesmen = erm_cppt_dokter::create([
+        //     'id_cppt_dokter' => $user,
+        //     'tgl_kunjungan' => $request->tglmasuk,
 
-        $assesmen = erm_cppt_dokter::create([
-            'id_cppt_dokter' => $user,
-            'tgl_kunjungan' => $request->tglmasuk,
+        //     'tgl_input' => $now,
+        //     'kode_unit' => '1002',
+        //     'kode_kunjungan' => $request->kj,
+        //     'no_rm' => $request->norm,
+        //     'subyektif' => $request->subject,
+        //     'obyektif' => $request->objek,
+        //     'assesment' => $request->assesmen,
+        //     'planning' => $request->planning,
+        //     'tiga_pertama' => $request->tigap,
+        //     'tiga_kedua' => $request->tigak,
+        //     'diagnosa' => $request->diagnosa . ' ' . $request->diagnosa1,
+        //     'cara_pulang' => $request->alpul . ' ' . $request->alpul1,
+        //     'keadaan_pulang' => $request->kopul . ' ' . $request->kopul1,
 
-            'tgl_input' => $now,
-            'kode_unit' => '1002',
-            'kode_kunjungan' => $request->kj,
-            'no_rm' => $request->norm,
-            'subyektif' => $request->subject,
-            'obyektif' => $request->objek,
-            'assesment' => $request->assesmen,
-            'planning' => $request->planning,
-            'tiga_pertama' => $request->tigap,
-            'tiga_kedua' => $request->tigak,
-            'diagnosa' => $request->diagnosa. $request->diagnosa1,
-            'cara_pulang' => $request->alpul. $request->alpul1,
-            'keadaan_pulang' => $request->kopul. $request->kopul1,
+        //     'kode_paramedis' => $kp,
+        //     'status' => '1'
 
-            'kode_paramedis' => $kp,
-            'status' => '1'
+        // ]);
 
-        ]);
+        $datalab = json_decode($_POST['datalab'], true);
+
+        if ($datalab == 'NULL') {
+        } else {
+            foreach ($datalab as $nama) {
+                $index = $nama['name'];
+                $value = $nama['value'];
+                $dataSet[$index] = $value;
+                if ($index == 'cyto') {
+                    $arrayindex[] = $dataSet;
+                }
+            }
+            $kode_header = $this->createOrderHeader('LAB');
+            $kode_header = mt_kode_igd_header::create([
+                'kode_header' => $kode_header,
+                'tgl_header' => date('Y-m-d')
+            ]);
+            $data_layanan_header = [
+                'kode_layanan_header' => $kode_header,
+                'tgl_entry' => $now,
+                'kode_kunjungan' => $request->kj,
+                'unit_pengirim' => '1002',
+                'diagnosa' => $request->diagnosa . ' ' . $request->diagnosa1,
+                'dok_kirim' => $kp,
+                'status_layanan' => 1,
+                'kode_unit' => 3002,
+                'pic' => 100,
+            ];
+        }
 
 
 
@@ -413,5 +448,24 @@ class DokterController extends Controller
         ];
         echo json_encode($back);
         die;
+    }
+
+    public function createOrderHeader()
+    {
+        $q = DB::select('SELECT id,kode_header,RIGHT(kode_header,6) AS kd_max  FROM mt_kode_order_header
+        WHERE DATE(tgl_header) = CURDATE()
+        ORDER BY id DESC
+        LIMIT 1');
+        $kd = "";
+        if (count($q) > 0) {
+            foreach ($q as $k) {
+                $tmp = ((int) $k->kd_max) + 1;
+                $kd = sprintf("%06s", $tmp);
+            }
+        } else {
+            $kd = "000001";
+        }
+        date_default_timezone_set('Asia/Jakarta');
+        return 'LAB' . date('ymd') . $kd;
     }
 }

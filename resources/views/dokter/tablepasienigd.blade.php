@@ -8,7 +8,6 @@
         <th style="text-align: center;">Diagnosa</th>
         <th style="text-align: center;">Assesment Perawat</th>
         <th hidden style="text-align: center;">kodekunjungan</th>
-        <th hidden style="text-align: center;">tgl_masuk</th>
 
 
 

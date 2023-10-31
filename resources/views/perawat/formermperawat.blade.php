@@ -182,18 +182,25 @@
                             <div id="collapseOne3" class="collapse" aria-labelledby="headingOne"
                                 data-parent="#accordionExample3">
                                 <div class="card-body bg-light">
+                                    <select class="form-control select2" name="alpul" id="alpul">
+                                        <option value=""> -- Select One --</option>
+                                        @foreach ($alasanpulang as $i => $p)
+                                            <option value="Pasien Anak">Pasien Anak
+                                            </option>
+                                            <option value="Pasien Bedah">Pasien Bedah
+                                            </option>
+                                            <option value="Pasien Non Bedah">Pasien Non Bedah
+                                            </option>
+                                            <option value="Pasien Kebidanan">Pasien Kebidanan
+                                            </option>
+                                            <option value="Pasien Psikomatic">Pasien Psikomatic
+                                            </option>
+                                        @endforeach
 
-                                    <div class="form-group" data-select2-id="29">
-                                        <select class="form-control select2 select2-hidden-accessible"
-                                            style="width: 100%;" data-select2-id="1" tabindex="-1"
-                                            aria-hidden="true">
-                                            @foreach ($alasanpulang as $i => $p)
-                                                <option selected="selected" data-select2-id="{{ $p->alasan_pulang }}">
-                                                    {{ $p->alasan_pulang }}</option>
-                                            @endforeach
-                                        </select>
+                                    </select>
+                                    <label>Lain-lain</label>
+                                    <textarea class="form-control" id="alpul1" name="alpul1" rows="2" placeholder=""></textarea>
 
-                                    </div>
 
 
 
@@ -219,55 +226,17 @@
                             <div id="collapseOne4" class="collapse" aria-labelledby="headingOne"
                                 data-parent="#accordionExample4">
                                 <div class="card-body bg-light">
+                                    <select class="form-control select2" name="kopul" id="kopul">
+                                        <option value=""> -- Select One --</option>
+                                        @foreach ($alasanpulang as $i => $p)
+                                            <option value="{{ $p->alasan_pulang }}">{{ $p->alasan_pulang }}
+                                            </option>
+                                        @endforeach
 
-                                    <table class="table">
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <div class="form-group form-check">
-                                                        <input type="checkbox" class="form-check-input"
-                                                            id="sembuh" name="sembuh" value="Sembuh">
-                                                        <label class="form-check-label" for="exampleCheck1">Sembuh
-                                                        </label>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="form-group form-check">
-                                                        <input type="checkbox" class="form-check-input"
-                                                            id="tidaksembuh" name="tidaksembuh" value="Tidak Sembuh">
-                                                        <label class="form-check-label" for="exampleCheck1">Tidak
-                                                            Sembuh
-                                                        </label>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="form-group form-check">
-                                                        <input type="checkbox" class="form-check-input"
-                                                            id="perbaikan" name="perbaikan" value="Perbaikan">
-                                                        <label class="form-check-label" for="exampleCheck1">Perbaikan
-                                                        </label>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="form-group form-check">
-                                                        <input type="checkbox" class="form-check-input"
-                                                            id="Meninggal" name="Meninggal" value="Meninggal">
-                                                        <label class="form-check-label" for="exampleCheck1">Meninggal
-                                                        </label>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                    </select>
+                                    <label>Lain-lain</label>
+                                    <textarea class="form-control" id="kopul1" name="kopul1" rows="2" placeholder=""></textarea>
 
-                                            <tr>
-                                                <td colspan="4">
-
-                                                    <textarea class="form-control" id="keteranganpulang" name="keteranganpulang" placeholder=""></textarea>
-
-                                                </td>
-                                            </tr>
-
-                                        </tbody>
-                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -463,101 +432,72 @@
                                 <div class="card-body bg-light">
 
                                     <div class="form-group" data-select2-id="29">
-                                        <select class="form-control select2 select2-hidden-accessible"
-                                            style="width: 100%;" data-select2-id="1" tabindex="-1"
-                                            aria-hidden="true">
+                                        <select class="form-control select2" name="alpul" id="alpul">
+                                            <option value=""> {{ $assesper[0]->cara_pulang }}</option>
                                             @foreach ($alasanpulang as $i => $p)
-                                                <option selected="selected"
-                                                    data-select2-id="{{ $p->alasan_pulang }}">
-                                                    {{ $p->alasan_pulang }}</option>
+                                                <option value="Pasien Anak">Pasien Anak
+                                                </option>
+                                                <option value="Pasien Bedah">Pasien Bedah
+                                                </option>
+                                                <option value="Pasien Non Bedah">Pasien Non Bedah
+                                                </option>
+                                                <option value="Pasien Kebidanan">Pasien Kebidanan
+                                                </option>
+                                                <option value="Pasien Psikomatic">Pasien Psikomatic
+                                                </option>
                                             @endforeach
+
                                         </select>
+                                        <label>Lain-lain</label>
+                                        <textarea class="form-control" id="alpul1" name="alpul1" rows="2" placeholder=""></textarea>
+
+
+
 
                                     </div>
-
-
-
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Keadaan Pasien  -->
+                        <!-- Keadaan Pasien  -->
 
-                    <div class="accordion" id="accordionExample4">
-                        <div class="card">
-                            <div class="card-header bg-secondary" id="headingOne">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link btn-block text-left text-light font-weight"
-                                        type="button" data-toggle="collapse" data-target="#collapseOne4"
-                                        aria-expanded="true" aria-controls="collapseOne4">
-                                        <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Keadaan Pasien Saat Keluar
-                                    </button>
-                                </h2>
-                            </div>
+                        <div class="accordion" id="accordionExample4">
+                            <div class="card">
+                                <div class="card-header bg-secondary" id="headingOne">
+                                    <h2 class="mb-0">
+                                        <button class="btn btn-link btn-block text-left text-light font-weight"
+                                            type="button" data-toggle="collapse" data-target="#collapseOne4"
+                                            aria-expanded="true" aria-controls="collapseOne4">
+                                            <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Keadaan Pasien Saat Keluar
+                                        </button>
+                                    </h2>
+                                </div>
 
-                            <div id="collapseOne4" class="collapse" aria-labelledby="headingOne"
-                                data-parent="#accordionExample4">
-                                <div class="card-body bg-light">
+                                <div id="collapseOne4" class="collapse" aria-labelledby="headingOne"
+                                    data-parent="#accordionExample4">
+                                    <div class="card-body bg-light">
 
-                                    <table class="table">
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <div class="form-group form-check">
-                                                        <input type="checkbox" class="form-check-input"
-                                                            id="sembuh" name="sembuh" value="Sembuh">
-                                                        <label class="form-check-label" for="exampleCheck1">Sembuh
-                                                        </label>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="form-group form-check">
-                                                        <input type="checkbox" class="form-check-input"
-                                                            id="tidaksembuh" name="tidaksembuh" value="Tidak Sembuh">
-                                                        <label class="form-check-label" for="exampleCheck1">Tidak
-                                                            Sembuh
-                                                        </label>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="form-group form-check">
-                                                        <input type="checkbox" class="form-check-input"
-                                                            id="perbaikan" name="perbaikan" value="Perbaikan">
-                                                        <label class="form-check-label" for="exampleCheck1">Perbaikan
-                                                        </label>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="form-group form-check">
-                                                        <input type="checkbox" class="form-check-input"
-                                                            id="Meninggal" name="Meninggal" value="Meninggal">
-                                                        <label class="form-check-label" for="exampleCheck1">Meninggal
-                                                        </label>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                        <select class="form-control select2" name="kopul" id="kopul">
+                                            <option value=""> {{ $assesper[0]->keadaan_pulang }}</option>
+                                            @foreach ($alasanpulang as $i => $p)
+                                                <option value="{{ $p->alasan_pulang }}">{{ $p->alasan_pulang }}
+                                                </option>
+                                            @endforeach
 
-                                            <tr>
-                                                <td colspan="4">
+                                        </select>
+                                        <label>Lain-lain</label>
+                                        <textarea class="form-control" id="kopul1" name="kopul1" rows="2" placeholder=""></textarea>
 
-                                                    <textarea class="form-control" id="keteranganpulang" name="keteranganpulang" placeholder=""></textarea>
-
-                                                </td>
-                                            </tr>
-
-                                        </tbody>
-                                    </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div type="button" class="btn float-right btn-success updateassesperawat"
-                        style="margin-top: 20px;">
-                        SIMPAN
-                    </div>
+                        <div type="button" class="btn float-right btn-success updateassesperawat"
+                            style="margin-top: 20px;">
+                            SIMPAN
+                        </div>
 
-                </div>
+                    </div>
             @endif
 
 
@@ -621,6 +561,10 @@
         var norm = $('#norm').val()
         var kj = $('#kj').val()
         var tglmasuk = $('#tglmasuk').val()
+        var alpul = $('#alpul').val()
+        var alpul1 = $('#alpul1').val()
+        var kopul = $('#kopul').val()
+        var kopul1 = $('#kopul1').val()
 
         // var sumberdata = $("#sumberdata:checked").val();
         Swal.fire({
@@ -654,6 +598,10 @@
                         frekuensinafas: $('#frekuensinafas').val(),
                         suhutubuh: $('#suhutubuh').val(),
                         beratbadan: $('#beratbadan').val(),
+                        alpul: $('#alpul').val(),
+                        alpul1: $('#alpul1').val(),
+                        kopul: $('#kopul').val(),
+                        kopul1: $('#kopul1').val(),
                         usia: $('#usia').val(),
 
 
@@ -690,7 +638,7 @@
                     }
                 });
                 ambildata(),
-                ambildata_form()
+                    ambildata_form()
             }
         })
         return false;
@@ -710,7 +658,10 @@
         var norm = $('#norm').val()
         var kj = $('#kj').val()
         var tglmasuk = $('#tglmasuk').val()
-
+        var alpul = $('#alpul').val()
+        var alpul1 = $('#alpul1').val()
+        var kopul = $('#kopul').val()
+        var kopul1 = $('#kopul1').val()
         // var sumberdata = $("#sumberdata:checked").val();
         Swal.fire({
             title: "Yakin Simpan Assesmen?",
@@ -744,7 +695,10 @@
                         suhutubuh: $('#suhutubuh').val(),
                         beratbadan: $('#beratbadan').val(),
                         usia: $('#usia').val(),
-
+                        alpul: $('#alpul').val(),
+                        alpul1: $('#alpul1').val(),
+                        kopul: $('#kopul').val(),
+                        kopul1: $('#kopul1').val(),
 
                     },
                     url: '<?= route('updateassemenperawat') ?>',

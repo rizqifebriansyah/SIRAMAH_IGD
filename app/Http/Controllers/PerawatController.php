@@ -176,6 +176,9 @@ class PerawatController extends Controller
             'obyektif' => $request->objek,
             'assesment' => $request->assesmen,
             'planning' => $request->planning,
+            'cara_pulang' => $request->alpul .' ' . $request->alpul1,
+            'keadaan_pulang' => $request->kopul .' ' . $request->kopul1,
+
             'kode_paramedis' => $kp,
             'status' => '1'
 
@@ -213,7 +216,7 @@ class PerawatController extends Controller
         $update = DB::connection('mysql2')->select('UPDATE erm_cppt_perawat
         SET tekanan_darah = ? , frekuensi_nadi = ?, frekuensi_nafas = ? , suhu = ?, berat_badan = ? , umur = ?,
         subyektif = ? , obyektif = ?, assesment = ? , planning = ?
-        WHERE no_rm = ? AND kode_kunjungan = ?', [$tekanandarah,$frekuensinadi, $frekuensinafas, $suhu, $beratbadan,  $umur,$subyektif,  $obyektif,$assesment,$planning,$norm,$kj]);
+        WHERE no_rm = ? AND kode_kunjungan = ?', [$tekanandarah, $frekuensinadi, $frekuensinafas, $suhu, $beratbadan,  $umur, $subyektif,  $obyektif, $assesment, $planning, $norm, $kj]);
 
 
 

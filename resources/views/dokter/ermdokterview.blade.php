@@ -94,7 +94,7 @@
                             </li>
                             <li class="nav-item" id="pemeriksaan">
                                 <a href="#" class="nav-link resumecpptdokter">
-                                    <i class="fas fa-filter mr-2"></i>Resume
+                                    <i class="fas fa-filter mr-2"></i>Resume Dokter
                                 </a>
                             </li>
 

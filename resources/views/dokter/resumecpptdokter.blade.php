@@ -12,7 +12,7 @@
 
 <div class="card-body">
     <form>
-        @if ($resume == null)
+        @if ($resumedok == null)
             <h1> belum ada CPPT</h1>
         @else
             <div class="mailbox-read-message">
@@ -23,19 +23,35 @@
                             <tbody>
                                 <tr>
                                     <td class="text-bold text-italic">SUBJECT</td>
-                                    <td>: {{$resume[0]->subyektif}} </td>
+                                    <td>: {{$resumedok[0]->subyektif}} </td>
                                 </tr>
                                 <tr>
                                     <td class="text-bold">OBJECT</td>
-                                    <td>: {{$resume[0]->obyektif}}</td>
+                                    <td>: {{$resumedok[0]->obyektif}}</td>
                                 </tr>
                                 <tr>
                                     <td class="text-bold text-italic">ASSESMEN</td>
-                                    <td>: {{$resume[0]->assesment}}</td>
+                                    <td>: {{$resumedok[0]->assesment}}</td>
                                 </tr>
                                 <tr>
                                     <td class="text-bold text-italic">PLANNING</td>
-                                    <td>: {{$resume[0]->planning}}</td>
+                                    <td>: {{$resumedok[0]->planning}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold text-italic">30 Menit Pertama</td>
+                                    <td>: {{$resumedok[0]->tiga_pertama}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold text-italic">30 Menit Kedua</td>
+                                    <td>: {{$resumedok[0]->tiga_kedua}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold text-italic">Cara Pulang</td>
+                                    <td>: {{$resumedok[0]->cara_pulang}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold text-italic">Keadaan Pulang</td>
+                                    <td>: {{$resumedok[0]->keadaan_pulang}}</td>
                                 </tr>
                             </tbody>
                         </table>
