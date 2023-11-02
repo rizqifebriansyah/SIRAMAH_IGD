@@ -1375,13 +1375,15 @@
         if (x < max_fields) { //max input box allowed
             x++; //text box increment
             $(wrapper).append(
-                '<div class="form-row text-xs"><div class="form-group col-md-8"><label for="">Tindakan</label><input readonly type="" class="form-control form-control-sm" id="" name="namatindakan" value="' +
+                '<div class="form-row text-xs"><div class="form-group col-md-5"><label for="">Tindakan</label><input readonly type="" class="form-control form-control-sm" id="" name="namatindakan" value="' +
                 namatindakan +
                 '"><input hidden readonly type="" class="form-control form-control-sm" id="" name="kodelayanan" value="' +
                 kode +
                 '"><input hidden  readonly type="" class="form-control form-control-sm" id="" name="jenis" value="' +
                 jenis +
-                '"></div><div class="form-group col-md-1"><label for="inputPassword4">Jumlah</label><input type="" class="form-control form-control-sm" id="" name="qty" value="1"></div><i class="bi bi-x-square remove_field form-group col-md-2 text-danger"></i></div>'
+                '"></div><div class="form-group col-md-2"><label for="inputPassword4">Tarif</label><input readonly type="" class="form-control form-control-sm" id="" name="tarif" value="' +
+                tarif +
+                '"></div><div class="form-group col-md-1"><label for="inputPassword4">Jumlah</label><input type="" class="form-control form-control-sm" id="" name="qty" value="1"></div><div class="form-group col-md-1"><label for="inputPassword4">Disc</label><input type="" class="form-control form-control-sm" id="" name="disc" value="0"></div><div class="form-group col-md-1"><label for="inputPassword4">Cyto</label><input type="" class="form-control form-control-sm" id="" name="cyto" value="1"></div><i class="bi bi-x-square remove_field form-group col-md-2 text-danger"></i></div>'
             );
             $(wrapper).on("click", ".remove_field", function(e) { //user click on remove
                 e.preventDefault();
@@ -1498,6 +1500,8 @@
     $(".simpanasses").click(function() {
         var data = $('.formerm').serializeArray();
         var datalab = $('.formlab').serializeArray();
+        var datarad = $('.formradio').serializeArray();
+
         var ku = $('#ku').val()
 
         var subject = $('#subject').val()
@@ -1540,7 +1544,7 @@
                         _token: "{{ csrf_token() }}",
                         data: JSON.stringify(data),
                         datalab: JSON.stringify(datalab),
-
+                        datarad: JSON.stringify(datarad),
                         subject: $('#subject').val(),
                         objek: $('#objek').val(),
                         assesmen: $('#assesmen').val(),
