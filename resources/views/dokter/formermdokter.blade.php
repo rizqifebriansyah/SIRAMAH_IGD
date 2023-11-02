@@ -5,6 +5,8 @@
 <div class="card-body">
     <div class="card">
         <form action="" class="formerm">
+            <input type="text" name="ku" id="ku" value="{{ $ku }}" hidden>
+            <input type="text" name="kp" id="kp" value="{{ $kp }}" hidden>
 
             <div class="accordion" id="accordionExample9">
                 <div class="card">
@@ -1340,13 +1342,15 @@
         if (x < max_fields) { //max input box allowed
             x++; //text box increment
             $(wrapper).append(
-                '<div class="form-row text-xs"><div class="form-group col-md-8"><label for="">Tindakan</label><input readonly type="" class="form-control form-control-sm" id="namatindakan" name="namatindakan" value="' +
+                '<div class="form-row text-xs"><div class="form-group col-md-5"><label for="">Tindakan</label><input readonly type="" class="form-control form-control-sm" id="" name="namatindakan" value="' +
                 namatindakan +
-                '"><input hidden readonly type="" class="form-control form-control-sm" id="kodelayanan" name="kodelayanan" value="' +
+                '"><input hidden readonly type="" class="form-control form-control-sm" id="" name="kodelayanan" value="' +
                 kode +
                 '"><input hidden  readonly type="" class="form-control form-control-sm" id="" name="jenis" value="' +
                 jenis +
-                '"></div><div class="form-group col-md-1"><label for="inputPassword4">Jumlah</label><input type="" class="form-control form-control-sm" id="qty" name="qty" value="1"></div><i class="bi bi-x-square remove_field form-group col-md-2 text-danger"></i></div>'
+                '"></div><div class="form-group col-md-2"><label for="inputPassword4">Tarif</label><input readonly type="" class="form-control form-control-sm" id="" name="tarif" value="' +
+                tarif +
+                '"></div><div class="form-group col-md-1"><label for="inputPassword4">Jumlah</label><input type="" class="form-control form-control-sm" id="" name="qty" value="1"></div><div class="form-group col-md-1"><label for="inputPassword4">Disc</label><input type="" class="form-control form-control-sm" id="" name="disc" value="0"></div><div class="form-group col-md-1"><label for="inputPassword4">Cyto</label><input type="" class="form-control form-control-sm" id="" name="cyto" value="1"></div><i class="bi bi-x-square remove_field form-group col-md-2 text-danger"></i></div>'
             );
             $(wrapper).on("click", ".remove_field", function(e) { //user click on remove
                 e.preventDefault();
@@ -1494,6 +1498,7 @@
     $(".simpanasses").click(function() {
         var data = $('.formerm').serializeArray();
         var datalab = $('.formlab').serializeArray();
+        var ku = $('#ku').val()
 
         var subject = $('#subject').val()
         var objek = $('#objek').val()
@@ -1503,6 +1508,8 @@
         var tigak = $('#tigak').val()
         var norm = $('#norm').val()
         var kj = $('#kj').val()
+        var kp = $('#kp').val()
+
         var tglmasuk = $('#tglmasuk').val()
         var diagnosa = $('#diagnosa').val()
         var diagnosa1 = $('#diagnosa1').val()
@@ -1548,6 +1555,10 @@
                         alpul1: $('#alpul1').val(),
                         kopul: $('#kopul').val(),
                         kopul1: $('#kopul1').val(),
+                        ku: $('#ku').val(),
+                        kp: $('#kp').val(),
+
+
                         tglmasuk: $('#tglmasuk').val(),
                     },
                     url: '<?= route('simpanassesmen') ?>',

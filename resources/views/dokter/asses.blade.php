@@ -122,8 +122,9 @@
                         <th style="text-align: center;">Diagnosa</th>
                         <th style="text-align: center;">Assesment Perawat</th>
                         <th hidden style="text-align: center;">kodekunjungan</th>
-
-
+                        <th hidden style="text-align: center;">kelas</th>
+                        <th hidden style="text-align: center;">kodepenjamin</th>
+                        <th hidden style="text-align: center;">kelas unit</th>
 
                         <th style="text-align: center;">Assesment Dokter</th>
 
@@ -138,7 +139,9 @@
                                 <td style="text-align: center;" class="norm">{{ $a->no_rm }}</td>
                                 <td style="text-align: center;" class="jk">{{ $a->jenis_kelamin }}</td>
                                 <td hidden style="text-align: center;" class="kj">{{ $a->kode_kunjungan }}</td>
-
+                                <td hidden style="text-align: center;" class="kelas">{{ $a->kelas }}</td>
+                                <td hidden style="text-align: center;" class="kp">{{ $a->kode_penjamin }}</td>
+                                <td hidden style="text-align: center;" class="ku">{{ $a->KELAS_UNIT }}</td>
 
                                 <td class="diag2" style="text-align: center;">
                                     {{ $a->DIAGX }}
@@ -224,6 +227,10 @@
             var jk = $row.find(".jk").text();
             var status1 = $row.find(".status1").text();
             var kj = $row.find(".kj").text();
+            var kelas = $row.find(".kelas").text();
+            var ku = $row.find(".ku").text();
+
+            var kp = $row.find(".kp").text();
             var tglmasuk = $row.find(".tglmasuk").text();
             var status2 = $row.find(".status2").text();
             $.ajax({
@@ -236,7 +243,10 @@
                     kj,
                     status1,
                     status2,
-                    tglmasuk
+                    tglmasuk,
+                    kelas,
+                    ku,
+                    kp
 
                 },
                 url: '<?= route('ermdokter') ?>',
