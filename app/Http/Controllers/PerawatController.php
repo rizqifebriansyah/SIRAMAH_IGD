@@ -53,7 +53,7 @@ class PerawatController extends Controller
         $jk = $request->jk;
         $kj = $request->kj;
         $tglmasuk = $request->tglmasuk;
-        $ttv = DB::connection('mysql2')->select('SELECT tekanan_darah, frekuensi_nafas, frekuensi_nadi, suhu, berat_badan, umur FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
+        $ttv = DB::connection('mysql2')->select('SELECT tekanan_darah, frekuensi_nafas, frekuensi_nadi, suhu, berat_badan, umur, keadaan_umum, kesadaran FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
         $cek = DB::select('SELECT
       fc_nama_unit1(kode_unit) AS nama_unit
       ,a.*
@@ -167,6 +167,8 @@ class PerawatController extends Controller
             'suhu' => $request->suhutubuh,
             'berat_badan' => $request->beratbadan,
             'umur' => $request->usia,
+            'keadaan_umum' => $request->keadaanumum,
+            'kesadaran' => $request->kesadaran,
             'tgl_kunjungan' => $request->tglmasuk,
             'tgl_input' => $now,
             'kode_unit' => '1002',

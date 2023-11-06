@@ -103,6 +103,33 @@
                                                 </div>
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <td class="text-bold font-italic">Keadaan Umum</td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control"
+                                                        placeholder="Keadaan Umum Pasien ..." name="keadaanumum"
+                                                        id="keadaanumum" aria-label="Recipient's username"
+                                                        aria-describedby="basic-addon2" value="">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text" id="basic-addon2"></span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-bold font-italic">Kesadaran</td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control"
+                                                        placeholder="Kesadaran pasien ..."
+                                                        aria-label="Suhu tubuh pasien" name="kesadaran"
+                                                        id="kesadaran" aria-describedby="basic-addon2"
+                                                        value="">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text" id="basic-addon2"></span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -119,27 +146,96 @@
 
                                     <div class="form-group">
                                         <center>
-                                            <h3>Subject</h3>
+                                            <h3>Anamnesis</h3>
                                         </center>
-                                        <textarea class="form-control" id="subject" name="subject" rows="4" placeholder=""></textarea>
+                                        <textarea class="form-control" id="anamnesis" name="anamnesis" rows="17" placeholder=""></textarea>
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
 
                                     <div class="form-group">
                                         <center>
-                                            <h3>Object</h3>
+                                            <h3>Diagnosa Keperawatan</h3>
                                         </center>
-                                        <textarea class="form-control" id="objek" name="objek" rows="4" placeholder=""></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
+                                        <div class="row">
+                                            <div class="col-sm-12">
 
-                                    <div class="form-group">
-                                        <center>
-                                            <h3>Assesmen</h3>
-                                        </center>
-                                        <textarea class="form-control" id="assesmen" name="assesmen" rows="4" placeholder=""></textarea>
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="diagnosakeperawatan" id="diagnosakeperawatan">
+                                                        <label class="form-check-label">Aktual / Risiko bersihan jalan
+                                                            nafas tidak efektif</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="diagnosakeperawatan" id="diagnosakeperawatan">
+                                                        <label class="form-check-label">Aktual / Risiko pola nafas
+                                                            tidak efektif</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="diagnosakeperawatan" id="diagnosakeperawatan">
+                                                        <label class="form-check-label">Aktual / Risiko gangguan
+                                                            pertukaran gas</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="diagnosakeperawatan" id="diagnosakeperawatan">
+                                                        <label class="form-check-label">Aktual / Risiko gangguan
+                                                            sirkulasi</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="diagnosakeperawatan" id="diagnosakeperawatan">
+                                                        <label class="form-check-label">Aktual / Risiko gangguan
+                                                            perfusi jaringan / cerebral </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="diagnosakeperawatan" id="diagnosakeperawatan">
+                                                        <label class="form-check-label">Hipertermia </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="diagnosakeperawatan" id="diagnosakeperawatan">
+                                                        <label class="form-check-label">Aktual / Risiko gangguan
+                                                            keseimbangan cairan </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="diagnosakeperawatan" id="diagnosakeperawatan">
+                                                        <label class="form-check-label">Aktual / Risiko gangguan
+                                                            integritas kulit </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="diagnosakeperawatan" id="diagnosakeperawatan">
+                                                        <label class="form-check-label">Aktual / Risiko cemas / takut
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="diagnosakeperawatan" id="diagnosakeperawatan">
+                                                        <label class="form-check-label">Risiko penyebaran toksik
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="diagnosakeperawatan" id="diagnosakeperawatan">
+                                                        <label class="form-check-label">risiko jatuh / cedera</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="diagnosakeperawatan" id="diagnosakeperawatan">
+                                                        <label class="form-check-label">nyeri</label>
+                                                    </div>
+                                                    <textarea class="form-control" id="diagnosakeperawatan1" name="diagnosakeperawatan1" rows="2" placeholder=""></textarea>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
@@ -148,7 +244,16 @@
                                         <center>
                                             <h3>Planning</h3>
                                         </center>
-                                        <textarea class="form-control" id="planning" name="planning" rows="4" placeholder=""></textarea>
+                                        <textarea class="form-control" id="planning" name="planning" rows="17" placeholder=""> </textarea>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+
+                                    <div class="form-group">
+                                        <center>
+                                            <h3>Tindakan</h3>
+                                        </center>
+                                        <textarea class="form-control" id="assesmen" name="assesmen" rows="17" placeholder=""></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -351,6 +456,33 @@
                                                 </div>
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <td class="text-bold font-italic">Keadaan Umum</td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control"
+                                                        placeholder="Keadaan Umum Pasien ..." name="keadaanumum"
+                                                        id="keadaanumum" aria-label="Recipient's username"
+                                                        aria-describedby="basic-addon2" value="{{ $assesper[0]->keadaan_umum }}">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text" id="basic-addon2"></span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-bold font-italic">Kesadaran</td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control"
+                                                        placeholder="Kesadaran pasien ..."
+                                                        aria-label="Suhu tubuh pasien" name="kesadaran"
+                                                        id="kesadaran" aria-describedby="basic-addon2"
+                                                        value="{{ $assesper[0]->kesadaran }}">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text" id="basic-addon2"></span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -367,27 +499,96 @@
 
                                     <div class="form-group">
                                         <center>
-                                            <h3>Subject</h3>
+                                            <h3>Anamnesis</h3>
                                         </center>
-                                        <textarea class="form-control" id="subject" name="subject" rows="4" placeholder="">{{ $assesper[0]->subyektif }}</textarea>
+                                        <textarea class="form-control" id="anamnesis" name="anamnesis" rows="17" placeholder="">{{ $assesper[0]->subyektif }}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
 
                                     <div class="form-group">
                                         <center>
-                                            <h3>Object</h3>
+                                            <h3>Diagnosa Keperawatan</h3>
                                         </center>
-                                        <textarea class="form-control" id="objek" name="objek" rows="4" placeholder="">{{ $assesper[0]->obyektif }}</textarea>
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
+                                        <div class="row">
+                                            <div class="col-sm-12">
 
-                                    <div class="form-group">
-                                        <center>
-                                            <h3>Assesmen</h3>
-                                        </center>
-                                        <textarea class="form-control" id="assesmen" name="assesmen" rows="4" placeholder="">{{ $assesper[0]->assesment }}</textarea>
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="diagnosakeperawatan" id="diagnosakeperawatan">
+                                                        <label class="form-check-label">Aktual / Risiko bersihan jalan
+                                                            nafas tidak efektif</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="diagnosakeperawatan" id="diagnosakeperawatan">
+                                                        <label class="form-check-label">Aktual / Risiko pola nafas
+                                                            tidak efektif</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="diagnosakeperawatan" id="diagnosakeperawatan">
+                                                        <label class="form-check-label">Aktual / Risiko gangguan
+                                                            pertukaran gas</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="diagnosakeperawatan" id="diagnosakeperawatan">
+                                                        <label class="form-check-label">Aktual / Risiko gangguan
+                                                            sirkulasi</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="diagnosakeperawatan" id="diagnosakeperawatan">
+                                                        <label class="form-check-label">Aktual / Risiko gangguan
+                                                            perfusi jaringan / cerebral </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="diagnosakeperawatan" id="diagnosakeperawatan">
+                                                        <label class="form-check-label">Hipertermia </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="diagnosakeperawatan" id="diagnosakeperawatan">
+                                                        <label class="form-check-label">Aktual / Risiko gangguan
+                                                            keseimbangan cairan </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="diagnosakeperawatan" id="diagnosakeperawatan">
+                                                        <label class="form-check-label">Aktual / Risiko gangguan
+                                                            integritas kulit </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="diagnosakeperawatan" id="diagnosakeperawatan">
+                                                        <label class="form-check-label">Aktual / Risiko cemas / takut
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="diagnosakeperawatan" id="diagnosakeperawatan">
+                                                        <label class="form-check-label">Risiko penyebaran toksik
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="diagnosakeperawatan" id="diagnosakeperawatan">
+                                                        <label class="form-check-label">risiko jatuh / cedera</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="diagnosakeperawatan" id="diagnosakeperawatan">
+                                                        <label class="form-check-label">nyeri</label>
+                                                    </div>
+                                                    <textarea class="form-control" id="diagnosakeperawatan1" name="diagnosakeperawatan1" rows="2" placeholder=""></textarea>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
@@ -396,7 +597,16 @@
                                         <center>
                                             <h3>Planning</h3>
                                         </center>
-                                        <textarea class="form-control" id="planning" name="planning" rows="4" placeholder="">{{ $assesper[0]->planning }}</textarea>
+                                        <textarea class="form-control" id="planning" name="planning" rows="17" placeholder=""> {{ $assesper[0]->planning }}</textarea>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+
+                                    <div class="form-group">
+                                        <center>
+                                            <h3>Tindakan</h3>
+                                        </center>
+                                        <textarea class="form-control" id="assesmen" name="assesmen" rows="17" placeholder="">{{ $assesper[0]->assesment }}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -554,8 +764,10 @@
         var suhutubuh = $('#suhutubuh').val()
         var beratbadan = $('#beratbadan').val()
         var usia = $('#usia').val()
-        var subject = $('#subject').val()
-        var objek = $('#objek').val()
+        var keadaanumum = $('#keadaanumum').val()
+        var kesadaran = $('#kesadaran').val()
+        var subject = $('#anamnesis').val()
+        var objek = $('#diagnosakeperawatan:checked').val()
         var assesmen = $('#assesmen').val()
         var planning = $('#planning').val()
         var norm = $('#norm').val()
@@ -586,8 +798,8 @@
                     data: {
                         _token: "{{ csrf_token() }}",
                         data: JSON.stringify(data),
-                        subject: $('#subject').val(),
-                        objek: $('#objek').val(),
+                        subject: $('#anamnesis').val(),
+                        objek: $('#diagnosakeperawatan:checked').val(),
                         assesmen: $('#assesmen').val(),
                         planning: $('#planning').val(),
                         norm: $('#norm').val(),
@@ -598,6 +810,8 @@
                         frekuensinafas: $('#frekuensinafas').val(),
                         suhutubuh: $('#suhutubuh').val(),
                         beratbadan: $('#beratbadan').val(),
+                        keadaanumum: $('#keadaanumum').val(),
+                        kesadaran: $('#kesadaran').val(),
                         alpul: $('#alpul').val(),
                         alpul1: $('#alpul1').val(),
                         kopul: $('#kopul').val(),
@@ -651,8 +865,10 @@
         var suhutubuh = $('#suhutubuh').val()
         var beratbadan = $('#beratbadan').val()
         var usia = $('#usia').val()
-        var subject = $('#subject').val()
-        var objek = $('#objek').val()
+        var keadaanumum = $('#keadaanumum').val()
+        var kesadaran = $('#kesadaran').val()
+        var subject = $('#anamnesis').val()
+        var objek = $('#diagnosakeperawatan:checked').val()
         var assesmen = $('#assesmen').val()
         var planning = $('#planning').val()
         var norm = $('#norm').val()
@@ -682,8 +898,8 @@
                     data: {
                         _token: "{{ csrf_token() }}",
                         data: JSON.stringify(data),
-                        subject: $('#subject').val(),
-                        objek: $('#objek').val(),
+                        subject: $('#anamnesis').val(),
+                        objek: $('#diagnosakeperawatan:checked').val(),
                         assesmen: $('#assesmen').val(),
                         planning: $('#planning').val(),
                         norm: $('#norm').val(),
@@ -694,11 +910,13 @@
                         frekuensinafas: $('#frekuensinafas').val(),
                         suhutubuh: $('#suhutubuh').val(),
                         beratbadan: $('#beratbadan').val(),
-                        usia: $('#usia').val(),
+                        keadaanumum: $('#keadaanumum').val(),
+                        kesadaran: $('#kesadaran').val(),
                         alpul: $('#alpul').val(),
                         alpul1: $('#alpul1').val(),
                         kopul: $('#kopul').val(),
                         kopul1: $('#kopul1').val(),
+                        usia: $('#usia').val(),
 
                     },
                     url: '<?= route('updateassemenperawat') ?>',
