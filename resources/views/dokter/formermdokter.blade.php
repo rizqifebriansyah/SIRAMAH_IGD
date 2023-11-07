@@ -106,6 +106,44 @@
                                                 </div>
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <td class="text-bold font-italic">Keadaan Umum</td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="keadaanumum"
+                                                        id="keadaanumum" value="Baik">
+                                                    <label class="form-check-label">Baik</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="keadaanumum"
+                                                        id="keadaanumum" value="Sedang">
+                                                    <label class="form-check-label">Sedang</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="keadaanumum"
+                                                        id="keadaanumum" value="Buruk">
+                                                    <label class="form-check-label">Buruk</label>
+                                                </div>
+                                            </td>
+                                            <td class="text-bold font-italic">Kesadaran</td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="kesadaran"
+                                                        id="kesadaran" value="13-15">
+                                                    <label class="form-check-label">13-15</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="kesadaran"
+                                                        id="kesadaran" value="9-12">
+                                                    <label class="form-check-label">9-12</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="kesadaran"
+                                                        id="kesadaran" value="3-8">
+                                                    <label class="form-check-label">3-8</label>
+                                                </div>
+                                            </td>
+                                        </tr>
                                     @else
                                         <tr>
                                             <td class="text-bold font-italic">Tekanan Darah</td>
@@ -190,6 +228,119 @@
                                                         <span class="input-group-text" id="basic-addon2">th</span>
                                                     </div>
                                                 </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-bold font-italic">Keadaan Umum</td>
+                                            <td>
+                                                @if ($ttv[0]->keadaan_umum == 'Baik')
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="keadaanumum" id="keadaanumum" value="Baik"
+                                                            checked>
+                                                        <label class="form-check-label">Baik</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="keadaanumum" id="keadaanumum" value="Sedang">
+                                                        <label class="form-check-label">Sedang</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="keadaanumum" id="keadaanumum" value="Buruk">
+                                                        <label class="form-check-label">Buruk</label>
+                                                    </div>
+                                                @elseif ($ttv[0]->keadaan_umum == 'Sedang')
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="keadaanumum" id="keadaanumum" value="Baik">
+                                                        <label class="form-check-label">Baik</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="keadaanumum" id="keadaanumum" value="Sedang"
+                                                            checked>
+                                                        <label class="form-check-label">Sedang</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="keadaanumum" id="keadaanumum" value="Buruk">
+                                                        <label class="form-check-label">Buruk</label>
+                                                    </div>
+                                                @else
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="keadaanumum" id="keadaanumum" value="Baik">
+                                                        <label class="form-check-label">Baik</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="keadaanumum" id="keadaanumum" value="Sedang">
+                                                        <label class="form-check-label">Sedang</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="keadaanumum" id="keadaanumum" value="Buruk"
+                                                            checked>
+                                                        <label class="form-check-label">Buruk</label>
+                                                    </div>
+                                                @endif
+
+
+
+                                            </td>
+                                            <td class="text-bold font-italic">Kesadaran</td>
+                                            <td>
+                                                @if ($ttv[0]->kesadaran == '13-15')
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="kesadaran" id="kesadaran" value="13-15" checked>
+                                                        <label class="form-check-label">13-15</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="kesadaran" id="kesadaran" value="9-12">
+                                                        <label class="form-check-label">9-12</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="kesadaran" id="kesadaran" value="3-8">
+                                                        <label class="form-check-label">3-8</label>
+                                                    </div>
+                                                @elseif ($ttv[0]->kesadaran == '9-12')
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="kesadaran" id="kesadaran" value="13-15">
+                                                        <label class="form-check-label">13-15</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="kesadaran" id="kesadaran" value="9-12" checked>
+                                                        <label class="form-check-label">9-12</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="kesadaran" id="kesadaran" value="3-8">
+                                                        <label class="form-check-label">3-8</label>
+                                                    </div>
+                                                @else
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="kesadaran" id="kesadaran" value="13-15">
+                                                        <label class="form-check-label">13-15</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="kesadaran" id="kesadaran" value="9-12">
+                                                        <label class="form-check-label">9-12</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="kesadaran" id="kesadaran" value="3-8" checked>
+                                                        <label class="form-check-label">3-8</label>
+                                                    </div>
+                                                @endif
+
                                             </td>
                                         </tr>
                                     @endif

@@ -46,6 +46,12 @@
                                 <li class="list-group-item">
                                     <b>Usia</b> <a class="float-right"> Th</a>
                                 </li>
+                                <li class="list-group-item">
+                                    <b>Keadaan Umum</b> <a class="float-right"> </a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Kesadaran</b> <a class="float-right"> </a>
+                                </li>
                             </ul>
                         @else
                             <p class="text-muted text-center">PASIEN INSTALASI GAWAT DARURAT</p>
@@ -68,6 +74,12 @@
                                 </li>
                                 <li class="list-group-item">
                                     <b>Usia</b> <a class="float-right">{{ $ttv[0]->umur }} Th</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Keadaan Umum</b> <a class="float-right"> {{ $ttv[0]->keadaan_umum }}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Kesadaran</b> <a class="float-right">{{ $ttv[0]->kesadaran }} </a>
                                 </li>
                             </ul>
                         @endif
