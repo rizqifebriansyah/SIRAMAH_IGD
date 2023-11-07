@@ -103,6 +103,11 @@
                                 </a>
                             </li>
                             <li class="nav-item" id="pemeriksaan">
+                                <a href="#" class="nav-link rencanapemulanganpasien">
+                                    <i class="fas fa-filter mr-2"></i>Rencana Pemulangan Pasien
+                                </a>
+                            </li>
+                            <li class="nav-item" id="pemeriksaan">
                                 <a href="#" class="nav-link resumecpptperawat">
                                     <i class="fas fa-filter mr-2"></i>Resume
                                 </a>

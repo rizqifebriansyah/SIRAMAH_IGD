@@ -212,13 +212,16 @@ class PerawatController extends Controller
         $planning = $request->planning;
         $kj = $request->kj;
         $norm = $request->norm;
+        $kesadaran = $request->kesadaran;
+        $keadaanumum = $request->keadaanumum;
+
         $now = Carbon::now();
         $user = auth()->user()->id_simrs;
         $kp = auth()->user()->kode_paramedis;
         $update = DB::connection('mysql2')->select('UPDATE erm_cppt_perawat
         SET tekanan_darah = ? , frekuensi_nadi = ?, frekuensi_nafas = ? , suhu = ?, berat_badan = ? , umur = ?,
-        subyektif = ? , diagnosa_perawat = ?, assesment = ? , planning = ?
-        WHERE no_rm = ? AND kode_kunjungan = ?', [$tekanandarah, $frekuensinadi, $frekuensinafas, $suhu, $beratbadan,  $umur, $subyektif,  $obyektif, $assesment, $planning, $norm, $kj]);
+        subyektif = ? , diagnosa_perawat = ?, assesment = ? , planning = ?, keadaan_umum = ?, kesadaran = ?
+        WHERE no_rm = ? AND kode_kunjungan = ?', [$tekanandarah, $frekuensinadi, $frekuensinafas, $suhu, $beratbadan,  $umur, $subyektif,  $obyektif, $assesment, $planning, $norm, $kj, $keadaanumum, $kesadaran]);
 
 
 

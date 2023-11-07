@@ -2025,8 +2025,8 @@
         var suhutubuh = $('#suhutubuh').val()
         var beratbadan = $('#beratbadan').val()
         var usia = $('#usia').val()
-        var keadaanumum = $('#keadaanumum').val()
-        var kesadaran = $('#kesadaran').val()
+        var keadaanumum = $('#keadaanumum:checked').val()
+        var kesadaran = $('#kesadaran:checked').val()
         var subject = $('#anamnesis').val()
         var objek = $('#diagnosakeperawatan:checked').val()
         var assesmen = $('#assesmen').val()
@@ -2071,8 +2071,8 @@
                         frekuensinafas: $('#frekuensinafas').val(),
                         suhutubuh: $('#suhutubuh').val(),
                         beratbadan: $('#beratbadan').val(),
-                        keadaanumum: $('#keadaanumum').val(),
-                        kesadaran: $('#kesadaran').val(),
+                        keadaanumum: $('#keadaanumum:checked').val(),
+                        kesadaran: $('#kesadaran:checked').val(),
                         alpul: $('#alpul').val(),
                         alpul1: $('#alpul1').val(),
                         kopul: $('#kopul').val(),
@@ -2126,8 +2126,8 @@
         var suhutubuh = $('#suhutubuh').val()
         var beratbadan = $('#beratbadan').val()
         var usia = $('#usia').val()
-        var keadaanumum = $('#keadaanumum').val()
-        var kesadaran = $('#kesadaran').val()
+        var keadaanumum = $('#keadaanumum:checked').val()
+        var kesadaran = $('#kesadaran:checked').val()
         var subject = $('#anamnesis').val()
         var objek = $('#diagnosakeperawatan:checked').val()
         var assesmen = $('#assesmen').val()
@@ -2171,8 +2171,8 @@
                         frekuensinafas: $('#frekuensinafas').val(),
                         suhutubuh: $('#suhutubuh').val(),
                         beratbadan: $('#beratbadan').val(),
-                        keadaanumum: $('#keadaanumum').val(),
-                        kesadaran: $('#kesadaran').val(),
+                        keadaanumum: $('#keadaanumum:checked').val(),
+                        kesadaran: $('#kesadaran:checked').val(),
                         alpul: $('#alpul').val(),
                         alpul1: $('#alpul1').val(),
                         kopul: $('#kopul').val(),
