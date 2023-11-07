@@ -106,27 +106,38 @@
                                         <tr>
                                             <td class="text-bold font-italic">Keadaan Umum</td>
                                             <td>
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control"
-                                                        placeholder="Keadaan Umum Pasien ..." name="keadaanumum"
-                                                        id="keadaanumum" aria-label="Recipient's username"
-                                                        aria-describedby="basic-addon2" value="">
-                                                    <div class="input-group-append">
-                                                        <span class="input-group-text" id="basic-addon2"></span>
-                                                    </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="keadaanumum"
+                                                        id="keadaanumum" value="Baik">
+                                                    <label class="form-check-label">Baik</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="keadaanumum"
+                                                        id="keadaanumum" value="Sedang">
+                                                    <label class="form-check-label">Sedang</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="keadaanumum"
+                                                        id="keadaanumum" value="Buruk">
+                                                    <label class="form-check-label">Buruk</label>
                                                 </div>
                                             </td>
                                             <td class="text-bold font-italic">Kesadaran</td>
                                             <td>
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control"
-                                                        placeholder="Kesadaran pasien ..."
-                                                        aria-label="Suhu tubuh pasien" name="kesadaran"
-                                                        id="kesadaran" aria-describedby="basic-addon2"
-                                                        value="">
-                                                    <div class="input-group-append">
-                                                        <span class="input-group-text" id="basic-addon2"></span>
-                                                    </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="kesadaran"
+                                                        id="kesadaran" value="13-15">
+                                                    <label class="form-check-label">13-15</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="kesadaran"
+                                                        id="kesadaran" value="9-12">
+                                                    <label class="form-check-label">9-12</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="kesadaran"
+                                                        id="kesadaran" value="3-8">
+                                                    <label class="form-check-label">3-8</label>
                                                 </div>
                                             </td>
                                         </tr>
@@ -163,71 +174,84 @@
                                                 <div class="form-group">
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="radio"
-                                                            name="diagnosakeperawatan" id="diagnosakeperawatan">
+                                                            name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                            value="Aktual / Risiko bersihan jalan nafas tidak efektif">
                                                         <label class="form-check-label">Aktual / Risiko bersihan jalan
                                                             nafas tidak efektif</label>
                                                     </div>
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="radio"
-                                                            name="diagnosakeperawatan" id="diagnosakeperawatan">
+                                                            name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                            value="Aktual / Risiko pola nafas tidak efektif">
                                                         <label class="form-check-label">Aktual / Risiko pola nafas
                                                             tidak efektif</label>
                                                     </div>
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="radio"
-                                                            name="diagnosakeperawatan" id="diagnosakeperawatan">
+                                                            name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                            value="Aktual / Risiko gangguan pertukaran gas">
                                                         <label class="form-check-label">Aktual / Risiko gangguan
                                                             pertukaran gas</label>
                                                     </div>
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="radio"
-                                                            name="diagnosakeperawatan" id="diagnosakeperawatan">
+                                                            name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                            value="Aktual / Risiko gangguan sirkulasi">
                                                         <label class="form-check-label">Aktual / Risiko gangguan
                                                             sirkulasi</label>
                                                     </div>
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="radio"
-                                                            name="diagnosakeperawatan" id="diagnosakeperawatan">
+                                                            name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                            value="Aktual / Risiko gangguan
+                                                            perfusi jaringan / cerebral ">
                                                         <label class="form-check-label">Aktual / Risiko gangguan
                                                             perfusi jaringan / cerebral </label>
                                                     </div>
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="radio"
-                                                            name="diagnosakeperawatan" id="diagnosakeperawatan">
+                                                            name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                            value="Hipertermia">
                                                         <label class="form-check-label">Hipertermia </label>
                                                     </div>
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="radio"
-                                                            name="diagnosakeperawatan" id="diagnosakeperawatan">
+                                                            name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                            value="Aktual / Risiko gangguan keseimbangan cairan">
                                                         <label class="form-check-label">Aktual / Risiko gangguan
                                                             keseimbangan cairan </label>
                                                     </div>
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="radio"
-                                                            name="diagnosakeperawatan" id="diagnosakeperawatan">
+                                                            name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                            value="Aktual / Risiko gangguan integritas kulit">
                                                         <label class="form-check-label">Aktual / Risiko gangguan
                                                             integritas kulit </label>
                                                     </div>
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="radio"
-                                                            name="diagnosakeperawatan" id="diagnosakeperawatan">
+                                                            name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                            value="Aktual / Risiko cemas / takut">
                                                         <label class="form-check-label">Aktual / Risiko cemas / takut
                                                         </label>
                                                     </div>
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="radio"
-                                                            name="diagnosakeperawatan" id="diagnosakeperawatan">
+                                                            name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                            value="Risiko penyebaran toksik">
                                                         <label class="form-check-label">Risiko penyebaran toksik
                                                         </label>
                                                     </div>
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="radio"
-                                                            name="diagnosakeperawatan" id="diagnosakeperawatan">
+                                                            name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                            value="risiko jatuh / cedera">
                                                         <label class="form-check-label">risiko jatuh / cedera</label>
                                                     </div>
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="radio"
-                                                            name="diagnosakeperawatan" id="diagnosakeperawatan">
+                                                            name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                            value="nyeri">
                                                         <label class="form-check-label">nyeri</label>
                                                     </div>
                                                     <textarea class="form-control" id="diagnosakeperawatan1" name="diagnosakeperawatan1" rows="2" placeholder=""></textarea>
@@ -459,30 +483,117 @@
                                         <tr>
                                             <td class="text-bold font-italic">Keadaan Umum</td>
                                             <td>
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control"
-                                                        placeholder="Keadaan Umum Pasien ..." name="keadaanumum"
-                                                        id="keadaanumum" aria-label="Recipient's username"
-                                                        aria-describedby="basic-addon2" value="{{ $assesper[0]->keadaan_umum }}">
-                                                    <div class="input-group-append">
-                                                        <span class="input-group-text" id="basic-addon2"></span>
+                                                @if ($assesper[0]->keadaan_umum == 'Baik')
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="keadaanumum" id="keadaanumum" value="Baik"
+                                                            checked>
+                                                        <label class="form-check-label">Baik</label>
                                                     </div>
-                                                </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="keadaanumum" id="keadaanumum" value="Sedang">
+                                                        <label class="form-check-label">Sedang</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="keadaanumum" id="keadaanumum" value="Buruk">
+                                                        <label class="form-check-label">Buruk</label>
+                                                    </div>
+                                                @elseif ($assesper[0]->keadaan_umum == 'Sedang')
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="keadaanumum" id="keadaanumum" value="Baik">
+                                                        <label class="form-check-label">Baik</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="keadaanumum" id="keadaanumum" value="Sedang"
+                                                            checked>
+                                                        <label class="form-check-label">Sedang</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="keadaanumum" id="keadaanumum" value="Buruk">
+                                                        <label class="form-check-label">Buruk</label>
+                                                    </div>
+                                                @else
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="keadaanumum" id="keadaanumum" value="Baik">
+                                                        <label class="form-check-label">Baik</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="keadaanumum" id="keadaanumum" value="Sedang">
+                                                        <label class="form-check-label">Sedang</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="keadaanumum" id="keadaanumum" value="Buruk"
+                                                            checked>
+                                                        <label class="form-check-label">Buruk</label>
+                                                    </div>
+                                                @endif
+
+
+
                                             </td>
                                             <td class="text-bold font-italic">Kesadaran</td>
                                             <td>
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control"
-                                                        placeholder="Kesadaran pasien ..."
-                                                        aria-label="Suhu tubuh pasien" name="kesadaran"
-                                                        id="kesadaran" aria-describedby="basic-addon2"
-                                                        value="{{ $assesper[0]->kesadaran }}">
-                                                    <div class="input-group-append">
-                                                        <span class="input-group-text" id="basic-addon2"></span>
+                                                @if ($assesper[0]->kesadaran == '13-15')
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="kesadaran" id="kesadaran" value="13-15" checked>
+                                                        <label class="form-check-label">13-15</label>
                                                     </div>
-                                                </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="kesadaran" id="kesadaran" value="9-12">
+                                                        <label class="form-check-label">9-12</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="kesadaran" id="kesadaran" value="3-8">
+                                                        <label class="form-check-label">3-8</label>
+                                                    </div>
+                                                @elseif ($assesper[0]->kesadaran == '9-12')
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="kesadaran" id="kesadaran" value="13-15">
+                                                        <label class="form-check-label">13-15</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="kesadaran" id="kesadaran" value="9-12" checked>
+                                                        <label class="form-check-label">9-12</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="kesadaran" id="kesadaran" value="3-8">
+                                                        <label class="form-check-label">3-8</label>
+                                                    </div>
+                                                @else
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="kesadaran" id="kesadaran" value="13-15">
+                                                        <label class="form-check-label">13-15</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="kesadaran" id="kesadaran" value="9-12">
+                                                        <label class="form-check-label">9-12</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="kesadaran" id="kesadaran" value="3-8" checked>
+                                                        <label class="form-check-label">3-8</label>
+                                                    </div>
+                                                @endif
+
                                             </td>
                                         </tr>
+
                                     </tbody>
                                 </table>
                             </div>
@@ -514,76 +625,1236 @@
                                             <div class="col-sm-12">
 
                                                 <div class="form-group">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio"
-                                                            name="diagnosakeperawatan" id="diagnosakeperawatan">
-                                                        <label class="form-check-label">Aktual / Risiko bersihan jalan
-                                                            nafas tidak efektif</label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio"
-                                                            name="diagnosakeperawatan" id="diagnosakeperawatan">
-                                                        <label class="form-check-label">Aktual / Risiko pola nafas
-                                                            tidak efektif</label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio"
-                                                            name="diagnosakeperawatan" id="diagnosakeperawatan">
-                                                        <label class="form-check-label">Aktual / Risiko gangguan
-                                                            pertukaran gas</label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio"
-                                                            name="diagnosakeperawatan" id="diagnosakeperawatan">
-                                                        <label class="form-check-label">Aktual / Risiko gangguan
-                                                            sirkulasi</label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio"
-                                                            name="diagnosakeperawatan" id="diagnosakeperawatan">
-                                                        <label class="form-check-label">Aktual / Risiko gangguan
-                                                            perfusi jaringan / cerebral </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio"
-                                                            name="diagnosakeperawatan" id="diagnosakeperawatan">
-                                                        <label class="form-check-label">Hipertermia </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio"
-                                                            name="diagnosakeperawatan" id="diagnosakeperawatan">
-                                                        <label class="form-check-label">Aktual / Risiko gangguan
-                                                            keseimbangan cairan </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio"
-                                                            name="diagnosakeperawatan" id="diagnosakeperawatan">
-                                                        <label class="form-check-label">Aktual / Risiko gangguan
-                                                            integritas kulit </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio"
-                                                            name="diagnosakeperawatan" id="diagnosakeperawatan">
-                                                        <label class="form-check-label">Aktual / Risiko cemas / takut
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio"
-                                                            name="diagnosakeperawatan" id="diagnosakeperawatan">
-                                                        <label class="form-check-label">Risiko penyebaran toksik
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio"
-                                                            name="diagnosakeperawatan" id="diagnosakeperawatan">
-                                                        <label class="form-check-label">risiko jatuh / cedera</label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio"
-                                                            name="diagnosakeperawatan" id="diagnosakeperawatan">
-                                                        <label class="form-check-label">nyeri</label>
-                                                    </div>
-                                                    <textarea class="form-control" id="diagnosakeperawatan1" name="diagnosakeperawatan1" rows="2" placeholder=""></textarea>
+                                                    @if (
+                                                        $assesper[0]->subyektif ==
+                                                            'Aktual / Risiko bersihan jalan nafas tidak efektif')
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko bersihan jalan
+                                                            nafas tidak efektif"
+                                                                checked>
+                                                            <label class="form-check-label">Aktual / Risiko bersihan
+                                                                jalan
+                                                                nafas tidak efektif</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko pola nafas
+                                                                tidak efektif">
+                                                            <label class="form-check-label">Aktual / Risiko pola nafas
+                                                                tidak efektif</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                pertukaran gas">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                pertukaran gas</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                sirkulasi">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                sirkulasi</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                perfusi jaringan / cerebral">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                perfusi jaringan / cerebral </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Hipertermia">
+                                                            <label class="form-check-label">Hipertermia </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                keseimbangan cairan">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                keseimbangan cairan </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                integritas kulit">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                integritas kulit </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko cemas /
+                                                                takut">
+                                                            <label class="form-check-label">Aktual / Risiko cemas /
+                                                                takut
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Risiko penyebaran toksik">
+                                                            <label class="form-check-label">Risiko penyebaran toksik
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="risiko jatuh /
+                                                                cedera">
+                                                            <label class="form-check-label">risiko jatuh /
+                                                                cedera</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="nyeri">
+                                                            <label class="form-check-label">nyeri</label>
+                                                        </div>
+                                                    @elseif (
+                                                        $assesper[0]->subyektif ==
+                                                            'Aktual / Risiko pola nafas tidak efektif')
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko bersihan jalan
+        nafas tidak efektif">
+                                                            <label class="form-check-label">Aktual / Risiko bersihan
+                                                                jalan
+                                                                nafas tidak efektif</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input checked class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko pola nafas
+        tidak efektif">
+                                                            <label class="form-check-label">Aktual / Risiko pola nafas
+                                                                tidak efektif</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                pertukaran gas">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                pertukaran gas</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                sirkulasi">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                sirkulasi</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                perfusi jaringan / cerebral">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                perfusi jaringan / cerebral </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Hipertermia">
+                                                            <label class="form-check-label">Hipertermia </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                keseimbangan cairan">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                keseimbangan cairan </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                integritas kulit">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                integritas kulit </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko cemas /
+                                                                takut">
+                                                            <label class="form-check-label">Aktual / Risiko cemas /
+                                                                takut
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Risiko penyebaran toksik">
+                                                            <label class="form-check-label">Risiko penyebaran toksik
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="risiko jatuh /
+                                                                cedera">
+                                                            <label class="form-check-label">risiko jatuh /
+                                                                cedera</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="nyeri">
+                                                            <label class="form-check-label">nyeri</label>
+                                                        </div>
+                                                    @elseif (
+                                                        $assesper[0]->subyektif ==
+                                                            'Aktual / Risiko gangguan pertukaran gas')
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko bersihan jalan
+                                                                    nafas tidak efektif">
+                                                            <label class="form-check-label">Aktual / Risiko bersihan
+                                                                jalan
+                                                                nafas tidak efektif</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko pola nafas
+                                                                    tidak efektif">
+                                                            <label class="form-check-label">Aktual / Risiko pola nafas
+                                                                tidak efektif</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                    pertukaran gas"
+                                                                checked>
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                pertukaran gas</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                    sirkulas">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                sirkulasi</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                    perfusi jaringan / cerebral">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                perfusi jaringan / cerebral </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Hipertermia">
+                                                            <label class="form-check-label">Hipertermia </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                    keseimbangan cairan">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                keseimbangan cairan </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                    integritas kulit">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                integritas kulit </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko cemas / takut">
+                                                            <label class="form-check-label">Aktual / Risiko cemas /
+                                                                takut
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Risiko penyebaran toksik">
+                                                            <label class="form-check-label">Risiko penyebaran toksik
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="risiko jatuh / cedera">
+                                                            <label class="form-check-label">risiko jatuh /
+                                                                cedera</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="nyeri">
+                                                            <label class="form-check-label">nyeri</label>
+                                                        </div>
+                                                    @elseif (
+                                                        $assesper[0]->subyektif ==
+                                                            'Aktual / Risiko gangguan sirkulasi')
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko bersihan jalan
+                                                                        nafas tidak efektif">
+                                                            <label class="form-check-label">Aktual / Risiko bersihan
+                                                                jalan
+                                                                nafas tidak efektif</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko pola nafas
+                                                                        tidak efektif">
+                                                            <label class="form-check-label">Aktual / Risiko pola nafas
+                                                                tidak efektif</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                        pertukaran gas">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                pertukaran gas</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                        sirkulas"
+                                                                checked>
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                sirkulasi</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                        perfusi jaringan / cerebral">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                perfusi jaringan / cerebral </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Hipertermia">
+                                                            <label class="form-check-label">Hipertermia </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                        keseimbangan cairan">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                keseimbangan cairan </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                        integritas kulit">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                integritas kulit </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko cemas / takut">
+                                                            <label class="form-check-label">Aktual / Risiko cemas /
+                                                                takut
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Risiko penyebaran toksik">
+                                                            <label class="form-check-label">Risiko penyebaran toksik
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="risiko jatuh / cedera">
+                                                            <label class="form-check-label">risiko jatuh /
+                                                                cedera</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="nyeri">
+                                                            <label class="form-check-label">nyeri</label>
+                                                        </div>
+                                                    @elseif (
+                                                        $assesper[0]->subyektif ==
+                                                            'Aktual / Risiko gangguan perfusi jaringan / cerebral')
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko bersihan jalan
+                                                                            nafas tidak efektif">
+                                                            <label class="form-check-label">Aktual / Risiko bersihan
+                                                                jalan
+                                                                nafas tidak efektif</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko pola nafas
+                                                                            tidak efektif">
+                                                            <label class="form-check-label">Aktual / Risiko pola nafas
+                                                                tidak efektif</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                            pertukaran gas">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                pertukaran gas</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                            sirkulasi">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                sirkulasi</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                            perfusi jaringan / cerebral"
+                                                                checked>
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                perfusi jaringan / cerebral </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Hipertermia">
+                                                            <label class="form-check-label">Hipertermia </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                            keseimbangan cairan">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                keseimbangan cairan </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                            integritas kulit">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                integritas kulit </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko cemas / takut">
+                                                            <label class="form-check-label">Aktual / Risiko cemas /
+                                                                takut
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Risiko penyebaran toksik">
+                                                            <label class="form-check-label">Risiko penyebaran toksik
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="risiko jatuh / cedera">
+                                                            <label class="form-check-label">risiko jatuh /
+                                                                cedera</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="nyeri">
+                                                            <label class="form-check-label">nyeri</label>
+                                                        </div>
+                                                    @elseif ($assesper[0]->subyektif == 'Hipertermia')
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko bersihan jalan
+                                                                                nafas tidak efektif">
+                                                            <label class="form-check-label">Aktual / Risiko bersihan
+                                                                jalan
+                                                                nafas tidak efektif</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko pola nafas
+                                                                                tidak efektif">
+                                                            <label class="form-check-label">Aktual / Risiko pola nafas
+                                                                tidak efektif</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                                pertukaran gas">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                pertukaran gas</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                                sirkulasi">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                sirkulasi</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                                perfusi jaringan / cerebral">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                perfusi jaringan / cerebral </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Hipertermia" checked>
+                                                            <label class="form-check-label">Hipertermia </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                                keseimbangan cairan">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                keseimbangan cairan </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                                integritas kulit">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                integritas kulit </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko cemas / takut">
+                                                            <label class="form-check-label">Aktual / Risiko cemas /
+                                                                takut
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Risiko penyebaran toksik">
+                                                            <label class="form-check-label">Risiko penyebaran toksik
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="risiko jatuh / cedera">
+                                                            <label class="form-check-label">risiko jatuh /
+                                                                cedera</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="nyeri">
+                                                            <label class="form-check-label">nyeri</label>
+                                                        </div>
+                                                    @elseif (
+                                                        $assesper[0]->subyektif ==
+                                                            'Aktual / Risiko gangguan keseimbangan cairan')
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko bersihan jalan
+                                                                                nafas tidak efektif">
+                                                            <label class="form-check-label">Aktual / Risiko bersihan
+                                                                jalan
+                                                                nafas tidak efektif</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko pola nafas
+                                                                                tidak efektif">
+                                                            <label class="form-check-label">Aktual / Risiko pola nafas
+                                                                tidak efektif</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                                pertukaran gas">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                pertukaran gas</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                                sirkulasi">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                sirkulasi</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                                perfusi jaringan / cerebral">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                perfusi jaringan / cerebral </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Hipertermia">
+                                                            <label class="form-check-label">Hipertermia </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                                keseimbangan cairan"
+                                                                checked>
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                keseimbangan cairan </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                                integritas kulit">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                integritas kulit </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko cemas / takut">
+                                                            <label class="form-check-label">Aktual / Risiko cemas /
+                                                                takut
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Risiko penyebaran toksik">
+                                                            <label class="form-check-label">Risiko penyebaran toksik
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="risiko jatuh / cedera">
+                                                            <label class="form-check-label">risiko jatuh /
+                                                                cedera</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="nyeri">
+                                                            <label class="form-check-label">nyeri</label>
+                                                        </div>
+                                                    @elseif (
+                                                        $assesper[0]->subyektif ==
+                                                            'Aktual / Risiko gangguan integritas kulit')
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko bersihan jalan
+                                                                                    nafas tidak efektif">
+                                                            <label class="form-check-label">Aktual / Risiko bersihan
+                                                                jalan
+                                                                nafas tidak efektif</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko pola nafas
+                                                                                    tidak efektif">
+                                                            <label class="form-check-label">Aktual / Risiko pola nafas
+                                                                tidak efektif</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                                    pertukaran gas">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                pertukaran gas</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                                    sirkulasi">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                sirkulasi</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                                    perfusi jaringan / cerebral">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                perfusi jaringan / cerebral </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Hipertermia">
+                                                            <label class="form-check-label">Hipertermia </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                                    keseimbangan cairan">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                keseimbangan cairan </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                                    integritas kulit"
+                                                                checked>
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                integritas kulit </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko cemas / takut">
+                                                            <label class="form-check-label">Aktual / Risiko cemas /
+                                                                takut
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Risiko penyebaran toksik">
+                                                            <label class="form-check-label">Risiko penyebaran toksik
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="risiko jatuh / cedera">
+                                                            <label class="form-check-label">risiko jatuh /
+                                                                cedera</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="nyeri">
+                                                            <label class="form-check-label">nyeri</label>
+                                                        </div>
+                                                    @elseif (
+                                                        $assesper[0]->subyektif ==
+                                                            'Aktual / Risiko cemas / takut')
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko bersihan jalan
+                                                                                    nafas tidak efektif">
+                                                            <label class="form-check-label">Aktual / Risiko bersihan
+                                                                jalan
+                                                                nafas tidak efektif</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko pola nafas
+                                                                                    tidak efektif">
+                                                            <label class="form-check-label">Aktual / Risiko pola nafas
+                                                                tidak efektif</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                                    pertukaran gas">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                pertukaran gas</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                                    sirkulasi">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                sirkulasi</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                                    perfusi jaringan / cerebral">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                perfusi jaringan / cerebral </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Hipertermia">
+                                                            <label class="form-check-label">Hipertermia </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                                    keseimbangan cairan">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                keseimbangan cairan </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                                    integritas kulit">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                integritas kulit </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko cemas / takut" checked>
+                                                            <label class="form-check-label">Aktual / Risiko cemas /
+                                                                takut
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Risiko penyebaran toksik">
+                                                            <label class="form-check-label">Risiko penyebaran toksik
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="risiko jatuh / cedera">
+                                                            <label class="form-check-label">risiko jatuh /
+                                                                cedera</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="nyeri">
+                                                            <label class="form-check-label">nyeri</label>
+                                                        </div>
+                                                    @elseif ($assesper[0]->subyektif == 'Risiko penyebaran toksik')
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko bersihan jalan
+                                                                                        nafas tidak efektif">
+                                                            <label class="form-check-label">Aktual / Risiko bersihan
+                                                                jalan
+                                                                nafas tidak efektif</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko pola nafas
+                                                                                        tidak efektif">
+                                                            <label class="form-check-label">Aktual / Risiko pola nafas
+                                                                tidak efektif</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                                        pertukaran gas">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                pertukaran gas</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                                        sirkulasi">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                sirkulasi</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                                        perfusi jaringan / cerebral">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                perfusi jaringan / cerebral </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Hipertermia">
+                                                            <label class="form-check-label">Hipertermia </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                                        keseimbangan cairan">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                keseimbangan cairan </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                                        integritas kulit">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                integritas kulit </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko cemas / takut">
+                                                            <label class="form-check-label">Aktual / Risiko cemas /
+                                                                takut
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Risiko penyebaran toksik" checked>
+                                                            <label class="form-check-label">Risiko penyebaran toksik
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="risiko jatuh / cedera">
+                                                            <label class="form-check-label">risiko jatuh /
+                                                                cedera</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="nyeri">
+                                                            <label class="form-check-label">nyeri</label>
+                                                        </div>
+                                                    @elseif (
+                                                        $assesper[0]->subyektif ==
+                                                            'risiko jatuh / cedera')
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko bersihan jalan
+                                                                                        nafas tidak efektif">
+                                                            <label class="form-check-label">Aktual / Risiko bersihan
+                                                                jalan
+                                                                nafas tidak efektif</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko pola nafas
+                                                                                        tidak efektif">
+                                                            <label class="form-check-label">Aktual / Risiko pola nafas
+                                                                tidak efektif</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                                        pertukaran gas">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                pertukaran gas</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                                        sirkulasi">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                sirkulasi</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                                        perfusi jaringan / cerebral">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                perfusi jaringan / cerebral </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Hipertermia">
+                                                            <label class="form-check-label">Hipertermia </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                                        keseimbangan cairan">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                keseimbangan cairan </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                                        integritas kulit">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                integritas kulit </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko cemas / takut">
+                                                            <label class="form-check-label">Aktual / Risiko cemas /
+                                                                takut
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Risiko penyebaran toksik">
+                                                            <label class="form-check-label">Risiko penyebaran toksik
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="risiko jatuh / cedera" checked>
+                                                            <label class="form-check-label">risiko jatuh /
+                                                                cedera</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="nyeri">
+                                                            <label class="form-check-label">nyeri</label>
+                                                        </div>
+                                                    @elseif ($assesper[0]->subyektif == 'nyeri')
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko bersihan jalan
+                                                                                            nafas tidak efektif">
+                                                            <label class="form-check-label">Aktual / Risiko bersihan
+                                                                jalan
+                                                                nafas tidak efektif</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko pola nafas
+                                                                                            tidak efektif">
+                                                            <label class="form-check-label">Aktual / Risiko pola nafas
+                                                                tidak efektif</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                                            pertukaran gas">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                pertukaran gas</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                                            sirkulasi">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                sirkulasi</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                                            perfusi jaringan / cerebral">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                perfusi jaringan / cerebral </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Hipertermia">
+                                                            <label class="form-check-label">Hipertermia </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                                            keseimbangan cairan">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                keseimbangan cairan </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                                            integritas kulit">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                integritas kulit </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko cemas / takut">
+                                                            <label class="form-check-label">Aktual / Risiko cemas /
+                                                                takut
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Risiko penyebaran toksik">
+                                                            <label class="form-check-label">Risiko penyebaran toksik
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="risiko jatuh / cedera">
+                                                            <label class="form-check-label">risiko jatuh /
+                                                                cedera</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="nyeri" checked>
+                                                            <label class="form-check-label">nyeri</label>
+                                                        </div>
+                                                        @else
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko bersihan jalan
+                                                                                            nafas tidak efektif">
+                                                            <label class="form-check-label">Aktual / Risiko bersihan
+                                                                jalan
+                                                                nafas tidak efektif</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko pola nafas
+                                                                                            tidak efektif">
+                                                            <label class="form-check-label">Aktual / Risiko pola nafas
+                                                                tidak efektif</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                                            pertukaran gas">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                pertukaran gas</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                                            sirkulasi">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                sirkulasi</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                                            perfusi jaringan / cerebral">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                perfusi jaringan / cerebral </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Hipertermia">
+                                                            <label class="form-check-label">Hipertermia </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                                            keseimbangan cairan">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                keseimbangan cairan </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko gangguan
+                                                                                            integritas kulit">
+                                                            <label class="form-check-label">Aktual / Risiko gangguan
+                                                                integritas kulit </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Aktual / Risiko cemas / takut">
+                                                            <label class="form-check-label">Aktual / Risiko cemas /
+                                                                takut
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="Risiko penyebaran toksik">
+                                                            <label class="form-check-label">Risiko penyebaran toksik
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="risiko jatuh / cedera">
+                                                            <label class="form-check-label">risiko jatuh /
+                                                                cedera</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="diagnosakeperawatan" id="diagnosakeperawatan"
+                                                                value="nyeri" >
+                                                            <label class="form-check-label">nyeri</label>
+                                                        </div>
+                                                        <textarea class="form-control" id="diagnosakeperawatan1" name="diagnosakeperawatan1" rows="2"
+                                                        placeholder="">{{ $assesper[0]->diagnosa_perawat }}</textarea>
+                                                    @endif
+                                                    <textarea class="form-control" id="diagnosakeperawatan1" name="diagnosakeperawatan1" rows="2"
+                                                    placeholder=""></textarea>
+
 
                                                 </div>
                                             </div>

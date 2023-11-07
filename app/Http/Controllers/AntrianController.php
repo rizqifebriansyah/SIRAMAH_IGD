@@ -53,7 +53,8 @@ class AntrianController extends Controller
         $header = ts_antrian_igd::create([
             'no_antri' => $kode_header,
             'created_at' => $now,
-            'tgl' => $now
+            'tgl' => $now,
+            'isNoAntrian' => '1'
 
 
         ]);
@@ -124,7 +125,9 @@ class AntrianController extends Controller
         $header = ts_antrian_igd::create([
             'no_antri' => $kode_header,
             'created_at' => $now,
-            'tgl' => $now
+            'tgl' => $now,
+            'isNoAntrian' => '0'
+
 
 
         ]);
