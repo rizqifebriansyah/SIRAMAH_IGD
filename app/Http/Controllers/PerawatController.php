@@ -126,6 +126,22 @@ class PerawatController extends Controller
             ]
         );
     }
+
+    public function caripasienigdperawat(Request $request)
+    {
+        $tgl = $request->tglkunjungan;
+        $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$tgl')");
+
+
+        return view(
+            'perawat.tablepasienigdperawat',
+            [
+                'title' => 'ERM DOKTER',
+                'pasienigd' => $pasienigd,
+
+            ]
+        );
+    }
     public function hasillabperawat(Request $request)
     {
         $kodekunjungan = $request->kj;

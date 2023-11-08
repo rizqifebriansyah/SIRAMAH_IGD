@@ -15,7 +15,7 @@
                 <!-- skrining pasien -->
                 <table class="table">
                     <tbody>
-                        @if ($ttv == NULL)
+                        {{-- @if ($ttv == NULL)
                         <tr>
                             <td class="text-bold font-italic">Tekanan Darah</td>
                             <td>
@@ -137,7 +137,7 @@
                                 </div>
                             </td>
                         </tr>
-                        @endif
+                        @endif --}}
 
 
                         <tr>

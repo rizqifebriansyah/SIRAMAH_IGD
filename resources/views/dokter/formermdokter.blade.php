@@ -354,10 +354,54 @@
             <div class="card-body">
                 @if ($assesdok == null)
                     <!-- assesmen dokter -->
+
+
+
                     <table class="table">
                         <tbody>
+                            <tr>
+                                <td class="text-bold font-italic">SUBJEK</td>
+                                <td colspan="">
 
-                            <div class="row">
+                                    <textarea class="form-control" id="subject" name="subject" placeholder="Ketik SUBJECT ..."></textarea>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic">OBJEK</td>
+                                <td colspan="">
+                                    <h4>Primary Survey</h4>
+                                    <textarea class="form-control" id="objek" name="objek" rows="5">A : &#13;&#10;B :  &#13;&#10;C :  &#13;&#10;D :  &#13;&#10;E : </textarea>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic"></td>
+                                <td colspan="">
+                                    <h4>Secondary Survey</h4>
+                                    <textarea class="form-control" id="objek" name="objek" rows="10">Kepala : &#13;&#10;Telinga :  &#13;&#10;Hidung :  &#13;&#10;Mata :  &#13;&#10;Thorax : &#13;&#10;P : &#13;&#10;C : &#13;&#10;Punggung : &#13;&#10;Abd : &#13;&#10;Eks : </textarea>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic">ASSESMEN</td>
+                                <td colspan="">
+
+                                    <textarea class="form-control" id="assesmen" name="assesmen" placeholder="Ketik ASSESMEN ..."></textarea>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic">PLANNING</td>
+                                <td colspan="">
+
+                                    <textarea class="form-control" id="planning" name="planning" placeholder="Ketik planning ..."></textarea>
+
+                                </td>
+                            </tr>
+
+
+                            {{-- <div class="row">
                                 <div class="col-sm-3">
 
                                     <div class="form-group">
@@ -431,7 +475,7 @@
                                     </div>
 
                                 </div>
-                            </div>
+                            </div> --}}
                         </tbody>
                     </table>
                     <!-- Cara Keluar -->
@@ -532,193 +576,6 @@
                 </div>
             </div>
         </div>
-
-        {{-- <table class="table">
-                    <tbody>
-                        <tr>
-                            <td class="text-bold font-italic">Keluhan Utama</td>
-                            <td colspan="3">
-
-                                <textarea class="form-control" id="keluhanutama" name="keluhanutama" placeholder="Ketik Keluhan Utama ..."></textarea>
-
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="text-bold font-italic">Anamnesis</td>
-                            <td colspan="3">
-
-                                <textarea class="form-control" id="anamnesis" name="anamnesis" placeholder="Ketik Anamnesis ..."></textarea>
-
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-bold font-italic">Riwayat Alergi</td>
-
-                            <td>
-
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="form-group form-check">
-                                            <input type="checkbox" class="form-check-input" id="tidakalergi" name="tidakalergi" value="Tidak Alergi">
-                                            <label class="form-check-label" for="exampleCheck1">Tidak</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group form-check">
-                                            <input type="checkbox" class="form-check-input" id="adaalergi" name="adaalergi" value="">
-                                            <label class="form-check-label" for="exampleCheck1">Ya , Sebutkan
-                                                <input type="text" id="alergi" name="alergi" value="">
-                                            </label>
-                                        </div>
-                                    </div>
-
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <!--Riwayat Obat-->
-
-                <div class="accordion" id="accordionExample1">
-                    <div class="card">
-                        <div class="card-header bg-secondary" id="headingOne">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left text-light font-weight" type="button" data-toggle="collapse" data-target="#collapseOne1" aria-expanded="true" aria-controls="collapseOne1">
-                                    <i class="bi bi-ticket-detailed mr-1 ml-1"></i> REKONSILIASI DAN DATA OBAT PASIEN YANG DIGUNAKAN SAAT MASUK RUMAH SAKIT
-                                </button>
-                            </h2>
-                        </div>
-
-                        <div id="collapseOne1" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample1">
-                            <div class="card-body bg-light">
-
-                                <table class=" table">
-                                    <thead>
-                                        <th style="text-align: center;">Nama Obat <br> (Yang digunakan saat akan masuk Rumaah Sakit) </th>
-                                        <th style="text-align: center;">Aturan Pakai Dosis dan Rute <br> Pemberian </th>
-                                        <th style="text-align: center;">Dilanjutkan</th>
-
-                                    </thead>
-                                    <tbody>
-                                        <td></td>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <table class="table">
-                    <tbody>
-                        <tr>
-                            <td class="text-bold font-italic">Pemeriksaan Fisik</td>
-                            <td colspan="3">
-
-                                <textarea class="form-control" id="pemeriksaanfisik" name="pemeriksaanfisik" placeholder="Ketik Pemeriksaan Fisik ..."></textarea>
-
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-bold font-italic">Diagnosa Kerja</td>
-                            <td colspan="3">
-
-                                <textarea class="form-control" id="diagnosakerja" name="diagnosakerja" placeholder="Ketik Diagnosa Kerja ..."></textarea>
-
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="text-bold font-italic">Evaluasi ( 30 Menit Pertama )</td>
-                            <td colspan="3">
-
-                                <textarea class="form-control" id="30menitpertama" name="30menitpertama" placeholder="Ketik 30 Menit pertama ..."></textarea>
-
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-bold font-italic">Evaluasi ( 30 Menit Kedua )</td>
-                            <td colspan="3">
-
-                                <textarea class="form-control" id="30menitkedua" name="30menitkedua" placeholder="Ketik 30 Menit kedua ..."></textarea>
-
-                            </td>
-                        </tr>
-
-
-                    </tbody>
-                </table>
-                <!-- tindak lanjut -->
-
-
-                <div class="accordion" id="accordionExample2">
-                    <div class="card">
-                        <div class="card-header bg-secondary" id="headingOne">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left text-light font-weight" type="button" data-toggle="collapse" data-target="#collapseOne2" aria-expanded="true" aria-controls="collapseOne2">
-                                    <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Tindak Lanjut
-                                </button>
-                            </h2>
-                        </div>
-
-                        <div id="collapseOne2" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample2">
-                            <div class="card-body bg-light">
-
-                                <table class="table">
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="keputusanruang" name="keputusanruang" value="">
-                                                    <label class="form-check-label" for="exampleCheck1">Keputusan ke ruang <input type="text" id="ruang" name="ruang" value=""> Jam <input type="time" id="waktu" name="waktu" value=""> WIB, Dikirim ke ruang Perawatan jam <input type="time" id="waktu" name="waktu" value=""> WIB
-                                                    </label>
-                                                </div>
-
-
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="stabil" name="stabil" value="">
-                                                    <label class="form-check-label" for="exampleCheck1">Stabil <input type="text" id="stabil1" name="stabil1" value=""> Tidak Stabil <input type="text" id="tidakstabil" name="tidakstabil" value="">
-                                                    </label>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="operasi" name="operasi" value="">
-                                                    <label class="form-check-label" for="exampleCheck1">Keputusan Operasi dikirim ruang perawatan jam <input type="time" id="ruang1" name="ruang1" value="">
-                                                    </label>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="jenazah" name="jenazah" value="">
-                                                    <label class="form-check-label" for="exampleCheck1">Keputusan ke kamar jenazah dikirim ruang perawatan jam <input type="time" id="ruang2" name="ruang2" value="">
-                                                    </label>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="pulang" name="pulang" value="">
-                                                    <label class="form-check-label" for="exampleCheck1">Keputusan Pulang
-                                                    </label>
-                                                </div>
-                                            </td>
-                                        </tr>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div> --}}
 
         <!-- laboratorium -->
         <div class="accordion" id="accordionExample5">
@@ -1099,192 +956,7 @@
             </div>
         </div>
 
-        {{-- <table class="table">
-                    <tbody>
-                        <tr>
-                            <td class="text-bold font-italic">Keluhan Utama</td>
-                            <td colspan="3">
 
-                                <textarea class="form-control" id="keluhanutama" name="keluhanutama" placeholder="Ketik Keluhan Utama ..."></textarea>
-
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="text-bold font-italic">Anamnesis</td>
-                            <td colspan="3">
-
-                                <textarea class="form-control" id="anamnesis" name="anamnesis" placeholder="Ketik Anamnesis ..."></textarea>
-
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-bold font-italic">Riwayat Alergi</td>
-
-                            <td>
-
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="form-group form-check">
-                                            <input type="checkbox" class="form-check-input" id="tidakalergi" name="tidakalergi" value="Tidak Alergi">
-                                            <label class="form-check-label" for="exampleCheck1">Tidak</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group form-check">
-                                            <input type="checkbox" class="form-check-input" id="adaalergi" name="adaalergi" value="">
-                                            <label class="form-check-label" for="exampleCheck1">Ya , Sebutkan
-                                                <input type="text" id="alergi" name="alergi" value="">
-                                            </label>
-                                        </div>
-                                    </div>
-
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <!--Riwayat Obat-->
-
-                <div class="accordion" id="accordionExample1">
-                    <div class="card">
-                        <div class="card-header bg-secondary" id="headingOne">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left text-light font-weight" type="button" data-toggle="collapse" data-target="#collapseOne1" aria-expanded="true" aria-controls="collapseOne1">
-                                    <i class="bi bi-ticket-detailed mr-1 ml-1"></i> REKONSILIASI DAN DATA OBAT PASIEN YANG DIGUNAKAN SAAT MASUK RUMAH SAKIT
-                                </button>
-                            </h2>
-                        </div>
-
-                        <div id="collapseOne1" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample1">
-                            <div class="card-body bg-light">
-
-                                <table class=" table">
-                                    <thead>
-                                        <th style="text-align: center;">Nama Obat <br> (Yang digunakan saat akan masuk Rumaah Sakit) </th>
-                                        <th style="text-align: center;">Aturan Pakai Dosis dan Rute <br> Pemberian </th>
-                                        <th style="text-align: center;">Dilanjutkan</th>
-
-                                    </thead>
-                                    <tbody>
-                                        <td></td>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <table class="table">
-                    <tbody>
-                        <tr>
-                            <td class="text-bold font-italic">Pemeriksaan Fisik</td>
-                            <td colspan="3">
-
-                                <textarea class="form-control" id="pemeriksaanfisik" name="pemeriksaanfisik" placeholder="Ketik Pemeriksaan Fisik ..."></textarea>
-
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-bold font-italic">Diagnosa Kerja</td>
-                            <td colspan="3">
-
-                                <textarea class="form-control" id="diagnosakerja" name="diagnosakerja" placeholder="Ketik Diagnosa Kerja ..."></textarea>
-
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="text-bold font-italic">Evaluasi ( 30 Menit Pertama )</td>
-                            <td colspan="3">
-
-                                <textarea class="form-control" id="30menitpertama" name="30menitpertama" placeholder="Ketik 30 Menit pertama ..."></textarea>
-
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-bold font-italic">Evaluasi ( 30 Menit Kedua )</td>
-                            <td colspan="3">
-
-                                <textarea class="form-control" id="30menitkedua" name="30menitkedua" placeholder="Ketik 30 Menit kedua ..."></textarea>
-
-                            </td>
-                        </tr>
-
-
-                    </tbody>
-                </table>
-                <!-- tindak lanjut -->
-
-
-                <div class="accordion" id="accordionExample2">
-                    <div class="card">
-                        <div class="card-header bg-secondary" id="headingOne">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left text-light font-weight" type="button" data-toggle="collapse" data-target="#collapseOne2" aria-expanded="true" aria-controls="collapseOne2">
-                                    <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Tindak Lanjut
-                                </button>
-                            </h2>
-                        </div>
-
-                        <div id="collapseOne2" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample2">
-                            <div class="card-body bg-light">
-
-                                <table class="table">
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="keputusanruang" name="keputusanruang" value="">
-                                                    <label class="form-check-label" for="exampleCheck1">Keputusan ke ruang <input type="text" id="ruang" name="ruang" value=""> Jam <input type="time" id="waktu" name="waktu" value=""> WIB, Dikirim ke ruang Perawatan jam <input type="time" id="waktu" name="waktu" value=""> WIB
-                                                    </label>
-                                                </div>
-
-
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="stabil" name="stabil" value="">
-                                                    <label class="form-check-label" for="exampleCheck1">Stabil <input type="text" id="stabil1" name="stabil1" value=""> Tidak Stabil <input type="text" id="tidakstabil" name="tidakstabil" value="">
-                                                    </label>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="operasi" name="operasi" value="">
-                                                    <label class="form-check-label" for="exampleCheck1">Keputusan Operasi dikirim ruang perawatan jam <input type="time" id="ruang1" name="ruang1" value="">
-                                                    </label>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="jenazah" name="jenazah" value="">
-                                                    <label class="form-check-label" for="exampleCheck1">Keputusan ke kamar jenazah dikirim ruang perawatan jam <input type="time" id="ruang2" name="ruang2" value="">
-                                                    </label>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="pulang" name="pulang" value="">
-                                                    <label class="form-check-label" for="exampleCheck1">Keputusan Pulang
-                                                    </label>
-                                                </div>
-                                            </td>
-                                        </tr>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div> --}}
 
         <!-- laboratorium -->
         <div class="accordion" id="accordionExample5">
