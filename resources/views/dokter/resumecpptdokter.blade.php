@@ -27,7 +27,16 @@
                                 </tr>
                                 <tr>
                                     <td class="text-bold">OBJECT</td>
-                                    <td>: {{$resumedok[0]->obyektif}}</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold">Primary Survey</td>
+                                    <td>: {{$resumedok[0]->primary_survey}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-bold">Secondary Survey</td>
+                                    <td>: {{$resumedok[0]->secondary_survey}}</td>
                                 </tr>
                                 <tr>
                                     <td class="text-bold text-italic">ASSESMEN</td>

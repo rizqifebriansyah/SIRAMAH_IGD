@@ -392,7 +392,8 @@ class DokterController extends Controller
             'diagnosa' => $request->diagnosa . ' ' . $request->diagnosa1,
             'cara_pulang' => $request->alpul . ' ' . $request->alpul1,
             'keadaan_pulang' => $request->kopul . ' ' . $request->kopul1,
-
+            'primary_survey' => $request->primary,
+            'secondary_survey' => $request->secondary,
             'kode_paramedis' => $kp,
             'status' => '1'
 
@@ -773,18 +774,22 @@ class DokterController extends Controller
         $user = auth()->user()->id_simrs;
         $kp = auth()->user()->kode_paramedis;
         $subyektif = $request->subject;
-        $obyektif = $request->objek;
         $assesment = $request->assesmen;
         $planning = $request->planning;
         $tiga_pertama = $request->tigap;
         $tiga_kedua = $request->tigak;
+        $primary = $request->primary;
+        $secondary = $request->secondary;
+        $diagnosa = $request->diagnosa;
+
+
         $kj = $request->kj;
         $norm = $request->norm;
 
         $update = DB::connection('mysql2')->select('UPDATE erm_cppt_dokter
         SET
-        subyektif = ? , obyektif = ?, assesment = ? , planning = ?, tiga_pertama = ?, tiga_kedua =?
-        WHERE no_rm = ? AND kode_kunjungan = ?', [$subyektif,  $obyektif, $assesment, $planning, $tiga_pertama, $tiga_kedua, $norm, $kj]);
+        subyektif = ? , assesment = ?, primary_survey = ?, secondary_survey = ?, planning = ?, tiga_pertama = ?, tiga_kedua = ?, diagnosa = ?
+        WHERE no_rm = ? AND kode_kunjungan = ?', [$subyektif , $assesment, $primary, $secondary, $planning, $tiga_pertama, $tiga_kedua, $diagnosa, $norm, $kj]);
 
 
         $back = [

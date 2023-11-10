@@ -355,8 +355,6 @@
                 @if ($assesdok == null)
                     <!-- assesmen dokter -->
 
-
-
                     <table class="table">
                         <tbody>
                             <tr>
@@ -371,7 +369,7 @@
                                 <td class="text-bold font-italic">OBJEK</td>
                                 <td colspan="">
                                     <h4>Primary Survey</h4>
-                                    <textarea class="form-control" id="objek" name="objek" rows="5">A : &#13;&#10;B :  &#13;&#10;C :  &#13;&#10;D :  &#13;&#10;E : </textarea>
+                                    <textarea class="form-control" id="primary" name="primary" rows="5">A : &#13;&#10;B :  &#13;&#10;C :  &#13;&#10;D :  &#13;&#10;E : </textarea>
 
                                 </td>
                             </tr>
@@ -379,7 +377,7 @@
                                 <td class="text-bold font-italic"></td>
                                 <td colspan="">
                                     <h4>Secondary Survey</h4>
-                                    <textarea class="form-control" id="objek" name="objek" rows="10">Kepala : &#13;&#10;Telinga :  &#13;&#10;Hidung :  &#13;&#10;Mata :  &#13;&#10;Thorax : &#13;&#10;P : &#13;&#10;C : &#13;&#10;Punggung : &#13;&#10;Abd : &#13;&#10;Eks : </textarea>
+                                    <textarea class="form-control" id="secondary" name="secondary" rows="10">Kepala : &#13;&#10;Telinga :  &#13;&#10;Hidung :  &#13;&#10;Mata :  &#13;&#10;Thorax : &#13;&#10;P : &#13;&#10;C : &#13;&#10;Punggung : &#13;&#10;Abd : &#13;&#10;Eks : </textarea>
 
                                 </td>
                             </tr>
@@ -400,84 +398,45 @@
                                 </td>
                             </tr>
 
-
-                            {{-- <div class="row">
-                                <div class="col-sm-3">
-
-                                    <div class="form-group">
-                                        <center>
-                                            <h3>Subject</h3>
-                                        </center>
-                                        <textarea class="form-control" id="subject" name="subject" rows="4" placeholder=""></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-
-                                    <div class="form-group">
-                                        <center>
-                                            <h3>Object</h3>
-                                        </center>
-                                        <textarea class="form-control" id="objek" name="objek" rows="4" placeholder=""></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-
-                                    <div class="form-group">
-                                        <center>
-                                            <h3>Assesmen</h3>
-                                        </center>
-                                        <textarea class="form-control" id="assesmen" name="assesmen" rows="4" placeholder=""></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-
-                                    <div class="form-group">
-                                        <center>
-                                            <h3>Planning</h3>
-                                        </center>
-                                        <textarea class="form-control" id="planning" name="planning" rows="4" placeholder=""></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-4">
-
-                                    <div class="form-group">
-                                        <center>
-                                            <h3>Evaluasi 30 menit pertama</h3>
-                                        </center>
-                                        <textarea class="form-control" id="tigap" name="tigap" rows="4" placeholder=""></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-
-                                    <div class="form-group">
-                                        <center>
-                                            <h3>Evaluasi 30 menit kedua</h3>
-                                        </center>
-                                        <textarea class="form-control" id="tigak" name="tigak" rows="4" placeholder=""></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label>DIAGNOSA</label>
-                                        <select class="form-control select2" name="diagnosa" id="diagnosa">
-                                            <option value=""> -- Select One --</option>
-                                            @foreach ($diagnosa as $i => $t)
-                                                <option value="{{ $t->nama_diag }}">{{ $t->nama_diag }}
-                                                </option>
-                                            @endforeach
-
-                                        </select>
-                                        <label>Diagnosa Lain</label>
-                                        <textarea class="form-control" id="diagnosa1" name="diagnosa1" rows="2" placeholder=""></textarea>
-
-                                    </div>
-
-                                </div>
-                            </div> --}}
                         </tbody>
                     </table>
+                    <div class="row">
+                        <div class="col-sm-4">
+
+                            <div class="form-group">
+                                <center>
+                                    <h3>Evaluasi 30 menit pertama</h3>
+                                </center>
+                                <textarea class="form-control" id="tigap" name="tigap" rows="4" placeholder=""></textarea>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+
+                            <div class="form-group">
+                                <center>
+                                    <h3>Evaluasi 30 menit kedua</h3>
+                                </center>
+                                <textarea class="form-control" id="tigak" name="tigak" rows="4" placeholder=""></textarea>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>DIAGNOSA</label>
+                                <select class="form-control select2" name="diagnosa" id="diagnosa">
+                                    <option value=""> -- Select One --</option>
+                                    @foreach ($diagnosa as $i => $t)
+                                        <option value="{{ $t->nama_diag }}">{{ $t->nama_diag }}
+                                        </option>
+                                    @endforeach
+
+                                </select>
+                                <label>Diagnosa Lain</label>
+                                <textarea class="form-control" id="diagnosa1" name="diagnosa1" rows="2" placeholder=""></textarea>
+
+                            </div>
+
+                        </div>
+                    </div>
                     <!-- Cara Keluar -->
 
                     <div class="accordion" id="accordionExample3">
@@ -737,17 +696,60 @@
         <form action="" class="formerm">
 
             <!-- assesmen dokter -->
+
+
             <table class="table">
                 <tbody>
+                    <tr>
+                        <td class="text-bold font-italic">SUBJEK</td>
+                        <td colspan="">
 
-                    <div class="row">
+                            <textarea class="form-control" id="subject" name="subject" placeholder="Ketik SUBJECT ...">{{ $assesdok[0]->subyektif }}</textarea>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-bold font-italic">OBJEK</td>
+                        <td colspan="">
+                            <h4>Primary Survey</h4>
+                            <textarea class="form-control" id="primary" name="primary" rows="5">{{ $assesdok[0]->primary_survey }}</textarea>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-bold font-italic"></td>
+                        <td colspan="">
+                            <h4>Secondary Survey</h4>
+                            <textarea class="form-control" id="secondary" name="secondary" rows="10">{{ $assesdok[0]->secondary_survey }} </textarea>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-bold font-italic">ASSESMEN</td>
+                        <td colspan="">
+
+                            <textarea class="form-control" id="assesmen" name="assesmen" placeholder="Ketik ASSESMEN ...">{{ $assesdok[0]->assesment }}</textarea>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-bold font-italic">PLANNING</td>
+                        <td colspan="">
+
+                            <textarea class="form-control" id="planning" name="planning" placeholder="Ketik planning ...">{{ $assesdok[0]->planning }}</textarea>
+
+                        </td>
+                    </tr>
+
+
+                    {{-- <div class="row">
                         <div class="col-sm-3">
 
                             <div class="form-group">
                                 <center>
                                     <h3>Subject</h3>
                                 </center>
-                                <textarea class="form-control" id="subject" name="subject" rows="4" placeholder="">{{ $assesdok[0]->subyektif }}</textarea>
+                                <textarea class="form-control" id="subject" name="subject" rows="4" placeholder=""></textarea>
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -756,7 +758,7 @@
                                 <center>
                                     <h3>Object</h3>
                                 </center>
-                                <textarea class="form-control" id="objek" name="objek" rows="4" placeholder="">{{ $assesdok[0]->obyektif }}</textarea>
+                                <textarea class="form-control" id="objek" name="objek" rows="4" placeholder=""></textarea>
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -765,7 +767,7 @@
                                 <center>
                                     <h3>Assesmen</h3>
                                 </center>
-                                <textarea class="form-control" id="assesmen" name="assesmen" rows="4" placeholder="">{{ $assesdok[0]->assesment }}</textarea>
+                                <textarea class="form-control" id="assesmen" name="assesmen" rows="4" placeholder=""></textarea>
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -774,7 +776,7 @@
                                 <center>
                                     <h3>Planning</h3>
                                 </center>
-                                <textarea class="form-control" id="planning" name="planning" rows="4" placeholder="">{{ $assesdok[0]->planning }}</textarea>
+                                <textarea class="form-control" id="planning" name="planning" rows="4" placeholder=""></textarea>
                             </div>
                         </div>
                     </div>
@@ -785,7 +787,7 @@
                                 <center>
                                     <h3>Evaluasi 30 menit pertama</h3>
                                 </center>
-                                <textarea class="form-control" id="tigap" name="tigap" rows="4" placeholder="">{{ $assesdok[0]->tiga_pertama }}</textarea>
+                                <textarea class="form-control" id="tigap" name="tigap" rows="4" placeholder=""></textarea>
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -794,14 +796,14 @@
                                 <center>
                                     <h3>Evaluasi 30 menit kedua</h3>
                                 </center>
-                                <textarea class="form-control" id="tigak" name="tigak" rows="4" placeholder="">{{ $assesdok[0]->tiga_kedua }}</textarea>
+                                <textarea class="form-control" id="tigak" name="tigak" rows="4" placeholder=""></textarea>
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label>DIAGNOSA</label>
                                 <select class="form-control select2" name="diagnosa" id="diagnosa">
-                                    <option value=""> {{ $assesdok[0]->diagnosa }}</option>
+                                    <option value=""> -- Select One --</option>
                                     @foreach ($diagnosa as $i => $t)
                                         <option value="{{ $t->nama_diag }}">{{ $t->nama_diag }}
                                         </option>
@@ -814,9 +816,46 @@
                             </div>
 
                         </div>
-                    </div>
+                    </div> --}}
                 </tbody>
             </table>
+            <div class="row">
+                <div class="col-sm-4">
+
+                    <div class="form-group">
+                        <center>
+                            <h3>Evaluasi 30 menit pertama</h3>
+                        </center>
+                        <textarea class="form-control" id="tigap" name="tigap" rows="4" placeholder="">{{ $assesdok[0]->tiga_pertama }}</textarea>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+
+                    <div class="form-group">
+                        <center>
+                            <h3>Evaluasi 30 menit kedua</h3>
+                        </center>
+                        <textarea class="form-control" id="tigak" name="tigak" rows="4" placeholder="">{{ $assesdok[0]->tiga_kedua }}</textarea>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label>DIAGNOSA</label>
+                        <select class="form-control select2" name="diagnosa" id="diagnosa">
+                            <option value="">{{ $assesdok[0]->diagnosa }}</option>
+                            @foreach ($diagnosa as $i => $t)
+                                <option value="{{ $t->nama_diag }}">{{ $t->nama_diag }}
+                                </option>
+                            @endforeach
+
+                        </select>
+                        <label>Diagnosa Lain</label>
+                        <textarea class="form-control" id="diagnosa1" name="diagnosa1" rows="2" placeholder=""></textarea>
+
+                    </div>
+
+                </div>
+            </div>
 
             <!-- Cara Keluar -->
 
@@ -1247,7 +1286,10 @@
         var norm = $('#norm').val()
         var kj = $('#kj').val()
         var tglmasuk = $('#tglmasuk').val()
-
+        var diagnosa = $('#diagnosa').val()
+        var diagnosa1 = $('#diagnosa1').val()
+        var primary = $('#primary').val()
+        var secondary = $('#secondary').val()
 
 
 
@@ -1280,7 +1322,10 @@
                         norm: $('#norm').val(),
                         kj: $('#kj').val(),
                         tglmasuk: $('#tglmasuk').val(),
-
+                        primary: $('#primary').val(),
+                        secondary: $('#secondary').val(),
+                        diagnosa: $('#diagnosa').val(),
+                        diagnosa1: $('#diagnosa1').val(),
 
 
 
@@ -1324,11 +1369,11 @@
         var data = $('.formerm').serializeArray();
         var datalab = $('.formlab').serializeArray();
         var datarad = $('.formradio').serializeArray();
-
         var ku = $('#ku').val()
-
         var subject = $('#subject').val()
         var objek = $('#objek').val()
+        var primary = $('#primary').val()
+        var secondary = $('#secondary').val()
         var assesmen = $('#assesmen').val()
         var planning = $('#planning').val()
         var tigap = $('#tigap').val()
@@ -1384,6 +1429,9 @@
                         kopul1: $('#kopul1').val(),
                         ku: $('#ku').val(),
                         kp: $('#kp').val(),
+                        primary: $('#primary').val(),
+                        secondary: $('#secondary').val(),
+
 
 
                         tglmasuk: $('#tglmasuk').val(),
