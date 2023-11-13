@@ -1031,6 +1031,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="row">
                             <div class="col-md-6">
                                 <table id="tablelab" class="table table-sm mt-3 table-hover">
@@ -1049,6 +1050,30 @@
                                 </table>
                             </div>
                             <div class="col-md-6">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <th style="width: 10px">Kode Layanan Header</th>
+                                        <th>Nama Tindakan</th>
+                                        <th>Harga</th>
+                                        <th style="width: 40px">Action</th>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($riwayatorderlab as $lab => $l)
+                                            <tr>
+                                                <td>{{ $l->kode_layanan_header }}</td>
+                                                <td>{{ $l->nama_tindakan }}</td>
+                                                <td>
+                                                    Rp.{{ $l->total_tarif }}
+                                                </td>
+                                                <td> <a class=" btn btn-danger btn-sm returorderrad" href="#">
+                                                        <i class="fas fa-sync-alt fa-spin"></i>
+                                                        RETUR
+                                                    </a></td>
+                                            </tr>
+                                        @endforeach
+
+                                    </tbody>
+                                </table>
                                 <div class="card">
                                     <div class="card-header bg-secondary">Tindakan / Layanan Pasien</div>
                                     <div class="card-body">
@@ -1107,6 +1132,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="row">
                             <div class="col-md-6">
                                 <table id="tableradio" class="table table-sm mt-3 table-hover">
@@ -1125,6 +1151,29 @@
                                 </table>
                             </div>
                             <div class="col-md-6">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <th style="width: 10px">Kode Layanan Header</th>
+                                        <th>Nama Tindakan</th>
+                                        <th>Harga</th>
+                                        <th style="width: 40px">Action</th>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($riwayatorderrad as $rad => $r)
+                                            <tr>
+                                                <td>{{ $r->kode_layanan_header }}</td>
+                                                <td>{{ $r->nama_tindakan }}</td>
+                                                <td>
+                                                    Rp.{{ $r->total_tarif }}
+                                                </td>
+                                                <td> <a class=" btn btn-danger btn-sm returorderrad" href="#">
+                                                        <i class="fas fa-sync-alt fa-spin"></i>
+                                                        RETUR
+                                                    </a></td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                                 <div class="card">
                                     <div class="card-header bg-secondary">Tindakan / Layanan Pasien</div>
                                     <div class="card-body">

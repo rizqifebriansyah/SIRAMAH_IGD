@@ -233,7 +233,28 @@ class DokterController extends Controller
         $kp = $request->kp;
         $ku = $request->ku;
 
-
+        $riwayatorderrad = DB::connection('mysql2')->select('SELECT
+        a.no_rm,
+        a.kode_layanan_header,
+        a.id,
+        b.total_tarif,
+        fc_nama_tindakan(LEFT(b.kode_tarif_detail,6)) as nama_tindakan
+        FROM
+        ts_layanan_header_igd a
+        INNER JOIN ts_layanan_detail_igd b ON b.row_id_header = a.id
+        WHERE a.kode_unit = ?
+        AND a.kode_kunjungan = ?', ['3003', $request->kj]);
+        $riwayatorderlab = DB::connection('mysql2')->select('SELECT
+         a.no_rm,
+         a.kode_layanan_header,
+         a.id,
+         b.total_tarif,
+         fc_nama_tindakan(LEFT(b.kode_tarif_detail,6)) as nama_tindakan
+         FROM
+         ts_layanan_header_igd a
+         INNER JOIN ts_layanan_detail_igd b ON b.row_id_header = a.id
+         WHERE a.kode_unit = ?
+         AND a.kode_kunjungan = ?', ['3002', $request->kj]);
         $layananlab = DB::select("CALL SP_PANGGIL_TARIF_LAB('$kelas','')");
         $layanan = DB::select("CALL SP_CARI_TARIF_PELAYANAN_RAD('$ku','','$kelas')");
         $diagnosa = DB::select('SELECT * FROM mt_jenis_diagnosa_medis');
@@ -253,6 +274,8 @@ class DokterController extends Controller
                 'kelas' => $kelas,
                 'kp' => $kp,
                 'ku' => $ku,
+                'riwayatorderrad' => $riwayatorderrad,
+                'riwayatorderlab' => $riwayatorderlab
 
 
             ]
@@ -279,11 +302,36 @@ class DokterController extends Controller
 
         $resumedok = DB::connection('mysql2')->select('SELECT * FROM erm_cppt_dokter
         WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $request->kj]);
+        $riwayatorderrad = DB::connection('mysql2')->select('SELECT
+        a.no_rm,
+        a.kode_layanan_header,
+        a.id,
+        b.total_tarif,
+        fc_nama_tindakan(LEFT(b.kode_tarif_detail,6)) as nama_tindakan
+        FROM
+        ts_layanan_header_igd a
+        INNER JOIN ts_layanan_detail_igd b ON b.row_id_header = a.id
+        WHERE a.kode_unit = ?
+        AND a.kode_kunjungan = ?', ['3003', $request->kj]);
+        $riwayatorderlab = DB::connection('mysql2')->select('SELECT
+         a.no_rm,
+         a.kode_layanan_header,
+         a.id,
+         b.total_tarif,
+         fc_nama_tindakan(LEFT(b.kode_tarif_detail,6)) as nama_tindakan
+         FROM
+         ts_layanan_header_igd a
+         INNER JOIN ts_layanan_detail_igd b ON b.row_id_header = a.id
+         WHERE a.kode_unit = ?
+         AND a.kode_kunjungan = ?', ['3002', $request->kj]);
         return view(
             'dokter.resumecpptdokter',
             [
                 'title' => 'ERM DOKTER',
-                'resumedok' => $resumedok
+                'resumedok' => $resumedok,
+                'riwayatorderrad' => $riwayatorderrad,
+                'riwayatorderlab' => $riwayatorderlab
+
             ]
         );
     }
@@ -789,7 +837,7 @@ class DokterController extends Controller
         $update = DB::connection('mysql2')->select('UPDATE erm_cppt_dokter
         SET
         subyektif = ? , assesment = ?, primary_survey = ?, secondary_survey = ?, planning = ?, tiga_pertama = ?, tiga_kedua = ?, diagnosa = ?
-        WHERE no_rm = ? AND kode_kunjungan = ?', [$subyektif , $assesment, $primary, $secondary, $planning, $tiga_pertama, $tiga_kedua, $diagnosa, $norm, $kj]);
+        WHERE no_rm = ? AND kode_kunjungan = ?', [$subyektif, $assesment, $primary, $secondary, $planning, $tiga_pertama, $tiga_kedua, $diagnosa, $norm, $kj]);
 
 
         $back = [
