@@ -83,8 +83,20 @@
                                 </li>
                             </ul>
                         @endif
-                        <a href="#" class="btn btn-primary btn-block riwayatcppt"><b>Catatan Medis</b></a>
+                        <a href="#" class="btn btn-primary btn-block riwayatcppt"><b>Catatan Medis</b></a><br>
+                        <a class=" btn btn-primary btn-block hasillab ">
+                            <i class="bi bi-journal-text"></i>
+                            Hasil laboratorium
+                        </a><br>
+                        <a class=" btn btn-primary btn-block hasilradio">
+                            <i class="bi bi-journal-text "></i>
+                            Hasil Radiologi
+                        </a><br>
 
+                        <a class=" btn btn-primary btn-block hasilcppt " href="#">
+                            <i class="bi bi-journal-text"></i>
+                            Hasil Lab PA
+                        </a>
 
 
                     </div>
