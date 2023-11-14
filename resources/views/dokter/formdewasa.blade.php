@@ -15,7 +15,7 @@
                 <!-- skrining pasien -->
                 <table class="table">
                     <tbody>
-                        {{-- @if ($ttv == NULL)
+                        {{-- @if ($ttv == null)
                         <tr>
                             <td class="text-bold font-italic">Tekanan Darah</td>
                             <td>
@@ -150,25 +150,29 @@
                         </tr>
                         <tr hidden="">
                             <td class="text-bold font-italic">Tanggal Kunjungan</td>
-                            <td><input readonly="" type="text" name="tanggalkunjungan" class="form-control" value="2023-09-07 07:43:55"></td>
+                            <td><input readonly="" type="text" name="tanggalkunjungan" class="form-control"
+                                    value="2023-09-07 07:43:55"></td>
                             <td class="text-bold font-italic">Tanggal Assesmen</td>
-                            <td><input type="text" name="tanggalassesmen" class="form-control datepicker" data-date-format="yyyy-mm-dd"></td>
+                            <td><input type="text" name="tanggalassesmen" class="form-control datepicker"
+                                    data-date-format="yyyy-mm-dd"></td>
                         </tr>
                         <tr>
                             <td class="text-bold font-italic">Sumber Data</td>
                             <td colspan="3">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="sumberdata" id="sumberdata" value="Pasien Sendiri">
+                                    <input class="form-check-input" type="radio" name="sumberdata" id="sumberdata"
+                                        value="Pasien Sendiri">
                                     <label class="form-check-label" for="inlineRadio1">Pasien Sendiri /
                                         Autoanamase</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="sumberdata" id="sumberdata" value="Keluarga">
+                                    <input class="form-check-input" type="radio" name="sumberdata" id="sumberdata"
+                                        value="Keluarga">
                                     <label class="form-check-label" for="inlineRadio2">Keluarga / Alloanamnesa</label>
                                 </div>
                             </td>
                         </tr>
-                        <tr>
+                        {{-- <tr>
                             <td class="text-bold font-italic">Primary Survey</td>
                             <td colspan="3">
                                 <h5> A (Airway) , B (Breathing), C (Circulation), D (Disability), E (Exposure)</h5>
@@ -193,30 +197,35 @@
                                 <textarea class="form-control" id="riwayatpenyakit" name="riwayatpenyakit" placeholder="Ketik riwayat penyakit ..."></textarea>
 
                             </td>
-                        </tr>
+                        </tr> --}}
                     </tbody>
                 </table>
 
 
-                <button class="btn btn-secondary triasedewasa" style="margin-bottom: 10px;"><i class="fas fa-male mr-2"></i> Triase Dewasa</button>
-                <button class="btn btn-secondary triaseanak" style="margin-bottom: 10px;"><i class="fas fa-child mr-2"></i> Triase Anak</button>
+                <button class="btn btn-secondary triasedewasa" style="margin-bottom: 10px; margin-top:10px"><i
+                        class="fas fa-male mr-2"></i> Triase Dewasa</button>
+                <button class="btn btn-secondary triaseanak" style="margin-bottom: 10px; margin-top:10px"><i
+                        class="fas fa-child mr-2"></i> Triase Anak</button>
 
                 <!-- triase ats  -->
                 <div class="triaseview">
 
                 </div>
                 <!-- triase   -->
-                <div class="accordion" id="accordionExample1" style="margin-top: 10px;">
+                {{-- <div class="accordion" id="accordionExample1" style="margin-top: 10px;">
 
                     <div class="card-header bg-secondary" id="headingOne">
                         <h2 class="mb-0">
-                            <button class="btn btn-link btn-block text-left text-light font-weight" type="button" data-toggle="collapse" data-target="#collapseOne1" aria-expanded="true" aria-controls="collapseOne1">
+                            <button class="btn btn-link btn-block text-left text-light font-weight" type="button"
+                                data-toggle="collapse" data-target="#collapseOne1" aria-expanded="true"
+                                aria-controls="collapseOne1">
                                 <i class="bi bi-ticket-detailed mr-1 ml-1"></i> TRIASE
                             </button>
                         </h2>
                     </div>
 
-                    <div id="collapseOne1" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample1">
+                    <div id="collapseOne1" class="collapse" aria-labelledby="headingOne"
+                        data-parent="#accordionExample1">
                         <div class="card-body bg-light">
 
                             <table class="table">
@@ -226,14 +235,16 @@
 
                                         <td>
                                             <div class="form-group form-check">
-                                                <input type="checkbox" class="form-check-input" id="kesadaran_lain" name="kesadaran_lain" value="Compos Mentis">
+                                                <input type="checkbox" class="form-check-input" id="kesadaran_lain"
+                                                    name="kesadaran_lain" value="Compos Mentis">
                                                 <label class="form-check-label" for="exampleCheck1">Compos Mentis
                                                 </label>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="form-group form-check">
-                                                <input type="checkbox" class="form-check-input" id="kesadaran_lain" name="kesadaran_lain" value="Letargik">
+                                                <input type="checkbox" class="form-check-input" id="kesadaran_lain"
+                                                    name="kesadaran_lain" value="Letargik">
                                                 <label class="form-check-label" for="exampleCheck1">Letargik
                                                 </label>
                                             </div>
@@ -256,21 +267,24 @@
 
                                         <td>
                                             <div class="form-group form-check">
-                                                <input type="checkbox" class="form-check-input" id="statusps" name="statusps" value="Marah">
+                                                <input type="checkbox" class="form-check-input" id="statusps"
+                                                    name="statusps" value="Marah">
                                                 <label class="form-check-label" for="exampleCheck1">Marah
                                                 </label>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="form-group form-check">
-                                                <input type="checkbox" class="form-check-input" id="statusps" name="statusps" value="Depresi">
+                                                <input type="checkbox" class="form-check-input" id="statusps"
+                                                    name="statusps" value="Depresi">
                                                 <label class="form-check-label" for="exampleCheck1">Depresi
                                                 </label>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="form-group form-check">
-                                                <input type="checkbox" class="form-check-input" id="statusps" name="statusps" value="Takut">
+                                                <input type="checkbox" class="form-check-input" id="statusps"
+                                                    name="statusps" value="Takut">
                                                 <label class="form-check-label" for="exampleCheck1">Takut
                                                 </label>
                                             </div>
@@ -281,21 +295,24 @@
                                         <td></td>
                                         <td>
                                             <div class="form-group form-check">
-                                                <input type="checkbox" class="form-check-input" id="statusps" name="statusps" value="Gelisah">
+                                                <input type="checkbox" class="form-check-input" id="statusps"
+                                                    name="statusps" value="Gelisah">
                                                 <label class="form-check-label" for="exampleCheck1">Gelisah
                                                 </label>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="form-group form-check">
-                                                <input type="checkbox" class="form-check-input" id="statusps" name="statusps" value="Psikotik">
+                                                <input type="checkbox" class="form-check-input" id="statusps"
+                                                    name="statusps" value="Psikotik">
                                                 <label class="form-check-label" for="exampleCheck1">Psikotik
                                                 </label>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="form-group form-check">
-                                                <input type="checkbox" class="form-check-input" id="statusps" name="statusps" value="Cemas">
+                                                <input type="checkbox" class="form-check-input" id="statusps"
+                                                    name="statusps" value="Cemas">
                                                 <label class="form-check-label" for="exampleCheck1">Cemas
                                                 </label>
                                             </div>
@@ -305,22 +322,27 @@
                                         <td></td>
                                         <td>
                                             <div class="form-group form-check">
-                                                <input type="checkbox" class="form-check-input" id="statusps" name="statusps" value="Kecenderungan bunuh diri">
-                                                <label class="form-check-label" for="exampleCheck1">Kecenderungan bunuh diri
+                                                <input type="checkbox" class="form-check-input" id="statusps"
+                                                    name="statusps" value="Kecenderungan bunuh diri">
+                                                <label class="form-check-label" for="exampleCheck1">Kecenderungan
+                                                    bunuh diri
                                                 </label>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="form-group form-check">
-                                                <input type="checkbox" class="form-check-input" id="statusps" name="statusps" value="Tidak Ada Masalah">
+                                                <input type="checkbox" class="form-check-input" id="statusps"
+                                                    name="statusps" value="Tidak Ada Masalah">
                                                 <label class="form-check-label" for="exampleCheck1">Tidak Ada Masalah
                                                 </label>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="form-group form-check">
-                                                <input type="checkbox" class="form-check-input" id="statusps" name="statusps" value="lain-lain">
-                                                <label class="form-check-label" for="exampleCheck1">lain-lain <input type="text">
+                                                <input type="checkbox" class="form-check-input" id="statusps"
+                                                    name="statusps" value="lain-lain">
+                                                <label class="form-check-label" for="exampleCheck1">lain-lain <input
+                                                        type="text">
                                                 </label>
                                             </div>
                                         </td>
@@ -360,15 +382,7 @@
 
                                 </tbody>
                             </table>
-
-
-
-
                         </div>
-
-
-
-
                     </div>
 
                 </div>
@@ -377,13 +391,16 @@
                     <div class="card">
                         <div class="card-header bg-secondary" id="headingOne">
                             <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left text-light font-weight" type="button" data-toggle="collapse" data-target="#collapseOne4" aria-expanded="true" aria-controls="collapseOne4">
+                                <button class="btn btn-link btn-block text-left text-light font-weight" type="button"
+                                    data-toggle="collapse" data-target="#collapseOne4" aria-expanded="true"
+                                    aria-controls="collapseOne4">
                                     <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Keadaan Pasien Saat Keluar
                                 </button>
                             </h2>
                         </div>
 
-                        <div id="collapseOne4" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample4">
+                        <div id="collapseOne4" class="collapse" aria-labelledby="headingOne"
+                            data-parent="#accordionExample4">
                             <div class="card-body bg-light">
 
                                 <table class="table">
@@ -391,28 +408,32 @@
                                         <tr>
                                             <td>
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="kondisi" name="kondisi" value="Sembuh">
+                                                    <input type="checkbox" class="form-check-input" id="kondisi"
+                                                        name="kondisi" value="Sembuh">
                                                     <label class="form-check-label" for="exampleCheck1">Sembuh
                                                     </label>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="kondisi" name="kondisi" value="Tidak Sembuh">
+                                                    <input type="checkbox" class="form-check-input" id="kondisi"
+                                                        name="kondisi" value="Tidak Sembuh">
                                                     <label class="form-check-label" for="exampleCheck1">Tidak Sembuh
                                                     </label>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="kondisi" name="kondisi" value="Perbaikan">
+                                                    <input type="checkbox" class="form-check-input" id="kondisi"
+                                                        name="kondisi" value="Perbaikan">
                                                     <label class="form-check-label" for="exampleCheck1">Perbaikan
                                                     </label>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="kondisi" name="kondisi" value="Meninggal">
+                                                    <input type="checkbox" class="form-check-input" id="kondisi"
+                                                        name="kondisi" value="Meninggal">
                                                     <label class="form-check-label" for="exampleCheck1">Meninggal
                                                     </label>
                                                 </div>
@@ -432,9 +453,10 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
-                <div type="button" class="btn float-right btn-success simpantriase" style="margin-top: 20px;">SIMPAN</div>
+                <div type="button" class="btn float-right btn-success simpantriase" style="margin-top: 20px;">SIMPAN
+                </div>
             </div>
         </form>
 
@@ -444,54 +466,8 @@
 </div>
 
 <script>
-    $(".triasedewasa").click(function() {
-        spinner = $('#loader2');
-        spinner.show();
 
 
-
-        $.ajax({
-            type: "post",
-            data: {
-                _token: "{{ csrf_token() }}",
-
-            },
-            url: '<?= route('triasedewasa') ?>',
-            error: function(data) {
-                spinner.hide();
-                alert('oke!!')
-            },
-            success: function(response) {
-                spinner.hide();
-                $('.triaseview').html(response);
-
-            }
-        });
-    });
-    $(".triaseanak").click(function() {
-        spinner = $('#loader2');
-        spinner.show();
-
-
-
-        $.ajax({
-            type: "post",
-            data: {
-                _token: "{{ csrf_token() }}",
-
-            },
-            url: '<?= route('triaseanak') ?>',
-            error: function(data) {
-                spinner.hide();
-                alert('oke!!')
-            },
-            success: function(response) {
-                spinner.hide();
-                $('.triaseview').html(response);
-
-            }
-        });
-    });
     $(".simpantriase").click(function() {
         var data = $('.formpemeriksaantriase').serializeArray();
         var antrian = $('#antrian').val()
