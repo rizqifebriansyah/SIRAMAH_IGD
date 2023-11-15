@@ -244,7 +244,6 @@ class DokterController extends Controller
         INNER JOIN ts_layanan_detail_igd b ON b.row_id_header = a.id
         WHERE a.kode_unit = ?
         AND a.kode_kunjungan = ?', ['3003', $request->kj]);
-        dd($riwayatorderrad);
         $riwayatorderlab = DB::connection('mysql2')->select('SELECT
          a.no_rm,
          a.kode_layanan_header,

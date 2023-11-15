@@ -652,11 +652,11 @@
                                         <th>Nama tindakan</th>
                                     </thead>
                                     <tbody>
-                                        @foreach ($layanan as $t)
+                                        @foreach ($layanan as $r)
                                             <tr class="pilihlayanan1" jenis="nonpaket"
-                                                namatindakan="{{ $t->Tindakan }}" tarif="{{ $t->tarif }}"
-                                                kode="{{ $t->kode }}">
-                                                <td>{{ $t->Tindakan }}</td>
+                                                namatindakan="{{ $r->Tindakan }}" tarif="{{ $r->tarif }}"
+                                                kode="{{ $r->kode }}">
+                                                <td>{{ $r->Tindakan }}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -1138,11 +1138,11 @@
                                         <th>Nama tindakan</th>
                                     </thead>
                                     <tbody>
-                                        @foreach ($layanan as $t)
+                                        @foreach ($layanan as $r)
                                             <tr class="pilihlayanan1" jenis="nonpaket"
-                                                namatindakan="{{ $t->Tindakan }}" tarif="{{ $t->tarif }}"
-                                                kode="{{ $t->kode }}">
-                                                <td>{{ $t->Tindakan }}</td>
+                                                namatindakan="{{ $r->Tindakan }}" tarif="{{ $r->tarif }}"
+                                                kode="{{ $r->kode }}">
+                                                <td>{{ $r->Tindakan }}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>
