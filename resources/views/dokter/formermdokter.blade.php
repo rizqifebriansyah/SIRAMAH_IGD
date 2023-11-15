@@ -458,7 +458,6 @@
                                 <div class="card-body bg-light">
                                     <select class="form-control select2" name="alpul" id="alpul">
                                         <option value=""> -- Select One --</option>
-                                        @foreach ($alasanpulang as $i => $p)
                                             <option value="Pasien Anak">Pasien Anak
                                             </option>
                                             <option value="Pasien Bedah">Pasien Bedah
@@ -469,7 +468,6 @@
                                             </option>
                                             <option value="Pasien Psikomatic">Pasien Psikomatic
                                             </option>
-                                        @endforeach
 
                                     </select>
                                     <label>Lain-lain</label>
@@ -1078,7 +1076,7 @@
                                     <div class="card-header bg-secondary">Tindakan / Layanan Pasien</div>
                                     <div class="card-body">
                                         <form action="" method="post" class="formlab">
-                                            <div class="input_fields_wrap">
+                                            <div class="input_fields_wrap_lab">
                                                 <div>
                                                 </div>
 

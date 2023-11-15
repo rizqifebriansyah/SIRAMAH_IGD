@@ -313,7 +313,6 @@
                                 <div class="card-body bg-light">
                                     <select class="form-control select2" name="alpul" id="alpul">
                                         <option value=""> -- Select One --</option>
-                                        @foreach ($alasanpulang as $i => $p)
                                             <option value="Pasien Anak">Pasien Anak
                                             </option>
                                             <option value="Pasien Bedah">Pasien Bedah
@@ -324,7 +323,6 @@
                                             </option>
                                             <option value="Pasien Psikomatic">Pasien Psikomatic
                                             </option>
-                                        @endforeach
 
                                     </select>
                                     <label>Lain-lain</label>
@@ -1905,7 +1903,6 @@
                                     <div class="form-group" data-select2-id="29">
                                         <select class="form-control select2" name="alpul" id="alpul">
                                             <option value=""> {{ $assesper[0]->cara_pulang }}</option>
-                                            @foreach ($alasanpulang as $i => $p)
                                                 <option value="Pasien Anak">Pasien Anak
                                                 </option>
                                                 <option value="Pasien Bedah">Pasien Bedah
@@ -1916,7 +1913,6 @@
                                                 </option>
                                                 <option value="Pasien Psikomatic">Pasien Psikomatic
                                                 </option>
-                                            @endforeach
 
                                         </select>
                                         <label>Lain-lain</label>
