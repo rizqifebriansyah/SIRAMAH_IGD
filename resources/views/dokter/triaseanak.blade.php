@@ -10,131 +10,6 @@
                 <!-- skrining pasien -->
                 <table class="table">
                     <tbody>
-                        {{-- @if ($ttv == null)
-                        <tr>
-                            <td class="text-bold font-italic">Tekanan Darah</td>
-                            <td>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Tekanan darah pasien ..." aria-label="Recipient's username" id="tekanandarah" name="tekanandarah" aria-describedby="basic-addon2" value="">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text" id="basic-addon2">mmHg</span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="text-bold font-italic">Frekuensi Nadi</td>
-                            <td>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Frekuensi nadi pasien ..." id="frekuensinadi" name="frekuensinadi" aria-label="Recipient's username" aria-describedby="basic-addon2" value="">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text" id="basic-addon2">x/menit</span>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-bold font-italic">Frekuensi Nafas</td>
-                            <td>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Frekuensi Nafas Pasien ..." name="frekuensinafas" id="frekuensinafas" aria-label="Recipient's username" aria-describedby="basic-addon2" value="">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text" id="basic-addon2">x/menit</span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="text-bold font-italic">Suhu</td>
-                            <td>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Suhu tubuh pasien ..." aria-label="Suhu tubuh pasien" name="suhutubuh" id="suhutubuh" aria-describedby="basic-addon2" value="">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text" id="basic-addon2">°C</span>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-bold font-italic">Berat Badan / tinggi badan / IMT</td>
-                            <td>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Berat badan Pasien ..." name="beratbadan" id="beratbadan" aria-label="Recipient's username" aria-describedby="basic-addon2" value="">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text" id="basic-addon2">Kg</span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="text-bold font-italic">Umur</td>
-                            <td>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Umur pasien ..." aria-label="Suhu tubuh pasien" name="usia" id="usia" aria-describedby="basic-addon2" value="">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text" id="basic-addon2">th</span>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        @else
-                        <tr>
-                            <td class="text-bold font-italic">Tekanan Darah</td>
-                            <td>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Tekanan darah pasien ..." aria-label="Recipient's username" id="tekanandarah" name="tekanandarah" aria-describedby="basic-addon2" value="{{ $ttv[0]->tekanan_darah }}">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text" id="basic-addon2">mmHg</span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="text-bold font-italic">Frekuensi Nadi</td>
-                            <td>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Frekuensi nadi pasien ..." id="frekuensinadi" name="frekuensinadi" aria-label="Recipient's username" aria-describedby="basic-addon2" value="{{ $ttv[0]->frekuensi_nadi }}">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text" id="basic-addon2">x/menit</span>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-bold font-italic">Frekuensi Nafas</td>
-                            <td>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Frekuensi Nafas Pasien ..." name="frekuensinafas" id="frekuensinafas" aria-label="Recipient's username" aria-describedby="basic-addon2" value="{{ $ttv[0]->frekuensi_nafas }}">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text" id="basic-addon2">x/menit</span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="text-bold font-italic">Suhu</td>
-                            <td>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Suhu tubuh pasien ..." aria-label="Suhu tubuh pasien" name="suhutubuh" id="suhutubuh" aria-describedby="basic-addon2" value="{{ $ttv[0]->suhu_tubuh }}">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text" id="basic-addon2">°C</span>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-bold font-italic">Berat Badan / tinggi badan / IMT</td>
-                            <td>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Berat badan Pasien ..." name="beratbadan" id="beratbadan" aria-label="Recipient's username" aria-describedby="basic-addon2" value="{{ $ttv[0]->beratbadan }}">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text" id="basic-addon2">Kg</span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="text-bold font-italic">Umur</td>
-                            <td>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Umur pasien ..." aria-label="Suhu tubuh pasien" name="usia" id="usia" aria-describedby="basic-addon2" value="{{ $ttv[0]->umur }}">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text" id="basic-addon2">th</span>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        @endif --}}
-
-
                         <tr>
                             <td class="text-bold font-italic">Nama pasien</td>
                             <td colspan="3">
@@ -1451,8 +1326,9 @@
                                         <div class="row">
                                             <div class="col-md-2">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="kejang"
-                                                        name="kejang" value="Kejang berulang">
+                                                    <input type="checkbox" class="form-check-input"
+                                                        id="kejangberulang" name="kejangberulang"
+                                                        value="Kejang berulang">
                                                     <label class="form-check-label" for="exampleCheck1">Kejang
                                                         berulang</label>
                                                 </div>
@@ -1460,16 +1336,17 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="penurunankes"
-                                                        name="penurunankes" value="Penurunan Kesadaran">
+                                                    <input type="checkbox" class="form-check-input"
+                                                        id="penurunankes1" name="penurunankes1"
+                                                        value="Penurunan Kesadaran">
                                                     <label class="form-check-label" for="exampleCheck1">Penurunan
                                                         Kesadaran</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-2 ">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="sakitpala1"
-                                                        name="sakitpala1" value="Sakit kepala kronis">
+                                                    <input type="checkbox" class="form-check-input" id="sakitpala2"
+                                                        name="sakitpala2" value="Sakit kepala kronis">
                                                     <label class="form-check-label" for="exampleCheck1">Sakit kepala
                                                         kronis
                                                     </label>
@@ -1641,8 +1518,8 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="letargis"
-                                                        name="letargis" value="Tampak Letargis">
+                                                    <input type="checkbox" class="form-check-input" id="letargis1"
+                                                        name="letargis1" value="Tampak Letargis">
                                                     <label class="form-check-label" for="exampleCheck1">Tampak
                                                         Letargis</label>
                                                 </div>
@@ -2113,7 +1990,8 @@
                     </div>
                 </div> --}}
 
-                <div type="button" class="btn float-right btn-success simpantriase" style="margin-top: 20px;">
+                <div type="button" class="btn float-right btn-success simpantriaseanak"
+                    style="margin-top: 20px;">
                     SIMPAN
                 </div>
             </div>
@@ -2125,8 +2003,7 @@
 </div>
 
 <script>
-
-    $(".simpantriase").click(function() {
+    $(".simpantriaseanak").click(function() {
         var data = $('.formpemeriksaantriase').serializeArray();
         var antrian = $('#antrian').val()
         var namapasien = $('#namapasien').val()
@@ -2149,102 +2026,115 @@
 
 
         //kesadaran
-        var gcs1 = $("#gcs1:checked").val();
-        var gcs2 = $("#gcs2:checked").val();
-        var gcs3 = $("#gcs3:checked").val();
-        var gcs4 = $("#gcs4:checked").val();
-        var gcs5 = $("#gcs5:checked").val();
-        var kejang = $("#kejang:checked").val();
-        var letargis = $("#letargis:checked").val();
-        var traumakepala = $("#traumakepala:checked").val();
-        var traumakepalakurang = $("#traumakepalakurang:checked").val();
-        var tidakrespon = $("#tidakrespon:checked").val();
-        var somnolen = $("#somnolen:checked").val();
-        var paskakejang = $("#paskakejang:checked").val();
-
-        //jalannafas
-        var sumbatantotal = $("#sumbatantotal:checked").val();
-        var sumbatanparsial = $("#sumbatanparsial:checked").val();
-        var bebas1 = $("#bebas1:checked").val();
-        var bebas2 = $("#bebas2:checked").val();
-        var bebas3 = $("#bebas3:checked").val();
-
-        //pernafasan
-        var hentinafas = $("#hentinafas:checked").val();
-        var distrespenafasan = $("#distrespenafasan:checked").val();
-        var sesaknafas = $("#sesaknafas:checked").val();
-        var freknafas = $("#freknafas:checked").val();
-        var freknafas1 = $("#freknafas1:checked").val();
-        var rr = $("#rr:checked").val();
-        var SaO2 = $("#SaO2:checked").val();
-        var sianosis = $("#sianosis:checked").val();
+        var tidakada = $('#tidakada:checked').val();
+        var penurunan = $('#penurunan:checked').val();
+        var unconsable = $('#unconsable:checked').val();
+        var consolable = $('#consolable:checked').val();
+        var tidakberubah = $('#tidakberubah:checked').val();
+        var letargis = $('#letargis:checked').val();
+        var atypical = $('#atypical:checked').val();
+        var atypical1 = $('#atypical1:checked').val();
+        var tidaknetek = $('#tidaknetek:checked').val();
+        var tidakriwayat = $('#tidakriwayat:checked').val();
+        //upaya nafas
+        var gagalnafas = $('#gagalnafas:checked').val();
+        var rr = $('#rr:checked').val();
+        var rr1 = $('#rr1:checked').val();
+        var laju1 = $('#laju1:checked').val();
+        var laju2 = $('#laju2:checked').val();
+        var rr2 = $('#rr2:checked').val();
+        var rr3 = $('#rr3:checked').val();
+        var stdr = $('#stdr:checked').val();
+        var stdr1 = $('#stdr1:checked').val();
+        var distress = $('#distress:checked').val();
+        var distress1 = $('#distress1:checked').val();
 
         //sirkulasi
-        var hentijantung = $("#hentijantung:checked").val();
-        var naditerabalemah = $("#naditerabalemah:checked").val();
-        var muntahpasien = $("#muntahpasien:checked").val();
-        var nadikuat = $("#nadikuat:checked").val();
-        var nadikuat1 = $("#nadikuat1:checked").val();
-        var naditidakteraba = $("#naditidakteraba:checked").val();
-        var hr1 = $("#hr1:checked").val();
-        var takikardia = $("#takikardia:checked").val();
-        var freknadinormal = $("#freknadinormal:checked").val();
-        var freknadinormal1 = $("#freknadinormal1:checked").val();
-        var akraldingin = $("#akraldingin:checked").val();
-        var hr2 = $("#hr2:checked").val();
-        var tds = $("#tds:checked").val();
-        var tds1 = $("#tds1:checked").val();
-        var tds2 = $("#tds2:checked").val();
-        var pucat = $("#pucat:checked").val();
-        var tdd = $("#tdd:checked").val();
-        var tdd1 = $("#tdd1:checked").val();
-        var tdd2 = $("#tdd2:checked").val();
-        var akraldingin1 = $("#akraldingin1:checked").val();
-        var pendarahan = $("#pendarahan:checked").val();
-        var muntah1 = $("#muntah1:checked").val();
-        var crt = $("#crt:checked").val();
-        var diastolik = $("#diastolik:checked").val();
-        var pendarahan1 = $("#pendarahan1:checked").val();
+        var hentijantung = $('#hentijantung:checked').val();
+        var rr4 = $('#rr4:checked').val();
+        var rr5 = $('#rr5:checked').val();
+        var freknafas = $('#freknafas:checked').val();
+        var laju3 = $('#laju3:checked').val();
+        var laju4 = $('#laju4:checked').val();
+        var syok = $('#syok:checked').val();
+        var rr6 = $('#rr6:checked').val();
 
-        //gejalaspesifik
-        var nyeri = $("#nyeri:checked").val();
-        var demam = $("#demam:checked").val();
-        var aspirasi = $("#aspirasi:checked").val();
-        var nyeri1 = $("#nyeri1:checked").val();
-        var sepsis = $("#sepsis:checked").val();
-        var nyeri2 = $("#nyeri2:checked").val();
-        var trauma1 = $("#trauma1:checked").val();
-        var luka = $("#luka:checked").val();
-        var nyeri3 = $("#nyeri3:checked").val();
-        var kolik = $("#kolik:checked").val();
-        var sulit = $("#sulit:checked").val();
-        var kontrol = $("#kontrol:checked").val();
-        var multiple = $("#multiple:checked").val();
-        var terauma = $("#terauma:checked").val();
-        var sedang1 = $("#sedang1:checked").val();
-        var imunisasi = $("#imunisasi:checked").val();
-        var lokal = $("#lokal:checked").val();
-        var gangguan = $("#gangguan:checked").val();
-        var terauma1 = $("#terauma1:checked").val();
-        var psikiatri = $("#psikiatri:checked").val();
-        var racun = $("#racun:checked").val();
-        var psikosis = $("#psikosis:checked").val();
-        var radang = $("#radang:checked").val();
-        var ngamuk = $("#ngamuk:checked").val();
-        var defisit = $("#defisit:checked").val();
+
+        var rr7 = $('#rr7:checked').val();
+        var sianosis = $('#sianosis:checked').val();
+        var waktu = $('#waktu:checked').val();
+        var waktu1 = $('#waktu1:checked').val();
+        //sistem respirasi
+        var gangguan = $('#gangguan:checked').val();
+        var stdr2 = $('#stdr2:checked').val();
+        var stdr3 = $('#stdr3:checked').val();
+        var asma = $('#asma:checked').val();
+        var gagalnafas1 = $('#gagalnafas1:checked').val();
+        var distressnafas = $('#distressnafas:checked').val();
+        var distressnafas1 = $('#distressnafas1:checked').val();
+        var T = $('#T:checked').val();
+        var asmaber = $('#asmaber:checked').val();
+        var serangan1 = $('#serangan1:checked').val();
+        var trauma = $('#trauma:checked').val();
+        var aspirasi2 = $('#aspirasi2:checked').val();
+        var aspirasi3 = $('#aspirasi3:checked').val();
+        var trauma1 = $('#trauma1:checked').val();
+        var batukber = $('#batukber:checked').val();
+
+        //sisteem kardio vaskular
+        var hipo = $('#hipo:checked').val();
+        var takikardia = $('#takikardia:checked').val();
+        var takikardia1 = $('#takikardia1:checked').val();
+        var nyerda = $('#nyerda:checked').val();
+        var node = $('#node:checked').val();
+        var pendarahan = $('#pendarahan:checked').val();
+        var bradikardia = $('#bradikardia:checked').val();
+        var dehi1 = $('#dehi1:checked').val();
+        var dehi2 = $('#dehi2:checked').val();
+        var pendarahan1 = $('#pendarahan1:checked').val();
+        var pendarahan2 = $('#pendarahan2:checked').val();
+
+        //sistem pernafasan
+        var trauma2 = $('#trauma2:checked').val();
+        var trauma3 = $('#trauma3:checked').val();
+        var trauma4 = $('#trauma4:checked').val();
+        var trauma5 = $('#trauma5:checked').val();
+        var gcs10 = $('#gcs10:checked').val();
+        var gcs13 = $('#gcs13:checked').val();
+        var gcs15 = $('#gcs15:checked').val();
+        var sakitpala = $('#sakitpala:checked').val();
+        var kejang = $('#kejang:checked').val();
+        var penurunankes = $('#penurunankes:checked').val();
+        var sakitpala1 = $('#sakitpala1:checked').val();
+        var kejangberulang = $('#kejangberulang:checked').val();
+        var penurunankes1 = $('#penurunankes1:checked').val();
+        var sakitpala2 = $('#sakitpala2:checked').val();
+        var tisa = $('#tisa:checked').val();
+        var sapal = $('#sapal:checked').val();
+        var shunt = $('#shunt:checked').val();
+        var shunt1 = $('#shunt1:checked').val();
+        var kjg = $('#kjg:checked').val();
+        //child abuse
+        var konflik = $('#konflik:checked').val();
+        var risikoch = $('#risikoch:checked').val();
+        var ksex = $('#ksex:checked').val();
+        var kdrt = $('#kdrt:checked').val();
+        //lain-lain
+        var anafileksis = $('#anafileksis:checked').val();
+        var letargis1 = $("#letargis1:checked").val();
+        var infant = $("#infant:checked").val();
+        var rewel = $("#rewel:checked").val();
+        var dm = $("#dm:checked").val();
+        var bayi7 = $("#bayi7:checked").val();
+        var bayi3 = $("#bayi3:checked").val();
+        var bayi36 = $("#bayi36:checked").val();
+        var bayi3bln = $("#bayi3bln:checked").val();
         var reaksi = $("#reaksi:checked").val();
-        var defisit1 = $("#defisit1:checked").val();
-        var kejang1 = $("#kejang1:checked").val();
-        var nyeri3 = $("#nyeri3:checked").val();
-
-        //triase lain
-        var kesadaranlain = $("#kesadaran_lain:checked").val();
-        var statusps = $("#statusps:checked").val();
-        var kelut = $("#kelut").val();
-        var pemfis = $("#pemfis").val();
-        var ditri = $("#ditri").val();
-        var talak = $("#talak").val();
-        var kondisi = $("#kondisi").val();
+        var reaksi1 = $("#reaksi1:checked").val();
+        var gangguan1 = $("#gangguan1:checked").val();
+        var kesulitan = $("#kesulitan:checked").val();
+        var perilaku = $("#perilaku:checked").val();
+        var KAD = $("#KAD:checked").val();
 
         Swal.fire({
             title: "Yakin Simpan TRIASE?",
@@ -2283,108 +2173,120 @@
                         // ats3 : $("#ats3:checked").val(),
                         // ats4 : $("#ats4:checked").val(),
                         // ats5 : $("#ats5:checked").val(),
-
-                        gcs1: $('#gcs1:checked').val(),
-                        gcs2: $('#gcs2:checked').val(),
-                        gcs3: $('#gcs3:checked').val(),
-                        gcs4: $('#gcs4:checked').val(),
-                        gcs5: $('#gcs5:checked').val(),
-                        kejang: $('#kejang:checked').val(),
+                        //kesadaran
+                        tidakada: $('#tidakada:checked').val(),
+                        penurunan: $('#penurunan:checked').val(),
+                        unconsable: $('#unconsable:checked').val(),
+                        consolable: $('#consolable:checked').val(),
+                        tidakberubah: $('#tidakberubah:checked').val(),
                         letargis: $('#letargis:checked').val(),
-                        traumakepala: $('#traumakepala:checked').val(),
-                        traumakepalakurang: $('#traumakepalakurang:checked').val(),
-                        tidakrespon: $('#tidakrespon:checked').val(),
-                        somnolen: $('#somnolen:checked').val(),
-                        paskakejang: $('#paskakejang:checked').val(),
+                        atypical: $('#atypical:checked').val(),
+                        atypical1: $('#atypical1:checked').val(),
+                        tidaknetek: $('#tidaknetek:checked').val(),
+                        tidakriwayat: $('#tidakriwayat:checked').val(),
 
-
-                        sumbatantotal: $('#sumbatantotal:checked').val(),
-                        sumbatanparsial: $('#sumbatanparsial:checked').val(),
-                        bebas1: $('#bebas1:checked').val(),
-                        bebas2: $('#bebas2:checked').val(),
-                        bebas3: $('#bebas3:checked').val(),
-
-
-                        hentinafas: $('#hentinafas:checked').val(),
-                        distrespenafasan: $('#distrespenafasan:checked').val(),
-                        sesaknafas: $('#sesaknafas:checked').val(),
-                        freknafas: $('#freknafas:checked').val(),
-                        freknafas1: $('#freknafas1:checked').val(),
+                        //upaya nafas
+                        gagalnafas: $('#gagalnafas:checked').val(),
                         rr: $('#rr:checked').val(),
-                        SaO2: $('#SaO2:checked').val(),
-                        sianosis: $('#sianosis:checked').val(),
+                        rr1: $('#rr1:checked').val(),
+                        laju1: $('#laju1:checked').val(),
+                        laju2: $('#laju2:checked').val(),
+                        rr2: $('#rr2:checked').val(),
+                        rr3: $('#rr3:checked').val(),
+                        stdr: $('#stdr:checked').val(),
+                        stdr1: $('#stdr1:checked').val(),
+                        distress: $('#distress:checked').val(),
+                        distress1: $('#distress1:checked').val(),
 
-
+                        //sirkulasi
                         hentijantung: $('#hentijantung:checked').val(),
-                        naditerabalemah: $('#naditerabalemah:checked').val(),
-                        muntahpasien: $('#muntahpasien:checked').val(),
-                        nadikuat: $('#nadikuat:checked').val(),
-                        nadikuat1: $('#nadikuat1:checked').val(),
-                        naditidakteraba: $('#naditidakteraba:checked').val(),
-                        hr1: $('#hr1:checked').val(),
-                        takikardia: $('#takikardia:checked').val(),
-                        freknadinormal: $('#freknadinormal:checked').val(),
-                        freknadinormal1: $('#freknadinormal1:checked').val(),
-                        akraldingin: $('#akraldingin:checked').val(),
-                        hr2: $('#hr2:checked').val(),
-                        tds: $('#tds:checked').val(),
-                        tds1: $('#tds1:checked').val(),
-                        tds2: $('#tds2:checked').val(),
-                        pucat: $('#pucat:checked').val(),
-                        tdd: $('#tdd:checked').val(),
-                        tdd1: $('#tdd1:checked').val(),
-                        tdd2: $('#tdd2:checked').val(),
-                        akraldingin1: $('#akraldingin1:checked').val(),
-                        pendarahan: $('#pendarahan:checked').val(),
-                        muntah1: $('#muntah1:checked').val(),
-                        crt: $('#crt:checked').val(),
-                        diastolik: $('#diastolik:checked').val(),
-                        pendarahan1: $('#pendarahan1:checked').val(),
+                        rr4: $('#rr4:checked').val(),
+                        rr5: $('#rr5:checked').val(),
+                        freknafas: $('#freknafas:checked').val(),
+                        laju3: $('#laju3:checked').val(),
+                        laju4: $('#laju4:checked').val(),
+                        syok: $('#syok:checked').val(),
+                        rr6: $('#rr6:checked').val(),
 
 
-                        nyeri: $('#nyeri:checked').val(),
-                        demam: $('#demam:checked').val(),
-                        aspirasi: $('#aspirasi:checked').val(),
-                        nyeri1: $('#nyeri1:checked').val(),
-                        sepsis: $('#sepsis:checked').val(),
-                        nyeri2: $('#nyeri2:checked').val(),
-                        trauma1: $('#trauma1:checked').val(),
-                        luka: $('#luka:checked').val(),
-                        nyeri3: $('#nyeri3:checked').val(),
-                        kolik: $('#kolik:checked').val(),
-                        sulit: $('#sulit:checked').val(),
-                        kontrol: $('#kontrol:checked').val(),
-                        multiple: $('#multiple:checked').val(),
-                        terauma: $('#terauma:checked').val(),
-                        sedang1: $('#sedang1:checked').val(),
-                        imunisasi: $('#imunisasi:checked').val(),
-                        lokal: $('#lokal:checked').val(),
+                        rr7: $('#rr7:checked').val(),
+                        sianosis: $('#sianosis:checked').val(),
+                        waktu: $('#waktu:checked').val(),
+                        waktu1: $('#waktu1:checked').val(),
+                        //sistem respirasi
                         gangguan: $('#gangguan:checked').val(),
-                        terauma1: $('#terauma1:checked').val(),
-                        psikiatri: $('#psikiatri:checked').val(),
-                        racun: $('#racun:checked').val(),
-                        psikosis: $('#psikosis:checked').val(),
-                        radang: $('#radang:checked').val(),
-                        ngamuk: $('#ngamuk:checked').val(),
-                        defisit: $('#defisit:checked').val(),
-                        reaksi: $('#reaksi:checked').val(),
-                        defisit1: $('#defisit1:checked').val(),
-                        kejang1: $('#kejang1:checked').val(),
-                        nyeri3: $('#nyeri3:checked').val(),
+                        stdr2: $('#stdr2:checked').val(),
+                        stdr3: $('#stdr3:checked').val(),
+                        asma: $('#asma:checked').val(),
+                        gagalnafas1: $('#gagalnafas1:checked').val(),
+                        distressnafas: $('#distressnafas:checked').val(),
+                        distressnafas1: $('#distressnafas1:checked').val(),
+                        T: $('#T:checked').val(),
+                        asmaber: $('#asmaber:checked').val(),
+                        serangan1: $('#serangan1:checked').val(),
+                        trauma: $('#trauma:checked').val(),
+                        aspirasi2: $('#aspirasi2:checked').val(),
+                        aspirasi3: $('#aspirasi3:checked').val(),
+                        trauma1: $('#trauma1:checked').val(),
+                        batukber: $('#batukber:checked').val(),
 
+                        //sisteem kardio vaskular
+                        hipo: $('#hipo:checked').val(),
+                        takikardia: $('#takikardia:checked').val(),
+                        takikardia1: $('#takikardia1:checked').val(),
+                        nyerda: $('#nyerda:checked').val(),
+                        node: $('#node:checked').val(),
+                        pendarahan: $('#pendarahan:checked').val(),
+                        bradikardia: $('#bradikardia:checked').val(),
+                        dehi1: $('#dehi1:checked').val(),
+                        dehi2: $('#dehi2:checked').val(),
+                        pendarahan1: $('#pendarahan1:checked').val(),
+                        pendarahan2: $('#pendarahan2:checked').val(),
 
-                        kesadaranlain: $("#kesadaran_lain:checked").val(),
-                        statusps: $("#statusps:checked").val(),
-                        kelut: $("#kelut").val(),
-                        pemfis: $("#pemfis").val(),
-                        ditri: $("#ditri").val(),
-                        talak: $("#talak").val(),
-                        kondisi: $("#kondisi").val()
-
-
+                        //sistem pernafasan
+                        trauma2: $('#trauma2:checked').val(),
+                        trauma3: $('#trauma3:checked').val(),
+                        trauma4: $('#trauma4:checked').val(),
+                        trauma5: $('#trauma5:checked').val(),
+                        gcs10: $('#gcs10:checked').val(),
+                        gcs13: $('#gcs13:checked').val(),
+                        gcs15: $('#gcs15:checked').val(),
+                        sakitpala: $('#sakitpala:checked').val(),
+                        kejang: $('#kejang:checked').val(),
+                        penurunankes: $('#penurunankes:checked').val(),
+                        sakitpala1: $('#sakitpala1:checked').val(),
+                        kejangberulang: $('#kejangberulang:checked').val(),
+                        penurunankes1: $('#penurunankes1:checked').val(),
+                        sakitpala2: $('#sakitpala2:checked').val(),
+                        tisa: $('#tisa:checked').val(),
+                        sapal: $('#sapal:checked').val(),
+                        shunt: $('#shunt:checked').val(),
+                        shunt1: $('#shunt1:checked').val(),
+                        kjg: $('#kjg:checked').val(),
+                        //child abuse
+                        konflik: $('#konflik:checked').val(),
+                        risikoch: $('#risikoch:checked').val(),
+                        ksex: $('#ksex:checked').val(),
+                        kdrt: $('#kdrt:checked').val(),
+                        //lain-lain
+                        anafileksis: $('#anafileksis:checked').val(),
+                        letargis1: $("#letargis1:checked").val(),
+                        infant: $("#infant:checked").val(),
+                        rewel: $("#rewel:checked").val(),
+                        dm: $("#dm:checked").val(),
+                        bayi7: $("#bayi7:checked").val(),
+                        bayi3: $("#bayi3:checked").val(),
+                        bayi36: $("#bayi36:checked").val(),
+                        bayi3bln: $("#bayi3bln:checked").val(),
+                        reaksi: $("#reaksi:checked").val(),
+                        reaksi1: $("#reaksi1:checked").val(),
+                        gangguan1: $("#gangguan1:checked").val(),
+                        kesulitan: $("#kesulitan:checked").val(),
+                        perilaku: $("#perilaku:checked").val(),
+                        KAD: $("#KAD:checked").val(),
 
                     },
-                    url: '<?= route('simpanpemeriksaantriase') ?>',
+                    url: '<?= route('simpanpemeriksaantriaseanak') ?>',
 
                     error: function(data) {
                         Swal.fire({

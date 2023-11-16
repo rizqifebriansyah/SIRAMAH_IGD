@@ -2071,11 +2071,11 @@
 
                         kesadaranlain: $("#kesadaran_lain:checked").val(),
                         statusps: $("#statusps:checked").val(),
-                        kelut: $("#kelut").val(),
-                        pemfis: $("#pemfis").val(),
-                        ditri: $("#ditri").val(),
-                        talak: $("#talak").val(),
-                        kondisi: $("#kondisi").val()
+                        kelut: $("#kelut:checked").val(),
+                        pemfis: $("#pemfis:checked").val(),
+                        ditri: $("#ditri:checked").val(),
+                        talak: $("#talak:checked").val(),
+                        kondisi: $("#kondisi:checked").val()
 
 
 

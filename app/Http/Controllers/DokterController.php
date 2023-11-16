@@ -411,6 +411,59 @@ class DokterController extends Controller
         echo json_encode($back);
         die;
     }
+    public function simpanpemeriksaantriaseanak(Request $request)
+    {
+        $a = $request->all();
+        $now = Carbon::now();
+        $ats = $request->jenisats;
+        $antrian = $request->antrian;
+        $klasifikasi = $request->klasifikasipasien;
+
+        $triase = ts_triase::create([
+            'no_antrian' => $antrian,
+            'nama_pasien' => $request->namapasien,
+            'sumber_data' => $request->sumberdata,
+            'primary_survey' => $request->primarysurvey,
+            'pemeriksaan_fisik' => $request->pemeriksaanfisik,
+            'klasifikasi_pasien' => $klasifikasi,
+            'riwayat_pasien' => $request->riwayatpenyakit,
+            'kategori_triase' => $request->kategoritriase,
+            'pemeriksaan_triase' => $ats,
+            'kesadaran' => $request->tidakada . '   ' . $request->penurunan . '   ' . $request->unconsable . '   ' . $request->consolable . '   ' . $request->tidakberubah . '   ' . $request->letargis . '   ' . $request->atypical . '   ' . $request->atypical1 . '   ' . $request->tidaknetek . '   ' . $request->tidakriwayat,
+            'jalan_nafas' => $request->gagalnafas . '   ' . $request->rr . '   ' . $request->rr1 . '   ' . $request->laju1 . '   ' . $request->laju2. '   ' . $request->rr2. '   ' . $request->rr3. '   ' . $request->stdr. '   ' . $request->stdr1. '   ' . $request->distress. '   ' . $request->distress1,
+
+            'sirkulasi' => $request->hentijantung . '   ' . $request->rr4 . '   ' . $request->rr5 . '   ' . $request->freknafas . '   ' . $request->laju3 . '   ' . $request->laju4 . '   ' . $request->syok . '   ' . $request->rr6 . '   ' . $request->rr7 . '   ' . $request->sianosis . '   ' . $request->waktu . '   ' . $request->waktu1,
+
+            'respirasi' => $request->gangguan . '   ' . $request->stdr2 . '   ' . $request->stdr3 . '   ' . $request->asma . '   ' . $request->gagalnafas1 . '   ' . $request->distressnafas . '   ' . $request->distressnafas1 . '   ' . $request->T . '   ' . $request->asmaber . '   ' . $request->serangan1 . '   ' . $request->trauma . '   ' . $request->aspirasi2 . '   ' . $request->aspirasi3 . '   ' . $request->trauma1 . '   ' . $request->batukber,
+            'kardiovaskular' => $request->hipo . '   ' . $request->takikardia . '   ' . $request->takikardia1 . '   ' . $request->nyerda . '   ' . $request->node . '   ' . $request->pendarahan . '   ' . $request->bradikardia . '   ' . $request->dehi1 . '   ' . $request->dehi2 . '   ' . $request->pendarahan1 . '   ' . $request->pendarahan2,
+            'pernafasan' => $request->trauma2 . '   ' . $request->trauma3 . '   ' . $request->trauma4 . '   ' . $request->trauma5 . '   ' . $request->gcs10 . '   ' . $request->gcs13 . '   ' . $request->gcs15 . '   ' . $request->sakitpala . '   ' . $request->kejang . '   ' . $request->penurunankes . '   ' . $request->sakitpala1. '   ' . $request->kejangberulang. '   ' . $request->penurunankes1. '   ' . $request->sakitpala2. '   ' . $request->tisa. '   ' . $request->sapal. '   ' . $request->shunt. '   ' . $request->shunt1. '   ' . $request->kjg,
+            'abuse' => $request->konflik . '   ' . $request->risikoch . '   ' . $request->ksex . '   ' . $request->kdrt,
+            'lain' => $request->anafileksis . '   ' . $request->letargis1 . '   ' . $request->infant . '   ' . $request->rewel. '   ' . $request->dm. '   ' . $request->bayi7. '   ' . $request->bayi3. '   ' . $request->bayi36. '   ' . $request->bayi3bln. '   ' . $request->reaksi. '   ' . $request->reaksi1. '   ' . $request->gangguan1. '   ' . $request->kesulitan. '   ' . $request->perilaku. '   ' . $request->KAD,
+            'kesadaran_pasien' => $request->kesadaranlain,
+            'status_psikologi' => $request->statusps,
+            'keluhan_utama' => $request->kelut,
+            'visum' => $request->pemfis,
+            'diagnosa_triase' => $request->ditri,
+            'tatalaksana' => $request->talak,
+            'pasien_pulang' => $request->kondisi,
+            'tgl_masuk_triase' => $now,
+            'tg_entri_triase' => $now
+
+
+
+        ]);
+
+        $update = DB::connection('mysql2')->select('UPDATE tp_karcis_igd
+      SET status_triase = 1
+      WHERE no_antri = ?', [$antrian]);
+
+        $back = [
+            'kode' => 200,
+            'message' => 'Berhasil'
+        ];
+        echo json_encode($back);
+        die;
+    }
     public function simpanassesmen(Request $request)
     {
         $a = $request->all();
@@ -654,7 +707,6 @@ class DokterController extends Controller
             $datarad = json_decode($_POST['datarad'], true);
 
             if ($datarad == null) {
-
             } else {
                 foreach ($datarad as $nama) {
                     $index = $nama['name'];
