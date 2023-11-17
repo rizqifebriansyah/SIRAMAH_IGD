@@ -127,17 +127,18 @@
                         <td class="namapx">{{$a->nama_px}}</td>
 
                         <td class="status1">
-                            @if ($a->status == 1)
+                            @if ($a->kode_kunjungan == NULL)
                             <button class="badge badge-danger assesmentperawat"> belum daftar </button> |
                             @else
-                            <button class="badge badge-success assesmentperawat"> Sudah daftar </button> |
+                            <button class="badge badge-success assesmentperawat"> Sudah Daftar </button> |
+
                             @endif
                         </td>
                         <td class="status2">
                             @if ($a->status_triase == 0)
                             <button class="badge badge-danger assesmentdokter"> belum diisi </button> |
                             @else
-                            <button class="badge badge-success assesmentdokter"> Sudah diisi </button> |
+                            <button class="badge badge-success assesmentdokter"> Sudah diisi </button> | {{$user}}
                             @endif
                         </td>
 

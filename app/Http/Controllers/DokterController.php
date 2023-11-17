@@ -52,14 +52,18 @@ class DokterController extends Controller
         $menu = 'triase';
         $now = Carbon::now()->format('Y-m-d');
 
-        $antrian = DB::connection('mysql2')->select('SELECT no_antri, tgl, no_rm, nama_px, status, status_triase FROM tp_karcis_igd
+        $antrian = DB::connection('mysql2')->select('SELECT no_antri, kode_kunjungan, tgl, no_rm, nama_px, status, status_triase FROM tp_karcis_igd
       WHERE DATE(tgl) BETWEEN ? AND ?', [$now, $now]);
+        $nama = DB::connection('mysql2')->select('SELECT  no_rm, kode_kunjungan FROM ts_kunjungan
+        WHERE DATE(tgl_masuk) BETWEEN ? AND ?', [$now, $now]);
         return view(
             'dokter.triase',
             [
                 'title' => 'TRIASE DOKTER',
                 'menu' => $menu,
                 'antrian' => $antrian,
+                'nama' => $nama,
+
                 'user' => $user
             ]
         );
@@ -103,7 +107,7 @@ class DokterController extends Controller
 
 
         $now = Carbon::now()->format('Y-m-d');
-        $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$now')");
+        $pasienigd = DB::connection('mysql2')->select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$now')");
         return view(
             'dokter.asses',
             [
@@ -149,12 +153,23 @@ class DokterController extends Controller
 
       FROM assesmen_dokters a
       WHERE  id_pasien = ?', [$norm]);
+        $cek1 = DB::select('select * from ts_layanan_header where kode_kunjungan = ? and kode_unit = ?', [$kj, '3002']);
+
+        //    if (count($cek1) == 0) {
+        //        echo "<h4 class='text-danger'> Tidak Ada Hasil Laboratorium ...</h5>";
+        //    } else {
+        //     //    return view('dokter.hasillab', compact(
+        //     //        ['cek']
+        //     //    ));
+        //    }
 
         return view(
             'dokter.ermdokterview',
             [
                 'title' => 'ERM DOKTER',
                 'cek' => $cek,
+                'cek1' => $cek1,
+
                 'norm' => $norm,
                 'namapx' => $namapx,
                 'jk' => $jk,
@@ -370,7 +385,8 @@ class DokterController extends Controller
         $ats = $request->jenisats;
         $antrian = $request->antrian;
         $klasifikasi = $request->klasifikasipasien;
-
+        $user = auth()->user()->nama;
+        $kp = auth()->user()->kode_paramedis;
         $triase = ts_triase::create([
             'no_antrian' => $antrian,
             'nama_pasien' => $request->namapasien,
@@ -394,6 +410,8 @@ class DokterController extends Controller
             'tatalaksana' => $request->talak,
             'pasien_pulang' => $request->kondisi,
             'tgl_masuk_triase' => $now,
+            'kode_paramedis' => $kp,
+            'nama_dokter' => $user,
             'tg_entri_triase' => $now
 
 
@@ -418,6 +436,8 @@ class DokterController extends Controller
         $ats = $request->jenisats;
         $antrian = $request->antrian;
         $klasifikasi = $request->klasifikasipasien;
+        $user = auth()->user()->id_simrs;
+        $kp = auth()->user()->kode_paramedis;
 
         $triase = ts_triase::create([
             'no_antrian' => $antrian,
@@ -430,15 +450,15 @@ class DokterController extends Controller
             'kategori_triase' => $request->kategoritriase,
             'pemeriksaan_triase' => $ats,
             'kesadaran' => $request->tidakada . '   ' . $request->penurunan . '   ' . $request->unconsable . '   ' . $request->consolable . '   ' . $request->tidakberubah . '   ' . $request->letargis . '   ' . $request->atypical . '   ' . $request->atypical1 . '   ' . $request->tidaknetek . '   ' . $request->tidakriwayat,
-            'jalan_nafas' => $request->gagalnafas . '   ' . $request->rr . '   ' . $request->rr1 . '   ' . $request->laju1 . '   ' . $request->laju2. '   ' . $request->rr2. '   ' . $request->rr3. '   ' . $request->stdr. '   ' . $request->stdr1. '   ' . $request->distress. '   ' . $request->distress1,
+            'jalan_nafas' => $request->gagalnafas . '   ' . $request->rr . '   ' . $request->rr1 . '   ' . $request->laju1 . '   ' . $request->laju2 . '   ' . $request->rr2 . '   ' . $request->rr3 . '   ' . $request->stdr . '   ' . $request->stdr1 . '   ' . $request->distress . '   ' . $request->distress1,
 
             'sirkulasi' => $request->hentijantung . '   ' . $request->rr4 . '   ' . $request->rr5 . '   ' . $request->freknafas . '   ' . $request->laju3 . '   ' . $request->laju4 . '   ' . $request->syok . '   ' . $request->rr6 . '   ' . $request->rr7 . '   ' . $request->sianosis . '   ' . $request->waktu . '   ' . $request->waktu1,
 
             'respirasi' => $request->gangguan . '   ' . $request->stdr2 . '   ' . $request->stdr3 . '   ' . $request->asma . '   ' . $request->gagalnafas1 . '   ' . $request->distressnafas . '   ' . $request->distressnafas1 . '   ' . $request->T . '   ' . $request->asmaber . '   ' . $request->serangan1 . '   ' . $request->trauma . '   ' . $request->aspirasi2 . '   ' . $request->aspirasi3 . '   ' . $request->trauma1 . '   ' . $request->batukber,
             'kardiovaskular' => $request->hipo . '   ' . $request->takikardia . '   ' . $request->takikardia1 . '   ' . $request->nyerda . '   ' . $request->node . '   ' . $request->pendarahan . '   ' . $request->bradikardia . '   ' . $request->dehi1 . '   ' . $request->dehi2 . '   ' . $request->pendarahan1 . '   ' . $request->pendarahan2,
-            'pernafasan' => $request->trauma2 . '   ' . $request->trauma3 . '   ' . $request->trauma4 . '   ' . $request->trauma5 . '   ' . $request->gcs10 . '   ' . $request->gcs13 . '   ' . $request->gcs15 . '   ' . $request->sakitpala . '   ' . $request->kejang . '   ' . $request->penurunankes . '   ' . $request->sakitpala1. '   ' . $request->kejangberulang. '   ' . $request->penurunankes1. '   ' . $request->sakitpala2. '   ' . $request->tisa. '   ' . $request->sapal. '   ' . $request->shunt. '   ' . $request->shunt1. '   ' . $request->kjg,
+            'pernafasan' => $request->trauma2 . '   ' . $request->trauma3 . '   ' . $request->trauma4 . '   ' . $request->trauma5 . '   ' . $request->gcs10 . '   ' . $request->gcs13 . '   ' . $request->gcs15 . '   ' . $request->sakitpala . '   ' . $request->kejang . '   ' . $request->penurunankes . '   ' . $request->sakitpala1 . '   ' . $request->kejangberulang . '   ' . $request->penurunankes1 . '   ' . $request->sakitpala2 . '   ' . $request->tisa . '   ' . $request->sapal . '   ' . $request->shunt . '   ' . $request->shunt1 . '   ' . $request->kjg,
             'abuse' => $request->konflik . '   ' . $request->risikoch . '   ' . $request->ksex . '   ' . $request->kdrt,
-            'lain' => $request->anafileksis . '   ' . $request->letargis1 . '   ' . $request->infant . '   ' . $request->rewel. '   ' . $request->dm. '   ' . $request->bayi7. '   ' . $request->bayi3. '   ' . $request->bayi36. '   ' . $request->bayi3bln. '   ' . $request->reaksi. '   ' . $request->reaksi1. '   ' . $request->gangguan1. '   ' . $request->kesulitan. '   ' . $request->perilaku. '   ' . $request->KAD,
+            'lain' => $request->anafileksis . '   ' . $request->letargis1 . '   ' . $request->infant . '   ' . $request->rewel . '   ' . $request->dm . '   ' . $request->bayi7 . '   ' . $request->bayi3 . '   ' . $request->bayi36 . '   ' . $request->bayi3bln . '   ' . $request->reaksi . '   ' . $request->reaksi1 . '   ' . $request->gangguan1 . '   ' . $request->kesulitan . '   ' . $request->perilaku . '   ' . $request->KAD,
             'kesadaran_pasien' => $request->kesadaranlain,
             'status_psikologi' => $request->statusps,
             'keluhan_utama' => $request->kelut,
@@ -447,6 +467,9 @@ class DokterController extends Controller
             'tatalaksana' => $request->talak,
             'pasien_pulang' => $request->kondisi,
             'tgl_masuk_triase' => $now,
+            'kode_paramedis' => $kp,
+            'nama_dokter' => $user,
+
             'tg_entri_triase' => $now
 
 

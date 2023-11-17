@@ -167,6 +167,26 @@
                                 </div>
                             </td>
                         </tr>
+                        <tr>
+                            <td class="text-bold font-italic">Klasifikasi pasien</td>
+                            <td colspan="3">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="klasifikasipasien" id="klasifikasipasien"
+                                        value="IGD">
+                                    <label class="form-check-label" for="inlineRadio1">IGD</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="klasifikasipasien" id="klasifikasipasien"
+                                        value="IGK">
+                                    <label class="form-check-label" for="inlineRadio2">IGD KEBIDANAN</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="klasifikasipasien" id="klasifikasipasien"
+                                        value="Pulang">
+                                    <label class="form-check-label" for="inlineRadio2">Pulang</label>
+                                </div>
+                            </td>
+                        </tr>
                         {{-- <tr>
                             <td class="text-bold font-italic">Primary Survey</td>
                             <td colspan="3">
