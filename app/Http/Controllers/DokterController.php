@@ -108,6 +108,8 @@ class DokterController extends Controller
 
         $now = Carbon::now()->format('Y-m-d');
         $pasienigd = DB::connection('mysql2')->select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$now')");
+        $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$now')");
+
         return view(
             'dokter.asses',
             [
@@ -247,6 +249,8 @@ class DokterController extends Controller
         $kelas = $request->kelas;
         $kp = $request->kp;
         $ku = $request->ku;
+        $cek1 = DB::select('select * from ts_layanan_header where kode_kunjungan = ? and kode_unit = ?', [$kj, '3002']);
+        $cek = DB::select('select *,date(tgl_baca) as tanggalnya,fc_acc_number_ris(id_detail) as acc_number from ts_hasil_expertisi where kode_kunjungan = ?', [$kj]);
 
         $riwayatorderrad = DB::connection('mysql2')->select('SELECT
         a.no_rm,
@@ -289,6 +293,8 @@ class DokterController extends Controller
                 'kelas' => $kelas,
                 'kp' => $kp,
                 'ku' => $ku,
+                'cek1' => $cek1,
+                'cek' => $cek,
                 'riwayatorderrad' => $riwayatorderrad,
                 'riwayatorderlab' => $riwayatorderlab
 
