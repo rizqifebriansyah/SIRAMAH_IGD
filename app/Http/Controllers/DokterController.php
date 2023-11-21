@@ -108,7 +108,7 @@ class DokterController extends Controller
 
         $now = Carbon::now()->format('Y-m-d');
         $pasienigd = DB::connection('mysql2')->select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$now')");
-        $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$now')");
+        // $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$now')");
 
         return view(
             'dokter.asses',
@@ -496,7 +496,12 @@ class DokterController extends Controller
     public function simpanassesmen(Request $request)
     {
         $a = $request->all();
+        $diagnosa = $request->diagnosa ;
         $ku = $request->ku;
+        $kj = $request->kj;
+        $norm = $request->norm;
+
+
         $dt = Carbon::now()->timezone('Asia/Jakarta');
         $date = $dt->toDateString();
         $time = $dt->toTimeString();
@@ -907,8 +912,8 @@ class DokterController extends Controller
                 }
                 $kode_header = $ts_layanan_detail['kode_layanan_header'];
                 $idhed = $ts_layanan_detail['row_id_header'];
-                $update = DB::connection('mysql2')->select('UPDATE ts_layanan_header_igd SET status_order = 2
-            WHERE kode_kunjungan = ? AND no_rm = ?', [$request->kode_kunjungan, $request->norm]);
+            //     $update = DB::connection('mysql2')->select('UPDATE ts_layanan_header_igd SET status_order = 2
+            // WHERE kode_kunjungan = ? AND no_rm = ?', [$request->kode_kunjungan, $request->norm]);
             }
         } catch (\Exception $e) {
             return $e->getMessage();
@@ -919,6 +924,9 @@ class DokterController extends Controller
             echo json_encode($back);
             die;
         }
+     $update = DB::connection('mysql2')->select('UPDATE ts_kunjungan
+            SET diagx = ?
+            WHERE no_rm = ? AND kode_kunjungan = ?', [$diagnosa, $norm, $kj]);
 
         $back = [
             'kode' => 200,
@@ -950,6 +958,12 @@ class DokterController extends Controller
         SET
         subyektif = ? , assesment = ?, primary_survey = ?, secondary_survey = ?, planning = ?, tiga_pertama = ?, tiga_kedua = ?, diagnosa = ?
         WHERE no_rm = ? AND kode_kunjungan = ?', [$subyektif, $assesment, $primary, $secondary, $planning, $tiga_pertama, $tiga_kedua, $diagnosa, $norm, $kj]);
+
+
+        $updatee = DB::connection('mysql2')->select('UPDATE ts_kunjungan
+    SET diagx = ?
+    WHERE no_rm = ? AND kode_kunjungan = ?', [$diagnosa, $norm, $kj]);
+        dd($update);
 
 
         $back = [
