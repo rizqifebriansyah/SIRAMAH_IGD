@@ -155,7 +155,10 @@ class DokterController extends Controller
 
       FROM assesmen_dokters a
       WHERE  id_pasien = ?', [$norm]);
-        $cek1 = DB::select('select * from ts_layanan_header where kode_kunjungan = ? and kode_unit = ?', [$kj, '3002']);
+        $cek1 = DB::select('SELECT a.no_rm, b.kode_layanan_header FROM ts_kunjungan a INNER JOIN ts_layanan_header b
+        ON b.kode_kunjungan = a.kode_kunjungan
+        WHERE b.kode_unit = ? AND  a.no_rm = ? ', ['3002',$norm]);
+        $cekr = DB::select('select *,date(tgl_baca) as tanggalnya,fc_acc_number_ris(id_detail) as acc_number from ts_hasil_expertisi where no_rm = ?', [$norm]);
 
         //    if (count($cek1) == 0) {
         //        echo "<h4 class='text-danger'> Tidak Ada Hasil Laboratorium ...</h5>";
@@ -171,7 +174,7 @@ class DokterController extends Controller
                 'title' => 'ERM DOKTER',
                 'cek' => $cek,
                 'cek1' => $cek1,
-
+                'cekr' => $cekr,
                 'norm' => $norm,
                 'namapx' => $namapx,
                 'jk' => $jk,
