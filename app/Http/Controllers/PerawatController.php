@@ -60,12 +60,19 @@ class PerawatController extends Controller
 
       FROM assesmen_dokters a
       WHERE  id_pasien = ?', [$norm]);
+        $cek1 = DB::select('SELECT a.no_rm, b.kode_layanan_header FROM ts_kunjungan a INNER JOIN ts_layanan_header b
+        ON b.kode_kunjungan = a.kode_kunjungan
+        WHERE b.kode_unit = ? AND  a.no_rm = ? ', ['3002', $norm]);
+        $cekr = DB::select('select *,date(tgl_baca) as tanggalnya,fc_acc_number_ris(id_detail) as acc_number from ts_hasil_expertisi where no_rm = ?', [$norm]);
+
 
         return view(
             'perawat.ermperawatview',
             [
                 'title' => 'ERM PERAWAT',
                 'cek' => $cek,
+                'cek1' => $cek1,
+                'cekr' => $cekr,
                 'norm' => $norm,
                 'namapx' => $namapx,
                 'jk' => $jk,
@@ -117,12 +124,20 @@ class PerawatController extends Controller
 
       FROM assesmen_dokters a
       WHERE  id_pasien = ?', [$norm]);
+        $cek1 = DB::select('SELECT a.no_rm, b.kode_layanan_header FROM ts_kunjungan a INNER JOIN ts_layanan_header b
+      ON b.kode_kunjungan = a.kode_kunjungan
+      WHERE b.kode_unit = ? AND  a.no_rm = ? ', ['3002', $norm]);
+        $cekr = DB::select('select *,date(tgl_baca) as tanggalnya,fc_acc_number_ris(id_detail) as acc_number from ts_hasil_expertisi where no_rm = ?', [$norm]);
+
 
         return view(
             'perawat.riwayatpoliklinik',
             [
                 'norm' => $norm,
-                'cek' => $cek
+                'cek' => $cek,
+                'cek1' => $cek1,
+                'cekr' => $cekr,
+
             ]
         );
     }
@@ -194,8 +209,8 @@ class PerawatController extends Controller
             'diagnosa_perawat' => $request->objek,
             'assesment' => $request->assesmen,
             'planning' => $request->planning,
-            'cara_pulang' => $request->alpul .' ' . $request->alpul1,
-            'keadaan_pulang' => $request->kopul .' ' . $request->kopul1,
+            'cara_pulang' => $request->alpul . ' ' . $request->alpul1,
+            'keadaan_pulang' => $request->kopul . ' ' . $request->kopul1,
 
             'kode_paramedis' => $kp,
             'status' => '1'

@@ -198,12 +198,19 @@ class DokterController extends Controller
 
       FROM assesmen_dokters a
       WHERE  id_pasien = ?', [$norm]);
+        $cek1 = DB::select('SELECT a.no_rm, b.kode_layanan_header FROM ts_kunjungan a INNER JOIN ts_layanan_header b
+        ON b.kode_kunjungan = a.kode_kunjungan
+        WHERE b.kode_unit = ? AND  a.no_rm = ? ', ['3002',$norm]);
+        $cekr = DB::select('select *,date(tgl_baca) as tanggalnya,fc_acc_number_ris(id_detail) as acc_number from ts_hasil_expertisi where no_rm = ?', [$norm]);
+
 
         return view(
             'dokter.riwayatpoli',
             [
                 'norm' => $norm,
-                'cek' => $cek
+                'cek' => $cek,
+                'cek1' => $cek1,
+                'cekr' => $cekr,
             ]
         );
     }
