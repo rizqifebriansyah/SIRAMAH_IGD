@@ -785,6 +785,7 @@
         spinner = $('#loader2');
         spinner.show();
         kj = $('#kj').val()
+        norm = $('#norm').val()
 
 
 
@@ -793,6 +794,8 @@
             data: {
                 _token: "{{ csrf_token() }}",
                 kj: $('#kj').val(),
+                norm: $('#norm').val(),
+
             },
             url: " {{ route('hasillabo') }}",
 
@@ -811,14 +814,14 @@
         spinner = $('#loader2');
         spinner.show();
         kj = $('#kj').val()
-
-
-
+        norm = $('#norm').val()
         $.ajax({
             type: "post",
             data: {
                 _token: "{{ csrf_token() }}",
                 kj: $('#kj').val(),
+                norm: $('#norm').val(),
+
             },
             url: " {{ route('hasilradio') }}",
 

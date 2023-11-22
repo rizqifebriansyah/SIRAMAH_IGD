@@ -359,7 +359,11 @@ class DokterController extends Controller
     public function hasillabo(Request $request)
     {
         $kodekunjungan = $request->kj;
-        $cek = DB::select('select * from ts_layanan_header where kode_kunjungan = ? and kode_unit = ?', [$kodekunjungan, '3002']);
+        $norm = $request->norm;
+
+        $cek = DB::select('SELECT a.no_rm, b.kode_layanan_header FROM ts_kunjungan a INNER JOIN ts_layanan_header b
+        ON b.kode_kunjungan = a.kode_kunjungan
+        WHERE b.kode_unit = ? AND  a.no_rm = ? ', ['3002',$norm]);
 
         if (count($cek) == 0) {
             echo "<h4 class='text-danger'> Tidak Ada Hasil Laboratorium ...</h5>";
@@ -373,7 +377,9 @@ class DokterController extends Controller
     public function hasilradio(Request $request)
     {
         $kodekunjungan = $request->kj;
-        $cek = DB::select('select *,date(tgl_baca) as tanggalnya,fc_acc_number_ris(id_detail) as acc_number from ts_hasil_expertisi where kode_kunjungan = ?', [$kodekunjungan]);
+        $norm = $request->norm;
+
+        $cek = DB::select('select *,date(tgl_baca) as tanggalnya,fc_acc_number_ris(id_detail) as acc_number from ts_hasil_expertisi where no_rm = ?', [$norm]);
         if (count($cek) == 0) {
             echo "<h4 class='text-danger'> Tidak Ada Hasil Radiologi ...</h5>";
         } else {
