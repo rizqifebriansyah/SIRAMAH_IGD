@@ -103,7 +103,7 @@
                                 </a>
                             </li>
                             <li class="nav-item" id="pemeriksaan">
-                                <a href="#" class="nav-link rencanapemulanganpasien">
+                                <a href="#" class="nav-link rencanaplg">
                                     <i class="fas fa-filter mr-2"></i>Rencana Pemulangan Pasien
                                 </a>
                             </li>
@@ -855,6 +855,33 @@
 
             },
             url: '<?= route('formermperawat') ?>',
+            error: function(data) {
+                spinner.hide();
+                alert('oke!!')
+            },
+            success: function(response) {
+                spinner.hide();
+                $('.formermperawat').html(response);
+
+            }
+        });
+    });
+    $(".rencanaplg").click(function() {
+        spinner = $('#loader2');
+        spinner.show();
+        kj = $('#kj').val()
+        norm = $('#norm').val()
+
+
+        $.ajax({
+            type: "post",
+            data: {
+                _token: "{{ csrf_token() }}",
+                norm,
+                kj
+
+            },
+            url: '<?= route('rencanaplg') ?>',
             error: function(data) {
                 spinner.hide();
                 alert('oke!!')

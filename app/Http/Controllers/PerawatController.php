@@ -115,6 +115,21 @@ class PerawatController extends Controller
             ]
         );
     }
+    public function rencanaplg(Request $request)
+    {
+        $norm = $request->norm;
+        $kj = $request->kj;
+
+        $data = DB::connection('mysql2')->select('SELECT * FROM erm_cppt_dokter WHERE no_rm = "20922598" AND kode_kunjungan = "22274084"
+');
+        return view(
+            'perawat.rencanaplg',
+            [
+                'data' => $data
+
+            ]
+        );
+    }
     public function riwayatcpptperawat(Request $request)
     {
         $norm = $request->norm;
