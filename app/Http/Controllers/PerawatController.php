@@ -122,14 +122,34 @@ class PerawatController extends Controller
 
         $data = DB::connection('mysql2')->select('SELECT * FROM erm_cppt_dokter WHERE no_rm = "20922598" AND kode_kunjungan = "22274084"
 ');
+        $poli = DB::select('SELECT * FROM mt_unit WHERE kode_unit LIKE "%10%" AND kelas_unit = "1" AND kode_unit <> "1002"');
         return view(
             'perawat.rencanaplg',
             [
-                'data' => $data
+                'data' => $data,
+                'poli' => $poli
 
             ]
         );
     }
+    public function sri(Request $request)
+    {
+        $norm = $request->norm;
+        $kj = $request->kj;
+
+        $data = DB::connection('mysql2')->select('SELECT * FROM erm_cppt_dokter WHERE no_rm = "20922598" AND kode_kunjungan = "22274084"
+');
+        $poli = DB::select('SELECT * FROM mt_unit WHERE kode_unit LIKE "%10%" AND kelas_unit = "1" AND kode_unit <> "1002"');
+        return view(
+            'perawat.sri',
+            [
+                'data' => $data,
+                'poli' => $poli
+
+            ]
+        );
+    }
+
     public function riwayatcpptperawat(Request $request)
     {
         $norm = $request->norm;

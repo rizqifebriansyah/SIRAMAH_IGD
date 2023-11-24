@@ -108,6 +108,11 @@
                                 </a>
                             </li>
                             <li class="nav-item" id="pemeriksaan">
+                                <a href="#" class="nav-link sri">
+                                    <i class="fas fa-filter mr-2"></i>Surat Rujukan Intern
+                                </a>
+                            </li>
+                            <li class="nav-item" id="pemeriksaan">
                                 <a href="#" class="nav-link resumecpptperawat">
                                     <i class="fas fa-filter mr-2"></i>Resume
                                 </a>
@@ -744,60 +749,6 @@
 
 
 <script>
-    //hasil lab
-    // Get the modal
-    var modal = document.getElementById("hasillab");
-
-    // Get the button that opens the modal
-    var btn = document.getElementById("hasillabo");
-
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
-
-    // When the user clicks the button, open the modal
-    btn.onclick = function() {
-        modal.style.display = "block";
-    }
-
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
-        modal.style.display = "none";
-    }
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
-
-
-    //hasil radiologi
-    // Get the modal
-    var modall = document.getElementById("hasilradioo");
-
-    // Get the button that opens the modal
-    var btn = document.getElementById("hasilradio");
-
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("closee")[0];
-
-    // When the user clicks the button, open the modal
-    btn.onclick = function() {
-        modall.style.display = "block";
-    }
-
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
-        modall.style.display = "none";
-    }
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-        if (event.target == modall) {
-            modall.style.display = "none";
-        }
-    }
     $("[data-widget='collapse']").click(function() {
         //Find the box parent
         var box = $(this).parents(".box").first();
@@ -893,6 +844,33 @@
             }
         });
     });
+    $(".sri").click(function() {
+        spinner = $('#loader2');
+        spinner.show();
+        kj = $('#kj').val()
+        norm = $('#norm').val()
+
+
+        $.ajax({
+            type: "post",
+            data: {
+                _token: "{{ csrf_token() }}",
+                norm,
+                kj
+
+            },
+            url: '<?= route('sri') ?>',
+            error: function(data) {
+                spinner.hide();
+                alert('oke!!')
+            },
+            success: function(response) {
+                spinner.hide();
+                $('.formermperawat').html(response);
+
+            }
+        });
+    });
     // $(".hasillabperawat").click(function() {
     //     spinner = $('#loader2');
     //     spinner.show();
@@ -971,4 +949,59 @@
             }
         });
     });
+
+    //hasil lab
+    // Get the modal
+    var modal = document.getElementById("hasillab");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("hasillabo");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+
+    //hasil radiologi
+    // Get the modal
+    var modall = document.getElementById("hasilradioo");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("hasilradio");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("closee")[0];
+
+    // When the user clicks the button, open the modal
+    btn.onclick = function() {
+        modall.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modall.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modall) {
+            modall.style.display = "none";
+        }
+    }
 </script>
