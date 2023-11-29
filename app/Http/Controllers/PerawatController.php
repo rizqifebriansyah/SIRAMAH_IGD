@@ -139,12 +139,24 @@ class PerawatController extends Controller
 
         $data = DB::connection('mysql2')->select('SELECT * FROM erm_cppt_dokter WHERE no_rm = "20922598" AND kode_kunjungan = "22274084"
 ');
-        $poli = DB::select('SELECT * FROM mt_unit WHERE kode_unit LIKE "%10%" AND kelas_unit = "1" AND kode_unit <> "1002"');
+        $spri = DB::select('SELECT a.no_rm, a.kode_kunjungan,
+        fc_NAMA_PARAMEDIS(a.no_rm) AS nama_dokter,
+        b.nama_px,
+        b.alamat,
+        fc_umur(a.no_rm) AS umur,
+        c.diag_00
+        FROM ts_kunjungan a
+        INNER JOIN mt_pasien b ON b.no_rm = a.no_rm
+        INNER JOIN di_pasien_diagnosa_frunit c ON c.kode_kunjungan = a.kode_kunjungan
+        WHERE a.no_rm = ? AND a.kode_kunjungan = ?', [$norm, $kj]);
+        $poli = DB::select('SELECT * FROM mt_unit WHERE kode_unit LIKE "%20%" AND kode_unit <> "3020"');
+
         return view(
             'perawat.sri',
             [
                 'data' => $data,
-                'poli' => $poli
+                'poli' => $poli,
+                'spri' => $spri
 
             ]
         );
