@@ -6,8 +6,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Models\erm_cppt_perawat;
-
-
+use App\Models\rencana_plg;
 
 class PerawatController extends Controller
 {
@@ -64,7 +63,21 @@ class PerawatController extends Controller
         ON b.kode_kunjungan = a.kode_kunjungan
         WHERE b.kode_unit = ? AND  a.no_rm = ? ', ['3002', $norm]);
         $cekr = DB::select('select *,date(tgl_baca) as tanggalnya,fc_acc_number_ris(id_detail) as acc_number from ts_hasil_expertisi where no_rm = ?', [$norm]);
-
+        $cekpa = DB::select('SELECT
+        kode_header
+        , id_header
+        , id_detail
+        , unit_asal
+        , no_rm
+        , kode_kunjungan
+        , fc_nama_px(no_rm) AS nama_px
+        , hasil
+        , fc_NAMA_PARAMEDIS1(kode_dokter) AS nama_dokter
+        , tipe
+        , diagnostik_klinik
+        , diagnostik_pasca_bedah
+        , tgl_baca
+          FROM ts_hasil_expertisi_pa WHERE no_rm = ?', [$norm]);
 
         return view(
             'perawat.ermperawatview',
@@ -73,6 +86,7 @@ class PerawatController extends Controller
                 'cek' => $cek,
                 'cek1' => $cek1,
                 'cekr' => $cekr,
+                'cekpa' => $cekpa,
                 'norm' => $norm,
                 'namapx' => $namapx,
                 'jk' => $jk,
@@ -175,7 +189,21 @@ class PerawatController extends Controller
       ON b.kode_kunjungan = a.kode_kunjungan
       WHERE b.kode_unit = ? AND  a.no_rm = ? ', ['3002', $norm]);
         $cekr = DB::select('select *,date(tgl_baca) as tanggalnya,fc_acc_number_ris(id_detail) as acc_number from ts_hasil_expertisi where no_rm = ?', [$norm]);
-
+        $cekpa = DB::select('SELECT
+        kode_header
+        , id_header
+        , id_detail
+        , unit_asal
+        , no_rm
+        , kode_kunjungan
+        , fc_nama_px(no_rm) AS nama_px
+        , hasil
+        , fc_NAMA_PARAMEDIS1(kode_dokter) AS nama_dokter
+        , tipe
+        , diagnostik_klinik
+        , diagnostik_pasca_bedah
+        , tgl_baca
+          FROM ts_hasil_expertisi_pa WHERE no_rm = ?', [$norm]);
 
         return view(
             'perawat.riwayatpoliklinik',
@@ -184,6 +212,8 @@ class PerawatController extends Controller
                 'cek' => $cek,
                 'cek1' => $cek1,
                 'cekr' => $cekr,
+                'cekpa' => $cekpa,
+
 
             ]
         );
@@ -229,6 +259,49 @@ class PerawatController extends Controller
                 ['cek']
             ));
         }
+    }
+
+    public function simpanrencanaplg(Request $request)
+    {
+        $a = $request->all();
+        $now = Carbon::now();
+        $user = auth()->user()->id_simrs;
+        $kp = auth()->user()->kode_paramedis;
+
+        $rencanaplg = rencana_plg::create([
+            'tgl_input' => $now,
+            'tgl_kunjungan' => $now,
+            'no_rm' => $request->norm,
+            'kode_kunjungan' => $request->kj,
+            'usia_lanjut' => $request->usialanjut,
+            'hambatan' => $request->hambatan,
+            'pelayanan_medis' => $request->medis,
+            'tergantung' => $request->harian,
+            'transportasi' => $request->kendaraan,
+            'pendamping' => $request->pendamping,
+            'diet_khusus' => $request->diet,
+            'peralatan_medis' => $request->perawatan,
+            'alat_bantu' => $request->alatbantu,
+            'pendidikan_kesehatan' => $request->pendidikan,
+            'diberikan' => $request->diberikan,
+            'jadwal_kontrol' => $request->tglpoli,
+            'poli_tuju' => $request->poli,
+            'instruksi' => $request->planning,
+            'status' => '1',
+
+
+
+        ]);
+
+
+
+
+        $back = [
+            'kode' => 200,
+            'message' => 'Berhasil'
+        ];
+        echo json_encode($back);
+        die;
     }
     public function simpanassemenperawat(Request $request)
     {

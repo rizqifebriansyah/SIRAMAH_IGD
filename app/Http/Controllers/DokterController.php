@@ -157,8 +157,23 @@ class DokterController extends Controller
       WHERE  id_pasien = ?', [$norm]);
         $cek1 = DB::select('SELECT a.no_rm, b.kode_layanan_header FROM ts_kunjungan a INNER JOIN ts_layanan_header b
         ON b.kode_kunjungan = a.kode_kunjungan
-        WHERE b.kode_unit = ? AND  a.no_rm = ? ', ['3002',$norm]);
+        WHERE b.kode_unit = ? AND  a.no_rm = ? ', ['3002', $norm]);
         $cekr = DB::select('select *,date(tgl_baca) as tanggalnya,fc_acc_number_ris(id_detail) as acc_number from ts_hasil_expertisi where no_rm = ?', [$norm]);
+        $cekpa = DB::select('SELECT
+        kode_header
+        , id_header
+        , id_detail
+        , unit_asal
+        , no_rm
+        , kode_kunjungan
+        , fc_nama_px(no_rm) AS nama_px
+        , hasil
+        , fc_NAMA_PARAMEDIS1(kode_dokter) AS nama_dokter
+        , tipe
+        , diagnostik_klinik
+        , diagnostik_pasca_bedah
+        , tgl_baca
+         FROM ts_hasil_expertisi_pa WHERE no_rm = ?', [$norm]);
 
         //    if (count($cek1) == 0) {
         //        echo "<h4 class='text-danger'> Tidak Ada Hasil Laboratorium ...</h5>";
@@ -173,6 +188,8 @@ class DokterController extends Controller
             [
                 'title' => 'ERM DOKTER',
                 'cek' => $cek,
+                'cekpa' => $cekpa,
+
                 'cek1' => $cek1,
                 'cekr' => $cekr,
                 'norm' => $norm,
@@ -200,8 +217,23 @@ class DokterController extends Controller
       WHERE  id_pasien = ?', [$norm]);
         $cek1 = DB::select('SELECT a.no_rm, b.kode_layanan_header FROM ts_kunjungan a INNER JOIN ts_layanan_header b
         ON b.kode_kunjungan = a.kode_kunjungan
-        WHERE b.kode_unit = ? AND  a.no_rm = ? ', ['3002',$norm]);
+        WHERE b.kode_unit = ? AND  a.no_rm = ? ', ['3002', $norm]);
         $cekr = DB::select('select *,date(tgl_baca) as tanggalnya,fc_acc_number_ris(id_detail) as acc_number from ts_hasil_expertisi where no_rm = ?', [$norm]);
+        $cekpa = DB::select('SELECT
+        kode_header
+        , id_header
+        , id_detail
+        , unit_asal
+        , no_rm
+        , kode_kunjungan
+        , fc_nama_px(no_rm) AS nama_px
+        , hasil
+        , fc_NAMA_PARAMEDIS1(kode_dokter) AS nama_dokter
+        , tipe
+        , diagnostik_klinik
+        , diagnostik_pasca_bedah
+        , tgl_baca
+         FROM ts_hasil_expertisi_pa WHERE no_rm = ?', [$norm]);
 
 
         return view(
@@ -209,6 +241,7 @@ class DokterController extends Controller
             [
                 'norm' => $norm,
                 'cek' => $cek,
+                'cekpa' => $cekpa,
                 'cek1' => $cek1,
                 'cekr' => $cekr,
             ]
@@ -261,7 +294,21 @@ class DokterController extends Controller
         $ku = $request->ku;
         $cek1 = DB::select('select * from ts_layanan_header where kode_kunjungan = ? and kode_unit = ?', [$kj, '3002']);
         $cek = DB::select('select *,date(tgl_baca) as tanggalnya,fc_acc_number_ris(id_detail) as acc_number from ts_hasil_expertisi where kode_kunjungan = ?', [$kj]);
-
+        $cekpa = DB::select('SELECT
+        kode_header
+        , id_header
+        , id_detail
+        , unit_asal
+        , no_rm
+        , kode_kunjungan
+        , fc_nama_px(no_rm) AS nama_px
+        , hasil
+        , fc_NAMA_PARAMEDIS1(kode_dokter) AS nama_dokter
+        , tipe
+        , diagnostik_klinik
+        , diagnostik_pasca_bedah
+        , tgl_baca
+          FROM ts_hasil_expertisi_pa WHERE kode_kunjungan = ?', [$kj]);
         $riwayatorderrad = DB::connection('mysql2')->select('SELECT
         a.no_rm,
         a.kode_layanan_header,
@@ -305,6 +352,7 @@ class DokterController extends Controller
                 'ku' => $ku,
                 'cek1' => $cek1,
                 'cek' => $cek,
+                'cekpa' => $cekpa,
                 'riwayatorderrad' => $riwayatorderrad,
                 'riwayatorderlab' => $riwayatorderlab
 
@@ -373,7 +421,7 @@ class DokterController extends Controller
 
         $cek = DB::select('SELECT a.no_rm, b.kode_layanan_header FROM ts_kunjungan a INNER JOIN ts_layanan_header b
         ON b.kode_kunjungan = a.kode_kunjungan
-        WHERE b.kode_unit = ? AND  a.no_rm = ? ', ['3002',$norm]);
+        WHERE b.kode_unit = ? AND  a.no_rm = ? ', ['3002', $norm]);
 
         if (count($cek) == 0) {
             echo "<h4 class='text-danger'> Tidak Ada Hasil Laboratorium ...</h5>";
@@ -512,7 +560,7 @@ class DokterController extends Controller
     public function simpanassesmen(Request $request)
     {
         $a = $request->all();
-        $diagnosa = $request->diagnosa ;
+        $diagnosa = $request->diagnosa;
         $ku = $request->ku;
         $kj = $request->kj;
         $norm = $request->norm;
@@ -928,8 +976,8 @@ class DokterController extends Controller
                 }
                 $kode_header = $ts_layanan_detail['kode_layanan_header'];
                 $idhed = $ts_layanan_detail['row_id_header'];
-            //     $update = DB::connection('mysql2')->select('UPDATE ts_layanan_header_igd SET status_order = 2
-            // WHERE kode_kunjungan = ? AND no_rm = ?', [$request->kode_kunjungan, $request->norm]);
+                //     $update = DB::connection('mysql2')->select('UPDATE ts_layanan_header_igd SET status_order = 2
+                // WHERE kode_kunjungan = ? AND no_rm = ?', [$request->kode_kunjungan, $request->norm]);
             }
         } catch (\Exception $e) {
             return $e->getMessage();
@@ -940,7 +988,7 @@ class DokterController extends Controller
             echo json_encode($back);
             die;
         }
-     $update = DB::connection('mysql2')->select('UPDATE ts_kunjungan
+        $update = DB::connection('mysql2')->select('UPDATE ts_kunjungan
             SET diagx = ?
             WHERE no_rm = ? AND kode_kunjungan = ?', [$diagnosa, $norm, $kj]);
 

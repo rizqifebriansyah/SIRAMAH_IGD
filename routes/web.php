@@ -89,6 +89,7 @@ Route::group(['middleware' => ['hak_akses:4', 'auth']], function () {
     Route::post('caripasienigdperawat', [PerawatController::class, 'caripasienigdperawat'])->name('caripasienigdperawat');
 
 
+    Route::post('simpanrencanaplg', [PerawatController::class, 'simpanrencanaplg'])->name('simpanrencanaplg');
 
     Route::post('simpanassemenperawat', [PerawatController::class, 'simpanassemenperawat'])->name('simpanassemenperawat');
     Route::post('updateassemenperawat', [PerawatController::class, 'updateassemenperawat'])->name('updateassemenperawat');

@@ -352,15 +352,15 @@
             </div>
             <div class="card-header text-bold bg-warning" style="text-align: center;">
                 <div class="row">
-                    <div class="col-md-4"><a class=" btn btn-danger btn-block " id="hasillabo">
+                    <div class="col-md-4"><a class=" btn btn-info btn-block " id="hasillabo">
                             <i class="bi bi-journal-text"></i>
                             Hasil laboratorium
                         </a></div>
-                    <div class="col-md-4"><a class=" btn btn-primary btn-block " id="hasilradio">
+                    <div class="col-md-4"><a class=" btn btn-info btn-block " id="hasilradio">
                             <i class="bi bi-journal-text"></i>
                             Hasil Radiologi
                         </a></div>
-                    <div class="col-md-4"><a class=" btn btn-success btn-block " id="">
+                    <div class="col-md-4"><a class=" btn btn-info btn-block " id="hasilpa">
                             <i class="bi bi-journal-text"></i>
                             Hasil Patologi Anatomi
                         </a></div>
@@ -418,6 +418,50 @@
                                             width="1000px" height="600px"></iframe>
 
                                     </div>
+                                </div>
+                            @endforeach
+                        @endif
+
+                    </div>
+
+                </div>
+                <!-- hasillapa -->
+                <div id="hasillabpa" class="modalll">
+
+                    <!-- Modal content -->
+                    <div class="modal-content" style="margin-bottom: 30px">
+
+                        <span class="closeee float-right">&times;</span>
+                        @if ($cekpa == null)
+                            <h4>Tidak ada Hasil Lab PA</h4>
+                        @else
+                            @foreach ($cekpa as $pa => $p)
+                                <div class="card card-primary card-outline">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Hasil Expertise Patologi Anatomi
+                                            {{ $p->tgl_baca }}
+                                        </h3>
+                                    </div>
+
+                                    <div class="card-body">
+                                        <div class="note-editable card-block" contenteditable="true" role="textbox"
+                                            aria-multiline="true" spellcheck="true" autocorrect="true">
+                                            <h1><u>{{ $p->nama_px }}
+                                                </u></h1>
+                                            <h4>{{ $p->kode_header }}</h4>
+                                            <p>{{ $p->hasil }}</p>
+                                            <ul>
+                                                <li>{{ $p->tipe }}</li>
+                                                <li>{{ $p->diagnostik_klinik }}</li>
+                                                <li>{{ $p->diagnostik_pasca_bedah }}</li>
+                                            </ul>
+                                            <p>Dokter Baca</p>
+                                            <p>{{ $p->nama_dokter }}</p>
+                                        </div>
+                                    </div>
+
+
+
                                 </div>
                             @endforeach
                         @endif
@@ -1290,59 +1334,7 @@
     document.getElementById('tanggalperiksapenunjang').valueAsDate = new Date()
     document.getElementById('tanggalperiksapenunjang1').valueAsDate = new Date()
 
-    //hasil lab
-    // Get the modal
-    var modal = document.getElementById("hasillab");
 
-    // Get the button that opens the modal
-    var btn = document.getElementById("hasillabo");
-
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
-
-    // When the user clicks the button, open the modal
-    btn.onclick = function() {
-        modal.style.display = "block";
-    }
-
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
-        modal.style.display = "none";
-    }
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
-
-    //hasil radiologi
-    // Get the modal
-    var modall = document.getElementById("hasilradioo");
-
-    // Get the button that opens the modal
-    var btn = document.getElementById("hasilradio");
-
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("closee")[0];
-
-    // When the user clicks the button, open the modal
-    btn.onclick = function() {
-        modall.style.display = "block";
-    }
-
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
-        modall.style.display = "none";
-    }
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-        if (event.target == modall) {
-            modall.style.display = "none";
-        }
-    }
 
     $(function() {
         $("#tablelab").DataTable({
@@ -1644,4 +1636,85 @@
         })
         return false;
     });
+
+
+    //hasil lab
+    // Get the modal
+    var modal = document.getElementById("hasillab");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("hasillabo");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    //hasil radiologi
+    // Get the modal
+    var modall = document.getElementById("hasilradioo");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("hasilradio");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("closee")[0];
+
+    // When the user clicks the button, open the modal
+    btn.onclick = function() {
+        modall.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modall.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modall) {
+            modall.style.display = "none";
+        }
+    }
+    //hasil lab pa
+    // Get the modal
+    var modalll = document.getElementById("hasillabpa");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("hasilpa");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("closeee")[0];
+
+    // When the user clicks the button, open the modal
+    btn.onclick = function() {
+        modalll.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modalll.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modalll) {
+            modalll.style.display = "none";
+        }
+    }
 </script>

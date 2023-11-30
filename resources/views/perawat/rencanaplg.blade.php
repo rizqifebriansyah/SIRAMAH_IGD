@@ -14,13 +14,13 @@
                                 <td class="text-bold font-italic">Usia lanjut (60 tahun atau lebih)</td>
                                 <td>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="60>" id="60>"
-                                            value="Ya">
+                                        <input class="form-check-input" type="radio" name="usialanjut>"
+                                            id="usialanjut>" value="Ya">
                                         <label class="form-check-label">Ya</label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="60>" id="60>"
-                                            value="Tidak">
+                                        <input class="form-check-input" type="radio" name="usialanjut>"
+                                            id="usialanjut>" value="Tidak">
                                         <label class="form-check-label">Tidak</label>
                                     </div>
                                 </td>
@@ -459,11 +459,101 @@
 
             </div>
         </form>
-        <div type="button" class="btn float-right btn-success " style="margin-top: 20px;">
+        <div type="button" class="btn float-right btn-success simpanrencanaplg" style="margin-top: 20px;">
             SIMPAN
         </div>
     </div>
 
     <script>
         document.getElementById('tglpoli').valueAsDate = new Date()
+
+        $(".simpanrencanaplg").click(function() {
+            var data = $('.formrencanapulang').serializeArray();
+            var usialanjut = $('#usialanjut:checked').val()
+            var hambatan = $('#hambatan:checked').val()
+            var medis = $('#medis:checked').val()
+            var harian = $('#harian:checked').val()
+            var kendaraan = $('#kendaraan').val()
+            var pendamping = $('#pendamping').val()
+            var diet = $('#diet').val()
+            var perawatan = $('#perawatan:checked').val()
+            var alatbantu = $('#alatbantu:checked').val()
+            var pendidikan = $('#pendidikan:checked').val()
+            var diberikan = $('#diberikan:checked').val()
+            var poli = $('#poli').val()
+            var tglpoli = $('#tglpoli').val()
+
+            Swal.fire({
+                title: "Yakin Simpan Rencana pulang?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Ya',
+                cancelButtonColor: '#d33',
+                cancelButtonText: "Batal"
+
+            }).then(result => {
+                //jika klik ya maka arahkan ke proses.php
+                if (result.isConfirmed) {
+                    $.ajax({
+                        async: true,
+                        type: 'post',
+                        dataType: 'json',
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            data: JSON.stringify(data),
+
+                            usialanjut: $('#usialanjut:checked').val(),
+                            hambatan: $('#hambatan:checked').val(),
+                            medis: $('#medis:checked').val(),
+                            harian: $('#harian:checked').val(),
+                            kendaraan: $('#kendaraan').val(),
+                            pendamping: $('#pendamping').val(),
+                            diet: $('#diet').val(),
+                            perawatan: $('#perawatan:checked').val(),
+                            alatbantu: $('#alatbantu:checked').val(),
+                            pendidikan: $('#pendidikan:checked').val(),
+                            diberikan: $('#diberikan:checked').val(),
+                            poli: $('#poli').val(),
+                            tglpoli: $('#tglpoli').val(),
+
+
+
+                        },
+                        url: '<?= route('simpanrencanaplg') ?>',
+
+                        error: function(data) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Sepertinya ada masalah ...',
+                                footer: ''
+                            })
+                        },
+                        success: function(data) {
+                            console.log(data)
+                            if (data.kode == 500) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: data.message,
+                                    footer: ''
+                                })
+                            } else {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'OK',
+                                    text: 'data berhasil disimpan',
+                                    footer: ''
+                                })
+
+                            }
+
+                        }
+                    });
+
+                }
+            })
+            return false;
+        });
     </script>
