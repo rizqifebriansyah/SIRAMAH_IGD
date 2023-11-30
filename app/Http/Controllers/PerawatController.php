@@ -141,6 +141,9 @@ class PerawatController extends Controller
             'perawat.rencanaplg',
             [
                 'data' => $data,
+                'norm' => $norm,
+                'kj' => $kj,
+
                 'poli' => $poli
 
             ]
@@ -267,6 +270,10 @@ class PerawatController extends Controller
         $now = Carbon::now();
         $user = auth()->user()->id_simrs;
         $kp = auth()->user()->kode_paramedis;
+        $kj = $request->kj;
+        $norm = $request->norm;
+
+
 
         $rencanaplg = rencana_plg::create([
             'tgl_input' => $now,

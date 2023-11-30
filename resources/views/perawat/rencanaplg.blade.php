@@ -14,13 +14,13 @@
                                 <td class="text-bold font-italic">Usia lanjut (60 tahun atau lebih)</td>
                                 <td>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="usialanjut>"
-                                            id="usialanjut>" value="Ya">
+                                        <input class="form-check-input" type="radio" name="usialanjut"
+                                            id="usialanjut" value="Ya">
                                         <label class="form-check-label">Ya</label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="usialanjut>"
-                                            id="usialanjut>" value="Tidak">
+                                        <input class="form-check-input" type="radio" name="usialanjut"
+                                            id="usialanjut" value="Tidak">
                                         <label class="form-check-label">Tidak</label>
                                     </div>
                                 </td>
@@ -444,6 +444,10 @@
                             </tr>
                             <tr>
                                 <td>
+                                    <input type="text" name="norm" id="norm" value="{{ $norm }}"
+                                        hidden>
+                                    <input type="text" name="kj" id="kj" value="{{ $kj }}"
+                                        hidden>
                                     <div class="form-group">
                                         <label for="exampleFormControlSelect1">Tanggal Pemeriksaan
                                             Poli</label>
@@ -470,6 +474,7 @@
         $(".simpanrencanaplg").click(function() {
             var data = $('.formrencanapulang').serializeArray();
             var usialanjut = $('#usialanjut:checked').val()
+            alert(usialanjut)
             var hambatan = $('#hambatan:checked').val()
             var medis = $('#medis:checked').val()
             var harian = $('#harian:checked').val()
@@ -482,6 +487,8 @@
             var diberikan = $('#diberikan:checked').val()
             var poli = $('#poli').val()
             var tglpoli = $('#tglpoli').val()
+            var kj = $('#kj').val()
+            var norm = $('#norm').val()
 
             Swal.fire({
                 title: "Yakin Simpan Rencana pulang?",
@@ -516,6 +523,8 @@
                             diberikan: $('#diberikan:checked').val(),
                             poli: $('#poli').val(),
                             tglpoli: $('#tglpoli').val(),
+                            kj : $('#kj').val(),
+                            norm : $('#norm').val()
 
 
 
