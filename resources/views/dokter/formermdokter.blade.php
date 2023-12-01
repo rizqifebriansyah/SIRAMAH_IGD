@@ -7,6 +7,8 @@
         <form action="" class="formerm">
             <input type="text" name="ku" id="ku" value="{{ $ku }}" hidden>
             <input type="text" name="kp" id="kp" value="{{ $kp }}" hidden>
+            <input type="text" name="counter" id="counter" value="{{ $counter }}" hidden>
+
 
             <div class="accordion" id="accordionExample9">
                 <div class="card">
@@ -1546,6 +1548,8 @@
         var norm = $('#norm').val()
         var kj = $('#kj').val()
         var kp = $('#kp').val()
+        var counter = $('#counter').val()
+
 
         var tglmasuk = $('#tglmasuk').val()
         var diagnosa = $('#diagnosa').val()
@@ -1585,6 +1589,8 @@
                         tigap: $('#tigap').val(),
                         tigak: $('#tigak').val(),
                         norm: $('#norm').val(),
+                        counter: $('#counter').val(),
+
                         kj: $('#kj').val(),
                         diagnosa: $('#diagnosa').val(),
                         diagnosa1: $('#diagnosa1').val(),

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\di_pasien_diagnosa_frunit;
 use App\Models\erm_cppt_dokter;
 use App\Models\ts_antrian_igd;
 use App\Models\mt_kode_igd_header;
@@ -107,8 +108,8 @@ class DokterController extends Controller
 
 
         $now = Carbon::now()->format('Y-m-d');
-        // $pasienigd = DB::connection('mysql2')->select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$now')");
-        $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$now')");
+        $pasienigd = DB::connection('mysql2')->select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$now')");
+        // $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$now')");
 
         return view(
             'dokter.asses',
@@ -145,6 +146,8 @@ class DokterController extends Controller
         $kp = $request->kp;
         $kp = $request->kp;
         $ku = $request->ku;
+        $counter = $request->counter;
+
         $kelas = $request->kelas;
         $tglmasuk = $request->tglmasuk;
         $ttv = DB::connection('mysql2')->select('SELECT tekanan_darah, keadaan_umum, kesadaran, frekuensi_nafas, frekuensi_nadi, suhu, berat_badan, umur FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
@@ -201,6 +204,7 @@ class DokterController extends Controller
                 'kelas' => $kelas,
                 'kp' => $kp,
                 'ku' => $ku,
+                'counter' => $counter
 
             ]
         );
@@ -292,6 +296,8 @@ class DokterController extends Controller
         $kelas = $request->kelas;
         $kp = $request->kp;
         $ku = $request->ku;
+        $counter = $request->counter;
+
         $cek1 = DB::select('select * from ts_layanan_header where kode_kunjungan = ? and kode_unit = ?', [$kj, '3002']);
         $cek = DB::select('select *,date(tgl_baca) as tanggalnya,fc_acc_number_ris(id_detail) as acc_number from ts_hasil_expertisi where kode_kunjungan = ?', [$kj]);
         $cekpa = DB::select('SELECT
@@ -350,6 +356,8 @@ class DokterController extends Controller
                 'kelas' => $kelas,
                 'kp' => $kp,
                 'ku' => $ku,
+                'counter' => $counter,
+
                 'cek1' => $cek1,
                 'cek' => $cek,
                 'cekpa' => $cekpa,
@@ -506,7 +514,7 @@ class DokterController extends Controller
         $ats = $request->jenisats;
         $antrian = $request->antrian;
         $klasifikasi = $request->klasifikasipasien;
-        $user = auth()->user()->id_simrs;
+        $user = auth()->user()->nama;
         $kp = auth()->user()->kode_paramedis;
 
         $triase = ts_triase::create([
@@ -573,6 +581,14 @@ class DokterController extends Controller
         $sp = 'OPN';
         $user = auth()->user()->id_simrs;
         $kp = auth()->user()->kode_paramedis;
+        $kondisi = $request->kopul;
+        if ( $kondisi == 'Dirawat') {
+            $kondisi = '1';
+        }elseif( $kondisi == 'BATAL DIRAWAT'){
+            $kondisi = '3';
+        }else{
+            $kondisi = '0';
+        }
 
         try {
 
@@ -596,6 +612,33 @@ class DokterController extends Controller
                 'primary_survey' => $request->primary,
                 'secondary_survey' => $request->secondary,
                 'kode_paramedis' => $kp,
+                'is_ranap'=> $kondisi,
+                'status' => '1'
+
+            ]);
+        } catch (\Exception $e) {
+            return $e->getMessage();
+            $back = [
+                'kode' => 200,
+                'message' => $e->getMessage()
+            ];
+            echo json_encode($back);
+            die;
+        }
+        try {
+
+            $assesmen = di_pasien_diagnosa_frunit::create([
+                'no_rm' => $request->norm,
+                'kode_unit' => '1002',
+                'counter' => $request->counter,
+                'no_rm' => $request->norm,
+                'kode_kunjungan' => $request->kj,
+                'input_date' => $now,
+                'kode_paramedis' => $kp,
+                'diag_00' => $request->diagnosa,
+                'alasan_pulang'=> $request->kopul,
+                'tipe_pasien' => '1',
+                'is_ranap'=> $kondisi,
                 'status' => '1'
 
             ]);

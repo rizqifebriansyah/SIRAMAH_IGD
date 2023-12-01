@@ -22,6 +22,8 @@
                         <input type="text" name="kelas" id="kelas" value="{{ $kelas }}" hidden>
                         <input type="text" name="kp" id="kp" value="{{ $kp }}" hidden>
                         <input type="text" name="ku" id="ku" value="{{ $ku }}" hidden>
+                        <input type="text" name="counter" id="counter" value="{{ $counter }}" hidden>
+
                         <input type="text" name="tglmasuk" id="tglmasuk" value="{{ $tglmasuk }}" hidden>
 
 
@@ -859,6 +861,8 @@
         kelas = $('#kelas').val()
         kp = $('#kp').val()
         ku = $('#ku').val()
+        counter = $('#counter').val()
+
 
 
 
@@ -870,6 +874,7 @@
                 kj,
                 kp,
                 ku,
+                counter,
                 kelas
             },
             url: '<?= route('formermdokter') ?>',
