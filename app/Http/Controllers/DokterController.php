@@ -108,8 +108,8 @@ class DokterController extends Controller
 
 
         $now = Carbon::now()->format('Y-m-d');
-        $pasienigd = DB::connection('mysql2')->select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$now')");
-        // $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$now')");
+        // $pasienigd = DB::connection('mysql2')->select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$now')");
+        $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$now')");
 
         return view(
             'dokter.asses',
@@ -568,6 +568,7 @@ class DokterController extends Controller
     public function simpanassesmen(Request $request)
     {
         $a = $request->all();
+        $datarad = json_decode($_POST['datarad'], true);
         $diagnosa = $request->diagnosa;
         $ku = $request->ku;
         $kj = $request->kj;
@@ -617,7 +618,6 @@ class DokterController extends Controller
 
             ]);
         } catch (\Exception $e) {
-            return $e->getMessage();
             $back = [
                 'kode' => 200,
                 'message' => $e->getMessage()
@@ -631,19 +631,16 @@ class DokterController extends Controller
                 'no_rm' => $request->norm,
                 'kode_unit' => '1002',
                 'counter' => $request->counter,
-                'no_rm' => $request->norm,
                 'kode_kunjungan' => $request->kj,
                 'input_date' => $now,
                 'kode_paramedis' => $kp,
                 'diag_00' => $request->diagnosa,
-                'alasan_pulang'=> $request->kopul,
                 'tipe_pasien' => '1',
                 'is_ranap'=> $kondisi,
                 'status' => '1'
 
             ]);
         } catch (\Exception $e) {
-            return $e->getMessage();
             $back = [
                 'kode' => 200,
                 'message' => $e->getMessage()
@@ -831,7 +828,6 @@ class DokterController extends Controller
         WHERE kode_kunjungan = ? AND no_rm = ?', [$request->kode_kunjungan, $request->norm]);
             }
         } catch (\Exception $e) {
-            return $e->getMessage();
             $back = [
                 'kode' => 200,
                 'message' => $e->getMessage()
@@ -852,15 +848,15 @@ class DokterController extends Controller
                 foreach ($datarad as $nama) {
                     $index = $nama['name'];
                     $value = $nama['value'];
-                    $dataSet[$index] = $value;
+                    $dataSetr[$index] = $value;
                     if ($index == 'cyto') {
-                        $arrayindex[] = $dataSet;
+                        $arrayindexr[] = $dataSetr;
                     }
                 }
 
                 $sum = 0;
 
-                foreach ($arrayindex as $arr) {
+                foreach ($arrayindexr as $arr) {
                     $discount = $arr['disc'];
                     $cyto = $arr['cyto'];
                     $trf = array($arr['tarif']);
@@ -890,14 +886,14 @@ class DokterController extends Controller
                             'tgl_periksa' => $now,
                             'no_rm' => $request->norm,
                             'kode_kunjungan' => $request->kj,
-                            'qty_header' => $dataSet['qty'],
+                            'qty_header' => $dataSetr['qty'],
                             'keterangan' => 'PENDING',
                             'unit_pengirim' => '1002',
                             'diagnosa' => $request->diagnosa . ' ' . $request->diagnosa1,
                             'dok_kirim' => $kp,
                             'total_layanan' => $gt,
                             'tagihan_pribadi' => $gt,
-                            'diskon_global' => $dataSet['disc'],
+                            'diskon_global' => $dataSetr['disc'],
                             'status_pembayaran' => $sp,
                             'status_layanan' => 1,
                             'kode_unit' => '3003',
@@ -907,7 +903,7 @@ class DokterController extends Controller
                         ];
                         $head = ts_layanan_header_igd::create($data_layanan_header);
                         $id_detail = $this->createLayanandetail();
-                        foreach ($arrayindex as $arr) {
+                        foreach ($arrayindexr as $arr) {
                             $savedetail = [
                                 'id_layanan_detail' => $id_detail,
                                 'kode_layanan_header' => $kode_header,
@@ -934,14 +930,14 @@ class DokterController extends Controller
                             'tgl_periksa' => $now,
                             'no_rm' => $request->norm,
                             'kode_kunjungan' => $request->kj,
-                            'qty_header' => $dataSet['qty'],
+                            'qty_header' => $dataSetr['qty'],
                             'keterangan' => 'PENDING',
                             'unit_pengirim' => '1002',
                             'diagnosa' => $request->diagnosa . ' ' . $request->diagnosa1,
                             'dok_kirim' => $kp,
                             'total_layanan' => $gt,
                             'tagihan_pribadi' => $gt,
-                            'diskon_global' => $dataSet['disc'],
+                            'diskon_global' => $dataSetr['disc'],
                             'status_pembayaran' => $sp,
                             'status_layanan' => 1,
                             'kode_unit' => '3003',
@@ -951,7 +947,7 @@ class DokterController extends Controller
                         ];
                         $head = ts_layanan_header_igd::create($data_layanan_header);
                         $id_detail = $this->createLayanandetail();
-                        foreach ($arrayindex as $arr) {
+                        foreach ($arrayindexr as $arr) {
                             $savedetail = [
                                 'id_layanan_detail' => $id_detail,
                                 'kode_layanan_header' => $kode_header,
@@ -978,14 +974,14 @@ class DokterController extends Controller
                         'tgl_periksa' => $now,
                         'no_rm' => $request->norm,
                         'kode_kunjungan' => $request->kj,
-                        'qty_header' => $dataSet['qty'],
+                        'qty_header' => $dataSetr['qty'],
                         'keterangan' => 'PENDING',
                         'unit_pengirim' => '1002',
                         'diagnosa' => $request->diagnosa . ' ' . $request->diagnosa1,
                         'dok_kirim' => $kp,
                         'total_layanan' => $gt,
                         'tagihan_pribadi' => $gt,
-                        'diskon_global' => $dataSet['disc'],
+                        'diskon_global' => $dataSetr['disc'],
                         'status_pembayaran' => $sp,
                         'status_layanan' => 2,
                         'kode_unit' => '3003',
@@ -996,7 +992,7 @@ class DokterController extends Controller
 
                     $head = ts_layanan_header_igd::create($data_layanan_header);
                     $id_detail = $this->createLayanandetail();
-                    foreach ($arrayindex as $arr) {
+                    foreach ($arrayindexr as $arr) {
                         $savedetail = [
                             'id_layanan_detail' => $id_detail,
                             'kode_layanan_header' => $kode_header,
@@ -1023,7 +1019,6 @@ class DokterController extends Controller
                 // WHERE kode_kunjungan = ? AND no_rm = ?', [$request->kode_kunjungan, $request->norm]);
             }
         } catch (\Exception $e) {
-            return $e->getMessage();
             $back = [
                 'kode' => 200,
                 'message' => $e->getMessage()
