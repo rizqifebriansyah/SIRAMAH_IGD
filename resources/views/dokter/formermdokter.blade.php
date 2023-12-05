@@ -1614,83 +1614,83 @@
         return false;
     });
 
-    $(".returorderrad").click(function() {
-        var $row = $(this).closest("tr");
-        var kodepenjamin = $row.find(".kodepenjamin").text();
-        var kodekunjungan = $row.find(".kodekunjungan").text();
-        var counter = $row.find(".counter").text();
-        var qty = $row.find(".qty").text();
-        var statuspembayaran = $row.find(".statuspembayaran").text();
-        var alamat = $row.find(".alamat").text();
-        var iddet = $row.find(".iddet").text();
-        var accnumber = $row.find(".accnumber").text();
-        var idlayanandetail = $row.find(".idlayanandetail").text();
-        var kodeheader = $row.find(".kodeheader").text();
-        var idhed = $row.find(".idhed").text();
-        var tglinput = $row.find(".tgl_input").text();
-        var norm = $row.find(".norm").text();
-        var namatarif = $row.find(".namatarif").text();
+    // $(".returorderrad").click(function() {
+    //     var $row = $(this).closest("tr");
+    //     var kodepenjamin = $row.find(".kodepenjamin").text();
+    //     var kodekunjungan = $row.find(".kodekunjungan").text();
+    //     var counter = $row.find(".counter").text();
+    //     var qty = $row.find(".qty").text();
+    //     var statuspembayaran = $row.find(".statuspembayaran").text();
+    //     var alamat = $row.find(".alamat").text();
+    //     var iddet = $row.find(".iddet").text();
+    //     var accnumber = $row.find(".accnumber").text();
+    //     var idlayanandetail = $row.find(".idlayanandetail").text();
+    //     var kodeheader = $row.find(".kodeheader").text();
+    //     var idhed = $row.find(".idhed").text();
+    //     var tglinput = $row.find(".tgl_input").text();
+    //     var norm = $row.find(".norm").text();
+    //     var namatarif = $row.find(".namatarif").text();
 
-        var gt = $row.find(".gt").text();
-        Swal.fire({
-            title: "Yakin RETUR data?",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            confirmButtonText: 'Ya',
-            cancelButtonColor: '#d33',
-            cancelButtonText: "Batal"
+    //     var gt = $row.find(".gt").text();
+    //     Swal.fire({
+    //         title: "Yakin RETUR data?",
+    //         icon: 'warning',
+    //         showCancelButton: true,
+    //         confirmButtonColor: '#3085d6',
+    //         confirmButtonText: 'Ya',
+    //         cancelButtonColor: '#d33',
+    //         cancelButtonText: "Batal"
 
-        }).then(result => {
-            //jika klik ya maka arahkan ke proses.php
-            if (result.isConfirmed) {
-                $.ajax({
-                    async: true,
-                    type: 'post',
-                    dataType: 'json',
-                    data: {
-                        _token: "{{ csrf_token() }}",
-                        kodepenjamin,
-                        kodekunjungan,
-                        counter,
-                        qty,
-                        statuspembayaran,
-                        alamat,
-                        iddet,
-                        accnumber,
-                        idlayanandetail,
-                        kodeheader,
-                        idhed,
-                        tglinput,
-                        norm,
-                        namatarif,
-                        gt
-                    },
-                    url: '<?= route('returorderrad') ?>',
-                    error: function(data) {
-                        spinner.hide()
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Ooops....',
-                            text: 'Sepertinya ada masalah......',
-                            footer: ''
-                        })
-                    },
-                    success: function(data) {
-                        spinner.hide()
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'OK',
-                            text: data.message,
-                            footer: ''
-                        })
-                        ambildata()
-                    }
-                });
-            }
-        })
-        return false;
-    });
+    //     }).then(result => {
+    //         //jika klik ya maka arahkan ke proses.php
+    //         if (result.isConfirmed) {
+    //             $.ajax({
+    //                 async: true,
+    //                 type: 'post',
+    //                 dataType: 'json',
+    //                 data: {
+    //                     _token: "{{ csrf_token() }}",
+    //                     kodepenjamin,
+    //                     kodekunjungan,
+    //                     counter,
+    //                     qty,
+    //                     statuspembayaran,
+    //                     alamat,
+    //                     iddet,
+    //                     accnumber,
+    //                     idlayanandetail,
+    //                     kodeheader,
+    //                     idhed,
+    //                     tglinput,
+    //                     norm,
+    //                     namatarif,
+    //                     gt
+    //                 },
+
+    //                 error: function(data) {
+    //                     spinner.hide()
+    //                     Swal.fire({
+    //                         icon: 'error',
+    //                         title: 'Ooops....',
+    //                         text: 'Sepertinya ada masalah......',
+    //                         footer: ''
+    //                     })
+    //                 },
+    //                 success: function(data) {
+    //                     spinner.hide()
+    //                     Swal.fire({
+    //                         icon: 'success',
+    //                         title: 'OK',
+    //                         text: data.message,
+    //                         footer: ''
+    //                     })
+    //                     ambildata()
+    //                 }
+    //             });
+    //         }
+    //     })
+    //     return false;
+    // });
 
 
     //hasil lab
