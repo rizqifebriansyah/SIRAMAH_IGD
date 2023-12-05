@@ -108,8 +108,8 @@ class DokterController extends Controller
 
 
         $now = Carbon::now()->format('Y-m-d');
-        // $pasienigd = DB::connection('mysql2')->select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$now')");
-        $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$now')");
+        $pasienigd = DB::connection('mysql2')->select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$now')");
+        // $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$now')");
 
         return view(
             'dokter.asses',
@@ -583,11 +583,30 @@ class DokterController extends Controller
         $user = auth()->user()->id_simrs;
         $kp = auth()->user()->kode_paramedis;
         $kondisi = $request->kopul;
-        if ( $kondisi == 'Dirawat') {
+        $jenispasien = $request->alpul;
+        //jenis pasien
+        if ($jenispasien == 'Pasien Anak') {
+            $jenispasien = '1';
+        } elseif ($jenispasien == 'Pasien Bedah') {
+            $jenispasien = '2';
+        } elseif ($jenispasien == 'Pasien Non Bedah') {
+            $jenispasien = '3';
+        }elseif ($jenispasien == 'Pasien Psikomatic') {
+            $jenispasien = '4';
+        }
+        elseif ($jenispasien == 'Pasien Kebidanan') {
+            $jenispasien = '5';
+        }
+         else {
+            $jenispasien = '0';
+        }
+
+        //kondisi
+        if ($kondisi == 'Dirawat') {
             $kondisi = '1';
-        }elseif( $kondisi == 'BATAL DIRAWAT'){
+        } elseif ($kondisi == 'BATAL DIRAWAT') {
             $kondisi = '3';
-        }else{
+        } else {
             $kondisi = '0';
         }
 
@@ -613,7 +632,7 @@ class DokterController extends Controller
                 'primary_survey' => $request->primary,
                 'secondary_survey' => $request->secondary,
                 'kode_paramedis' => $kp,
-                'is_ranap'=> $kondisi,
+                'is_ranap' => $kondisi,
                 'status' => '1'
 
             ]);
@@ -627,7 +646,7 @@ class DokterController extends Controller
         }
         try {
 
-            $assesmen = di_pasien_diagnosa_frunit::create([
+            $frunit = di_pasien_diagnosa_frunit::create([
                 'no_rm' => $request->norm,
                 'kode_unit' => '1002',
                 'counter' => $request->counter,
@@ -635,8 +654,9 @@ class DokterController extends Controller
                 'input_date' => $now,
                 'kode_paramedis' => $kp,
                 'diag_00' => $request->diagnosa,
-                'tipe_pasien' => '1',
-                'is_ranap'=> $kondisi,
+                'tipe_pasien' => $jenispasien,
+                'pic' => $user,
+                'is_ranap' => $kondisi,
                 'status' => '1'
 
             ]);

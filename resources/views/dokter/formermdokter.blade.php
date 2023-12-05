@@ -583,10 +583,11 @@
                                         </option>
                                         <option value="Pasien Non Bedah">Pasien Non Bedah
                                         </option>
-                                        <option value="Pasien Kebidanan">Pasien Kebidanan
-                                        </option>
                                         <option value="Pasien Psikomatic">Pasien Psikomatic
                                         </option>
+                                        <option value="Pasien Kebidanan">Pasien Kebidanan
+                                        </option>
+
 
                                     </select>
                                     <label>Lain-lain</label>
@@ -995,16 +996,23 @@
                         <div class="card-body bg-light">
 
 
-                            <select class="form-control select2" name="alpul" id="alpul">
-                                <option value=""> {{ $assesdok[0]->cara_pulang }}</option>
-                                @foreach ($alasanpulang as $i => $p)
-                                    <option value="{{ $p->alasan_pulang }}">{{ $p->alasan_pulang }}
+                                <select class="form-control select2" name="alpul" id="alpul">
+                                    <option value=""> {{ $assesdok[0]->cara_pulang }}</option>
+                                    <option value="Pasien Anak">Pasien Anak
                                     </option>
-                                @endforeach
+                                    <option value="Pasien Bedah">Pasien Bedah
+                                    </option>
+                                    <option value="Pasien Non Bedah">Pasien Non Bedah
+                                    </option>
+                                    <option value="Pasien Psikomatic">Pasien Psikomatic
+                                    </option>
+                                    <option value="Pasien Kebidanan">Pasien Kebidanan
+                                    </option>
 
-                            </select>
-                            <label>Lain-lain</label>
-                            <textarea class="form-control" id="alpul1" name="alpul1" rows="2" placeholder=""></textarea>
+
+                                </select>
+                                <label>Lain-lain</label>
+                                <textarea class="form-control" id="alpul1" name="alpul1" rows="2" placeholder=""></textarea>
 
 
 
@@ -1034,54 +1042,17 @@
                         data-parent="#accordionExample4">
                         <div class="card-body bg-light">
 
-                            <table class="table">
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <div class="form-group form-check">
-                                                <input type="checkbox" class="form-check-input" id="sembuh"
-                                                    name="sembuh" value="Sembuh">
-                                                <label class="form-check-label" for="exampleCheck1">Sembuh
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-group form-check">
-                                                <input type="checkbox" class="form-check-input" id="tidaksembuh"
-                                                    name="tidaksembuh" value="Tidak Sembuh">
-                                                <label class="form-check-label" for="exampleCheck1">Tidak
-                                                    Sembuh
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-group form-check">
-                                                <input type="checkbox" class="form-check-input" id="perbaikan"
-                                                    name="perbaikan" value="Perbaikan">
-                                                <label class="form-check-label" for="exampleCheck1">Perbaikan
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-group form-check">
-                                                <input type="checkbox" class="form-check-input" id="Meninggal"
-                                                    name="Meninggal" value="Meninggal">
-                                                <label class="form-check-label" for="exampleCheck1">Meninggal
-                                                </label>
-                                            </div>
-                                        </td>
-                                    </tr>
+                            <select class="form-control select2" name="kopul" id="kopul">
+                                <option value="">{{ $assesdok[0]->keadaan_pulang }}</option>
+                                @foreach ($alasanpulang as $i => $p)
+                                    <option value="{{ $p->alasan_pulang }}">{{ $p->alasan_pulang }}
+                                    </option>
+                                @endforeach
 
-                                    <tr>
-                                        <td colspan="4">
+                            </select>
+                            <label>Lain-lain</label>
+                            <textarea class="form-control" id="kopul1" name="kopul1" rows="2" placeholder=""></textarea>
 
-                                            <textarea class="form-control" id="keteranganpulang" name="keteranganpulang" placeholder=""></textarea>
-
-                                        </td>
-                                    </tr>
-
-                                </tbody>
-                            </table>
                         </div>
                     </div>
                 </div>
@@ -1636,6 +1607,84 @@
 
 
                         }
+                    }
+                });
+            }
+        })
+        return false;
+    });
+
+    $(".returorderrad").click(function() {
+        var $row = $(this).closest("tr");
+        var kodepenjamin = $row.find(".kodepenjamin").text();
+        var kodekunjungan = $row.find(".kodekunjungan").text();
+        var counter = $row.find(".counter").text();
+        var qty = $row.find(".qty").text();
+        var statuspembayaran = $row.find(".statuspembayaran").text();
+        var alamat = $row.find(".alamat").text();
+        var iddet = $row.find(".iddet").text();
+        var accnumber = $row.find(".accnumber").text();
+        var idlayanandetail = $row.find(".idlayanandetail").text();
+        var kodeheader = $row.find(".kodeheader").text();
+        var idhed = $row.find(".idhed").text();
+        var tglinput = $row.find(".tgl_input").text();
+        var norm = $row.find(".norm").text();
+        var namatarif = $row.find(".namatarif").text();
+
+        var gt = $row.find(".gt").text();
+        Swal.fire({
+            title: "Yakin RETUR data?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Ya',
+            cancelButtonColor: '#d33',
+            cancelButtonText: "Batal"
+
+        }).then(result => {
+            //jika klik ya maka arahkan ke proses.php
+            if (result.isConfirmed) {
+                $.ajax({
+                    async: true,
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        kodepenjamin,
+                        kodekunjungan,
+                        counter,
+                        qty,
+                        statuspembayaran,
+                        alamat,
+                        iddet,
+                        accnumber,
+                        idlayanandetail,
+                        kodeheader,
+                        idhed,
+                        tglinput,
+                        norm,
+                        namatarif,
+                        gt
+                    },
+                    url: '<?= route('returorderrad') ?>',
+                    error: function(data) {
+                        spinner.hide()
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Ooops....',
+                            text: 'Sepertinya ada masalah......',
+                            footer: ''
+                        })
+                    },
+                    success: function(data) {
+                        spinner.hide()
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'OK',
+                            text: data.message,
+                            footer: ''
+                        })
+                        ambildata()
                     }
                 });
             }

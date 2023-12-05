@@ -138,7 +138,7 @@
                             @if ($a->status_triase == 0)
                             <button class="badge badge-danger assesmentdokter"> belum diisi </button> |
                             @else
-                            <button class="badge badge-success assesmentdokter"> Sudah diisi </button> | {{$user}}
+                            <button class="badge badge-success assesmentdokter"> Sudah diisi </button> |
                             @endif
                         </td>
 
