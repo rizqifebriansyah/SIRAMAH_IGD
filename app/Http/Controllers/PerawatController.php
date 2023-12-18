@@ -153,10 +153,21 @@ class PerawatController extends Controller
     {
         $norm = $request->norm;
         $kj = $request->kj;
+        $pasien = DB::select('SELECT a.no_rm, a.kode_kunjungan,
+        fc_NAMA_PARAMEDIS(a.no_rm) AS nama_dokter,
+        b.nama_px,
+        b.alamat,
+        fc_umur(a.no_rm) AS umur,
+        c.diag_00
+        FROM ts_kunjungan a
+        INNER JOIN mt_pasien b ON b.no_rm = a.no_rm
+        INNER JOIN di_pasien_diagnosa_frunit c ON c.kode_kunjungan = a.kode_kunjungan
+        WHERE a.no_rm = ? AND a.kode_kunjungan = ?', [$norm, $kj]);
 
         return view(
             'perawat.upload',
             [
+            'pasien' => $pasien
                 
 
             ]
