@@ -149,6 +149,19 @@ class PerawatController extends Controller
             ]
         );
     }
+    public function upload(Request $request)
+    {
+        $norm = $request->norm;
+        $kj = $request->kj;
+
+        return view(
+            'perawat.upload',
+            [
+                
+
+            ]
+        );
+    }
     public function sri(Request $request)
     {
         $norm = $request->norm;

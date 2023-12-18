@@ -6,8 +6,7 @@
 
         padding: 5px;
         margin-top: 5px;
-        width: 1300px;
-        height: 650px;
+        height: 900px;
         overflow: scroll;
     }
 
@@ -16,8 +15,7 @@
         border: 1px solid red;
         padding: 5px;
         margin-top: 5px;
-        width: 1300px;
-        height: 650px;
+        height: 900px;
         overflow: auto;
     }
 </style>

@@ -58,13 +58,20 @@
         }
 
         .scroll {
-            max-height: 500px;
-            overflow-y: auto;
+            display: block;
+
+            padding: 5px;
+            margin-top: 5px;
+            height: 900px;
+            overflow: scroll;
         }
 
         .scroll2 {
-            max-height: 500px;
-            overflow-y: auto;
+            display: block;
+            padding: 5px;
+            margin-top: 5px;
+            height: 900px;
+            overflow: scroll;
         }
 
         .form-check-input {
@@ -83,7 +90,7 @@
             <p>Harap Tunggu</p>
         </div>
     </div>
-    <nav class="navbar navbar-expand-lg  fixed-top" style="background-color: #006600;" >
+    <nav class="navbar navbar-expand-lg  fixed-top" style="background-color: #006600;">
         <div class="container">
             <a class="navbar-brand text-dark">
                 <img src="{{ asset('public/img/rsss.png') }}" width="50" height="50" class="d-inline-block align-top ml-2 mr-2" alt="">
@@ -95,7 +102,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                
+
             </div>
         </div>
     </nav>
