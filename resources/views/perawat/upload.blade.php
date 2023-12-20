@@ -228,14 +228,65 @@
 
         <h5>Belum ada file di upload</h5>
         @else
-        <div class="form-group">
-            <label for="exampleInputFile"> HasilUpload</label>
-            <img width="1000px" src="{{ url('../../files/' . $hasil[0]->hasil_ekg) }}" alt="" class="mr-3">
+        @foreach ($hasil as $key => $h)
+        <div class="accordion" id="accordionExample3" style="margin-top: 30px;">
+            <div class="card">
+                <div class="card-header bg-secondary" id="headingOne">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link btn-block text-left text-light font-weight" type="button" data-toggle="collapse" data-target="#collapseOne3" aria-expanded="true" aria-controls="collapseOne3">
+                            <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Hasil Upload <h5 class="float-right">{{$h->tgl_kunjungan}}</h5>
+                        </button>
+                    </h2>
+                </div>
+
+                <div id="collapseOne3" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample3">
+                    <div style="margin-top: 20px;" class="card-body">
+                        <div class="row">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+
+                                        <td> <label for="exampleInputFile"> Hasil EKG</label></td>
+                                        <td>
+                                            <img width="1000px" src="{{ url('../../files/' . $h->hasil_ekg) }}" alt="" class="mr-3">
+
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+
+                                        <td> <label for="exampleInputFile"> Surat Penolakan Perawatan</label></td>
+                                        <td>
+                                            <img width="1000px" src="{{ url('../../files/' . $h->surat_penolakan) }}" alt="" class="mr-3">
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+
+                                        <td> <label for="exampleInputFile"> Informasi Tindakan Dokter</label></td>
+                                        <td>
+                                            <img width="1000px" src="{{ url('../../files/' . $h->informasi_tindakan) }}" alt="" class="mr-3">
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+
+                                        <td> <label for="exampleInputFile"> Transfer Pasien</label></td>
+                                        <td>
+                                            <img width="1000px" src="{{ url('../../files/' . $h->transfer_pasien) }}" alt="" class="mr-3">
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="exampleInputFile"> HasilUpload</label>
-            <img width="1000px" src="{{ url('../../files/' . $hasil[0]->surat_penolakan) }}" alt="" class="mr-3">
-        </div>
+        @endforeach
+
         @endif
 
     </div>

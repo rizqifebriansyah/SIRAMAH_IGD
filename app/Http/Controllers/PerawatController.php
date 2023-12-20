@@ -166,12 +166,13 @@ class PerawatController extends Controller
         WHERE a.no_rm = ? AND a.kode_kunjungan = ?', [$norm, $kj]);
 
         $hasil = DB::connection('mysql2')->select('SELECT 
+        a.tgl_kunjungan,
         a.hasil_ekg,
         a.surat_penolakan,
         a.informasi_tindakan,
         a.transfer_pasien
         FROM erm_cppt_perawat a
-        WHERE a.kode_kunjungan = ?', [$kj]);
+        WHERE a.no_rm = ?', [$norm]);
 
 
         return view(
