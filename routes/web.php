@@ -93,6 +93,13 @@ Route::group(['middleware' => ['hak_akses:4', 'auth']], function () {
 
     Route::post('simpanassemenperawat', [PerawatController::class, 'simpanassemenperawat'])->name('simpanassemenperawat');
     Route::post('updateassemenperawat', [PerawatController::class, 'updateassemenperawat'])->name('updateassemenperawat');
+    Route::post('/simpanhasilekg', [PerawatController::class, 'simpanhasilekg'])->name('simpanhasilekg');
+    Route::post('/simpanhasilspp', [PerawatController::class, 'simpanhasilspp'])->name('simpanhasilspp');
+    Route::post('/simpanhasiltdkn', [PerawatController::class, 'simpanhasiltdkn'])->name('simpanhasiltdkn');
+    Route::post('/simpanhasiltf', [PerawatController::class, 'simpanhasiltf'])->name('simpanhasiltf');
+
+
+
 
 
 

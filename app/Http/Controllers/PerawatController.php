@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Models\erm_cppt_perawat;
 use App\Models\rencana_plg;
+use File;
 
 class PerawatController extends Controller
 {
@@ -164,11 +165,21 @@ class PerawatController extends Controller
         INNER JOIN di_pasien_diagnosa_frunit c ON c.kode_kunjungan = a.kode_kunjungan
         WHERE a.no_rm = ? AND a.kode_kunjungan = ?', [$norm, $kj]);
 
+        $hasil = DB::connection('mysql2')->select('SELECT 
+        a.hasil_ekg,
+        a.surat_penolakan,
+        a.informasi_tindakan,
+        a.transfer_pasien
+        FROM erm_cppt_perawat a
+        WHERE a.kode_kunjungan = ?', [$kj]);
+
+
         return view(
             'perawat.upload',
             [
-            'pasien' => $pasien
-                
+                'pasien' => $pasien,
+                'hasil' => $hasil
+
 
             ]
         );
@@ -416,6 +427,211 @@ class PerawatController extends Controller
         $back = [
             'kode' => 200,
             'message' => 'Berhasil'
+        ];
+        echo json_encode($back);
+        die;
+    }
+
+    public function simpanhasilekg(Request $request)
+    {
+
+        $dt = Carbon::now()->timezone('Asia/Jakarta');
+        $date = $dt->toDateString();
+        $time = $dt->toTimeString();
+        $now = $date . ' ' . $time;
+        $norm = $request->norm;
+        $data = json_decode($_POST['data'], true);
+        foreach ($data as $nama) {
+            $index =  $nama['name'];
+            $value =  $nama['value'];
+            $dataSet[$index] = $value;
+            if ($index == 'ekg') {
+                $arrayindex[] = $dataSet;
+            }
+        }
+        $kj = $dataSet['kj'];
+        $norm = $dataSet['norm'];
+
+        //upload foto
+        $file = $request->file('file');
+        $filename = $norm.'_'.$kj.'_'.'EKG'.'_'.$file->getClientOriginalName();
+
+        $location = '../files';
+
+        // Upload file
+        $file->move($location, $filename);
+
+        // File path
+        $filepath = url('../../files/' . $filename);
+     
+
+        // $update = DB::connection('mysql2')->table(' UPDATE erm_cppt_perawat
+        // SET hasil_ekg = ? WHERE kode_kunjungan = ?', [$filepath,$kj]);
+        $update = DB::connection('mysql2')->table('erm_cppt_perawat')
+            ->where('kode_kunjungan', $kj)
+            ->update(['hasil_ekg' => $filename]);
+
+
+        // $request->file('$bukti')->store('public/images');
+        // $foto = new mt_pasien();
+        // $foto->save();
+
+        $back = [
+            'kode' => 200,
+            'message' => ''
+        ];
+        echo json_encode($back);
+        die;
+    }
+    public function simpanhasilspp(Request $request)
+    {
+
+        $dt = Carbon::now()->timezone('Asia/Jakarta');
+        $date = $dt->toDateString();
+        $time = $dt->toTimeString();
+        $now = $date . ' ' . $time;
+        $norm = $request->norm;
+        $data = json_decode($_POST['data'], true);
+        foreach ($data as $nama) {
+            $index =  $nama['name'];
+            $value =  $nama['value'];
+            $dataSet[$index] = $value;
+            if ($index == 'spp') {
+                $arrayindex[] = $dataSet;
+            }
+        }
+        $kj = $dataSet['kj'];
+        $norm = $dataSet['norm'];
+
+        //upload foto
+        $file = $request->file('file');
+        $filename = $norm.'_'.$kj.'_'.'spp'.'_'.$file->getClientOriginalName();
+
+        $location = '../files';
+
+        // Upload file
+        $file->move($location, $filename);
+
+        // File path
+        $filepath = url('../../files/' . $filename);
+      
+
+        // $update = DB::connection('mysql2')->table(' UPDATE erm_cppt_perawat
+        // SET hasil_ekg = ? WHERE kode_kunjungan = ?', [$filepath,$kj]);
+        $update = DB::connection('mysql2')->table('erm_cppt_perawat')
+            ->where('kode_kunjungan', $kj)
+            ->update(['surat_penolakan' => $filename]);
+
+
+        // $request->file('$bukti')->store('public/images');
+        // $foto = new mt_pasien();
+        // $foto->save();
+
+        $back = [
+            'kode' => 200,
+            'message' => ''
+        ];
+        echo json_encode($back);
+        die;
+    }
+    public function simpanhasiltdkn(Request $request)
+    {
+
+        $dt = Carbon::now()->timezone('Asia/Jakarta');
+        $date = $dt->toDateString();
+        $time = $dt->toTimeString();
+        $now = $date . ' ' . $time;
+        $norm = $request->norm;
+        $data = json_decode($_POST['data'], true);
+        foreach ($data as $nama) {
+            $index =  $nama['name'];
+            $value =  $nama['value'];
+            $dataSet[$index] = $value;
+            if ($index == 'tdkn') {
+                $arrayindex[] = $dataSet;
+            }
+        }
+        $kj = $dataSet['kj'];
+        $norm = $dataSet['norm'];
+
+        //upload foto
+        $file = $request->file('file');
+        $filename = $norm.'_'.$kj.'_'.'tdkn'.'_'.$file->getClientOriginalName();
+
+        $location = '../files';
+
+        // Upload file
+        $file->move($location, $filename);
+
+        // File path
+        $filepath = url('../../files/' . $filename);
+      
+
+        // $update = DB::connection('mysql2')->table(' UPDATE erm_cppt_perawat
+        // SET hasil_ekg = ? WHERE kode_kunjungan = ?', [$filepath,$kj]);
+        $update = DB::connection('mysql2')->table('erm_cppt_perawat')
+            ->where('kode_kunjungan', $kj)
+            ->update(['informasi_tindakan' => $filename]);
+
+
+        // $request->file('$bukti')->store('public/images');
+        // $foto = new mt_pasien();
+        // $foto->save();
+
+        $back = [
+            'kode' => 200,
+            'message' => ''
+        ];
+        echo json_encode($back);
+        die;
+    }
+    public function simpanhasiltf(Request $request)
+    {
+
+        $dt = Carbon::now()->timezone('Asia/Jakarta');
+        $date = $dt->toDateString();
+        $time = $dt->toTimeString();
+        $now = $date . ' ' . $time;
+        $norm = $request->norm;
+        $data = json_decode($_POST['data'], true);
+        foreach ($data as $nama) {
+            $index =  $nama['name'];
+            $value =  $nama['value'];
+            $dataSet[$index] = $value;
+            if ($index == 'tf') {
+                $arrayindex[] = $dataSet;
+            }
+        }
+        $kj = $dataSet['kj'];
+        $norm = $dataSet['norm'];
+
+        //upload foto
+        $file = $request->file('file');
+        $filename = $norm.'_'.$kj.'_'.'tf'.'_'.$file->getClientOriginalName();
+
+        $location = '../files';
+
+        // Upload file
+        $file->move($location, $filename);
+
+        // File path
+        $filepath = url('../../files/' . $filename);
+      
+
+        // $update = DB::connection('mysql2')->table(' UPDATE erm_cppt_perawat
+        // SET hasil_ekg = ? WHERE kode_kunjungan = ?', [$filepath,$kj]);
+        $update = DB::connection('mysql2')->table('erm_cppt_perawat')
+            ->where('kode_kunjungan', $kj)
+            ->update(['transfer_pasien' => $filename]);
+
+
+        // $request->file('$bukti')->store('public/images');
+        // $foto = new mt_pasien();
+        // $foto->save();
+
+        $back = [
+            'kode' => 200,
+            'message' => ''
         ];
         echo json_encode($back);
         die;
