@@ -108,8 +108,8 @@ class DokterController extends Controller
 
 
         $now = Carbon::now()->format('Y-m-d');
-        // $pasienigd = DB::connection('mysql2')->select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$now')");
-        $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$now')");
+        $pasienigd = DB::connection('mysql2')->select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$now')");
+        // $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$now')");
 
         return view(
             'dokter.asses',
@@ -386,7 +386,15 @@ class DokterController extends Controller
 
     public function resumecpptdokter(Request $request)
     {
-
+        $kj =  $request->kj;
+        $hasil = DB::connection('mysql2')->select('SELECT 
+         a.tgl_kunjungan,
+         a.hasil_ekg,
+         a.surat_penolakan,
+         a.informasi_tindakan,
+         a.transfer_pasien
+         FROM erm_cppt_perawat a
+         WHERE a.kode_kunjungan = ?', [$kj]);
         $resumedok = DB::connection('mysql2')->select('SELECT * FROM erm_cppt_dokter
         WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $request->kj]);
         $riwayatorderrad = DB::connection('mysql2')->select('SELECT
@@ -416,6 +424,7 @@ class DokterController extends Controller
             [
                 'title' => 'ERM DOKTER',
                 'resumedok' => $resumedok,
+                'hasil' => $hasil,
                 'riwayatorderrad' => $riwayatorderrad,
                 'riwayatorderlab' => $riwayatorderlab
 
@@ -591,13 +600,11 @@ class DokterController extends Controller
             $jenispasien = '2';
         } elseif ($jenispasien == 'Pasien Non Bedah') {
             $jenispasien = '3';
-        }elseif ($jenispasien == 'Pasien Psikomatic') {
+        } elseif ($jenispasien == 'Pasien Psikomatic') {
             $jenispasien = '4';
-        }
-        elseif ($jenispasien == 'Pasien Kebidanan') {
+        } elseif ($jenispasien == 'Pasien Kebidanan') {
             $jenispasien = '5';
-        }
-         else {
+        } else {
             $jenispasien = '0';
         }
 

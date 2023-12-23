@@ -35,6 +35,8 @@ class PerawatController extends Controller
 
         $now = Carbon::now()->format('Y-m-d');
         $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$now')");
+        $pasienigd = DB::connection('mysql2')->select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$now')");
+
         return view(
             'perawat.assesperawat',
             [
@@ -122,11 +124,46 @@ class PerawatController extends Controller
 
         $resume = DB::connection('mysql2')->select('SELECT * FROM erm_cppt_perawat
         WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $request->kj]);
+
+        $riwayatorderrad = DB::connection('mysql2')->select('SELECT
+        a.no_rm,
+        a.kode_layanan_header,
+        a.id,
+        b.total_tarif,
+        fc_nama_tindakan(LEFT(b.kode_tarif_detail,6)) as nama_tindakan
+        FROM
+        ts_layanan_header_igd a
+        INNER JOIN ts_layanan_detail_igd b ON b.row_id_header = a.id
+        WHERE a.kode_unit = ?
+        AND a.kode_kunjungan = ?', ['3003', $request->kj]);
+        $riwayatorderlab = DB::connection('mysql2')->select('SELECT
+        a.no_rm,
+        a.kode_layanan_header,
+        a.id,
+        b.total_tarif,
+        fc_nama_tindakan(LEFT(b.kode_tarif_detail,6)) as nama_tindakan
+        FROM
+        ts_layanan_header_igd a
+        INNER JOIN ts_layanan_detail_igd b ON b.row_id_header = a.id
+        WHERE a.kode_unit = ?
+        AND a.kode_kunjungan = ?', ['3002', $request->kj]);
+        $kj =  $request->kj;
+        $hasil = DB::connection('mysql2')->select('SELECT 
+         a.tgl_kunjungan,
+         a.hasil_ekg,
+         a.surat_penolakan,
+         a.informasi_tindakan,
+         a.transfer_pasien
+         FROM erm_cppt_perawat a
+         WHERE a.kode_kunjungan = ?', [$kj]);
         return view(
             'perawat.resumecpptperawat',
             [
                 'title' => 'ERM PERAWAT',
-                'resume' => $resume
+                'resume' => $resume,
+                'riwayatorderrad' => $riwayatorderrad,
+                'riwayatorderlab' => $riwayatorderlab,
+                'hasil' => $hasil
             ]
         );
     }
@@ -154,7 +191,7 @@ class PerawatController extends Controller
     {
         $norm = $request->norm;
         $kj = $request->kj;
-        $pasien = DB::select('SELECT a.no_rm, a.kode_kunjungan,
+        $pasien = DB::connection('mysql2')->select('SELECT a.no_rm, a.kode_kunjungan,
         fc_NAMA_PARAMEDIS(a.no_rm) AS nama_dokter,
         b.nama_px,
         b.alamat,
@@ -455,7 +492,7 @@ class PerawatController extends Controller
 
         //upload foto
         $file = $request->file('file');
-        $filename = $norm.'_'.$kj.'_'.'EKG'.'_'.$file->getClientOriginalName();
+        $filename = $norm . '_' . $kj . '_' . 'EKG' . '_' . $file->getClientOriginalName();
 
         $location = '../files';
 
@@ -464,7 +501,7 @@ class PerawatController extends Controller
 
         // File path
         $filepath = url('../../files/' . $filename);
-     
+
 
         // $update = DB::connection('mysql2')->table(' UPDATE erm_cppt_perawat
         // SET hasil_ekg = ? WHERE kode_kunjungan = ?', [$filepath,$kj]);
@@ -506,7 +543,7 @@ class PerawatController extends Controller
 
         //upload foto
         $file = $request->file('file');
-        $filename = $norm.'_'.$kj.'_'.'spp'.'_'.$file->getClientOriginalName();
+        $filename = $norm . '_' . $kj . '_' . 'spp' . '_' . $file->getClientOriginalName();
 
         $location = '../files';
 
@@ -515,7 +552,7 @@ class PerawatController extends Controller
 
         // File path
         $filepath = url('../../files/' . $filename);
-      
+
 
         // $update = DB::connection('mysql2')->table(' UPDATE erm_cppt_perawat
         // SET hasil_ekg = ? WHERE kode_kunjungan = ?', [$filepath,$kj]);
@@ -557,7 +594,7 @@ class PerawatController extends Controller
 
         //upload foto
         $file = $request->file('file');
-        $filename = $norm.'_'.$kj.'_'.'tdkn'.'_'.$file->getClientOriginalName();
+        $filename = $norm . '_' . $kj . '_' . 'tdkn' . '_' . $file->getClientOriginalName();
 
         $location = '../files';
 
@@ -566,7 +603,7 @@ class PerawatController extends Controller
 
         // File path
         $filepath = url('../../files/' . $filename);
-      
+
 
         // $update = DB::connection('mysql2')->table(' UPDATE erm_cppt_perawat
         // SET hasil_ekg = ? WHERE kode_kunjungan = ?', [$filepath,$kj]);
@@ -608,7 +645,7 @@ class PerawatController extends Controller
 
         //upload foto
         $file = $request->file('file');
-        $filename = $norm.'_'.$kj.'_'.'tf'.'_'.$file->getClientOriginalName();
+        $filename = $norm . '_' . $kj . '_' . 'tf' . '_' . $file->getClientOriginalName();
 
         $location = '../files';
 
@@ -617,7 +654,7 @@ class PerawatController extends Controller
 
         // File path
         $filepath = url('../../files/' . $filename);
-      
+
 
         // $update = DB::connection('mysql2')->table(' UPDATE erm_cppt_perawat
         // SET hasil_ekg = ? WHERE kode_kunjungan = ?', [$filepath,$kj]);
