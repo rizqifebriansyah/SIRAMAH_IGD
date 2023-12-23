@@ -112,7 +112,7 @@
                     <th>NoRM</th>
                     <th>Nama Pasien</th>
 
-                    <th>Assesment Perawat</th>
+                    <th>Status Pendaftaran</th>
                     <th>Assesment Dokter</th>
                 </thead>
                 <tbody>

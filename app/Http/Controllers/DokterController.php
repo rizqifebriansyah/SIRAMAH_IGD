@@ -252,24 +252,33 @@ class DokterController extends Controller
         );
     }
 
-    public function triaseanak()
+    public function triaseanak(Request $request)
     {
+        $noantri = $request->antrian;
+        $triase = DB::connection('mysql2')->select('SELECT * FROM ts_triase
+       WHERE no_antrian = ?', [$noantri]);
         return view(
             'dokter.triaseanak',
             [
                 'title' => 'SiRAMAH DOKTER',
 
+                'triase' => $triase
 
             ]
         );
     }
-    public function triasedewasa()
+    public function triasedewasa(Request $request)
     {
+
+        $noantri = $request->antrian;
+        $triase = DB::connection('mysql2')->select('SELECT * FROM ts_triase
+        WHERE no_antrian = ?', [$noantri]);
 
         return view(
             'dokter.triasedewasa',
             [
                 'title' => 'SiRAMAH DOKTER',
+                'triase' => $triase
 
 
             ]

@@ -99,11 +99,14 @@
     $(".triasedewasa").click(function() {
         spinner = $('#loader2');
         spinner.show();
+        antrian = $('#antrian').val()
+
 
         $.ajax({
             type: "post",
             data: {
                 _token: "{{ csrf_token() }}",
+                antrian
 
             },
             url: '<?= route('triasedewasa') ?>',
@@ -121,11 +124,14 @@
     $(".triaseanak").click(function() {
         spinner = $('#loader2');
         spinner.show();
+        antrian = $('#antrian').val()
+
 
         $.ajax({
             type: "post",
             data: {
                 _token: "{{ csrf_token() }}",
+                antrian
 
             },
             url: '<?= route('triaseanak') ?>',

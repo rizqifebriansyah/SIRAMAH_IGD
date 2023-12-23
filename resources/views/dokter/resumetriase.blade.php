@@ -58,7 +58,7 @@
                                 <td>: {{$resume[0]->jalan_nafas}}</td>
                             </tr>
                             <tr>
-                                <td class="text-bold text-italic">Pernafan</td>
+                                <td class="text-bold text-italic">Pernafasan</td>
                                 <td>: {{$resume[0]->pernafasan}}</td>
                             </tr>
                             <tr>

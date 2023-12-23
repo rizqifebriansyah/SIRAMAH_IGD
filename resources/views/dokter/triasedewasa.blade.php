@@ -7,134 +7,11 @@
         <div class="card-header text-bold bg-success">+ SKRINING PASIEN IGD +</div>
         <form action="" class="formpemeriksaantriase">
             <div class="card-body">
+
+                @if ($triase == null)
                 <!-- skrining pasien -->
                 <table class="table">
                     <tbody>
-                        {{-- @if ($ttv == null)
-                        <tr>
-                            <td class="text-bold font-italic">Tekanan Darah</td>
-                            <td>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Tekanan darah pasien ..." aria-label="Recipient's username" id="tekanandarah" name="tekanandarah" aria-describedby="basic-addon2" value="">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text" id="basic-addon2">mmHg</span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="text-bold font-italic">Frekuensi Nadi</td>
-                            <td>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Frekuensi nadi pasien ..." id="frekuensinadi" name="frekuensinadi" aria-label="Recipient's username" aria-describedby="basic-addon2" value="">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text" id="basic-addon2">x/menit</span>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-bold font-italic">Frekuensi Nafas</td>
-                            <td>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Frekuensi Nafas Pasien ..." name="frekuensinafas" id="frekuensinafas" aria-label="Recipient's username" aria-describedby="basic-addon2" value="">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text" id="basic-addon2">x/menit</span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="text-bold font-italic">Suhu</td>
-                            <td>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Suhu tubuh pasien ..." aria-label="Suhu tubuh pasien" name="suhutubuh" id="suhutubuh" aria-describedby="basic-addon2" value="">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text" id="basic-addon2">°C</span>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-bold font-italic">Berat Badan / tinggi badan / IMT</td>
-                            <td>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Berat badan Pasien ..." name="beratbadan" id="beratbadan" aria-label="Recipient's username" aria-describedby="basic-addon2" value="">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text" id="basic-addon2">Kg</span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="text-bold font-italic">Umur</td>
-                            <td>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Umur pasien ..." aria-label="Suhu tubuh pasien" name="usia" id="usia" aria-describedby="basic-addon2" value="">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text" id="basic-addon2">th</span>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        @else
-                        <tr>
-                            <td class="text-bold font-italic">Tekanan Darah</td>
-                            <td>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Tekanan darah pasien ..." aria-label="Recipient's username" id="tekanandarah" name="tekanandarah" aria-describedby="basic-addon2" value="{{ $ttv[0]->tekanan_darah }}">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text" id="basic-addon2">mmHg</span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="text-bold font-italic">Frekuensi Nadi</td>
-                            <td>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Frekuensi nadi pasien ..." id="frekuensinadi" name="frekuensinadi" aria-label="Recipient's username" aria-describedby="basic-addon2" value="{{ $ttv[0]->frekuensi_nadi }}">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text" id="basic-addon2">x/menit</span>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-bold font-italic">Frekuensi Nafas</td>
-                            <td>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Frekuensi Nafas Pasien ..." name="frekuensinafas" id="frekuensinafas" aria-label="Recipient's username" aria-describedby="basic-addon2" value="{{ $ttv[0]->frekuensi_nafas }}">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text" id="basic-addon2">x/menit</span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="text-bold font-italic">Suhu</td>
-                            <td>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Suhu tubuh pasien ..." aria-label="Suhu tubuh pasien" name="suhutubuh" id="suhutubuh" aria-describedby="basic-addon2" value="{{ $ttv[0]->suhu_tubuh }}">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text" id="basic-addon2">°C</span>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-bold font-italic">Berat Badan / tinggi badan / IMT</td>
-                            <td>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Berat badan Pasien ..." name="beratbadan" id="beratbadan" aria-label="Recipient's username" aria-describedby="basic-addon2" value="{{ $ttv[0]->beratbadan }}">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text" id="basic-addon2">Kg</span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="text-bold font-italic">Umur</td>
-                            <td>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Umur pasien ..." aria-label="Suhu tubuh pasien" name="usia" id="usia" aria-describedby="basic-addon2" value="{{ $ttv[0]->umur }}">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text" id="basic-addon2">th</span>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        @endif --}}
-
-
                         <tr>
                             <td class="text-bold font-italic">Nama pasien</td>
                             <td colspan="3">
@@ -145,24 +22,20 @@
                         </tr>
                         <tr hidden="">
                             <td class="text-bold font-italic">Tanggal Kunjungan</td>
-                            <td><input readonly="" type="text" name="tanggalkunjungan" class="form-control"
-                                    value="2023-09-07 07:43:55"></td>
+                            <td><input readonly="" type="text" name="tanggalkunjungan" class="form-control" value="2023-09-07 07:43:55"></td>
                             <td class="text-bold font-italic">Tanggal Assesmen</td>
-                            <td><input type="text" name="tanggalassesmen" class="form-control datepicker"
-                                    data-date-format="yyyy-mm-dd"></td>
+                            <td><input type="text" name="tanggalassesmen" class="form-control datepicker" data-date-format="yyyy-mm-dd"></td>
                         </tr>
                         <tr>
                             <td class="text-bold font-italic">Sumber Data</td>
                             <td colspan="3">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="sumberdata" id="sumberdata"
-                                        value="Pasien Sendiri">
+                                    <input class="form-check-input" type="radio" name="sumberdata" id="sumberdata" value="Pasien Sendiri">
                                     <label class="form-check-label" for="inlineRadio1">Pasien Sendiri /
                                         Autoanamase</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="sumberdata" id="sumberdata"
-                                        value="Keluarga">
+                                    <input class="form-check-input" type="radio" name="sumberdata" id="sumberdata" value="Keluarga">
                                     <label class="form-check-label" for="inlineRadio2">Keluarga / Alloanamnesa</label>
                                 </div>
                             </td>
@@ -171,57 +44,27 @@
                             <td class="text-bold font-italic">Klasifikasi pasien</td>
                             <td colspan="3">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="klasifikasipasien" id="klasifikasipasien"
-                                        value="IGD">
+                                    <input class="form-check-input" type="radio" name="klasifikasipasien" id="klasifikasipasien" value="IGD">
                                     <label class="form-check-label" for="inlineRadio1">IGD</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="klasifikasipasien" id="klasifikasipasien"
-                                        value="IGK">
+                                    <input class="form-check-input" type="radio" name="klasifikasipasien" id="klasifikasipasien" value="IGK">
                                     <label class="form-check-label" for="inlineRadio2">IGD KEBIDANAN</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="klasifikasipasien" id="klasifikasipasien"
-                                        value="PULANG">
+                                    <input class="form-check-input" type="radio" name="klasifikasipasien" id="klasifikasipasien" value="PULANG">
                                     <label class="form-check-label" for="inlineRadio2">Pulang</label>
                                 </div>
                             </td>
                         </tr>
-                        {{-- <tr>
-                            <td class="text-bold font-italic">Primary Survey</td>
-                            <td colspan="3">
-                                <h5> A (Airway) , B (Breathing), C (Circulation), D (Disability), E (Exposure)</h5>
-                                <h5 class="text-bold">Keterangan</h5>
-                                <textarea class="form-control" id="primarysurvey" name="primarysurvey" placeholder="Ketik primary survey ..."></textarea>
 
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-bold font-italic">Pemeriksaan Fisik</td>
-                            <td colspan="3">
-
-                                <textarea class="form-control" id="pemeriksaanfisik" name="pemeriksaanfisik" placeholder="Ketik pemeriksaan fisik ..."></textarea>
-
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="text-bold font-italic">Riwayat Penyakit / Pengobatan Sebelumnya</td>
-                            <td colspan="3">
-
-                                <textarea class="form-control" id="riwayatpenyakit" name="riwayatpenyakit" placeholder="Ketik riwayat penyakit ..."></textarea>
-
-                            </td>
-                        </tr> --}}
                     </tbody>
                 </table>
                 <div class="accordion " id="accordionExample">
 
                     <div class="card-header bg-secondary" id="headingOne">
                         <h2 class="mb-0">
-                            <button class="btn btn-link btn-block text-left text-light font-weight" type="button"
-                                data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
-                                aria-controls="collapseOne">
+                            <button class="btn btn-link btn-block text-left text-light font-weight" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                 <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Triase (ATS : Australian Triage Scale)
                                 DEWASA
                             </button>
@@ -243,31 +86,27 @@
                                         <div class="row">
                                             <div class="col-md-2">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="kategoritriase"
-                                                        name="kategoritriase" value="Medikal">
+                                                    <input type="checkbox" class="form-check-input" id="kategoritriase" name="kategoritriase" value="Medikal">
                                                     <label class="form-check-label" for="exampleCheck1">Medikal</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="kategoritriase"
-                                                        name="kategoritriase" value="Bedah Paru">
+                                                    <input type="checkbox" class="form-check-input" id="kategoritriase" name="kategoritriase" value="Bedah Paru">
                                                     <label class="form-check-label" for="exampleCheck1">Bedah
                                                         Paru</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="kategoritriase"
-                                                        name="kategoritriase" value="Obgyn">
+                                                    <input type="checkbox" class="form-check-input" id="kategoritriase" name="kategoritriase" value="Obgyn">
                                                     <label class="form-check-label" for="exampleCheck1">Obgyn
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="kategoritriase"
-                                                        name="kategoritriase" value="Anak">
+                                                    <input type="checkbox" class="form-check-input" id="kategoritriase" name="kategoritriase" value="Anak">
                                                     <label class="form-check-label" for="exampleCheck1">Anak
                                                     </label>
                                                 </div>
@@ -283,24 +122,21 @@
                                         <div class="row">
                                             <div class="col-md-2 bg-danger">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="jenisats"
-                                                        name="jenisats" value="ATS1 Resusitasi">
+                                                    <input type="checkbox" class="form-check-input" id="jenisats" name="jenisats" value="ATS1 Resusitasi">
                                                     <label class="form-check-label" for="exampleCheck1">ATS1
                                                         <br>Resusitasi</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-2" style="background-color: chocolate;">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="jenisats"
-                                                        name="jenisats" value="ATS2 Emergency">
+                                                    <input type="checkbox" class="form-check-input" id="jenisats" name="jenisats" value="ATS2 Emergency">
                                                     <label class="form-check-label" for="exampleCheck1">ATS2 <br>
                                                         Emergency</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-2 bg-warning">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="jenisats"
-                                                        name="jenisats" value="ATS3 Urgent">
+                                                    <input type="checkbox" class="form-check-input" id="jenisats" name="jenisats" value="ATS3 Urgent">
                                                     <label class="form-check-label" for="exampleCheck1">ATS3 <br>
                                                         Urgent
                                                     </label>
@@ -308,8 +144,7 @@
                                             </div>
                                             <div class="col-md-2 bg-success">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="jenisats"
-                                                        name="jenisats" value="ATS4 Non Urgent">
+                                                    <input type="checkbox" class="form-check-input" id="jenisats" name="jenisats" value="ATS4 Non Urgent">
                                                     <label class="form-check-label" for="exampleCheck1">ATS4 <br> Non
                                                         Urgent
                                                     </label>
@@ -317,8 +152,7 @@
                                             </div>
                                             <div class="col-md-2 bg-primary">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="jenisats"
-                                                        name="jenisats" value="ATS5 False Emergency">
+                                                    <input type="checkbox" class="form-check-input" id="jenisats" name="jenisats" value="ATS5 False Emergency">
                                                     <label class="form-check-label" for="exampleCheck1">ATS5 <br>
                                                         False Emergency
                                                     </label>
@@ -374,41 +208,35 @@
                                         <div class="row">
                                             <div class="col-md-2">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="gcs1"
-                                                        name="gcs1" value="GCS < 9">
-                                                    <label class="form-check-label" for="exampleCheck1">GCS <
-                                                            9</label>
+                                                    <input type="checkbox" class="form-check-input" id="gcs1" name="gcs1" value="GCS < 9">
+                                                    <label class="form-check-label" for="exampleCheck1">GCS < 9</label>
                                                 </div>
 
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="gcs2"
-                                                        name="gcs2" value="GCS 9 - 12">
+                                                    <input type="checkbox" class="form-check-input" id="gcs2" name="gcs2" value="GCS 9 - 12">
                                                     <label class="form-check-label" for="exampleCheck1">GCS 9 -
                                                         12</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-2 ">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="gcs3"
-                                                        name="gcs3" value="GCS > 12">
+                                                    <input type="checkbox" class="form-check-input" id="gcs3" name="gcs3" value="GCS > 12">
                                                     <label class="form-check-label" for="exampleCheck1">GCS > 12
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="col-md-2 ">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="gcs4"
-                                                        name="gcs4" value="GCS 15">
+                                                    <input type="checkbox" class="form-check-input" id="gcs4" name="gcs4" value="GCS 15">
                                                     <label class="form-check-label" for="exampleCheck1">GCS 15
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="col-md-2 ">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="gcs5"
-                                                        name="gcs5" value="GCS 15">
+                                                    <input type="checkbox" class="form-check-input" id="gcs5" name="gcs5" value="GCS 15">
                                                     <label class="form-check-label" for="exampleCheck1">GCS 15
                                                     </label>
                                                 </div>
@@ -424,24 +252,20 @@
                                         <div class="row">
                                             <div class="col-md-2">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="kejang"
-                                                        name="kejang" value="Kejang">
+                                                    <input type="checkbox" class="form-check-input" id="kejang" name="kejang" value="Kejang">
                                                     <label class="form-check-label" for="exampleCheck1">Kejang</label>
                                                 </div>
 
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="letargis"
-                                                        name="letargis" value="Letargis">
-                                                    <label class="form-check-label"
-                                                        for="exampleCheck1">Letargis</label>
+                                                    <input type="checkbox" class="form-check-input" id="letargis" name="letargis" value="Letargis">
+                                                    <label class="form-check-label" for="exampleCheck1">Letargis</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-2 ">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="traumakepala"
-                                                        name="traumakepala" value="Trauma Kepala Riwayat Pingsan">
+                                                    <input type="checkbox" class="form-check-input" id="traumakepala" name="traumakepala" value="Trauma Kepala Riwayat Pingsan">
                                                     <label class="form-check-label" for="exampleCheck1">Trauma Kepala
                                                         Riwayat Pingsan
                                                     </label>
@@ -449,9 +273,7 @@
                                             </div>
                                             <div class="col-md-2 ">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input"
-                                                        id="traumakepalakurang" name="traumakepalakurang"
-                                                        value="Trauma Kepala Riwayat Pingsan (-)">
+                                                    <input type="checkbox" class="form-check-input" id="traumakepalakurang" name="traumakepalakurang" value="Trauma Kepala Riwayat Pingsan (-)">
                                                     <label class="form-check-label" for="exampleCheck1">Trauma Kepala
                                                         Riwayat Pingsan
                                                         (-)
@@ -475,8 +297,7 @@
                                         <div class="row">
                                             <div class="col-md-2">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="tidakrespon"
-                                                        name="tidakrespon" value="Tidak Ada Respon">
+                                                    <input type="checkbox" class="form-check-input" id="tidakrespon" name="tidakrespon" value="Tidak Ada Respon">
                                                     <label class="form-check-label" for="exampleCheck1">Tidak Ada
                                                         Respon</label>
                                                 </div>
@@ -489,8 +310,7 @@
                                             </div>
                                             <div class="col-md-2 ">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="somnolen"
-                                                        name="somnolen" value="Somnolen">
+                                                    <input type="checkbox" class="form-check-input" id="somnolen" name="somnolen" value="Somnolen">
                                                     <label class="form-check-label" for="exampleCheck1">Somnolen
                                                     </label>
                                                 </div>
@@ -529,8 +349,7 @@
                                             </div>
                                             <div class="col-md-2 ">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="paskakejang"
-                                                        name="paskakejang" value="Paska Kejang">
+                                                    <input type="checkbox" class="form-check-input" id="paskakejang" name="paskakejang" value="Paska Kejang">
                                                     <label class="form-check-label" for="exampleCheck1">Paska Kejang
                                                     </label>
                                                 </div>
@@ -558,9 +377,7 @@
                                         <div class="row">
                                             <div class="col-md-2">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input"
-                                                        id="sumbatantotal" name="sumbatantotal"
-                                                        value="Sumbatan Total">
+                                                    <input type="checkbox" class="form-check-input" id="sumbatantotal" name="sumbatantotal" value="Sumbatan Total">
                                                     <label class="form-check-label" for="exampleCheck1">Sumbatan
                                                         Total</label>
                                                 </div>
@@ -568,33 +385,28 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input"
-                                                        id="sumbatanparsial" name="sumbatanparsial"
-                                                        value="Sumbatan Parsial">
+                                                    <input type="checkbox" class="form-check-input" id="sumbatanparsial" name="sumbatanparsial" value="Sumbatan Parsial">
                                                     <label class="form-check-label" for="exampleCheck1">Sumbatan
                                                         Parsial</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-2 ">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="bebas1"
-                                                        name="bebas1" value="Bebas">
+                                                    <input type="checkbox" class="form-check-input" id="bebas1" name="bebas1" value="Bebas">
                                                     <label class="form-check-label" for="exampleCheck1">Bebas
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="col-md-2 ">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="bebas2"
-                                                        name="bebas2" value="Bebas">
+                                                    <input type="checkbox" class="form-check-input" id="bebas2" name="bebas2" value="Bebas">
                                                     <label class="form-check-label" for="exampleCheck1">Bebas
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="col-md-2 ">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="bebas3"
-                                                        name="bebas3" value="Bebas">
+                                                    <input type="checkbox" class="form-check-input" id="bebas3" name="bebas3" value="Bebas">
                                                     <label class="form-check-label" for="exampleCheck1">Bebas
                                                     </label>
                                                 </div>
@@ -610,8 +422,7 @@
                                         <div class="row">
                                             <div class="col-md-2">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="hentinafas"
-                                                        name="hentinafas" value="Henti Nafas">
+                                                    <input type="checkbox" class="form-check-input" id="hentinafas" name="hentinafas" value="Henti Nafas">
                                                     <label class="form-check-label" for="exampleCheck1">Henti
                                                         Nafas</label>
                                                 </div>
@@ -619,25 +430,21 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input"
-                                                        id="distrespenafasan" name="distrespenafasan"
-                                                        value="Distres Pernafasan">
+                                                    <input type="checkbox" class="form-check-input" id="distrespenafasan" name="distrespenafasan" value="Distres Pernafasan">
                                                     <label class="form-check-label" for="exampleCheck1">Distres
                                                         Pernafasan</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-2 ">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="sesaknafas"
-                                                        name="sesaknafas" value="Sesak Nafas">
+                                                    <input type="checkbox" class="form-check-input" id="sesaknafas" name="sesaknafas" value="Sesak Nafas">
                                                     <label class="form-check-label" for="exampleCheck1">Sesak Nafas
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="col-md-2 ">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="freknafas"
-                                                        name="freknafas" value="Frek Nafas Normal">
+                                                    <input type="checkbox" class="form-check-input" id="freknafas" name="freknafas" value="Frek Nafas Normal">
                                                     <label class="form-check-label" for="exampleCheck1">Frek Nafas
                                                         Normal
                                                     </label>
@@ -645,8 +452,7 @@
                                             </div>
                                             <div class="col-md-2 ">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="freknafas1"
-                                                        name="freknafas1" value="Frek Nafas Normal">
+                                                    <input type="checkbox" class="form-check-input" id="freknafas1" name="freknafas1" value="Frek Nafas Normal">
                                                     <label class="form-check-label" for="exampleCheck1">Frek Nafas
                                                         Normal
                                                     </label>
@@ -662,10 +468,8 @@
                                         <div class="row">
                                             <div class="col-md-2">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="rr"
-                                                        name="rr" value="RR < 10 x/menit">
-                                                    <label class="form-check-label" for="exampleCheck1">RR < 10
-                                                            x/menit</label>
+                                                    <input type="checkbox" class="form-check-input" id="rr" name="rr" value="RR < 10 x/menit">
+                                                    <label class="form-check-label" for="exampleCheck1">RR < 10 x/menit</label>
                                                 </div>
 
                                             </div>
@@ -676,8 +480,7 @@
                                             </div>
                                             <div class="col-md-2 ">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="SaO2"
-                                                        name="SaO2" value="SaO2">
+                                                    <input type="checkbox" class="form-check-input" id="SaO2" name="SaO2" value="SaO2">
                                                     <label class="form-check-label" for="exampleCheck1">SaO2 90 - 95%
                                                     </label>
                                                 </div>
@@ -705,10 +508,8 @@
                                         <div class="row">
                                             <div class="col-md-2">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="sianosis"
-                                                        name="sianosis" value="Sianosis">
-                                                    <label class="form-check-label"
-                                                        for="exampleCheck1">Sianosis</label>
+                                                    <input type="checkbox" class="form-check-input" id="sianosis" name="sianosis" value="Sianosis">
+                                                    <label class="form-check-label" for="exampleCheck1">Sianosis</label>
                                                 </div>
 
                                             </div>
@@ -746,8 +547,7 @@
                                         <div class="row">
                                             <div class="col-md-2">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="hentijantung"
-                                                        name="hentijantung" value="Henti Jantung">
+                                                    <input type="checkbox" class="form-check-input" id="hentijantung" name="hentijantung" value="Henti Jantung">
                                                     <label class="form-check-label" for="exampleCheck1">Henti
                                                         Jantung</label>
                                                 </div>
@@ -755,33 +555,28 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input"
-                                                        id="naditerabalemah" name="naditerabalemah"
-                                                        value="Nadi Teraba Lemah">
+                                                    <input type="checkbox" class="form-check-input" id="naditerabalemah" name="naditerabalemah" value="Nadi Teraba Lemah">
                                                     <label class="form-check-label" for="exampleCheck1">Nadi Teraba
                                                         Lemah</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-2 ">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="muntahpasien"
-                                                        name="muntahpasien" value="Muntah Pasien">
+                                                    <input type="checkbox" class="form-check-input" id="muntahpasien" name="muntahpasien" value="Muntah Pasien">
                                                     <label class="form-check-label" for="exampleCheck1">Muntah Pasien
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="col-md-2 ">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="nadikuat"
-                                                        name="nadikuat" value="Nadi Kuat">
+                                                    <input type="checkbox" class="form-check-input" id="nadikuat" name="nadikuat" value="Nadi Kuat">
                                                     <label class="form-check-label" for="exampleCheck1">Nadi Kuat
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="col-md-2 ">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="nadikuat1"
-                                                        name="nadikuat1" value="Nadi Kuat">
+                                                    <input type="checkbox" class="form-check-input" id="nadikuat1" name="nadikuat1" value="Nadi Kuat">
                                                     <label class="form-check-label" for="exampleCheck1">Nadi Kuat
                                                     </label>
                                                 </div>
@@ -797,9 +592,7 @@
                                         <div class="row">
                                             <div class="col-md-2">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input"
-                                                        id="naditidakteraba" name="naditidakteraba"
-                                                        value="Nadi Tidak Teraba">
+                                                    <input type="checkbox" class="form-check-input" id="naditidakteraba" name="naditidakteraba" value="Nadi Tidak Teraba">
                                                     <label class="form-check-label" for="exampleCheck1">Nadi Tidak
                                                         Teraba</label>
                                                 </div>
@@ -807,25 +600,20 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="hr1"
-                                                        name="hr1" value="HR < 50x/menit">
-                                                    <label class="form-check-label" for="exampleCheck1">HR <
-                                                            50x/menit</label>
+                                                    <input type="checkbox" class="form-check-input" id="hr1" name="hr1" value="HR < 50x/menit">
+                                                    <label class="form-check-label" for="exampleCheck1">HR < 50x/menit</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-2 ">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="takikardia"
-                                                        name="takikardia" value="Takikardia">
+                                                    <input type="checkbox" class="form-check-input" id="takikardia" name="takikardia" value="Takikardia">
                                                     <label class="form-check-label" for="exampleCheck1">Takikardia
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="col-md-2 ">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input"
-                                                        id="freknadinormal" name="freknadinormal"
-                                                        value="Frek Nadi Normal">
+                                                    <input type="checkbox" class="form-check-input" id="freknadinormal" name="freknadinormal" value="Frek Nadi Normal">
                                                     <label class="form-check-label" for="exampleCheck1">Frek Nadi
                                                         Normal
                                                     </label>
@@ -833,9 +621,7 @@
                                             </div>
                                             <div class="col-md-2 ">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input"
-                                                        id="freknadinormal1" name="freknadinormal1"
-                                                        value="Frek Nadi Normal">
+                                                    <input type="checkbox" class="form-check-input" id="freknadinormal1" name="freknadinormal1" value="Frek Nadi Normal">
                                                     <label class="form-check-label" for="exampleCheck1">Frek Nadi
                                                         Normal
                                                     </label>
@@ -852,8 +638,7 @@
                                         <div class="row">
                                             <div class="col-md-2">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="akraldingin"
-                                                        name="akraldingin" value="Akral Dingin">
+                                                    <input type="checkbox" class="form-check-input" id="akraldingin" name="akraldingin" value="Akral Dingin">
                                                     <label class="form-check-label" for="exampleCheck1">Akral
                                                         Dingin</label>
                                                 </div>
@@ -861,32 +646,28 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="hr2"
-                                                        name="hr2" value="HR > 150x/menit">
+                                                    <input type="checkbox" class="form-check-input" id="hr2" name="hr2" value="HR > 150x/menit">
                                                     <label class="form-check-label" for="exampleCheck1">HR >
                                                         150x/menit</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-2 ">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="tds"
-                                                        name="tds" value="TDS > 180">
+                                                    <input type="checkbox" class="form-check-input" id="tds" name="tds" value="TDS > 180">
                                                     <label class="form-check-label" for="exampleCheck1">TDS > 180
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="col-md-2 ">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="tds1"
-                                                        name="tds1" value="TDS 100 - 120">
+                                                    <input type="checkbox" class="form-check-input" id="tds1" name="tds1" value="TDS 100 - 120">
                                                     <label class="form-check-label" for="exampleCheck1">TDS 100 - 120
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="col-md-2 ">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="tds2"
-                                                        name="tds2" value="TDS 100 - 120">
+                                                    <input type="checkbox" class="form-check-input" id="tds2" name="tds2" value="TDS 100 - 120">
                                                     <label class="form-check-label" for="exampleCheck1">TDS 100 - 120
                                                     </label>
                                                 </div>
@@ -908,31 +689,27 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="pucat"
-                                                        name="pucat" value="Pucat">
+                                                    <input type="checkbox" class="form-check-input" id="pucat" name="pucat" value="Pucat">
                                                     <label class="form-check-label" for="exampleCheck1">Pucat</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-2 ">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="tdd"
-                                                        name="tdd" value="TDD > 120">
+                                                    <input type="checkbox" class="form-check-input" id="tdd" name="tdd" value="TDD > 120">
                                                     <label class="form-check-label" for="exampleCheck1">TDD > 120
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="col-md-2 ">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="tdd1"
-                                                        name="tdd1" value="TDD 70 - 90">
+                                                    <input type="checkbox" class="form-check-input" id="tdd1" name="tdd1" value="TDD 70 - 90">
                                                     <label class="form-check-label" for="exampleCheck1">TDD 70 - 90
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="col-md-2 ">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="tdd2"
-                                                        name="tdd2" value="TDD 70 - 90">
+                                                    <input type="checkbox" class="form-check-input" id="tdd2" name="tdd2" value="TDD 70 - 90">
                                                     <label class="form-check-label" for="exampleCheck1">TDD 70 - 90
                                                     </label>
                                                 </div>
@@ -954,24 +731,21 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="akraldingin1"
-                                                        name="akraldingin1" value="Akral Dingin">
+                                                    <input type="checkbox" class="form-check-input" id="akraldingin1" name="akraldingin1" value="Akral Dingin">
                                                     <label class="form-check-label" for="exampleCheck1">Akral
                                                         Dingin</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-2 ">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="pendarahan"
-                                                        name="pendarahan" value="Pendarahan">
+                                                    <input type="checkbox" class="form-check-input" id="pendarahan" name="pendarahan" value="Pendarahan">
                                                     <label class="form-check-label" for="exampleCheck1">Pendarahan
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="col-md-2 ">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="muntah1"
-                                                        name="muntah1" value="Muntah Atau Diare tanpa Dehidrasi">
+                                                    <input type="checkbox" class="form-check-input" id="muntah1" name="muntah1" value="Muntah Atau Diare tanpa Dehidrasi">
                                                     <label class="form-check-label" for="exampleCheck1">Muntah Atau
                                                         Diare tanpa
                                                         Dehidrasi
@@ -1001,8 +775,7 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="crt"
-                                                        name="crt" value="CRT > 2 detik">
+                                                    <input type="checkbox" class="form-check-input" id="crt" name="crt" value="CRT > 2 detik">
                                                     <label class="form-check-label" for="exampleCheck1">CRT > 2
                                                         detik</label>
                                                 </div>
@@ -1041,10 +814,8 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="diastolik"
-                                                        name="diastolik" value="Diastolik < 80">
-                                                    <label class="form-check-label" for="exampleCheck1">Diastolik <
-                                                            80</label>
+                                                    <input type="checkbox" class="form-check-input" id="diastolik" name="diastolik" value="Diastolik < 80">
+                                                    <label class="form-check-label" for="exampleCheck1">Diastolik < 80</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-2 ">
@@ -1081,8 +852,7 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="pendarahan1"
-                                                        name="pendarahan1" value="Pendarahan Hebat">
+                                                    <input type="checkbox" class="form-check-input" id="pendarahan1" name="pendarahan1" value="Pendarahan Hebat">
                                                     <label class="form-check-label" for="exampleCheck1">Pendarahan
                                                         Hebat</label>
                                                 </div>
@@ -1121,16 +891,14 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="nyeri"
-                                                        name="nyeri" value="Nyeri Dada">
+                                                    <input type="checkbox" class="form-check-input" id="nyeri" name="nyeri" value="Nyeri Dada">
                                                     <label class="form-check-label" for="exampleCheck1">Nyeri
                                                         Dada</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-2 ">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="demam"
-                                                        name="demam" value="Demam, pasien imunosupersi">
+                                                    <input type="checkbox" class="form-check-input" id="demam" name="demam" value="Demam, pasien imunosupersi">
                                                     <label class="form-check-label" for="exampleCheck1">Demam, pasien
                                                         imunosupersi
                                                     </label>
@@ -1138,8 +906,7 @@
                                             </div>
                                             <div class="col-md-2 ">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="aspirasi"
-                                                        name="aspirasi" value="Aspirasi, tanpa sesak">
+                                                    <input type="checkbox" class="form-check-input" id="aspirasi" name="aspirasi" value="Aspirasi, tanpa sesak">
                                                     <label class="form-check-label" for="exampleCheck1">Aspirasi,
                                                         tanpa sesak
                                                     </label>
@@ -1147,8 +914,7 @@
                                             </div>
                                             <div class="col-md-2 ">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="nyeri1"
-                                                        name="nyeri1" value="Nyeri Ringan">
+                                                    <input type="checkbox" class="form-check-input" id="nyeri1" name="nyeri1" value="Nyeri Ringan">
                                                     <label class="form-check-label" for="exampleCheck1">Nyeri Ringan
                                                     </label>
                                                 </div>
@@ -1170,15 +936,13 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="sepsis"
-                                                        name="sepsis" value="Sepsis">
+                                                    <input type="checkbox" class="form-check-input" id="sepsis" name="sepsis" value="Sepsis">
                                                     <label class="form-check-label" for="exampleCheck1">Sepsis</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-2 ">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="nyeri2"
-                                                        name="nyeri2" value="Nyeri sedang - berat">
+                                                    <input type="checkbox" class="form-check-input" id="nyeri2" name="nyeri2" value="Nyeri sedang - berat">
                                                     <label class="form-check-label" for="exampleCheck1">Nyeri sedang -
                                                         berat
                                                     </label>
@@ -1186,8 +950,7 @@
                                             </div>
                                             <div class="col-md-2 ">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="trauma1"
-                                                        name="trauma1" value="Trauma Dada/Nyeri tanpa sesak">
+                                                    <input type="checkbox" class="form-check-input" id="trauma1" name="trauma1" value="Trauma Dada/Nyeri tanpa sesak">
                                                     <label class="form-check-label" for="exampleCheck1">Trauma
                                                         Dada/Nyeri tanpa sesak
                                                     </label>
@@ -1195,8 +958,7 @@
                                             </div>
                                             <div class="col-md-2 ">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="luka"
-                                                        name="luka" value="Luka Kecil">
+                                                    <input type="checkbox" class="form-check-input" id="luka" name="luka" value="Luka Kecil">
                                                     <label class="form-check-label" for="exampleCheck1">Luka Kecil
                                                     </label>
                                                 </div>
@@ -1218,24 +980,21 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="nyeri3"
-                                                        name="nyeri3" value="Nyeri Hebat">
+                                                    <input type="checkbox" class="form-check-input" id="nyeri3" name="nyeri3" value="Nyeri Hebat">
                                                     <label class="form-check-label" for="exampleCheck1">Nyeri
                                                         Hebat</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-2 ">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="kolik"
-                                                        name="kolik" value="Kolik Abdomen">
+                                                    <input type="checkbox" class="form-check-input" id="kolik" name="kolik" value="Kolik Abdomen">
                                                     <label class="form-check-label" for="exampleCheck1">Kolik Abdomen
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="col-md-2 ">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="sulit"
-                                                        name="sulit" value="Sulit menelan/nyeri/tanpa sesak">
+                                                    <input type="checkbox" class="form-check-input" id="sulit" name="sulit" value="Sulit menelan/nyeri/tanpa sesak">
                                                     <label class="form-check-label" for="exampleCheck1">Sulit
                                                         menelan/nyeri/tanpa
                                                         sesak
@@ -1244,8 +1003,7 @@
                                             </div>
                                             <div class="col-md-2 ">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="kontrol"
-                                                        name="kontrol" value="Pasien Kontrol">
+                                                    <input type="checkbox" class="form-check-input" id="kontrol" name="kontrol" value="Pasien Kontrol">
                                                     <label class="form-check-label" for="exampleCheck1">Pasien Kontrol
                                                     </label>
                                                 </div>
@@ -1267,17 +1025,14 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="multiple"
-                                                        name="multiple" value="Multiple Trauma">
+                                                    <input type="checkbox" class="form-check-input" id="multiple" name="multiple" value="Multiple Trauma">
                                                     <label class="form-check-label" for="exampleCheck1">Multiple
                                                         Trauma</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-2 ">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="terauma"
-                                                        name="terauma"
-                                                        value="Trauma Tungkai - Deformitas laserasi parah, Crush">
+                                                    <input type="checkbox" class="form-check-input" id="terauma" name="terauma" value="Trauma Tungkai - Deformitas laserasi parah, Crush">
                                                     <label class="form-check-label" for="exampleCheck1">Trauma Tungkai
                                                         - Deformitas
                                                         laserasi parah, Crush
@@ -1286,16 +1041,14 @@
                                             </div>
                                             <div class="col-md-2 ">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="sedang1"
-                                                        name="sedang1" value="Nyeri Sedang">
+                                                    <input type="checkbox" class="form-check-input" id="sedang1" name="sedang1" value="Nyeri Sedang">
                                                     <label class="form-check-label" for="exampleCheck1">Nyeri Sedang
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="col-md-2 ">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="imunisasi"
-                                                        name="imunisasi" value="Imunisasi">
+                                                    <input type="checkbox" class="form-check-input" id="imunisasi" name="imunisasi" value="Imunisasi">
                                                     <label class="form-check-label" for="exampleCheck1">Imunisasi
                                                     </label>
                                                 </div>
@@ -1317,16 +1070,14 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="lokal"
-                                                        name="lokal" value="Trama Lokal yang Parah">
+                                                    <input type="checkbox" class="form-check-input" id="lokal" name="lokal" value="Trama Lokal yang Parah">
                                                     <label class="form-check-label" for="exampleCheck1">Trama Lokal
                                                         yang Parah</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-2 ">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="gangguan"
-                                                        name="gangguan" value="Gangguan Sensasi, Nadi pada Tungkai">
+                                                    <input type="checkbox" class="form-check-input" id="gangguan" name="gangguan" value="Gangguan Sensasi, Nadi pada Tungkai">
                                                     <label class="form-check-label" for="exampleCheck1">Gangguan
                                                         Sensasi, Nadi pada
                                                         Tungkai
@@ -1335,8 +1086,7 @@
                                             </div>
                                             <div class="col-md-2 ">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="terauma1"
-                                                        name="terauma1" value="Trauma Tungkai Ringan">
+                                                    <input type="checkbox" class="form-check-input" id="terauma1" name="terauma1" value="Trauma Tungkai Ringan">
                                                     <label class="form-check-label" for="exampleCheck1">Trauma Tungkai
                                                         Ringan
                                                     </label>
@@ -1344,8 +1094,7 @@
                                             </div>
                                             <div class="col-md-2 ">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="psikiatri"
-                                                        name="psikiatri" value="Pasien Psikiatri Kronis">
+                                                    <input type="checkbox" class="form-check-input" id="psikiatri" name="psikiatri" value="Pasien Psikiatri Kronis">
                                                     <label class="form-check-label" for="exampleCheck1">Pasien
                                                         Psikiatri Kronis
                                                     </label>
@@ -1368,17 +1117,14 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="racun"
-                                                        name="racun" value="Racun/bisa/obat resiko tinggi">
-                                                    <label class="form-check-label"
-                                                        for="exampleCheck1">Racun/bisa/obat resiko
+                                                    <input type="checkbox" class="form-check-input" id="racun" name="racun" value="Racun/bisa/obat resiko tinggi">
+                                                    <label class="form-check-label" for="exampleCheck1">Racun/bisa/obat resiko
                                                         tinggi</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-2 ">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="psikosis"
-                                                        name="psikosis" value="Gelisah Psikosis">
+                                                    <input type="checkbox" class="form-check-input" id="psikosis" name="psikosis" value="Gelisah Psikosis">
                                                     <label class="form-check-label" for="exampleCheck1">Gelisah
                                                         Psikosis
                                                     </label>
@@ -1386,8 +1132,7 @@
                                             </div>
                                             <div class="col-md-2 ">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="radang"
-                                                        name="radang" value="Peradangan Sendi">
+                                                    <input type="checkbox" class="form-check-input" id="radang" name="radang" value="Peradangan Sendi">
                                                     <label class="form-check-label" for="exampleCheck1">Peradangan
                                                         Sendi
                                                     </label>
@@ -1415,8 +1160,7 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="ngamuk"
-                                                        name="ngamuk" value="Pasien Psikiatri Mengamuk">
+                                                    <input type="checkbox" class="form-check-input" id="ngamuk" name="ngamuk" value="Pasien Psikiatri Mengamuk">
                                                     <label class="form-check-label" for="exampleCheck1">Pasien
                                                         Psikiatri
                                                         Mengamuk</label>
@@ -1424,9 +1168,7 @@
                                             </div>
                                             <div class="col-md-2 ">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="defisit"
-                                                        name="defisit"
-                                                        value="Defisit neurologis akut dan sub akut ( < 7 hari sampai dengan 3 minggu )">
+                                                    <input type="checkbox" class="form-check-input" id="defisit" name="defisit" value="Defisit neurologis akut dan sub akut ( < 7 hari sampai dengan 3 minggu )">
                                                     <label class="form-check-label" for="exampleCheck1">Defisit
                                                         neurologis akut dan
                                                         sub akut ( < 7 hari sampai dengan 3 minggu ) </label>
@@ -1434,8 +1176,7 @@
                                             </div>
                                             <div class="col-md-2 ">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="reaksi"
-                                                        name="reaksi" value="Reaksi Konversi">
+                                                    <input type="checkbox" class="form-check-input" id="reaksi" name="reaksi" value="Reaksi Konversi">
                                                     <label class="form-check-label" for="exampleCheck1">Reaksi
                                                         Konversi
                                                     </label>
@@ -1463,9 +1204,7 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="defisit1"
-                                                        name="defisit1"
-                                                        value="Defisit neurologi hiper akut ( < 3 hari) ">
+                                                    <input type="checkbox" class="form-check-input" id="defisit1" name="defisit1" value="Defisit neurologi hiper akut ( < 3 hari) ">
                                                     <label class="form-check-label" for="exampleCheck1">Defisit
                                                         neurologi hiper akut
                                                         ( < 3 hari) </label>
@@ -1503,9 +1242,7 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="kejang1"
-                                                        name="kejang1"
-                                                        value="Riwayat kejang bertambah sering ≥ 5 x sehari ">
+                                                    <input type="checkbox" class="form-check-input" id="kejang1" name="kejang1" value="Riwayat kejang bertambah sering ≥ 5 x sehari ">
                                                     <label class="form-check-label" for="exampleCheck1">Riwayat
                                                         kejang bertambah
                                                         sering ≥ 5 x sehari </label>
@@ -1543,9 +1280,7 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="nyeri3"
-                                                        name="nyeri3"
-                                                        value="Nyeri Kepala heba mendadak (VAS ≥ 8) ">
+                                                    <input type="checkbox" class="form-check-input" id="nyeri3" name="nyeri3" value="Nyeri Kepala heba mendadak (VAS ≥ 8) ">
                                                     <label class="form-check-label" for="exampleCheck1">Nyeri Kepala
                                                         heba mendadak
                                                         (VAS ≥ 8) </label>
@@ -1575,264 +1310,1408 @@
                     </div>
 
                 </div>
-                {{--
-                <button class="btn btn-secondary triasedewasa" style="margin-bottom: 10px; margin-top:10px"><i
-                        class="fas fa-male mr-2"></i> Triase Dewasa</button>
-                <button class="btn btn-secondary triaseanak" style="margin-bottom: 10px; margin-top:10px"><i
-                        class="fas fa-child mr-2"></i> Triase Anak</button> --}}
+
 
                 <!-- triase ats  -->
                 <div class="triaseview">
 
                 </div>
-                <!-- triase   -->
-                {{-- <div class="accordion" id="accordionExample1" style="margin-top: 10px;">
+
+
+
+                @else
+                <!-- skrining pasien -->
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td class="text-bold font-italic">Nama pasien</td>
+                            <td colspan="3">
+
+                                <textarea class="form-control" id="namapasien" name="namapasien">{{$triase[0]->nama_pasien}}</textarea>
+
+                            </td>
+                        </tr>
+                        <tr hidden="">
+                            <td class="text-bold font-italic">Tanggal Kunjungan</td>
+                            <td><input readonly="" type="text" name="tanggalkunjungan" class="form-control" value="2023-09-07 07:43:55"></td>
+                            <td class="text-bold font-italic">Tanggal Assesmen</td>
+                            <td><input type="text" name="tanggalassesmen" class="form-control datepicker" data-date-format="yyyy-mm-dd"></td>
+                        </tr>
+                        <tr>
+                            <td class="text-bold font-italic">Sumber Data</td>
+                            <td colspan="3">
+                                @if ($triase[0]->sumber_data == 'Pasien Sendiri')
+
+                                <div class="form-check form-check-inline">
+                                    <input checked class="form-check-input" type="radio" name="sumberdata" id="sumberdata" value="Pasien Sendiri">
+                                    <label class="form-check-label" for="inlineRadio1">Pasien Sendiri /
+                                        Autoanamase</label>
+                                </div>
+                                @else
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="sumberdata" id="sumberdata" value="Pasien Sendiri">
+                                    <label class="form-check-label" for="inlineRadio1">Pasien Sendiri /
+                                        Autoanamase</label>
+                                </div>
+                                @endif
+                                @if ($triase[0]->sumber_data == 'Keluarga')
+                                <div class="form-check form-check-inline">
+                                    <input checked class="form-check-input" type="radio" name="sumberdata" id="sumberdata" value="Keluarga">
+                                    <label class="form-check-label" for="inlineRadio2">Keluarga / Alloanamnesa</label>
+                                </div>
+                                @else
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="sumberdata" id="sumberdata" value="Keluarga">
+                                    <label class="form-check-label" for="inlineRadio2">Keluarga / Alloanamnesa</label>
+                                </div>
+                                @endif
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-bold font-italic">Klasifikasi pasien</td>
+                            <td colspan="3">
+                                @if ($triase[0]->klasifikasi_pasien == 'IGD')
+                                <div class="form-check form-check-inline">
+                                    <input checked class="form-check-input" type="radio" name="klasifikasipasien" id="klasifikasipasien" value="IGD">
+                                    <label class="form-check-label" for="inlineRadio1">IGD</label>
+                                </div>
+                                @else
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="klasifikasipasien" id="klasifikasipasien" value="IGD">
+                                    <label class="form-check-label" for="inlineRadio1">IGD</label>
+                                </div>
+                                @endif
+                                @if ($triase[0]->klasifikasi_pasien == 'IGK')
+                                <div class="form-check form-check-inline">
+                                    <input checked class="form-check-input" type="radio" name="klasifikasipasien" id="klasifikasipasien" value="IGK">
+                                    <label class="form-check-label" for="inlineRadio2">IGD KEBIDANAN</label>
+                                </div>
+                                @else
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="klasifikasipasien" id="klasifikasipasien" value="IGK">
+                                    <label class="form-check-label" for="inlineRadio2">IGD KEBIDANAN</label>
+                                </div>
+                                @endif
+                                @if ($triase[0]->klasifikasi_pasien == 'PULANG')
+
+                                <div class="form-check form-check-inline">
+                                    <input checked class="form-check-input" type="radio" name="klasifikasipasien" id="klasifikasipasien" value="PULANG">
+                                    <label class="form-check-label" for="inlineRadio2">Pulang</label>
+                                </div>
+                                @else
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="klasifikasipasien" id="klasifikasipasien" value="PULANG">
+                                    <label class="form-check-label" for="inlineRadio2">Pulang</label>
+                                </div>
+                                @endif
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <div class="accordion " id="accordionExample">
 
                     <div class="card-header bg-secondary" id="headingOne">
                         <h2 class="mb-0">
-                            <button class="btn btn-link btn-block text-left text-light font-weight" type="button"
-                                data-toggle="collapse" data-target="#collapseOne1" aria-expanded="true"
-                                aria-controls="collapseOne1">
-                                <i class="bi bi-ticket-detailed mr-1 ml-1"></i> TRIASE
+                            <button class="btn btn-link btn-block text-left text-light font-weight" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Triase (ATS : Australian Triage Scale)
+                                DEWASA
                             </button>
                         </h2>
                     </div>
 
-                    <div id="collapseOne1" class="collapse" aria-labelledby="headingOne"
-                        data-parent="#accordionExample1">
-                        <div class="card-body bg-light">
+                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
 
-                            <table class="table">
-                                <tbody>
-                                    <tr>
-                                        <td class="text-bold font-italic">kesadaran : </td>
 
-                                        <td>
-                                            <div class="form-group form-check">
-                                                <input type="checkbox" class="form-check-input" id="kesadaran_lain"
-                                                    name="kesadaran_lain" value="Compos Mentis">
-                                                <label class="form-check-label" for="exampleCheck1">Compos Mentis
-                                                </label>
+
+
+                        <table class=" table">
+                            <tbody>
+                                <tr>
+                                    <td class="text-bold ">KATEGORI TRIASE </td>
+
+                                    <td>
+
+                                        <div class="row">
+                                            @if ($triase[0]->kategori_triase == 'Medikal')
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <input checked type="checkbox" class="form-check-input" id="kategoritriase" name="kategoritriase" value="Medikal">
+                                                    <label class="form-check-label" for="exampleCheck1">Medikal</label>
+                                                </div>
                                             </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-group form-check">
-                                                <input type="checkbox" class="form-check-input" id="kesadaran_lain"
-                                                    name="kesadaran_lain" value="Letargik">
-                                                <label class="form-check-label" for="exampleCheck1">Letargik
-                                                </label>
+                                            @else
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="kategoritriase" name="kategoritriase" value="Medikal">
+                                                    <label class="form-check-label" for="exampleCheck1">Medikal</label>
+                                                </div>
                                             </div>
-                                        </td>
-
-
-                                    </tr>
-
-                                    <tr>
-                                        <td colspan="4">
-
-                                            <textarea class="form-control" id="kesadaran_lain" name="kesadaran_lain" placeholder=""></textarea>
-
-                                        </td>
-                                    </tr>
-
-
-                                    <tr>
-                                        <td class="text-bold font-italic">Status Psikologi</td>
-
-                                        <td>
-                                            <div class="form-group form-check">
-                                                <input type="checkbox" class="form-check-input" id="statusps"
-                                                    name="statusps" value="Marah">
-                                                <label class="form-check-label" for="exampleCheck1">Marah
-                                                </label>
+                                            @endif
+                                            @if ($triase[0]->kategori_triase == 'Bedah Paru')
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <input checked type="checkbox" class="form-check-input" id="kategoritriase" name="kategoritriase" value="Bedah Paru">
+                                                    <label class="form-check-label" for="exampleCheck1">Bedah
+                                                        Paru</label>
+                                                </div>
                                             </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-group form-check">
-                                                <input type="checkbox" class="form-check-input" id="statusps"
-                                                    name="statusps" value="Depresi">
-                                                <label class="form-check-label" for="exampleCheck1">Depresi
-                                                </label>
+                                            @else
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="kategoritriase" name="kategoritriase" value="Bedah Paru">
+                                                    <label class="form-check-label" for="exampleCheck1">Bedah
+                                                        Paru</label>
+                                                </div>
                                             </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-group form-check">
-                                                <input type="checkbox" class="form-check-input" id="statusps"
-                                                    name="statusps" value="Takut">
-                                                <label class="form-check-label" for="exampleCheck1">Takut
-                                                </label>
+                                            @endif
+                                            @if ($triase[0]->kategori_triase == 'Obgyn')
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <input checked type="checkbox" class="form-check-input" id="kategoritriase" name="kategoritriase" value="Obgyn">
+                                                    <label class="form-check-label" for="exampleCheck1">Obgyn
+                                                    </label>
+                                                </div>
                                             </div>
-                                        </td>
-
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td>
-                                            <div class="form-group form-check">
-                                                <input type="checkbox" class="form-check-input" id="statusps"
-                                                    name="statusps" value="Gelisah">
-                                                <label class="form-check-label" for="exampleCheck1">Gelisah
-                                                </label>
+                                            @else
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="kategoritriase" name="kategoritriase" value="Obgyn">
+                                                    <label class="form-check-label" for="exampleCheck1">Obgyn
+                                                    </label>
+                                                </div>
                                             </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-group form-check">
-                                                <input type="checkbox" class="form-check-input" id="statusps"
-                                                    name="statusps" value="Psikotik">
-                                                <label class="form-check-label" for="exampleCheck1">Psikotik
-                                                </label>
+                                            @endif
+                                            @if ($triase[0]->kategori_triase == 'Anak')
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <input checked type="checkbox" class="form-check-input" id="kategoritriase" name="kategoritriase" value="Anak">
+                                                    <label class="form-check-label" for="exampleCheck1">Anak
+                                                    </label>
+                                                </div>
                                             </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-group form-check">
-                                                <input type="checkbox" class="form-check-input" id="statusps"
-                                                    name="statusps" value="Cemas">
-                                                <label class="form-check-label" for="exampleCheck1">Cemas
-                                                </label>
+                                            @else
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="kategoritriase" name="kategoritriase" value="Anak">
+                                                    <label class="form-check-label" for="exampleCheck1">Anak
+                                                    </label>
+                                                </div>
                                             </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td>
-                                            <div class="form-group form-check">
-                                                <input type="checkbox" class="form-check-input" id="statusps"
-                                                    name="statusps" value="Kecenderungan bunuh diri">
-                                                <label class="form-check-label" for="exampleCheck1">Kecenderungan
-                                                    bunuh diri
-                                                </label>
+                                            @endif
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold">PEMERIKSAAN</td>
+
+                                    <td>
+
+                                        <div class="row">
+                                            <div class="col-md-2 bg-danger">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="jenisats" name="jenisats" value="ATS1 Resusitasi">
+                                                    <label class="form-check-label" for="exampleCheck1">ATS1
+                                                        <br>Resusitasi</label>
+                                                </div>
                                             </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-group form-check">
-                                                <input type="checkbox" class="form-check-input" id="statusps"
-                                                    name="statusps" value="Tidak Ada Masalah">
-                                                <label class="form-check-label" for="exampleCheck1">Tidak Ada Masalah
-                                                </label>
+                                            <div class="col-md-2" style="background-color: chocolate;">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="jenisats" name="jenisats" value="ATS2 Emergency">
+                                                    <label class="form-check-label" for="exampleCheck1">ATS2 <br>
+                                                        Emergency</label>
+                                                </div>
                                             </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-group form-check">
-                                                <input type="checkbox" class="form-check-input" id="statusps"
-                                                    name="statusps" value="lain-lain">
-                                                <label class="form-check-label" for="exampleCheck1">lain-lain <input
-                                                        type="text">
-                                                </label>
+                                            <div class="col-md-2 bg-warning">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="jenisats" name="jenisats" value="ATS3 Urgent">
+                                                    <label class="form-check-label" for="exampleCheck1">ATS3 <br>
+                                                        Urgent
+                                                    </label>
+                                                </div>
                                             </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-bold font-italic">Keluhan Utama</td>
-                                        <td colspan="4">
+                                            <div class="col-md-2 bg-success">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="jenisats" name="jenisats" value="ATS4 Non Urgent">
+                                                    <label class="form-check-label" for="exampleCheck1">ATS4 <br> Non
+                                                        Urgent
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 bg-primary">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="jenisats" name="jenisats" value="ATS5 False Emergency">
+                                                    <label class="form-check-label" for="exampleCheck1">ATS5 <br>
+                                                        False Emergency
+                                                    </label>
+                                                </div>
+                                            </div>
 
-                                            <textarea class="form-control" id="kelut" name="kelut" placeholder=""></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold">RESPON</td>
 
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-bold font-italic">Pemeriksaan Fisik (Temuan Signifikan) :</td>
-                                        <td colspan="4">
+                                    <td>
 
-                                            <textarea class="form-control" id="pemfis" name="pemfis" placeholder=""></textarea>
+                                        <div class="row">
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
 
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-bold font-italic">Diagnosa Triase :</td>
-                                        <td colspan="4">
+                                                    <label class="form-check-label" for="exampleCheck1">Segera</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <label class="form-check-label" for="exampleCheck1">10 Menit
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <label class="form-check-label" for="exampleCheck1">30 Menit
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <label class="form-check-label" for="exampleCheck1">60 Menit
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <label class="form-check-label" for="exampleCheck1">120 Menit
+                                                    </label>
+                                                </div>
+                                            </div>
 
-                                            <textarea class="form-control" id="ditri" name="ditri" placeholder=""></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold">KESADARAN</td>
 
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-bold font-italic">Tata Laksana :</td>
-                                        <td colspan="4">
+                                    <td>
 
-                                            <textarea class="form-control" id="talak" name="talak" placeholder=""></textarea>
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="gcs1" name="gcs1" value="GCS < 9">
+                                                    <label class="form-check-label" for="exampleCheck1">GCS < 9</label>
+                                                </div>
 
-                                        </td>
-                                    </tr>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="gcs2" name="gcs2" value="GCS 9 - 12">
+                                                    <label class="form-check-label" for="exampleCheck1">GCS 9 -
+                                                        12</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="gcs3" name="gcs3" value="GCS > 12">
+                                                    <label class="form-check-label" for="exampleCheck1">GCS > 12
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="gcs4" name="gcs4" value="GCS 15">
+                                                    <label class="form-check-label" for="exampleCheck1">GCS 15
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="gcs5" name="gcs5" value="GCS 15">
+                                                    <label class="form-check-label" for="exampleCheck1">GCS 15
+                                                    </label>
+                                                </div>
+                                            </div>
 
-                                </tbody>
-                            </table>
-                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold"></td>
+
+                                    <td>
+
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="kejang" name="kejang" value="Kejang">
+                                                    <label class="form-check-label" for="exampleCheck1">Kejang</label>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="letargis" name="letargis" value="Letargis">
+                                                    <label class="form-check-label" for="exampleCheck1">Letargis</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="traumakepala" name="traumakepala" value="Trauma Kepala Riwayat Pingsan">
+                                                    <label class="form-check-label" for="exampleCheck1">Trauma Kepala
+                                                        Riwayat Pingsan
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="traumakepalakurang" name="traumakepalakurang" value="Trauma Kepala Riwayat Pingsan (-)">
+                                                    <label class="form-check-label" for="exampleCheck1">Trauma Kepala
+                                                        Riwayat Pingsan
+                                                        (-)
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <label class="form-check-label" for="exampleCheck1">
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold"></td>
+
+                                    <td>
+
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="tidakrespon" name="tidakrespon" value="Tidak Ada Respon">
+                                                    <label class="form-check-label" for="exampleCheck1">Tidak Ada
+                                                        Respon</label>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <label class="form-check-label" for="exampleCheck1"></label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="somnolen" name="somnolen" value="Somnolen">
+                                                    <label class="form-check-label" for="exampleCheck1">Somnolen
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <label class="form-check-label" for="exampleCheck1">
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <label class="form-check-label" for="exampleCheck1">
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold"></td>
+
+                                    <td>
+
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <label class="form-check-label" for="exampleCheck1"></label>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <label class="form-check-label" for="exampleCheck1"></label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="paskakejang" name="paskakejang" value="Paska Kejang">
+                                                    <label class="form-check-label" for="exampleCheck1">Paska Kejang
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <label class="form-check-label" for="exampleCheck1">
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <label class="form-check-label" for="exampleCheck1">
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold">JALAN NAFAS</td>
+
+                                    <td>
+
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="sumbatantotal" name="sumbatantotal" value="Sumbatan Total">
+                                                    <label class="form-check-label" for="exampleCheck1">Sumbatan
+                                                        Total</label>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="sumbatanparsial" name="sumbatanparsial" value="Sumbatan Parsial">
+                                                    <label class="form-check-label" for="exampleCheck1">Sumbatan
+                                                        Parsial</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="bebas1" name="bebas1" value="Bebas">
+                                                    <label class="form-check-label" for="exampleCheck1">Bebas
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="bebas2" name="bebas2" value="Bebas">
+                                                    <label class="form-check-label" for="exampleCheck1">Bebas
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="bebas3" name="bebas3" value="Bebas">
+                                                    <label class="form-check-label" for="exampleCheck1">Bebas
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold">PERNAFASAN</td>
+
+                                    <td>
+
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="hentinafas" name="hentinafas" value="Henti Nafas">
+                                                    <label class="form-check-label" for="exampleCheck1">Henti
+                                                        Nafas</label>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="distrespenafasan" name="distrespenafasan" value="Distres Pernafasan">
+                                                    <label class="form-check-label" for="exampleCheck1">Distres
+                                                        Pernafasan</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="sesaknafas" name="sesaknafas" value="Sesak Nafas">
+                                                    <label class="form-check-label" for="exampleCheck1">Sesak Nafas
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="freknafas" name="freknafas" value="Frek Nafas Normal">
+                                                    <label class="form-check-label" for="exampleCheck1">Frek Nafas
+                                                        Normal
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="freknafas1" name="freknafas1" value="Frek Nafas Normal">
+                                                    <label class="form-check-label" for="exampleCheck1">Frek Nafas
+                                                        Normal
+                                                    </label>
+                                                </div>
+                                            </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold"></td>
+
+                                    <td>
+
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="rr" name="rr" value="RR < 10 x/menit">
+                                                    <label class="form-check-label" for="exampleCheck1">RR < 10 x/menit</label>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <label class="form-check-label" for="exampleCheck1"></label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="SaO2" name="SaO2" value="SaO2">
+                                                    <label class="form-check-label" for="exampleCheck1">SaO2 90 - 95%
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+
+                                                    <label class="form-check-label" for="exampleCheck1">
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <label class="form-check-label" for="exampleCheck1">
+                                                    </label>
+                                                </div>
+                                            </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold"></td>
+
+                                    <td>
+
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="sianosis" name="sianosis" value="Sianosis">
+                                                    <label class="form-check-label" for="exampleCheck1">Sianosis</label>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <label class="form-check-label" for="exampleCheck1"></label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <label class="form-check-label" for="exampleCheck1">
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+
+                                                    <label class="form-check-label" for="exampleCheck1">
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <label class="form-check-label" for="exampleCheck1">
+                                                    </label>
+                                                </div>
+                                            </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold">SIRKULASI</td>
+
+                                    <td>
+
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="hentijantung" name="hentijantung" value="Henti Jantung">
+                                                    <label class="form-check-label" for="exampleCheck1">Henti
+                                                        Jantung</label>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="naditerabalemah" name="naditerabalemah" value="Nadi Teraba Lemah">
+                                                    <label class="form-check-label" for="exampleCheck1">Nadi Teraba
+                                                        Lemah</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="muntahpasien" name="muntahpasien" value="Muntah Pasien">
+                                                    <label class="form-check-label" for="exampleCheck1">Muntah Pasien
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="nadikuat" name="nadikuat" value="Nadi Kuat">
+                                                    <label class="form-check-label" for="exampleCheck1">Nadi Kuat
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="nadikuat1" name="nadikuat1" value="Nadi Kuat">
+                                                    <label class="form-check-label" for="exampleCheck1">Nadi Kuat
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold"></td>
+
+                                    <td>
+
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="naditidakteraba" name="naditidakteraba" value="Nadi Tidak Teraba">
+                                                    <label class="form-check-label" for="exampleCheck1">Nadi Tidak
+                                                        Teraba</label>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="hr1" name="hr1" value="HR < 50x/menit">
+                                                    <label class="form-check-label" for="exampleCheck1">HR < 50x/menit</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="takikardia" name="takikardia" value="Takikardia">
+                                                    <label class="form-check-label" for="exampleCheck1">Takikardia
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="freknadinormal" name="freknadinormal" value="Frek Nadi Normal">
+                                                    <label class="form-check-label" for="exampleCheck1">Frek Nadi
+                                                        Normal
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="freknadinormal1" name="freknadinormal1" value="Frek Nadi Normal">
+                                                    <label class="form-check-label" for="exampleCheck1">Frek Nadi
+                                                        Normal
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold"></td>
+
+                                    <td>
+
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="akraldingin" name="akraldingin" value="Akral Dingin">
+                                                    <label class="form-check-label" for="exampleCheck1">Akral
+                                                        Dingin</label>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="hr2" name="hr2" value="HR > 150x/menit">
+                                                    <label class="form-check-label" for="exampleCheck1">HR >
+                                                        150x/menit</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="tds" name="tds" value="TDS > 180">
+                                                    <label class="form-check-label" for="exampleCheck1">TDS > 180
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="tds1" name="tds1" value="TDS 100 - 120">
+                                                    <label class="form-check-label" for="exampleCheck1">TDS 100 - 120
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="tds2" name="tds2" value="TDS 100 - 120">
+                                                    <label class="form-check-label" for="exampleCheck1">TDS 100 - 120
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold"></td>
+
+                                    <td>
+
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <label class="form-check-label" for="exampleCheck1"></label>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="pucat" name="pucat" value="Pucat">
+                                                    <label class="form-check-label" for="exampleCheck1">Pucat</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="tdd" name="tdd" value="TDD > 120">
+                                                    <label class="form-check-label" for="exampleCheck1">TDD > 120
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="tdd1" name="tdd1" value="TDD 70 - 90">
+                                                    <label class="form-check-label" for="exampleCheck1">TDD 70 - 90
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="tdd2" name="tdd2" value="TDD 70 - 90">
+                                                    <label class="form-check-label" for="exampleCheck1">TDD 70 - 90
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold"></td>
+
+                                    <td>
+
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <label class="form-check-label" for="exampleCheck1"></label>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="akraldingin1" name="akraldingin1" value="Akral Dingin">
+                                                    <label class="form-check-label" for="exampleCheck1">Akral
+                                                        Dingin</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="pendarahan" name="pendarahan" value="Pendarahan">
+                                                    <label class="form-check-label" for="exampleCheck1">Pendarahan
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="muntah1" name="muntah1" value="Muntah Atau Diare tanpa Dehidrasi">
+                                                    <label class="form-check-label" for="exampleCheck1">Muntah Atau
+                                                        Diare tanpa
+                                                        Dehidrasi
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold"></td>
+
+                                    <td>
+
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <label class="form-check-label" for="exampleCheck1"></label>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="crt" name="crt" value="CRT > 2 detik">
+                                                    <label class="form-check-label" for="exampleCheck1">CRT > 2
+                                                        detik</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold"></td>
+
+                                    <td>
+
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <label class="form-check-label" for="exampleCheck1"></label>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="diastolik" name="diastolik" value="Diastolik < 80">
+                                                    <label class="form-check-label" for="exampleCheck1">Diastolik < 80</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold"></td>
+
+                                    <td>
+
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <label class="form-check-label" for="exampleCheck1"></label>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="pendarahan1" name="pendarahan1" value="Pendarahan Hebat">
+                                                    <label class="form-check-label" for="exampleCheck1">Pendarahan
+                                                        Hebat</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold"> GEJALA SPESIFIK</td>
+
+                                    <td>
+
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <label class="form-check-label" for="exampleCheck1"></label>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="nyeri" name="nyeri" value="Nyeri Dada">
+                                                    <label class="form-check-label" for="exampleCheck1">Nyeri
+                                                        Dada</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="demam" name="demam" value="Demam, pasien imunosupersi">
+                                                    <label class="form-check-label" for="exampleCheck1">Demam, pasien
+                                                        imunosupersi
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="aspirasi" name="aspirasi" value="Aspirasi, tanpa sesak">
+                                                    <label class="form-check-label" for="exampleCheck1">Aspirasi,
+                                                        tanpa sesak
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="nyeri1" name="nyeri1" value="Nyeri Ringan">
+                                                    <label class="form-check-label" for="exampleCheck1">Nyeri Ringan
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold"></td>
+
+                                    <td>
+
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <label class="form-check-label" for="exampleCheck1"></label>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="sepsis" name="sepsis" value="Sepsis">
+                                                    <label class="form-check-label" for="exampleCheck1">Sepsis</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="nyeri2" name="nyeri2" value="Nyeri sedang - berat">
+                                                    <label class="form-check-label" for="exampleCheck1">Nyeri sedang -
+                                                        berat
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="trauma1" name="trauma1" value="Trauma Dada/Nyeri tanpa sesak">
+                                                    <label class="form-check-label" for="exampleCheck1">Trauma
+                                                        Dada/Nyeri tanpa sesak
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="luka" name="luka" value="Luka Kecil">
+                                                    <label class="form-check-label" for="exampleCheck1">Luka Kecil
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold"></td>
+
+                                    <td>
+
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <label class="form-check-label" for="exampleCheck1"></label>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="nyeri3" name="nyeri3" value="Nyeri Hebat">
+                                                    <label class="form-check-label" for="exampleCheck1">Nyeri
+                                                        Hebat</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="kolik" name="kolik" value="Kolik Abdomen">
+                                                    <label class="form-check-label" for="exampleCheck1">Kolik Abdomen
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="sulit" name="sulit" value="Sulit menelan/nyeri/tanpa sesak">
+                                                    <label class="form-check-label" for="exampleCheck1">Sulit
+                                                        menelan/nyeri/tanpa
+                                                        sesak
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="kontrol" name="kontrol" value="Pasien Kontrol">
+                                                    <label class="form-check-label" for="exampleCheck1">Pasien Kontrol
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold"></td>
+
+                                    <td>
+
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <label class="form-check-label" for="exampleCheck1"></label>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="multiple" name="multiple" value="Multiple Trauma">
+                                                    <label class="form-check-label" for="exampleCheck1">Multiple
+                                                        Trauma</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="terauma" name="terauma" value="Trauma Tungkai - Deformitas laserasi parah, Crush">
+                                                    <label class="form-check-label" for="exampleCheck1">Trauma Tungkai
+                                                        - Deformitas
+                                                        laserasi parah, Crush
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="sedang1" name="sedang1" value="Nyeri Sedang">
+                                                    <label class="form-check-label" for="exampleCheck1">Nyeri Sedang
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="imunisasi" name="imunisasi" value="Imunisasi">
+                                                    <label class="form-check-label" for="exampleCheck1">Imunisasi
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold"></td>
+
+                                    <td>
+
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <label class="form-check-label" for="exampleCheck1"></label>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="lokal" name="lokal" value="Trama Lokal yang Parah">
+                                                    <label class="form-check-label" for="exampleCheck1">Trama Lokal
+                                                        yang Parah</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="gangguan" name="gangguan" value="Gangguan Sensasi, Nadi pada Tungkai">
+                                                    <label class="form-check-label" for="exampleCheck1">Gangguan
+                                                        Sensasi, Nadi pada
+                                                        Tungkai
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="terauma1" name="terauma1" value="Trauma Tungkai Ringan">
+                                                    <label class="form-check-label" for="exampleCheck1">Trauma Tungkai
+                                                        Ringan
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="psikiatri" name="psikiatri" value="Pasien Psikiatri Kronis">
+                                                    <label class="form-check-label" for="exampleCheck1">Pasien
+                                                        Psikiatri Kronis
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold"></td>
+
+                                    <td>
+
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <label class="form-check-label" for="exampleCheck1"></label>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="racun" name="racun" value="Racun/bisa/obat resiko tinggi">
+                                                    <label class="form-check-label" for="exampleCheck1">Racun/bisa/obat resiko
+                                                        tinggi</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="psikosis" name="psikosis" value="Gelisah Psikosis">
+                                                    <label class="form-check-label" for="exampleCheck1">Gelisah
+                                                        Psikosis
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="radang" name="radang" value="Peradangan Sendi">
+                                                    <label class="form-check-label" for="exampleCheck1">Peradangan
+                                                        Sendi
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+
+                                                </div>
+                                            </div>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold"></td>
+
+                                    <td>
+
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <label class="form-check-label" for="exampleCheck1"></label>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="ngamuk" name="ngamuk" value="Pasien Psikiatri Mengamuk">
+                                                    <label class="form-check-label" for="exampleCheck1">Pasien
+                                                        Psikiatri
+                                                        Mengamuk</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="defisit" name="defisit" value="Defisit neurologis akut dan sub akut ( < 7 hari sampai dengan 3 minggu )">
+                                                    <label class="form-check-label" for="exampleCheck1">Defisit
+                                                        neurologis akut dan
+                                                        sub akut ( < 7 hari sampai dengan 3 minggu ) </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="reaksi" name="reaksi" value="Reaksi Konversi">
+                                                    <label class="form-check-label" for="exampleCheck1">Reaksi
+                                                        Konversi
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+
+                                                </div>
+                                            </div>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold"></td>
+
+                                    <td>
+
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <label class="form-check-label" for="exampleCheck1"></label>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="defisit1" name="defisit1" value="Defisit neurologi hiper akut ( < 3 hari) ">
+                                                    <label class="form-check-label" for="exampleCheck1">Defisit
+                                                        neurologi hiper akut
+                                                        ( < 3 hari) </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+
+                                                </div>
+                                            </div>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold"></td>
+
+                                    <td>
+
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <label class="form-check-label" for="exampleCheck1"></label>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="kejang1" name="kejang1" value="Riwayat kejang bertambah sering ≥ 5 x sehari ">
+                                                    <label class="form-check-label" for="exampleCheck1">Riwayat
+                                                        kejang bertambah
+                                                        sering ≥ 5 x sehari </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+
+                                                </div>
+                                            </div>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold"></td>
+
+                                    <td>
+
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <label class="form-check-label" for="exampleCheck1"></label>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input" id="nyeri3" name="nyeri3" value="Nyeri Kepala heba mendadak (VAS ≥ 8) ">
+                                                    <label class="form-check-label" for="exampleCheck1">Nyeri Kepala
+                                                        heba mendadak
+                                                        (VAS ≥ 8) </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <div class="form-group form-check">
+
+                                                </div>
+                                            </div>
+
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
                     </div>
 
                 </div>
 
-                <div class="accordion" id="accordionExample4" style="margin-top: 10px;">
-                    <div class="card">
-                        <div class="card-header bg-secondary" id="headingOne">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left text-light font-weight" type="button"
-                                    data-toggle="collapse" data-target="#collapseOne4" aria-expanded="true"
-                                    aria-controls="collapseOne4">
-                                    <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Keadaan Pasien Saat Keluar
-                                </button>
-                            </h2>
-                        </div>
 
-                        <div id="collapseOne4" class="collapse" aria-labelledby="headingOne"
-                            data-parent="#accordionExample4">
-                            <div class="card-body bg-light">
+                <!-- triase ats  -->
+                <div class="triaseview">
 
-                                <table class="table">
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="kondisi"
-                                                        name="kondisi" value="Sembuh">
-                                                    <label class="form-check-label" for="exampleCheck1">Sembuh
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="kondisi"
-                                                        name="kondisi" value="Tidak Sembuh">
-                                                    <label class="form-check-label" for="exampleCheck1">Tidak Sembuh
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="kondisi"
-                                                        name="kondisi" value="Perbaikan">
-                                                    <label class="form-check-label" for="exampleCheck1">Perbaikan
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="kondisi"
-                                                        name="kondisi" value="Meninggal">
-                                                    <label class="form-check-label" for="exampleCheck1">Meninggal
-                                                    </label>
-                                                </div>
-                                            </td>
-                                        </tr>
+                </div>
 
-                                        <tr>
-                                            <td colspan="4">
-
-                                                <textarea class="form-control" id="kondisi" name="kondisi" placeholder=""></textarea>
-
-                                            </td>
-                                        </tr>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div> --}}
+                @endif
 
                 <div type="button" class="btn float-right btn-success simpantriase" style="margin-top: 20px;">
                     SIMPAN
                 </div>
             </div>
+
         </form>
 
 
@@ -1841,7 +2720,6 @@
 </div>
 
 <script>
-
     $(".simpantriase").click(function() {
         var data = $('.formpemeriksaantriase').serializeArray();
         var antrian = $('#antrian').val()
