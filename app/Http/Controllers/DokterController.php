@@ -334,7 +334,8 @@ class DokterController extends Controller
         ts_layanan_header_igd a
         INNER JOIN ts_layanan_detail_igd b ON b.row_id_header = a.id
         WHERE a.kode_unit = ?
-        AND a.kode_kunjungan = ?', ['3003', $request->kj]);
+        AND a.kode_kunjungan = ?
+        AND a.status_order ="1"', ['3003', $request->kj]);
         $riwayatorderlab = DB::connection('mysql2')->select('SELECT
          a.no_rm,
          a.kode_layanan_header,
@@ -345,7 +346,8 @@ class DokterController extends Controller
          ts_layanan_header_igd a
          INNER JOIN ts_layanan_detail_igd b ON b.row_id_header = a.id
          WHERE a.kode_unit = ?
-         AND a.kode_kunjungan = ?', ['3002', $request->kj]);
+         AND a.kode_kunjungan = ?
+         AND a.status_order ="1"', ['3002', $request->kj]);
         $layananlab = DB::select("CALL SP_PANGGIL_TARIF_LAB('$kelas','')");
         $layanan = DB::select("CALL SP_CARI_TARIF_PELAYANAN_RAD('$ku','','$kelas')");
         $diagnosa = DB::select('SELECT * FROM mt_jenis_diagnosa_medis');
@@ -404,6 +406,8 @@ class DokterController extends Controller
          a.transfer_pasien
          FROM erm_cppt_perawat a
          WHERE a.kode_kunjungan = ?', [$kj]);
+        $resume = DB::connection('mysql2')->select('SELECT * FROM erm_cppt_perawat
+          WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $request->kj]);
         $resumedok = DB::connection('mysql2')->select('SELECT * FROM erm_cppt_dokter
         WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $request->kj]);
         $riwayatorderrad = DB::connection('mysql2')->select('SELECT
@@ -416,7 +420,8 @@ class DokterController extends Controller
         ts_layanan_header_igd a
         INNER JOIN ts_layanan_detail_igd b ON b.row_id_header = a.id
         WHERE a.kode_unit = ?
-        AND a.kode_kunjungan = ?', ['3003', $request->kj]);
+        AND a.kode_kunjungan = ?
+        AND a.status_order ="1"', ['3003', $request->kj]);
         $riwayatorderlab = DB::connection('mysql2')->select('SELECT
          a.no_rm,
          a.kode_layanan_header,
@@ -427,12 +432,14 @@ class DokterController extends Controller
          ts_layanan_header_igd a
          INNER JOIN ts_layanan_detail_igd b ON b.row_id_header = a.id
          WHERE a.kode_unit = ?
-         AND a.kode_kunjungan = ?', ['3002', $request->kj]);
+         AND a.kode_kunjungan = ?
+         AND a.status_order ="1"', ['3002', $request->kj]);
         return view(
             'dokter.resumecpptdokter',
             [
                 'title' => 'ERM DOKTER',
                 'resumedok' => $resumedok,
+                'resume' => $resume,
                 'hasil' => $hasil,
                 'riwayatorderrad' => $riwayatorderrad,
                 'riwayatorderlab' => $riwayatorderlab
@@ -1073,8 +1080,40 @@ class DokterController extends Controller
         echo json_encode($back);
         die;
     }
+
+    public function returorderradiologi(Request $request)
+    {
+        $kj = $request->kj;
+        $update = DB::connection('mysql2')->select('UPDATE  ts_layanan_header_igd
+        SET status_order = ?
+        WHERE kode_unit = ?
+        AND kode_kunjungan = ?', ['2', '3003', $kj]);
+
+        $back = [
+            'kode' => 200,
+            'message' => 'Berhasil'
+        ];
+        echo json_encode($back);
+        die;
+    }
+    public function returorderlaboratorium(Request $request)
+    {
+        $kj = $request->kj;
+        $update = DB::connection('mysql2')->select('UPDATE  ts_layanan_header_igd
+        SET status_order = ?
+        WHERE kode_unit = ?
+        AND kode_kunjungan = ?', ['2', '3002', $kj]);
+
+        $back = [
+            'kode' => 200,
+            'message' => 'Berhasil'
+        ];
+        echo json_encode($back);
+        die;
+    }
     public function updateassemen(Request $request)
     {
+
         $a = $request->all();
         $now = Carbon::now();
         $user = auth()->user()->id_simrs;
@@ -1087,23 +1126,441 @@ class DokterController extends Controller
         $primary = $request->primary;
         $secondary = $request->secondary;
         $diagnosa = $request->diagnosa;
-
-
+        $datarad = json_decode($_POST['datarad'], true);
+        $diagnosa = $request->diagnosa;
+        $ku = $request->ku;
         $kj = $request->kj;
         $norm = $request->norm;
 
-        $update = DB::connection('mysql2')->select('UPDATE erm_cppt_dokter
+
+        $dt = Carbon::now()->timezone('Asia/Jakarta');
+        $date = $dt->toDateString();
+        $time = $dt->toTimeString();
+        $now = Carbon::now();
+        $sp = 'OPN';
+        $kp = auth()->user()->kode_paramedis;
+        $kondisi = $request->kopul;
+        $jenispasien = $request->alpul;
+        //jenis pasien
+        if ($jenispasien == 'Pasien Anak') {
+            $jenispasien = '1';
+        } elseif ($jenispasien == 'Pasien Bedah') {
+            $jenispasien = '2';
+        } elseif ($jenispasien == 'Pasien Non Bedah') {
+            $jenispasien = '3';
+        } elseif ($jenispasien == 'Pasien Psikomatic') {
+            $jenispasien = '4';
+        } elseif ($jenispasien == 'Pasien Kebidanan') {
+            $jenispasien = '5';
+        } else {
+            $jenispasien = '0';
+        }
+
+        //kondisi
+        if ($kondisi == 'Dirawat') {
+            $kondisi = '1';
+        } elseif ($kondisi == 'BATAL DIRAWAT') {
+            $kondisi = '3';
+        } else {
+            $kondisi = '0';
+        }
+
+        try {
+
+            $update = DB::connection('mysql2')->select('UPDATE erm_cppt_dokter
         SET
         subyektif = ? , assesment = ?, primary_survey = ?, secondary_survey = ?, planning = ?, tiga_pertama = ?, tiga_kedua = ?, diagnosa = ?
         WHERE no_rm = ? AND kode_kunjungan = ?', [$subyektif, $assesment, $primary, $secondary, $planning, $tiga_pertama, $tiga_kedua, $diagnosa, $norm, $kj]);
 
 
-        $updatee = DB::connection('mysql2')->select('UPDATE ts_kunjungan
+            $updatee = DB::connection('mysql2')->select('UPDATE ts_kunjungan
     SET diagx = ?
     WHERE no_rm = ? AND kode_kunjungan = ?', [$diagnosa, $norm, $kj]);
-        dd($update);
+        } catch (\Exception $e) {
+            $back = [
+                'kode' => 200,
+                'message' => $e->getMessage()
+            ];
+            echo json_encode($back);
+            die;
+        }
+
+        try {
+            $datalab = json_decode($_POST['datalab'], true);
+            if ($datalab == null) {
+            } else {
+                foreach ($datalab as $nama) {
+                    $index = $nama['name'];
+                    $value = $nama['value'];
+                    $dataSet[$index] = $value;
+                    if ($index == 'cyto') {
+                        $arrayindex[] = $dataSet;
+                    }
+                }
+
+                $sum = 0;
+
+                foreach ($arrayindex as $arr) {
+                    $discount = $arr['disc'];
+                    $cyto = $arr['cyto'];
+                    $trf = array($arr['tarif']);
+                    $tarif =
+                        $sum += array_sum($trf);
+                    if ($cyto == 1) {
+                        if ($discount == $discount) {
+                            $a = $tarif + ($tarif * (50 / 100));
+
+                            $gt = $a - ($a * $discount / 100);
+                        } else {
+                            $gt = $tarif + ($tarif * (50 / 100));
+                        }
+                    } elseif ($discount == $discount) {
+                        $gt = $tarif - ($tarif * $discount / 100);
+                    } else {
+                        $gt = $tarif;
+                    }
+                }
+                $kode_header = $this->createOrderHeader();
+
+                if ($kp == 'P01') {
+                    if ($ku == '2') {
+                        $data_layanan_header = [
+                            'kode_layanan_header' => $kode_header,
+                            'tgl_entry' => $now,
+                            'tgl_periksa' => $now,
+                            'no_rm' => $request->norm,
+                            'kode_kunjungan' => $request->kj,
+                            'qty_header' => $dataSet['qty'],
+                            'keterangan' => 'PENDING',
+                            'unit_pengirim' => '1002',
+                            'diagnosa' => $request->diagnosa . ' ' . $request->diagnosa1,
+                            'dok_kirim' => $kp,
+                            'total_layanan' => $gt,
+                            'tagihan_pribadi' => $gt,
+                            'diskon_global' => $dataSet['disc'],
+                            'status_pembayaran' => $sp,
+                            'status_layanan' => 1,
+                            'kode_unit' => '3002',
+                            'kode_tipe_transaksi' => 2,
+                            'kode_penjaminx' => $request->kp,
+                            'pic' => $user,
+                        ];
+                        $head = ts_layanan_header_igd::create($data_layanan_header);
+                        $id_detail = $this->createLayanandetail();
+                        foreach ($arrayindex as $arr) {
+                            $savedetail = [
+                                'id_layanan_detail' => $id_detail,
+                                'kode_layanan_header' => $kode_header,
+                                'kode_tarif_detail' =>  $arr['kodelayanan'],
+                                'total_tarif' => $arr['tarif'],
+                                'jumlah_layanan' => $arr['qty'],
+                                'diskon_dokter' => $arr['disc'],
+                                'cyto' => $arr['cyto'],
+                                'total_layanan' => $arr['tarif'],
+                                'grantotal_layanan' => $arr['tarif'] * $arr['qty'],
+                                'status_layanan_detail' => 'OPN',
+                                'tgl_layanan_detail' => $now,
+                                'tagihan_pribadi' => $gt,
+                                'tgl_layanan_detail_2' => $now,
+                                'row_id_header' => $head['id']
+                            ];
+                            $ts_layanan_detail_igd = ts_layanan_detail_igd::create($savedetail);
+                        }
+                    } else {
+
+                        $data_layanan_header = [
+                            'kode_layanan_header' => $kode_header,
+                            'tgl_entry' => $now,
+                            'tgl_periksa' => $now,
+                            'no_rm' => $request->norm,
+                            'kode_kunjungan' => $request->kj,
+                            'qty_header' => $dataSet['qty'],
+                            'keterangan' => 'PENDING',
+                            'unit_pengirim' => '1002',
+                            'diagnosa' => $request->diagnosa . ' ' . $request->diagnosa1,
+                            'dok_kirim' => $kp,
+                            'total_layanan' => $gt,
+                            'tagihan_pribadi' => $gt,
+                            'diskon_global' => $dataSet['disc'],
+                            'status_pembayaran' => $sp,
+                            'status_layanan' => 1,
+                            'kode_unit' => '3002',
+                            'kode_tipe_transaksi' => 1,
+                            'kode_penjaminx' => $request->kp,
+                            'pic' => $user,
+                        ];
+                        $head = ts_layanan_header_igd::create($data_layanan_header);
+                        $id_detail = $this->createLayanandetail();
+                        foreach ($arrayindex as $arr) {
+                            $savedetail = [
+                                'id_layanan_detail' => $id_detail,
+                                'kode_layanan_header' => $kode_header,
+                                'kode_tarif_detail' =>  $arr['kodelayanan'],
+                                'total_tarif' => $arr['tarif'],
+                                'jumlah_layanan' => $arr['qty'],
+                                'diskon_dokter' => $arr['disc'],
+                                'cyto' => $arr['cyto'],
+                                'total_layanan' => $arr['tarif'],
+                                'grantotal_layanan' => $arr['tarif'] * $arr['qty'],
+                                'status_layanan_detail' => 'OPN',
+                                'tgl_layanan_detail' => $now,
+                                'tagihan_pribadi' => $gt,
+                                'tgl_layanan_detail_2' => $now,
+                                'row_id_header' => $head['id']
+                            ];
+                            $ts_layanan_detail_igd = ts_layanan_detail_igd::create($savedetail);
+                        }
+                    }
+                } else {
+                    $data_layanan_header = [
+                        'kode_layanan_header' => $kode_header,
+                        'tgl_entry' => $now,
+                        'tgl_periksa' => $now,
+                        'no_rm' => $request->norm,
+                        'kode_kunjungan' => $request->kj,
+                        'qty_header' => $dataSet['qty'],
+                        'keterangan' => 'PENDING',
+                        'unit_pengirim' => '1002',
+                        'diagnosa' => $request->diagnosa . ' ' . $request->diagnosa1,
+                        'dok_kirim' => $kp,
+                        'total_layanan' => $gt,
+                        'tagihan_pribadi' => $gt,
+                        'diskon_global' => $dataSet['disc'],
+                        'status_pembayaran' => $sp,
+                        'status_layanan' => 2,
+                        'kode_unit' => '3002',
+                        'kode_tipe_transaksi' => 2,
+                        'kode_penjaminx' => $request->kp,
+                        'pic' => $user,
+                    ];
+
+                    $head = ts_layanan_header_igd::create($data_layanan_header);
+                    $id_detail = $this->createLayanandetail();
+                    foreach ($arrayindex as $arr) {
+                        $savedetail = [
+                            'id_layanan_detail' => $id_detail,
+                            'kode_layanan_header' => $kode_header,
+                            'kode_tarif_detail' =>  $arr['kodelayanan'],
+                            'total_tarif' => $arr['tarif'],
+                            'jumlah_layanan' => $arr['qty'],
+                            'diskon_dokter' => $arr['disc'],
+                            'cyto' => $arr['cyto'],
+                            'total_layanan' => $arr['tarif'],
+                            'grantotal_layanan' => $arr['tarif'] * $arr['qty'],
+                            'status_layanan_detail' => 'OPN',
+                            'tgl_layanan_detail' => $now,
+                            'tagihan_penjamin' => $gt,
+                            'tgl_layanan_detail_2' => $now,
+                            'row_id_header' => $head['id']
+                        ];
+
+                        $ts_layanan_detail = ts_layanan_detail_igd::create($savedetail);
+                    }
+                }
+                $kode_header = $ts_layanan_detail['kode_layanan_header'];
+                $idhed = $ts_layanan_detail['row_id_header'];
+                $update = DB::connection('mysql2')->select('UPDATE ts_layanan_header_igd SET status_order = 2
+WHERE kode_kunjungan = ? AND no_rm = ?', [$request->kode_kunjungan, $request->norm]);
+            }
+        } catch (\Exception $e) {
+            $back = [
+                'kode' => 200,
+                'message' => $e->getMessage()
+            ];
+            echo json_encode($back);
+            die;
+        }
 
 
+
+        try {
+
+
+            $datarad = json_decode($_POST['datarad'], true);
+
+            if ($datarad == null) {
+            } else {
+                foreach ($datarad as $nama) {
+                    $index = $nama['name'];
+                    $value = $nama['value'];
+                    $dataSetr[$index] = $value;
+                    if ($index == 'cyto') {
+                        $arrayindexr[] = $dataSetr;
+                    }
+                }
+
+                $sum = 0;
+
+                foreach ($arrayindexr as $arr) {
+                    $discount = $arr['disc'];
+                    $cyto = $arr['cyto'];
+                    $trf = array($arr['tarif']);
+                    $tarif =
+                        $sum += array_sum($trf);
+                    if ($cyto == 1) {
+                        if ($discount == $discount) {
+                            $a = $tarif + ($tarif * (50 / 100));
+
+                            $gt = $a - ($a * $discount / 100);
+                        } else {
+                            $gt = $tarif + ($tarif * (50 / 100));
+                        }
+                    } elseif ($discount == $discount) {
+                        $gt = $tarif - ($tarif * $discount / 100);
+                    } else {
+                        $gt = $tarif;
+                    }
+                }
+                $kode_header = $this->createOrderHeaderrad();
+
+                if ($kp == 'P01') {
+                    if ($ku == '2') {
+                        $data_layanan_header = [
+                            'kode_layanan_header' => $kode_header,
+                            'tgl_entry' => $now,
+                            'tgl_periksa' => $now,
+                            'no_rm' => $request->norm,
+                            'kode_kunjungan' => $request->kj,
+                            'qty_header' => $dataSetr['qty'],
+                            'keterangan' => 'PENDING',
+                            'unit_pengirim' => '1002',
+                            'diagnosa' => $request->diagnosa . ' ' . $request->diagnosa1,
+                            'dok_kirim' => $kp,
+                            'total_layanan' => $gt,
+                            'tagihan_pribadi' => $gt,
+                            'diskon_global' => $dataSetr['disc'],
+                            'status_pembayaran' => $sp,
+                            'status_layanan' => 1,
+                            'kode_unit' => '3003',
+                            'kode_tipe_transaksi' => 2,
+                            'kode_penjaminx' => $request->kp,
+                            'pic' => $user,
+                        ];
+                        $head = ts_layanan_header_igd::create($data_layanan_header);
+                        $id_detail = $this->createLayanandetail();
+                        foreach ($arrayindexr as $arr) {
+                            $savedetail = [
+                                'id_layanan_detail' => $id_detail,
+                                'kode_layanan_header' => $kode_header,
+                                'kode_tarif_detail' =>  $arr['kodelayanan'],
+                                'total_tarif' => $arr['tarif'],
+                                'jumlah_layanan' => $arr['qty'],
+                                'diskon_dokter' => $arr['disc'],
+                                'cyto' => $arr['cyto'],
+                                'total_layanan' => $arr['tarif'],
+                                'grantotal_layanan' => $arr['tarif'] * $arr['qty'],
+                                'status_layanan_detail' => 'OPN',
+                                'tgl_layanan_detail' => $now,
+                                'tagihan_pribadi' => $gt,
+                                'tgl_layanan_detail_2' => $now,
+                                'row_id_header' => $head['id']
+                            ];
+                            $ts_layanan_detail_igd = ts_layanan_detail_igd::create($savedetail);
+                        }
+                    } else {
+
+                        $data_layanan_header = [
+                            'kode_layanan_header' => $kode_header,
+                            'tgl_entry' => $now,
+                            'tgl_periksa' => $now,
+                            'no_rm' => $request->norm,
+                            'kode_kunjungan' => $request->kj,
+                            'qty_header' => $dataSetr['qty'],
+                            'keterangan' => 'PENDING',
+                            'unit_pengirim' => '1002',
+                            'diagnosa' => $request->diagnosa . ' ' . $request->diagnosa1,
+                            'dok_kirim' => $kp,
+                            'total_layanan' => $gt,
+                            'tagihan_pribadi' => $gt,
+                            'diskon_global' => $dataSetr['disc'],
+                            'status_pembayaran' => $sp,
+                            'status_layanan' => 1,
+                            'kode_unit' => '3003',
+                            'kode_tipe_transaksi' => 1,
+                            'kode_penjaminx' => $request->kp,
+                            'pic' => $user,
+                        ];
+                        $head = ts_layanan_header_igd::create($data_layanan_header);
+                        $id_detail = $this->createLayanandetail();
+                        foreach ($arrayindexr as $arr) {
+                            $savedetail = [
+                                'id_layanan_detail' => $id_detail,
+                                'kode_layanan_header' => $kode_header,
+                                'kode_tarif_detail' =>  $arr['kodelayanan'],
+                                'total_tarif' => $arr['tarif'],
+                                'jumlah_layanan' => $arr['qty'],
+                                'diskon_dokter' => $arr['disc'],
+                                'cyto' => $arr['cyto'],
+                                'total_layanan' => $arr['tarif'],
+                                'grantotal_layanan' => $arr['tarif'] * $arr['qty'],
+                                'status_layanan_detail' => 'OPN',
+                                'tgl_layanan_detail' => $now,
+                                'tagihan_pribadi' => $gt,
+                                'tgl_layanan_detail_2' => $now,
+                                'row_id_header' => $head['id']
+                            ];
+                            $ts_layanan_detail_igd = ts_layanan_detail_igd::create($savedetail);
+                        }
+                    }
+                } else {
+                    $data_layanan_header = [
+                        'kode_layanan_header' => $kode_header,
+                        'tgl_entry' => $now,
+                        'tgl_periksa' => $now,
+                        'no_rm' => $request->norm,
+                        'kode_kunjungan' => $request->kj,
+                        'qty_header' => $dataSetr['qty'],
+                        'keterangan' => 'PENDING',
+                        'unit_pengirim' => '1002',
+                        'diagnosa' => $request->diagnosa . ' ' . $request->diagnosa1,
+                        'dok_kirim' => $kp,
+                        'total_layanan' => $gt,
+                        'tagihan_pribadi' => $gt,
+                        'diskon_global' => $dataSetr['disc'],
+                        'status_pembayaran' => $sp,
+                        'status_layanan' => 2,
+                        'kode_unit' => '3003',
+                        'kode_tipe_transaksi' => 2,
+                        'kode_penjaminx' => $request->kp,
+                        'pic' => $user,
+                    ];
+
+                    $head = ts_layanan_header_igd::create($data_layanan_header);
+                    $id_detail = $this->createLayanandetail();
+                    foreach ($arrayindexr as $arr) {
+                        $savedetail = [
+                            'id_layanan_detail' => $id_detail,
+                            'kode_layanan_header' => $kode_header,
+                            'kode_tarif_detail' =>  $arr['kodelayanan'],
+                            'total_tarif' => $arr['tarif'],
+                            'jumlah_layanan' => $arr['qty'],
+                            'diskon_dokter' => $arr['disc'],
+                            'cyto' => $arr['cyto'],
+                            'total_layanan' => $arr['tarif'],
+                            'grantotal_layanan' => $arr['tarif'] * $arr['qty'],
+                            'status_layanan_detail' => 'OPN',
+                            'tgl_layanan_detail' => $now,
+                            'tagihan_penjamin' => $gt,
+                            'tgl_layanan_detail_2' => $now,
+                            'row_id_header' => $head['id']
+                        ];
+
+                        $ts_layanan_detail = ts_layanan_detail_igd::create($savedetail);
+                    }
+                }
+                $kode_header = $ts_layanan_detail['kode_layanan_header'];
+                $idhed = $ts_layanan_detail['row_id_header'];
+                //     $update = DB::connection('mysql2')->select('UPDATE ts_layanan_header_igd SET status_order = 2
+                // WHERE kode_kunjungan = ? AND no_rm = ?', [$request->kode_kunjungan, $request->norm]);
+            }
+        } catch (\Exception $e) {
+            $back = [
+                'kode' => 200,
+                'message' => $e->getMessage()
+            ];
+            echo json_encode($back);
+            die;
+        }
         $back = [
             'kode' => 200,
             'message' => 'Berhasil'

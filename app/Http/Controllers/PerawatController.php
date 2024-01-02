@@ -124,18 +124,20 @@ class PerawatController extends Controller
 
         $resume = DB::connection('mysql2')->select('SELECT * FROM erm_cppt_perawat
         WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $request->kj]);
-
+        $resumedok = DB::connection('mysql2')->select('SELECT * FROM erm_cppt_dokter
+ WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $request->kj]);
         $riwayatorderrad = DB::connection('mysql2')->select('SELECT
-        a.no_rm,
-        a.kode_layanan_header,
-        a.id,
-        b.total_tarif,
-        fc_nama_tindakan(LEFT(b.kode_tarif_detail,6)) as nama_tindakan
-        FROM
-        ts_layanan_header_igd a
-        INNER JOIN ts_layanan_detail_igd b ON b.row_id_header = a.id
-        WHERE a.kode_unit = ?
-        AND a.kode_kunjungan = ?', ['3003', $request->kj]);
+       a.no_rm,
+       a.kode_layanan_header,
+       a.id,
+       b.total_tarif,
+       fc_nama_tindakan(LEFT(b.kode_tarif_detail,6)) as nama_tindakan
+       FROM
+       ts_layanan_header_igd a
+       INNER JOIN ts_layanan_detail_igd b ON b.row_id_header = a.id
+       WHERE a.kode_unit = ?
+       AND a.kode_kunjungan = ?
+       AND a.status_order ="1"', ['3003', $request->kj]);
         $riwayatorderlab = DB::connection('mysql2')->select('SELECT
         a.no_rm,
         a.kode_layanan_header,
@@ -146,7 +148,8 @@ class PerawatController extends Controller
         ts_layanan_header_igd a
         INNER JOIN ts_layanan_detail_igd b ON b.row_id_header = a.id
         WHERE a.kode_unit = ?
-        AND a.kode_kunjungan = ?', ['3002', $request->kj]);
+        AND a.kode_kunjungan = ?
+        AND a.status_order ="1"', ['3002', $request->kj]);
         $kj =  $request->kj;
         $hasil = DB::connection('mysql2')->select('SELECT 
          a.tgl_kunjungan,
@@ -161,6 +164,7 @@ class PerawatController extends Controller
             [
                 'title' => 'ERM PERAWAT',
                 'resume' => $resume,
+                'resumedok' => $resumedok,
                 'riwayatorderrad' => $riwayatorderrad,
                 'riwayatorderlab' => $riwayatorderlab,
                 'hasil' => $hasil

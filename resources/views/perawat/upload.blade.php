@@ -33,6 +33,7 @@
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
+
                     <form class="formuploadekg">
                         <div class="card-body">
                             <div class="form-group">
@@ -288,7 +289,7 @@
         @endforeach
 
         @endif
-
+      
     </div>
 </div>
 

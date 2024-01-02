@@ -1153,7 +1153,7 @@
                                                 <td>
                                                     Rp.{{ $l->total_tarif }}
                                                 </td>
-                                                <td> <a class=" btn btn-danger btn-sm returorderrad" href="#">
+                                                <td> <a class=" btn btn-danger btn-sm returorderlaboratorium" href="#">
                                                         <i class="fas fa-sync-alt fa-spin"></i>
                                                         RETUR
                                                     </a></td>
@@ -1254,7 +1254,7 @@
                                                 <td>
                                                     Rp.{{ $r->total_tarif }}
                                                 </td>
-                                                <td> <a class=" btn btn-danger btn-sm returorderrad" href="#">
+                                                <td> <a class=" btn btn-danger btn-sm returorderradiologi" href="#">
                                                         <i class="fas fa-sync-alt fa-spin"></i>
                                                         RETUR
                                                     </a></td>
@@ -1412,22 +1412,172 @@
             }
         }
     }
+    $(".returorderradiologi").click(function() {
+        var data = $('.formerm').serializeArray();
 
+        var norm = $('#norm').val()
+        var kj = $('#kj').val()
+        alert(kj)
+
+
+
+        // var sumberdata = $("#sumberdata:checked").val();
+        Swal.fire({
+            title: "Yakin Retur Order?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Ya',
+            cancelButtonColor: '#d33',
+            cancelButtonText: "Batal"
+
+        }).then(result => {
+            //jika klik ya maka arahkan ke proses.php
+            if (result.isConfirmed) {
+                $.ajax({
+                    async: true,
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        data: JSON.stringify(data),
+                        norm: $('#norm').val(),
+                        kj: $('#kj').val(),
+
+
+
+                    },
+                    url: '<?= route('returorderradiologi') ?>',
+
+                    error: function(data) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Sepertinya ada masalah ...',
+                            footer: ''
+                        })
+                    },
+                    success: function(data) {
+                        console.log(data)
+                        if (data.kode == 500) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: data.message,
+                                footer: ''
+                            })
+                        } else {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'OK',
+                                text: 'data berhasil diretur',
+                                footer: ''
+                            })
+
+
+                        }
+                    }
+                });
+            }
+        })
+        return false;
+    });
+    $(".returorderlaboratorium").click(function() {
+        var data = $('.formerm').serializeArray();
+
+        var norm = $('#norm').val()
+        var kj = $('#kj').val()
+        alert(kj)
+
+
+
+        // var sumberdata = $("#sumberdata:checked").val();
+        Swal.fire({
+            title: "Yakin Retur Order?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Ya',
+            cancelButtonColor: '#d33',
+            cancelButtonText: "Batal"
+
+        }).then(result => {
+            //jika klik ya maka arahkan ke proses.php
+            if (result.isConfirmed) {
+                $.ajax({
+                    async: true,
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        data: JSON.stringify(data),
+                        norm: $('#norm').val(),
+                        kj: $('#kj').val(),
+
+
+
+                    },
+                    url: '<?= route('returorderlaboratorium') ?>',
+
+                    error: function(data) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Sepertinya ada masalah ...',
+                            footer: ''
+                        })
+                    },
+                    success: function(data) {
+                        console.log(data)
+                        if (data.kode == 500) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: data.message,
+                                footer: ''
+                            })
+                        } else {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'OK',
+                                text: 'data berhasil diretur',
+                                footer: ''
+                            })
+
+
+                        }
+                    }
+                });
+            }
+        })
+        return false;
+    });
     $(".updateasses").click(function() {
         var data = $('.formerm').serializeArray();
+        var datalab = $('.formlab').serializeArray();
+        var datarad = $('.formradio').serializeArray();
+        var ku = $('#ku').val()
         var subject = $('#subject').val()
         var objek = $('#objek').val()
+        var primary = $('#primary').val()
+        var secondary = $('#secondary').val()
         var assesmen = $('#assesmen').val()
         var planning = $('#planning').val()
         var tigap = $('#tigap').val()
         var tigak = $('#tigak').val()
         var norm = $('#norm').val()
         var kj = $('#kj').val()
+        var kp = $('#kp').val()
+        var counter = $('#counter').val()
+
+
         var tglmasuk = $('#tglmasuk').val()
         var diagnosa = $('#diagnosa').val()
         var diagnosa1 = $('#diagnosa1').val()
-        var primary = $('#primary').val()
-        var secondary = $('#secondary').val()
+        var alpul = $('#alpul').val()
+        var alpul1 = $('#alpul1').val()
+        var kopul = $('#kopul').val()
+        var kopul1 = $('#kopul1').val()
 
 
 
@@ -1451,6 +1601,8 @@
                     data: {
                         _token: "{{ csrf_token() }}",
                         data: JSON.stringify(data),
+                        datalab: JSON.stringify(datalab),
+                        datarad: JSON.stringify(datarad),
                         subject: $('#subject').val(),
                         objek: $('#objek').val(),
                         assesmen: $('#assesmen').val(),
@@ -1458,12 +1610,23 @@
                         tigap: $('#tigap').val(),
                         tigak: $('#tigak').val(),
                         norm: $('#norm').val(),
+                        counter: $('#counter').val(),
+
                         kj: $('#kj').val(),
-                        tglmasuk: $('#tglmasuk').val(),
-                        primary: $('#primary').val(),
-                        secondary: $('#secondary').val(),
                         diagnosa: $('#diagnosa').val(),
                         diagnosa1: $('#diagnosa1').val(),
+                        alpul: $('#alpul').val(),
+                        alpul1: $('#alpul1').val(),
+                        kopul: $('#kopul').val(),
+                        kopul1: $('#kopul1').val(),
+                        ku: $('#ku').val(),
+                        kp: $('#kp').val(),
+                        primary: $('#primary').val(),
+                        secondary: $('#secondary').val(),
+
+
+
+                        tglmasuk: $('#tglmasuk').val(),
 
 
 

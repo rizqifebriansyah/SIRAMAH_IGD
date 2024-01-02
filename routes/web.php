@@ -66,6 +66,11 @@ Route::group(['middleware' => ['hak_akses:5', 'auth']], function () {
     Route::post('carinotriase', [DokterController::class, 'carinotriase'])->name('carinotriase');
     Route::post('caripasienigd', [DokterController::class, 'caripasienigd'])->name('caripasienigd');
 
+    //retur
+    
+    Route::post('returorderradiologi', [DokterController::class, 'returorderradiologi'])->name('returorderradiologi');
+    Route::post('returorderlaboratorium', [DokterController::class, 'returorderlaboratorium'])->name('returorderlaboratorium');
+
 });
 //Akhir route dokter
 
