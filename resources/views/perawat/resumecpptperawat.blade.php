@@ -125,7 +125,6 @@
                     <th style="width: 10px">Kode Layanan Header</th>
                     <th>Nama Tindakan</th>
                     <th>Harga</th>
-                    <th style="width: 40px">Action</th>
                 </thead>
                 <tbody>
                     @foreach ($riwayatorderlab as $lab=>$l )
@@ -136,10 +135,7 @@
                         <td>
                             Rp.{{$l->total_tarif}}
                         </td>
-                        <td> <a class=" btn btn-danger btn-sm returorderrad" href="#">
-                                <i class="fas fa-sync-alt fa-spin"></i>
-                                RETUR
-                            </a></td>
+                      
                     </tr>
                     @endforeach
 
@@ -153,7 +149,6 @@
                     <th style="width: 10px">Kode Layanan Header</th>
                     <th>Nama Tindakan</th>
                     <th>Harga</th>
-                    <th style="width: 40px">Action</th>
                 </thead>
                 <tbody>
                     @foreach ($riwayatorderrad as $rad=>$r )
@@ -164,10 +159,7 @@
                         <td>
                             Rp.{{$r->total_tarif}}
                         </td>
-                        <td> <a class=" btn btn-danger btn-sm returorderrad" href="#">
-                                <i class="fas fa-sync-alt fa-spin"></i>
-                                RETUR
-                            </a></td>
+                        
                     </tr>
                     @endforeach
                 </tbody>
