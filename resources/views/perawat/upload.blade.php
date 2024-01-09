@@ -36,6 +36,12 @@
 
                     <form class="formuploadekg">
                         <div class="card-body">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Nomor Rekamedis</label>
+                                <input type="email" class="form-control" id="norm" name="norm" value="{{$norm}}">
+                                <input type="email" class="form-control" id="kj" name="kj" value="{{$kj}}">
+
+                            </div>
                             
 
                             <div class="form-group">
@@ -70,7 +76,13 @@
                     <!-- form start -->
                     <form class="formuploadspp">
                         <div class="card-body">
-                           
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Nomor Rekamedis</label>
+                                <input type="email" class="form-control" id="norm" name="norm" value="{{$norm}}">
+                                <input type="email" class="form-control" id="kj" name="kj" value="{{$kj}}">
+
+                            </div>
+                            
 
 
                             <div class="form-group">
@@ -105,6 +117,12 @@
                     <!-- form start -->
                     <form class="formuploadtindakan">
                         <div class="card-body">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Nomor Rekamedis</label>
+                                <input type="email" class="form-control" id="norm" name="norm" value="{{$norm}}">
+                                <input type="email" class="form-control" id="kj" name="kj" value="{{$kj}}">
+
+                            </div>
                             
 
 
@@ -139,7 +157,12 @@
                     <!-- form start -->
                     <form class="formuploadtransfer">
                         <div class="card-body">
-                          
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Nomor Rekamedis</label>
+                                <input type="email" class="form-control" id="norm" name="norm" value="{{$norm}}">
+                                <input type="email" class="form-control" id="kj" name="kj" value="{{$kj}}">
+                            </div>
+                            
 
 
                             <div class="form-group">
