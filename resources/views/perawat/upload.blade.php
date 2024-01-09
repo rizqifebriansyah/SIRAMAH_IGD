@@ -36,24 +36,7 @@
 
                     <form class="formuploadekg">
                         <div class="card-body">
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Nomor Rekamedis</label>
-                                <input type="email" class="form-control" id="norm" name="norm" value="{{$pasien[0]->no_rm}}">
-                                <input type="email" class="form-control" id="kj" name="kj" value="{{$pasien[0]->kode_kunjungan}}">
-
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Nama</label>
-                                <input type="email" class="form-control" id="nama" name="nama" value="{{$pasien[0]->nama_px}}">
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Nama DPJP</label>
-                                <input type="email" class="form-control" id="dpjp" name="dpjp" value="{{$pasien[0]->nama_dokter}}">
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Diagnosa</label>
-                                <input type="email" class="form-control" id="diagnosa" name="diagnosa" value="{{$pasien[0]->diag_00}}">
-                            </div>
+                            
 
                             <div class="form-group">
                                 <label for="exampleInputFile">Upload Hasil EKG</label>
@@ -87,24 +70,7 @@
                     <!-- form start -->
                     <form class="formuploadspp">
                         <div class="card-body">
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Nomor Rekamedis</label>
-                                <input type="email" class="form-control" id="norm" name="norm" value="{{$pasien[0]->no_rm}}">
-                                <input type="email" class="form-control" id="kj" name="kj" value="{{$pasien[0]->kode_kunjungan}}">
-
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Nama</label>
-                                <input type="email" class="form-control" id="nama" name="nama" value="{{$pasien[0]->nama_px}}">
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Nama DPJP</label>
-                                <input type="email" class="form-control" id="dpjp" name="dpjp" value="{{$pasien[0]->nama_dokter}}">
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Diagnosa</label>
-                                <input type="email" class="form-control" id="diagnosa" name="diagnosa" value="{{$pasien[0]->diag_00}}">
-                            </div>
+                           
 
 
                             <div class="form-group">
@@ -139,24 +105,7 @@
                     <!-- form start -->
                     <form class="formuploadtindakan">
                         <div class="card-body">
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Nomor Rekamedis</label>
-                                <input type="email" class="form-control" id="norm" name="norm" value="{{$pasien[0]->no_rm}}">
-                                <input type="email" class="form-control" id="kj" name="kj" value="{{$pasien[0]->kode_kunjungan}}">
-
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Nama</label>
-                                <input type="email" class="form-control" id="nama" name="nama" value="{{$pasien[0]->nama_px}}">
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Nama DPJP</label>
-                                <input type="email" class="form-control" id="dpjp" name="dpjp" value="{{$pasien[0]->nama_dokter}}">
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Diagnosa</label>
-                                <input type="email" class="form-control" id="diagnosa" name="diagnosa" value="{{$pasien[0]->diag_00}}">
-                            </div>
+                            
 
 
                             <div class="form-group">
@@ -190,23 +139,7 @@
                     <!-- form start -->
                     <form class="formuploadtransfer">
                         <div class="card-body">
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Nomor Rekamedis</label>
-                                <input type="email" class="form-control" id="norm" name="norm" value="{{$pasien[0]->no_rm}}">
-                                <input type="email" class="form-control" id="kj" name="kj" value="{{$pasien[0]->kode_kunjungan}}">
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Nama</label>
-                                <input type="email" class="form-control" id="nama" name="nama" value="{{$pasien[0]->nama_px}}">
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Nama DPJP</label>
-                                <input type="email" class="form-control" id="dpjp" name="dpjp" value="{{$pasien[0]->nama_dokter}}">
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Diagnosa</label>
-                                <input type="email" class="form-control" id="diagnosa" name="diagnosa" value="{{$pasien[0]->diag_00}}">
-                            </div>
+                          
 
 
                             <div class="form-group">
