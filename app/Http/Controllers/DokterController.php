@@ -105,10 +105,12 @@ class DokterController extends Controller
     {
         $menu = 'asses';
         $user = auth()->user()->nama;
+        $unit = auth()->user()->unit;
+
 
 
         $now = Carbon::now()->format('Y-m-d');
-        $pasienigd = DB::connection('mysql2')->select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$now')");
+        $pasienigd = DB::connection('mysql2')->select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','$unit','$now')");
         //  $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$now')");
 
         return view(
@@ -117,7 +119,8 @@ class DokterController extends Controller
                 'title' => 'ERM DOKTER',
                 'menu' => $menu,
                 'pasienigd' => $pasienigd,
-                'user' => $user
+                'user' => $user,
+                'unit' => $unit
             ]
         );
     }
@@ -927,7 +930,7 @@ class DokterController extends Controller
                             'kode_layanan_header' => $kode_header,
                             'tgl_entry' => $now,
                             'tgl_periksa' => $now,
-                            'no_rm' => $request->norm,
+                            'no_rm' => $norm,
                             'kode_kunjungan' => $request->kj,
                             'qty_header' => $dataSetr['qty'],
                             'keterangan' => 'PENDING',
@@ -971,7 +974,7 @@ class DokterController extends Controller
                             'kode_layanan_header' => $kode_header,
                             'tgl_entry' => $now,
                             'tgl_periksa' => $now,
-                            'no_rm' => $request->norm,
+                            'no_rm' => $norm,
                             'kode_kunjungan' => $request->kj,
                             'qty_header' => $dataSetr['qty'],
                             'keterangan' => 'PENDING',
@@ -1015,7 +1018,7 @@ class DokterController extends Controller
                         'kode_layanan_header' => $kode_header,
                         'tgl_entry' => $now,
                         'tgl_periksa' => $now,
-                        'no_rm' => $request->norm,
+                        'no_rm' => $norm,
                         'kode_kunjungan' => $request->kj,
                         'qty_header' => $dataSetr['qty'],
                         'keterangan' => 'PENDING',
