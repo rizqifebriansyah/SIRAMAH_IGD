@@ -601,6 +601,7 @@ class DokterController extends Controller
         $ku = $request->ku;
         $kj = $request->kj;
         $norm = $request->norm;
+        $unit = auth()->user()->unit;
 
 
         $dt = Carbon::now()->timezone('Asia/Jakarta');
@@ -643,7 +644,7 @@ class DokterController extends Controller
                 'tgl_kunjungan' => $request->tglmasuk,
 
                 'tgl_input' => $now,
-                'kode_unit' => '1002',
+                'kode_unit' => $unit,
                 'kode_kunjungan' => $request->kj,
                 'no_rm' => $request->norm,
                 'subyektif' => $request->subject,
@@ -674,7 +675,7 @@ class DokterController extends Controller
 
             $frunit = di_pasien_diagnosa_frunit::create([
                 'no_rm' => $request->norm,
-                'kode_unit' => '1002',
+                'kode_unit' => $unit,
                 'counter' => $request->counter,
                 'kode_kunjungan' => $request->kj,
                 'input_date' => $now,
@@ -743,7 +744,7 @@ class DokterController extends Controller
                             'kode_kunjungan' => $request->kj,
                             'qty_header' => $dataSet['qty'],
                             'keterangan' => 'PENDING',
-                            'unit_pengirim' => '1002',
+                            'unit_pengirim' => $unit,
                             'diagnosa' => $request->diagnosa . ' ' . $request->diagnosa1,
                             'dok_kirim' => $kp,
                             'total_layanan' => $gt,
@@ -787,7 +788,7 @@ class DokterController extends Controller
                             'kode_kunjungan' => $request->kj,
                             'qty_header' => $dataSet['qty'],
                             'keterangan' => 'PENDING',
-                            'unit_pengirim' => '1002',
+                            'unit_pengirim' => $unit,
                             'diagnosa' => $request->diagnosa . ' ' . $request->diagnosa1,
                             'dok_kirim' => $kp,
                             'total_layanan' => $gt,
@@ -831,7 +832,7 @@ class DokterController extends Controller
                         'kode_kunjungan' => $request->kj,
                         'qty_header' => $dataSet['qty'],
                         'keterangan' => 'PENDING',
-                        'unit_pengirim' => '1002',
+                        'unit_pengirim' => $unit,
                         'diagnosa' => $request->diagnosa . ' ' . $request->diagnosa1,
                         'dok_kirim' => $kp,
                         'total_layanan' => $gt,
@@ -934,7 +935,7 @@ class DokterController extends Controller
                             'kode_kunjungan' => $request->kj,
                             'qty_header' => $dataSetr['qty'],
                             'keterangan' => 'PENDING',
-                            'unit_pengirim' => '1002',
+                            'unit_pengirim' => $unit,
                             'diagnosa' => $request->diagnosa . ' ' . $request->diagnosa1,
                             'dok_kirim' => $kp,
                             'total_layanan' => $gt,
@@ -978,7 +979,7 @@ class DokterController extends Controller
                             'kode_kunjungan' => $request->kj,
                             'qty_header' => $dataSetr['qty'],
                             'keterangan' => 'PENDING',
-                            'unit_pengirim' => '1002',
+                            'unit_pengirim' => $unit,
                             'diagnosa' => $request->diagnosa . ' ' . $request->diagnosa1,
                             'dok_kirim' => $kp,
                             'total_layanan' => $gt,
@@ -1022,7 +1023,7 @@ class DokterController extends Controller
                         'kode_kunjungan' => $request->kj,
                         'qty_header' => $dataSetr['qty'],
                         'keterangan' => 'PENDING',
-                        'unit_pengirim' => '1002',
+                        'unit_pengirim' => $unit,
                         'diagnosa' => $request->diagnosa . ' ' . $request->diagnosa1,
                         'dok_kirim' => $kp,
                         'total_layanan' => $gt,

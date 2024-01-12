@@ -31,11 +31,13 @@ class PerawatController extends Controller
     {
         $menu = 'assesperawat';
         $user = auth()->user()->nama;
+        $unit = auth()->user()->unit;
+
 
 
         $now = Carbon::now()->format('Y-m-d');
         // $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$now')");
-        $pasienigd = DB::connection('mysql2')->select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$now')");
+        $pasienigd = DB::connection('mysql2')->select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','$unit','$now')");
 
         return view(
             'perawat.assesperawat',
@@ -43,7 +45,8 @@ class PerawatController extends Controller
                 'title' => 'ERM Perawat',
                 'menu' => $menu,
                 'pasienigd' => $pasienigd,
-                'user' => $user
+                'user' => $user,
+                'unit' => $unit
             ]
         );
     }
