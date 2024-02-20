@@ -49,6 +49,7 @@ class DokterController extends Controller
     public function triase()
     {
         $user = auth()->user()->nama;
+        $unit = auth()->user()->unit;
 
         $menu = 'triase';
         $now = Carbon::now()->format('Y-m-d');
@@ -64,7 +65,7 @@ class DokterController extends Controller
                 'menu' => $menu,
                 'antrian' => $antrian,
                 'nama' => $nama,
-
+                'unit' => $unit,
                 'user' => $user
             ]
         );
@@ -89,7 +90,8 @@ class DokterController extends Controller
     public function caripasienigd(Request $request)
     {
         $tgl = $request->tglkunjungan;
-        $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$tgl')");
+        // $pasienigd = DB::connection('mysql2')->select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$tgl')");
+       $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$tgl')");
 
 
         return view(
@@ -110,8 +112,8 @@ class DokterController extends Controller
 
 
         $now = Carbon::now()->format('Y-m-d');
-        $pasienigd = DB::connection('mysql2')->select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','$unit','$now')");
-        //  $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$now')");
+        // $pasienigd = DB::connection('mysql2')->select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','$unit','$now')");
+        $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$now')");
 
         return view(
             'dokter.asses',
@@ -309,6 +311,7 @@ class DokterController extends Controller
         $kp = $request->kp;
         $ku = $request->ku;
         $counter = $request->counter;
+        $unit = auth()->user()->unit;
 
         $cek1 = DB::select('select * from ts_layanan_header where kode_kunjungan = ? and kode_unit = ?', [$kj, '3002']);
         $cek = DB::select('select *,date(tgl_baca) as tanggalnya,fc_acc_number_ris(id_detail) as acc_number from ts_hasil_expertisi where kode_kunjungan = ?', [$kj]);
@@ -370,6 +373,8 @@ class DokterController extends Controller
                 'kelas' => $kelas,
                 'kp' => $kp,
                 'ku' => $ku,
+                'unit' => $unit,
+
                 'counter' => $counter,
 
                 'cek1' => $cek1,
@@ -401,6 +406,8 @@ class DokterController extends Controller
     public function resumecpptdokter(Request $request)
     {
         $kj =  $request->kj;
+        $triase = DB::connection('mysql2')->select('SELECT * FROM ts_triase
+        WHERE no_antrian = ?', [$request->antrian]);
         $hasil = DB::connection('mysql2')->select('SELECT 
          a.tgl_kunjungan,
          a.hasil_ekg,
@@ -437,14 +444,34 @@ class DokterController extends Controller
          WHERE a.kode_unit = ?
          AND a.kode_kunjungan = ?
          AND a.status_order ="1"', ['3002', $request->kj]);
+         $riwayatobat = DB::select('SELECT
+        a.kode_layanan_header,
+        a.id,
+        a.kode_kunjungan,
+        b.total_tarif,
+        b.kode_barang,
+        b.aturan_pakai,
+        b.jumlah_layanan,
+        c.nama_barang
+         FROM
+         ts_layanan_header a
+         INNER JOIN ts_layanan_detail b ON b.row_id_header = a.id
+         INNER JOIN mt_barang c ON c.kode_barang = b.kode_barang
+         WHERE a.kode_layanan_header LIKE "%DP%"
+         AND b.kode_tarif_detail NOT LIKE "%tx%"
+         AND a.kode_kunjungan = "22247232"');
         return view(
             'dokter.resumecpptdokter',
             [
                 'title' => 'ERM DOKTER',
                 'resumedok' => $resumedok,
                 'resume' => $resume,
+                'triase' => $triase,
+
                 'hasil' => $hasil,
                 'riwayatorderrad' => $riwayatorderrad,
+                'riwayatobat' => $riwayatobat,
+
                 'riwayatorderlab' => $riwayatorderlab
 
             ]
@@ -684,6 +711,8 @@ class DokterController extends Controller
                 'tipe_pasien' => $jenispasien,
                 'pic' => $user,
                 'is_ranap' => $kondisi,
+                'isSynch' => 0,
+                'created_at' => $now,
                 'status' => '1'
 
             ]);
@@ -752,6 +781,7 @@ class DokterController extends Controller
                             'diskon_global' => $dataSet['disc'],
                             'status_pembayaran' => $sp,
                             'status_layanan' => 1,
+                            'status_order' => 1,
                             'kode_unit' => '3002',
                             'kode_tipe_transaksi' => 2,
                             'kode_penjaminx' => $request->kp,
@@ -796,6 +826,7 @@ class DokterController extends Controller
                             'diskon_global' => $dataSet['disc'],
                             'status_pembayaran' => $sp,
                             'status_layanan' => 1,
+                            'status_order' => 1,
                             'kode_unit' => '3002',
                             'kode_tipe_transaksi' => 1,
                             'kode_penjaminx' => $request->kp,
@@ -840,6 +871,7 @@ class DokterController extends Controller
                         'diskon_global' => $dataSet['disc'],
                         'status_pembayaran' => $sp,
                         'status_layanan' => 2,
+                        'status_order' => 1,
                         'kode_unit' => '3002',
                         'kode_tipe_transaksi' => 2,
                         'kode_penjaminx' => $request->kp,
@@ -871,7 +903,7 @@ class DokterController extends Controller
                 }
                 $kode_header = $ts_layanan_detail['kode_layanan_header'];
                 $idhed = $ts_layanan_detail['row_id_header'];
-                $update = DB::connection('mysql2')->select('UPDATE ts_layanan_header_igd SET status_order = 2
+                $update = DB::select('UPDATE ts_layanan_header_igd SET status_order = 2
         WHERE kode_kunjungan = ? AND no_rm = ?', [$request->kode_kunjungan, $request->norm]);
             }
         } catch (\Exception $e) {
@@ -1062,7 +1094,7 @@ class DokterController extends Controller
                 }
                 $kode_header = $ts_layanan_detail['kode_layanan_header'];
                 $idhed = $ts_layanan_detail['row_id_header'];
-                //     $update = DB::connection('mysql2')->select('UPDATE ts_layanan_header_igd SET status_order = 2
+                //     $update = DB::select('UPDATE ts_layanan_header_igd SET status_order = 2
                 // WHERE kode_kunjungan = ? AND no_rm = ?', [$request->kode_kunjungan, $request->norm]);
             }
         } catch (\Exception $e) {
@@ -1365,6 +1397,8 @@ class DokterController extends Controller
                 $idhed = $ts_layanan_detail['row_id_header'];
                 $update = DB::connection('mysql2')->select('UPDATE ts_layanan_header_igd SET status_order = 2
 WHERE kode_kunjungan = ? AND no_rm = ?', [$request->kode_kunjungan, $request->norm]);
+                $updatediag = DB::connection('mysql2')->select('UPDATE di_pasien_diagnosa_frunit SET diag_00 = ?
+WHERE kode_kunjungan = ? AND no_rm = ?', [$request->diagnosa, $request->kode_kunjungan, $request->norm]);
             }
         } catch (\Exception $e) {
             $back = [

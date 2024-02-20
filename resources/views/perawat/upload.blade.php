@@ -4,21 +4,29 @@
     </div>
     <div class="card-body">
         <div class="row">
-            <div class="col-md-3"><a class=" btn btn-info btn-block " id="uploadekg">
+            <div class="col-md-2"><a class=" btn btn-info btn-block " id="uploadekg">
                     <i class="bi bi-journal-text"></i>
                     Hasil EKG
                 </a></div>
-            <div class="col-md-3"><a class=" btn btn-info btn-block " id="uploadspp">
+            <div class="col-md-2"><a class=" btn btn-info btn-block " id="uploadspp">
                     <i class="bi bi-journal-text"></i>
                     Surat Penolakan Perawatan
                 </a></div>
-            <div class="col-md-3"><a class=" btn btn-info btn-block " id="uploadtindakandokter">
+            <div class="col-md-2"><a class=" btn btn-info btn-block " id="uploadtindakandokter">
                     <i class="bi bi-journal-text"></i>
                     Informasi Tindakan Dokter
                 </a></div>
-            <div class="col-md-3"><a class=" btn btn-info btn-block " id="uploadtransfer">
+            <div class="col-md-2"><a class=" btn btn-info btn-block " id="uploadtransfer">
                     <i class="bi bi-journal-text"></i>
                     Catatan Transfer Pasien
+                </a></div>
+            <div class="col-md-2"><a class=" btn btn-info btn-block " id="uploadobservasi">
+                    <i class="bi bi-journal-text"></i>
+                    Observasi
+                </a></div>
+                <div class="col-md-2"><a class=" btn btn-info btn-block " id="uploadconcern">
+                    <i class="bi bi-journal-text"></i>
+                    Inform Concern
                 </a></div>
         </div>
         <!-- formekg -->
@@ -42,7 +50,7 @@
                                 <input type="email" class="form-control" id="kj" name="kj" value="{{$kj}}">
 
                             </div>
-                            
+
 
                             <div class="form-group">
                                 <label for="exampleInputFile">Upload Hasil EKG</label>
@@ -82,7 +90,7 @@
                                 <input type="email" class="form-control" id="kj" name="kj" value="{{$kj}}">
 
                             </div>
-                            
+
 
 
                             <div class="form-group">
@@ -123,7 +131,7 @@
                                 <input type="email" class="form-control" id="kj" name="kj" value="{{$kj}}">
 
                             </div>
-                            
+
 
 
                             <div class="form-group">
@@ -162,7 +170,7 @@
                                 <input type="email" class="form-control" id="norm" name="norm" value="{{$norm}}">
                                 <input type="email" class="form-control" id="kj" name="kj" value="{{$kj}}">
                             </div>
-                            
+
 
 
                             <div class="form-group">
@@ -245,7 +253,7 @@
         @endforeach
 
         @endif
-      
+
     </div>
 </div>
 

@@ -3,7 +3,13 @@
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
         <img src="{{ asset('public/logo_rs.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        @if ($unit == '1002')
+
         <span class="brand-text font-weight-light">SIRAMAH IGD</span>
+        @else
+        <span class="brand-text font-weight-light">SIRAMAH IGD KEBIDANAN</span>
+
+        @endif
     </a>
     <!-- Sidebar -->
     <div class="sidebar">
@@ -29,6 +35,7 @@
                         </p>
                     </a>
                 </li>
+                @if ($unit == '1002')
                 <li class="nav-header">TRIASE DOKTER</li>
                 <li class="nav-item">
                     <a href="{{ route('triase') }}" class="nav-link @if($menu == 'triase' ) active @endif">
@@ -38,6 +45,8 @@
                         </p>
                     </a>
                 </li>
+                @else
+                @endif
                 <li class="nav-header">ASSESMEN</li>
                 <li class="nav-item">
                     <a href="{{ route('asses') }}" class="nav-link @if($menu == 'asses' ) active @endif">
@@ -60,7 +69,7 @@
 
                 <li class="nav-item">
                     <a class="nav-link" onclick="logout()">
-                        <i class="nav-icon far fa-circle text-warning" ></i>
+                        <i class="nav-icon far fa-circle text-warning"></i>
                         <p>Logout</p>
                     </a>
                 </li>

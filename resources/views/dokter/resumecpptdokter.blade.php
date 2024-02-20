@@ -11,6 +11,71 @@
 </div>
 
 <div class="card-body">
+<form>
+        @if ($triase == NULL)
+
+        <h1> belum ada triase</h1>
+        @else
+        <div class="mailbox-read-message">
+            <p class="text-bold">{{$triase[0]->nama_pasien}}</p>
+            <div class="row">
+                <div class="col-md-3">
+                    <table class="table borderless">
+                        <tbody>
+                            <tr>
+                                <td class="text-bold text-italic">Primary Survey</td>
+                                <td>: {{$triase[0]->primary_survey}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-bold">Pemeriksaan Fisik</td>
+                                <td>: {{$triase[0]->pemeriksaan_fisik}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-bold text-italic">Riwayat Penyakit</td>
+                                <td>: {{$triase[0]->riwayat_pasien}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-bold text-italic">Kategori Triase</td>
+                                <td>: {{$triase[0]->kategori_triase}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-8" style="margin-left: 20px;">
+                    <table class="table borderless">
+                        <tbody>
+                            <tr>
+                                <td class="text-bold text-italic">Pemeriksaan</td>
+                                <td>: {{$triase[0]->pemeriksaan_triase}}</td>
+                            </tr>
+                       
+                            <tr>
+                                <td class="text-bold text-italic">Kesadaran</td>
+                                <td>: {{$triase[0]->kesadaran}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-bold text-italic">Jalan Nafas</td>
+                                <td>: {{$triase[0]->jalan_nafas}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-bold text-italic">Pernafasan</td>
+                                <td>: {{$triase[0]->pernafasan}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-bold text-italic">Sirkulasi</td>
+                                <td>: {{$triase[0]->sirkulasi}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-bold text-italic">Gejala Spesifik</td>
+                                <td>: {{$triase[0]->gejala_spesifik}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        @endif
+    </form>
     <div class="row">
         <div class="col-md-6">
 
@@ -116,6 +181,31 @@
             </form>
         </div>
 
+    </div>
+    <div class="row">
+        <div class="col-md-12" style="margin-left: 10px">
+            <div class="table tabelobat">
+                <table>
+                    <thead>
+                        <th>Kode</th>
+                        <th>Nama Obat</th>
+                        <th>qty</th>
+                        <th>Aturan Pakai</th>
+                    </thead>
+                    <tbody>
+                        @foreach($riwayatobat as $ob => $o)
+                        <tr>
+                        <td>{{$o->kode_layanan_header}}</td>
+                            <td>{{$o->nama_barang}}</td>
+                            <td>{{$o->jumlah_layanan}}</td>
+                            <td>{{$o->aturan_pakai}}</td>
+
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
     <div class="row" style="margin-left: 10px">
         <div class="col-md-6">

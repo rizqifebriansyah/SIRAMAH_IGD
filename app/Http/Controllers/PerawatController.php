@@ -14,7 +14,7 @@ class PerawatController extends Controller
     public function index()
     {
         $user = auth()->user()->nama;
-
+        $unit = auth()->user()->unit;
         $menu = 'perawat';
         return view(
             'perawat.index',
@@ -36,8 +36,8 @@ class PerawatController extends Controller
 
 
         $now = Carbon::now()->format('Y-m-d');
-        // $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$now')");
-        $pasienigd = DB::connection('mysql2')->select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','$unit','$now')");
+        $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','$unit','$now')");
+        // $pasienigd = DB::connection('mysql2')->select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','$unit','$now')");
 
         return view(
             'perawat.assesperawat',
@@ -104,6 +104,8 @@ class PerawatController extends Controller
     }
     public function formermperawat(Request $request)
     {
+        $unit = auth()->user()->unit;
+
         $kj = $request->kj;
         $norm = $request->norm;
 
@@ -113,6 +115,7 @@ class PerawatController extends Controller
             'perawat.formermperawat',
             [
                 'title' => 'SiRAMAH DOKTER',
+                'unit' => $unit,
                 'assesper' => $assesper,
                 'alasanpulang' => $alasanplg
 
@@ -305,7 +308,10 @@ class PerawatController extends Controller
     public function caripasienigdperawat(Request $request)
     {
         $tgl = $request->tglkunjungan;
-        $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$tgl')");
+        $unit = auth()->user()->unit;
+
+        $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','$unit','$tgl')");
+        // $pasienigd = DB::connection('mysql2')->select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$tgl')");
 
 
         return view(

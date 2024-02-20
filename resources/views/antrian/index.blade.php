@@ -3,7 +3,7 @@
 @section('container')
 <div class="index">
     <div class="row" style="margin-top: 100px; margin-left:20px">
-        <div class="col-md-4" style="margin-right: 10px;">
+        <div class="col-md-10 ml-10" style="margin-right: 10px;">
             <center>
                 <a class="btn  bg-warning ambilantrian" id="ambilantrian" style="width: 1000px; height:100px">
                     <h1>I.G.D UMUM</h1>
@@ -11,13 +11,13 @@
             </center>
         </div>
 
-        <div class="col-md-4" style="margin-left: 20px;">
+        <!-- <div class="col-md-4" style="margin-left: 20px;">
             <center>
                 <a class="btn  bg-warning ambilantrianbidan" id="ambilantrianbidan" style="width: 1000px; height:100px">
                     <h1>I.G.D KEBIDANAN</h1>
                 </a>
             </center>
-        </div>
+        </div> -->
     </div>
 </div>
 <div class="row" style="margin-top: 10px; margin-left:20px">

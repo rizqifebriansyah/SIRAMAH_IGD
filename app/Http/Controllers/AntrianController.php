@@ -65,8 +65,8 @@ class AntrianController extends Controller
              * Printer Harus Dishare
              * Nama Printer Contoh: Generic
              */
-            // $connector = new WindowsPrintConnector("EPSON TM-T82X Receipt");
-            $connector = new WindowsPrintConnector("printantrian");
+            $connector = new WindowsPrintConnector("EPSON TM-T82X Receipt");
+            // $connector = new WindowsPrintConnector("printantrian");
 
             // $connector = new WindowsPrintConnector("smb://192.168.2.200/EPSON TM-T82X Receipt");
             // $connector = new WindowsPrintConnector("smb://192.168.2.23/EPSON TM-T82X Receipt");
@@ -138,8 +138,8 @@ class AntrianController extends Controller
              * Printer Harus Dishare
              * Nama Printer Contoh: Generic
              */
-            // $connector = new WindowsPrintConnector("EPSON TM-T82X Receipt");
-            $connector = new WindowsPrintConnector("printantrian");
+            $connector = new WindowsPrintConnector("EPSON TM-T82X Receipt");
+            // $connector = new WindowsPrintConnector("printantrian");
 
             // $connector = new WindowsPrintConnector("smb://192.168.2.200/EPSON TM-T82X Receipt");
             // $connector = new WindowsPrintConnector("smb://192.168.2.23/EPSON TM-T82X Receipt");
