@@ -27,7 +27,7 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
-                    <a href="{{ route('dokter') }}" class="nav-link @if($menu == 'dokter' ) active @endif">
+                    <a href="" class="nav-link @if($menu == 'dokter' ) active @endif">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
                             Dashboard

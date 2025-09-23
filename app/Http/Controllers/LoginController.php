@@ -35,6 +35,28 @@ class LoginController extends Controller
 
             } elseif ($hak == 4) {
                 return redirect()->intended('assesperawat');
+            }elseif ($hak == 6) {
+                return redirect()->intended('farmasi');
+            }
+            elseif ($hak == 11) {
+                return redirect()->intended('bankdarah');
+            }elseif ($hak == 12) {
+                return redirect()->intended('laboratorium');
+            }
+            elseif ($hak == 13) {
+                return redirect()->intended('forensik');
+            } 
+            elseif ($hak == 14) {
+                return redirect()->intended('penunjang');
+            } 
+            elseif ($hak == 15) {
+                return redirect()->intended('reporting');
+            } 
+            elseif ($hak == 16) {
+                return redirect()->intended('keuangan');
+            }
+            elseif ($hak == 17) {
+                return redirect()->intended('gizi');
             }
         }
         return back()->with('loginError', 'Login gagal !');

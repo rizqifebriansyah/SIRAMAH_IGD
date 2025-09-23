@@ -30,7 +30,7 @@
                     </a>
                 </li>
               
-                <li class="nav-header">ASSESMEN</li>
+                <li class="nav-header">SIM-RS</li>
                 <li class="nav-item">
                     <a href="{{ route('assesperawat') }}" class="nav-link @if($menu == 'assesperawat' ) active @endif">
                         <i class="nav-icon fas fa-archive"></i>
@@ -39,6 +39,17 @@
                         </p>
                     </a>
                 </li>
+                @if($unit == 1023)
+                <li class="nav-item">
+                    <a href="{{ route('billingigk') }}" class="nav-link @if($menu == 'billing' ) active @endif">
+                        <i class="nav-icon fas fa-archive"></i>
+                        <p>
+                            Billing IGK
+                        </p>
+                    </a>
+                </li>
+                @else
+                @endif
                 <li class="nav-header">KPO</li>
                 <li class="nav-item">
                     <a href="{{ route('kpo') }}" class="nav-link @if($menu == 'kpo' ) active @endif">

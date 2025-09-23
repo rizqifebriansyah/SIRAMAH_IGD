@@ -104,6 +104,9 @@
         </div>
     </div>
     <div class="row " style="align-content: center; margin-top:20px">
+    <a class="btn  bg-warning ambilantrian ml-2" id="ambilantrian">
+                   <label for=""><i class="fas fa-user-plus"></i> Tambah Triase</label>
+                </a>
         <div class="col-md-12 tabletriase">
             <table id="tabletriase" class="table  table-sm text-sm table-bordered table-hover">
                 <thead class="bg-light">
@@ -164,7 +167,26 @@
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         });
     });
+    $(".ambilantrian").click(function() {
+        spinner = $('#loader2');
+        spinner.show();
 
+        $.ajax({
+            type: "post",
+            data: {
+                _token: "{{ csrf_token() }}",
+            },
+            url: " {{ route('ambilnotriase') }}",
+            error: function(data) {
+                spinner.hide();
+                alert('error!!')
+            },
+            success: function(data) {
+                spinner.hide();
+                window.location.reload();
+            }
+        });
+    });
 
     function carinotriase() {
         spinner = $('#loader2');

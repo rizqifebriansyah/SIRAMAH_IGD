@@ -210,7 +210,7 @@ class AntrianController extends Controller
     }
     public function createantrianbidan()
     {
-        $q = DB::connection('mysql2')->select('SELECT id,no_antri,RIGHT(no_antri,3) AS kd_max  FROM tp_karcis_igd
+        $q = DB::select('SELECT id,no_antri,RIGHT(no_antri,3) AS kd_max  FROM tp_karcis_igd
         WHERE DATE(tgl) = CURDATE()
         ORDER BY id DESC
         LIMIT 1');

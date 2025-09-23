@@ -17,6 +17,7 @@
                         <input type="text" name="norm" id="norm" value="{{ $norm }}" hidden>
                         <input type="text" name="kj" id="kj" value="{{ $kj }}" hidden>
                         <input type="text" name="tglmasuk" id="tglmasuk" value="{{ $tglmasuk }}" hidden>
+                        @if ($unit == '1002')
 
                         @if ($ttv == null)
                         <p class="text-muted text-center">PASIEN INSTALASI GAWAT DARURAT</p>
@@ -44,6 +45,12 @@
                             </li>
                             <li class="list-group-item">
                                 <b>Kesadaran</b> <a class="float-right"> </a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>GCS</b> <a class="float-right"> </a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>SPO2</b> <a class="float-right"> </a>
                             </li>
                         </ul>
                         @else
@@ -74,9 +81,123 @@
                             <li class="list-group-item">
                                 <b>Kesadaran</b> <a class="float-right">{{ $ttv[0]->kesadaran }} </a>
                             </li>
+                            <li class="list-group-item">
+                                <b>GCS</b> <a class="float-right">{{ $ttv[0]->gcs }} </a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>SPO2</b> <a class="float-right">{{ $ttv[0]->spo2 }} </a>
+                            </li>
                         </ul>
                         @endif
+                        @else
+                        @if ($ttvb == null && $ttvc == null)
+                        <p class="text-muted text-center">PASIEN INSTALASI GAWAT DARURAT</p>
+                        <ul class="list-group list-group-unbordered mb-3">
+                            <li class="list-group-item">
+                                <b>TD</b> <a class="float-right"> mmhg</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Nadi</b> <a class="float-right"> x/menit</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Frekuensi Pernafasan</b> <a class="float-right"> x/menit</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Suhu</b> <a class="float-right"> °C</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Berat badan</b> <a class="float-right"> Kg</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Usia</b> <a class="float-right"> Th</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Keadaan Umum</b> <a class="float-right"> </a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Kesadaran</b> <a class="float-right"> </a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>GCS</b> <a class="float-right"> </a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>SPO2</b> <a class="float-right"> </a>
+                            </li>
+                        </ul>
+                        @elseif ($ttvb != null)
+                        <p class="text-muted text-center">PASIEN INSTALASI GAWAT DARURAT</p>
+                        <ul class="list-group list-group-unbordered mb-3">
+                            <li class="list-group-item">
+                                <b>TD</b> <a class="float-right">{{ $ttvb[0]->tekanan_darah }} mmhg</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Nadi</b> <a class="float-right">{{ $ttvb[0]->frekuensi_nadi }} x/menit</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Frekuensi Pernafasan</b> <a class="float-right">{{ $ttvb[0]->frekuensi_nafas }}
+                                    x/menit</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Suhu</b> <a class="float-right">{{ $ttvb[0]->suhu }} °C</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Berat badan</b> <a class="float-right">{{ $ttvb[0]->berat_badan }} Kg</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Usia</b> <a class="float-right">{{ $ttvb[0]->umur }} Th</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Keadaan Umum</b> <a class="float-right"> {{ $ttvb[0]->keadaan_umum }}</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Kesadaran</b> <a class="float-right">{{ $ttvb[0]->kesadaran }} </a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>GCS</b> <a class="float-right">{{ $ttvb[0]->gcs }} </a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>SPO2</b> <a class="float-right">{{ $ttvb[0]->spo2 }} </a>
+                            </li>
+                        </ul>
 
+
+                        @else
+                        <p class="text-muted text-center">PASIEN INSTALASI GAWAT DARURAT</p>
+                        <ul class="list-group list-group-unbordered mb-3">
+                            <li class="list-group-item">
+                                <b>TD</b> <a class="float-right">{{ $ttvc[0]->tekanan_darah }} mmhg</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Nadi</b> <a class="float-right">{{ $ttvc[0]->frekuensi_nadi }} x/menit</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Frekuensi Pernafasan</b> <a class="float-right">{{ $ttvc[0]->frekuensi_nafas }}
+                                    x/menit</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Suhu</b> <a class="float-right">{{ $ttvc[0]->suhu }} °C</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Berat badan</b> <a class="float-right">{{ $ttvc[0]->berat_badan }} Kg</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Usia</b> <a class="float-right">{{ $ttvc[0]->umur }} Th</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Keadaan Umum</b> <a class="float-right"> {{ $ttvc[0]->keadaan_umum }}</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Kesadaran</b> <a class="float-right">{{ $ttvc[0]->kesadaran }} </a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>GCS</b> <a class="float-right">{{ $ttvc[0]->gcs }} </a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>SPO2</b> <a class="float-right">{{ $ttvc[0]->spo2 }} </a>
+                            </li>
+                        </ul>
+                        @endif
+                        @endif
                         <a href="#" class="btn btn-primary btn-block riwayatcpptperawat"><b>Catatan
                                 Medis</b></a>
                     </div>
@@ -99,23 +220,28 @@
                                     <i class="fas fa-male mr-2"></i>Catatan Perkembangan Pasien Terintegrasi (CPPT)
                                 </a>
                             </li>
-                            <li class="nav-item" id="pemeriksaan">
+                             <li class="nav-item" id="pemeriksaan">
+                                <a href="#" class="nav-link pemantauan">
+                                    <i class="fas fa-male mr-2"></i>Pemantauan Tanda Vital Pasien
+                                </a>
+                            </li>
+                            <!-- <li class="nav-item" id="pemeriksaan">
                                 <a href="#" class="nav-link rencanaplg">
                                     <i class="fas fa-filter mr-2"></i>Rencana Pemulangan Pasien
                                 </a>
-                            </li>
-                            <li class="nav-item" id="pemeriksaan">
+                            </li> -->
+                            <!-- <li class="nav-item" id="pemeriksaan">
                                 <a href="#" class="nav-link sri">
                                     <i class="fas fa-filter mr-2"></i>Surat Rujukan Intern
                                 </a>
-                            </li>
-                            <li class="nav-item" id="pemeriksaan">
+                            </li> -->
+                            <!-- <li class="nav-item" id="pemeriksaan">
                                 <a href="#" class="nav-link upload">
                                     <i class="fas fa-filter mr-2"></i>Upload Dokumen
                                 </a>
-                            </li>
+                            </li> -->
                             <li class="nav-item" id="pemeriksaan">
-                                <a href="#" class="nav-link resumecpptperawat">
+                                <a href="#" class="nav-link resumecpptdokter">
                                     <i class="fas fa-filter mr-2"></i>Resume
                                 </a>
                             </li>
@@ -631,8 +757,33 @@
         }
     });
 
+   $(".pemantauan").click(function() {
+        spinner = $('#loader2');
+        spinner.show();
+        kj = $('#kj').val()
+        norm = $('#norm').val()
 
 
+        $.ajax({
+            type: "post",
+            data: {
+                _token: "{{ csrf_token() }}",
+                norm,
+                kj
+
+            },
+            url: '<?= route('pemantauan') ?>',
+            error: function(data) {
+                spinner.hide();
+                alert('oke!!')
+            },
+            success: function(response) {
+                spinner.hide();
+                $('.formermperawat').html(response);
+
+            }
+        });
+    });
     $(".riwayatcpptperawat").click(function() {
         spinner = $('#loader2');
         spinner.show();
@@ -817,7 +968,7 @@
     //         }
     //     });
     // });
-    $(".resumecpptperawat").click(function() {
+    $(".resumecpptdokter").click(function() {
         spinner = $('#loader2');
         spinner.show();
         kj = $('#kj').val()
@@ -832,7 +983,7 @@
                 norm
 
             },
-            url: '<?= route('resumecpptperawat') ?>',
+            url: '<?= route('resumecpptdokter') ?>',
             error: function(data) {
                 spinner.hide();
                 alert('oke!!')
@@ -844,6 +995,33 @@
             }
         });
     });
+    // $(".resumecpptperawat").click(function() {
+    //     spinner = $('#loader2');
+    //     spinner.show();
+    //     kj = $('#kj').val()
+    //     norm = $('#norm').val()
+
+
+    //     $.ajax({
+    //         type: "post",
+    //         data: {
+    //             _token: "{{ csrf_token() }}",
+    //             kj,
+    //             norm
+
+    //         },
+    //         url: '<?= route('resumecpptperawat') ?>',
+    //         error: function(data) {
+    //             spinner.hide();
+    //             alert('oke!!')
+    //         },
+    //         success: function(response) {
+    //             spinner.hide();
+    //             $('.formermperawat').html(response);
+
+    //         }
+    //     });
+    // });
 
     //hasil lab
     // Get the modal

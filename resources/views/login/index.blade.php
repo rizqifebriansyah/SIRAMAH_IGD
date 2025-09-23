@@ -15,7 +15,7 @@
 
 
 
-<body class="img js-fullheight" style="background-image: url(public/login-form/images/bg4.jpg);">
+<body class="img js-fullheight" style="background-image: url(public/login-form/images/bg1.gif);">
 
     <section class="ftco-section">
         <div class="container">
@@ -44,6 +44,10 @@
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="form-control btn btn-primary submit px-3">Sign In</button>
+                                <a href="http://192.168.2.45/simrs/register" target="_blank" class="form-control btn btn-primary mt-2 px-3">Register</a>
+
+
+                                
                             </div>
 
                         </form>
