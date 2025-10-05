@@ -133,7 +133,8 @@ Route::post('cetakresumecpptdokter', [DokterController::class, 'cetakresumecpptd
 Route::get('cetaktresumecppt/{kj}/{norm}', [DokterController::class, 'cetaktresumecppt']);
 Route::post('cetakresumedokterkebidanan', [DokterController::class, 'cetakresumedokterkebidanan'])->name('cetakresumedokterkebidanan');
 Route::get('cetaktresumekebidanan/{kj}/{norm}', [DokterController::class, 'cetaktresumekebidanan']);
-
+Route::post('cetakpemantauan', [DokterController::class, 'cetakpemantauan'])->name('cetakpemantauan');
+Route::get('cetakpemantauanigd/{kj}/{norm}', [DokterController::class, 'cetakpemantauanigd']);
 // perawat igd
 Route::group(['middleware' => ['hak_akses:4', 'auth']], function () {
 
@@ -147,6 +148,8 @@ Route::group(['middleware' => ['hak_akses:4', 'auth']], function () {
     Route::post('ermperawat', [PerawatController::class, 'ermperawat'])->name('ermperawat');
     Route::post('formermperawat', [PerawatController::class, 'formermperawat'])->name('formermperawat');
     Route::post('pemantauan', [PerawatController::class, 'pemantauan'])->name('pemantauan');
+    Route::post('transferpasien', [PerawatController::class, 'transferpasien'])->name('transferpasien');
+
     Route::post('riwayatcpptperawat', [PerawatController::class, 'riwayatcpptperawat'])->name('riwayatcpptperawat');
     Route::post('formdewasaigk', [PerawatController::class, 'formdewasaigk'])->name('formdewasaigk');
     Route::post('formbayikigk', [PerawatController::class, 'formbayikigk'])->name('formbayikigk');

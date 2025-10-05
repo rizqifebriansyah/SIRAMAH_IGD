@@ -47,7 +47,7 @@ class PerawatController extends Controller
         $norm = $request->norm;
         $hasilp = DB::connection('mysql2')->select('SELECT * FROM pemantauan_ttv WHERE kj = ? AND norm = ?', [$kj, $norm]);
         // dd($hasilp);
-       
+
         return view('perawat.pemantauanview', [
             'hasilp' => $hasilp
 
@@ -460,6 +460,32 @@ class PerawatController extends Controller
 
 
                 'unit' => $unit
+
+            ]
+        );
+    }
+
+    public function transferpasien(Request $request)
+    {
+        $unit = auth()->user()->unit;
+
+        $kj = $request->kj;
+        $norm = $request->norm;
+        $now = Carbon::now()->format('Y-m-d H:i:s');
+
+        return view(
+            'perawat.transferpasien',
+            [
+                'title' => 'SiRAMAH PERAWAT',
+                'unit' => $unit,
+
+                'now' => $now,
+                'norm' => $norm,
+
+                'kj' => $kj
+
+
+
 
             ]
         );
@@ -1373,6 +1399,12 @@ class PerawatController extends Controller
         $kj = $request->kj;
         // dd($data);
         $input = pemantauan_ttv::create([
+            'waktu_jaga_dokter' => $request->wdj,
+            'dokter_jaga' => $request->dj,
+            'waktu_jaga_perawat' => $request->wpj,
+            'perawat_jaga' => $request->pj,
+            'kategori_pasien' => $request->kapa,
+            'diagnosa_kerja' => $request->dk,
             'td' => $request->ttd,
             'nadi' => $request->nadi,
             'rr' => $request->rr,

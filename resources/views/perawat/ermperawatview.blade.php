@@ -220,26 +220,31 @@
                                     <i class="fas fa-male mr-2"></i>Catatan Perkembangan Pasien Terintegrasi (CPPT)
                                 </a>
                             </li>
-                             <li class="nav-item" id="pemeriksaan">
+                            <li class="nav-item" id="pemeriksaan">
                                 <a href="#" class="nav-link pemantauan">
                                     <i class="fas fa-male mr-2"></i>Pemantauan Tanda Vital Pasien
                                 </a>
                             </li>
-                            <!-- <li class="nav-item" id="pemeriksaan">
+                             <li class="nav-item" id="pemeriksaan">
+                                <a href="#" class="nav-link transferpasien">
+                                    <i class="fas fa-book mr-2"></i>Catatan Transfer Pasien
+                                </a>
+                            </li>
+                            <li class="nav-item" id="pemeriksaan">
                                 <a href="#" class="nav-link rencanaplg">
                                     <i class="fas fa-filter mr-2"></i>Rencana Pemulangan Pasien
                                 </a>
-                            </li> -->
-                            <!-- <li class="nav-item" id="pemeriksaan">
+                            </li>
+                            <li class="nav-item" id="pemeriksaan">
                                 <a href="#" class="nav-link sri">
                                     <i class="fas fa-filter mr-2"></i>Surat Rujukan Intern
                                 </a>
-                            </li> -->
-                            <!-- <li class="nav-item" id="pemeriksaan">
+                            </li>
+                            <li class="nav-item" id="pemeriksaan">
                                 <a href="#" class="nav-link upload">
                                     <i class="fas fa-filter mr-2"></i>Upload Dokumen
                                 </a>
-                            </li> -->
+                            </li>
                             <li class="nav-item" id="pemeriksaan">
                                 <a href="#" class="nav-link resumecpptdokter">
                                     <i class="fas fa-filter mr-2"></i>Resume
@@ -757,7 +762,7 @@
         }
     });
 
-   $(".pemantauan").click(function() {
+    $(".pemantauan").click(function() {
         spinner = $('#loader2');
         spinner.show();
         kj = $('#kj').val()
@@ -773,6 +778,33 @@
 
             },
             url: '<?= route('pemantauan') ?>',
+            error: function(data) {
+                spinner.hide();
+                alert('oke!!')
+            },
+            success: function(response) {
+                spinner.hide();
+                $('.formermperawat').html(response);
+
+            }
+        });
+    });
+    $(".transferpasien").click(function() {
+        spinner = $('#loader2');
+        spinner.show();
+        kj = $('#kj').val()
+        norm = $('#norm').val()
+
+
+        $.ajax({
+            type: "post",
+            data: {
+                _token: "{{ csrf_token() }}",
+                norm,
+                kj
+
+            },
+            url: '<?= route('transferpasien') ?>',
             error: function(data) {
                 spinner.hide();
                 alert('oke!!')

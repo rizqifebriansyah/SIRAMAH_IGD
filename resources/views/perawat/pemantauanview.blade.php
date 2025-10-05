@@ -3,6 +3,12 @@
 
 
         <th>tgl/waktu</th>
+        <th>Dokter </th>
+        <th>Waktu Jaga</th>
+        <th>Perawat </th>
+        <th>Waktu Jaga</th>
+        <th>Kategori </th>
+        <th>Diagnosa Kerja</th>
 
         <th>TD</th>
         <th>Nadi</th>
@@ -24,6 +30,13 @@
         @foreach($hasilp as $lap => $l)
         <tr>
             <td>{{$l->tgl_input}}</td>
+            <td>{{$l->dokter_jaga}}</td>
+            <td>{{$l->waktu_jaga_dokter}}</td>
+   <td>{{$l->perawat_jaga}}</td>
+            <td>{{$l->waktu_jaga_perawat}}</td>
+            <td>{{$l->kategori_pasien}}</td>
+            <td>{{$l->diagnosa_kerja}}</td>
+
             <td>{{$l->td}}</td>
             <td>{{$l->nadi}}</td>
             <td>{{$l->rr}}</td>
