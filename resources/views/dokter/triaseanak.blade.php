@@ -1387,7 +1387,37 @@
                                         </div>
                                     </td>
                                 </tr>
-
+                                <tr>
+                                    <td class="text-bold">
+                                        <h5>Lainya</h5>
+                                    </td>
+                                    <td>
+                                        <div class="form-group form-check">
+                                            <input type="text" class="form-input" id="ast1lain" name="ast1lain" value="">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group form-check">
+                                            <input type="text" class="form-input" id="ats2lain" name="ats2lain" value="">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group form-check">
+                                            <input type="text" class="form-input" id="ats3lain" name="ats3lain" value="">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group form-check">
+                                            <input type="text" class="form-input" id="ats4lain" name="ats4lain" value="">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group form-check">
+                                            <div class="form-group form-check">
+                                                <input type="text" class="form-input" id="ats5lain" name="ats5lain" value="">
+                                            </div>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -1504,7 +1534,7 @@
                             <tbody>
                                 <tr>
                                     <td class="text-bold ">KATEGORI TRIASE </td>
-                                            @if ($triase[0]->kategori_triase == 'Medikal')
+                                    @if ($triase[0]->kategori_triase == 'Medikal')
                                     <td>
                                         <div class="form-group form-check">
                                             <input checked type="checkbox" class="form-check-input" id="kategoritriase" name="kategoritriase" value="Medikal">
@@ -1575,91 +1605,91 @@
                                 </tr>
                                 <tr>
                                     <td class="text-bold">PEMERIKSAAN</td>
-                                            <div class="col-md-2 bg-danger">
-                                                @if ($triase[0]->pemeriksaan_triase == 'ATS1 Resusitasi')
+                                    <div class="col-md-2 bg-danger">
+                                        @if ($triase[0]->pemeriksaan_triase == 'ATS1 Resusitasi')
 
-                                                <div class="form-group form-check">
-                                                    <input type="checkbox" checked class="form-check-input" id="jenisats" name="jenisats" value="ATS1 Resusitasi">
-                                                    <label class="form-check-label" for="exampleCheck1">ATS1 <br>Resusitasi</label>
-                                                </div>
-                                                @else
-                                                <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="jenisats" name="jenisats" value="ATS1 Resusitasi">
-                                                    <label class="form-check-label" for="exampleCheck1">ATS1 <br>Resusitasi</label>
-                                                </div>
-                                                @endif
-                                            </div>
-                                            <div class="col-md-2" style="background-color: chocolate;">
-                                                @if ($triase[0]->pemeriksaan_triase == 'ATS2 Emergency')
+                                        <div class="form-group form-check">
+                                            <input type="checkbox" checked class="form-check-input" id="jenisats" name="jenisats" value="ATS1 Resusitasi">
+                                            <label class="form-check-label" for="exampleCheck1">ATS1 <br>Resusitasi</label>
+                                        </div>
+                                        @else
+                                        <div class="form-group form-check">
+                                            <input type="checkbox" class="form-check-input" id="jenisats" name="jenisats" value="ATS1 Resusitasi">
+                                            <label class="form-check-label" for="exampleCheck1">ATS1 <br>Resusitasi</label>
+                                        </div>
+                                        @endif
+                                    </div>
+                                    <div class="col-md-2" style="background-color: chocolate;">
+                                        @if ($triase[0]->pemeriksaan_triase == 'ATS2 Emergency')
 
-                                                <div class="form-group form-check">
-                                                    <input checked type="checkbox" class="form-check-input" id="jenisats" name="jenisats" value="ATS2 Emergency">
-                                                    <label class="form-check-label" for="exampleCheck1">ATS2 <br>
-                                                        Emergency</label>
-                                                </div>
-                                                @else
-                                                <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="jenisats" name="jenisats" value="ATS2 Emergency">
-                                                    <label class="form-check-label" for="exampleCheck1">ATS2 <br>
-                                                        Emergency</label>
-                                                </div>
-                                                @endif
-                                            </div>
-                                            <div class="col-md-2 bg-warning">
-                                                @if ($triase[0]->pemeriksaan_triase == 'ATS3 Urgent')
+                                        <div class="form-group form-check">
+                                            <input checked type="checkbox" class="form-check-input" id="jenisats" name="jenisats" value="ATS2 Emergency">
+                                            <label class="form-check-label" for="exampleCheck1">ATS2 <br>
+                                                Emergency</label>
+                                        </div>
+                                        @else
+                                        <div class="form-group form-check">
+                                            <input type="checkbox" class="form-check-input" id="jenisats" name="jenisats" value="ATS2 Emergency">
+                                            <label class="form-check-label" for="exampleCheck1">ATS2 <br>
+                                                Emergency</label>
+                                        </div>
+                                        @endif
+                                    </div>
+                                    <div class="col-md-2 bg-warning">
+                                        @if ($triase[0]->pemeriksaan_triase == 'ATS3 Urgent')
 
-                                                <div class="form-group form-check">
-                                                    <input checked type="checkbox" class="form-check-input" id="jenisats" name="jenisats" value="ATS3 Urgent">
+                                        <div class="form-group form-check">
+                                            <input checked type="checkbox" class="form-check-input" id="jenisats" name="jenisats" value="ATS3 Urgent">
 
-                                                    <label class="form-check-label" for="exampleCheck1">ATS3 <br>
-                                                        Urgent
-                                                    </label>
-                                                </div>
-                                                @else
-                                                <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="jenisats" name="jenisats" value="ATS3 Urgent">
-                                                    <label class="form-check-label" for="exampleCheck1">ATS3 <br>
-                                                        Urgent
-                                                    </label>
-                                                </div>
-                                                @endif
-                                            </div>
-                                            <div class="col-md-2 bg-success">
-                                                @if ($triase[0]->pemeriksaan_triase == 'ATS4 Non Urgent')
+                                            <label class="form-check-label" for="exampleCheck1">ATS3 <br>
+                                                Urgent
+                                            </label>
+                                        </div>
+                                        @else
+                                        <div class="form-group form-check">
+                                            <input type="checkbox" class="form-check-input" id="jenisats" name="jenisats" value="ATS3 Urgent">
+                                            <label class="form-check-label" for="exampleCheck1">ATS3 <br>
+                                                Urgent
+                                            </label>
+                                        </div>
+                                        @endif
+                                    </div>
+                                    <div class="col-md-2 bg-success">
+                                        @if ($triase[0]->pemeriksaan_triase == 'ATS4 Non Urgent')
 
-                                                <div class="form-group form-check">
-                                                    <input checked type="checkbox" class="form-check-input" id="jenisats" name="jenisats" value="ATS4 Non Urgent">
-                                                    <label class="form-check-label" for="exampleCheck1">ATS4 <br> Non
-                                                        Urgent
-                                                    </label>
-                                                </div>
-                                                @else
-                                                <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="jenisats" name="jenisats" value="ATS4 Non Urgent">
-                                                    <label class="form-check-label" for="exampleCheck1">ATS4 <br> Non
-                                                        Urgent
-                                                    </label>
-                                                </div>
-                                                @endif
-                                            </div>
-                                            <div class="col-md-2 bg-primary">
-                                                @if ($triase[0]->pemeriksaan_triase == 'ATS5 False Emergency')
+                                        <div class="form-group form-check">
+                                            <input checked type="checkbox" class="form-check-input" id="jenisats" name="jenisats" value="ATS4 Non Urgent">
+                                            <label class="form-check-label" for="exampleCheck1">ATS4 <br> Non
+                                                Urgent
+                                            </label>
+                                        </div>
+                                        @else
+                                        <div class="form-group form-check">
+                                            <input type="checkbox" class="form-check-input" id="jenisats" name="jenisats" value="ATS4 Non Urgent">
+                                            <label class="form-check-label" for="exampleCheck1">ATS4 <br> Non
+                                                Urgent
+                                            </label>
+                                        </div>
+                                        @endif
+                                    </div>
+                                    <div class="col-md-2 bg-primary">
+                                        @if ($triase[0]->pemeriksaan_triase == 'ATS5 False Emergency')
 
-                                                <div class="form-group form-check">
-                                                    <input checked type="checkbox" class="form-check-input" id="jenisats" name="jenisats" value="ATS5 False Emergency">
-                                                    <label class="form-check-label" for="exampleCheck1">ATS5 <br>
-                                                        False Emergency
-                                                    </label>
-                                                </div>
-                                                @else
-                                                <div class="form-group form-check">
-                                                    <input type="checkbox" class="form-check-input" id="jenisats" name="jenisats" value="ATS5 False Emergency">
-                                                    <label class="form-check-label" for="exampleCheck1">ATS5 <br>
-                                                        False Emergency
-                                                    </label>
-                                                </div>
-                                                @endif
-                                            </div>
+                                        <div class="form-group form-check">
+                                            <input checked type="checkbox" class="form-check-input" id="jenisats" name="jenisats" value="ATS5 False Emergency">
+                                            <label class="form-check-label" for="exampleCheck1">ATS5 <br>
+                                                False Emergency
+                                            </label>
+                                        </div>
+                                        @else
+                                        <div class="form-group form-check">
+                                            <input type="checkbox" class="form-check-input" id="jenisats" name="jenisats" value="ATS5 False Emergency">
+                                            <label class="form-check-label" for="exampleCheck1">ATS5 <br>
+                                                False Emergency
+                                            </label>
+                                        </div>
+                                        @endif
+                                    </div>
 
                                     </td>
                                 </tr>
@@ -3584,7 +3614,37 @@
                                         </div>
                                     </td>
                                 </tr>
-
+                                <tr>
+                                    <td class="text-bold">
+                                        <h5>Lainya</h5>
+                                    </td>
+                                    <td>
+                                        <div class="form-group form-check">
+                                            <input type="text" class="form-input" id="ast1lain" name="ast1lain" placeholder="{{$triase[0]->ats1lain}}" value="">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group form-check">
+                                            <input type="text" class="form-input" id="ats2lain" name="ats2lain" value="" placeholder="{{$triase[0]->ats2lain}}">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group form-check">
+                                            <input type="text" class="form-input" id="ats3lain" name="ats3lain" value="" placeholder="{{$triase[0]->ats3lain}}">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group form-check">
+                                            <input type="text" class="form-input" id="ats4lain" name="ats4lain" value="" placeholder="{{$triase[0]->ats4lain}}">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group form-check">
+                                            <div class="form-group form-check">
+                                                <input type="text" class="form-input" id="ats5lain" name="ats5lain" value="" placeholder="{{$triase[0]->ats5lain}}">
+                                            </div>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -3593,9 +3653,9 @@
                 @endif
 
 
-                <div type="button" class="btn float-right btn-success simpantriaseanak" style="margin-top: 20px;">
+                <!-- <div type="button" class="btn float-right btn-success simpantriaseanak" style="margin-top: 20px;">
                     SIMPAN
-                </div>
+                </div> -->
             </div>
         </form>
 

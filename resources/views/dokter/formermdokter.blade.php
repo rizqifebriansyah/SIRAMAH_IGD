@@ -8406,6 +8406,11 @@
         var gejala27 = $("#gejala27:checked").val()
         var gejala28 = $("#gejala28:checked").val()
         var gejala29 = $("#gejala29:checked").val()
+        var ats1lain = $('#ats1lain').val()
+        var ats2lain = $('#ats2lain').val()
+        var ats3lain = $('#ats3lain').val()
+        var ats4lain = $('#ats4lain').val()
+        var ats5lain = $('#ats5lain').val()
         //triase
         var ku = $('#ku').val()
         var sumberdata = $('#sumberdata:checked').val()
@@ -8560,6 +8565,13 @@
                         gejala27: $("#gejala27:checked").val(),
                         gejala28: $("#gejala28:checked").val(),
                         gejala29: $("#gejala29:checked").val(),
+                        ats1lain: $('#ats1lain').val(),
+                        ats2lain: $('#ats2lain').val(),
+                        ats3lain: $('#ats3lain').val(),
+                        ats4lain: $('#ats4lain').val(),
+                        ats5lain: $('#ats5lain').val(),
+                       
+                       
                         //triase
                         sumberdata: $('#sumberdata:checked').val(),
                         macamkasus: $('#macamkasus:checked').val(),
@@ -8743,6 +8755,12 @@
         var gejala27 = $("#gejala27:checked").val();
         var gejala28 = $("#gejala28:checked").val();
         var gejala29 = $("#gejala29:checked").val();
+        var ats1lain = $('#ats1lain').val()
+        var ats2lain = $('#ats2lain').val()
+        var ats3lain = $('#ats3lain').val()
+        var ats4lain = $('#ats4lain').val()
+        var ats5lain = $('#ats5lain').val()
+
         //triase
         var ku = $('#ku').val()
         var sumberdata = $('#sumberdata:checked').val()
@@ -8913,6 +8931,13 @@
                         gejala27: $("#gejala27:checked").val(),
                         gejala28: $("#gejala28:checked").val(),
                         gejala29: $("#gejala29:checked").val(),
+                        ats1lain: $('#ats1lain').val(),
+                        ats2lain: $('#ats2lain').val(),
+                        ats3lain: $('#ats3lain').val(),
+                        ats4lain: $('#ats4lain').val(),
+                        ats5lain: $('#ats5lain').val(),
+                        
+                        
                         //triase
                         sumberdata: $('#sumberdata:checked').val(),
                         macamkasus: $('#macamkasus:checked').val(),

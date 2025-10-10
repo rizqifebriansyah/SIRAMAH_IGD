@@ -15,7 +15,7 @@
 
         <table class=" table table-bordered">
             <tbody>
-                
+
                 <tr>
                     <td class="text-bold ">KATEGORI TRIASE </td>
 
@@ -1051,9 +1051,9 @@
                     </td>
                     <td>
                         <div class="form-group form-check">
-                            <input type="checkbox" class="form-check-input" id="gejala29" name="gejala29" value="Nyeri Kepala heba mendadak (VAS > = 8) ">
+                            <input type="checkbox" class="form-check-input" id="gejala29" name="gejala29" value="Nyeri Kepala hebat mendadak (VAS > = 8) ">
                             <label class="form-check-label" for="exampleCheck1">Nyeri Kepala
-                                heba mendadak
+                                hebat mendadak
                                 (VAS ≥ 8) </label>
                         </div>
                     </td>
@@ -1071,6 +1071,37 @@
                         <div class="form-group form-check">
 
                         </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-bold">
+                        <h5>Lainya</h5>
+                    </td>
+                    <td>
+                        <div class="form-group form-check">
+                            <input type="text" class="form-input" id="ast1lain" name="ast1lain" value="">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group form-check">
+                            <input type="text" class="form-input" id="ats2lain" name="ats2lain" value="">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group form-check">
+                            <input type="text" class="form-input" id="ats3lain" name="ats3lain" value="">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group form-check">
+                            <input type="text" class="form-input" id="ats4lain" name="ats4lain" value="">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group form-check">
+                            <div class="form-group form-check">
+                                <input type="text" class="form-input" id="ats5lain" name="ats5lain" value="">
+                            </div>
                     </td>
                 </tr>
 
@@ -2760,12 +2791,12 @@
                             @if ($triase[0]->gejala_respirasi29 == ' Nyeri Kepala heba mendadak (VAS > = 8)')
                             <input type="checkbox" class="form-check-input" id="gejala29" name="gejala29" value="Nyeri Kepala heba mendadak (VAS > = 8) " checked>
                             <label class="form-check-label" for="exampleCheck1">Nyeri Kepala
-                                heba mendadak
+                                hebat mendadak
                                 (VAS ≥ 8) </label>
                             @else
                             <input type="checkbox" class="form-check-input" id="gejala29" name="gejala29" value="Nyeri Kepala heba mendadak (VAS > = 8) ">
                             <label class="form-check-label" for="exampleCheck1">Nyeri Kepala
-                                heba mendadak
+                                hebat mendadak
                                 (VAS ≥ 8) </label>
                             @endif
 
@@ -2785,6 +2816,37 @@
                         <div class="form-group form-check">
 
                         </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-bold">
+                        <h5>Lainya</h5>
+                    </td>
+                    <td>
+                        <div class="form-group form-check">
+                            <input type="text" class="form-input" id="ast1lain" name="ast1lain" placeholder="{{$triase[0]->ats1lain}}" value="">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group form-check">
+                            <input type="text" class="form-input" id="ats2lain" name="ats2lain" value="" placeholder="{{$triase[0]->ats2lain}}">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group form-check">
+                            <input type="text" class="form-input" id="ats3lain" name="ats3lain" value="" placeholder="{{$triase[0]->ats3lain}}">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group form-check">
+                            <input type="text" class="form-input" id="ats4lain" name="ats4lain" value="" placeholder="{{$triase[0]->ats4lain}}">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group form-check">
+                            <div class="form-group form-check">
+                                <input type="text" class="form-input" id="ats5lain" name="ats5lain" value="" placeholder="{{$triase[0]->ats5lain}}">
+                            </div>
                     </td>
                 </tr>
 
