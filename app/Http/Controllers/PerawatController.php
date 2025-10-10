@@ -64,9 +64,28 @@ class PerawatController extends Controller
 
 
         $now = Carbon::now()->format('Y-m-d');
-        $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','$unit','$now')");
         // $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','$unit','$now')");
+        // $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','$unit','$now')");
+        $pasienigd = DB::select('SELECT 
 
+        c.diag_00 as DIAGX
+        ,a.no_rm
+        ,fc_nama_px(a.no_rm) as nama_px
+        ,a.tgl_masuk
+        ,fc_NAMA_PARAMEDIS1(a.kode_paramedis) nama_dpjp
+        ,a.kode_penjamin
+        ,a.kode_kunjungan
+        ,a.kelas
+        ,a.kelas as KELAS_UNIT
+        ,a.counter
+        ,b.jenis_kelamin
+
+        from ts_kunjungan a
+        inner join mt_pasien b on b.no_rm = a.no_rm
+        inner join di_pasien_diagnosa_frunit c on c.kode_kunjungan = a.kode_kunjungan 
+        where Date(a.tgl_masuk) = ?
+        and a.status_kunjungan = 1
+        and a.kode_unit = ?', [$now, $unit]);
         return view(
             'perawat.assesperawat',
             [
@@ -849,9 +868,28 @@ class PerawatController extends Controller
         $tgl = $request->tglkunjungan;
         $unit = auth()->user()->unit;
 
-        $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','$unit','$tgl')");
+        // $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','$unit','$tgl')");
         // $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$tgl')");
+        $pasienigd = DB::select('SELECT 
 
+        c.diag_00 as DIAGX
+        ,a.no_rm
+        ,fc_nama_px(a.no_rm) as nama_px
+        ,a.tgl_masuk
+        ,fc_NAMA_PARAMEDIS1(a.kode_paramedis) nama_dpjp
+        ,a.kode_penjamin
+        ,a.kode_kunjungan
+        ,a.kelas
+        ,a.kelas as KELAS_UNIT
+        ,a.counter
+        ,b.jenis_kelamin
+
+        from ts_kunjungan a
+        inner join mt_pasien b on b.no_rm = a.no_rm
+        inner join di_pasien_diagnosa_frunit c on c.kode_kunjungan = a.kode_kunjungan 
+        where Date(a.tgl_masuk) = ?
+        and a.status_kunjungan IN (1,2)
+        and a.kode_unit = ?', [$tgl, $unit]);
 
         return view(
             'perawat.tablepasienigdperawat',
