@@ -56,7 +56,7 @@ class FarmasiController extends Controller
         $norm = $request->norm;
         $kj = $request->kj;
 
-        $riwayatobat = DB::connection('mysql2')->select('SELECT * FROM rekonsiliasi_obat
+        $riwayatobat = DB::select('SELECT * FROM rekonsiliasi_obat
         WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $request->kj]);
         return view(
             'farmasi.riwayatrekon',
@@ -82,7 +82,7 @@ class FarmasiController extends Controller
 
         $kelas = $request->kelas;
         $tglmasuk = $request->tglmasuk;
-        $riwayatobat = DB::connection('mysql2')->select('SELECT * FROM rekonsiliasi_obat
+        $riwayatobat = DB::select('SELECT * FROM rekonsiliasi_obat
         WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $request->kj]);
         return view(
             'farmasi.rekonsiliasiobat',
@@ -145,7 +145,7 @@ class FarmasiController extends Controller
     }
     public function createLayanandetail()
     {
-        $q = DB::connection('mysql2')->select('SELECT id,kode_detail_obat,RIGHT(kode_detail_obat,3) AS kd_max  FROM rekonsiliasi_obat
+        $q = DB::select('SELECT id,kode_detail_obat,RIGHT(kode_detail_obat,3) AS kd_max  FROM rekonsiliasi_obat
         WHERE DATE(tgl_input) = CURDATE()
         ORDER BY id DESC
         LIMIT 1');
