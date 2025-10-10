@@ -75,7 +75,7 @@ class DokterController extends Controller
         $menu = 'triase';
         $now = Carbon::now()->format('Y-m-d');
 
-        $antrian = DB::connection('mysql2')->select('SELECT no_antri, kode_kunjungan, tgl, no_rm, nama_px, status, status_triase FROM tp_karcis_igd WHERE DATE(tgl) BETWEEN ? AND ?', [$now, $now]);
+        $antrian = DB::select('SELECT no_antri, kode_kunjungan, tgl, no_rm, nama_px, status, status_triase FROM tp_karcis_igd WHERE DATE(tgl) BETWEEN ? AND ?', [$now, $now]);
         $nama = DB::select('SELECT  no_rm, kode_kunjungan FROM ts_kunjungan
         WHERE DATE(tgl_masuk) BETWEEN ? AND ?', [$now, $now]);
         return view(
@@ -179,9 +179,9 @@ class DokterController extends Controller
         $tglmasuk = $request->tglmasuk;
         $unit = auth()->user()->unit;
 
-        $ttv = DB::connection('mysql2')->select('SELECT tekanan_darah, keadaan_umum, kesadaran, frekuensi_nafas, frekuensi_nadi, suhu, berat_badan, umur, GCS, spo2 FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
-        $ttvb = DB::connection('mysql2')->select('SELECT tekanan_darah, keadaan_umum, kesadaran, frekuensi_nafas, frekuensi_nadi, suhu, berat_badan, umur, GCS, SPO2 FROM erm_cppt_kebidanan WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
-        $ttvc = DB::connection('mysql2')->select('SELECT tekanan_darah, frekuensi_nafas, frekuensi_nadi, suhu, berat_badan, umur, keadaan_umum, kesadaran, gcs, spo2 FROM erm_cppt_kebidanan_bayi WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
+        $ttv = DB::select('SELECT tekanan_darah, keadaan_umum, kesadaran, frekuensi_nafas, frekuensi_nadi, suhu, berat_badan, umur, GCS, spo2 FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
+        $ttvb = DB::select('SELECT tekanan_darah, keadaan_umum, kesadaran, frekuensi_nafas, frekuensi_nadi, suhu, berat_badan, umur, GCS, SPO2 FROM erm_cppt_kebidanan WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
+        $ttvc = DB::select('SELECT tekanan_darah, frekuensi_nafas, frekuensi_nadi, suhu, berat_badan, umur, keadaan_umum, kesadaran, gcs, spo2 FROM erm_cppt_kebidanan_bayi WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
 
         $cek = DB::select('SELECT
       fc_nama_unit1(kode_unit) AS nama_unit
@@ -308,7 +308,7 @@ class DokterController extends Controller
     public function triaseanak(Request $request)
     {
         $noantri = $request->antrian;
-        $triase = DB::connection('mysql2')->select('SELECT * FROM ts_triase
+        $triase = DB::select('SELECT * FROM ts_triase
        WHERE no_antrian = ?', [$noantri]);
         return view(
             'dokter.triaseanak',
@@ -324,7 +324,7 @@ class DokterController extends Controller
     {
 
         $noantri = $request->antrian;
-        $triase = DB::connection('mysql2')->select('SELECT * FROM ts_triase
+        $triase = DB::select('SELECT * FROM ts_triase
         WHERE no_antrian = ?', [$noantri]);
 
         return view(
@@ -341,7 +341,7 @@ class DokterController extends Controller
     {
         $norm = $request->norm;
 
-        $triase = DB::connection('mysql2')->select('SELECT * FROM ts_triase
+        $triase = DB::select('SELECT * FROM ts_triase
            WHERE no_rm = ?', [$norm]);
         return view(
             'dokter.triaseanakk',
@@ -354,7 +354,7 @@ class DokterController extends Controller
     {
         $norm = $request->norm;
 
-        $triase = DB::connection('mysql2')->select('SELECT * FROM ts_triase
+        $triase = DB::select('SELECT * FROM ts_triase
            WHERE no_rm = ?', [$norm]);
         return view(
             'dokter.triasesdewasaa',
@@ -417,7 +417,7 @@ class DokterController extends Controller
         , diagnostik_pasca_bedah
         , tgl_baca
           FROM ts_hasil_expertisi_pa WHERE kode_kunjungan = ?', [$kj]);
-        $riwayatorderrad = DB::connection('mysql2')->select('SELECT
+        $riwayatorderrad = DB::select('SELECT
         a.no_rm,
         a.kode_layanan_header,
         a.id,
@@ -429,7 +429,7 @@ class DokterController extends Controller
         WHERE a.kode_unit = ?
         AND a.kode_kunjungan = ?
         AND a.status_order ="1"', ['3003', $request->kj]);
-        $riwayatorderlab = DB::connection('mysql2')->select('SELECT
+        $riwayatorderlab = DB::select('SELECT
          a.no_rm,
          a.kode_layanan_header,
          a.id,
@@ -457,15 +457,15 @@ AND b.kelas_tarif = 1');
             AND b.kelas_tarif = 1');
         $diagnosa = DB::select('SELECT * FROM mt_jenis_diagnosa_medis');
         $alasanplg  = DB::select('SELECT * FROM mt_alasan_pulang');
-        $ttb = DB::connection('mysql2')->select('SELECT tekanan_darah, frekuensi_nafas, keadaan_umum, kesadaran, frekuensi_nadi, suhu, berat_badan, GCS, SPO2, umur FROM erm_cppt_kebidanan WHERE kode_kunjungan = ?', [$kj]);
-        $assesdok = DB::connection('mysql2')->select('SELECT * FROM erm_cppt_dokter_kebidanan WHERE  kode_kunjungan = ? AND status IN (1,2)', [$kj]);
-        $dpjp = DB::connection('mysql2')->select('SELECT 
+        $ttb = DB::select('SELECT tekanan_darah, frekuensi_nafas, keadaan_umum, kesadaran, frekuensi_nadi, suhu, berat_badan, GCS, SPO2, umur FROM erm_cppt_kebidanan WHERE kode_kunjungan = ?', [$kj]);
+        $assesdok = DB::select('SELECT * FROM erm_cppt_dokter_kebidanan WHERE  kode_kunjungan = ? AND status IN (1,2)', [$kj]);
+        $dpjp = DB::select('SELECT 
         a.kode_paramedis,
         a.nama_paramedis
         FROM mt_paramedis a
         WHERE a.spesialis LIKE "%spesialis%"
         AND a.act = 1');
-        $riwayattindakandpjp = DB::connection('mysql2')->select('SELECT fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,a.kode_paramedis,a.tindakan_kedokteran FROM erm_tindakan_kedokteran a WHERE kode_kunjungan = ?', [$kj]);
+        $riwayattindakandpjp = DB::select('SELECT fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,a.kode_paramedis,a.tindakan_kedokteran FROM erm_tindakan_kedokteran a WHERE kode_kunjungan = ?', [$kj]);
 
         return view(
             'dokter.formdewasadokigk',
@@ -504,7 +504,7 @@ AND b.kelas_tarif = 1');
         $counter = $request->counter;
         $unit = auth()->user()->unit;
 
-        $riwayatobat = DB::connection('mysql2')->select('SELECT * FROM rekonsiliasi_obat
+        $riwayatobat = DB::select('SELECT * FROM rekonsiliasi_obat
         WHERE kode_kunjungan = ?', [$kj]);
         return view(
             'dokter.rekonobatview',
@@ -549,7 +549,7 @@ AND b.kelas_tarif = 1');
         , diagnostik_pasca_bedah
         , tgl_baca
           FROM ts_hasil_expertisi_pa WHERE kode_kunjungan = ?', [$kj]);
-        $riwayatorderrad = DB::connection('mysql2')->select('SELECT
+        $riwayatorderrad = DB::select('SELECT
         a.no_rm,
         a.kode_layanan_header,
         a.id,
@@ -561,7 +561,7 @@ AND b.kelas_tarif = 1');
         WHERE a.kode_unit = ?
         AND a.kode_kunjungan = ?
         AND a.status_order ="1"', ['3003', $request->kj]);
-        $riwayatorderlab = DB::connection('mysql2')->select('SELECT
+        $riwayatorderlab = DB::select('SELECT
          a.no_rm,
          a.kode_layanan_header,
          a.id,
@@ -589,15 +589,15 @@ AND b.kelas_tarif = 1');
         AND b.kelas_tarif = 1');
         $diagnosa = DB::select('SELECT * FROM mt_jenis_diagnosa_medis');
         $alasanplg  = DB::select('SELECT * FROM mt_alasan_pulang');
-        $ttv = DB::connection('mysql2')->select('SELECT tekanan_darah, frekuensi_nafas, keadaan_umum, kesadaran, frekuensi_nadi, suhu, GCS, SPO2, berat_badan, umuR FROM erm_cppt_kebidanan_bayi WHERE  kode_kunjungan = ?', [$kj]);
-        $assesdok = DB::connection('mysql2')->select('SELECT * FROM erm_cppt_dokter_kebidanan WHERE  kode_kunjungan = ? AND status IN (1,2)', [$kj]);
-        $dpjp = DB::connection('mysql2')->select('SELECT 
+        $ttv = DB::select('SELECT tekanan_darah, frekuensi_nafas, keadaan_umum, kesadaran, frekuensi_nadi, suhu, GCS, SPO2, berat_badan, umuR FROM erm_cppt_kebidanan_bayi WHERE  kode_kunjungan = ?', [$kj]);
+        $assesdok = DB::select('SELECT * FROM erm_cppt_dokter_kebidanan WHERE  kode_kunjungan = ? AND status IN (1,2)', [$kj]);
+        $dpjp = DB::select('SELECT 
         a.kode_paramedis,
         a.nama_paramedis
         FROM mt_paramedis a
         WHERE a.spesialis LIKE "%spesialis%"
         AND a.act = 1');
-        $riwayattindakandpjp = DB::connection('mysql2')->select('SELECT fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,a.kode_paramedis,a.tindakan_kedokteran FROM erm_tindakan_kedokteran a WHERE kode_kunjungan = ?', [$kj]);
+        $riwayattindakandpjp = DB::select('SELECT fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,a.kode_paramedis,a.tindakan_kedokteran FROM erm_tindakan_kedokteran a WHERE kode_kunjungan = ?', [$kj]);
 
         return view(
             'dokter.formbayikdokigk',
@@ -664,7 +664,7 @@ AND b.kelas_tarif = 1');
          WHERE a.kode_layanan_header LIKE "%DP%"
          AND b.kode_tarif_detail NOT LIKE "%tx%"
          AND a.kode_kunjungan = ?', [$request->kj]);
-        $riwayatrekonobat = DB::connection('mysql2')->select('SELECT * FROM rekonsiliasi_obat
+        $riwayatrekonobat = DB::select('SELECT * FROM rekonsiliasi_obat
         WHERE kode_kunjungan = ?', [$kj]);
         $cek1 = DB::select('select * from ts_layanan_header where kode_kunjungan = ? and kode_unit = ?', [$kj, '3002']);
         $cek = DB::select('select *,date(tgl_baca) as tanggalnya,fc_acc_number_ris(id_detail) as acc_number from ts_hasil_expertisi where kode_kunjungan = ?', [$kj]);
@@ -683,7 +683,7 @@ AND b.kelas_tarif = 1');
         , diagnostik_pasca_bedah
         , tgl_baca
           FROM ts_hasil_expertisi_pa WHERE kode_kunjungan = ?', [$kj]);
-        $riwayatorderrad = DB::connection('mysql2')->select('SELECT
+        $riwayatorderrad = DB::select('SELECT
         a.no_rm,
         a.kode_layanan_header,
         b.id_layanan_detail,
@@ -699,7 +699,7 @@ AND b.kelas_tarif = 1');
         AND a.status_order ="1"
         AND b.satus_order = "1"
         ', ['3003', $request->kj]);
-        $riwayatorderlab = DB::connection('mysql2')->select('SELECT
+        $riwayatorderlab = DB::select('SELECT
          a.no_rm,
          a.kode_layanan_header,
          b.id_layanan_detail,
@@ -723,25 +723,25 @@ AND b.kelas_tarif = 1');
         $layanan = DB::select("CALL SP_CARI_TARIF_PELAYANAN_RAD('1','','1')");
         $diagnosa = DB::select('SELECT * FROM mt_jenis_diagnosa_medis');
         $alasanplg  = DB::select('SELECT * FROM mt_alasan_pulang');
-        $ttv = DB::connection('mysql2')->select('SELECT tekanan_darah, frekuensi_nafas, keadaan_umum, kesadaran, frekuensi_nadi, suhu, berat_badan, umur, GCS, SPO2 FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
-        $assesdok = DB::connection('mysql2')->select('SELECT * FROM erm_cppt_dokter WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
-        // $tindakan = DB::connection('mysql2')->select('SELECT * FROM erm_tindakan_kedokteran WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
-        $assesper = DB::connection('mysql2')->select('SELECT * FROM erm_cppt_perawat
+        $ttv = DB::select('SELECT tekanan_darah, frekuensi_nafas, keadaan_umum, kesadaran, frekuensi_nadi, suhu, berat_badan, umur, GCS, SPO2 FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
+        $assesdok = DB::select('SELECT * FROM erm_cppt_dokter WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
+        // $tindakan = DB::select('SELECT * FROM erm_tindakan_kedokteran WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
+        $assesper = DB::select('SELECT * FROM erm_cppt_perawat
           WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $request->kj]);
 
 
-        $triase = DB::connection('mysql2')->select('SELECT * FROM ts_triase
+        $triase = DB::select('SELECT * FROM ts_triase
            WHERE no_rm = ? AND kode_kunjungan = ? AND STATUS IN (1,2) ', [$norm, $kj]);
-        $dpjp = DB::connection('mysql2')->select('SELECT 
+        $dpjp = DB::select('SELECT 
                     a.kode_paramedis,
                     a.nama_paramedis
                     FROM mt_paramedis a
                     WHERE a.spesialis LIKE "%spesialis%"
                     AND a.act = 1');
-        $riwayattindakandpjp = DB::connection('mysql2')->select('SELECT id,fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,a.kode_paramedis,a.tindakan_kedokteran FROM erm_tindakan_kedokteran a WHERE kode_kunjungan = ? AND status = 1', [$kj]);
+        $riwayattindakandpjp = DB::select('SELECT id,fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,a.kode_paramedis,a.tindakan_kedokteran FROM erm_tindakan_kedokteran a WHERE kode_kunjungan = ? AND status = 1', [$kj]);
         // dd($riwayattindakandpjp);
         $tindakanigd = DB::select("CALL SP_PANGGIL_TARIF_TINDAKAN_RS_2024_IGD('1','','')");
-        $riwayatordergp = DB::connection('mysql2')->select('SELECT
+        $riwayatordergp = DB::select('SELECT
         a.no_rm,
         a.kode_layanan_header,
         b.id_layanan_detail,
@@ -826,7 +826,7 @@ AND b.kelas_tarif = 1');
     public function resumetriase(Request $request)
     {
 
-        $resume = DB::connection('mysql2')->select('SELECT * FROM ts_triase
+        $resume = DB::select('SELECT * FROM ts_triase
       WHERE no_antrian = ?', [$request->antrian]);
         return view(
             'dokter.resumetriase',
@@ -846,11 +846,11 @@ AND b.kelas_tarif = 1');
         $unit = auth()->user()->unit;
 
         $now = Carbon::now()->format('Y-m-d H:i:s');
-        $rencanaplg = DB::connection('mysql2')->select('SELECT * FROM rencana_plg WHERE kode_kunjungan = ?
+        $rencanaplg = DB::select('SELECT * FROM rencana_plg WHERE kode_kunjungan = ?
         ', [$kj]);
-        $triase = DB::connection('mysql2')->select('SELECT * FROM ts_triase
+        $triase = DB::select('SELECT * FROM ts_triase
            WHERE no_rm = ? AND kode_kunjungan = ? AND STATUS IN (1,2) ', [$request->norm, $request->kj]);
-        $hasil = DB::connection('mysql2')->select('SELECT 
+        $hasil = DB::select('SELECT 
          a.tgl_kunjungan,
          a.hasil_ekg,
          a.surat_penolakan,
@@ -859,11 +859,11 @@ AND b.kelas_tarif = 1');
          FROM erm_cppt_perawat a
          WHERE a.kode_kunjungan = ?', [$kj]);
 
-        $assesdok = DB::connection('mysql2')->select('SELECT * FROM erm_cppt_dokter
+        $assesdok = DB::select('SELECT * FROM erm_cppt_dokter
         WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $request->kj]);
-        $assesdokbid = DB::connection('mysql2')->select('SELECT * FROM erm_cppt_dokter_kebidanan WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $kj]);
+        $assesdokbid = DB::select('SELECT * FROM erm_cppt_dokter_kebidanan WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $kj]);
         // dd($assesdokbid);
-        $riwayatorderrad = DB::connection('mysql2')->select('SELECT
+        $riwayatorderrad = DB::select('SELECT
         a.no_rm,
         a.kode_layanan_header,
         a.id,
@@ -875,7 +875,7 @@ AND b.kelas_tarif = 1');
         WHERE a.kode_unit = ?
         AND a.kode_kunjungan = ?
         AND a.status_order ="1"', ['3003', $request->kj]);
-        $riwayatorderlab = DB::connection('mysql2')->select('SELECT
+        $riwayatorderlab = DB::select('SELECT
          a.no_rm,
          a.kode_layanan_header,
          a.id,
@@ -903,18 +903,18 @@ AND b.kelas_tarif = 1');
          WHERE a.kode_layanan_header LIKE "%DP%"
          AND b.kode_tarif_detail NOT LIKE "%tx%"
          AND a.kode_kunjungan = ?', [$request->kj]);
-        $ttv = DB::connection('mysql2')->select('SELECT tekanan_darah, frekuensi_nafas, keadaan_umum, kesadaran, frekuensi_nadi, suhu, berat_badan, umur FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $request->kj]);
-        $ttb = DB::connection('mysql2')->select('SELECT tekanan_darah, frekuensi_nafas, keadaan_umum, kesadaran, frekuensi_nadi, suhu, berat_badan, GCS, SPO2, umur FROM erm_cppt_kebidanan WHERE kode_kunjungan = ?', [$kj]);
-        $riwayatrekonobat = DB::connection('mysql2')->select('SELECT * FROM rekonsiliasi_obat
+        $ttv = DB::select('SELECT tekanan_darah, frekuensi_nafas, keadaan_umum, kesadaran, frekuensi_nadi, suhu, berat_badan, umur FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $request->kj]);
+        $ttb = DB::select('SELECT tekanan_darah, frekuensi_nafas, keadaan_umum, kesadaran, frekuensi_nadi, suhu, berat_badan, GCS, SPO2, umur FROM erm_cppt_kebidanan WHERE kode_kunjungan = ?', [$kj]);
+        $riwayatrekonobat = DB::select('SELECT * FROM rekonsiliasi_obat
         WHERE kode_kunjungan = ?', [$kj]);
-        $tindakan = DB::connection('mysql2')->select('SELECT * FROM erm_tindakan_kedokteran WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $request->kj]);
-        $tindakan1 = DB::connection('mysql2')->select('SELECT * FROM erm_tindakan_keperawatan WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $request->kj]);
+        $tindakan = DB::select('SELECT * FROM erm_tindakan_kedokteran WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $request->kj]);
+        $tindakan1 = DB::select('SELECT * FROM erm_tindakan_keperawatan WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $request->kj]);
         // dd($tindakan1); 
-        $assesper = DB::connection('mysql2')->select('SELECT * FROM erm_cppt_perawat
+        $assesper = DB::select('SELECT * FROM erm_cppt_perawat
           WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $request->kj]);
-        $assesbid = DB::connection('mysql2')->select('SELECT * FROM erm_cppt_kebidanan WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $kj]);
-        $assesbidbay = DB::connection('mysql2')->select('SELECT * FROM erm_cppt_kebidanan_bayi WHERE no_rm = ? AND kode_kunjungan = ? AND status IN (1,2)', [$request->norm, $kj]);
-        $dpjp = DB::connection('mysql2')->select('SELECT fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,a.kode_paramedis,a.tindakan_kedokteran FROM erm_tindakan_kedokteran a WHERE kode_kunjungan = ?', [$kj]);
+        $assesbid = DB::select('SELECT * FROM erm_cppt_kebidanan WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $kj]);
+        $assesbidbay = DB::select('SELECT * FROM erm_cppt_kebidanan_bayi WHERE no_rm = ? AND kode_kunjungan = ? AND status IN (1,2)', [$request->norm, $kj]);
+        $dpjp = DB::select('SELECT fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,a.kode_paramedis,a.tindakan_kedokteran FROM erm_tindakan_kedokteran a WHERE kode_kunjungan = ?', [$kj]);
 
         return view(
             'dokter.resumecpptdokter',
@@ -1087,7 +1087,7 @@ AND b.kelas_tarif = 1');
 
         ]);
 
-        $update = DB::connection('mysql2')->select('UPDATE tp_karcis_igd
+        $update = DB::select('UPDATE tp_karcis_igd
       SET status_triase = 1
       WHERE no_antri = ?', [$antrian]);
 
@@ -1217,7 +1217,7 @@ AND b.kelas_tarif = 1');
             'tg_entri_triase' => $now
         ]);
 
-        $update = DB::connection('mysql2')->select('UPDATE tp_karcis_igd
+        $update = DB::select('UPDATE tp_karcis_igd
       SET status_triase = 1
       WHERE no_antri = ?', [$antrian]);
 
@@ -1390,7 +1390,7 @@ AND b.kelas_tarif = 1');
 
             ]);
 
-            //     $update = DB::connection('mysql2')->select('UPDATE tp_karcis_igd
+            //     $update = DB::select('UPDATE tp_karcis_igd
             //   SET status_triase = 1
             //   WHERE no_antri = ?', [$antrian]);
         } catch (\Exception $e) {
@@ -1618,7 +1618,7 @@ AND b.kelas_tarif = 1');
                 }
                 $kode_header = $ts_layanan_detail_igd['kode_layanan_header'];
                 $idhed = $ts_layanan_detail_igd['row_id_header'];
-                $update = DB::connection('mysql2')->select('UPDATE ts_layanan_header_igd SET status_order = 2 WHERE kode_kunjungan = ? AND no_rm = ?', [$request->kode_kunjungan, $request->norm]);
+                $update = DB::select('UPDATE ts_layanan_header_igd SET status_order = 2 WHERE kode_kunjungan = ? AND no_rm = ?', [$request->kode_kunjungan, $request->norm]);
             }
         } catch (\Exception $e) {
             $back = [
@@ -1802,7 +1802,7 @@ AND b.kelas_tarif = 1');
                 }
                 $kode_header = $ts_layanan_detail_igd['kode_layanan_header'];
                 $idhed = $ts_layanan_detail_igd['row_id_header'];
-                $update = DB::connection('mysql2')->select('UPDATE ts_layanan_header_igd SET status_order = 2
+                $update = DB::select('UPDATE ts_layanan_header_igd SET status_order = 2
                  WHERE kode_kunjungan = ? AND no_rm = ?', [$request->kode_kunjungan, $request->norm]);
             }
         } catch (\Exception $e) {
@@ -1832,7 +1832,7 @@ AND b.kelas_tarif = 1');
                 foreach ($obatrekon as $arr) {
                     $savedetail = $arr['tinjut'];
                     $kodetail = $arr['kodetail'];
-                    $rekonsiliasiobat = DB::connection('mysql2')->select('UPDATE rekonsiliasi_obat SET lanjut = ? WHERE kode_detail_obat = ? ', [$savedetail, $kodetail]);
+                    $rekonsiliasiobat = DB::select('UPDATE rekonsiliasi_obat SET lanjut = ? WHERE kode_detail_obat = ? ', [$savedetail, $kodetail]);
                 }
             }
         } catch (\Exception $e) {
@@ -2097,7 +2097,7 @@ AND b.kelas_tarif = 1');
                 }
                 $kode_header = $ts_layanan_detail_igd['kode_layanan_header'];
                 $idhed = $ts_layanan_detail_igd['row_id_header'];
-                $update = DB::connection('mysql2')->select('UPDATE ts_layanan_header_igd SET status_order = 2 WHERE kode_kunjungan = ? AND no_rm = ?', [$request->kode_kunjungan, $request->norm]);
+                $update = DB::select('UPDATE ts_layanan_header_igd SET status_order = 2 WHERE kode_kunjungan = ? AND no_rm = ?', [$request->kode_kunjungan, $request->norm]);
             }
         } catch (\Exception $e) {
             $back = [
@@ -2107,7 +2107,7 @@ AND b.kelas_tarif = 1');
             echo json_encode($back);
             die;
         }
-        // $update = DB::connection('mysql2')->select('UPDATE ts_kunjungan
+        // $update = DB::select('UPDATE ts_kunjungan
         //     SET diagx = ?, kode_paramedis = ?
         //     WHERE no_rm = ? AND kode_kunjungan = ?', [$diagnosa, $kp, $norm, $kj]);
 
@@ -2398,7 +2398,7 @@ AND b.kelas_tarif = 1');
                 }
                 $kode_header = $ts_layanan_detail['kode_layanan_header'];
                 $idhed = $ts_layanan_detail['row_id_header'];
-                // $update = DB::connection('mysql2')->select('UPDATE ts_layanan_header_igd SET status_order = 2 WHERE kode_kunjungan = ? AND no_rm = ?', [$request->kode_kunjungan, $request->norm]);
+                // $update = DB::select('UPDATE ts_layanan_header_igd SET status_order = 2 WHERE kode_kunjungan = ? AND no_rm = ?', [$request->kode_kunjungan, $request->norm]);
             }
         } catch (\Exception $e) {
             $back = [
@@ -2582,7 +2582,7 @@ AND b.kelas_tarif = 1');
                 }
                 $kode_header = $ts_layanan_detail['kode_layanan_header'];
                 $idhed = $ts_layanan_detail['row_id_header'];
-                // $update = DB::connection('mysql2')->select('UPDATE ts_layanan_header_igd SET status_order = 2
+                // $update = DB::select('UPDATE ts_layanan_header_igd SET status_order = 2
                 // WHERE kode_kunjungan = ? AND no_rm = ?', [$request->kode_kunjungan, $request->norm]);
             }
         } catch (\Exception $e) {
@@ -2610,7 +2610,7 @@ AND b.kelas_tarif = 1');
                 foreach ($arrayindex as $arr) {
                     $savedetail = $arr['tinjut'];
                     $kodetail = $arr['kodetail'];
-                    $rekonsiliasiobat = DB::connection('mysql2')->select('UPDATE rekonsiliasi_obat SET lanjut = ? WHERE kode_detail_obat = ? ', [$savedetail, $kodetail]);
+                    $rekonsiliasiobat = DB::select('UPDATE rekonsiliasi_obat SET lanjut = ? WHERE kode_detail_obat = ? ', [$savedetail, $kodetail]);
                 }
             }
         } catch (\Exception $e) {
@@ -2682,7 +2682,7 @@ AND b.kelas_tarif = 1');
             echo json_encode($back);
             die;
         }
-        // $update = DB::connection('mysql2')->select('UPDATE ts_kunjungan
+        // $update = DB::select('UPDATE ts_kunjungan
         //     SET diagx = ?, kode_paramedis = ?
         //     WHERE no_rm = ? AND kode_kunjungan = ?', [$diagnosa, $kp, $norm, $kj]);
 
@@ -2957,7 +2957,7 @@ AND b.kelas_tarif = 1');
                 }
                 $kode_header = $ts_layanan_detail['kode_layanan_header'];
                 $idhed = $ts_layanan_detail['row_id_header'];
-                // $update = DB::connection('mysql2')->select('UPDATE ts_layanan_header_igd SET status_order = 2 WHERE kode_kunjungan = ? AND no_rm = ?', [$request->kode_kunjungan, $request->norm]);
+                // $update = DB::select('UPDATE ts_layanan_header_igd SET status_order = 2 WHERE kode_kunjungan = ? AND no_rm = ?', [$request->kode_kunjungan, $request->norm]);
             }
         } catch (\Exception $e) {
             $back = [
@@ -3141,7 +3141,7 @@ AND b.kelas_tarif = 1');
                 }
                 $kode_header = $ts_layanan_detail['kode_layanan_header'];
                 $idhed = $ts_layanan_detail['row_id_header'];
-                // $update = DB::connection('mysql2')->select('UPDATE ts_layanan_header_igd SET status_order = 2
+                // $update = DB::select('UPDATE ts_layanan_header_igd SET status_order = 2
                 // WHERE kode_kunjungan = ? AND no_rm = ?', [$request->kode_kunjungan, $request->norm]);
             }
         } catch (\Exception $e) {
@@ -3169,7 +3169,7 @@ AND b.kelas_tarif = 1');
                 foreach ($obatindex as $arr) {
                     $savedetail = $arr['tinjut'];
                     $kodetail = $arr['kodetail'];
-                    $rekonsiliasiobat = DB::connection('mysql2')->select('UPDATE rekonsiliasi_obat SET lanjut = ? WHERE kode_detail_obat = ? ', [$savedetail, $kodetail]);
+                    $rekonsiliasiobat = DB::select('UPDATE rekonsiliasi_obat SET lanjut = ? WHERE kode_detail_obat = ? ', [$savedetail, $kodetail]);
                 }
             }
         } catch (\Exception $e) {
@@ -3241,7 +3241,7 @@ AND b.kelas_tarif = 1');
             echo json_encode($back);
             die;
         }
-        // $update = DB::connection('mysql2')->select('UPDATE ts_kunjungan
+        // $update = DB::select('UPDATE ts_kunjungan
         //     SET diagx = ?, kode_paramedis = ?
         //     WHERE no_rm = ? AND kode_kunjungan = ?', [$diagnosa, $kp, $norm, $kj]);
 
@@ -3258,22 +3258,22 @@ AND b.kelas_tarif = 1');
         $rheader = $request->rheader;
         $rdetail = $request->rdetail;
         $idrdetail = $request->idrdetail;
-        $update = DB::connection('mysql2')->select('UPDATE  ts_layanan_detail_igd
+        $update = DB::select('UPDATE  ts_layanan_detail_igd
         SET satus_order = ?, keterangan = ?
         
         WHERE id = ?', ['3', 'RETUR', $idrdetail]);
 
-        $hitung = DB::connection('mysql2')->select('SELECT total_tarif AS tarif FROM ts_layanan_detail_igd WHERE id_layanan_detail = ? AND kode_layanan_header = ? ', [$rdetail, $rheader]);
-        $hitung1 = DB::connection('mysql2')->select('SELECT tagihan_penjamin as tagpen, tagihan_pribadi as tagpri FROM ts_layanan_header_igd WHERE  kode_layanan_header = ? ', [$rheader]);
+        $hitung = DB::select('SELECT total_tarif AS tarif FROM ts_layanan_detail_igd WHERE id_layanan_detail = ? AND kode_layanan_header = ? ', [$rdetail, $rheader]);
+        $hitung1 = DB::select('SELECT tagihan_penjamin as tagpen, tagihan_pribadi as tagpri FROM ts_layanan_header_igd WHERE  kode_layanan_header = ? ', [$rheader]);
         $tarrif = $hitung[0]->tarif;
         $tagpri = $hitung1[0]->tagpri;
         $tagpen = $hitung1[0]->tagpen;
         if ($tagpri == 0) {
             $sisatagpen = $tagpen - $tarrif;
-            $updatehed = DB::connection('mysql2')->select('UPDATE ts_layanan_header_igd	SET total_layanan = ? ,tagihan_penjamin = ?	WHERE kode_layanan_header = ?', [$sisatagpen,  $sisatagpen, $rheader]);
+            $updatehed = DB::select('UPDATE ts_layanan_header_igd	SET total_layanan = ? ,tagihan_penjamin = ?	WHERE kode_layanan_header = ?', [$sisatagpen,  $sisatagpen, $rheader]);
         } elseif ($tagpen == 0) {
             $sisatagpri = $tagpri - $tarrif;
-            $updatehed = DB::connection('mysql2')->select('UPDATE ts_layanan_header_igd	SET total_layanan = ? ,tagihan_pribadi = ?	WHERE kode_layanan_header = ?', [$sisatagpri,  $sisatagpri, $rheader]);
+            $updatehed = DB::select('UPDATE ts_layanan_header_igd	SET total_layanan = ? ,tagihan_pribadi = ?	WHERE kode_layanan_header = ?', [$sisatagpri,  $sisatagpri, $rheader]);
         }
 
         $back = [
@@ -3287,7 +3287,7 @@ AND b.kelas_tarif = 1');
     public function returordertdp(Request $request)
     {
         $id = $request->idtdp;
-        $retin = DB::connection('mysql2')->select('UPDATE erm_tindakan_kedokteran SET status = "3"  WHERE id = ? ', [$id]);
+        $retin = DB::select('UPDATE erm_tindakan_kedokteran SET status = "3"  WHERE id = ? ', [$id]);
 
 
 
@@ -3310,33 +3310,33 @@ AND b.kelas_tarif = 1');
         $idddetail = $request->idddetail;
 
 
-        $update = DB::connection('mysql2')->select('UPDATE  ts_layanan_detail_igd
+        $update = DB::select('UPDATE  ts_layanan_detail_igd
         SET satus_order = ?, keterangan = ?
         
         WHERE id = ?', ['3', 'RETUR', $idddetail]);
 
-        $hitung = DB::connection('mysql2')->select('SELECT total_tarif AS tarif FROM ts_layanan_detail_igd WHERE id_layanan_detail = ? AND kode_layanan_header = ? ', [$ddetail, $dheader]);
-        $hitung1 = DB::connection('mysql2')->select('SELECT tagihan_penjamin as tagpen, tagihan_pribadi as tagpri FROM ts_layanan_header_igd WHERE  kode_layanan_header = ? ', [$dheader]);
+        $hitung = DB::select('SELECT total_tarif AS tarif FROM ts_layanan_detail_igd WHERE id_layanan_detail = ? AND kode_layanan_header = ? ', [$ddetail, $dheader]);
+        $hitung1 = DB::select('SELECT tagihan_penjamin as tagpen, tagihan_pribadi as tagpri FROM ts_layanan_header_igd WHERE  kode_layanan_header = ? ', [$dheader]);
         $tarrif = $hitung[0]->tarif;
         $tagpri = $hitung1[0]->tagpri;
         $tagpen = $hitung1[0]->tagpen;
         if ($tagpri == 0) {
             $sisatagpen = $tagpen - $tarrif;
-            $updatehed = DB::connection('mysql2')->select('UPDATE ts_layanan_header_igd	SET total_layanan = ? ,tagihan_penjamin = ?	WHERE kode_layanan_header = ?', [$sisatagpen,  $sisatagpen, $dheader]);
+            $updatehed = DB::select('UPDATE ts_layanan_header_igd	SET total_layanan = ? ,tagihan_penjamin = ?	WHERE kode_layanan_header = ?', [$sisatagpen,  $sisatagpen, $dheader]);
         } elseif ($tagpen == 0) {
             $sisatagpri = $tagpri - $tarrif;
-            $updatehed = DB::connection('mysql2')->select('UPDATE ts_layanan_header_igd	SET total_layanan = ? ,tagihan_pribadi = ?	WHERE kode_layanan_header = ?', [$sisatagpri,  $sisatagpri, $dheader]);
+            $updatehed = DB::select('UPDATE ts_layanan_header_igd	SET total_layanan = ? ,tagihan_pribadi = ?	WHERE kode_layanan_header = ?', [$sisatagpri,  $sisatagpri, $dheader]);
         }
 
 
 
-        // $cektag = DB::connection('mysql2')->select('SELECT 
+        // $cektag = DB::select('SELECT 
         //     tagihan_pribadi + tagihan_penjamin AS tagihan
         //     FROM ts_layanan_header
         //     WHERE id = ?', [$request->idhed]);
         // $hasil = $cektag[0]->tagihan;
         // if ($hasil == NULL) {
-        //     $updatehead = DB::connection('mysql2')->select('UPDATE ts_layanan_header SET status_layanan = 3  WHERE id = ?', array($request->idhed));
+        //     $updatehead = DB::select('UPDATE ts_layanan_header SET status_layanan = 3  WHERE id = ?', array($request->idhed));
         // }
 
 
@@ -3356,33 +3356,33 @@ AND b.kelas_tarif = 1');
         $iddetail = $request->iddetail;
 
 
-        $update = DB::connection('mysql2')->select('UPDATE  ts_layanan_detail_igd
+        $update = DB::select('UPDATE  ts_layanan_detail_igd
         SET satus_order = ?, keterangan = ?
         
         WHERE id = ?', ['3', 'RETUR', $iddetail]);
 
-        $hitung = DB::connection('mysql2')->select('SELECT total_tarif AS tarif FROM ts_layanan_detail_igd WHERE id_layanan_detail = ? AND kode_layanan_header = ? ', [$detail, $header]);
-        $hitung1 = DB::connection('mysql2')->select('SELECT tagihan_penjamin as tagpen, tagihan_pribadi as tagpri FROM ts_layanan_header_igd WHERE  kode_layanan_header = ? ', [$header]);
+        $hitung = DB::select('SELECT total_tarif AS tarif FROM ts_layanan_detail_igd WHERE id_layanan_detail = ? AND kode_layanan_header = ? ', [$detail, $header]);
+        $hitung1 = DB::select('SELECT tagihan_penjamin as tagpen, tagihan_pribadi as tagpri FROM ts_layanan_header_igd WHERE  kode_layanan_header = ? ', [$header]);
         $tarrif = $hitung[0]->tarif;
         $tagpri = $hitung1[0]->tagpri;
         $tagpen = $hitung1[0]->tagpen;
         if ($tagpri == 0) {
             $sisatagpen = $tagpen - $tarrif;
-            $updatehed = DB::connection('mysql2')->select('UPDATE ts_layanan_header_igd	SET total_layanan = ? ,tagihan_penjamin = ?	WHERE kode_layanan_header = ?', [$sisatagpen,  $sisatagpen, $header]);
+            $updatehed = DB::select('UPDATE ts_layanan_header_igd	SET total_layanan = ? ,tagihan_penjamin = ?	WHERE kode_layanan_header = ?', [$sisatagpen,  $sisatagpen, $header]);
         } elseif ($tagpen == 0) {
             $sisatagpri = $tagpri - $tarrif;
-            $updatehed = DB::connection('mysql2')->select('UPDATE ts_layanan_header_igd	SET total_layanan = ? ,tagihan_pribadi = ?	WHERE kode_layanan_header = ?', [$sisatagpri,  $sisatagpri, $header]);
+            $updatehed = DB::select('UPDATE ts_layanan_header_igd	SET total_layanan = ? ,tagihan_pribadi = ?	WHERE kode_layanan_header = ?', [$sisatagpri,  $sisatagpri, $header]);
         }
 
 
 
-        // $cektag = DB::connection('mysql2')->select('SELECT 
+        // $cektag = DB::select('SELECT 
         //     tagihan_pribadi + tagihan_penjamin AS tagihan
         //     FROM ts_layanan_header
         //     WHERE id = ?', [$request->idhed]);
         // $hasil = $cektag[0]->tagihan;
         // if ($hasil == NULL) {
-        //     $updatehead = DB::connection('mysql2')->select('UPDATE ts_layanan_header SET status_layanan = 3  WHERE id = ?', array($request->idhed));
+        //     $updatehead = DB::select('UPDATE ts_layanan_header SET status_layanan = 3  WHERE id = ?', array($request->idhed));
         // }
 
 
@@ -3402,7 +3402,7 @@ AND b.kelas_tarif = 1');
         $kj = $request->kj;
         $norm = $request->norm;
 
-        $update = DB::connection('mysql2')->select('UPDATE erm_cppt_dokter
+        $update = DB::select('UPDATE erm_cppt_dokter
         SET status = 3 WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
         $back = [
             'kode' => 200,
@@ -3421,7 +3421,7 @@ AND b.kelas_tarif = 1');
         $norm = $request->norm;
         try {
 
-            $update = DB::connection('mysql2')->select('UPDATE erm_cppt_dokter_kebidanan
+            $update = DB::select('UPDATE erm_cppt_dokter_kebidanan
         SET status = 2 WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
         } catch (\Exception $e) {
             $back = [
@@ -3432,7 +3432,7 @@ AND b.kelas_tarif = 1');
             die;
         }
         try {
-            $delete = DB::connection('mysql2')->select('DELETE FROM erm_cppt_dokter_kebidanan WHERE no_rm = ? AND kode_kunjungan = ? AND STATUS = "3" ', [$norm, $kj]);
+            $delete = DB::select('DELETE FROM erm_cppt_dokter_kebidanan WHERE no_rm = ? AND kode_kunjungan = ? AND STATUS = "3" ', [$norm, $kj]);
         } catch (\Exception $e) {
             $back = [
                 'kode' => 200,
@@ -3458,7 +3458,7 @@ AND b.kelas_tarif = 1');
         $norm = $request->norm;
         try {
 
-            $update = DB::connection('mysql2')->select('UPDATE erm_cppt_dokter_kebidanan
+            $update = DB::select('UPDATE erm_cppt_dokter_kebidanan
         SET status = 2 WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
         } catch (\Exception $e) {
             $back = [
@@ -3469,7 +3469,7 @@ AND b.kelas_tarif = 1');
             die;
         }
         try {
-            $delete = DB::connection('mysql2')->select('DELETE FROM erm_cppt_dokter_kebidanan WHERE no_rm = ? AND kode_kunjungan = ? AND STATUS = "3" ', [$norm, $kj]);
+            $delete = DB::select('DELETE FROM erm_cppt_dokter_kebidanan WHERE no_rm = ? AND kode_kunjungan = ? AND STATUS = "3" ', [$norm, $kj]);
         } catch (\Exception $e) {
             $back = [
                 'kode' => 200,
@@ -3544,10 +3544,10 @@ AND b.kelas_tarif = 1');
         //assesmentdokter
         try {
 
-            $update = DB::connection('mysql2')->select('UPDATE erm_cppt_dokter SET id_cppt_dokter = ?, tgl_input_2 = ?, sumber_data = ?, macam_kasus = ?, keluhan_utama = ?, trauma = ?,anamnesa = ?,tata_laksana = ?,  riwayat_penyakit = ?, tiga_pertama = ?, tiga_kedua = ?, diagnosa_kerja = ?,cara_pulang = ? ,keadaan_pulang = ?, primary_survey = ?,secondary_survey = ?, kode_paramedis_2 = ?, nama_paramedis2 = ?, is_ranap = ?, status = 2 WHERE no_rm = ? AND kode_kunjungan = ?', [$user, $now, $request->sumberdata, $request->macamkasus, $request->subject, $request->trauma, $request->anamnesa, $request->talaksana, $request->riwayatpenyakit, $request->tigap, $request->tigak, $request->diagnosa, $request->alpul . ' ' . $request->alpul1, $request->kopul . ' ' . $request->kopul1, $request->primary, $request->secondary, $kp, $name, $kondisi, $norm, $kj]);
+            $update = DB::select('UPDATE erm_cppt_dokter SET id_cppt_dokter = ?, tgl_input_2 = ?, sumber_data = ?, macam_kasus = ?, keluhan_utama = ?, trauma = ?,anamnesa = ?,tata_laksana = ?,  riwayat_penyakit = ?, tiga_pertama = ?, tiga_kedua = ?, diagnosa_kerja = ?,cara_pulang = ? ,keadaan_pulang = ?, primary_survey = ?,secondary_survey = ?, kode_paramedis_2 = ?, nama_paramedis2 = ?, is_ranap = ?, status = 2 WHERE no_rm = ? AND kode_kunjungan = ?', [$user, $now, $request->sumberdata, $request->macamkasus, $request->subject, $request->trauma, $request->anamnesa, $request->talaksana, $request->riwayatpenyakit, $request->tigap, $request->tigak, $request->diagnosa, $request->alpul . ' ' . $request->alpul1, $request->kopul . ' ' . $request->kopul1, $request->primary, $request->secondary, $kp, $name, $kondisi, $norm, $kj]);
 
 
-            // $updatee = DB::connection('mysql2')->select('UPDATE ts_kunjungan SET diagx = ? WHERE no_rm = ? AND kode_kunjungan = ?', [$request->anamnesa, $norm, $kj]);
+            // $updatee = DB::select('UPDATE ts_kunjungan SET diagx = ? WHERE no_rm = ? AND kode_kunjungan = ?', [$request->anamnesa, $norm, $kj]);
         } catch (\Exception $e) {
             $back = [
                 'kode' => 200,
@@ -3731,8 +3731,8 @@ AND b.kelas_tarif = 1');
                 }
                 $kode_header = $ts_layanan_detail['kode_layanan_header'];
                 $idhed = $ts_layanan_detail['row_id_header'];
-                $update = DB::connection('mysql2')->select('UPDATE ts_layanan_header_igd SET status_order = 2 WHERE kode_kunjungan = ? AND no_rm = ?', [$request->kode_kunjungan, $request->norm]);
-                $updatediag = DB::connection('mysql2')->select('UPDATE di_pasien_diagnosa_frunit SET diag_00 = ? WHERE kode_kunjungan = ? AND no_rm = ?', [$request->diagnosa, $request->kode_kunjungan, $request->norm]);
+                $update = DB::select('UPDATE ts_layanan_header_igd SET status_order = 2 WHERE kode_kunjungan = ? AND no_rm = ?', [$request->kode_kunjungan, $request->norm]);
+                $updatediag = DB::select('UPDATE di_pasien_diagnosa_frunit SET diag_00 = ? WHERE kode_kunjungan = ? AND no_rm = ?', [$request->diagnosa, $request->kode_kunjungan, $request->norm]);
             }
         } catch (\Exception $e) {
             $back = [
@@ -3922,7 +3922,7 @@ AND b.kelas_tarif = 1');
                 }
                 $kode_header = $ts_layanan_detail['kode_layanan_header'];
                 $idhed = $ts_layanan_detail['row_id_header'];
-                $update = DB::connection('mysql2')->select('UPDATE ts_layanan_header_igd SET status_order = 2
+                $update = DB::select('UPDATE ts_layanan_header_igd SET status_order = 2
                 WHERE kode_kunjungan = ? AND no_rm = ?', [$request->kode_kunjungan, $request->norm]);
             }
         } catch (\Exception $e) {
@@ -3994,7 +3994,7 @@ AND b.kelas_tarif = 1');
                     $kodetail = $arr['kodetail'];
 
 
-                    $rekonsiliasiobat = DB::connection('mysql2')->select('UPDATE rekonsiliasi_obat SET lanjut = ? WHERE kode_detail_obat = ? ', [$savedetail, $kodetail]);
+                    $rekonsiliasiobat = DB::select('UPDATE rekonsiliasi_obat SET lanjut = ? WHERE kode_detail_obat = ? ', [$savedetail, $kodetail]);
                     // dd($rekonsiliasiobat);
                 }
             }
@@ -4109,7 +4109,7 @@ AND b.kelas_tarif = 1');
 
             ]);
 
-            $update = DB::connection('mysql2')->select('UPDATE ts_triase
+            $update = DB::select('UPDATE ts_triase
               SET status = 3
               WHERE status = 1 AND no_rm = ? AND kode_kunjungan = ? ', [$norm, $kj]);
         } catch (\Exception $e) {
@@ -4312,7 +4312,7 @@ AND b.kelas_tarif = 1');
                 }
                 $kode_header = $ts_layanan_detail['kode_layanan_header'];
                 $idhed = $ts_layanan_detail['row_id_header'];
-                $update = DB::connection('mysql2')->select('UPDATE ts_layanan_header_igd SET status_order = 2 WHERE kode_kunjungan = ? AND no_rm = ?', [$request->kode_kunjungan, $request->norm]);
+                $update = DB::select('UPDATE ts_layanan_header_igd SET status_order = 2 WHERE kode_kunjungan = ? AND no_rm = ?', [$request->kode_kunjungan, $request->norm]);
             }
         } catch (\Exception $e) {
             $back = [
@@ -4324,11 +4324,11 @@ AND b.kelas_tarif = 1');
         }
         // try {
 
-        //     $updatriase = DB::connection('mysql2')->select('UPDATE ts_triase SET kode_paramedis_update = ?, jenis_triase = ?, tg_entri_triase_update = ?,klasifikasi_pasien = ?,kategori_triase = ?,pemeriksaan_triase = ?, kesadaran1 = ?,kesadaran2 = ?, kesadaran3 = ?, kesadaran4 = ?,kesadaran5 = ?, kesadaran6 = ?,kesadaran8 = ?,kesadaran9 = ?,kesadaran10 = ?,kesadaran11 = ?,kesadaran12 = ?,jalan_nafas1 = ?,jalan_nafas2 = ?,jalan_nafas3 = ?,jalan_nafas4 = ?,jalan_nafas5 = ?,upaya1 = ?,upaya2 = ?,upaya3 = ?,upaya4 = ?,upaya5 = ?,upaya6 = ?,upaya7 = ?,upaya8 = ?,sirkulasi1 = ?,sirkulasi2 = ?,sirkulasi3 = ?,sirkulasi4 = ?,sirkulasi5 = ?,sirkulasi6 = ?,sirkulasi7 = ?,sirkulasi8 = ?,sirkulasi9 = ?,sirkulasi10 = ?,sirkulasi11 = ?,sirkulasi12 = ?,sirkulasi13 = ?,sirkulasi14 = ?,sirkulasi15 = ?,sirkulasi16 = ?,sirkulasi17 = ?,sirkulasi18 = ?,sirkulasi20 = ?,sirkulasi21 = ?,sirkulasi22 = ?,sirkulasi23 = ?,sirkulasi24 = ?,sirkulasi25 = ?,gejala_respirasi1  = ?,gejala_respirasi2  = ?,gejala_respirasi3  = ?,gejala_respirasi4  = ?,gejala_respirasi5  = ?,gejala_respirasi7  = ?,gejala_respirasi8  = ?,gejala_respirasi9  = ?,gejala_respirasi10 = ?,gejala_respirasi11 = ?,gejala_respirasi12 = ?,gejala_respirasi13 = ?,gejala_respirasi14 = ?,gejala_respirasi15 = ?,gejala_respirasi16 = ?,gejala_respirasi17 = ?,gejala_respirasi18 = ?,gejala_respirasi19 = ?,gejala_respirasi20 = ?,gejala_respirasi21 = ?,gejala_respirasi22 = ?,gejala_respirasi23 = ?,gejala_respirasi24 = ?,gejala_respirasi25 = ?,gejala_respirasi26 = ?,gejala_respirasi27 = ?,gejala_respirasi28 = ?,gejala_respirasi29 = ?,status = 2 WHERE kode_kunjungan = 22495703', [$kp, $request->jenistriase, $dt, $request->klasifikasipasien, $request->kategoritriase, $request->jenisats, $request->kesadaran1, $request->kesadaran2, $request->kesadaran3, $request->kesadaran4, $request->kesadaran5, $request->kesadaran6, $request->kesadaran7, $request->kesadaran8, $request->kesadaran9, $request->kesadaran10, $request->kesadaran11, $request->kesadaran12, $request->jalannafas1, $request->jalannafas2, $request->jalannafas3, $request->jalannafas4, $request->jalannafas5, $request->upaya1, $request->upaya2, $request->upaya3, $request->upaya4, $request->upaya5, $request->upaya6, $request->upaya7, $request->upaya8, $request->sirkulasi1, $request->sirkulasi2, $request->sirkulasi3, $request->sirkulasi4, $request->sirkulasi5, $request->sirkulasi6, $request->sirkulasi7, $request->sirkulasi8, $request->sirkulasi9, $request->sirkulasi10, $request->sirkulasi11, $request->sirkulasi12, $request->sirkulasi13, $request->sirkulasi14, $request->sirkulasi15, $request->sirkulasi16, $request->sirkulasi17, $request->sirkulasi18, $request->sirkulasi19, $request->sirkulasi20, $request->sirkulasi21, $request->sirkulasi22, $request->sirkulasi23, $request->sirkulasi24, $request->sirkulasi25, $request->gejala1, $request->gejala2, $request->gejala3, $request->gejala4, $request->gejala5, $request->gejala6, $request->gejala7, $request->gejala8, $request->gejala9, $request->gejala10, $request->gejala11, $request->gejala12, $request->gejala13, $request->gejala14, $request->gejala15, $request->gejala16, $request->gejala17, $request->gejala18, $request->gejala19, $request->gejala20, $request->gejala21, $request->gejala22, $request->gejala23, $request->gejala24, $request->gejala25, $request->gejala26, $request->gejala27, $request->gejala28, $request->gejala29, $request->kj]);
+        //     $updatriase = DB::select('UPDATE ts_triase SET kode_paramedis_update = ?, jenis_triase = ?, tg_entri_triase_update = ?,klasifikasi_pasien = ?,kategori_triase = ?,pemeriksaan_triase = ?, kesadaran1 = ?,kesadaran2 = ?, kesadaran3 = ?, kesadaran4 = ?,kesadaran5 = ?, kesadaran6 = ?,kesadaran8 = ?,kesadaran9 = ?,kesadaran10 = ?,kesadaran11 = ?,kesadaran12 = ?,jalan_nafas1 = ?,jalan_nafas2 = ?,jalan_nafas3 = ?,jalan_nafas4 = ?,jalan_nafas5 = ?,upaya1 = ?,upaya2 = ?,upaya3 = ?,upaya4 = ?,upaya5 = ?,upaya6 = ?,upaya7 = ?,upaya8 = ?,sirkulasi1 = ?,sirkulasi2 = ?,sirkulasi3 = ?,sirkulasi4 = ?,sirkulasi5 = ?,sirkulasi6 = ?,sirkulasi7 = ?,sirkulasi8 = ?,sirkulasi9 = ?,sirkulasi10 = ?,sirkulasi11 = ?,sirkulasi12 = ?,sirkulasi13 = ?,sirkulasi14 = ?,sirkulasi15 = ?,sirkulasi16 = ?,sirkulasi17 = ?,sirkulasi18 = ?,sirkulasi20 = ?,sirkulasi21 = ?,sirkulasi22 = ?,sirkulasi23 = ?,sirkulasi24 = ?,sirkulasi25 = ?,gejala_respirasi1  = ?,gejala_respirasi2  = ?,gejala_respirasi3  = ?,gejala_respirasi4  = ?,gejala_respirasi5  = ?,gejala_respirasi7  = ?,gejala_respirasi8  = ?,gejala_respirasi9  = ?,gejala_respirasi10 = ?,gejala_respirasi11 = ?,gejala_respirasi12 = ?,gejala_respirasi13 = ?,gejala_respirasi14 = ?,gejala_respirasi15 = ?,gejala_respirasi16 = ?,gejala_respirasi17 = ?,gejala_respirasi18 = ?,gejala_respirasi19 = ?,gejala_respirasi20 = ?,gejala_respirasi21 = ?,gejala_respirasi22 = ?,gejala_respirasi23 = ?,gejala_respirasi24 = ?,gejala_respirasi25 = ?,gejala_respirasi26 = ?,gejala_respirasi27 = ?,gejala_respirasi28 = ?,gejala_respirasi29 = ?,status = 2 WHERE kode_kunjungan = 22495703', [$kp, $request->jenistriase, $dt, $request->klasifikasipasien, $request->kategoritriase, $request->jenisats, $request->kesadaran1, $request->kesadaran2, $request->kesadaran3, $request->kesadaran4, $request->kesadaran5, $request->kesadaran6, $request->kesadaran7, $request->kesadaran8, $request->kesadaran9, $request->kesadaran10, $request->kesadaran11, $request->kesadaran12, $request->jalannafas1, $request->jalannafas2, $request->jalannafas3, $request->jalannafas4, $request->jalannafas5, $request->upaya1, $request->upaya2, $request->upaya3, $request->upaya4, $request->upaya5, $request->upaya6, $request->upaya7, $request->upaya8, $request->sirkulasi1, $request->sirkulasi2, $request->sirkulasi3, $request->sirkulasi4, $request->sirkulasi5, $request->sirkulasi6, $request->sirkulasi7, $request->sirkulasi8, $request->sirkulasi9, $request->sirkulasi10, $request->sirkulasi11, $request->sirkulasi12, $request->sirkulasi13, $request->sirkulasi14, $request->sirkulasi15, $request->sirkulasi16, $request->sirkulasi17, $request->sirkulasi18, $request->sirkulasi19, $request->sirkulasi20, $request->sirkulasi21, $request->sirkulasi22, $request->sirkulasi23, $request->sirkulasi24, $request->sirkulasi25, $request->gejala1, $request->gejala2, $request->gejala3, $request->gejala4, $request->gejala5, $request->gejala6, $request->gejala7, $request->gejala8, $request->gejala9, $request->gejala10, $request->gejala11, $request->gejala12, $request->gejala13, $request->gejala14, $request->gejala15, $request->gejala16, $request->gejala17, $request->gejala18, $request->gejala19, $request->gejala20, $request->gejala21, $request->gejala22, $request->gejala23, $request->gejala24, $request->gejala25, $request->gejala26, $request->gejala27, $request->gejala28, $request->gejala29, $request->kj]);
         //     dd($updatriase);
 
 
-        //     // $updatee = DB::connection('mysql2')->select('UPDATE ts_kunjungan SET diagx = ? WHERE no_rm = ? AND kode_kunjungan = ?', [$request->anamnesa, $norm, $kj]);
+        //     // $updatee = DB::select('UPDATE ts_kunjungan SET diagx = ? WHERE no_rm = ? AND kode_kunjungan = ?', [$request->anamnesa, $norm, $kj]);
         // } catch (\Exception $e) {
         //     $back = [
         //         'kode' => 200,
@@ -4404,9 +4404,9 @@ AND b.kelas_tarif = 1');
         //assesmentdokter
         try {
 
-            $cekd = DB::connection('mysql2')->select('SELECT status FROM erm_cppt_dokter_kebidanan WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
+            $cekd = DB::select('SELECT status FROM erm_cppt_dokter_kebidanan WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
             if ($cekd[0]->status == 1) {
-                $cekd = DB::connection('mysql2')->select('UPDATE erm_cppt_dokter_kebidanan SET status = "3"  WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
+                $cekd = DB::select('UPDATE erm_cppt_dokter_kebidanan SET status = "3"  WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
 
                 $assesmen = erm_cppt_dokter_kebidanan::create([
                     'ku' => $request->ku,
@@ -4643,7 +4643,7 @@ AND b.kelas_tarif = 1');
                 }
                 $kode_header = $ts_layanan_detail['kode_layanan_header'];
                 $idhed = $ts_layanan_detail['row_id_header'];
-                // $update = DB::connection('mysql2')->select('UPDATE ts_layanan_header_igd SET status_order = 2 WHERE kode_kunjungan = ? AND no_rm = ?', [$request->kode_kunjungan, $request->norm]);
+                // $update = DB::select('UPDATE ts_layanan_header_igd SET status_order = 2 WHERE kode_kunjungan = ? AND no_rm = ?', [$request->kode_kunjungan, $request->norm]);
             }
         } catch (\Exception $e) {
             $back = [
@@ -4827,7 +4827,7 @@ AND b.kelas_tarif = 1');
                 }
                 $kode_header = $ts_layanan_detail['kode_layanan_header'];
                 $idhed = $ts_layanan_detail['row_id_header'];
-                // $update = DB::connection('mysql2')->select('UPDATE ts_layanan_header_igd SET status_order = 2
+                // $update = DB::select('UPDATE ts_layanan_header_igd SET status_order = 2
                 // WHERE kode_kunjungan = ? AND no_rm = ?', [$request->kode_kunjungan, $request->norm]);
             }
         } catch (\Exception $e) {
@@ -4855,7 +4855,7 @@ AND b.kelas_tarif = 1');
                 foreach ($arrayindex as $arr) {
                     $savedetail = $arr['tinjut'];
                     $kodetail = $arr['kodetail'];
-                    $rekonsiliasiobat = DB::connection('mysql2')->select('UPDATE rekonsiliasi_obat SET lanjut = ? WHERE kode_detail_obat = ? ', [$savedetail, $kodetail]);
+                    $rekonsiliasiobat = DB::select('UPDATE rekonsiliasi_obat SET lanjut = ? WHERE kode_detail_obat = ? ', [$savedetail, $kodetail]);
                 }
             }
         } catch (\Exception $e) {
@@ -4927,7 +4927,7 @@ AND b.kelas_tarif = 1');
             echo json_encode($back);
             die;
         }
-        // $update = DB::connection('mysql2')->select('UPDATE ts_kunjungan
+        // $update = DB::select('UPDATE ts_kunjungan
         //     SET diagx = ?, kode_paramedis = ?
         //     WHERE no_rm = ? AND kode_kunjungan = ?', [$diagnosa, $kp, $norm, $kj]);
 
@@ -4987,9 +4987,9 @@ AND b.kelas_tarif = 1');
         //assesmentdokter
         try {
 
-            $cekd = DB::connection('mysql2')->select('SELECT status FROM erm_cppt_dokter_kebidanan WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
+            $cekd = DB::select('SELECT status FROM erm_cppt_dokter_kebidanan WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
             if ($cekd[0]->status == 1) {
-                $cekd = DB::connection('mysql2')->select('UPDATE erm_cppt_dokter_kebidanan SET status = "3"  WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
+                $cekd = DB::select('UPDATE erm_cppt_dokter_kebidanan SET status = "3"  WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
 
                 $assesmen = erm_cppt_dokter_kebidanan::create([
                     'ku' => $request->ku,
@@ -5209,7 +5209,7 @@ AND b.kelas_tarif = 1');
                 }
                 $kode_header = $ts_layanan_detail['kode_layanan_header'];
                 $idhed = $ts_layanan_detail['row_id_header'];
-                // $update = DB::connection('mysql2')->select('UPDATE ts_layanan_header_igd SET status_order = 2 WHERE kode_kunjungan = ? AND no_rm = ?', [$request->kode_kunjungan, $request->norm]);
+                // $update = DB::select('UPDATE ts_layanan_header_igd SET status_order = 2 WHERE kode_kunjungan = ? AND no_rm = ?', [$request->kode_kunjungan, $request->norm]);
             }
         } catch (\Exception $e) {
             $back = [
@@ -5393,7 +5393,7 @@ AND b.kelas_tarif = 1');
                 }
                 $kode_header = $ts_layanan_detail['kode_layanan_header'];
                 $idhed = $ts_layanan_detail['row_id_header'];
-                // $update = DB::connection('mysql2')->select('UPDATE ts_layanan_header_igd SET status_order = 2
+                // $update = DB::select('UPDATE ts_layanan_header_igd SET status_order = 2
                 // WHERE kode_kunjungan = ? AND no_rm = ?', [$request->kode_kunjungan, $request->norm]);
             }
         } catch (\Exception $e) {
@@ -5421,7 +5421,7 @@ AND b.kelas_tarif = 1');
                 foreach ($obatindex as $arr) {
                     $savedetail = $arr['tinjut'];
                     $kodetail = $arr['kodetail'];
-                    $rekonsiliasiobat = DB::connection('mysql2')->select('UPDATE rekonsiliasi_obat SET lanjut = ? WHERE kode_detail_obat = ? ', [$savedetail, $kodetail]);
+                    $rekonsiliasiobat = DB::select('UPDATE rekonsiliasi_obat SET lanjut = ? WHERE kode_detail_obat = ? ', [$savedetail, $kodetail]);
                 }
             }
         } catch (\Exception $e) {
@@ -5493,7 +5493,7 @@ AND b.kelas_tarif = 1');
             echo json_encode($back);
             die;
         }
-        // $update = DB::connection('mysql2')->select('UPDATE ts_kunjungan
+        // $update = DB::select('UPDATE ts_kunjungan
         //     SET diagx = ?, kode_paramedis = ?
         //     WHERE no_rm = ? AND kode_kunjungan = ?', [$diagnosa, $kp, $norm, $kj]);
 
@@ -5524,7 +5524,7 @@ AND b.kelas_tarif = 1');
     }
     public function createOrderHeadergp()
     {
-        $q = DB::connection('mysql2')->select('SELECT id,kode_header,RIGHT(kode_header,6) AS kd_max  FROM mt_kode_order_header
+        $q = DB::select('SELECT id,kode_header,RIGHT(kode_header,6) AS kd_max  FROM mt_kode_order_header
         WHERE DATE(tgl_header) = CURDATE()
         ORDER BY id DESC
         LIMIT 1');
@@ -5578,7 +5578,7 @@ AND b.kelas_tarif = 1');
     }
     public function createLayanandetailgp()
     {
-        $q = DB::connection('mysql2')->select('SELECT id,id_layanan_detail,RIGHT(id_layanan_detail,6) AS kd_max  FROM ts_layanan_detail_igd
+        $q = DB::select('SELECT id,id_layanan_detail,RIGHT(id_layanan_detail,6) AS kd_max  FROM ts_layanan_detail_igd
         WHERE DATE(tgl_layanan_detail) = CURDATE()
         ORDER BY id DESC
         LIMIT 1');
@@ -5655,7 +5655,7 @@ AND b.kelas_tarif = 1');
         a.tgl_lahir
         FROM mt_pasien  a
         WHERE no_rm = ?', [$norm]);
-        $dpjp = DB::connection('mysql2')->select('SELECT fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,a.kode_paramedis,a.tindakan_kedokteran FROM erm_tindakan_kedokteran a WHERE kode_kunjungan = ?', [$kj]);
+        $dpjp = DB::select('SELECT fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,a.kode_paramedis,a.tindakan_kedokteran FROM erm_tindakan_kedokteran a WHERE kode_kunjungan = ?', [$kj]);
         // dd($pasien);
         $tgllahir = Carbon::parse($pasien[0]->tgl_lahir)->format('d-m-Y');
         $kunjungan = DB::select('SELECT 
@@ -5675,23 +5675,23 @@ AND b.kelas_tarif = 1');
         $jammasuk = Carbon::parse($kunjungan[0]->tgl_masuk)->format('H:i:s');
         $tglklr = Carbon::parse($kunjungan[0]->tgl_keluar)->format('d-M-Y');
         $jamklr = Carbon::parse($kunjungan[0]->tgl_keluar)->format('H:i:s');
-        $triase = DB::connection('mysql2')->select('SELECT * FROM ts_triase
+        $triase = DB::select('SELECT * FROM ts_triase
            WHERE no_rm = ? AND kode_kunjungan = ? AND STATUS IN (1,2) ', [$norm, $kj]);
         $tgltriase = Carbon::parse($triase[0]->tg_entri_triase)->format('d-m-Y');
         $jamtriase = Carbon::parse($triase[0]->tg_entri_triase)->format('H:i:s');
         // dd($triase);
-        $assesdok = DB::connection('mysql2')->select('SELECT * FROM erm_cppt_dokter
+        $assesdok = DB::select('SELECT * FROM erm_cppt_dokter
         WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
         $tglass = Carbon::parse($assesdok[0]->tgl_input)->format('d-M-Y');
         $jamass = Carbon::parse($assesdok[0]->tgl_input)->format('H:i:s');
-        $assesper = DB::connection('mysql2')->select('SELECT * FROM erm_cppt_perawat
+        $assesper = DB::select('SELECT * FROM erm_cppt_perawat
           WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
         $tglassp = Carbon::parse($assesper[0]->tgl_input)->format('d-M-Y');
         $jamassp = Carbon::parse($assesper[0]->tgl_input)->format('H:i:s');
-        $assesbid = DB::connection('mysql2')->select('SELECT * FROM erm_cppt_kebidanan WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
-        $assesbidbay = DB::connection('mysql2')->select('SELECT * FROM erm_cppt_kebidanan_bayi WHERE no_rm = ? AND kode_kunjungan = ? AND status IN (1,2)', [$norm, $kj]);
+        $assesbid = DB::select('SELECT * FROM erm_cppt_kebidanan WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
+        $assesbidbay = DB::select('SELECT * FROM erm_cppt_kebidanan_bayi WHERE no_rm = ? AND kode_kunjungan = ? AND status IN (1,2)', [$norm, $kj]);
 
-        $riwayatorderrad = DB::connection('mysql2')->select('SELECT
+        $riwayatorderrad = DB::select('SELECT
         a.no_rm,
         a.kode_layanan_header,
         a.id,
@@ -5703,7 +5703,7 @@ AND b.kelas_tarif = 1');
         WHERE a.kode_unit = ?
         AND a.kode_kunjungan = ?
         AND a.status_order ="1"', ['3003', $kj]);
-        $riwayatorderlab = DB::connection('mysql2')->select('SELECT
+        $riwayatorderlab = DB::select('SELECT
          a.no_rm,
          a.kode_layanan_header,
          a.id,
@@ -5731,11 +5731,11 @@ AND b.kelas_tarif = 1');
          WHERE a.kode_layanan_header LIKE "%DP%"
          AND b.kode_tarif_detail NOT LIKE "%tx%"
          AND a.kode_kunjungan = ?', [$kj]);
-        $ttv = DB::connection('mysql2')->select('SELECT tekanan_darah, sumber_data, frekuensi_nafas, keadaan_umum, kesadaran, frekuensi_nadi, suhu, berat_badan, umur FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
-        $riwayatrekonobat = DB::connection('mysql2')->select('SELECT * FROM rekonsiliasi_obat
+        $ttv = DB::select('SELECT tekanan_darah, sumber_data, frekuensi_nafas, keadaan_umum, kesadaran, frekuensi_nadi, suhu, berat_badan, umur FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
+        $riwayatrekonobat = DB::select('SELECT * FROM rekonsiliasi_obat
         WHERE kode_kunjungan = ?', [$kj]);
-        $tindakan = DB::connection('mysql2')->select('SELECT * FROM erm_tindakan_kedokteran WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
-        $tindakanp = DB::connection('mysql2')->select('SELECT * FROM erm_tindakan_keperawatan WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
+        $tindakan = DB::select('SELECT * FROM erm_tindakan_kedokteran WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
+        $tindakanp = DB::select('SELECT * FROM erm_tindakan_keperawatan WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
 
         $unit = auth()->user()->unit;
 
@@ -13480,7 +13480,7 @@ AND b.kelas_tarif = 1');
         a.tgl_lahir
         FROM mt_pasien  a
         WHERE no_rm = ?', [$norm]);
-        $dpjp = DB::connection('mysql2')->select('SELECT fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,a.kode_paramedis,a.tindakan_kedokteran FROM erm_tindakan_kedokteran a WHERE kode_kunjungan = ?', [$kj]);
+        $dpjp = DB::select('SELECT fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,a.kode_paramedis,a.tindakan_kedokteran FROM erm_tindakan_kedokteran a WHERE kode_kunjungan = ?', [$kj]);
         // dd($pasien);
         $tgllahir = Carbon::parse($pasien[0]->tgl_lahir)->format('d-M-Y');
         $kunjungan = DB::select('SELECT 
@@ -13499,7 +13499,7 @@ AND b.kelas_tarif = 1');
         $tglmasuk = Carbon::parse($kunjungan[0]->tgl_masuk)->format('d-M-Y');
         $jammasuk = Carbon::parse($kunjungan[0]->tgl_masuk)->format('H:i:s');
 
-        $hasilp = DB::connection('mysql2')->select('SELECT 
+        $hasilp = DB::select('SELECT 
         DATE_FORMAT(a.tgl_input, "%Y-%m-%d") tgl_obs
         ,DATE_FORMAT(a.tgl_input,"%H:%i:%s") jam_obs
         ,a.diagnosa_kerja
@@ -13791,14 +13791,14 @@ AND b.kelas_tarif = 1');
     //     $kunjungan = DB::select('SELECT * FROM ts_kunjungan WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
     //     $tglmasuk = Carbon::parse($kunjungan[0]->tgl_masuk)->format('d-M-Y');
     //     $jammasuk = Carbon::parse($kunjungan[0]->tgl_masuk)->format('H:i:s');
-    //     $triase = DB::connection('mysql2')->select('SELECT * FROM ts_triase
+    //     $triase = DB::select('SELECT * FROM ts_triase
     //        WHERE no_rm = ? AND kode_kunjungan = ? AND STATUS IN (1,2) ', [$norm, $kj]);
 
 
-    //     $assesdok = DB::connection('mysql2')->select('SELECT * FROM erm_cppt_dokter
+    //     $assesdok = DB::select('SELECT * FROM erm_cppt_dokter
     //     WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
 
-    //     $riwayatorderrad = DB::connection('mysql2')->select('SELECT
+    //     $riwayatorderrad = DB::select('SELECT
     //     a.no_rm,
     //     a.kode_layanan_header,
     //     a.id,
@@ -13810,7 +13810,7 @@ AND b.kelas_tarif = 1');
     //     WHERE a.kode_unit = ?
     //     AND a.kode_kunjungan = ?
     //     AND a.status_order ="1"', ['3003', $kj]);
-    //     $riwayatorderlab = DB::connection('mysql2')->select('SELECT
+    //     $riwayatorderlab = DB::select('SELECT
     //      a.no_rm,
     //      a.kode_layanan_header,
     //      a.id,
@@ -13838,10 +13838,10 @@ AND b.kelas_tarif = 1');
     //      WHERE a.kode_layanan_header LIKE "%DP%"
     //      AND b.kode_tarif_detail NOT LIKE "%tx%"
     //      AND a.kode_kunjungan = ?', [$kj]);
-    //     $ttv = DB::connection('mysql2')->select('SELECT tekanan_darah, frekuensi_nafas, keadaan_umum, kesadaran, frekuensi_nadi, suhu, berat_badan, umur FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
-    //     $riwayatrekonobat = DB::connection('mysql2')->select('SELECT * FROM rekonsiliasi_obat
+    //     $ttv = DB::select('SELECT tekanan_darah, frekuensi_nafas, keadaan_umum, kesadaran, frekuensi_nadi, suhu, berat_badan, umur FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
+    //     $riwayatrekonobat = DB::select('SELECT * FROM rekonsiliasi_obat
     //     WHERE kode_kunjungan = ?', [$kj]);
-    //     $tindakan = DB::connection('mysql2')->select('SELECT * FROM erm_tindakan_kedokteran WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
+    //     $tindakan = DB::select('SELECT * FROM erm_tindakan_kedokteran WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
 
     //     // dd($triase);
 
