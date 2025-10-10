@@ -9,7 +9,7 @@ class ts_layanan_header_igd extends Model
 {
     use HasFactory;
 
-    protected $connection = 'mysql2';
+    // protected $connection = 'mysql2';
     const UPDATED_AT = null;
     const CREATED_AT = null;
     protected $table = 'ts_layanan_header_igd';

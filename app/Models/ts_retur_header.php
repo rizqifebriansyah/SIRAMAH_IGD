@@ -11,7 +11,7 @@ class ts_retur_header extends Model
     const UPDATED_AT = null;
     const CREATED_AT = null;
     protected $table = 'ts_retur_header';
-    protected $connection = 'mysql2';
+    // protected $connection = 'mysql2';
 
     protected $guarded = ['id'];
 }
