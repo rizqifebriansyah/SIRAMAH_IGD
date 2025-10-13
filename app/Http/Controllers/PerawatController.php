@@ -1159,6 +1159,8 @@ class PerawatController extends Controller
             'kode_kunjungan' => $request->kj,
             'kode_paramedis' => $kp,
             'subyektif' => $request->subyek,
+            'pupil' =>  $request->pupil,
+
             'tekanan_intrakranial' =>  $request->intra,
             'neuro_sensorik' =>  $request->neuro,
             'muskolo_skletal' =>  $request->muskolo,
@@ -1746,6 +1748,8 @@ class PerawatController extends Controller
                     'kode_kunjungan' => $request->kj,
                     'kode_paramedis' => $kp,
                     'subyektif' => $request->subyek,
+                    'pupil' =>  $request->pupil,
+
                     'tekanan_intrakranial' =>  $request->intra,
                     'neuro_sensorik' =>  $request->neuro,
                     'muskolo_skletal' =>  $request->muskolo,

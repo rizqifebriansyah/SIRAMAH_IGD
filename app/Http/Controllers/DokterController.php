@@ -116,7 +116,7 @@ class DokterController extends Controller
 
         // $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$tgl')");
         // $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','$unit','$tgl')");
-         $pasienigd = DB::select('SELECT 
+        $pasienigd = DB::select('SELECT 
 
         c.diag_00 as DIAGX
         ,a.no_rm
@@ -135,7 +135,7 @@ class DokterController extends Controller
         inner join di_pasien_diagnosa_frunit c on c.kode_kunjungan = a.kode_kunjungan 
         where Date(a.tgl_masuk) = ?
         and a.status_kunjungan IN (1,2)
-        and a.kode_unit = ?',[$tgl, $unit]);
+        and a.kode_unit = ?', [$tgl, $unit]);
 
         return view(
             'dokter.tablepasienigd',
@@ -151,7 +151,7 @@ class DokterController extends Controller
         $menu = 'asses';
         $user = auth()->user()->nama;
         $unit = auth()->user()->unit;
-// dd($unit);
+        // dd($unit);
 
 
         $now = Carbon::now()->format('Y-m-d');
@@ -176,7 +176,7 @@ class DokterController extends Controller
         inner join di_pasien_diagnosa_frunit c on c.kode_kunjungan = a.kode_kunjungan 
         where Date(a.tgl_masuk) = ?
         and a.status_kunjungan = 1
-        and a.kode_unit = ?',[$now, $unit]);
+        and a.kode_unit = ?', [$now, $unit]);
         return view(
             'dokter.asses',
             [
@@ -5715,23 +5715,23 @@ AND b.kelas_tarif = 1');
         $jammasuk = Carbon::parse($kunjungan[0]->tgl_masuk)->format('H:i:s');
         $tglklr = Carbon::parse($kunjungan[0]->tgl_keluar)->format('d-M-Y');
         $jamklr = Carbon::parse($kunjungan[0]->tgl_keluar)->format('H:i:s');
-        $triase = DB::select('SELECT * FROM ts_triase
+        $triase = DB::connection('mysql2')->select('SELECT * FROM ts_triase
            WHERE no_rm = ? AND kode_kunjungan = ? AND STATUS IN (1,2) ', [$norm, $kj]);
         $tgltriase = Carbon::parse($triase[0]->tg_entri_triase)->format('d-m-Y');
         $jamtriase = Carbon::parse($triase[0]->tg_entri_triase)->format('H:i:s');
         // dd($triase);
-        $assesdok = DB::select('SELECT * FROM erm_cppt_dokter
+        $assesdok = DB::connection('mysql2')->select('SELECT * FROM erm_cppt_dokter
         WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
         $tglass = Carbon::parse($assesdok[0]->tgl_input)->format('d-M-Y');
         $jamass = Carbon::parse($assesdok[0]->tgl_input)->format('H:i:s');
-        $assesper = DB::select('SELECT * FROM erm_cppt_perawat
+        $assesper = DB::connection('mysql2')->select('SELECT * FROM erm_cppt_perawat
           WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
         $tglassp = Carbon::parse($assesper[0]->tgl_input)->format('d-M-Y');
         $jamassp = Carbon::parse($assesper[0]->tgl_input)->format('H:i:s');
-        $assesbid = DB::select('SELECT * FROM erm_cppt_kebidanan WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
-        $assesbidbay = DB::select('SELECT * FROM erm_cppt_kebidanan_bayi WHERE no_rm = ? AND kode_kunjungan = ? AND status IN (1,2)', [$norm, $kj]);
+        $assesbid = DB::connection('mysql2')->select('SELECT * FROM erm_cppt_kebidanan WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
+        $assesbidbay = DB::connection('mysql2')->select('SELECT * FROM erm_cppt_kebidanan_bayi WHERE no_rm = ? AND kode_kunjungan = ? AND status IN (1,2)', [$norm, $kj]);
 
-        $riwayatorderrad = DB::select('SELECT
+        $riwayatorderrad = DB::connection('mysql2')->select('SELECT
         a.no_rm,
         a.kode_layanan_header,
         a.id,
@@ -5743,7 +5743,7 @@ AND b.kelas_tarif = 1');
         WHERE a.kode_unit = ?
         AND a.kode_kunjungan = ?
         AND a.status_order ="1"', ['3003', $kj]);
-        $riwayatorderlab = DB::select('SELECT
+        $riwayatorderlab = DB::connection('mysql2')->select('SELECT
          a.no_rm,
          a.kode_layanan_header,
          a.id,
@@ -5755,7 +5755,7 @@ AND b.kelas_tarif = 1');
          WHERE a.kode_unit = ?
          AND a.kode_kunjungan = ?
          AND a.status_order ="1"', ['3002', $kj]);
-        $riwayatobat = DB::select('SELECT
+        $riwayatobat = DB::connection('mysql2')->select('SELECT
         a.kode_layanan_header,
         a.id,
         a.kode_kunjungan,
@@ -5771,11 +5771,11 @@ AND b.kelas_tarif = 1');
          WHERE a.kode_layanan_header LIKE "%DP%"
          AND b.kode_tarif_detail NOT LIKE "%tx%"
          AND a.kode_kunjungan = ?', [$kj]);
-        $ttv = DB::select('SELECT tekanan_darah, sumber_data, frekuensi_nafas, keadaan_umum, kesadaran, frekuensi_nadi, suhu, berat_badan, umur FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
-        $riwayatrekonobat = DB::select('SELECT * FROM rekonsiliasi_obat
+        $ttv = DB::connection('mysql2')->select('SELECT tekanan_darah, sumber_data, frekuensi_nafas, keadaan_umum, kesadaran, frekuensi_nadi, suhu, berat_badan, umur FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
+        $riwayatrekonobat = DB::connection('mysql2')->select('SELECT * FROM rekonsiliasi_obat
         WHERE kode_kunjungan = ?', [$kj]);
-        $tindakan = DB::select('SELECT * FROM erm_tindakan_kedokteran WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
-        $tindakanp = DB::select('SELECT * FROM erm_tindakan_keperawatan WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
+        $tindakan = DB::connection('mysql2')->select('SELECT * FROM erm_tindakan_kedokteran WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
+        $tindakanp = DB::connection('mysql2')->select('SELECT * FROM erm_tindakan_keperawatan WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
 
         $unit = auth()->user()->unit;
 
@@ -9480,109 +9480,110 @@ AND b.kelas_tarif = 1');
 
                 checkbox($pdf, True);
             }
+            $pdf::Rect(104, 212, 33, 25);
+
+            $pdf::SetXY(107, 212.5);
+            $pdf::MultiCell(25, 3, 'Unconsolable infant');
+            if ($triase[0]->lain3 == NULL) {
+                $pdf::SetXY(105, 212.5);
+
+                checkbox($pdf, False);
+            } else {
+                $pdf::SetXY(105, 212.5);
+
+                checkbox($pdf, True);
+            }
+            $pdf::SetXY(107, 215.5);
+            $pdf::MultiCell(25, 3, 'Bayi 3 - 36 bulan dengan suhu > 38.5 °C');
+            if ($triase[0]->lain7 == NULL) {
+                $pdf::SetXY(105, 215.5);
+
+                checkbox($pdf, False);
+            } else {
+                $pdf::SetXY(105, 215.5);
+
+                checkbox($pdf, True);
+            }
+            $pdf::SetXY(107, 224.5);
+            $pdf::MultiCell(20, 3, 'Reaksi alergi sedang');
+            if ($triase[0]->lain7 == NULL) {
+                $pdf::SetXY(105, 224.5);
+
+                checkbox($pdf, False);
+            } else {
+                $pdf::SetXY(105, 224.5);
+
+                checkbox($pdf, True);
+            }
+            $pdf::SetXY(107, 230.5);
+            $pdf::MultiCell(30, 3, 'Kesulitan makan pada bayi');
+            if ($triase[0]->lain7 == NULL) {
+                $pdf::SetXY(105, 230.5);
+
+                checkbox($pdf, False);
+            } else {
+                $pdf::SetXY(105, 230.5);
+
+                checkbox($pdf, True);
+            }
+            $pdf::Rect(137, 212, 33, 25);
+            $pdf::SetXY(140, 212.5);
+            $pdf::MultiCell(25, 3, 'Bayi Rewel');
+            if ($triase[0]->lain4 == NULL) {
+                $pdf::SetXY(138, 212.5);
+
+                checkbox($pdf, False);
+            } else {
+                $pdf::SetXY(138, 212.5);
+
+                checkbox($pdf, True);
+            }
+            $pdf::SetXY(140, 212.5);
+            $pdf::MultiCell(25, 3, 'Bayi Rewel');
+            if ($triase[0]->lain4 == NULL) {
+                $pdf::SetXY(138, 212.5);
+
+                checkbox($pdf, False);
+            } else {
+                $pdf::SetXY(138, 212.5);
+
+                checkbox($pdf, True);
+            }
+            $pdf::SetXY(140, 215.5);
+            $pdf::MultiCell(30, 3, 'Bayi > 36 bulan dengan suhu > 38 °C dan tidak tampak toksik');
+            if ($triase[0]->lain8 == NULL) {
+                $pdf::SetXY(138, 215.5);
+
+                checkbox($pdf, False);
+            } else {
+                $pdf::SetXY(138, 215.5);
+
+                checkbox($pdf, True);
+            }
+            $pdf::SetXY(140, 224.5);
+            $pdf::MultiCell(25, 3, 'Reaksi alergi lokal');
+            if ($triase[0]->lain11 == NULL) {
+                $pdf::SetXY(138, 224.5);
+
+                checkbox($pdf, False);
+            } else {
+                $pdf::SetXY(138, 224.5);
+
+                checkbox($pdf, True);
+            }
+            $pdf::SetXY(140, 227.5);
+            $pdf::MultiCell(25, 3, 'Perilaku Atipikal');
+            if ($triase[0]->lain11 == NULL) {
+                $pdf::SetXY(138, 227.5);
+
+                checkbox($pdf, False);
+            } else {
+                $pdf::SetXY(138, 227.5);
+
+                checkbox($pdf, True);
+            }
         }
-        $pdf::Rect(104, 212, 33, 25);
 
-        $pdf::SetXY(107, 212.5);
-        $pdf::MultiCell(25, 3, 'Unconsolable infant');
-        if ($triase[0]->lain3 == NULL) {
-            $pdf::SetXY(105, 212.5);
-
-            checkbox($pdf, False);
-        } else {
-            $pdf::SetXY(105, 212.5);
-
-            checkbox($pdf, True);
-        }
-        $pdf::SetXY(107, 215.5);
-        $pdf::MultiCell(25, 3, 'Bayi 3 - 36 bulan dengan suhu > 38.5 °C');
-        if ($triase[0]->lain7 == NULL) {
-            $pdf::SetXY(105, 215.5);
-
-            checkbox($pdf, False);
-        } else {
-            $pdf::SetXY(105, 215.5);
-
-            checkbox($pdf, True);
-        }
-        $pdf::SetXY(107, 224.5);
-        $pdf::MultiCell(20, 3, 'Reaksi alergi sedang');
-        if ($triase[0]->lain7 == NULL) {
-            $pdf::SetXY(105, 224.5);
-
-            checkbox($pdf, False);
-        } else {
-            $pdf::SetXY(105, 224.5);
-
-            checkbox($pdf, True);
-        }
-        $pdf::SetXY(107, 230.5);
-        $pdf::MultiCell(30, 3, 'Kesulitan makan pada bayi');
-        if ($triase[0]->lain7 == NULL) {
-            $pdf::SetXY(105, 230.5);
-
-            checkbox($pdf, False);
-        } else {
-            $pdf::SetXY(105, 230.5);
-
-            checkbox($pdf, True);
-        }
-        $pdf::Rect(137, 212, 33, 25);
-        $pdf::SetXY(140, 212.5);
-        $pdf::MultiCell(25, 3, 'Bayi Rewel');
-        if ($triase[0]->lain4 == NULL) {
-            $pdf::SetXY(138, 212.5);
-
-            checkbox($pdf, False);
-        } else {
-            $pdf::SetXY(138, 212.5);
-
-            checkbox($pdf, True);
-        }
-        $pdf::SetXY(140, 212.5);
-        $pdf::MultiCell(25, 3, 'Bayi Rewel');
-        if ($triase[0]->lain4 == NULL) {
-            $pdf::SetXY(138, 212.5);
-
-            checkbox($pdf, False);
-        } else {
-            $pdf::SetXY(138, 212.5);
-
-            checkbox($pdf, True);
-        }
-        $pdf::SetXY(140, 215.5);
-        $pdf::MultiCell(30, 3, 'Bayi > 36 bulan dengan suhu > 38 °C dan tidak tampak toksik');
-        if ($triase[0]->lain8 == NULL) {
-            $pdf::SetXY(138, 215.5);
-
-            checkbox($pdf, False);
-        } else {
-            $pdf::SetXY(138, 215.5);
-
-            checkbox($pdf, True);
-        }
-        $pdf::SetXY(140, 224.5);
-        $pdf::MultiCell(25, 3, 'Reaksi alergi lokal');
-        if ($triase[0]->lain11 == NULL) {
-            $pdf::SetXY(138, 224.5);
-
-            checkbox($pdf, False);
-        } else {
-            $pdf::SetXY(138, 224.5);
-
-            checkbox($pdf, True);
-        }
-        $pdf::SetXY(140, 227.5);
-        $pdf::MultiCell(25, 3, 'Perilaku Atipikal');
-        if ($triase[0]->lain11 == NULL) {
-            $pdf::SetXY(138, 227.5);
-
-            checkbox($pdf, False);
-        } else {
-            $pdf::SetXY(138, 227.5);
-
-            checkbox($pdf, True);
-        }
         // $pdf::SetFont('Arial', 'B', 30);
         // $pdf::SetTextColor(255, 192, 203);
 
@@ -13539,7 +13540,7 @@ AND b.kelas_tarif = 1');
         $tglmasuk = Carbon::parse($kunjungan[0]->tgl_masuk)->format('d-M-Y');
         $jammasuk = Carbon::parse($kunjungan[0]->tgl_masuk)->format('H:i:s');
 
-        $hasilp = DB::select('SELECT 
+        $hasilp = DB::connection('mysql2')->select('SELECT 
         DATE_FORMAT(a.tgl_input, "%Y-%m-%d") tgl_obs
         ,DATE_FORMAT(a.tgl_input,"%H:%i:%s") jam_obs
         ,a.diagnosa_kerja

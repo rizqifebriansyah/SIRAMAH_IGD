@@ -557,6 +557,51 @@
                                             <table class="table">
                                                 <tbody>
                                                     <tr>
+                                                        <td class="text-bold font-italic">Pupil </td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-md-3">
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="pupil" id="pupil" value="Normal">
+                                                                        <label class="form-check-label">Normal </label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="pupil" id="pupil" value="Miosis">
+                                                                        <label class="form-check-label">Miosis </label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="pupil" id="pupil" value="Midriasis">
+                                                                        <label class="form-check-label">Midriasis </label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="pupil" id="pupil" value="Isokor">
+                                                                        <label class="form-check-label">Isokor </label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="pupil" id="pupil" value="Anisokor">
+                                                                        <label class="form-check-label">Anisokor </label>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-md-3">
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="pupil" id="pupil" value="Tidak Ada" checked>
+                                                                        <label class="form-check-label">Tidak Ada </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+
+                                                    </tr>
+                                                    <tr>
                                                         <td class="text-bold font-italic">Tekanan Intrakranial </td>
                                                         <td>
                                                             <div class="row">
@@ -1007,7 +1052,7 @@
                                                             </div>
                                                         </td>
 
-                                                    </tr>
+                                                    </tr>v
                                                     <tr>
                                                         <td class="text-bold font-italic">Koping Mekanisme </td>
                                                         <td>
@@ -2463,6 +2508,87 @@
                                         <div class="card-body bg-light">
                                             <table class="table">
                                                 <tbody>
+                                                    <tr>
+                                                        <td class="text-bold font-italic">Pupil </td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-md-3">
+                                                                    <div class="form-check">
+                                                                        @if($assesper[0]->pupil == 'Normal')
+                                                                        <input class="form-check-input" type="radio" name="pupil" id="pupil" value="Normal" checked>
+                                                                        <label class="form-check-label">Normal </label>
+                                                                        @else
+                                                                        <input class="form-check-input" type="radio" name="pupil" id="pupil" value="Normal">
+                                                                        <label class="form-check-label">Normal </label>
+                                                                        @endif
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <div class="form-check">
+                                                                        @if($assesper[0]->pupil == 'Miosis')
+                                                                        <input class="form-check-input" type="radio" name="pupil" id="pupil" value="Miosis" checked>
+                                                                        <label class="form-check-label">Miosis </label>
+                                                                        @else
+                                                                        <input class="form-check-input" type="radio" name="pupil" id="pupil" value="Miosis">
+                                                                        <label class="form-check-label">Miosis </label>
+                                                                        @endif
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <div class="form-check">
+                                                                        @if($assesper[0]->pupil == 'Midriasis')
+                                                                        <input class="form-check-input" type="radio" name="pupil" id="pupil" checked value="Midriasis">
+                                                                        <label class="form-check-label">Midriasis </label>
+                                                                        @else
+                                                                        <input class="form-check-input" type="radio" name="pupil" id="pupil" value="Midriasis">
+                                                                        <label class="form-check-label">Midriasis </label>
+                                                                        @endif
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <div class="form-check">
+                                                                        @if($assesper[0]->pupil == 'Isokor')
+                                                                         <input class="form-check-input" type="radio" name="pupil" id="pupil" value="Isokor" checked>
+                                                                        <label class="form-check-label">Isokor </label>
+                                                                        @else
+                                                                          <input class="form-check-input" type="radio" name="pupil" id="pupil" value="Isokor">
+                                                                        <label class="form-check-label">Isokor </label>
+                                                                        @endif
+                                                                  
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <div class="form-check">
+                                                                           @if($assesper[0]->pupil == 'Anisokor')
+                                                                   <input class="form-check-input" type="radio" name="pupil" id="pupil" checked value="Anisokor">
+                                                                        <label class="form-check-label">Anisokor </label>
+                                                                        @else
+                                                                  <input class="form-check-input" type="radio" name="pupil" id="pupil" value="Anisokor">
+                                                                        <label class="form-check-label">Anisokor </label>
+                                                                        @endif
+                                                                     
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-md-3">
+                                                                    <div class="form-check">
+                                                                          @if($assesper[0]->pupil == 'Tidak Ada')
+                                                                         <input class="form-check-input" type="radio" name="pupil" id="pupil" value="Tidak Ada" checked>
+                                                                        <label class="form-check-label">Tidak Ada </label>
+                                                                        @else
+                                                                        <input class="form-check-input" type="radio" name="pupil" id="pupil" value="Tidak Ada" >
+                                                                        <label class="form-check-label">Tidak Ada </label>
+                                                                        @endif
+                                                                 
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+
+                                                    </tr>
                                                     <tr>
                                                         <td class="text-bold font-italic">Tekanan Intrakranial </td>
                                                         <td>
@@ -4171,7 +4297,7 @@
                                                                 <td><br><br>1 <br>2 <br>3 <br>4 <br>2 </td>
                                                                 <td>
                                                                     <div class="form-group">
-                                                                        <input type="number" name="rjvalue" id="rjvalue" class="form-control" min="0" value="{{$assesper[0]->asupan}}"  required />
+                                                                        <input type="number" name="rjvalue" id="rjvalue" class="form-control" min="0" value="{{$assesper[0]->asupan}}" required />
                                                                     </div>
                                                                 </td>
 
@@ -5031,6 +5157,7 @@
             var kesadaran = $('#kesadaran:checked').val()
             var gcs = $('#gcs').val()
             var spo2 = $('#SPO2').val()
+            var pupil = $('#pupil:checked').val()
 
             var intra = $('#intra:checked').val()
             var neuro = $('#neuro:checked').val()
@@ -5153,6 +5280,7 @@
             var kesadaran = $('#kesadaran:checked').val()
             var gcs = $('#gcs').val()
             var spo2 = $('#SPO2').val()
+            var pupil = $('#pupil:checked').val()
 
             var intra = $('#intra:checked').val()
             var neuro = $('#neuro:checked').val()
@@ -5287,6 +5415,7 @@
                         usia: $('#usia').val(),
                         gcs: $('#gcs').val(),
                         spo2: $('#SPO2').val(),
+                        pupil: $('#pupil:checked').val(),
 
                         intra: $('#intra:checked').val(),
                         neuro: $('#neuro:checked').val(),
@@ -5506,6 +5635,7 @@
             var kesadaran = $('#kesadaran:checked').val()
             var gcs = $('#gcs').val()
             var spo2 = $('#SPO2').val()
+            var update = $('#update:checked').val()
 
             var intra = $('#intra:checked').val()
             var neuro = $('#neuro:checked').val()
@@ -5627,6 +5757,7 @@
             var kesadaran = $('#kesadaran:checked').val()
             var gcs = $('#gcs').val()
             var spo2 = $('#SPO2').val()
+            var pupil = $('#pupil:checked').val()
 
             var intra = $('#intra:checked').val()
             var neuro = $('#neuro:checked').val()
@@ -5761,6 +5892,7 @@
                         usia: $('#usia').val(),
                         gcs: $('#gcs').val(),
                         spo2: $('#SPO2').val(),
+                        pupil: $('#pupil:checked').val(),
 
                         intra: $('#intra:checked').val(),
                         neuro: $('#neuro:checked').val(),
