@@ -445,8 +445,8 @@
                     </td>
                     <td>
                         <div class="form-group form-check">
-                            <input type="checkbox" class="form-check-input" id="sirkulasi3" name="sirkulasi3" value="Muntah Pasien">
-                            <label class="form-check-label" for="exampleCheck1">Muntah Pasien
+                            <input type="checkbox" class="form-check-input" id="sirkulasi3" name="sirkulasi3" value="Muntah Persisten">
+                            <label class="form-check-label" for="exampleCheck1">Muntah Persisten
                             </label>
                         </div>
                     </td>
@@ -633,7 +633,8 @@
                     </td>
                     <td>
                         <div class="form-group form-check">
-
+                            <input type="checkbox" class="form-check-input" id="sirkulasi26" name="sirkulasi26" value="Dehidrasi">
+                            <label class="form-check-label" for="exampleCheck1">Dehidrasi</label>
                             </label>
                         </div>
                     </td>
@@ -666,7 +667,6 @@
                     <td>
                         <div class="form-group form-check">
 
-                            </label>
                         </div>
                     </td>
                     <td>

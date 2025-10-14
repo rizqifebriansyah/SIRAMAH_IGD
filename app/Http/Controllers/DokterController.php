@@ -5683,7 +5683,8 @@ AND b.kelas_tarif = 1');
         $noww = Carbon::now();
 
 
-        $unit = auth()->user()->unit;
+        // $unit = auth()->user()->unit;
+        $unit = '1002';
 
         $now = Carbon::now()->format('Y-m-d H:i:s');
         $pasien = DB::select('SELECT 
@@ -5777,7 +5778,7 @@ AND b.kelas_tarif = 1');
         $tindakan = DB::connection('mysql2')->select('SELECT * FROM erm_tindakan_kedokteran WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
         $tindakanp = DB::connection('mysql2')->select('SELECT * FROM erm_tindakan_keperawatan WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
 
-        $unit = auth()->user()->unit;
+        // $unit = auth()->user()->unit;
 
         if ($triase[0]->kesadaran1 !== NULL) {
             $kesadaran1 = $triase[0]->kesadaran1 . ', ';
@@ -7056,16 +7057,16 @@ AND b.kelas_tarif = 1');
             }
 
 
-            $pdf::SetXY(74, 76.5);
+            $pdf::SetXY(74, 66.5);
             $pdf::SetFont('Times', '', 10);
 
             $pdf::MultiCell(33, 6, 'Letargis');
             if ($triase[0]->kesadaran7 == NULL) {
-                $pdf::SetXY(72, 78.5);
+                $pdf::SetXY(72, 68.5);
 
                 checkbox($pdf, False);
             } else {
-                $pdf::SetXY(72, 78.5);
+                $pdf::SetXY(72, 68.5);
 
                 checkbox($pdf, True);
             }
@@ -7728,7 +7729,7 @@ AND b.kelas_tarif = 1');
             $pdf::Rect(8, 124, 30, 57);
             $pdf::SetFont('Times', 'B', 10);
             $pdf::SetXY(8, 124);
-            $pdf::Cell(15, 5, 'GEJALA SPESIFIK');
+            $pdf::MultiCell(20, 5, 'GEJALA SPESIFIK');
 
             $pdf::Rect(38, 124, 33, 57);
 
@@ -8102,6 +8103,105 @@ AND b.kelas_tarif = 1');
 
                 checkbox($pdf, True);
             }
+
+            //gejala spesifik
+            $pdf::Rect(8, 181, 30, 57);
+            $pdf::SetFont('Times', 'B', 10);
+            $pdf::SetXY(8, 181);
+            $pdf::MultiCell(20, 5, 'TANDA DAN GEJALA SESUAI PEDOMAN PRAKTIK KLINIS(PPK) SMF');
+
+            $pdf::Rect(38, 181, 33, 57);
+
+            if ($triase[0]->ats1lain == NULL) {
+                $pdf::SetXY(42, 181.5);
+
+                checkbox($pdf, False);
+                $pdf::SetFont('Times', '', 10);
+
+                $pdf::SetXY(43, 181.5);
+                $pdf::MultiCell(33, 3, '...............');
+            } else {
+                $pdf::SetXY(42, 181.5);
+
+                checkbox($pdf, True);
+                $pdf::SetFont('Times', '', 10);
+
+                $pdf::SetXY(43, 181.5);
+                $pdf::MultiCell(33, 3, $triase[0]->ats1lain);
+            }
+            $pdf::Rect(71, 181, 33, 57);
+
+            if ($triase[0]->ats2lain == NULL) {
+                $pdf::SetXY(72, 181.5);
+
+                checkbox($pdf, False);
+                $pdf::SetFont('Times', '', 10);
+
+                $pdf::SetXY(74, 181.5);
+                $pdf::MultiCell(33, 3, '...................');
+            } else {
+                $pdf::SetXY(72, 181.5);
+
+                checkbox($pdf, True);
+                $pdf::SetFont('Times', '', 10);
+
+                $pdf::SetXY(74, 181.5);
+                $pdf::MultiCell(33, 3, $triase[0]->ats2lain);
+            }
+            $pdf::Rect(104, 181, 33, 57);
+            if ($triase[0]->ats3lain == NULL) {
+                $pdf::SetXY(105, 181.5);
+
+                checkbox($pdf, False);
+                $pdf::SetFont('Times', '', 10);
+
+                $pdf::SetXY(107, 181.5);
+                $pdf::MultiCell(33, 3, '...................');
+            } else {
+                $pdf::SetXY(105, 181.5);
+
+                checkbox($pdf, True);
+                $pdf::SetFont('Times', '', 10);
+
+                $pdf::SetXY(107, 181.5);
+                $pdf::MultiCell(33, 3, $triase[0]->ats3lain);
+            }
+            $pdf::Rect(137, 181, 33, 57);
+            if ($triase[0]->ats4lain == NULL) {
+                $pdf::SetXY(138, 181.5);
+
+                checkbox($pdf, False);
+                $pdf::SetFont('Times', '', 10);
+
+                $pdf::SetXY(140, 181.5);
+                $pdf::MultiCell(33, 3, '...................');
+            } else {
+                $pdf::SetXY(138, 181.5);
+
+                checkbox($pdf, True);
+                $pdf::SetFont('Times', '', 10);
+
+                $pdf::SetXY(140, 181.5);
+                $pdf::MultiCell(33, 3, $triase[0]->ats4lain);
+            }
+            $pdf::Rect(170, 181, 36, 57);
+            if ($triase[0]->ats5lain == NULL) {
+                $pdf::SetXY(171, 181.5);
+
+                checkbox($pdf, False);
+                $pdf::SetFont('Times', '', 10);
+
+                $pdf::SetXY(173, 181.5);
+                $pdf::MultiCell(33, 3, '...................');
+            } else {
+                $pdf::SetXY(171, 181.5);
+
+                checkbox($pdf, True);
+                $pdf::SetFont('Times', '', 10);
+
+                $pdf::SetXY(173, 181.5);
+                $pdf::MultiCell(33, 3, $triase[0]->ats5lain);
+            }
         } else {
             //triase anak
             //kategori triase
@@ -8439,14 +8539,14 @@ AND b.kelas_tarif = 1');
 
             $pdf::Rect(38, 74, 33, 13);
             $pdf::SetFont('Times', '', 9);
-            $pdf::SetXY(43, 103.5);
-            $pdf::MultiCell(33, 6, 'Gagal Nafas');
+            $pdf::SetXY(43, 74.5);
+            $pdf::MultiCell(33, 3, 'Gagal Nafas');
             if ($triase[0]->upaya1 == NULL) {
-                $pdf::SetXY(40, 105);
+                $pdf::SetXY(40, 74.5);
 
                 checkbox($pdf, False);
             } else {
-                $pdf::SetXY(40, 105);
+                $pdf::SetXY(40, 74.5);
 
                 checkbox($pdf, True);
             }
@@ -8831,14 +8931,14 @@ AND b.kelas_tarif = 1');
 
                 checkbox($pdf, True);
             }
-            $pdf::SetXY(43, 131);
-            $pdf::MultiCell(28, 3, 'T thorax disertai distress nafas');
+            $pdf::SetXY(43, 141);
+            $pdf::MultiCell(25, 3, 'T thorax disertai distress nafas');
             if ($triase[0]->gejala_respirasi9 == NULL) {
-                $pdf::SetXY(40, 131.5);
+                $pdf::SetXY(40, 141.5);
 
                 checkbox($pdf, False);
             } else {
-                $pdf::SetXY(40, 131.5);
+                $pdf::SetXY(40, 141.5);
 
                 checkbox($pdf, True);
             }
@@ -9582,6 +9682,8 @@ AND b.kelas_tarif = 1');
 
                 checkbox($pdf, True);
             }
+            $pdf::Rect(170, 212, 36, 25);
+
         }
 
         // $pdf::SetFont('Arial', 'B', 30);
@@ -13509,7 +13611,7 @@ AND b.kelas_tarif = 1');
         $noww = Carbon::now();
 
 
-        $unit = auth()->user()->unit;
+        // $unit = auth()->user()->unit;
 
         $now = Carbon::now()->format('Y-m-d H:i:s');
         $pasien = DB::select('SELECT 
@@ -13540,17 +13642,23 @@ AND b.kelas_tarif = 1');
         $tglmasuk = Carbon::parse($kunjungan[0]->tgl_masuk)->format('d-M-Y');
         $jammasuk = Carbon::parse($kunjungan[0]->tgl_masuk)->format('H:i:s');
 
+        $spo2 = DB::connection('mysql2')->select('SELECT 
+        a.SPO2
+        FROM erm_cppt_perawat a
+        WHERE a.kode_kunjungan = ?', [$kj]);
         $hasilp = DB::connection('mysql2')->select('SELECT 
         DATE_FORMAT(a.tgl_input, "%Y-%m-%d") tgl_obs
-        ,DATE_FORMAT(a.tgl_input,"%H:%i:%s") jam_obs
+        ,DATE_FORMAT(a.tgl_input,"%H:%i") jam_obs
         ,a.diagnosa_kerja
         ,a.dokter_jaga
         ,a.gcs
         ,a.kategori_pasien
         ,a.nadi
         ,a.nyeri
+        ,a.keterangan
         ,a.perawat_jaga
-        ,a.pu
+        ,a.urine
+        ,a.spo2
         ,a.pupil
         ,a.rr
         ,a.suhu
@@ -13562,7 +13670,8 @@ AND b.kelas_tarif = 1');
 
         // dd($triase);
 
-        $unit = auth()->user()->unit;
+        // $unit = auth()->user()->unit;
+        $unit = '1002';
 
 
         $pdf = new FPDF('P', 'mm', 'A4');
@@ -13683,6 +13792,20 @@ AND b.kelas_tarif = 1');
         $pdf::SetXY(141, 60);
         $pdf::MultiCell(60, 4, $kunjungan[0]->diagnosa);
 
+        $pdf::SetFont('Times', '', 10);
+        $pdf::SetXY(120, 62);
+        $pdf::Cell(40, 10, 'SPO2 ');
+        $pdf::SetXY(139, 62);
+        $pdf::Cell(40, 10, ':');
+        $pdf::SetFont('Times', 'B', 9);
+        $pdf::SetXY(141, 65);
+        // if ($spo2[0]->SPO2 == NULL) {
+            $pdf::MultiCell(60, 4, 'Belum Diisi');
+        // } else {
+        //     $pdf::MultiCell(60, 4, $spo2[0]->SPO2);
+        // }
+
+
         //tgl masuk
         $pdf::Rect(8, 80, 198, 5);
 
@@ -13759,21 +13882,24 @@ AND b.kelas_tarif = 1');
         $pdf::SetXY(38, 105);
         $pdf::MultiCell(150, 5, $hasilp[0]->diagnosa_kerja);
 
+
         //tabel pemantauan
         $pdf::Rect(8, 115, 198, 160);
         $pdf::SetXY(8, 115);
 
         $pdf::SetFont('Times', 'B', 8);
         $pdf::cell(15, 5, "Tgl", 1, "", "C");
-        $pdf::cell(15, 5, "Jam", 1, "", "C");
-        $pdf::cell(18, 5, "TD (mmhg)", 1, "", "C");
+        $pdf::cell(10, 5, "Jam", 1, "", "C");
+        $pdf::cell(15, 5, "TD (mmhg)", 1, "", "C");
         $pdf::cell(18, 5, "Nadi X/menit", 1, "", "C");
         $pdf::cell(18, 5, "RR X/menit", 1, "", "C");
         $pdf::cell(18, 5, "Suhu (°C)", 1, "", "C");
         $pdf::cell(10, 5, "GCS", 1, "", "C");
-        $pdf::cell(20, 5, "PUPIL", 1, "", "C");
-        $pdf::cell(20, 5, "PU", 1, "", "C");
+        $pdf::cell(10, 5, "PUPIL", 1, "", "C");
+        $pdf::cell(10, 5, "Urine", 1, "", "C");
         $pdf::cell(25, 5, "Nyeri", 1, "", "C");
+        $pdf::cell(28, 5, "Keterangan", 1, "", "C");
+
         $pdf::cell(21, 5, "Nama & Paraf", 1, "", "C");
         $pdf::Ln();
 
@@ -13783,15 +13909,17 @@ AND b.kelas_tarif = 1');
 
             $pdf::Cell(15, 10, $k->tgl_obs, 1, "", "C");
 
-            $pdf::Cell(15, 10, $k->jam_obs, 1, "", "C");
-            $pdf::Cell(18, 10, $k->td, 1, "", "C");
+            $pdf::Cell(10, 10, $k->jam_obs, 1, "", "C");
+            $pdf::Cell(15, 10, $k->td, 1, "", "C");
             $pdf::Cell(18, 10, $k->nadi, 1, "", "C");
             $pdf::Cell(18, 10, $k->rr, 1, "", "C");
             $pdf::Cell(18, 10, $k->suhu, 1, "", "C");
             $pdf::Cell(10, 10, $k->gcs, 1, "", "C");
-            $pdf::Cell(20, 10, $k->pupil, 1, "", "C");
-            $pdf::Cell(20, 10, $k->pu, 1, "", "C");
+            $pdf::Cell(10, 10, $k->pupil, 1, "", "C");
+            $pdf::Cell(10, 10, $k->urine, 1, "", "C");
             $pdf::Cell(25, 10, $k->nyeri, 1, "", "C");
+            $pdf::Cell(28, 10, $k->keterangan, 1, "", "C");
+
             $pdf::Cell(21, 10, "", 1, "", "C");
 
 

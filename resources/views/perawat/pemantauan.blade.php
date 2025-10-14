@@ -108,14 +108,26 @@
                 </div>
                 <div class="col-3">
                     <div class="form-group">
-                        <label for="name">PU</label>
-                        <input type="text" name="pu" id="pu" value="" class=" form-control">
+                        <label for="name">URINE</label>
+                        <input type="text" name="urine" id="urine" value="" class=" form-control">
+                    </div>
+                </div>
+                  <div class="col-3">
+                    <div class="form-group">
+                        <label for="name">SPO2</label>
+                        <input type="text" name="spo2" id="spo2" value="" class=" form-control">
                     </div>
                 </div>
                 <div class="col-3">
                     <div class="form-group">
                         <label for="name">Nyeri</label>
                         <input type="text" name="nyeri" id="nyeri" value="" class=" form-control">
+                    </div>
+                </div>
+                   <div class="col-3">
+                    <div class="form-group">
+                        <label for="name">Keterangan</label>
+                        <input type="text" name="keterangan" id="keterangan" value="" class=" form-control">
                     </div>
                 </div>
 
@@ -160,8 +172,12 @@
         var suhu = $("#suhu").val();
         var gcs = $("#gcs").val();
         var pupil = $("#pupil").val();
-        var pu = $("#pu").val();
+        var urine = $("#urine").val();
+        var spo2 = $("#spo2").val();
+
         var nyeri = $("#nyeri").val();
+        var keterangan = $("#keterangan").val();
+
 
 
 
@@ -199,8 +215,12 @@
                         suhu: $("#suhu").val(),
                         gcs: $("#gcs").val(),
                         pupil: $("#pupil").val(),
-                        pu: $("#pu").val(),
+                        urine: $("#urine").val(),
+                        spo2: $("#spo2").val(),
+
                         nyeri: $("#nyeri").val()
+                        keterangan: $("#keterangan").val()
+
 
 
                     },

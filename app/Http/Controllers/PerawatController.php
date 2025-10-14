@@ -1451,8 +1451,12 @@ class PerawatController extends Controller
             'suhu' => $request->suhu,
             'gcs' => $request->gcs,
             'pupil' => $request->pupil,
-            'pu' => $request->pu,
+            'urine' => $request->urine,
+            'spo2' => $request->spo2,
+
             'nyeri' => $request->nyeri,
+            'keterangan' => $request->keterangan,
+
             'norm' => $request->norm,
             'kj' => $request->kj,
             'tgl_input' => $now,
