@@ -27,10 +27,10 @@
                 <tbody>
                     @foreach ($riwayat as $r)
 
-                    <tr>
-                        <td>{{$r->tgl}}</td>
-                        <td>{{$r->nama_tarif}}</td>
-                        <td> {{$r->nama_unit}}
+                    <tr class=" @if($r->status_layanan_detail == 'CCL') bg-danger @else @endif">
+                        <td>{{$r->tgl_entry}}</td>
+                        <td>{{$r->NAMA_TARIF}}</td>
+                        <td> {{$r->unit_pengirim}}
                         </td>
                     </tr>
                 @endforeach

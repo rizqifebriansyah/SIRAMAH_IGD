@@ -11,6 +11,8 @@ use App\Http\Controllers\GiziControlller;
 use App\Http\Controllers\KeuanganController;
 use App\Http\Controllers\LaboratoriumController;
 use App\Http\Controllers\LabController;
+use App\Http\Controllers\MonitoringController;
+use App\Http\Controllers\RadiologiController;
 use App\Http\Controllers\ReportingController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,6 +38,14 @@ Route::post('/ambildata', [AntrianController::class, 'ambildata'])->name('ambild
 Route::post('/ambilantrianbidan', [AntrianController::class, 'ambilantrianbidan'])->name('ambilantrianbidan');
 Route::post('/ambilantrianumum', [AntrianController::class, 'ambilantrianumum'])->name('ambilantrianumum');
 
+
+//route monitoring
+Route::group(['middleware' => ['hak_akses:18', 'auth']], function () {
+
+
+    Route::get('monitoring', [MonitoringController::class, 'monitoring'])->name('monitoring');
+    Route::post('ermpreview', [MonitoringController::class, 'ermpreview'])->name('ermpreview');
+});
 //route farmasi
 Route::group(['middleware' => ['hak_akses:6', 'auth']], function () {
 
@@ -156,7 +166,7 @@ Route::group(['middleware' => ['hak_akses:4', 'auth']], function () {
     Route::post('penandaangambar', [PerawatController::class, 'penandaangambar'])->name('penandaangambar');
     Route::post('pemantauanview', [PerawatController::class, 'pemantauanview'])->name('pemantauanview');
 
-    
+
 
     Route::post('rencanaplg', [PerawatController::class, 'rencanaplg'])->name('rencanaplg');
     Route::post('sri', [PerawatController::class, 'sri'])->name('sri');
@@ -301,65 +311,18 @@ Route::group(['middleware' => ['hak_akses:13', 'auth']], function () {
 
 
 //petugas radiologi
-Route::group(['middleware' => ['hak_akses:14', 'auth']], function () {
+Route::group(['middleware' => ['hak_akses:3', 'auth']], function () {
 
     //tampil data
-    Route::get('/penunjang', [LaboratoriumController::class, 'index'])->name('penunjang');
-    Route::post('/ambildata', [LaboratoriumController::class, 'ambildata'])->name('ambildata');
-    Route::post('/ambildatabarang', [LaboratoriumController::class, 'ambildatabarang'])->name('ambildatabarang');
-    Route::post('/datapasien', [LaboratoriumController::class, 'datapasien'])->name('datapasien');
-    Route::post('pasiendetail', [LaboratoriumController::class, 'pasienterpilih'])->name('pasiendetail');
-    Route::post('detailpasien', [LaboratoriumController::class, 'terpilihpasien'])->name('detailpasien');
-    Route::post('tampilpaket', [LaboratoriumController::class, 'tampilpaket'])->name('tampilpaket');
-    Route::post('pasienerm', [LaboratoriumController::class, 'pasienerm'])->name('pasienerm');
-    Route::post('/riwayatpasien', [LaboratoriumController::class, 'riwayatpasien'])->name('riwayatpasien');
-    Route::post('/detailbarang', [LaboratoriumController::class, 'detailbarang'])->name('detailbarang');
-    Route::post('/detailpaket', [LaboratoriumController::class, 'detailpaket'])->name('detailpaket');
-    Route::post('lihatpasienex', [LaboratoriumController::class, 'lihatpasienex'])->name('lihatpasienex');
+    Route::get('/radiologi', [RadiologiController::class, 'radiologi'])->name('radiologi');
+    Route::get('/riwayatorder', [RadiologiController::class, 'riwayatorder'])->name('riwayatorder');
 
-    //cari pasien
-    Route::post('caripasienorder', [LaboratoriumController::class, 'caripasienorder'])->name('caripasienorder');
-    Route::post('caritanggal', [LaboratoriumController::class, 'caritanggal'])->name('caritanggal');
-    Route::post('caripasienpendaftaran', [LaboratoriumController::class, 'caripasienpendaftaran'])->name('caripasienpendaftaran');
-    Route::post('caridokter', [LaboratoriumController::class, 'caridokter'])->name('caridokter');
-
-    //simpan data
-    Route::post('/simpanorderpasien', [LaboratoriumController::class, 'simpanorder'])->name('simpanorderpasien');
-    Route::post('simpanorder', [LaboratoriumController::class, 'simpanorderdetail'])->name('simpanorder');
-    Route::post('/simpanorderpaket', [LaboratoriumController::class, 'simpanorderpaket'])->name('simpanorderpaket');
-    Route::post('/simpanorderpoli', [LaboratoriumController::class, 'simpanorderpoli'])->name('simpanorderpoli');
-    Route::post('/simpanradiologi', [LaboratoriumController::class, 'simpanradiologi'])->name('simpanradiologi');
-    Route::post('/simpanorderradiologi', [LaboratoriumController::class, 'simpanorderradiologi'])->name('simpanorderradiologi');
-    Route::post('/simpanorderbarang', [LaboratoriumController::class, 'simpanorderbarang'])->name('simpanorderbarang');
-    Route::post('/simpanorderloundry', [LaboratoriumController::class, 'simpanorderloundry'])->name('simpanorderloundry');
-    // Route::post('/simpanorderkjn', [LaboratoriumController::class, 'simpanorderkjn'])->name('simpanorderkjn');
+    Route::post('detailpasienradiologi', [RadiologiController::class, 'detailpasienradiologi'])->name('detailpasienradiologi');
+    Route::post('/riwayatradiologipasien', [RadiologiController::class, 'riwayatradiologipasien'])->name('riwayatradiologipasien');
 
 
 
-    //Retur data
-    Route::post('/batalradiologi', [LaboratoriumController::class, 'batalradiologi'])->name('batalradiologi');
-    Route::post('/batalorder', [LaboratoriumController::class, 'batalorder'])->name('batalorder');
-    Route::post('/returorder', [LaboratoriumController::class, 'returorder'])->name('returorder');
-    Route::post('/returorderloundry', [LaboratoriumController::class, 'returorderloundry'])->name('returorderloundry');
-    Route::post('/returorderrad', [LaboratoriumController::class, 'returorderrad'])->name('returorderrad');
-    Route::post('/returbarangrad', [LaboratoriumController::class, 'returbarangrad'])->name('returbarangrad');
-    Route::post('/returorderlab', [LaboratoriumController::class, 'returorderlab'])->name('returorderlab');
-    Route::post('/returorderkjn', [LaboratoriumController::class, 'returorderkjn'])->name('returorderkjn');
-
-
-    //print
-    Route::get('cetakorder/{kode_header}/{idhed}', [LaboratoriumController::class, 'cetakpdf']);
-    Route::get('labnota/{kode_header}/{idhed}', [LaboratoriumController::class, 'labnota']);
-    Route::get('etiket/{kode_header}/{idhed}', [LaboratoriumController::class, 'etiket']);
-    Route::get('cetakexp/{norm}/{tglentry}', [LaboratoriumController::class, 'cetakexpertise1']);
-    Route::post('cetakexpertise', [LaboratoriumController::class, 'cetakexpertise'])->name('cetakexpertise');
-    Route::post('/printulang', [LaboratoriumController::class, 'printulang'])->name('printulang');
-    Route::post('/printulanglab', [LaboratoriumController::class, 'printulanglab'])->name('printulanglab');
-
-    //hitung
-    Route::post('/hitungkunjungan', [LaboratoriumController::class, 'hitungkunjungan'])->name('hitungkunjungan');
-    Route::post('/hitungorder', [LaboratoriumController::class, 'hitungorder'])->name('hitungorder');
-    Route::post('/hitungorderpoli', [LaboratoriumController::class, 'hitungorderpoli'])->name('hitungorderpoli');
+    Route::post('caridokterradiologi', [RadiologiController::class, 'caridokterradiologi'])->name('caridokterradiologi');
 });
 
 //petugas reporting

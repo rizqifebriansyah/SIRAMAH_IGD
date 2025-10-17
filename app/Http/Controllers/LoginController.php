@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -32,31 +33,28 @@ class LoginController extends Controller
             if ($hak == 5) {
 
                 return redirect()->intended('asses');
-
+            } elseif ($hak == 3) {
+                return redirect()->intended('radiologi');
             } elseif ($hak == 4) {
                 return redirect()->intended('assesperawat');
-            }elseif ($hak == 6) {
+            } elseif ($hak == 6) {
                 return redirect()->intended('farmasi');
-            }
-            elseif ($hak == 11) {
+            } elseif ($hak == 11) {
                 return redirect()->intended('bankdarah');
-            }elseif ($hak == 12) {
+            } elseif ($hak == 12) {
                 return redirect()->intended('laboratorium');
-            }
-            elseif ($hak == 13) {
+            } elseif ($hak == 13) {
                 return redirect()->intended('forensik');
-            } 
-            elseif ($hak == 14) {
+            } elseif ($hak == 14) {
                 return redirect()->intended('penunjang');
-            } 
-            elseif ($hak == 15) {
+            } elseif ($hak == 15) {
                 return redirect()->intended('reporting');
-            } 
-            elseif ($hak == 16) {
+            } elseif ($hak == 16) {
                 return redirect()->intended('keuangan');
-            }
-            elseif ($hak == 17) {
+            } elseif ($hak == 17) {
                 return redirect()->intended('gizi');
+            } elseif ($hak == 18) {
+                return redirect()->intended('monitoring');
             }
         }
         return back()->with('loginError', 'Login gagal !');
