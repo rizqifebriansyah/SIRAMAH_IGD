@@ -5716,23 +5716,23 @@ AND b.kelas_tarif = 1');
         $jammasuk = Carbon::parse($kunjungan[0]->tgl_masuk)->format('H:i:s');
         $tglklr = Carbon::parse($kunjungan[0]->tgl_keluar)->format('d-M-Y');
         $jamklr = Carbon::parse($kunjungan[0]->tgl_keluar)->format('H:i:s');
-        $triase = DB::connection('mysql2')->select('SELECT * FROM ts_triase
+        $triase = DB::select('SELECT * FROM ts_triase
            WHERE no_rm = ? AND kode_kunjungan = ? AND STATUS IN (1,2) ', [$norm, $kj]);
         $tgltriase = Carbon::parse($triase[0]->tg_entri_triase)->format('d-m-Y');
         $jamtriase = Carbon::parse($triase[0]->tg_entri_triase)->format('H:i:s');
         // dd($triase);
-        $assesdok = DB::connection('mysql2')->select('SELECT * FROM erm_cppt_dokter
+        $assesdok = DB::select('SELECT * FROM erm_cppt_dokter
         WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
         $tglass = Carbon::parse($assesdok[0]->tgl_input)->format('d-M-Y');
         $jamass = Carbon::parse($assesdok[0]->tgl_input)->format('H:i:s');
-        $assesper = DB::connection('mysql2')->select('SELECT * FROM erm_cppt_perawat
+        $assesper = DB::select('SELECT * FROM erm_cppt_perawat
           WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
         $tglassp = Carbon::parse($assesper[0]->tgl_input)->format('d-M-Y');
         $jamassp = Carbon::parse($assesper[0]->tgl_input)->format('H:i:s');
-        $assesbid = DB::connection('mysql2')->select('SELECT * FROM erm_cppt_kebidanan WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
-        $assesbidbay = DB::connection('mysql2')->select('SELECT * FROM erm_cppt_kebidanan_bayi WHERE no_rm = ? AND kode_kunjungan = ? AND status IN (1,2)', [$norm, $kj]);
+        $assesbid = DB::select('SELECT * FROM erm_cppt_kebidanan WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
+        $assesbidbay = DB::select('SELECT * FROM erm_cppt_kebidanan_bayi WHERE no_rm = ? AND kode_kunjungan = ? AND status IN (1,2)', [$norm, $kj]);
 
-        $riwayatorderrad = DB::connection('mysql2')->select('SELECT
+        $riwayatorderrad = DB::select('SELECT
         a.no_rm,
         a.kode_layanan_header,
         a.id,
@@ -5744,7 +5744,7 @@ AND b.kelas_tarif = 1');
         WHERE a.kode_unit = ?
         AND a.kode_kunjungan = ?
         AND a.status_order ="1"', ['3003', $kj]);
-        $riwayatorderlab = DB::connection('mysql2')->select('SELECT
+        $riwayatorderlab = DB::select('SELECT
          a.no_rm,
          a.kode_layanan_header,
          a.id,
@@ -5756,7 +5756,7 @@ AND b.kelas_tarif = 1');
          WHERE a.kode_unit = ?
          AND a.kode_kunjungan = ?
          AND a.status_order ="1"', ['3002', $kj]);
-        $riwayatobat = DB::connection('mysql2')->select('SELECT
+        $riwayatobat = DB::select('SELECT
         a.kode_layanan_header,
         a.id,
         a.kode_kunjungan,
@@ -5772,11 +5772,11 @@ AND b.kelas_tarif = 1');
          WHERE a.kode_layanan_header LIKE "%DP%"
          AND b.kode_tarif_detail NOT LIKE "%tx%"
          AND a.kode_kunjungan = ?', [$kj]);
-        $ttv = DB::connection('mysql2')->select('SELECT tekanan_darah, sumber_data, frekuensi_nafas, keadaan_umum, kesadaran, frekuensi_nadi, suhu, berat_badan, umur FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
-        $riwayatrekonobat = DB::connection('mysql2')->select('SELECT * FROM rekonsiliasi_obat
+        $ttv = DB::select('SELECT tekanan_darah, sumber_data, frekuensi_nafas, keadaan_umum, kesadaran, frekuensi_nadi, suhu, berat_badan, umur FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
+        $riwayatrekonobat = DB::select('SELECT * FROM rekonsiliasi_obat
         WHERE kode_kunjungan = ?', [$kj]);
-        $tindakan = DB::connection('mysql2')->select('SELECT * FROM erm_tindakan_kedokteran WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
-        $tindakanp = DB::connection('mysql2')->select('SELECT * FROM erm_tindakan_keperawatan WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
+        $tindakan = DB::select('SELECT * FROM erm_tindakan_kedokteran WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
+        $tindakanp = DB::select('SELECT * FROM erm_tindakan_keperawatan WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
 
         // $unit = auth()->user()->unit;
 
@@ -13642,11 +13642,11 @@ AND b.kelas_tarif = 1');
         $tglmasuk = Carbon::parse($kunjungan[0]->tgl_masuk)->format('d-M-Y');
         $jammasuk = Carbon::parse($kunjungan[0]->tgl_masuk)->format('H:i:s');
 
-        $spo2 = DB::connection('mysql2')->select('SELECT 
+        $spo2 = DB::select('SELECT 
         a.SPO2
         FROM erm_cppt_perawat a
         WHERE a.kode_kunjungan = ?', [$kj]);
-        $hasilp = DB::connection('mysql2')->select('SELECT 
+        $hasilp = DB::select('SELECT 
         DATE_FORMAT(a.tgl_input, "%Y-%m-%d") tgl_obs
         ,DATE_FORMAT(a.tgl_input,"%H:%i") jam_obs
         ,a.diagnosa_kerja

@@ -40,7 +40,7 @@ class RadiologiController extends Controller
         $user = auth()->user()->username;
         $now = Carbon::now()->format('Y-m-d');
         $tgl_masuk_x = date('Y-m-d', strtotime('-2 days', strtotime($now)));
-        $menu = 'Dasboard';
+        $menu = 'radiologi';
 
         $pasienkunjunganrs = DB::select(
             'SELECT * FROM (
