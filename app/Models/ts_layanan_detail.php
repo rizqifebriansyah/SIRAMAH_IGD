@@ -9,7 +9,7 @@ class ts_layanan_detail extends Model
 {
     use HasFactory;
     protected $table = 'ts_layanan_detail';
-    // protected $connection = 'mysql2';
+    protected $connection = 'mysql2';
 
     protected $guarded = ['id'];
 }

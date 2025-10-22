@@ -10,7 +10,7 @@ class ts_layanan_header extends Model
     use HasFactory;
     protected $table = 'ts_layanan_header';
     protected $guarded = ['id'];
-    // protected $connection = 'mysql2';
+    protected $connection = 'mysql2';
 
 
 }

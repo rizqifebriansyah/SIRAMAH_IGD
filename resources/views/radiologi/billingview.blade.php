@@ -297,15 +297,10 @@
                     </div>
                     <div class="col-2">
 
-                        @if ($unit == 3002)
-                        <label for="inputName">LIS </label><br>
-                        <label for="lis">BRIDGING LIS</label>
-                        <input type="checkbox" name="lis" id="lis" value="lis" checked>
-                        @else
+
                         <label for="inputName">PACS </label><br>
                         <input type="checkbox" name="pacs" id="pacs" value="pacs" checked>
                         <label for="ris">BRIDGING PACS</label>
-                        @endif
                     </div>
                     <div class="col-2">
                         <label for="inputName">RIWAYAT </label><br>
@@ -332,41 +327,7 @@
                 <div class="tab-content">
                     <div class="form-group">
 
-                        @if ($unit == 3002)
-                        <table id="tabelpaket" class="table table-sm mt-3 table-hover">
 
-                            <thead>
-                                <th>Nama tindakan</th>
-                            </thead>
-                            <tbody>
-                                @foreach ($paket as $p)
-                                <tr class="pilihpaket" idpaket="{{$p->id_paket}}" jenis="paket" namatindakan="{{ $p->nama }}" tarif="0" kode="{{ $p->id_paket }}">
-                                    <td>{{ $p->nama }}</td>
-                                </tr>
-                                @endforeach
-
-
-                            </tbody>
-                        </table>
-
-                    </div>
-                    <div class="tab-pane active" id="activity">
-
-                        <div class="form-group">
-                            <table id="tabeltindakan" class="table table-sm mt-3 table-hover">
-                                <thead>
-                                    <th>Nama tindakan</th>
-                                </thead>
-                                <tbody>
-                                    @foreach($layananlab as $t)
-                                    <tr class="pilihlayanan" jenis="nonpaket" namatindakan="{{ $t->Tindakan }}" tarif="{{ $t->tarif }}" kode="{{ $t->kode }}">
-                                        <td>{{ $t->Tindakan }}</td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                        @else
                         <div class="form-group">
                             <form action="" class="form_barang">
                                 <table class="table">
@@ -420,7 +381,6 @@
                                 </tbody>
                             </table>
                         </div>
-                        @endif
                     </div>
                     <!-- /.tab-pane -->
 
@@ -509,7 +469,7 @@
                 jenis +
                 '"></div><div class="form-group col-md-2"><label for="inputPassword4">Tarif</label><input readonly type="" class="form-control form-control-sm" id="" name="tarif" value="' +
                 tarif +
-                '"></div><div class="form-group col-md-1"><label for="inputPassword4">Jumlah</label><input type="" class="form-control form-control-sm" id="" name="qty" value="1"></div><div class="form-group col-md-1"><label for="inputPassword4">Disc</label><input type="" class="form-control form-control-sm" id="" name="disc" value="0"></div><div class="form-group col-md-1"><label for="inputPassword4">Cyto</label><input type="" readonly class="form-control form-control-sm" id="" name="cyto" value ="0"  ></div><i class="bi bi-x-square remove_field form-group col-md-2 text-danger"></i></div>'
+                '"></div><div class="form-group col-md-3"><label for="inputPassword4">Bagian Tubuh</label><select class="form-control select2" name="tubuh" id="tubuh"><option value=""> -- BAGIAN TUBUH --</option> <option value="Thorax">Thorax</option><option value="Kontras">Kontras</option><option value="Spine">Spine</option><option value="Upper extremity">Upper extremity</option><option value="Head">Head</option><option value="Lower extremity">Lower extremity</option><option value="Abdomen">Abdomen</option><option value="Mammography">Mammography</option><option value="Panoramic">Panoramic</option></select></div><div class="form-group " hidden><label for="inputPassword4">Jumlah</label><input type="" class="form-control form-control-sm" id="" hidden name="qty" value="1"></div><div class="form-group  hidden"><label for="inputPassword4" hidden>Disc</label><input type="" class="form-control form-control-sm" id="" name="disc" hidden value="0"></div><div class="form-group " hidden><label for="inputPassword4">Cyto</label><input type="" readonly class="form-control form-control-sm" id="" hidden name="cyto" value ="0"  ></div><i class="bi bi-x-square remove_field form-group col-md-2 text-danger"></i></div>'
             );
             $(wrapper).on("click", ".remove_field", function(e) { //user click on remove
                 e.preventDefault();
@@ -581,5 +541,90 @@
                 $('.riwayatpasien').html(response);
             }
         });
+    });
+
+     $(".simpanradiologi").click(function() {
+        var data = $('.formtindakan').serializeArray();
+        var barang = $('.form_barang').serializeArray();
+        var kodekunjungan = $('#kodekunjungan').val()
+        var kodepenjamin = $('#kodepenjamin').val()
+        var kodepenunjang = $('#namapenunjang').val()
+        var dokter = $('#dokter').val()
+        
+        var diagnosa = $('#diagnosa').val()
+        var kodeunit = $('#kodeunit').val()
+        var kelasunit = $('#kelas_unit').val()
+        var kelas = $('#kelas').val()
+
+        var gt = $('#gt').val()
+        var norm = $('#norm').val()
+        var namaunit = $('#nama_unit').val()
+
+        Swal.fire({
+            title: "Yakin Simpan Layanan?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Ya',
+            cancelButtonColor: '#d33',
+            cancelButtonText: "Batal"
+
+        }).then(result => {
+            //jika klik ya maka arahkan ke proses.php
+            if (result.isConfirmed) {
+                $.ajax({
+                    async: true,
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        data: JSON.stringify(data),
+                        barang: JSON.stringify(barang),
+
+                        kodekunjungan: $('#kodekunjungan').val(),
+                        kodepenunjang: $('#namapenunjang').val(),
+                        dokter: $('#dokter').val(),
+                        kodepenjamin: $('#kodepenjamin').val(),
+                        diagnosa: $('#diagnosa').val(),
+                        kodeunit: $('#kodeunit').val(),
+                        gt: $('#gt').val(),
+                        kelasunit: $('#kelasunit').val(),
+                        norm: $('#norm').val(),
+                        namaunit: $('#nama_unit').val(),
+                        kelas: $('#kelas').val()
+                    },
+                    url: '<?= route('simpanorderradiologi') ?>',
+                    error: function(data) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Sepertinya ada masalah ...',
+                            footer: ''
+                        })
+                    },
+                    success: function(data) {
+                        console.log(data)
+                        if (data.kode == 500) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: data.message,
+                                footer: ''
+                            })
+                        } else {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'OK',
+                                text: 'data berhasil disimpan',
+                                footer: ''
+                            })
+                      
+
+                        }
+                    }
+                });
+            }
+        })
+        return false;
     });
 </script>

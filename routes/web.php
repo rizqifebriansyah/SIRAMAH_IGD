@@ -319,10 +319,27 @@ Route::group(['middleware' => ['hak_akses:3', 'auth']], function () {
 
     Route::post('detailpasienradiologi', [RadiologiController::class, 'detailpasienradiologi'])->name('detailpasienradiologi');
     Route::post('/riwayatradiologipasien', [RadiologiController::class, 'riwayatradiologipasien'])->name('riwayatradiologipasien');
+    Route::post('/detailbarang', [RadiologiController::class, 'detailbarang'])->name('detailbarang');
 
 
-
+    //cari pasien
     Route::post('caridokterradiologi', [RadiologiController::class, 'caridokterradiologi'])->name('caridokterradiologi');
+    Route::post('caritanggalorderrad', [RadiologiController::class, 'caritanggalorderrad'])->name('caritanggalorderrad');
+
+
+
+    //simpan order
+    Route::post('/simpanorderradiologi', [RadiologiController::class, 'simpanorderradiologi'])->name('simpanorderradiologi');
+
+    //retur order
+    Route::post('returorderrad', [RadiologiController::class, 'returorderrad'])->name('returorderrad');
+
+
+    //cetakan
+    Route::post('/printlabelrad', [RadiologiController::class, 'printlabelrad'])->name('printlabelrad');
+    Route::get('etiket/{kode_header}/{idhed}', [RadiologiController::class, 'etiket']);
+    Route::get('cetakorder/{kode_header}/{idhed}', [RadiologiController::class, 'cetakpdf']);
+
 });
 
 //petugas reporting
