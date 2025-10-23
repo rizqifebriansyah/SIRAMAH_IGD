@@ -551,7 +551,6 @@ class RadiologiController extends Controller
             ];
 
             $pacsdetail = order_table::create($pacs);
-            dd($pacsdetail);
         }
 
         //input barang terpakai

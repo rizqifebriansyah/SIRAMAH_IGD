@@ -195,8 +195,13 @@
             <div class="card-header bg-secondary">Tindakan / Layanan Pasien</div>
             <div class="card-body">
                 <form action="" method="post" class="formtindakan">
+                    <select class="form-control select2" name="dorad" id="dorad">
+                        <option value=""> -- PILIH DOKTER --</option>
+                        <option value="dr. Nunik Royyani, Sp.Rad">dr. Nunik Royyani, Sp.Rad</option>
+                        <option value="dr. Muhammad Amar Latief, Sp.Rad">dr. Muhammad Amar Latief, Sp.Rad</option>
 
-                    <div class="input_fields_wrap">
+                    </select>
+                    <div class="input_fields_wrap mt-2">
                         <div>
                         </div>
                         <button type="button" class="btn btn-warning mb-2 simpanradiologi" id="simpanradiologi">Simpan Tindakan</button>
@@ -400,8 +405,13 @@
             <div class="card-header bg-secondary">Tindakan / Layanan Pasien</div>
             <div class="card-body">
                 <form action="" method="post" class="formtindakan">
+                    <select class="form-control select2" name="dorad" id="dorad">
+                        <option value=""> -- PILIH DOKTER --</option>
+                        <option value="dr. Nunik Royyani, Sp.Rad">dr. Nunik Royyani, Sp.Rad</option>
+                        <option value="dr. Muhammad Amar Latief, Sp.Rad">dr. Muhammad Amar Latief, Sp.Rad</option>
 
-                    <div class="input_fields_wrap">
+                    </select>
+                    <div class="input_fields_wrap mt-2">
                         <div>
                             @foreach($pasienkunjunganorder as $p)
                             <div class="form-row text-xs">
@@ -410,9 +420,31 @@
                                     <input hidden readonly type="" class="form-control form-control-sm" id="" name="jenis" value="">
                                 </div>
                                 <div class="form-group col-md-2"><label for="inputPassword4">Tarif</label><input readonly type="" class="form-control form-control-sm" id="" name="tarif" value="{{$p->total_tarif}}"></div>
-                                <div class="form-group col-md-1"><label for="inputPassword4">Jumlah</label><input type="" class="form-control form-control-sm" id="" name="qty" value="{{$p->jumlah_layanan}}"></div>
-                                <div class="form-group col-md-1"><label for="inputPassword4">Disc</label><input type="" class="form-control form-control-sm" id="" name="disc" value="0"></div>
-                                <div class="form-group col-md-1"><label for="inputPassword4">Cyto</label><input type="" class="form-control form-control-sm" id="" name="cyto" value="0"></div><i class="bi bi-x-square remove_field form-group col-md-2 text-danger"></i>
+                                <div class="form-group col-md-3"><label for="inputPassword4">Bagian Tubuh</label><select class="form-control select2" name="tubuh" id="tubuh">
+                                        <option value=""> -- PILIH --</option>
+                                        <option value="Thorax">Thorax</option>
+                                        <option value="Kontras">Kontras</option>
+                                        <option value="Spine">Spine</option>
+                                        <option value="Upper extremity">Upper extremity</option>
+                                        <option value="Head">Head</option>
+                                        <option value="Lower extremity">Lower extremity</option>
+                                        <option value="Abdomen">Abdomen</option>
+                                        <option value="Mammography">Mammography</option>
+                                        <option value="Panoramic">Panoramic</option>
+                                    </select></div>
+                                <div class="form-group col-md-3"><label for="inputPassword4">Modality</label><select class="form-control select2" name="modality" id="modality">
+                                        <option value=""> -- PILIH --</option>
+                                        <option value="CR">CR</option>
+                                        <option value="DR CENTRAL">DR CENTRAL</option>
+                                        <option value="DR IGD">DR IGD</option>
+                                        <option value="DR MOBILE">DR MOBILE</option>
+                                        <option value="CT">CT</option>
+                                        <option value="USG">USG</option>
+                                        <option value="MRI">MRI</option>
+                                    </select></div>
+                                <div class="form-group col-md-1 " hidden><label for="inputPassword4">Jumlah</label><input type="" class="form-control form-control-sm" id="" name="qty" value="{{$p->jumlah_layanan}}"></div>
+                                <div class="form-group col-md-1" hidden><label for="inputPassword4">Disc</label><input type="" class="form-control form-control-sm" id="" name="disc" value="0"></div>
+                                <div class="form-group col-md-1" hidden><label for="inputPassword4">Cyto</label><input type="" class="form-control form-control-sm" id="" name="cyto" value="0"></div><i class="bi bi-x-square remove_field form-group col-md-2 text-danger"></i>
                             </div>
                             @endforeach
                         </div>
@@ -469,7 +501,7 @@
                 jenis +
                 '"></div><div class="form-group col-md-2"><label for="inputPassword4">Tarif</label><input readonly type="" class="form-control form-control-sm" id="" name="tarif" value="' +
                 tarif +
-                '"></div><div class="form-group col-md-3"><label for="inputPassword4">Bagian Tubuh</label><select class="form-control select2" name="tubuh" id="tubuh"><option value=""> -- BAGIAN TUBUH --</option> <option value="Thorax">Thorax</option><option value="Kontras">Kontras</option><option value="Spine">Spine</option><option value="Upper extremity">Upper extremity</option><option value="Head">Head</option><option value="Lower extremity">Lower extremity</option><option value="Abdomen">Abdomen</option><option value="Mammography">Mammography</option><option value="Panoramic">Panoramic</option></select></div><div class="form-group " hidden><label for="inputPassword4">Jumlah</label><input type="" class="form-control form-control-sm" id="" hidden name="qty" value="1"></div><div class="form-group  hidden"><label for="inputPassword4" hidden>Disc</label><input type="" class="form-control form-control-sm" id="" name="disc" hidden value="0"></div><div class="form-group " hidden><label for="inputPassword4">Cyto</label><input type="" readonly class="form-control form-control-sm" id="" hidden name="cyto" value ="0"  ></div><i class="bi bi-x-square remove_field form-group col-md-2 text-danger"></i></div>'
+                '"></div><div class="form-group col-md-3"><label for="inputPassword4">Bagian Tubuh</label><select class="form-control select2" name="tubuh" id="tubuh"><option value=""> -- PILIH --</option> <option value="Thorax">Thorax</option><option value="Kontras">Kontras</option><option value="Spine">Spine</option><option value="Upper extremity">Upper extremity</option><option value="Head">Head</option><option value="Lower extremity">Lower extremity</option><option value="Abdomen">Abdomen</option><option value="Mammography">Mammography</option><option value="Panoramic">Panoramic</option></select></div><div class="form-group col-md-3"><label for="inputPassword4">Modality</label><select class="form-control select2" name="modality" id="modality"><option value=""> -- PILIH --</option> <option value="CR">CR</option><option value="DR CENTRAL">DR CENTRAL</option><option value="DR IGD">DR IGD</option><option value="DR MOBILE">DR MOBILE</option><option value="CT">CT</option><option value="USG">USG</option><option value="MRI">MRI</option></select></div><div class="form-group " hidden><label for="inputPassword4">Jumlah</label><input type="" class="form-control form-control-sm" id="" hidden name="qty" value="1"></div><div class="form-group  hidden"><label for="inputPassword4" hidden>Disc</label><input type="" class="form-control form-control-sm" id="" name="disc" hidden value="0"></div><div class="form-group " hidden><label for="inputPassword4">Cyto</label><input type="" readonly class="form-control form-control-sm" id="" hidden name="cyto" value ="0"  ></div><i class="bi bi-x-square remove_field form-group col-md-2 text-danger"></i></div>'
             );
             $(wrapper).on("click", ".remove_field", function(e) { //user click on remove
                 e.preventDefault();
@@ -543,14 +575,14 @@
         });
     });
 
-     $(".simpanradiologi").click(function() {
+    $(".simpanradiologi").click(function() {
         var data = $('.formtindakan').serializeArray();
         var barang = $('.form_barang').serializeArray();
         var kodekunjungan = $('#kodekunjungan').val()
         var kodepenjamin = $('#kodepenjamin').val()
         var kodepenunjang = $('#namapenunjang').val()
         var dokter = $('#dokter').val()
-        
+
         var diagnosa = $('#diagnosa').val()
         var kodeunit = $('#kodeunit').val()
         var kelasunit = $('#kelas_unit').val()
@@ -618,7 +650,7 @@
                                 text: 'data berhasil disimpan',
                                 footer: ''
                             })
-                      
+
 
                         }
                     }
