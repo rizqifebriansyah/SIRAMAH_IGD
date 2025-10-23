@@ -161,6 +161,8 @@ class DokterController extends Controller
 
         c.diag_00 as DIAGX
         ,a.no_rm
+        ,d.nama_perawat
+        ,e.nama_paramedis
         ,fc_nama_px(a.no_rm) as nama_px
         ,a.tgl_masuk
         ,fc_NAMA_PARAMEDIS1(a.kode_paramedis) nama_dpjp
@@ -174,9 +176,12 @@ class DokterController extends Controller
         from ts_kunjungan a
         inner join mt_pasien b on b.no_rm = a.no_rm
         inner join di_pasien_diagnosa_frunit c on c.kode_kunjungan = a.kode_kunjungan 
+        left outer join erm_cppt_perawat d on d.kode_kunjungan = a.kode_kunjungan
+        left outer join	erm_cppt_dokter e on e.kode_kunjungan = a.kode_kunjungan
         where Date(a.tgl_masuk) = ?
         and a.status_kunjungan = 1
         and a.kode_unit = ?', [$now, $unit]);
+
         return view(
             'dokter.asses',
             [
@@ -9683,7 +9688,6 @@ AND b.kelas_tarif = 1');
                 checkbox($pdf, True);
             }
             $pdf::Rect(170, 212, 36, 25);
-
         }
 
         // $pdf::SetFont('Arial', 'B', 30);
@@ -13800,7 +13804,7 @@ AND b.kelas_tarif = 1');
         $pdf::SetFont('Times', 'B', 9);
         $pdf::SetXY(141, 65);
         // if ($spo2[0]->SPO2 == NULL) {
-            $pdf::MultiCell(60, 4, 'Belum Diisi');
+        $pdf::MultiCell(60, 4, 'Belum Diisi');
         // } else {
         //     $pdf::MultiCell(60, 4, $spo2[0]->SPO2);
         // }

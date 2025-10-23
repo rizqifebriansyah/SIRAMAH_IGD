@@ -70,6 +70,8 @@ class PerawatController extends Controller
 
         c.diag_00 as DIAGX
         ,a.no_rm
+        ,d.nama_perawat
+        ,e.nama_paramedis
         ,fc_nama_px(a.no_rm) as nama_px
         ,a.tgl_masuk
         ,fc_NAMA_PARAMEDIS1(a.kode_paramedis) nama_dpjp
@@ -83,6 +85,8 @@ class PerawatController extends Controller
         from ts_kunjungan a
         inner join mt_pasien b on b.no_rm = a.no_rm
         inner join di_pasien_diagnosa_frunit c on c.kode_kunjungan = a.kode_kunjungan 
+        left outer join erm_cppt_perawat d on d.kode_kunjungan = a.kode_kunjungan
+        left outer join	erm_cppt_dokter e on e.kode_kunjungan = a.kode_kunjungan
         where Date(a.tgl_masuk) = ?
         and a.status_kunjungan = 1
         and a.kode_unit = ?', [$now, $unit]);

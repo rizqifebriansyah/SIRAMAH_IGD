@@ -197,8 +197,8 @@
                 <form action="" method="post" class="formtindakan">
                     <select class="form-control select2" name="dorad" id="dorad">
                         <option value=""> -- PILIH DOKTER --</option>
-                        <option value="dr. Nunik Royyani, Sp.Rad">dr. Nunik Royyani, Sp.Rad</option>
-                        <option value="dr. Muhammad Amar Latief, Sp.Rad">dr. Muhammad Amar Latief, Sp.Rad</option>
+                        <option value="DOK036">dr. Nunik Royyani, Sp.Rad</option>
+                        <option value="DOK369">dr. Muhammad Amar Latief, Sp.Rad</option>
 
                     </select>
                     <div class="input_fields_wrap mt-2">
@@ -582,6 +582,8 @@
         var kodepenjamin = $('#kodepenjamin').val()
         var kodepenunjang = $('#namapenunjang').val()
         var dokter = $('#dokter').val()
+        var dorad = $('#dorad').val()
+
 
         var diagnosa = $('#diagnosa').val()
         var kodeunit = $('#kodeunit').val()
@@ -616,6 +618,8 @@
                         kodekunjungan: $('#kodekunjungan').val(),
                         kodepenunjang: $('#namapenunjang').val(),
                         dokter: $('#dokter').val(),
+                        dorad: $('#dorad').val(),
+
                         kodepenjamin: $('#kodepenjamin').val(),
                         diagnosa: $('#diagnosa').val(),
                         kodeunit: $('#kodeunit').val(),

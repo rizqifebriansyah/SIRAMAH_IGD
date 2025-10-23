@@ -156,18 +156,19 @@
 
 
                         <td class="status1" style="text-align: center;">
-                            @if ($a->DIAGX == null)
+                            @if ($a->nama_perawat == null)
                             <button class="badge badge-danger "> belum diisi </button>
                             @else
-                            <button class="badge badge-success ermdokter"> Sudah Diisi </button>
+                            <button class="badge badge-success ermdokter"> Sudah Diisi   </button>
+                            | {{ $a->nama_perawat }}
                             @endif
                         </td>
                         <td class="status2" style="text-align: center;">
-                            @if ($a->DIAGX == null)
+                            @if ($a->nama_paramedis == null)
                             <button class="badge badge-danger ermdokter"> belum diisi </button>
                             @else
                             <button class="badge badge-success ermdokter"> Sudah Diisi </button> |
-                            {{ $a->nama_dpjp }}
+                            {{ $a->nama_paramedis }}
                             @endif
                         </td>
 

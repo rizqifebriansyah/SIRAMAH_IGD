@@ -294,8 +294,13 @@ class RadiologiController extends Controller
         $tgllahir = Carbon::parse($pasien[0]->tgl_lahir)->format('Y-m-d');
 
         $dokkirim = DB::select('SELECT nama_paramedis FROM mt_paramedis WHERE kode_paramedis =?', [$request->dokter]);
-
-        // dd($dokkirim);
+        $dorad = $request->dorad;
+        if ($dorad == 'DOK036') {
+            $dorad = 'dr. Nunik Royyani, Sp.Rad';
+        } else {
+            $dorad = 'dr. Muhammad Amar Latief, Sp.Rad';
+        }
+        // dd($dorad);
         $sp = 'OPN';
         $dt = Carbon::now()->timezone('Asia/Jakarta');
         $date = $dt->toDateString();
@@ -517,41 +522,53 @@ class RadiologiController extends Controller
         $idhed = $ts_layanan_detail['row_id_header'];
         // $update = DB::select('UPDATE ts_layanan_header_order SET status_order = 2
         // WHERE kode_kunjungan = ? AND no_rm = ?', [$request->kode_kunjungan, $norm]);
+        try {
+            $accnumber = $this->createAccNumber('ACC');
 
-        $accnumber = $this->createAccNumber('ACC');
-
-        $inpacc = [
-            'kode_header' => $accnumber,
-            'tgl_header' => $now
-        ];
-        $accn = mt_acc_number::create($inpacc);
-        foreach ($arrayindex as $arr) {
-            $pacs = [
-                'PID' => $norm,
-                'NAME' => $pasien[0]->nama_px,
-                'ACCESSIONNUMBER' => $accnumber,
-                'NAMEALIAS' => $pasien[0]->nama_px,
-                'BIRTHDATE' => $tgllahir,
-                'SEX' => $pasien[0]->jenis_kelamin,
-                'PATIENCLASS' => $kelas,
-                'REFERRINGDOCTORID' => $request->dokter,
-                'REFERRINGDOCTORNAME' => $dokkirim[0]->nama_paramedis,
-                'AMBULATORYSTATUS' => 'NULL',
-                'VIPINDICATOR' => $kelas,
-                'ADMITDATE' => $now,
-                'RELEVANTCLINICALINFO' => 'NULL',
-                'PROCEDUREID' => $arr['kodelayanan'],
-                'PROCEDURENAME' => $arr['namatindakan'],
-                'ASSIGNEDPATIENTLOCATION' => $namaunit,
-                'ENTERINGOGANIZATION' => $namaunit,
-                'BODYPART' => $arr['tubuh']
-
-
-
+            $inpacc = [
+                'kode_header' => $accnumber,
+                'tgl_header' => $now
             ];
+            $accn = mt_acc_number::create($inpacc);
+            foreach ($arrayindex as $arr) {
+                $pacs = [
+                    'PID' => $norm,
+                    'NAME' => $pasien[0]->nama_px,
+                    'ACCESSIONNUMBER' => $accnumber,
+                    'NAMEALIAS' => $pasien[0]->nama_px,
+                    'BIRTHDATE' => $tgllahir,
+                    'SEX' => $pasien[0]->jenis_kelamin,
+                    'PATIENCLASS' => $kelas,
+                    'ATTENDINGDOCTORID' => $request->dorad,
+                    'ATTENDINGDOCTORNAME' => $dorad,
+                    'REFERRINGDOCTORID' => $request->dokter,
+                    'REFERRINGDOCTORNAME' => $dokkirim[0]->nama_paramedis,
+                    'AMBULATORYSTATUS' => 'NULL',
+                    'VIPINDICATOR' => $kelas,
+                    'ADMITDATE' => $now,
+                    'RELEVANTCLINICALINFO' => 'NULL',
+                    'PROCEDUREID' => $arr['kodelayanan'],
+                    'PROCEDURENAME' => $arr['namatindakan'],
+                    'ASSIGNEDPATIENTLOCATION' => $namaunit,
+                    'ENTERINGOGANIZATION' => $namaunit,
+                    'BODYPART' => $arr['tubuh'],
+                    'MODALITY' => $arr['modality']
 
-            $pacsdetail = order_table::create($pacs);
+
+
+                ];
+
+                $pacsdetail = order_table::create($pacs);
+            }
+        } catch (\Exception $e) {
+            $back = [
+                'kode' => 200,
+                'message' => 'Bridging Berhasil'
+            ];
+            echo json_encode($back);
+            die;
         }
+
 
         //input barang terpakai
         $barang = json_decode($_POST['barang'], true);
