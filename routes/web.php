@@ -316,6 +316,7 @@ Route::group(['middleware' => ['hak_akses:3', 'auth']], function () {
     //tampil data
     Route::get('/radiologi', [RadiologiController::class, 'radiologi'])->name('radiologi');
     Route::get('/riwayatorder', [RadiologiController::class, 'riwayatorder'])->name('riwayatorder');
+    Route::get('/riwayatbridging', [RadiologiController::class, 'riwayatbridging'])->name('riwayatbridging');
 
     Route::post('detailpasienradiologi', [RadiologiController::class, 'detailpasienradiologi'])->name('detailpasienradiologi');
     Route::post('/riwayatradiologipasien', [RadiologiController::class, 'riwayatradiologipasien'])->name('riwayatradiologipasien');

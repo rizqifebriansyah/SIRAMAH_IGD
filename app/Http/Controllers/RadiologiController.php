@@ -171,6 +171,30 @@ class RadiologiController extends Controller
 
         ]);
     }
+    public function riwayatbridging()
+    {
+        $unit = auth()->user()->unit;
+        $user = auth()->user()->username;
+        $now = Carbon::now()->format('Y-m-d');
+        $tgl_masuk_x = date('Y-m-d', strtotime('-2 days', strtotime($now)));
+
+        $pasienbridging = DB::connection('mysql3')->select('SELECT * FROM order_table a
+        WHERE DATE(a.ADMITDATE) = ?',[$now]);
+
+        $menu = 'riwayatbridging';
+
+        return view('radiologi.riwayatbridging', [
+            'title' => 'SIRAMAH | RADIOLOGI',
+
+            'pasienbridging' => $pasienbridging,
+            'menu' => $menu,
+
+            'user' => $user
+
+
+
+        ]);
+    }
     public function detailpasienradiologi(Request $request)
 
     {
@@ -523,14 +547,15 @@ class RadiologiController extends Controller
         // $update = DB::select('UPDATE ts_layanan_header_order SET status_order = 2
         // WHERE kode_kunjungan = ? AND no_rm = ?', [$request->kode_kunjungan, $norm]);
         try {
-            $accnumber = $this->createAccNumber('ACC');
 
-            $inpacc = [
-                'kode_header' => $accnumber,
-                'tgl_header' => $now
-            ];
-            $accn = mt_acc_number::create($inpacc);
             foreach ($arrayindex as $arr) {
+                $accnumber = $this->createAccNumber('ACC');
+
+                $inpacc = [
+                    'kode_header' => $accnumber,
+                    'tgl_header' => $now
+                ];
+                $accn = mt_acc_number::create($inpacc);
                 $pacs = [
                     'PID' => $norm,
                     'NAME' => $pasien[0]->nama_px,
@@ -552,8 +577,8 @@ class RadiologiController extends Controller
                     'ASSIGNEDPATIENTLOCATION' => $namaunit,
                     'ENTERINGOGANIZATION' => $namaunit,
                     'BODYPART' => $arr['tubuh'],
-                    'MODALITY' => $arr['modality']
-
+                    'MODALITY' => $arr['modality'],
+                    'STATUS' => 'NW'
 
 
                 ];
@@ -592,14 +617,14 @@ class RadiologiController extends Controller
             ];
             $tb_pemakaian_radiologi = tb_pemakaian_radiologi::create($savedetailbarang);
         }
-        $receive_items = $this->cetakpdf($kode_header, $idhed);
-        $back = [
-            'kode' => 200,
-            'idhed' => $idhed,
-            'kode_header' => $kode_header,
-        ];
-        echo json_encode($back);
-        die;
+        // $receive_items = $this->cetakpdf($kode_header, $idhed);
+        // $back = [
+        //     'kode' => 200,
+        //     'idhed' => $idhed,
+        //     'kode_header' => $kode_header,
+        // ];
+        // echo json_encode($back);
+        // die;
 
 
         $back = [
