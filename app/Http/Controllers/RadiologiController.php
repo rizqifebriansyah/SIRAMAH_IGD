@@ -736,7 +736,17 @@ class RadiologiController extends Controller
 
 
 
+    public function successview()
+    {
 
+        return view('radiologi.successview', [
+            'title' => 'SIRAMAH | RADIOLOGI',
+
+
+
+
+        ]);
+    }
 
     public function printlabelrad(Request $request)
     {

@@ -654,6 +654,7 @@
                                 text: 'data berhasil disimpan',
                                 footer: ''
                             })
+                            success();
 
 
                         }
@@ -663,4 +664,25 @@
         })
         return false;
     });
+
+    function success() {
+
+        $.ajax({
+            data: {
+                _token: "{{ csrf_token() }}",
+            },
+            type: "post",
+            url: " {{ route('successview') }}",
+            error: function(data) {
+                spinner.hide();
+                alert('oke!!')
+            },
+            success: function(response) {
+                spinner.hide();
+                $('.billingview').html(response);
+
+
+            }
+        });
+    }
 </script>

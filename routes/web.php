@@ -320,6 +320,7 @@ Route::group(['middleware' => ['hak_akses:3', 'auth']], function () {
     Route::post('detailpasienradiologi', [RadiologiController::class, 'detailpasienradiologi'])->name('detailpasienradiologi');
     Route::post('/riwayatradiologipasien', [RadiologiController::class, 'riwayatradiologipasien'])->name('riwayatradiologipasien');
     Route::post('/detailbarang', [RadiologiController::class, 'detailbarang'])->name('detailbarang');
+    Route::post('/successview', [RadiologiController::class, 'successview'])->name('successview');
 
 
     //cari pasien
