@@ -327,6 +327,7 @@ Route::group(['middleware' => ['hak_akses:3', 'auth']], function () {
     //cari pasien
     Route::post('caridokterradiologi', [RadiologiController::class, 'caridokterradiologi'])->name('caridokterradiologi');
     Route::post('caritanggalorderrad', [RadiologiController::class, 'caritanggalorderrad'])->name('caritanggalorderrad');
+    Route::post('caririwayatbridging', [RadiologiController::class, 'caririwayatbridging'])->name('caririwayatbridging');
 
 
 
