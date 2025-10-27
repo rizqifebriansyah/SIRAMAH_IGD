@@ -44,7 +44,7 @@
                     <a href="{{ route('riwayatbridging') }}" class="nav-link @if($menu == 'riwayatbridging' ) active @endif">
                         <i class="nav-icon fas fa-file-invoice"></i>
                         <p>
-                            Riwayat BRIDGING PACS
+                            MONITORING BRIDGING
                         </p>
                     </a>
                 </li>

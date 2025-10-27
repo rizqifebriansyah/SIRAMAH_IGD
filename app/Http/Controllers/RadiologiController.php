@@ -179,7 +179,7 @@ class RadiologiController extends Controller
         $tgl_masuk_x = date('Y-m-d', strtotime('-2 days', strtotime($now)));
 
         $pasienbridging = DB::connection('mysql3')->select('SELECT * FROM order_table a
-        WHERE DATE(a.ADMITDATE) = ?',[$now]);
+        WHERE DATE(a.ADMITDATE) = ?', [$now]);
 
         $menu = 'riwayatbridging';
 
@@ -315,7 +315,7 @@ class RadiologiController extends Controller
         $kodeunit = $request->kodeunit;
         $ukirim = $kodeunit . ' | ' . $namaunit . ' | ' . $kelas;
         $pasien = DB::select('SELECT * FROM mt_pasien WHERE no_rm =?', [$norm]);
-        $tgllahir = Carbon::parse($pasien[0]->tgl_lahir)->format('Y-m-d');
+        $tgllahir = Carbon::parse($pasien[0]->tgl_lahir)->format('Ymd');
 
         $dokkirim = DB::select('SELECT nama_paramedis FROM mt_paramedis WHERE kode_paramedis =?', [$request->dokter]);
         $dorad = $request->dorad;
@@ -328,6 +328,9 @@ class RadiologiController extends Controller
         $sp = 'OPN';
         $dt = Carbon::now()->timezone('Asia/Jakarta');
         $date = $dt->toDateString();
+        $tglmasuk = Carbon::now()->timezone('Asia/Jakarta')->format('YmdHis');
+
+        // dd();
         $time = $dt->toTimeString();
         $now = $date . ' ' . $time;
 
@@ -544,6 +547,12 @@ class RadiologiController extends Controller
         $kode_header = $ts_layanan_detail['kode_layanan_header'];
 
         $idhed = $ts_layanan_detail['row_id_header'];
+        $jenisk = $pasien[0]->jenis_kelamin;
+        if ($jenisk == 'P') {
+            $jenisk = 'F';
+        } else {
+            $jenisk = 'M';
+        }
         // $update = DB::select('UPDATE ts_layanan_header_order SET status_order = 2
         // WHERE kode_kunjungan = ? AND no_rm = ?', [$request->kode_kunjungan, $norm]);
         try {
@@ -562,28 +571,35 @@ class RadiologiController extends Controller
                     'ACCESSIONNUMBER' => $accnumber,
                     'NAMEALIAS' => $pasien[0]->nama_px,
                     'BIRTHDATE' => $tgllahir,
-                    'SEX' => $pasien[0]->jenis_kelamin,
-                    'PATIENCLASS' => $kelas,
+                    'SEX' => $jenisk,
+                    'PATIENTCLASS' => "O",
                     'ATTENDINGDOCTORID' => $request->dorad,
                     'ATTENDINGDOCTORNAME' => $dorad,
                     'REFERRINGDOCTORID' => $request->dokter,
                     'REFERRINGDOCTORNAME' => $dokkirim[0]->nama_paramedis,
-                    'AMBULATORYSTATUS' => 'NULL',
-                    'VIPINDICATOR' => $kelas,
-                    'ADMITDATE' => $now,
-                    'RELEVANTCLINICALINFO' => 'NULL',
-                    'PROCEDUREID' => $arr['kodelayanan'],
+                    'AMBULATORYSTATUS' => 'N',
+                    'VIPINDICATOR' => 'N',
+                    'ADMITDATE' => $tglmasuk,
+                    'EFFECTIVEDATE' => $tglmasuk,
+
+                    'RELEVANTCLINICALINFO' => $request->diagnosa,
+                    // 'PROCEDUREID' => $arr['kodelayanan'],
+                    'PROCEDURE' => $arr['kodelayanan'],
+                    'SPECIFIEDRADIOLOGISTID' => $request->dorad,
+                    'SPECIFIEDRADIOLOGISTNAME' => $dorad,
                     'PROCEDURENAME' => $arr['namatindakan'],
-                    'ASSIGNEDPATIENTLOCATION' => $namaunit,
+                    'ASSIGNEDPATIENTLOCATION' => $arr['lokasi'],
                     'ENTERINGOGANIZATION' => $namaunit,
                     'BODYPART' => $arr['tubuh'],
                     'MODALITY' => $arr['modality'],
+                    'PHONENUMBER' => $pasien[0]->no_hp,
                     'STATUS' => 'NW'
 
 
                 ];
 
                 $pacsdetail = order_table::create($pacs);
+
             }
         } catch (\Exception $e) {
             $back = [
@@ -629,7 +645,7 @@ class RadiologiController extends Controller
 
         $back = [
             'kode' => 200,
-            'message' => ''
+            'message' => 'INPUT BERHASIL SEMUA'
         ];
         echo json_encode($back);
         die;

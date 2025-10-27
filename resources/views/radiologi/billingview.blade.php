@@ -435,12 +435,17 @@
                                 <div class="form-group col-md-3"><label for="inputPassword4">Modality</label><select class="form-control select2" name="modality" id="modality">
                                         <option value=""> -- PILIH --</option>
                                         <option value="CR">CR</option>
-                                        <option value="DR CENTRAL">DR CENTRAL</option>
-                                        <option value="DR IGD">DR IGD</option>
-                                        <option value="DR MOBILE">DR MOBILE</option>
+                                        <option value="DX">DX</option>
                                         <option value="CT">CT</option>
-                                        <option value="USG">USG</option>
-                                        <option value="MRI">MRI</option>
+                                        <option value="US">US</option>
+                                        <option value="MR">MR</option>
+                                        <option value="PX">PX</option>
+
+                                    </select></div>
+                                <div class="form-group col-md-3"><label for="inputPassword4">lokasi</label><select class="form-control select2" name="lokasi" id="lokasi">
+                                        <option value=""> -- PILIH --</option>
+                                        <option value="IGD">IGD</option>
+                                        <option value="CENTRAL">CENTRAL</option>
                                     </select></div>
                                 <div class="form-group col-md-1 " hidden><label for="inputPassword4">Jumlah</label><input type="" class="form-control form-control-sm" id="" name="qty" value="{{$p->jumlah_layanan}}"></div>
                                 <div class="form-group col-md-1" hidden><label for="inputPassword4">Disc</label><input type="" class="form-control form-control-sm" id="" name="disc" value="0"></div>
@@ -501,7 +506,7 @@
                 jenis +
                 '"></div><div class="form-group col-md-2"><label for="inputPassword4">Tarif</label><input readonly type="" class="form-control form-control-sm" id="" name="tarif" value="' +
                 tarif +
-                '"></div><div class="form-group col-md-3"><label for="inputPassword4">Bagian Tubuh</label><select class="form-control select2" name="tubuh" id="tubuh"><option value=""> -- PILIH --</option> <option value="Thorax">Thorax</option><option value="Kontras">Kontras</option><option value="Spine">Spine</option><option value="Upper extremity">Upper extremity</option><option value="Head">Head</option><option value="Lower extremity">Lower extremity</option><option value="Abdomen">Abdomen</option><option value="Mammography">Mammography</option><option value="Panoramic">Panoramic</option></select></div><div class="form-group col-md-3"><label for="inputPassword4">Modality</label><select class="form-control select2" name="modality" id="modality"><option value=""> -- PILIH --</option> <option value="CR">CR</option><option value="DR CENTRAL">DR CENTRAL</option><option value="DR IGD">DR IGD</option><option value="DR MOBILE">DR MOBILE</option><option value="CT">CT</option><option value="USG">USG</option><option value="MRI">MRI</option></select></div><div class="form-group " hidden><label for="inputPassword4">Jumlah</label><input type="" class="form-control form-control-sm" id="" hidden name="qty" value="1"></div><div class="form-group  hidden"><label for="inputPassword4" hidden>Disc</label><input type="" class="form-control form-control-sm" id="" name="disc" hidden value="0"></div><div class="form-group " hidden><label for="inputPassword4">Cyto</label><input type="" readonly class="form-control form-control-sm" id="" hidden name="cyto" value ="0"  ></div><i class="bi bi-x-square remove_field form-group col-md-2 text-danger"></i></div>'
+                '"></div><div class="form-group col-md-3"><label for="inputPassword4">Bagian Tubuh</label><select class="form-control select2" name="tubuh" id="tubuh"><option value=""> -- PILIH --</option> <option value="Thorax">Thorax</option><option value="Kontras">Kontras</option><option value="Spine">Spine</option><option value="Upper extremity">Upper extremity</option><option value="Head">Head</option><option value="Lower extremity">Lower extremity</option><option value="Abdomen">Abdomen</option><option value="Mammography">Mammography</option><option value="Panoramic">Panoramic</option></select></div><div class="form-group col-md-3"><label for="inputPassword4">Modality</label><select class="form-control select2" name="modality" id="modality"><option value=""> -- PILIH --</option><option value="CR">CR</option><option value="DX">DX</option><option value="CT">CT</option><option value="US">US</option><option value="MR">MR</option><option value="PX">PX</option></select></div><div class="form-group col-md-3"><label for="inputPassword4">lokasi</label><select class="form-control select2" name="lokasi" id="lokasi"><option value=""> -- PILIH --</option><option value="IGD">IGD</option><option value="CENTRAL">CENTRAL</option></select></div><div class="form-group " hidden><label for="inputPassword4">Jumlah</label><input type="" class="form-control form-control-sm" id="" hidden name="qty" value="1"></div><div class="form-group  hidden"><label for="inputPassword4" hidden>Disc</label><input type="" class="form-control form-control-sm" id="" name="disc" hidden value="0"></div><div class="form-group " hidden><label for="inputPassword4">Cyto</label><input type="" readonly class="form-control form-control-sm" id="" hidden name="cyto" value ="0"  ></div><i class="bi bi-x-square remove_field form-group col-md-2 text-danger"></i></div>'
             );
             $(wrapper).on("click", ".remove_field", function(e) { //user click on remove
                 e.preventDefault();
@@ -655,7 +660,8 @@
                                 footer: ''
                             })
                             success();
-
+                            pdf(data.idhed, data.kode_header)
+                            etiket(data.idhed, data.kode_header)
 
                         }
                     }
@@ -684,5 +690,19 @@
 
             }
         });
+    }
+
+    function etiket(idhed, kode_header) {
+
+        window.open('etiket/' + kode_header + '/' + idhed);
+    }
+
+    function pdf(idhed, kode_header) {
+
+        myWindow = window.open('cetakorder/' + kode_header + '/' + idhed);
+
+        function closeWin() {
+            myWindow.close();
+        }
     }
 </script>
