@@ -193,11 +193,11 @@ class MonitoringController extends Controller
         $unit = '1002';
 
         $now = Carbon::now()->format('Y-m-d H:i:s');
-        $rencanaplg = DB::select('SELECT * FROM rencana_plg WHERE kode_kunjungan = ?
+        $rencanaplg = DB::connection('mysql2')->select('SELECT * FROM rencana_plg WHERE kode_kunjungan = ?
         ', [$kj]);
-        $triase = DB::select('SELECT * FROM ts_triase
+        $triase = DB::connection('mysql2')->select('SELECT * FROM ts_triase
            WHERE no_rm = ? AND kode_kunjungan = ? AND STATUS IN (1,2) ', [$request->norm, $request->kj]);
-        $hasil = DB::select('SELECT 
+        $hasil = DB::connection('mysql2')->select('SELECT 
          a.tgl_kunjungan,
          a.hasil_ekg,
          a.surat_penolakan,
@@ -206,11 +206,11 @@ class MonitoringController extends Controller
          FROM erm_cppt_perawat a
          WHERE a.kode_kunjungan = ?', [$kj]);
 
-        $assesdok = DB::select('SELECT * FROM erm_cppt_dokter
+        $assesdok = DB::connection('mysql2')->select('SELECT * FROM erm_cppt_dokter
         WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $request->kj]);
-        $assesdokbid = DB::select('SELECT * FROM erm_cppt_dokter_kebidanan WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $kj]);
+        $assesdokbid = DB::connection('mysql2')->select('SELECT * FROM erm_cppt_dokter_kebidanan WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $kj]);
         // dd($assesdokbid);
-        $riwayatorderrad = DB::select('SELECT
+        $riwayatorderrad = DB::connection('mysql2')->select('SELECT
         a.no_rm,
         a.kode_layanan_header,
         a.id,
@@ -222,7 +222,7 @@ class MonitoringController extends Controller
         WHERE a.kode_unit = ?
         AND a.kode_kunjungan = ?
         AND a.status_order ="1"', ['3003', $request->kj]);
-        $riwayatorderlab = DB::select('SELECT
+        $riwayatorderlab = DB::connection('mysql2')->select('SELECT
          a.no_rm,
          a.kode_layanan_header,
          a.id,
@@ -234,7 +234,7 @@ class MonitoringController extends Controller
          WHERE a.kode_unit = ?
          AND a.kode_kunjungan = ?
          AND a.status_order ="1"', ['3002', $request->kj]);
-        $riwayatobat = DB::select('SELECT
+        $riwayatobat = DB::connection('mysql2')->select('SELECT
         a.kode_layanan_header,
         a.id,
         a.kode_kunjungan,
@@ -250,18 +250,18 @@ class MonitoringController extends Controller
          WHERE a.kode_layanan_header LIKE "%DP%"
          AND b.kode_tarif_detail NOT LIKE "%tx%"
          AND a.kode_kunjungan = ?', [$request->kj]);
-        $ttv = DB::select('SELECT tekanan_darah, frekuensi_nafas, keadaan_umum, kesadaran, frekuensi_nadi, suhu, berat_badan, umur FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $request->kj]);
-        $ttb = DB::select('SELECT tekanan_darah, frekuensi_nafas, keadaan_umum, kesadaran, frekuensi_nadi, suhu, berat_badan, GCS, SPO2, umur FROM erm_cppt_kebidanan WHERE kode_kunjungan = ?', [$kj]);
-        $riwayatrekonobat = DB::select('SELECT * FROM rekonsiliasi_obat
+        $ttv = DB::connection('mysql2')->select('SELECT tekanan_darah, frekuensi_nafas, keadaan_umum, kesadaran, frekuensi_nadi, suhu, berat_badan, umur FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $request->kj]);
+        $ttb = DB::connection('mysql2')->select('SELECT tekanan_darah, frekuensi_nafas, keadaan_umum, kesadaran, frekuensi_nadi, suhu, berat_badan, GCS, SPO2, umur FROM erm_cppt_kebidanan WHERE kode_kunjungan = ?', [$kj]);
+        $riwayatrekonobat = DB::connection('mysql2')->select('SELECT * FROM rekonsiliasi_obat
         WHERE kode_kunjungan = ?', [$kj]);
-        $tindakan = DB::select('SELECT * FROM erm_tindakan_kedokteran WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $request->kj]);
-        $tindakan1 = DB::select('SELECT * FROM erm_tindakan_keperawatan WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $request->kj]);
+        $tindakan = DB::connection('mysql2')->select('SELECT * FROM erm_tindakan_kedokteran WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $request->kj]);
+        $tindakan1 = DB::connection('mysql2')->select('SELECT * FROM erm_tindakan_keperawatan WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $request->kj]);
         // dd($tindakan1); 
-        $assesper = DB::select('SELECT * FROM erm_cppt_perawat
+        $assesper = DB::connection('mysql2')->select('SELECT * FROM erm_cppt_perawat
           WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $request->kj]);
-        $assesbid = DB::select('SELECT * FROM erm_cppt_kebidanan WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $kj]);
-        $assesbidbay = DB::select('SELECT * FROM erm_cppt_kebidanan_bayi WHERE no_rm = ? AND kode_kunjungan = ? AND status IN (1,2)', [$request->norm, $kj]);
-        $dpjp = DB::select('SELECT fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,a.kode_paramedis,a.tindakan_kedokteran FROM erm_tindakan_kedokteran a WHERE kode_kunjungan = ?', [$kj]);
+        $assesbid = DB::connection('mysql2')->select('SELECT * FROM erm_cppt_kebidanan WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $kj]);
+        $assesbidbay = DB::connection('mysql2')->select('SELECT * FROM erm_cppt_kebidanan_bayi WHERE no_rm = ? AND kode_kunjungan = ? AND status IN (1,2)', [$request->norm, $kj]);
+        $dpjp = DB::connection('mysql2')->select('SELECT fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,a.kode_paramedis,a.tindakan_kedokteran FROM erm_tindakan_kedokteran a WHERE kode_kunjungan = ?', [$kj]);
 
 
         return view(
