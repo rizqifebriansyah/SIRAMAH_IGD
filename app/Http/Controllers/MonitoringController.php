@@ -189,7 +189,8 @@ class MonitoringController extends Controller
     {
         $kj =  $request->kj;
         $norm =  $request->kj;
-        $unit = auth()->user()->unit;
+        // $unit = auth()->user()->unit;
+        $unit = '1002';
 
         $now = Carbon::now()->format('Y-m-d H:i:s');
         $rencanaplg = DB::select('SELECT * FROM rencana_plg WHERE kode_kunjungan = ?
