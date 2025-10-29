@@ -145,6 +145,7 @@ Route::post('cetakresumedokterkebidanan', [DokterController::class, 'cetakresume
 Route::get('cetaktresumekebidanan/{kj}/{norm}', [DokterController::class, 'cetaktresumekebidanan']);
 Route::post('cetakpemantauan', [DokterController::class, 'cetakpemantauan'])->name('cetakpemantauan');
 Route::get('cetakpemantauanigd/{kj}/{norm}', [DokterController::class, 'cetakpemantauanigd']);
+Route::get('resumeigd/{kj}/{norm}', [MonitoringController::class, 'resumeigd']);
 // perawat igd
 Route::group(['middleware' => ['hak_akses:4', 'auth']], function () {
 
@@ -337,6 +338,11 @@ Route::group(['middleware' => ['hak_akses:3', 'auth']], function () {
     //retur order
     Route::post('returorderrad', [RadiologiController::class, 'returorderrad'])->name('returorderrad');
 
+
+    //edit 
+    Route::post('editriwayatbridging', [RadiologiController::class, 'editriwayatbridging'])->name('editriwayatbridging');
+
+    
 
     //cetakan
     Route::post('/printlabelrad', [RadiologiController::class, 'printlabelrad'])->name('printlabelrad');

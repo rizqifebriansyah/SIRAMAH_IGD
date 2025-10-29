@@ -58,7 +58,7 @@
                                 @elseif ($i->STATUS == 'AP')
                                 <span class="badge badge-primary">READ</span>
                                 @elseif ($i->STATUS == 'FN')
-                                <span class="badge badge-primary">SUDAH DIAMBIL SIMRS</span>
+                                <span class="badge badge-primary">SUDAH DIAMBIL PA?SIEN</span>
                                 @else
                                 <span class="badge badge-success">On Schedule</span>
 
@@ -67,7 +67,7 @@
                             </td>
                             <td>
                                 <div class="col-md-2">
-                                    <a class=" btn btn-info btn-sm editbridging" href="#">
+                                    <a class=" btn btn-info btn-sm editriwayatbridging" href="#">
                                         <i class="" aria-hidden="true">E</i>
 
                                     </a> | @if ($i->PUBLICURL != NULL)
@@ -118,7 +118,7 @@
 
 
 
-    $(".editbridging").click(function() {
+    $(".editriwayatbridging").click(function() {
         spinner = $('#loader2');
         spinner.show();
         var $row = $(this).closest("tr");
@@ -133,6 +133,8 @@
 
 
             },
+            url: " {{ route('editriwayatbridging') }}",
+
             error: function(data) {
                 spinner.hide();
                 alert('error!!')

@@ -62,6 +62,7 @@ class MonitoringController extends Controller
         where Date(a.tgl_masuk) = ?
         and a.status_kunjungan = 1
         and a.kode_unit = ?', [$now, $unit]);
+        dd($pasienigd);
         return view(
             'monitoring.assesigd',
             [
@@ -155,6 +156,117 @@ class MonitoringController extends Controller
             'monitoring.ermpreview',
             [
                 'title' => 'ERM IGD',
+                'assesdok' => $assesdok,
+                'assesper' => $assesper,
+                'triase' => $triase,
+                'now' => $now,
+                'ttv' => $ttv,
+                'ttb' => $ttb,
+                'dpjp' => $dpjp,
+
+
+                'rencanaplg' => $rencanaplg,
+                'tindakan' => $tindakan,
+                'tindakan1' => $tindakan1,
+                'kj' => $kj,
+                'norm' => $norm,
+                'unit' => $unit,
+                'hasil' => $hasil,
+                'riwayatorderrad' => $riwayatorderrad,
+                'riwayatobat' => $riwayatobat,
+                'riwayatrekonobat' => $riwayatrekonobat,
+                'assesbid' => $assesbid,
+                'riwayatorderlab' => $riwayatorderlab,
+                'assesdokbid' => $assesdokbid,
+
+                'assesbidbay' => $assesbidbay
+
+
+            ]
+        );
+    }
+    public function resumeigd(Request $request)
+    {
+        $kj =  $request->kj;
+        $norm =  $request->kj;
+        $unit = auth()->user()->unit;
+
+        $now = Carbon::now()->format('Y-m-d H:i:s');
+        $rencanaplg = DB::select('SELECT * FROM rencana_plg WHERE kode_kunjungan = ?
+        ', [$kj]);
+        $triase = DB::select('SELECT * FROM ts_triase
+           WHERE no_rm = ? AND kode_kunjungan = ? AND STATUS IN (1,2) ', [$request->norm, $request->kj]);
+        $hasil = DB::select('SELECT 
+         a.tgl_kunjungan,
+         a.hasil_ekg,
+         a.surat_penolakan,
+         a.informasi_tindakan,
+         a.transfer_pasien
+         FROM erm_cppt_perawat a
+         WHERE a.kode_kunjungan = ?', [$kj]);
+
+        $assesdok = DB::select('SELECT * FROM erm_cppt_dokter
+        WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $request->kj]);
+        $assesdokbid = DB::select('SELECT * FROM erm_cppt_dokter_kebidanan WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $kj]);
+        // dd($assesdokbid);
+        $riwayatorderrad = DB::select('SELECT
+        a.no_rm,
+        a.kode_layanan_header,
+        a.id,
+        b.total_tarif,
+        fc_nama_tindakan(LEFT(b.kode_tarif_detail,6)) as nama_tindakan
+        FROM
+        ts_layanan_header_igd a
+        INNER JOIN ts_layanan_detail_igd b ON b.row_id_header = a.id
+        WHERE a.kode_unit = ?
+        AND a.kode_kunjungan = ?
+        AND a.status_order ="1"', ['3003', $request->kj]);
+        $riwayatorderlab = DB::select('SELECT
+         a.no_rm,
+         a.kode_layanan_header,
+         a.id,
+         b.total_tarif,
+         fc_nama_tindakan(LEFT(b.kode_tarif_detail,6)) as nama_tindakan
+         FROM
+         ts_layanan_header_igd a
+         INNER JOIN ts_layanan_detail_igd b ON b.row_id_header = a.id
+         WHERE a.kode_unit = ?
+         AND a.kode_kunjungan = ?
+         AND a.status_order ="1"', ['3002', $request->kj]);
+        $riwayatobat = DB::select('SELECT
+        a.kode_layanan_header,
+        a.id,
+        a.kode_kunjungan,
+        b.total_tarif,
+        b.kode_barang,
+        b.aturan_pakai,
+        b.jumlah_layanan,
+        c.nama_barang
+         FROM
+         ts_layanan_header a
+         INNER JOIN ts_layanan_detail b ON b.row_id_header = a.id
+         INNER JOIN mt_barang c ON c.kode_barang = b.kode_barang
+         WHERE a.kode_layanan_header LIKE "%DP%"
+         AND b.kode_tarif_detail NOT LIKE "%tx%"
+         AND a.kode_kunjungan = ?', [$request->kj]);
+        $ttv = DB::select('SELECT tekanan_darah, frekuensi_nafas, keadaan_umum, kesadaran, frekuensi_nadi, suhu, berat_badan, umur FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $request->kj]);
+        $ttb = DB::select('SELECT tekanan_darah, frekuensi_nafas, keadaan_umum, kesadaran, frekuensi_nadi, suhu, berat_badan, GCS, SPO2, umur FROM erm_cppt_kebidanan WHERE kode_kunjungan = ?', [$kj]);
+        $riwayatrekonobat = DB::select('SELECT * FROM rekonsiliasi_obat
+        WHERE kode_kunjungan = ?', [$kj]);
+        $tindakan = DB::select('SELECT * FROM erm_tindakan_kedokteran WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $request->kj]);
+        $tindakan1 = DB::select('SELECT * FROM erm_tindakan_keperawatan WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $request->kj]);
+        // dd($tindakan1); 
+        $assesper = DB::select('SELECT * FROM erm_cppt_perawat
+          WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $request->kj]);
+        $assesbid = DB::select('SELECT * FROM erm_cppt_kebidanan WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $kj]);
+        $assesbidbay = DB::select('SELECT * FROM erm_cppt_kebidanan_bayi WHERE no_rm = ? AND kode_kunjungan = ? AND status IN (1,2)', [$request->norm, $kj]);
+        $dpjp = DB::select('SELECT fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,a.kode_paramedis,a.tindakan_kedokteran FROM erm_tindakan_kedokteran a WHERE kode_kunjungan = ?', [$kj]);
+
+
+        return view(
+            'monitoring.resumeigd',
+            [
+                'title' => 'RESUME IGD',
                 'assesdok' => $assesdok,
                 'assesper' => $assesper,
                 'triase' => $triase,

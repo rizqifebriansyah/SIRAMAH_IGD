@@ -319,6 +319,19 @@ class RadiologiController extends Controller
 
         ]);
     }
+    public function editriwayatbridging(Request $request)
+    {
+        $unit = auth()->user()->unit;
+        $tglbridging = Carbon::parse($request->tanggal_bridging)->format('Ymd');
+        $pb = DB::connection('mysql3')->select('SELECT * from order_table a WHERE ACCESSIONNUMBER = ?', [$request->acc]);
+
+        return view('radiologi.editbridgingview', [
+            'title' => 'SIRAMAH | RADIOLOGI',
+
+            'pb' => $pb,
+
+        ]);
+    }
 
     public function simpanorderradiologi(Request $request)
     {

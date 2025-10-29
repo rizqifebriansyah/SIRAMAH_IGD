@@ -431,7 +431,8 @@
                                         <option value="Mammography">Mammography</option>
                                         <option value="Panoramic">Panoramic</option>
                                     </select></div>
-                                <div class="form-group col-md-3"><label for="inputPassword4">Modality</label><select class="form-control select2" name="modality" id="modality">
+                                <div class="form-group col-md-3"><label for="inputPassword4">Modality</label>
+                                    <select class="form-control select2" name="modality" id="modality">
                                         <option value=""> -- PILIH --</option>
                                         <option value="CR">CR</option>
                                         <option value="DX">DX</option>
@@ -440,7 +441,8 @@
                                         <option value="MR">MR</option>
                                         <option value="PX">PX</option>
 
-                                    </select></div>
+                                    </select>
+                                </div>
                                 <div class="form-group col-md-3"><label for="inputPassword4">lokasi</label><select class="form-control select2" name="lokasi" id="lokasi">
                                         <option value=""> -- PILIH --</option>
                                         <option value="IGD">IGD</option>

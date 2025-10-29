@@ -37,15 +37,15 @@
             </td>
             <td>
                 <div class="col-md-2">
-                    <a class=" btn btn-info btn-sm editbridging" href="#">
+                    <a class=" btn btn-info btn-sm editriwayatbridging" href="#">
                         <i class="" aria-hidden="true">E</i>
 
                     </a> |
                     @if ($i->PUBLICURL != NULL)
                     <a href="{{$i->PUBLICURL}}" class=" btn btn-success btn-sm " target="_blank"> <i class="fas fa-eye" aria-hidden="true"></i></a>
-                @else
+                    @else
 
-                @endif
+                    @endif
                 </div>
 
             </td>
@@ -78,7 +78,7 @@
 
 
 
-    $(".editbridging").click(function() {
+    $(".editriwayatbridging").click(function() {
         spinner = $('#loader2');
         spinner.show();
         var $row = $(this).closest("tr");
@@ -93,6 +93,8 @@
 
 
             },
+            url: " {{ route('editriwayatbridging') }}",
+
             error: function(data) {
                 spinner.hide();
                 alert('error!!')
