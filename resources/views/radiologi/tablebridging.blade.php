@@ -45,7 +45,9 @@
                     <a href="{{$i->PUBLICURL}}" class=" btn btn-success btn-sm " target="_blank"> <i class="fas fa-eye" aria-hidden="true"></i></a>
                     @else
 
-                    @endif
+                    @endif |
+                    <a class="btn btn-success btn-sm cetakexpertise" href="#">
+                        <i class="fa fa-print" aria-hidden="true"> </i> </a>
                 </div>
 
             </td>
@@ -105,4 +107,66 @@
             }
         });
     });
+    $(".cetakexpertise").click(function() {
+        var $row = $(this).closest("tr");
+
+        var acc = $row.find(".acc").text();
+
+
+
+
+        Swal.fire({
+            title: "Apakah ingin print ekpertisi?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Ya',
+            cancelButtonColor: '#d33',
+            cancelButtonText: "Batal"
+
+        }).then(result => {
+            //jika klik ya maka arahkan ke proses.php
+            if (result.isConfirmed) {
+                $.ajax({
+                    async: true,
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        acc
+
+
+                    },
+                    url: '<?= route('cetakexpertise') ?>',
+                    error: function(data) {
+                        spinner.hide()
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Ooops....',
+                            text: 'Sepertinya ada masalah......',
+                            footer: ''
+                        })
+                    },
+                    success: function(data) {
+                        spinner.hide()
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'OK',
+                            text: data.message,
+                            footer: ''
+                        })
+                        cetakex(data.acc)
+
+                    }
+                });
+            }
+        })
+        return false;
+    });
+
+
+    function cetakex(acc) {
+        window.open('cetakexp/' + acc);
+
+    }
 </script>

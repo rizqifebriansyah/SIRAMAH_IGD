@@ -342,13 +342,14 @@ Route::group(['middleware' => ['hak_akses:3', 'auth']], function () {
     //edit 
     Route::post('editriwayatbridging', [RadiologiController::class, 'editriwayatbridging'])->name('editriwayatbridging');
 
-    
+
 
     //cetakan
     Route::post('/printlabelrad', [RadiologiController::class, 'printlabelrad'])->name('printlabelrad');
     Route::get('etiket/{kode_header}/{idhed}', [RadiologiController::class, 'etiket']);
     Route::get('cetakorder/{kode_header}/{idhed}', [RadiologiController::class, 'cetakpdf']);
-
+    Route::get('cetakexp/{acc}', [RadiologiController::class, 'cetakexpertise1']);
+    Route::post('cetakexpertise', [RadiologiController::class, 'cetakexpertise'])->name('cetakexpertise');
 });
 
 //petugas reporting
