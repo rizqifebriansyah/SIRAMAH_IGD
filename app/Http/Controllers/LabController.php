@@ -870,81 +870,81 @@ AND b.kelas_tarif = ?', [$request->kelas]);
             echo json_encode($back);
             die;
         }
-        if ($lis == 'lis') {
-            try {
-                // 1. INSERT TO histolisheader_HIS 
-                $insert = DB::select("CALL SP_HIS2LIS_INSERT_TO_HEADER_DETAIL_LIS_IN_HIS_2('$kode_header','$idhed') ");
-            } catch (\Exception $e) {
-                $back = [
-                    'kode' => 200,
-                    'message' => $e->getMessage()
-                ];
-                echo json_encode($back);
-                die;
-            }
-            try {
-                // 2.	INSERT TO histolisheader_HIS 
-                $insert1 = DB::select("CALL SP_HIS2LIS_INSERT_TO_DETAIL_LIS_IN_HIS3('$kode_header','$idhed') ");
-            } catch (\Exception $e) {
-                $back = [
-                    'kode' => 200,
-                    'message' => $e->getMessage()
-                ];
-                echo json_encode($back);
-                die;
-            }
-            try {
-                // 3.	UPDATE TO histolisheader_HIS + INSERT TO histolisheader_LIS + INSERT TO histolisDETAIL_LIS  => KIRIM ROW ID = 0 
-                $insert2 = DB::select("CALL SP_HIS2LIS_UPDATE_TO_HEADER_COUNTDETAIL_LIS_IN_HIS_1('$kode_header','$idhed') ");
-            } catch (\Exception $e) {
-                $back = [
-                    'kode' => 200,
-                    'message' => $e->getMessage()
-                ];
-                echo json_encode($back);
-                die;
-            }
-            try {
-                // 4.	IN DB HIS2LIS '''INSERT TO histolisheader_LIS 
-                $insert3 = DB::select("CALL SP_HIS2LIS_INSERT_TO_HEADER_LIS_IN_LIS('$kode_header') ");
-            } catch (\Exception $e) {
-                $back = [
-                    'kode' => 200,
-                    'message' => $e->getMessage()
-                ];
-                echo json_encode($back);
-                die;
-            }
-            try {
-                // 5.	IN DB HIS2LIS '''INSERT TO histolisheader_LIS 
-                $insert4 = DB::select("CALL SP_HIS2LIS_INSERT_TO_DETAIL_LIS_IN_LIS('$kode_header') ");
-            } catch (\Exception $e) {
-                $back = [
-                    'kode' => 200,
-                    'message' => $e->getMessage()
-                ];
-                echo json_encode($back);
-                die;
-            }
-            try {
-                // 6.	IN DB HIS2LIS '''INSERT TO histolisheader_LIS 
-                $cek2 = DB::select("CALL SP_HIS2LIS_CEK_ROWID_IN_LIS('$kode_header') ");
-                $rowid = $cek2[0]->RowId;
-                $upd = DB::select("CALL SP_HIS2LIS_UPDATE_TO_DETAIL_HISTOLISHEADERID_LIS_IN_LIS('$rowid') ");
-                $updd = DB::select('UPDATE ts_layanan_header SET keterangan = "Terkirim"
-        ,cek_kirim_lis = 1 
-        where kode_layanan_header = ? 
-        and id =  ?', [$kode_header, $idhed]);
-            } catch (\Exception $e) {
-                $back = [
-                    'kode' => 200,
-                    'message' => $e->getMessage()
-                ];
-                echo json_encode($back);
-                die;
-            }
-        } else {
-        }
+        // if ($lis == 'lis') {
+        //     try {
+        //         // 1. INSERT TO histolisheader_HIS 
+        //         $insert = DB::select("CALL SP_HIS2LIS_INSERT_TO_HEADER_DETAIL_LIS_IN_HIS_2('$kode_header','$idhed') ");
+        //     } catch (\Exception $e) {
+        //         $back = [
+        //             'kode' => 200,
+        //             'message' => $e->getMessage()
+        //         ];
+        //         echo json_encode($back);
+        //         die;
+        //     }
+        //     try {
+        //         // 2.	INSERT TO histolisheader_HIS 
+        //         $insert1 = DB::select("CALL SP_HIS2LIS_INSERT_TO_DETAIL_LIS_IN_HIS3('$kode_header','$idhed') ");
+        //     } catch (\Exception $e) {
+        //         $back = [
+        //             'kode' => 200,
+        //             'message' => $e->getMessage()
+        //         ];
+        //         echo json_encode($back);
+        //         die;
+        //     }
+        //     try {
+        //         // 3.	UPDATE TO histolisheader_HIS + INSERT TO histolisheader_LIS + INSERT TO histolisDETAIL_LIS  => KIRIM ROW ID = 0 
+        //         $insert2 = DB::select("CALL SP_HIS2LIS_UPDATE_TO_HEADER_COUNTDETAIL_LIS_IN_HIS_1('$kode_header','$idhed') ");
+        //     } catch (\Exception $e) {
+        //         $back = [
+        //             'kode' => 200,
+        //             'message' => $e->getMessage()
+        //         ];
+        //         echo json_encode($back);
+        //         die;
+        //     }
+        //     try {
+        //         // 4.	IN DB HIS2LIS '''INSERT TO histolisheader_LIS 
+        //         $insert3 = DB::select("CALL SP_HIS2LIS_INSERT_TO_HEADER_LIS_IN_LIS('$kode_header') ");
+        //     } catch (\Exception $e) {
+        //         $back = [
+        //             'kode' => 200,
+        //             'message' => $e->getMessage()
+        //         ];
+        //         echo json_encode($back);
+        //         die;
+        //     }
+        //     try {
+        //         // 5.	IN DB HIS2LIS '''INSERT TO histolisheader_LIS 
+        //         $insert4 = DB::select("CALL SP_HIS2LIS_INSERT_TO_DETAIL_LIS_IN_LIS('$kode_header') ");
+        //     } catch (\Exception $e) {
+        //         $back = [
+        //             'kode' => 200,
+        //             'message' => $e->getMessage()
+        //         ];
+        //         echo json_encode($back);
+        //         die;
+        //     }
+        //     try {
+        //         // 6.	IN DB HIS2LIS '''INSERT TO histolisheader_LIS 
+        //         $cek2 = DB::select("CALL SP_HIS2LIS_CEK_ROWID_IN_LIS('$kode_header') ");
+        //         $rowid = $cek2[0]->RowId;
+        //         $upd = DB::select("CALL SP_HIS2LIS_UPDATE_TO_DETAIL_HISTOLISHEADERID_LIS_IN_LIS('$rowid') ");
+        //         $updd = DB::select('UPDATE ts_layanan_header SET keterangan = "Terkirim"
+        //         ,cek_kirim_lis = 1 
+        //         where kode_layanan_header = ? 
+        //         and id =  ?', [$kode_header, $idhed]);
+        //     } catch (\Exception $e) {
+        //         $back = [
+        //             'kode' => 200,
+        //             'message' => $e->getMessage()
+        //         ];
+        //         echo json_encode($back);
+        //         die;
+        //     }
+        // } else {
+        // }
 
 
         $back = [
@@ -1156,7 +1156,7 @@ AND b.kelas_tarif = ?', [$request->kelas]);
     {
         $unit = auth()->user()->unit;
         $user = auth()->user()->id_simrs;
-        $nota = DB::select("CALL SP_NOTA_TINDAKAN_NEW('$kode_header','$idhed')");
+        $nota = DB::connection('mysql2')->select("CALL SP_NOTA_TINDAKAN_NEW('$kode_header','$idhed')");
         $now = Carbon::now();
 
 
@@ -1364,8 +1364,8 @@ AND b.kelas_tarif = ?', [$request->kelas]);
                 // /* Close printer */
                 // $printer->close();
             } else {
-
-                $connector = new WindowsPrintConnector("smb://192.168.2.190/EPSON TM-T82X Receipt6");
+                $connector = new WindowsPrintConnector("EPSON TM-T82X Receipt");
+                // $connector = new WindowsPrintConnector("smb://192.168.2.190/EPSON TM-T82X Receipt6");
 
                 $printer = new Printer($connector);
                 function barikolom($kolom1, $kolom2, $kolom3, $kolom4)

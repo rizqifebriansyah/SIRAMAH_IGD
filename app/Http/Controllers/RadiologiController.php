@@ -12,7 +12,7 @@ use App\Models\tb_tampungan_label;
 use App\Models\ts_retur_header;
 use App\Models\ts_retur_detail;
 use App\Models\tb_pemakaian_radiologi;
-
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 use App\Models\ts_layanan_detail_tambahan;
 use Mike42\Escpos\EscposImage;
@@ -814,7 +814,7 @@ class RadiologiController extends Controller
         // echo $response;
         $ex = json_decode($response);
         // $data = json_decode($_POST[$response], true);
-        // dd($ex->data->finding);
+        // dd($ex);
         $pemeriksaan = DB::connection('mysql3')->select('SELECT 
             a.ID,
             a.PID,
@@ -831,7 +831,12 @@ class RadiologiController extends Controller
             where a.ACCESSIONNUMBER = ?', [$acc]);
         // dd($pemeriksaan);
         $kj = $pemeriksaan[0]->KODE_KUNJUNGAN;
-        // dd($kj);
+        $path = public_path('\qrcoderad\qr' . $kj . time() . '.png');
+        // dd($path);
+        $d = QrCode::size(300)->format('png')->generate($ex->data->qrLink, $path);
+        // $qr = QrCode::PNG($qrCode);
+
+        // dd($qrCode);
         $pasien = DB::select('SELECT 
 
             b.alamat,
@@ -852,7 +857,10 @@ class RadiologiController extends Controller
         //Awal Header kertas
         $pdf::Image('public/img/kab_cirebonn.png', 10, 4, 20, 20);
         $pdf::Image('public/img/rsss.png', 180, 4, 20, 20);
+
         $pdf::SetFont('Times', 'B', 12);
+        // $pdf::cell(10, 10,$qrCode );
+
         $pdf::SetXY(65, 5);
         $pdf::Cell(40, 10, 'PEMERINTAH KABUPATEN CIREBON');
         $pdf::SetFont('Times', 'B', 16);
@@ -944,35 +952,35 @@ class RadiologiController extends Controller
 
 
         $pdf::SetFont('Times', '', 10);
-        $pdf::SetXY(120, 63);
+        $pdf::SetXY(120, 57);
         $pdf::Cell(40, 10, 'Tgl. Lahir');
-        $pdf::SetXY(139, 63);
+        $pdf::SetXY(139, 57);
         $pdf::Cell(40, 10, ':');
         $pdf::SetFont('Times', '', 10);
-        $pdf::SetXY(141, 63);
+        $pdf::SetXY(141, 57);
         $lahir = Carbon::parse($pasien[0]->tgl_lahir)->translatedFormat('d-F-Y');
 
         $pdf::Cell(70, 10, $lahir);
 
         $pdf::SetFont('Times', '', 11);
-        $pdf::SetXY(10, 63);
+        $pdf::SetXY(120, 63);
         $pdf::Cell(40, 10, 'Diagnosis');
-        $pdf::SetXY(40, 63);
+        $pdf::SetXY(139, 63);
         $pdf::Cell(40, 10, ':');
         $pdf::SetFont('Times', '', 11);
-        $pdf::SetXY(42, 63);
+        $pdf::SetXY(141, 63);
         $pdf::Cell(42, 10, $pemeriksaan[0]->RELEVANTCLINICALINFO);
 
         $pdf::SetFont('Times', '', 11);
-        $pdf::SetXY(10, 70);
+        $pdf::SetXY(10, 63);
         $pdf::Cell(40, 10, 'Alamat');
-        $pdf::SetXY(40, 70);
+        $pdf::SetXY(40, 63);
         $pdf::Cell(40, 10, ':');
         $pdf::SetFont('Times', '', 11);
-        //$pdf::SetXY(42, 70);
+        //$pdf::SetXY(42, 63);
         //$pdf::Cell(42, 10, $hasil['alamat'], 0, 1,'RIGHT');
-        $pdf::SetXY(42, 70);
-        $pdf::MultiCell(120, 8, $pasien[0]->alamat, 0, 'L');
+        $pdf::SetXY(42, 67);
+        $pdf::MultiCell(120, 3, $pasien[0]->alamat, 0, 'L');
 
 
         $pdf::SetFont('Times', 'BU', 14);
@@ -1018,6 +1026,7 @@ class RadiologiController extends Controller
 
         $pdf::MultiCell(190, 5, $ex->data->recommendation, 0, 'L');
         // Akhir kotak Hasil pemeriksaan
+        $pdf::Image($path, 10, 220, 20, 20, 'PNG');
 
         $pdf::SetFont('Times', '', 12);
         $pdf::SetXY(145, 200);
@@ -1036,6 +1045,7 @@ class RadiologiController extends Controller
             $pdf::SetXY(145, 232);
             $pdf::Cell(40, 10, $ex->data->approver);
         }
+
 
         $pdf::SetXY(145, 232);
 
