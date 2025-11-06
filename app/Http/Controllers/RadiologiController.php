@@ -829,6 +829,7 @@ class RadiologiController extends Controller
 
             from order_table a
             where a.ACCESSIONNUMBER = ?', [$acc]);
+            $updatestatus = DB::connection('mysql3')->select('UPDATE order_table SET STATUS = "FN" WHERE ACCESSIONNUMBER = ?',[$acc]);
         // dd($pemeriksaan);
         $kj = $pemeriksaan[0]->KODE_KUNJUNGAN;
         $path = public_path('\qrcoderad\qr' . $kj . time() . '.png');
