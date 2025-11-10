@@ -626,7 +626,7 @@ class RadiologiController extends Controller
                     'PROCEDURENAME' => $arr['namatindakan'],
                     'ASSIGNEDPATIENTLOCATION' => $arr['lokasi'],
                     'ENTERINGOGANIZATION' => $namaunit,
-                    'BODYPART' => $arr['tubuh'],
+                    'BODYPART' => 'NULL',
                     'MODALITY' => $arr['modality'],
                     'PHONENUMBER' => $pasien[0]->no_hp,
                     'STATUS' => 'NW'
