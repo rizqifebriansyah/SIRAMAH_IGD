@@ -587,8 +587,8 @@ class RadiologiController extends Controller
         } else {
             $jenisk = 'M';
         }
-        // $update = DB::select('UPDATE ts_layanan_header_order SET status_order = 2
-        // WHERE kode_kunjungan = ? AND no_rm = ?', [$request->kode_kunjungan, $norm]);
+        $update = DB::select('UPDATE ts_layanan_header_order SET status_order = 2
+        WHERE kode_kunjungan = ? AND no_rm = ?', [$request->kode_kunjungan, $norm]);
         try {
 
             foreach ($arrayindex as $arr) {
@@ -629,6 +629,7 @@ class RadiologiController extends Controller
                     'BODYPART' => 'NULL',
                     'MODALITY' => $arr['modality'],
                     'PHONENUMBER' => $pasien[0]->no_hp,
+                    'id_layanan_detail' => $id_detail,
                     'STATUS' => 'NW'
 
 
@@ -829,7 +830,7 @@ class RadiologiController extends Controller
 
             from order_table a
             where a.ACCESSIONNUMBER = ?', [$acc]);
-            $updatestatus = DB::connection('mysql3')->select('UPDATE order_table SET STATUS = "FN" WHERE ACCESSIONNUMBER = ?',[$acc]);
+        $updatestatus = DB::connection('mysql3')->select('UPDATE order_table SET STATUS = "FN" WHERE ACCESSIONNUMBER = ?', [$acc]);
         // dd($pemeriksaan);
         $kj = $pemeriksaan[0]->KODE_KUNJUNGAN;
         $path = public_path('\qrcoderad\qr' . $kj . time() . '.png');
@@ -1027,35 +1028,50 @@ class RadiologiController extends Controller
 
         $pdf::MultiCell(190, 5, $ex->data->recommendation, 0, 'L');
         // Akhir kotak Hasil pemeriksaan
-        $pdf::Image($path, 10, 220, 20, 20, 'PNG');
 
         $pdf::SetFont('Times', '', 12);
         $pdf::SetXY(145, 200);
-        $pdf::Cell(40, 10, 'Waled, ' . $ex->data->approveTime);
+        $tgl_bacaa = Carbon::parse($ex->data->approveTime)->translatedFormat('d-F-Y');
+
+        $pdf::Cell(40, 10, 'Waled, ' . $tgl_bacaa);
         $pdf::SetXY(158, 205);
         $pdf::Cell(40, 10, 'Radiologi,');
         $pdf::SetFont('Times', 'B', 12);
-        $pdf::Image('public/img/cap.png', 145, 210, 40, 25);
+        $pdf::Image('public/img/cap.png', 145, 211, 40, 25);
 
         if ($ex->data->approver == 'dr. Nunik Royyani. Sp.Rad') {
-            $pdf::Image('public/img/ttd_036.png', 150, 210, 40, 25);
+            $pdf::Image($path, 123, 220, 20, 20, 'PNG');
+
+            $pdf::Image('public/img/ttd_036.png', 150, 211, 40, 25);
             $pdf::SetXY(145, 232);
             $pdf::Cell(40, 10, $ex->data->approver);
+
+
+            $pdf::SetLineWidth(0.5);
+
+            $pdf::Line(145, 240, 195, 240);
+            $pdf::SetXY(152, 237);
+            $pdf::Cell(40, 10, 'Spesialis Radiologi');
         } else {
-            $pdf::Image('public/img/ttd_369.png', 150, 210, 40, 25);
-            $pdf::SetXY(145, 232);
+
+
+
+            $pdf::Image($path, 113, 220, 20, 20, 'PNG');
+
+            $pdf::Image('public/img/ttd_369.png', 150, 211, 40, 25);
+            $pdf::SetXY(135, 232);
             $pdf::Cell(40, 10, $ex->data->approver);
+
+
+            $pdf::SetLineWidth(0.5);
+
+            $pdf::Line(135, 240, 205, 240);
+            $pdf::SetXY(152, 237);
+            $pdf::Cell(40, 10, 'Spesialis Radiologi');
         }
 
 
-        $pdf::SetXY(145, 232);
 
-
-        $pdf::SetLineWidth(0.5);
-
-        $pdf::Line(145, 240, 195, 240);
-        $pdf::SetXY(152, 237);
-        $pdf::Cell(40, 10, 'Spesialis Radiologi');
 
         $pdf::SetLineWidth(0.1);
         $pdf::Line(10, 245, 200, 245);
