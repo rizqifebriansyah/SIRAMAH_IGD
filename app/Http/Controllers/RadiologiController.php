@@ -589,6 +589,7 @@ class RadiologiController extends Controller
         }
         $update = DB::select('UPDATE ts_layanan_header_order SET status_order = 2
         WHERE kode_kunjungan = ? AND no_rm = ?', [$request->kode_kunjungan, $norm]);
+        $iddet = DB::select('SELECT a.id FROM ts_layanan_detail a WHERE a.id_layanan_detail = ?',[$id_detail]);
         try {
 
             foreach ($arrayindex as $arr) {
@@ -629,7 +630,7 @@ class RadiologiController extends Controller
                     'BODYPART' => 'NULL',
                     'MODALITY' => $arr['modality'],
                     'PHONENUMBER' => $pasien[0]->no_hp,
-                    'id_layanan_detail' => $id_detail,
+                    'id_layanan_detail' => $iddet,
                     'STATUS' => 'NW'
 
 
