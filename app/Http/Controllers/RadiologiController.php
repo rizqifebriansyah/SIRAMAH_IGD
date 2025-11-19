@@ -587,8 +587,8 @@ class RadiologiController extends Controller
         } else {
             $jenisk = 'M';
         }
-        $update = DB::select('UPDATE ts_layanan_header_order SET status_order = 2
-        WHERE kode_kunjungan = ? AND no_rm = ?', [$request->kode_kunjungan, $norm]);
+        // $update = DB::select('UPDATE ts_layanan_header_order SET status_order = 2
+        // WHERE kode_kunjungan = ? AND no_rm = ?', [$request->kode_kunjungan, $norm]);
         $iddet = DB::select('SELECT a.id FROM ts_layanan_detail a WHERE a.id_layanan_detail = ?',[$id_detail]);
         try {
 
