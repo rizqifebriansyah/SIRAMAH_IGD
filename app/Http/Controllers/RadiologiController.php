@@ -642,7 +642,7 @@ class RadiologiController extends Controller
         } catch (\Exception $e) {
             $back = [
                 'kode' => 200,
-                'message' => 'Bridging Berhasil'
+                'message' => 'ada masalah di bridging'
             ];
             echo json_encode($back);
             die;
@@ -671,14 +671,14 @@ class RadiologiController extends Controller
             ];
             $tb_pemakaian_radiologi = tb_pemakaian_radiologi::create($savedetailbarang);
         }
-        // $receive_items = $this->cetakpdf($kode_header, $idhed);
-        // $back = [
-        //     'kode' => 200,
-        //     'idhed' => $idhed,
-        //     'kode_header' => $kode_header,
-        // ];
-        // echo json_encode($back);
-        // die;
+        $receive_items = $this->cetakpdf($kode_header, $idhed);
+        $back = [
+            'kode' => 200,
+            'idhed' => $idhed,
+            'kode_header' => $kode_header,
+        ];
+        echo json_encode($back);
+        die;
 
 
         $back = [
@@ -1217,7 +1217,7 @@ class RadiologiController extends Controller
 
 
 
-            $img = EscposImage::load("public/img/rsss.png");
+            // $img = EscposImage::load("public/img/rsss.png");
             if ($user == '1141') {
                 $connector = new WindowsPrintConnector("smb://192.168.2.182/EPSON TM-T82X Receipt");
             } else {
@@ -1276,7 +1276,7 @@ class RadiologiController extends Controller
 
             $printer->selectPrintMode(Printer::MODE_DOUBLE_HEIGHT); // Setting teks menjadi lebih besar
             $printer->setJustification(Printer::JUSTIFY_CENTER); // Setting teks menjadi rata tengah
-            $printer->graphics($img);
+            // $printer->graphics($img);
             $printer->text("\n");
             $printer->text("Rincian Tindakan Pelayanan\n");
             $printer->text("UNIT " . $nota[0]->UNIT_CETAK . "\n");
@@ -1373,7 +1373,7 @@ class RadiologiController extends Controller
 
             $printer->selectPrintMode(Printer::MODE_DOUBLE_HEIGHT); // Setting teks menjadi lebih besar
             $printer->setJustification(Printer::JUSTIFY_CENTER); // Setting teks menjadi rata tengah
-            $printer->graphics($img);
+            // $printer->graphics($img);
             $printer->text("\n");
             $printer->text("Rincian Tindakan Pelayanan\n");
             $printer->text("UNIT " . $nota[0]->UNIT_CETAK . "\n");
