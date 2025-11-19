@@ -635,6 +635,7 @@ class RadiologiController extends Controller
 
 
                 ];
+                // dd($pacs);
 
                 $pacsdetail = order_table::create($pacs);
             }
