@@ -26,21 +26,14 @@ use mysqli;
 
 class GiziControlller extends Controller
 {
+
     public function index()
     {
-        $unit = auth()->user()->unit;
+        // $unit = auth()->user()->unit;
         $user = auth()->user()->username;
-        $now = Carbon::now()->format('Y-m-d');
-        $tgl_masuk_x = date('Y-m-d', strtotime('-2 days', strtotime($now)));
-
-        $pasienorderlab = DB::select("CALL SP_RIWAYAT_LAYANAN_LABORATORIUM('3013','$now','$now','')");
         $unit = DB::select('SELECT kode_unit,nama_unit FROM mt_unit WHERE kode_unit LIKE "%20%"');
-        $pasienranap = DB::select("CALL SP_PANGGIL_PASIEN_RAWAT_INAP_PER_UNIT_KUNJUNGAN_AKTIF_NEW('2011','','');");
-        $pagi = DB::connection('mysql2')->select('SELECT * FROM ts_layanan_detail_gizi WHERE waktu_makan = "MAKAN PAGI" ');
-        $siang = DB::connection('mysql2')->select('SELECT * FROM ts_layanan_detail_gizi WHERE waktu_makan = "MAKAN SIANG" ');
-        $malam = DB::connection('mysql2')->select('SELECT * FROM ts_layanan_detail_gizi WHERE waktu_makan = "MAKAN MALAM" ');
 
-
+        $menu = 'gizi';
 
 
         // dd($unit);
@@ -48,12 +41,9 @@ class GiziControlller extends Controller
             'title' => 'SIRAMAH | GIZI',
             'unit' => $unit,
             'user' => $user,
-            'pasienorderlab' => $pasienorderlab,
-            'unit' => $unit,
-            'pagi' => $pagi,
-            'siang' => $siang,
-            'malam' => $malam,
-            'pasienranap' => $pasienranap
+
+            'menu' => $menu
+
         ]);
 
 
@@ -61,13 +51,100 @@ class GiziControlller extends Controller
         # code...
 
     }
+    public function gizibilling()
+    {
+        $unit = auth()->user()->unit;
+        $user = auth()->user()->username;
+        $now = Carbon::now()->format('Y-m-d');
+        $tgl_masuk_x = date('Y-m-d', strtotime('-2 days', strtotime($now)));
+
+        $pasienordergizi = DB::select("CALL SP_RIWAYAT_LAYANAN_LABORATORIUM('3013','$now','$now','')");
+        $menu = 'gizibilling';
+
+
+        // dd($unit);
+        return view('gizi.gizibilling', [
+            'title' => 'SIRAMAH | GIZI',
+            'pasienordergizi' => $pasienordergizi,
+
+            'unit' => $unit,
+            'user' => $user,
+            'menu' => $menu
+
+        ]);
+
+
+
+        # code...
+
+    }
+    public function monitoringmakan()
+    {
+        $unit = auth()->user()->unit;
+        $user = auth()->user()->username;
+        $now = Carbon::now()->format('Y-m-d');
+        $tgl_masuk_x = date('Y-m-d', strtotime('-2 days', strtotime($now)));
+
+        $pagi = DB::connection('mysql2')->select('SELECT * FROM ts_layanan_detail_gizi WHERE waktu_makan = "MAKAN PAGI" ');
+        $siang = DB::connection('mysql2')->select('SELECT * FROM ts_layanan_detail_gizi WHERE waktu_makan = "MAKAN SIANG" ');
+        $malam = DB::connection('mysql2')->select('SELECT * FROM ts_layanan_detail_gizi WHERE waktu_makan = "MAKAN MALAM" ');
+
+
+        $menu = 'monitoringmakan';
+
+
+        // dd($unit);
+        return view('gizi.monitoringmakan', [
+            'title' => 'SIRAMAH | GIZI',
+            'pagi' => $pagi,
+            'siang' => $siang,
+            'malam' => $malam,
+
+            'unit' => $unit,
+            'user' => $user,
+            'menu' => $menu
+
+        ]);
+
+
+
+        # code...
+
+    }
+    public function riwayatordermakan()
+    {
+        $unit = auth()->user()->unit;
+        $user = auth()->user()->username;
+        $unit = DB::select('SELECT kode_unit,nama_unit FROM mt_unit WHERE kode_unit LIKE "%20%"');
+
+        $menu = 'riwayatordermakan';
+
+
+        // dd($unit);
+        return view('gizi.riwayatordermakan', [
+            'title' => 'SIRAMAH | GIZI',
+
+
+            'unit' => $unit,
+            'user' => $user,
+            'menu' => $menu
+
+        ]);
+
+
+
+        # code...
+
+    }
+
     public function caripasienranap(Request $request)
     {
-        $pasienranap = DB::select("CALL SP_PANGGIL_PASIEN_RAWAT_INAP_PER_UNIT_KUNJUNGAN_AKTIF_NEW('$request->unit','','');");
         $unit = $request->unit;
+
+        $pasienranap = DB::select("CALL SP_PANGGIL_PASIEN_RAWAT_INAP_PER_UNIT_KUNJUNGAN_AKTIF_NEW('$unit','','');");
         // dd($pasienranap);
 
-        return view('gizi.tablependaftaran', [
+        return view('gizi.pasienranap', [
             'title' => 'SIRAMAH | GIZI',
             'pasienranap' => $pasienranap,
             'unit' => $unit
@@ -77,6 +154,22 @@ class GiziControlller extends Controller
 
         ]);
     }
+    public function cariordergizi(Request $request)
+    {
+
+        $pasienordergizi = DB::select("CALL SP_RIWAYAT_LAYANAN_LABORATORIUM('3013','$request->tgl_entry','$request->tgl_entry1','')");
+
+
+        return view('gizi.riwayatordergizi', [
+            'title' => 'SIRAMAH | GIZI',
+            'pasienordergizi' => $pasienordergizi,
+
+
+
+
+        ]);
+    }
+
     public function cariordermakan(Request $request)
     {
         $orderhariini = DB::connection('mysql2')->select('SELECT * FROM ts_layanan_detail_gizi WHERE waktu_makan = ? AND kode_unit = ?', [$request->waktumakanorder, $request->namaunit]);
@@ -99,7 +192,7 @@ class GiziControlller extends Controller
         $now = Carbon::now()->format('Y-m-d H:i:s');
 
         try {
-            $update = DB::connection('mysql2')->select('UPDATE ts_layanan_detail_gizi SET status = 2 , tgl_proses = ? WHERE no_rm = ? AND kode_kunjungan = ? AND id = ?', [$now, $request->norm,$request->kj,$request->id]);
+            $update = DB::connection('mysql2')->select('UPDATE ts_layanan_detail_gizi SET status = 2 , tgl_proses = ? WHERE no_rm = ? AND kode_kunjungan = ? AND id = ?', [$now, $request->norm, $request->kj, $request->id]);
         } catch (\Exception $e) {
             $back = [
                 'kode' => 200,
@@ -121,7 +214,7 @@ class GiziControlller extends Controller
         $now = Carbon::now()->format('Y-m-d H:i:s');
 
         try {
-            $update = DB::connection('mysql2')->select('UPDATE ts_layanan_detail_gizi SET status = 3 , tgl_antar = ? WHERE no_rm = ? AND kode_kunjungan = ? AND id = ?', [$now, $request->norm,$request->kj,$request->id]);
+            $update = DB::connection('mysql2')->select('UPDATE ts_layanan_detail_gizi SET status = 3 , tgl_antar = ? WHERE no_rm = ? AND kode_kunjungan = ? AND id = ?', [$now, $request->norm, $request->kj, $request->id]);
         } catch (\Exception $e) {
             $back = [
                 'kode' => 200,
@@ -143,7 +236,7 @@ class GiziControlller extends Controller
         $now = Carbon::now()->format('Y-m-d H:i:s');
 
         try {
-            $update = DB::connection('mysql2')->select('UPDATE ts_layanan_detail_gizi SET status = 4 , tgl_selesai = ? WHERE no_rm = ? AND kode_kunjungan = ? AND id = ?', [$now, $request->norm,$request->kj,$request->id]);
+            $update = DB::connection('mysql2')->select('UPDATE ts_layanan_detail_gizi SET status = 4 , tgl_selesai = ? WHERE no_rm = ? AND kode_kunjungan = ? AND id = ?', [$now, $request->norm, $request->kj, $request->id]);
         } catch (\Exception $e) {
             $back = [
                 'kode' => 200,

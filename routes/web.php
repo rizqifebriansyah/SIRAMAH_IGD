@@ -208,108 +208,6 @@ Route::group(['middleware' => ['hak_akses:4', 'auth']], function () {
     Route::post('returtinper', [PerawatController::class, 'returtinper'])->name('returtinper');
 });
 
-//petugas Bank darah
-Route::group(['middleware' => ['hak_akses:11', 'auth']], function () {
-
-    //tampil data
-    Route::get('/bankdarah', [BankdarahController::class, 'index'])->name('bankdarah');
-    Route::post('detailpasienbnd', [BankdarahController::class, 'terpilihpasienbnd'])->name('detailpasienbnd');
-    Route::post('/riwayatpasienbankdarah', [BankdarahController::class, 'riwayatpasienbankdarah'])->name('riwayatpasienbankdarah');
-    Route::post('/datapasienbankdarah', [BankdarahController::class, 'datapasienbankdarah'])->name('datapasienbankdarah');
-    Route::post('/ambildatabankdarah', [BankdarahController::class, 'ambildatabankdarah'])->name('ambildatabankdarah');
-    Route::post('/ambilstok', [BankdarahController::class, 'ambilstok'])->name('ambilstok');
-
-    Route::post('caridokterbnd', [BankdarahController::class, 'caridokterbnd'])->name('caridokterbnd');
-
-
-    //caripasien
-    Route::post('caripasienpendaftaranbnd', [BankdarahController::class, 'caripasienpendaftaranbnd'])->name('caripasienpendaftaranbnd');
-    Route::post('caritanggalbnd', [BankdarahController::class, 'caritanggalbnd'])->name('caritanggalbnd');
-
-    // print
-    Route::post('/printulangbnd', [BankdarahController::class, 'printulangbnd'])->name('printulangbnd');
-    Route::get('bndnotaorder/{kode_header}/{idhed}', [BankdarahController::class, 'bndnotaorder']);
-
-    //retur
-    Route::post('/returorderbnd', [BankdarahController::class, 'returorderbnd'])->name('returorderbnd');
-
-
-    // simpan
-    Route::post('/simpanstokdarah', [BankdarahController::class, 'simpanstokdarah'])->name('simpanstokdarah');
-
-    Route::post('/simpanorderbnd', [BankdarahController::class, 'simpanorderbnd'])->name('simpanorderbnd');
-});
-
-
-//petugas LAB
-Route::group(['middleware' => ['hak_akses:12', 'auth']], function () {
-
-    //tampil data
-    Route::get('/laboratorium', [LabController::class, 'index'])->name('laboratorium');
-    Route::post('/ambildatalab', [LabController::class, 'ambildatalab'])->name('ambildatalab');
-    Route::post('/datapasienradiologi', [LabController::class, 'datapasien'])->name('datapasienradiologi');
-    Route::post('pasiendetail', [LabController::class, 'pasienterpilih'])->name('pasiendetail');
-    Route::post('detailpasienlab', [LabController::class, 'terpilihpasienlab'])->name('detailpasienlab');
-    Route::post('tampilpaketlab', [LabController::class, 'tampilpaketlab'])->name('tampilpaketlab');
-    Route::post('pasienerm', [LabController::class, 'pasienerm'])->name('pasienerm');
-    Route::post('/riwayatlab', [LabController::class, 'riwayatlab'])->name('riwayatlab');
-    Route::post('/detailpaketlab', [LabController::class, 'detailpaketlab'])->name('detailpaketlab');
-
-    //cari pasien
-    Route::post('caripasienorder', [LabController::class, 'caripasienorder'])->name('caripasienorder');
-    Route::post('caritanggallab', [LabController::class, 'caritanggallab'])->name('caritanggallab');
-    Route::post('caripasienpendaftaranlab', [LabController::class, 'caripasienpendaftaranlab'])->name('caripasienpendaftaranlab');
-    Route::post('caridokterlab', [LabController::class, 'caridokter'])->name('caridokterlab');
-
-    //simpan data
-    Route::post('/simpanorderlab', [LabController::class, 'simpanorderlab'])->name('simpanorderlab');
-
-
-
-    //Retur data
-    Route::post('/batallaboratorium', [LabController::class, 'batallaboratorium'])->name('batallaboratorium');
-    Route::post('/returorderlabo', [LabController::class, 'returorderlabo'])->name('returorderlabo');
-
-
-    //print
-    Route::post('/printulanglabo', [LabController::class, 'printulanglabo'])->name('printulanglabo');
-    Route::get('labnotaorder/{kode_header}/{idhed}', [LabController::class, 'labnotaorder']);
-    Route::post('hitungtotal', [LabController::class, 'hitungtotal'])->name('hitungtotal');
-    //hitung
-    Route::post('/hitungkunjungan', [LabController::class, 'hitungkunjungan'])->name('hitungkunjungan');
-    Route::post('/hitungorder', [LabController::class, 'hitungorder'])->name('hitungorder');
-    Route::post('/hitungorderpoli', [LabController::class, 'hitungorderpoli'])->name('hitungorderpoli');
-});
-
-//petugas Forensik
-Route::group(['middleware' => ['hak_akses:13', 'auth']], function () {
-
-    //tampil data
-    Route::get('/forensik', [ForensikController::class, 'index'])->name('forensik');
-    Route::post('detailpasienkjn', [ForensikController::class, 'terpilihpasienkjn'])->name('detailpasienkjn');
-    Route::post('/riwayatpasienforensik', [ForensikController::class, 'riwayatpasienforensik'])->name('riwayatpasienforensik');
-    Route::post('/suratkematian', [ForensikController::class, 'suratkematian'])->name('suratkematian');
-
-    Route::post('/datapasienforensik', [ForensikController::class, 'datapasienforensik'])->name('datapasienforensik');
-    Route::post('/ambildataforensik', [ForensikController::class, 'ambildataforensik'])->name('ambildataforensik');
-
-    Route::post('cetaksuratmati', [ForensikController::class, 'cetaksuratmati'])->name('cetaksuratmati');
-
-    Route::get('cetaksuratmatii/{norm}', [ForensikController::class, 'cetaksuratmatii']);
-
-
-    //caripasien
-    Route::post('caripasienpendaftaranforensik', [ForensikController::class, 'caripasienpendaftaranforensik'])->name('caripasienpendaftaranforensik');
-    Route::post('caritanggalforensik', [ForensikController::class, 'caritanggalforensik'])->name('caritanggalforensik');
-
-
-    //retur
-    Route::post('/returorderforensik', [ForensikController::class, 'returorderforensik'])->name('returorderforensik');
-
-    Route::post('/simpanorderkjn', [ForensikController::class, 'simpanorderkjn'])->name('simpanorderkjn');
-    Route::post('/simpansuratkematian', [ForensikController::class, 'simpansuratkematian'])->name('simpansuratkematian');
-});
-
 
 //petugas radiologi
 Route::group(['middleware' => ['hak_akses:3', 'auth']], function () {
@@ -382,3 +280,51 @@ Route::group(['middleware' => ['hak_akses:16', 'auth']], function () {
     Route::get('/bukukas', [KeuanganController::class, 'bukukas'])->name('bukukas');
     Route::get('/rab', [KeuanganController::class, 'rab'])->name('rab');
 });
+
+
+//petugas GIZI
+Route::group(['middleware' => ['hak_akses:17', 'auth']], function () {
+
+    //tampil data
+    Route::get('/gizi', [GiziControlller::class, 'index'])->name('gizi');
+    Route::get('/gizibilling', [GiziControlller::class, 'gizibilling'])->name('gizibilling');
+    Route::get('/monitoringmakan', [GiziControlller::class, 'monitoringmakan'])->name('monitoringmakan');
+    Route::get('/riwayatordermakan', [GiziControlller::class, 'riwayatordermakan'])->name('riwayatordermakan');
+
+    
+
+
+    //cari pasien
+    Route::post('caripasienranap', [GiziControlller::class, 'caripasienranap'])->name('caripasienranap');
+    Route::post('cariordermakan', [GiziControlller::class, 'cariordermakan'])->name('cariordermakan');
+    Route::post('/detailordergizi', [GiziControlller::class, 'detailordergizi'])->name('detailordergizi');
+    Route::post('cariordergizi', [GiziControlller::class, 'cariordergizi'])->name('cariordergizi');
+
+    
+
+    //simpan data
+    Route::post('simpanorderruangan', [GiziControlller::class, 'simpanorderruangan'])->name('simpanorderruangan');
+    Route::post('simpanordergizi', [GiziControlller::class, 'simpanordergizi'])->name('simpanordergizi');
+    Route::post('prosesorder', [GiziControlller::class, 'prosesorder'])->name('prosesorder');
+    Route::post('antarorder', [GiziControlller::class, 'antarorder'])->name('antarorder');
+    Route::post('selesaiorder', [GiziControlller::class, 'selesaiorder'])->name('selesaiorder');
+
+
+
+
+
+
+
+
+    //Retur data
+
+
+
+    //print
+
+
+    //hitung
+
+});
+
+
