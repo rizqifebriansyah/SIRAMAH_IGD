@@ -343,6 +343,8 @@ class RadiologiController extends Controller
         $kelasunit = $request->kelasunit;
         $norm  = $request->norm;
         $kodekunjungan  = $request->kodekunjungan;
+        $alamat  = $request->alamat;
+
 
         $namaunit = $request->namaunit;
         $kelas = $request->kelas;
@@ -619,7 +621,7 @@ class RadiologiController extends Controller
                     'ADMITDATE' => $tglmasuk,
                     'EFFECTIVEDATE' => $tglmasuk,
 
-                    'RELEVANTCLINICALINFO' => $request->diagnosa,
+                    'RELEVANTCLINICALINFO' => $request->diagnosa.'||'.$alamat,
                     // 'PROCEDUREID' => $arr['kodelayanan'],
                     'PROCEDURE' => $arr['kodelayanan'],
                     'SPECIFIEDRADIOLOGISTID' => $request->dorad,
@@ -627,7 +629,7 @@ class RadiologiController extends Controller
                     'PROCEDURENAME' => $arr['namatindakan'],
                     'ASSIGNEDPATIENTLOCATION' => $arr['lokasi'],
                     'ENTERINGOGANIZATION' => $namaunit,
-                    'BODYPART' => 'NULL',
+                    // 'BODYPART' => NULL,
                     'MODALITY' => $arr['modality'],
                     'PHONENUMBER' => $pasien[0]->no_hp,
                     // 'id_layanan_detail' => $iddet,
@@ -1222,7 +1224,9 @@ class RadiologiController extends Controller
                 $connector = new WindowsPrintConnector("smb://192.168.2.182/EPSON TM-T82X Receipt");
             } else {
 
-                $connector = new WindowsPrintConnector("smb://192.168.2.131/printernota");
+                // $connector = new WindowsPrintConnector("smb://192.168.2.131/printernota");
+                $connector = new WindowsPrintConnector("smb://PRINTER:cushman@192.168.2.131/printernota");
+
             }
             $printer = new Printer($connector);
             function buatBaris4Kolom($kolom1, $kolom2, $kolom3, $kolom4)

@@ -585,6 +585,8 @@
         var data = $('.formtindakan').serializeArray();
         var barang = $('.form_barang').serializeArray();
         var kodekunjungan = $('#kodekunjungan').val()
+        var alamat = $('#alamat').val()
+
         var kodepenjamin = $('#kodepenjamin').val()
         var kodepenunjang = $('#namapenunjang').val()
         var dokter = $('#dokter').val()
@@ -622,6 +624,8 @@
                         barang: JSON.stringify(barang),
 
                         kodekunjungan: $('#kodekunjungan').val(),
+                        alamat: $('#alamat').val(),
+
                         kodepenunjang: $('#namapenunjang').val(),
                         dokter: $('#dokter').val(),
                         dorad: $('#dorad').val(),
