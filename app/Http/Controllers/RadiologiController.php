@@ -621,11 +621,11 @@ class RadiologiController extends Controller
                     'ADMITDATE' => $tglmasuk,
                     'EFFECTIVEDATE' => $tglmasuk,
 
-                    'RELEVANTCLINICALINFO' => $request->diagnosa.nl2br("
+                    'RELEVANTCLINICALINFO' => $request->diagnosa."
 
 
 
-|||",FALSE).$alamat,
+|||".$alamat,
                     // 'PROCEDUREID' => $arr['kodelayanan'],
                     'PROCEDURE' => $arr['kodelayanan'],
                     'SPECIFIEDRADIOLOGISTID' => $request->dorad,
