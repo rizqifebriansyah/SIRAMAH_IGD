@@ -406,8 +406,8 @@
                 <form action="" method="post" class="formtindakan">
                     <select class="form-control select2" name="dorad" id="dorad">
                         <option value=""> -- PILIH DOKTER --</option>
-                        <option value="dr. Nunik Royyani, Sp.Rad">dr. Nunik Royyani, Sp.Rad</option>
-                        <option value="dr. Muhammad Amar Latief, Sp.Rad">dr. Muhammad Amar Latief, Sp.Rad</option>
+                        <option value="DOK036">dr. Nunik Royyani, Sp.Rad</option>
+                        <option value="DOK369">dr. Muhammad Amar Latief, Sp.Rad</option>
 
                     </select>
                     <div class="input_fields_wrap mt-2">
@@ -660,9 +660,10 @@
                                 text: 'data berhasil disimpan',
                                 footer: ''
                             })
-                            success();
                             pdf(data.idhed, data.kode_header)
                             etiket(data.idhed, data.kode_header)
+                            success();
+
 
                         }
                     }
@@ -702,8 +703,6 @@
 
         myWindow = window.open('cetakorder/' + kode_header + '/' + idhed);
 
-        function closeWin() {
-            myWindow.close();
-        }
+
     }
 </script>

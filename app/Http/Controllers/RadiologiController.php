@@ -378,7 +378,7 @@ class RadiologiController extends Controller
                 $arrayindex[] = $dataSet;
             }
         }
-        // dd($dataSet);
+        // dd($arrayindex);
         $count = count($arrayindex);
         $sum = 0;
         foreach ($arrayindex as $arr) {
@@ -630,7 +630,7 @@ class RadiologiController extends Controller
                     'BODYPART' => 'NULL',
                     'MODALITY' => $arr['modality'],
                     'PHONENUMBER' => $pasien[0]->no_hp,
-                    'id_layanan_detail' => $iddet,
+                    // 'id_layanan_detail' => $iddet,
                     'STATUS' => 'NW'
 
 
@@ -671,7 +671,7 @@ class RadiologiController extends Controller
             ];
             $tb_pemakaian_radiologi = tb_pemakaian_radiologi::create($savedetailbarang);
         }
-        $receive_items = $this->cetakpdf($kode_header, $idhed);
+        // $receive_items = $this->cetakpdf($kode_header, $idhed);
         $back = [
             'kode' => 200,
             'idhed' => $idhed,
