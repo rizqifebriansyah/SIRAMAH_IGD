@@ -196,6 +196,8 @@
                 <form action="" method="post" class="formtindakan">
                     <select class="form-control select2" name="dorad" id="dorad">
                         <option value=""> -- PILIH DOKTER --</option>
+                        <option value="other">other</option>
+
                         <option value="DOK036">dr. Nunik Royyani, Sp.Rad</option>
                         <option value="DOK369">dr. Muhammad Amar Latief, Sp.Rad</option>
 
@@ -406,6 +408,8 @@
                 <form action="" method="post" class="formtindakan">
                     <select class="form-control select2" name="dorad" id="dorad">
                         <option value=""> -- PILIH DOKTER --</option>
+                        <option value="other">other</option>
+
                         <option value="DOK036">dr. Nunik Royyani, Sp.Rad</option>
                         <option value="DOK369">dr. Muhammad Amar Latief, Sp.Rad</option>
 
