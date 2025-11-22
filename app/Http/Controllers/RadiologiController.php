@@ -1225,7 +1225,9 @@ class RadiologiController extends Controller
 
             // $img = EscposImage::load("public/img/rsss.png");
             if ($user == '1141') {
-                $connector = new WindowsPrintConnector("smb://192.168.2.182/EPSON TM-T82X Receipt");
+                // $connector = new WindowsPrintConnector("smb://192.168.2.182/EPSON TM-T82X Receipt");
+                $connector = new WindowsPrintConnector("smb://PRINTER:cushman2@192.168.2.182/EPSON TM-T82X Receipt");
+           
             } else {
 
                 // $connector = new WindowsPrintConnector("smb://192.168.2.131/printernota");
