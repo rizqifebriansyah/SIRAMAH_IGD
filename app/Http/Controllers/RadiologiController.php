@@ -835,13 +835,16 @@ class RadiologiController extends Controller
             a.ENTERINGOGANIZATION,
             a.PROCEDURENAME,
             a.KODE_KUNJUNGAN,
-            a.RELEVANTCLINICALINFO
+            a.RELEVANTCLINICALINFO,
+            a.REFERRINGDOCTORNAME
 
             from order_table a
             where a.ACCESSIONNUMBER = ?', [$acc]);
         $updatestatus = DB::connection('mysql3')->select('UPDATE order_table SET STATUS = "FN" WHERE ACCESSIONNUMBER = ?', [$acc]);
         // dd($pemeriksaan);
         $kj = $pemeriksaan[0]->KODE_KUNJUNGAN;
+        $norm = $pemeriksaan[0]->PID;
+
         $path = public_path('\qrcoderad\qr' . $kj . time() . '.png');
         // dd($path);
         $d = QrCode::size(300)->format('png')->generate($ex->data->qrLink, $path);
@@ -850,17 +853,23 @@ class RadiologiController extends Controller
         // dd($qrCode);
         $pasien = DB::select('SELECT 
 
-            b.alamat,
-            a.no_rm,
+           fc_alamat(a.no_rm) AS alamat,
+           
             c.nama_penjamin,
+            a.no_rm,
             a.tgl_masuk,
             b.tgl_lahir,
-            fc_umur(b.no_rm) AS usia
+            fc_umur(b.no_rm) AS usia,
+            d.diag_00 as diagnosa
+
+
 
             FROM ts_kunjungan a
             LEFT OUTER JOIN	 mt_pasien b ON b.no_rm =a.no_rm
             LEFT OUTER JOIN  mt_penjamin c ON c.kode_penjamin = a.kode_penjamin
-            WHERE a.kode_kunjungan = ?', [$kj]);
+            LEFT OUTER JOIN di_pasien_diagnosa_frunit d ON d.kode_kunjungan = a.kode_kunjungan
+            WHERE a.kode_kunjungan LIKE ? AND a.no_rm = ?
+            ', [$kj, $norm]);
         // dd($pasien);
 
         $pdf = new FPDF('P', 'mm', 'A4');
@@ -959,7 +968,7 @@ class RadiologiController extends Controller
         $pdf::Cell(40, 10, ':');
         $pdf::SetFont('Times', '', 11);
         $pdf::SetXY(42, 57);
-        $pdf::Cell(42, 10, $ex->data->approver);
+        $pdf::Cell(42, 10, $pemeriksaan[0]->REFERRINGDOCTORNAME);
 
 
         $pdf::SetFont('Times', '', 10);
@@ -979,8 +988,8 @@ class RadiologiController extends Controller
         $pdf::SetXY(139, 63);
         $pdf::Cell(40, 10, ':');
         $pdf::SetFont('Times', '', 11);
-        $pdf::SetXY(141, 63);
-        $pdf::Cell(42, 10, $pemeriksaan[0]->RELEVANTCLINICALINFO);
+        $pdf::SetXY(142, 66);
+        $pdf::Cell(60, 5, $pasien[0]->diagnosa);
 
         $pdf::SetFont('Times', '', 11);
         $pdf::SetXY(10, 63);
@@ -991,7 +1000,7 @@ class RadiologiController extends Controller
         //$pdf::SetXY(42, 63);
         //$pdf::Cell(42, 10, $hasil['alamat'], 0, 1,'RIGHT');
         $pdf::SetXY(42, 67);
-        $pdf::MultiCell(120, 3, $pasien[0]->alamat, 0, 'L');
+        $pdf::MultiCell(80, 4, $pasien[0]->alamat, 0, 'L');
 
 
         $pdf::SetFont('Times', 'BU', 14);
@@ -1068,7 +1077,7 @@ class RadiologiController extends Controller
             $pdf::Image($path, 113, 220, 20, 20, 'PNG');
 
             $pdf::Image('public/img/ttd_369.png', 150, 211, 40, 25);
-            $pdf::SetXY(135, 232);
+            $pdf::SetXY(140, 232);
             $pdf::Cell(40, 10, $ex->data->approver);
 
 

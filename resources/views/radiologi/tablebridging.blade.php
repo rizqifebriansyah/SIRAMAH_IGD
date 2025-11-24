@@ -28,7 +28,8 @@
                 @elseif ($i->STATUS == 'AP')
                 <span class="badge badge-primary">READ</span>
                 @elseif ($i->STATUS == 'FN')
-                <span class="badge badge-primary">SUDAH DIAMBIL SIMRS</span>
+                <span class="badge badge-primary">SUDAH DICETAK</span>
+
                 @else
                 <span class="badge badge-success">On Schedule</span>
 
@@ -42,7 +43,7 @@
 
                     </a> |
                     @if ($i->PUBLICURL != NULL)
-                    <a href="{{$i->PUBLICURL}}" class=" btn btn-success btn-sm " target="_blank"> <i class="fas fa-eye" aria-hidden="true"></i></a>
+                    <a href="{{$i->URL}}" class=" btn btn-success btn-sm " target="_blank"> <i class="fas fa-eye" aria-hidden="true"></i></a>
                     @else
 
                     @endif |

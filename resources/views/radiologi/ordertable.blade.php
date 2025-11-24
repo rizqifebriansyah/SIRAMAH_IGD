@@ -1,100 +1,98 @@
-<div class="col-md-8">
-    <table id="datapasienorder" class="table  table-sm text-sm table-bordered table-hover">
-        <thead class="bg-success">
-            <th hidden>no</th>
-            <th>Kode Layanan Order</th>
-            <th hidden>Id</th>
-            <th hidden>Id</th>
-            <th hidden>Id</th>
-            <th hidden>Id</th>
-            <th hidden>Id</th>
-            <th hidden>Id</th>
-            <th hidden>Id</th>
-            <th hidden>Id</th>
-            <th hidden>Id</th>
-            <th hidden>Id</th>
-            <th hidden>Id</th>
+<table id="datapasienorder" class="table  table-sm text-sm table-bordered table-hover">
+    <thead class="bg-success">
+        <th hidden>no</th>
+        <th>Kode Layanan Order</th>
+        <th hidden>Id</th>
+        <th hidden>Id</th>
+        <th hidden>Id</th>
+        <th hidden>Id</th>
+        <th hidden>Id</th>
+        <th hidden>Id</th>
+        <th hidden>Id</th>
+        <th hidden>Id</th>
+        <th hidden>Id</th>
+        <th hidden>Id</th>
+        <th hidden>Id</th>
 
-            <th>Tanggal Masuk</th>
-            <th>Nomor RM</th>
-            <th>Nama</th>
-            <th>Nama Layanan</th>
+        <th>Tanggal Masuk</th>
+        <th>Nomor RM</th>
+        <th>Nama</th>
+        <th>Nama Layanan</th>
 
-            <th>Total</th>
-            <th>Acc Number</th>
-            <th>Dokter Hasil</th>
-            <th>action</th>
-        </thead>
-        <tbody>
-            @foreach ($pasienorder as $i=>$key)
-            <tr index="{{$i}}" idhed=" {{$key->IDHED}}" kode_header="{{$key->KODE_LAYANAN_HEADER}}" class="pasienterpilih toastsDefaultSuccess" no_rm="{{ $key->NO_RM }}" nama="{{ $key->NAMA_PX }}" kodepenjamin="{{ $key -> KODE_PENJAMIN }}" tgl_order="{{ $key-> tgl_INPUT }}" kodekunjungan="{{ $key->KJ}}" counter="{{$key->COUNTER}}" namatarif="{{$key->NAMA_TARIF}}" qty="{{$key->QTY}}" gt="{{$key->grantotal_layanan}}" statuspembayaran="{{$key->status_pembayaran}}" alamat="{{$key->ALAMAT}}" iddet="{{$key->IDDET}}" accnumber="{{$key->ACC_NUMBER}}" idlayanandetail="{{$key->id_layanan_detail}}">
-                <td class="kodeheader"> {{ $key->KODE_LAYANAN_HEADER}}</td>
-                <td hidden class="idhed">{{$key->IDHED}}</td>
-                <td hidden class="kodepenjamin">{{ $key->KODE_PENJAMIN }}</td>
-                <td hidden class="kodekunjungan">{{ $key->KJ}}</td>
-                <td hidden class="counter">{{ $key->COUNTER}}</td>
-                <td hidden class="qty">{{ $key->QTY}}</td>
-                <td hidden class="statuspembayaran">{{ $key->status_pembayaran}}</td>
-                <td hidden class="alamat">{{ $key->ALAMAT}}</td>
-                <td hidden class="iddet">{{ $key->IDDET}}</td>
-                <td hidden class="accnumber">{{ $key->ACC_NUMBER}}</td>
-                <td hidden class="totallayanan">{{ $key->total_layanan}}</td>
+        <th>Total</th>
+        <th>Acc Number</th>
+        <th>Dokter Hasil</th>
+        <th>action</th>
+    </thead>
+    <tbody>
+        @foreach ($pasienorder as $i=>$key)
+        <tr index="{{$i}}" idhed=" {{$key->IDHED}}" kode_header="{{$key->KODE_LAYANAN_HEADER}}" class="pasienterpilih toastsDefaultSuccess" no_rm="{{ $key->NO_RM }}" nama="{{ $key->NAMA_PX }}" kodepenjamin="{{ $key -> KODE_PENJAMIN }}" tgl_order="{{ $key-> tgl_INPUT }}" kodekunjungan="{{ $key->KJ}}" counter="{{$key->COUNTER}}" namatarif="{{$key->NAMA_TARIF}}" qty="{{$key->QTY}}" gt="{{$key->grantotal_layanan}}" statuspembayaran="{{$key->status_pembayaran}}" alamat="{{$key->ALAMAT}}" iddet="{{$key->IDDET}}" accnumber="{{$key->ACC_NUMBER}}" idlayanandetail="{{$key->id_layanan_detail}}">
+            <td class="kodeheader"> {{ $key->KODE_LAYANAN_HEADER}}</td>
+            <td hidden class="idhed">{{$key->IDHED}}</td>
+            <td hidden class="kodepenjamin">{{ $key->KODE_PENJAMIN }}</td>
+            <td hidden class="kodekunjungan">{{ $key->KJ}}</td>
+            <td hidden class="counter">{{ $key->COUNTER}}</td>
+            <td hidden class="qty">{{ $key->QTY}}</td>
+            <td hidden class="statuspembayaran">{{ $key->status_pembayaran}}</td>
+            <td hidden class="alamat">{{ $key->ALAMAT}}</td>
+            <td hidden class="iddet">{{ $key->IDDET}}</td>
+            <td hidden class="accnumber">{{ $key->ACC_NUMBER}}</td>
+            <td hidden class="totallayanan">{{ $key->total_layanan}}</td>
 
-                <td hidden class="idlayanandetail">{{ $key->id_layanan_detail}}</td>
-                <td hidden>{{ $i}}</td>
-                <td class="tgl_input">{{ $key-> tgl_INPUT }}</td>
-                <td class="norm">{{ $key-> NO_RM }}</td>
-                <td class="namapx"> {{ $key->NAMA_PX}} </td>
-                <td class="namatarif"> {{ $key->NAMA_TARIF}} </td>
-                <td class="gt"> {{ $key->grantotal_layanan}} </td>
-                <td class="acc"> {{ $key->ACC_NUMBER}} </td>
-                <td class="dokhasil"> {{ $key->DOKTER_HASIL}} </td>
-                <td class="center">
+            <td hidden class="idlayanandetail">{{ $key->id_layanan_detail}}</td>
+            <td hidden>{{ $i}}</td>
+            <td class="tgl_input">{{ $key-> tgl_INPUT }}</td>
+            <td class="norm">{{ $key-> NO_RM }}</td>
+            <td class="namapx"> {{ $key->NAMA_PX}} </td>
+            <td class="namatarif"> {{ $key->NAMA_TARIF}} </td>
+            <td class="gt"> {{ $key->grantotal_layanan}} </td>
+            <td class="acc"> {{ $key->ACC_NUMBER}} </td>
+            <td class="dokhasil"> {{ $key->DOKTER_HASIL}} </td>
+            <td class="center">
 
-                    <div class="row">
-                        <div class="col-md-2">
+                <div class="row">
+                    <div class="col-md-2">
 
 
-                            <a class=" btn btn-secondary btn-sm returorderrad" href="#">
-                                <i class="" aria-hidden="true">R</i>
+                        <a class=" btn btn-secondary btn-sm returorderrad" href="#">
+                            <i class="" aria-hidden="true">R</i>
 
-                            </a> <br>
-                        </div>
-                        <div class="col-md-2">
-                            <a class=" btn btn-danger btn-sm printlabelrad" href="#">
-                                <i class="" aria-hidden="true">L</i>
-
-                            </a>
-                        </div>
-                        <div class="col-md-2">
-                            <a class=" btn btn-warning btn-sm printnotarad" href="#">
-                                <i class="" aria-hidden="true">N</i>
-
-                            </a>
-                        </div>
-                        <div class="col-md-2">
-                            <a class=" btn btn-success btn-sm printorderrad" href="#">
-                                <i class="" aria-hidden="true">A</i>
-                            </a>
-                        </div>
-                        <div class="col-md-2">
-                            <a class="detailbarang btn btn-info btn-sm" href="#">
-                                <i class="fas fa-eye"></i>
-
-                            </a>
-                        </div>
-
+                        </a> <br>
                     </div>
-                </td>
+                    <div class="col-md-2">
+                        <a class=" btn btn-danger btn-sm printlabelrad" href="#">
+                            <i class="" aria-hidden="true">L</i>
 
-            </tr>
+                        </a>
+                    </div>
+                    <div class="col-md-2">
+                        <a class=" btn btn-warning btn-sm printnotarad" href="#">
+                            <i class="" aria-hidden="true">N</i>
 
-            @endforeach
+                        </a>
+                    </div>
+                    <div class="col-md-2">
+                        <a class=" btn btn-success btn-sm printorderrad" href="#">
+                            <i class="" aria-hidden="true">A</i>
+                        </a>
+                    </div>
+                    <div class="col-md-2">
+                        <a class="detailbarang btn btn-info btn-sm" href="#">
+                            <i class="fas fa-eye"></i>
 
-        </tbody>
-    </table>
+                        </a>
+                    </div>
 
-</div>
+                </div>
+            </td>
+
+        </tr>
+
+        @endforeach
+
+    </tbody>
+</table>
+
 <div class="col-md-3 mt-3">
     <div class="detailpasienorder">
 
