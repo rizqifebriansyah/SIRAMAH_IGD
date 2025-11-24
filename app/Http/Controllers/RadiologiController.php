@@ -176,6 +176,30 @@ class RadiologiController extends Controller
 
         ]);
     }
+    public function expertisi_view()
+    {
+        // $unit = auth()->user()->unit;
+        // $user = auth()->user()->username;
+        $now = Carbon::now()->format('Y-m-d');
+        $tgl_masuk_x = date('Y-m-d', strtotime('-2 days', strtotime($now)));
+
+        $pasienbridging = DB::connection('mysql3')->select('SELECT * FROM order_table a
+        WHERE DATE(a.ADMITDATE) = ?', [$now]);
+
+        $menu = 'expertisi_view';
+
+        return view('radiologi.expertisi_view', [
+            'title' => 'SIRAMAH | RADIOLOGI',
+
+            'pasienbridging' => $pasienbridging,
+            'menu' => $menu,
+
+            // 'user' => $user
+
+
+
+        ]);
+    }
     public function riwayatbridging()
     {
         $unit = auth()->user()->unit;
@@ -310,13 +334,29 @@ class RadiologiController extends Controller
             'unit' => $unit,
         ]);
     }
+
+    public function carigambarbridging(Request $request)
+    {
+        // $unit = auth()->user()->unit;
+        $tglbridging = Carbon::parse($request->tanggal_bridging)->format('Ymd');
+        $tglbridging1 = Carbon::parse($request->tanggal_bridging1)->format('Ymd');
+
+        $pasienbridging = DB::connection('mysql3')->select('SELECT * from order_table a WHERE DATE(a.ADMITDATE) BETWEEN ? AND ?', [$tglbridging, $tglbridging1]);
+        // dd($pasienbridging);
+        return view('radiologi.tablebridgingex', [
+            'title' => 'SIRAMAH | RADIOLOGI',
+
+            'pasienbridging' => $pasienbridging,
+
+        ]);
+    }
     public function caririwayatbridging(Request $request)
     {
         $unit = auth()->user()->unit;
         $tglbridging = Carbon::parse($request->tanggal_bridging)->format('Ymd');
         $tglbridging1 = Carbon::parse($request->tanggal_bridging1)->format('Ymd');
 
-        $pasienbridging = DB::connection('mysql3')->select('SELECT * from order_table a WHERE DATE(a.ADMITDATE) BETWEEN ? AND ?', [$tglbridging,$tglbridging1]);
+        $pasienbridging = DB::connection('mysql3')->select('SELECT * from order_table a WHERE DATE(a.ADMITDATE) BETWEEN ? AND ?', [$tglbridging, $tglbridging1]);
         // dd($pasienbridging);
         return view('radiologi.tablebridging', [
             'title' => 'SIRAMAH | RADIOLOGI',
@@ -1033,27 +1073,27 @@ class RadiologiController extends Controller
             $pdf::SetX(10);
             $pdf::MultiCell(190, 5, $ex->data->finding, 0, 'L');
         }
-         if ($ex->data->conclusion == NULL) {
+        if ($ex->data->conclusion == NULL) {
         } else {
-        $pdf::Ln();
-        $pdf::SetFont('Times', 'B', 12);
+            $pdf::Ln();
+            $pdf::SetFont('Times', 'B', 12);
 
-        $pdf::MultiCell(190, 3, 'Kesan :', 0, 'L');
-        $pdf::Ln();
-        $pdf::SetFont('Times', '', 12);
+            $pdf::MultiCell(190, 3, 'Kesan :', 0, 'L');
+            $pdf::Ln();
+            $pdf::SetFont('Times', '', 12);
 
-        $pdf::MultiCell(190, 5, $ex->data->conclusion, 0, 'L');
+            $pdf::MultiCell(190, 5, $ex->data->conclusion, 0, 'L');
         }
         if ($ex->data->recommendation == NULL) {
         } else {
-        $pdf::Ln();
-        $pdf::SetFont('Times', 'B', 12);
+            $pdf::Ln();
+            $pdf::SetFont('Times', 'B', 12);
 
-        $pdf::MultiCell(190, 3, 'Tindak Lanjut :', 0, 'L');
-        $pdf::Ln();
-        $pdf::SetFont('Times', '', 12);
+            $pdf::MultiCell(190, 3, 'Tindak Lanjut :', 0, 'L');
+            $pdf::Ln();
+            $pdf::SetFont('Times', '', 12);
 
-        $pdf::MultiCell(190, 5, $ex->data->recommendation, 0, 'L');
+            $pdf::MultiCell(190, 5, $ex->data->recommendation, 0, 'L');
         }
         // Akhir kotak Hasil pemeriksaan
 

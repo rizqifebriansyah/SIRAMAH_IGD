@@ -209,6 +209,12 @@ Route::group(['middleware' => ['hak_akses:4', 'auth']], function () {
 });
 
 
+//expertisi view 
+Route::get('/expertisi_view', [RadiologiController::class, 'expertisi_view'])->name('expertisi_view');
+Route::get('cetakexp/{acc}', [RadiologiController::class, 'cetakexpertise1']);
+Route::post('cetakexpertise', [RadiologiController::class, 'cetakexpertise'])->name('cetakexpertise');
+Route::post('carigambarbridging', [RadiologiController::class, 'carigambarbridging'])->name('carigambarbridging');
+
 //petugas radiologi
 Route::group(['middleware' => ['hak_akses:3', 'auth']], function () {
 
@@ -246,8 +252,8 @@ Route::group(['middleware' => ['hak_akses:3', 'auth']], function () {
     Route::post('/printlabelrad', [RadiologiController::class, 'printlabelrad'])->name('printlabelrad');
     Route::get('etiket/{kode_header}/{idhed}', [RadiologiController::class, 'etiket']);
     Route::get('cetakorder/{kode_header}/{idhed}', [RadiologiController::class, 'cetakpdf']);
-    Route::get('cetakexp/{acc}', [RadiologiController::class, 'cetakexpertise1']);
-    Route::post('cetakexpertise', [RadiologiController::class, 'cetakexpertise'])->name('cetakexpertise');
+    // Route::get('cetakexp/{acc}', [RadiologiController::class, 'cetakexpertise1']);
+    // Route::post('cetakexpertise', [RadiologiController::class, 'cetakexpertise'])->name('cetakexpertise');
 });
 
 //petugas reporting
@@ -291,7 +297,7 @@ Route::group(['middleware' => ['hak_akses:17', 'auth']], function () {
     Route::get('/monitoringmakan', [GiziControlller::class, 'monitoringmakan'])->name('monitoringmakan');
     Route::get('/riwayatordermakan', [GiziControlller::class, 'riwayatordermakan'])->name('riwayatordermakan');
 
-    
+
 
 
     //cari pasien
@@ -300,7 +306,7 @@ Route::group(['middleware' => ['hak_akses:17', 'auth']], function () {
     Route::post('/detailordergizi', [GiziControlller::class, 'detailordergizi'])->name('detailordergizi');
     Route::post('cariordergizi', [GiziControlller::class, 'cariordergizi'])->name('cariordergizi');
 
-    
+
 
     //simpan data
     Route::post('simpanorderruangan', [GiziControlller::class, 'simpanorderruangan'])->name('simpanorderruangan');
@@ -326,5 +332,3 @@ Route::group(['middleware' => ['hak_akses:17', 'auth']], function () {
     //hitung
 
 });
-
-

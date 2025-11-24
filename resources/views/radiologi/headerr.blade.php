@@ -444,8 +444,8 @@
         </div>
     </div>
     <div class="wrapper">
-        @include('radiologi.navbar')
-        @include('radiologi.sidebar')
+        @include('radiologi.navbarr')
+        @include('radiologi.sidebarr')
         <div class="content-wrapper">
             @yield('container')
         </div>
