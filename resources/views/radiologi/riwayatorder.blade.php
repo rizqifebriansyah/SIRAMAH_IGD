@@ -254,7 +254,6 @@
                             text: data.message,
                             footer: ''
                         })
-                        ambildata()
                     }
                 });
             }
