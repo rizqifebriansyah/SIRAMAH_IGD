@@ -24,9 +24,9 @@
         </div>
 
     </div>
-    <div class="row">
+    <div class="row" >
 
-        <div class="col-md-8 mt-3">
+        <div class="col-md-8 mt-3 ordertable">
             <table id="datapasienorder" class="table  table-sm text-sm table-bordered table-hover">
                 <thead class="bg-success">
                     <th hidden>no</th>
@@ -81,15 +81,13 @@
 
                             <div class="row">
                                 <div class="col-md-2">
-                                    @if ($key->DOKTER_HASIL >0)
 
 
-                                    @else
                                     <a class=" btn btn-secondary btn-sm returorderrad" href="#">
                                         <i class="" aria-hidden="true">R</i>
 
                                     </a> <br>
-                                    @endif
+                                 
                                 </div>
                                 <div class="col-md-2">
                                     <a class=" btn btn-danger btn-sm printlabelrad" href="#">

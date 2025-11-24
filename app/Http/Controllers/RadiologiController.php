@@ -29,6 +29,7 @@ use Carbon\Carbon;
 use simitsdk\phpjasperxml\PHPJasperXML;
 use Illuminate\Support\Facades\Http;
 use mysqli;
+use Termwind\Components\Dd;
 
 class RadiologiController extends Controller
 {
@@ -301,7 +302,7 @@ class RadiologiController extends Controller
         $unit = auth()->user()->unit;
 
         $pasienorder = DB::select("CALL SP_RIWAYAT_LAYANAN_RADIOLOGI('$unit','$request->tgl_entry','$request->tgl_entry1','$request->no_rm')");
-
+        // dd($pasienorder);
 
         return view('radiologi.ordertable', [
             'title' => 'SIRAMAH | RADIOLOGI',
@@ -591,7 +592,7 @@ class RadiologiController extends Controller
         }
         // $update = DB::select('UPDATE ts_layanan_header_order SET status_order = 2
         // WHERE kode_kunjungan = ? AND no_rm = ?', [$request->kode_kunjungan, $norm]);
-        $iddet = DB::select('SELECT a.id FROM ts_layanan_detail a WHERE a.id_layanan_detail = ?',[$id_detail]);
+        $iddet = DB::select('SELECT a.id FROM ts_layanan_detail a WHERE a.id_layanan_detail = ?', [$id_detail]);
         try {
 
             foreach ($arrayindex as $arr) {
@@ -621,11 +622,11 @@ class RadiologiController extends Controller
                     'ADMITDATE' => $tglmasuk,
                     'EFFECTIVEDATE' => $tglmasuk,
 
-                    'RELEVANTCLINICALINFO' => $request->diagnosa."
+                    'RELEVANTCLINICALINFO' => $request->diagnosa . "
 
 
 
-|||".$alamat,
+|||" . $alamat,
                     // 'PROCEDUREID' => $arr['kodelayanan'],
                     'PROCEDURE' => $arr['kodelayanan'],
                     'SPECIFIEDRADIOLOGISTID' => $request->dorad,
@@ -1227,12 +1228,10 @@ class RadiologiController extends Controller
             if ($user == '1141') {
                 // $connector = new WindowsPrintConnector("smb://192.168.2.182/EPSON TM-T82X Receipt");
                 $connector = new WindowsPrintConnector("smb://PRINTER:cushman2@192.168.2.182/EPSON TM-T82X Receipt");
-           
             } else {
 
                 // $connector = new WindowsPrintConnector("smb://192.168.2.131/printernota");
                 $connector = new WindowsPrintConnector("smb://PRINTER:cushman@192.168.2.131/printernota");
-
             }
             $printer = new Printer($connector);
             function buatBaris4Kolom($kolom1, $kolom2, $kolom3, $kolom4)
