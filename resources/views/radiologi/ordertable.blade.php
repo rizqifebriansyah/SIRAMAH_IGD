@@ -53,15 +53,12 @@
 
                     <div class="row">
                         <div class="col-md-2">
-                            @if ($key->DOKTER_HASIL >0)
 
 
-                            @else
                             <a class=" btn btn-secondary btn-sm returorderrad" href="#">
                                 <i class="" aria-hidden="true">R</i>
 
                             </a> <br>
-                            @endif
                         </div>
                         <div class="col-md-2">
                             <a class=" btn btn-danger btn-sm printlabelrad" href="#">
