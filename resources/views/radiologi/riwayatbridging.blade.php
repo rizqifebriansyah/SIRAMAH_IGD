@@ -13,9 +13,9 @@
         <div class="col-sm-3 ">
             <input type="date" class="form-control " autocomplete="off" data-language="en" data-date-format="yyyy-mm-dd" placeholder="Tanggal" name="tanggal_bridging" id="tanggal_bridging">
         </div>
-        <!-- <div class="col-sm-3 ">
+        <div class="col-sm-3 ">
             <input type="date" class="form-control " autocomplete="off" data-language="en" data-date-format="yyyy-mm-dd" placeholder="Tanggal" name="tanggal_bridging1" id="tanggal_bridging1">
-        </div> -->
+        </div>
         <div>
             <button type="submit" class="btn btn-primary" onclick="caririwayatbridging()"> <i class="bi bi-search-heart"></i>
             </button>
@@ -106,7 +106,7 @@
     spinner = $('#loader2');
     spinner.hide();
     document.getElementById('tanggal_bridging').valueAsDate = new Date()
-    // document.getElementById('tanggal_bridging1').valueAsDate = new Date()
+    document.getElementById('tanggal_bridging1').valueAsDate = new Date()
 
     $(function() {
         $("#databridging").DataTable({
@@ -152,6 +152,8 @@
         spinner = $('#loader2');
         spinner.show();
         tanggal_bridging = $('#tanggal_bridging').val()
+        tanggal_bridging1 = $('#tanggal_bridging1').val()
+
 
 
         $.ajax({
@@ -159,6 +161,7 @@
             data: {
                 _token: " {{ csrf_token() }}",
                 tanggal_bridging,
+                tanggal_bridging1
 
 
             },

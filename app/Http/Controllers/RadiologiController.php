@@ -314,8 +314,9 @@ class RadiologiController extends Controller
     {
         $unit = auth()->user()->unit;
         $tglbridging = Carbon::parse($request->tanggal_bridging)->format('Ymd');
-        $pasienbridging = DB::connection('mysql3')->select('SELECT * from order_table a WHERE DATE(a.ADMITDATE) = ?', [$tglbridging]);
+        $tglbridging1 = Carbon::parse($request->tanggal_bridging1)->format('Ymd');
 
+        $pasienbridging = DB::connection('mysql3')->select('SELECT * from order_table a WHERE DATE(a.ADMITDATE) BETWEEN ? AND ?', [$tglbridging,$tglbridging1]);
         // dd($pasienbridging);
         return view('radiologi.tablebridging', [
             'title' => 'SIRAMAH | RADIOLOGI',
