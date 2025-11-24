@@ -989,7 +989,7 @@ class RadiologiController extends Controller
         $pdf::Cell(40, 10, ':');
         $pdf::SetFont('Times', '', 11);
         $pdf::SetXY(142, 66);
-        $pdf::Cell(60, 5, $pasien[0]->diagnosa);
+        $pdf::Cell(40, 5, $pasien[0]->diagnosa);
 
         $pdf::SetFont('Times', '', 11);
         $pdf::SetXY(10, 63);
@@ -1023,12 +1023,17 @@ class RadiologiController extends Controller
         // $pdf::SetXY(20, 150);
         // $pdf::Cell(40, 10, 'HASIL INI TIDAK UNTUK DI CETAK');
         //$pdf::RotatedText(35,190,'HASIL INI TIDAK UNTUK DI CETAK',45);
-        $pdf::Ln();
-        $pdf::SetTextColor(0, 0, 0);
-        $pdf::SetFont('Times', '', 12);
-        // $hasilex = $hasil[0]->hasil_exp;
-        $pdf::SetX(10);
-        $pdf::MultiCell(190, 5, $ex->data->finding, 0, 'L');
+        if ($ex->data->finding == NULL) {
+        } else {
+            $pdf::Ln();
+            $pdf::SetTextColor(0, 0, 0);
+            $pdf::SetFont('Times', '', 12);
+            // $hasilex = $hasil[0]->hasil_exp;
+            $pdf::SetX(10);
+            $pdf::MultiCell(190, 5, $ex->data->finding, 0, 'L');
+        }
+         if ($ex->data->conclusion == NULL) {
+        } else {
         $pdf::Ln();
         $pdf::SetFont('Times', 'B', 12);
 
@@ -1037,6 +1042,9 @@ class RadiologiController extends Controller
         $pdf::SetFont('Times', '', 12);
 
         $pdf::MultiCell(190, 5, $ex->data->conclusion, 0, 'L');
+        }
+        if ($ex->data->recommendation == NULL) {
+        } else {
         $pdf::Ln();
         $pdf::SetFont('Times', 'B', 12);
 
@@ -1045,6 +1053,7 @@ class RadiologiController extends Controller
         $pdf::SetFont('Times', '', 12);
 
         $pdf::MultiCell(190, 5, $ex->data->recommendation, 0, 'L');
+        }
         // Akhir kotak Hasil pemeriksaan
 
         $pdf::SetFont('Times', '', 12);
