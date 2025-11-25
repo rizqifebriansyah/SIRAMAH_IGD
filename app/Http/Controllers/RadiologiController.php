@@ -176,6 +176,30 @@ class RadiologiController extends Controller
 
         ]);
     }
+    public function expertisi_view1()
+    {
+        // $unit = auth()->user()->unit;
+        // $user = auth()->user()->username;
+        $now = Carbon::now()->format('Y-m-d');
+        $tgl_masuk_x = date('Y-m-d', strtotime('-2 days', strtotime($now)));
+
+        $pasienbridging = DB::connection('mysql3')->select('SELECT * FROM order_table a
+        WHERE DATE(a.ADMITDATE) = ?', [$now]);
+
+        $menu = 'expertisi_view1';
+
+        return view('radiologi.expertisi_view1', [
+            'title' => 'SIRAMAH | RADIOLOGI',
+
+            'pasienbridging' => $pasienbridging,
+            'menu' => $menu,
+
+            // 'user' => $user
+
+
+
+        ]);
+    }
     public function expertisi_view()
     {
         // $unit = auth()->user()->unit;
@@ -334,7 +358,21 @@ class RadiologiController extends Controller
             'unit' => $unit,
         ]);
     }
+    public function carigambarbridgingg(Request $request)
+    {
+        // $unit = auth()->user()->unit;
+        $tglbridging = Carbon::parse($request->tanggal_bridging)->format('Ymd');
+        $tglbridging1 = Carbon::parse($request->tanggal_bridging1)->format('Ymd');
 
+        $pasienbridging = DB::connection('mysql3')->select('SELECT * from order_table a WHERE DATE(a.ADMITDATE) BETWEEN ? AND ?', [$tglbridging, $tglbridging1]);
+        // dd($pasienbridging);
+        return view('radiologi.tablebridgingexx', [
+            'title' => 'SIRAMAH | RADIOLOGI',
+
+            'pasienbridging' => $pasienbridging,
+
+        ]);
+    }
     public function carigambarbridging(Request $request)
     {
         // $unit = auth()->user()->unit;
@@ -843,6 +881,338 @@ class RadiologiController extends Controller
         echo json_encode($back);
         die;
     }
+    public function cetakexpertisee(Request $request)
+    {
+
+        $acc = $request->acc;
+
+
+        // $receive_items = $this->cetakpdf($kode_header, $idhed);
+        $back = [
+            'kode' => 200,
+            'acc' => $acc
+        ];
+        echo json_encode($back);
+        die;
+    }
+    public function cetakexpertise2($acc)
+    {
+
+        $now = Carbon::now();
+        $url = "https://ris-api.radsaas.co.id/report/opinions?accessionNumber=$acc";
+        // dd($url);
+
+        $headers = [
+            "Authorization: 11njwBQnAqn6yZi2unnW76KzoH7fVehFVYwf12iPOHs46RQKS",
+            "HospitalCode: 68e5d273bf77b221da14a00e"
+
+        ];
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+        $response = curl_exec($ch);
+        curl_close($ch);
+        // echo $response;
+        $ex = json_decode($response);
+        // $data = json_decode($_POST[$response], true);
+        // dd($ex);
+        $pemeriksaan = DB::connection('mysql3')->select('SELECT 
+            a.ID,
+            a.PID,
+            a.NAME,
+            a.ADMITDATE,
+            a.BIRTHDATE,
+            a.PROCEDURENAME,
+            a.ENTERINGOGANIZATION,
+            a.PROCEDURENAME,
+            a.KODE_KUNJUNGAN,
+            a.RELEVANTCLINICALINFO,
+            a.REFERRINGDOCTORNAME
+
+            from order_table a
+            where a.ACCESSIONNUMBER = ?', [$acc]);
+        // $updatestatus = DB::connection('mysql3')->select('UPDATE order_table SET STATUS = "FN" WHERE ACCESSIONNUMBER = ?', [$acc]);
+        // dd($pemeriksaan);
+        $kj = $pemeriksaan[0]->KODE_KUNJUNGAN;
+        $norm = $pemeriksaan[0]->PID;
+
+        $path = public_path('\qrcoderad\qr' . $kj . time() . '.png');
+        // dd($path);
+        // $d = QrCode::size(300)->format('png')->generate($ex->data->qrLink, $path);
+        // $qr = QrCode::PNG($qrCode);
+
+        // dd($qrCode);
+        $pasien = DB::select('SELECT 
+
+           fc_alamat(a.no_rm) AS alamat,
+           
+            c.nama_penjamin,
+            a.no_rm,
+            a.tgl_masuk,
+            b.tgl_lahir,
+            fc_umur(b.no_rm) AS usia,
+            d.diag_00 as diagnosa
+
+
+
+            FROM ts_kunjungan a
+            LEFT OUTER JOIN	 mt_pasien b ON b.no_rm =a.no_rm
+            LEFT OUTER JOIN  mt_penjamin c ON c.kode_penjamin = a.kode_penjamin
+            LEFT OUTER JOIN di_pasien_diagnosa_frunit d ON d.kode_kunjungan = a.kode_kunjungan
+            WHERE a.kode_kunjungan LIKE ? AND a.no_rm = ?
+            ', [$kj, $norm]);
+        // dd($pasien);
+
+        $pdf = new FPDF('P', 'mm', 'A4');
+        $pdf::AddPage('P', 'letter');
+        //Awal Header kertas
+        $pdf::Image('public/img/kab_cirebonn.png', 10, 4, 20, 20);
+        $pdf::Image('public/img/rsss.png', 180, 4, 20, 20);
+
+        $pdf::SetFont('Times', 'B', 12);
+        // $pdf::cell(10, 10,$qrCode );
+
+        $pdf::SetXY(65, 5);
+        $pdf::Cell(40, 10, 'PEMERINTAH KABUPATEN CIREBON');
+        $pdf::SetFont('Times', 'B', 16);
+        $pdf::SetXY(50, 10);
+        $pdf::Cell(40, 10, 'RUMAH SAKIT UMUM DAERAH WALED');
+        $pdf::SetFont('Times', '', 10);
+        $pdf::SetXY(49.5, 15);
+        $pdf::Cell(40, 10, 'Jl. Prabu Kiansantang No. 4 Telp. 0231 - 661126 Fax. 0231 - 664091 Cirebon');
+        $pdf::SetLineWidth(1);
+        $pdf::Line(10, 25, 200, 25);
+        $pdf::SetLineWidth(0.25);
+        $pdf::Line(10, 27, 200, 27);
+        $pdf::SetFont('Times', 'BU', 18);
+        $pdf::SetXY(67, 30);
+        $pdf::Cell(40, 10, 'INSTALASI RADIOLOGI');
+
+        //Awal kotak data pasien
+        $pdf::Rect(8, 40, 198, 50);
+
+        $pdf::SetFont('Times', '', 11);
+        $pdf::SetXY(10, 39);
+        $pdf::Cell(40, 10, 'Nomor Rad');
+        $pdf::SetXY(40, 39);
+        $pdf::Cell(40, 10, ':');
+        $pdf::SetFont('Times', '', 11);
+        $pdf::SetXY(42, 39);
+        $pdf::Cell(42, 10, $pemeriksaan[0]->ID);
+
+        $pdf::SetFont('Times', '', 10);
+        $pdf::SetXY(120, 39);
+        $pdf::Cell(40, 10, 'Tgl. REG');
+        $pdf::SetXY(139, 39);
+        $pdf::Cell(45, 10, ':');
+        $pdf::SetFont('Times', '', 10);
+        $pdf::SetXY(141, 39);
+        $pdf::MultiCell(70, 10, $pasien[0]->tgl_masuk . 'WIB');
+
+        $pdf::SetFont('Times', '', 11);
+        $pdf::SetXY(10, 45);
+        $pdf::Cell(40, 10, 'Ruangan');
+        $pdf::SetXY(40, 45);
+        $pdf::Cell(40, 10, ':');
+        $pdf::SetFont('Times', '', 11);
+        $pdf::SetXY(42, 45);
+        $pdf::Cell(42, 10, $pemeriksaan[0]->ENTERINGOGANIZATION);
+
+        $pdf::SetFont('Times', '', 10);
+        $pdf::SetXY(120, 45);
+        $pdf::Cell(40, 10, 'Nama Pasien');
+        $pdf::SetXY(139, 45);
+        $pdf::Cell(40, 10, ':');
+        $pdf::SetFont('Times', 'B', 10);
+        $pdf::SetXY(141, 45);
+        $pdf::MultiCell(70, 10, $pemeriksaan[0]->NAME);
+
+        $pdf::SetFont('Times', '', 11);
+        $pdf::SetXY(10, 51);
+        $pdf::Cell(40, 10, 'Penjamin / Kelas');
+        $pdf::SetXY(40, 51);
+        $pdf::Cell(40, 10, ':');
+        $pdf::SetFont('Times', '', 11);
+        $pdf::SetXY(42, 51);
+        $pdf::Cell(42, 10, $pasien[0]->nama_penjamin);
+
+        $pdf::SetFont('Times', '', 10);
+        $pdf::SetXY(120, 51);
+        $pdf::Cell(40, 10, 'NO. RM');
+        $pdf::SetXY(139, 51);
+        $pdf::Cell(40, 10, ':');
+        $pdf::SetFont('Times', 'B', 10);
+        $pdf::SetXY(141, 51);
+        $pdf::Cell(70, 10, $pemeriksaan[0]->PID);
+
+        $pdf::SetXY(160, 51);
+        $pdf::Cell(40, 10, '/');
+        $pdf::SetFont('Times', '', 10);
+        $pdf::SetXY(162, 51);
+        $pdf::Cell(70, 10, $pasien[0]->usia);
+
+
+        $pdf::SetFont('Times', '', 11);
+        $pdf::SetXY(10, 57);
+        $pdf::Cell(40, 10, 'Dr. Pengirim');
+        $pdf::SetXY(40, 57);
+        $pdf::Cell(40, 10, ':');
+        $pdf::SetFont('Times', '', 11);
+        $pdf::SetXY(42, 57);
+        $pdf::Cell(42, 10, $pemeriksaan[0]->REFERRINGDOCTORNAME);
+
+
+        $pdf::SetFont('Times', '', 10);
+        $pdf::SetXY(120, 57);
+        $pdf::Cell(40, 10, 'Tgl. Lahir');
+        $pdf::SetXY(139, 57);
+        $pdf::Cell(40, 10, ':');
+        $pdf::SetFont('Times', '', 10);
+        $pdf::SetXY(141, 57);
+        $lahir = Carbon::parse($pasien[0]->tgl_lahir)->translatedFormat('d-F-Y');
+
+        $pdf::Cell(70, 10, $lahir);
+
+        $pdf::SetFont('Times', '', 11);
+        $pdf::SetXY(120, 63);
+        $pdf::Cell(40, 10, 'Diagnosis');
+        $pdf::SetXY(139, 63);
+        $pdf::Cell(40, 10, ':');
+        $pdf::SetFont('Times', '', 11);
+        $pdf::SetXY(142, 66);
+        $pdf::Cell(40, 5, $pasien[0]->diagnosa);
+
+        $pdf::SetFont('Times', '', 11);
+        $pdf::SetXY(10, 63);
+        $pdf::Cell(40, 10, 'Alamat');
+        $pdf::SetXY(40, 63);
+        $pdf::Cell(40, 10, ':');
+        $pdf::SetFont('Times', '', 11);
+        //$pdf::SetXY(42, 63);
+        //$pdf::Cell(42, 10, $hasil['alamat'], 0, 1,'RIGHT');
+        $pdf::SetXY(42, 67);
+        $pdf::MultiCell(80, 4, $pasien[0]->alamat, 0, 'L');
+
+
+        $pdf::SetFont('Times', 'BU', 14);
+        $pdf::SetXY(10, 90);
+        $pdf::Cell(40, 10, 'HASIL PEMERIKSAAN : ');
+        $pdf::SetFont('Times', 'UI', 14);
+        $pdf::SetXY(70, 90);
+        $tgl_baca = Carbon::parse($ex->data->approveTime)->translatedFormat('d-F-Y H:i:s');
+        $pdf::Cell(40, 10, 'Tanggal ' . $tgl_baca . ' WIB');
+        $pdf::SetFont('Times', 'B', 12);
+        $pdf::SetXY(10, 96);
+        $pdf::Cell(40, 10, 'Jenis Pemeriksaan : ');
+
+        $pdf::SetXY(50, 96);
+        $pdf::SetFont('Times', 'I', 12);
+        $pdf::Cell(40, 10, $pemeriksaan[0]->PROCEDURENAME);
+
+        $pdf::SetFont('Arial', 'B', 30);
+        $pdf::SetTextColor(255, 192, 203);
+        // $pdf::SetXY(20, 150);
+        // $pdf::Cell(40, 10, 'HASIL INI TIDAK UNTUK DI CETAK');
+        //$pdf::RotatedText(35,190,'HASIL INI TIDAK UNTUK DI CETAK',45);
+        if ($ex->data->finding == NULL) {
+        } else {
+            $pdf::Ln();
+            $pdf::SetTextColor(0, 0, 0);
+            $pdf::SetFont('Times', '', 12);
+            // $hasilex = $hasil[0]->hasil_exp;
+            $pdf::SetX(10);
+            $pdf::MultiCell(190, 5, $ex->data->finding, 0, 'L');
+        }
+        if ($ex->data->conclusion == NULL) {
+        } else {
+            $pdf::Ln();
+            $pdf::SetFont('Times', 'B', 12);
+
+            $pdf::MultiCell(190, 3, 'Kesan :', 0, 'L');
+            $pdf::Ln();
+            $pdf::SetFont('Times', '', 12);
+
+            $pdf::MultiCell(190, 5, $ex->data->conclusion, 0, 'L');
+        }
+        if ($ex->data->recommendation == NULL) {
+        } else {
+            $pdf::Ln();
+            $pdf::SetFont('Times', 'B', 12);
+
+            $pdf::MultiCell(190, 3, 'Tindak Lanjut :', 0, 'L');
+            $pdf::Ln();
+            $pdf::SetFont('Times', '', 12);
+
+            $pdf::MultiCell(190, 5, $ex->data->recommendation, 0, 'L');
+        }
+        // Akhir kotak Hasil pemeriksaan
+        $pdf::Ln();
+
+
+        // $pdf::SetFont('Times', '', 12);
+        // $pdf::SetX(145);
+        // $tgl_bacaa = Carbon::parse($ex->data->approveTime)->translatedFormat('d-F-Y');
+
+        // $pdf::Cell(40, 10, 'Waled, ' . $tgl_bacaa);
+        // $pdf::Ln();
+
+        // $pdf::SetX(158);
+        // $pdf::Cell(40, 10, 'Radiologi,');
+        // $pdf::SetFont('Times', 'B', 12);
+        // $pdf::Image('public/img/cap.png', 145, 211, 40, 25);
+
+        // if ($ex->data->approver == 'dr. Nunik Royyani. Sp.Rad') {
+        //     $pdf::Image($path, 123, 220, 20, 20, 'PNG');
+
+        //     $pdf::Image('public/img/ttd_036.png', 150, 211, 40, 25);
+        //     $pdf::SetXY(145, 232);
+        //     $pdf::Cell(40, 10, $ex->data->approver);
+
+
+        //     $pdf::SetLineWidth(0.5);
+
+        //     $pdf::Line(145, 240, 195, 240);
+        //     $pdf::SetXY(152, 237);
+        //     $pdf::Cell(40, 10, 'Spesialis Radiologi');
+        // } else {
+
+
+
+        //     $pdf::Image($path, 113, 220, 20, 20, 'PNG');
+
+        //     $pdf::Image('public/img/ttd_369.png', 150, 211, 40, 25);
+        //     $pdf::SetXY(140, 232);
+        //     $pdf::Cell(40, 10, $ex->data->approver);
+
+
+        //     $pdf::SetLineWidth(0.5);
+
+        //     $pdf::Line(135, 240, 205, 240);
+        //     $pdf::SetXY(152, 237);
+        //     $pdf::Cell(40, 10, 'Spesialis Radiologi');
+        // }
+
+
+
+
+        $pdf::SetLineWidth(0.1);
+        $pdf::Line(10, 245, 200, 245);
+        $pdf::SetFont('Times', 'I', 8);
+        $pdf::SetXY(10, 244);
+        $pdf::Cell(40, 10, 'Dicetak pada tanggal : ' . $now . ' WIB ');
+        $pdf::SetXY(160, 247);
+        $pdf::Cell(40, 10, 'Cetakan : ' . $now);
+        $pdf::SetFont('Times', 'I', 7);
+        $pdf::SetXY(10, 247);
+        $pdf::Cell(40, 10, '* Hasil Expertisi ini Dianggap Sah Jika Terdapat Tanda Tangan Dokter dan Stempel Unit !');
+
+        $pdf::Output();
+        exit;
+        // AKHIR Header Kertas
+
+    }
     public function cetakexpertise1($acc)
     {
 
@@ -1096,6 +1466,7 @@ class RadiologiController extends Controller
             $pdf::MultiCell(190, 5, $ex->data->recommendation, 0, 'L');
         }
         // Akhir kotak Hasil pemeriksaan
+            $pdf::Ln();
 
         $pdf::SetFont('Times', '', 12);
         $pdf::SetXY(145, 200);
@@ -1105,7 +1476,7 @@ class RadiologiController extends Controller
         $pdf::SetXY(158, 205);
         $pdf::Cell(40, 10, 'Radiologi,');
         $pdf::SetFont('Times', 'B', 12);
-        $pdf::Image('public/img/cap.png', 145, 211, 40, 25);
+        // $pdf::Image('public/img/cap.png', 145, 211, 40, 25);
 
         if ($ex->data->approver == 'dr. Nunik Royyani. Sp.Rad') {
             $pdf::Image($path, 123, 220, 20, 20, 'PNG');

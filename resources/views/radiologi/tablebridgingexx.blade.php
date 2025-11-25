@@ -46,10 +46,10 @@
                     @if ($i->STATUS == 'AP')
 
                     |
-                    <a class="btn btn-primary btn-sm cetakexpertise" href="#">
+                    <a class="btn btn-primary btn-sm cetakexpertisee" href="#">
                         <i class="fa fa-print" aria-hidden="true"> </i> </a>
                     @elseif ($i->STATUS == 'FN')
-                    | <a class="btn btn-primary btn-sm cetakexpertise" href="#">
+                    | <a class="btn btn-primary btn-sm cetakexpertisee" href="#">
                         <i class="fa fa-print" aria-hidden="true"> </i> </a>
                     @endif
 
@@ -112,7 +112,7 @@
             }
         });
     });
-    $(".cetakexpertise").click(function() {
+    $(".cetakexpertisee").click(function() {
         var $row = $(this).closest("tr");
 
         var acc = $row.find(".acc").text();
@@ -142,7 +142,7 @@
 
 
                     },
-                    url: '<?= route('cetakexpertise') ?>',
+                    url: '<?= route('cetakexpertisee') ?>',
                     error: function(data) {
                         spinner.hide()
                         Swal.fire({
@@ -160,7 +160,7 @@
                             text: data.message,
                             footer: ''
                         })
-                        cetakex(data.acc)
+                        cetakexx(data.acc)
 
                     }
                 });
@@ -170,8 +170,8 @@
     });
 
 
-    function cetakex(acc) {
-        window.open('cetakexp/' + acc);
+    function cetakexx(acc) {
+        window.open('cetakexpp/' + acc);
 
     }
 </script>

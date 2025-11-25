@@ -209,11 +209,20 @@ Route::group(['middleware' => ['hak_akses:4', 'auth']], function () {
 });
 
 
-//expertisi view 
+
+
+
+
+// expertisi view ruangan
 Route::get('/expertisi_view', [RadiologiController::class, 'expertisi_view'])->name('expertisi_view');
-Route::get('cetakexp/{acc}', [RadiologiController::class, 'cetakexpertise1']);
+Route::get('cetakexp/{acc}', [RadiologiController::class, 'cetakexpertise2']);
 Route::post('cetakexpertise', [RadiologiController::class, 'cetakexpertise'])->name('cetakexpertise');
 Route::post('carigambarbridging', [RadiologiController::class, 'carigambarbridging'])->name('carigambarbridging');
+//expertisi view  dokter dan radio grapher
+Route::get('/expertisi_view1', [RadiologiController::class, 'expertisi_view1'])->name('expertisi_view1');
+Route::get('cetakexpp/{acc}', [RadiologiController::class, 'cetakexpertise1']);
+Route::post('cetakexpertisee', [RadiologiController::class, 'cetakexpertisee'])->name('cetakexpertisee');
+Route::post('carigambarbridgingg', [RadiologiController::class, 'carigambarbridgingg'])->name('carigambarbridgingg');
 
 //petugas radiologi
 Route::group(['middleware' => ['hak_akses:3', 'auth']], function () {

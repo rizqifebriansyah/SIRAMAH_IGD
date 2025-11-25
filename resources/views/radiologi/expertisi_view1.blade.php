@@ -2,7 +2,7 @@
 @section('container')
 
 <div class="card-body ">
-    <h4 class="nprinsley-text-glitchan">RADIOLOGI VIEW </h4>
+    <h4 class="nprinsley-text-glitchan">MONITORING BRIDGING </h4>
 
 
     <div class="row mt-3">
@@ -17,7 +17,7 @@
             <input type="date" class="form-control " autocomplete="off" data-language="en" data-date-format="yyyy-mm-dd" placeholder="Tanggal" name="tanggal_bridging1" id="tanggal_bridging1">
         </div>
         <div>
-            <button type="submit" class="btn btn-primary" onclick="carigambarbridging()"> <i class="bi bi-search-heart"></i>
+            <button type="submit" class="btn btn-primary" onclick="carigambarbridgingg()"> <i class="bi bi-search-heart"></i>
             </button>
             <!-- <a style="margin-left: 32px;" rel="noopener" href="{{ route('radiologi')}}" class="btn btn-primary"><i class="fas fa-sync-alt fa-spin"></i> Reload
             </a> -->
@@ -75,10 +75,10 @@
                                     @if ($i->STATUS == 'AP')
 
                                     |
-                                    <a class="btn btn-primary btn-sm cetakexpertise" href="#">
+                                    <a class="btn btn-primary btn-sm cetakexpertisee" href="#">
                                         <i class="fa fa-print" aria-hidden="true"> </i> </a>
                                     @elseif ($i->STATUS == 'FN')
-|                                    <a class="btn btn-primary btn-sm cetakexpertise" href="#">
+|                                    <a class="btn btn-primary btn-sm cetakexpertisee" href="#">
                                         <i class="fa fa-print" aria-hidden="true"> </i> </a>
                                     @endif
                                 </div>
@@ -152,7 +152,7 @@
         });
     });
 
-    function carigambarbridging() {
+    function carigambarbridgingg() {
         spinner = $('#loader2');
         spinner.show();
         tanggal_bridging = $('#tanggal_bridging').val()
@@ -169,7 +169,7 @@
 
 
             },
-            url: " {{ route('carigambarbridging') }}",
+            url: " {{ route('carigambarbridgingg') }}",
             error: function(data) {
                 spinner.hide();
                 alert('error!!!')
@@ -182,7 +182,7 @@
 
     }
 
-    $(".cetakexpertise").click(function() {
+    $(".cetakexpertisee").click(function() {
         var $row = $(this).closest("tr");
 
         var acc = $row.find(".acc").text();
@@ -212,7 +212,7 @@
 
 
                     },
-                    url: '<?= route('cetakexpertise') ?>',
+                    url: '<?= route('cetakexpertisee') ?>',
                     error: function(data) {
                         spinner.hide()
                         Swal.fire({
@@ -230,7 +230,7 @@
                             text: data.message,
                             footer: ''
                         })
-                        cetakex(data.acc)
+                        cetakexx(data.acc)
 
                     }
                 });
@@ -240,8 +240,8 @@
     });
 
 
-    function cetakex(acc) {
-        window.open('cetakexp/' + acc);
+    function cetakexx(acc) {
+        window.open('cetakexpp/' + acc);
 
     }
 </script>
