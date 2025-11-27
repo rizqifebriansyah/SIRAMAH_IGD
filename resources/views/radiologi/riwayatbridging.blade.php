@@ -30,6 +30,7 @@
             <div class="tablebridging">
                 <table id="databridging" class="table  table-sm text-sm table-bordered table-hover">
                     <thead class="bg-success">
+                        
                         <th>ACC Number</th>
                         <th>NORM</th>
                         <th>Nama</th>

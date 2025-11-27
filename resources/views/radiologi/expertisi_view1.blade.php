@@ -1,4 +1,4 @@
-@extends('radiologi.headerr')
+@extends('radiologi.headerrr')
 @section('container')
 
 <div class="card-body ">
@@ -30,6 +30,7 @@
             <div class="tablebridging">
                 <table id="databridging" class="table  table-sm text-sm table-bordered table-hover">
                     <thead class="bg-success">
+                        <th>TGL Masuk</th>
                         <th>ACC Number</th>
                         <th>NORM</th>
                         <th>Nama</th>
@@ -42,6 +43,7 @@
                     <tbody>
                         @foreach ($pasienbridging as $i)
                         <tr>
+                            <td>{{$tglmasuk}}</td>
                             <td class="acc">{{$i->ACCESSIONNUMBER}}</td>
                             <td>{{$i->PID}}</td>
                             <td>{{$i->NAMEALIAS}}</td>

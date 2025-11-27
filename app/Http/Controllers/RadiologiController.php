@@ -180,7 +180,10 @@ class RadiologiController extends Controller
     {
         // $unit = auth()->user()->unit;
         // $user = auth()->user()->username;
-        $now = Carbon::now()->format('Y-m-d');
+        $now = Carbon::now()->format('Ymd');
+        $tglmasuk = Carbon::now()->format('Y-m-d');
+
+        // dd($now);
         $tgl_masuk_x = date('Y-m-d', strtotime('-2 days', strtotime($now)));
 
         $pasienbridging = DB::connection('mysql3')->select('SELECT * FROM order_table a
@@ -190,6 +193,7 @@ class RadiologiController extends Controller
 
         return view('radiologi.expertisi_view1', [
             'title' => 'SIRAMAH | RADIOLOGI',
+            'tglmasuk' => $tglmasuk,
 
             'pasienbridging' => $pasienbridging,
             'menu' => $menu,
@@ -1000,7 +1004,7 @@ class RadiologiController extends Controller
         $pdf::Cell(40, 10, ':');
         $pdf::SetFont('Times', '', 11);
         $pdf::SetXY(42, 39);
-        $pdf::Cell(42, 10, $pemeriksaan[0]->ID);
+        $pdf::Cell(42, 10, $pemeriksaan[0]->ID . ' / ' . $acc);
 
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(120, 39);
@@ -1009,7 +1013,9 @@ class RadiologiController extends Controller
         $pdf::Cell(45, 10, ':');
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(141, 39);
-        $pdf::MultiCell(70, 10, $pasien[0]->tgl_masuk . 'WIB');
+        $tanggalin = Carbon::parse($pemeriksaan[0]->ADMITDATE)->translatedFormat('Y-m-d H:i:s');
+
+        $pdf::MultiCell(70, 10, $tanggalin . 'WIB');
 
         $pdf::SetFont('Times', '', 11);
         $pdf::SetXY(10, 45);
@@ -1251,6 +1257,8 @@ class RadiologiController extends Controller
 
             from order_table a
             where a.ACCESSIONNUMBER = ?', [$acc]);
+
+
         $updatestatus = DB::connection('mysql3')->select('UPDATE order_table SET STATUS = "FN" WHERE ACCESSIONNUMBER = ?', [$acc]);
         // dd($pemeriksaan);
         $kj = $pemeriksaan[0]->KODE_KUNJUNGAN;
@@ -1318,7 +1326,7 @@ class RadiologiController extends Controller
         $pdf::Cell(40, 10, ':');
         $pdf::SetFont('Times', '', 11);
         $pdf::SetXY(42, 39);
-        $pdf::Cell(42, 10, $pemeriksaan[0]->ID);
+        $pdf::Cell(42, 10, $pemeriksaan[0]->ID . ' / ' . $acc);
 
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(120, 39);
@@ -1327,7 +1335,10 @@ class RadiologiController extends Controller
         $pdf::Cell(45, 10, ':');
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(141, 39);
-        $pdf::MultiCell(70, 10, $pasien[0]->tgl_masuk . 'WIB');
+        $tanggalin = Carbon::parse($pemeriksaan[0]->ADMITDATE)->translatedFormat('Y-m-d H:i:s');
+
+        $pdf::MultiCell(70, 10, $tanggalin . 'WIB');
+
 
         $pdf::SetFont('Times', '', 11);
         $pdf::SetXY(10, 45);
@@ -1466,7 +1477,7 @@ class RadiologiController extends Controller
             $pdf::MultiCell(190, 5, $ex->data->recommendation, 0, 'L');
         }
         // Akhir kotak Hasil pemeriksaan
-            $pdf::Ln();
+        $pdf::Ln();
 
         $pdf::SetFont('Times', '', 12);
         $pdf::SetXY(145, 200);
