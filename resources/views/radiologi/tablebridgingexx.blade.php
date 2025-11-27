@@ -20,7 +20,7 @@
             <td>{{$i->NAMEALIAS}}</td>
             <td>{{$i->PROCEDURENAME}}</td>
             <td>{{$i->ASSIGNEDPATIENTLOCATION}}</td>
-            <td>{{$i->ATTENDINGDOCTORNAME}}</td>
+            <td>{{$i->APPROVER}}</td>
             <td>
                 @if ($i->STATUS == 'NW-E')
                 <span class="badge badge-danger">data tidak sesuai</span>
