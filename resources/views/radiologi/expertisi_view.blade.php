@@ -51,8 +51,7 @@
                             <td>
                                 @if ($i->STATUS == 'NW-E')
                                 <span class="badge badge-danger">data tidak sesuai</span>
-                                @elseif ($i->STATUS == 'NF')
-                                <span class="badge badge-danger">Bridging Gagal</span>
+                             
                                 @elseif ($i->STATUS == 'CM')
                                 <span class="badge badge-primary">PICTURE MATCH</span>
                                 @elseif ($i->STATUS == 'AP')

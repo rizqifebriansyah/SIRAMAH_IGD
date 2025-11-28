@@ -6,6 +6,8 @@
         <th>Nama</th>
         <th>Pemeriksaan</th>
         <th>Ruang</th>
+        <th>Ruang Kirim</th>
+
         <th>Dokter Baca</th>
         <th>STATUS</th>
         <th>ACTION</th>
@@ -20,6 +22,8 @@
             <td>{{$i->NAMEALIAS}}</td>
             <td>{{$i->PROCEDURENAME}}</td>
             <td>{{$i->ASSIGNEDPATIENTLOCATION}}</td>
+                            <td>{{$i->ENTERINGOGANIZATION}}</td>
+
             <td>{{$i->APPROVER}}</td>
             <td>
                 @if ($i->STATUS == 'NW-E')
