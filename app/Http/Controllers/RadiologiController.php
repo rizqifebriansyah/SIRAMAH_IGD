@@ -1411,7 +1411,7 @@ class RadiologiController extends Controller
         $pdf::Cell(40, 10, ':');
         $pdf::SetFont('Times', '', 11);
         $pdf::SetXY(142, 66);
-        $pdf::Cell(40, 5, $pasien[0]->diagnosa);
+        $pdf::MultiCell(50, 5, $pasien[0]->diagnosa);
 
         $pdf::SetFont('Times', '', 11);
         $pdf::SetXY(10, 63);
@@ -1478,6 +1478,8 @@ class RadiologiController extends Controller
         }
         // Akhir kotak Hasil pemeriksaan
         $pdf::Ln();
+        $pdf::Ln();
+        $pdf::Cell(40, 10, '');
 
         $pdf::SetFont('Times', '', 12);
         $pdf::SetXY(145, 200);
