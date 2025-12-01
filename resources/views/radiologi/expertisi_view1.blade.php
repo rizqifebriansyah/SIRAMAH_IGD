@@ -45,7 +45,8 @@
                     <tbody>
                         @foreach ($pasienbridging as $i)
                         <tr>
-                            <td>{{$tglmasuk}}</td>
+                            <td>{{$i->ADMITDATE}}</td>
+
                             <td class="acc">{{$i->ACCESSIONNUMBER}}</td>
                             <td>{{$i->PID}}</td>
                             <td>{{$i->NAMEALIAS}}</td>
@@ -55,18 +56,12 @@
 
                             <td>{{$i->APPROVER}}</td>
                             <td>
-                                @if ($i->STATUS == 'NW-E')
-                                <span class="badge badge-danger">data tidak sesuai</span>
-                                @elseif ($i->STATUS == 'NF')
-                                <span class="badge badge-danger">Bridging Gagal</span>
-                                @elseif ($i->STATUS == 'CM')
-                                <span class="badge badge-primary">PICTURE MATCH</span>
-                                @elseif ($i->STATUS == 'AP')
+
+                                @if ($i->STATUS == 'AP')
                                 <span class="badge badge-primary">READ</span>
                                 @elseif ($i->STATUS == 'FN')
                                 <span class="badge badge-primary">SUDAH DICETAK</span>
-                                @else
-                                <span class="badge badge-success">On Schedule</span>
+
 
                                 @endif
 
@@ -84,7 +79,7 @@
                                     <a class="btn btn-primary btn-sm cetakexpertisee" href="#">
                                         <i class="fa fa-print" aria-hidden="true"> </i> </a>
                                     @elseif ($i->STATUS == 'FN')
-|                                    <a class="btn btn-primary btn-sm cetakexpertisee" href="#">
+                                    | <a class="btn btn-primary btn-sm cetakexpertisee" href="#">
                                         <i class="fa fa-print" aria-hidden="true"> </i> </a>
                                     @endif
                                 </div>

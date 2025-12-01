@@ -184,10 +184,13 @@ class RadiologiController extends Controller
         $tglmasuk = Carbon::now()->format('Y-m-d');
 
         // dd($now);
-        $tgl_masuk_x = date('Y-m-d', strtotime('-2 days', strtotime($now)));
+        $tgl_masuk_x = date('Ymd', strtotime('-14 days', strtotime($now)));
 
-        $pasienbridging = DB::connection('mysql3')->select('SELECT * FROM order_table a
-        WHERE DATE(a.ADMITDATE) = ?', [$now]);
+        // $pasienbridging = DB::connection('mysql3')->select('SELECT * from order_table a WHERE DATE(a.ADMITDATE) BETWEEN ? AND ?', [$tgl_masuk_x,$now]);
+        $pasienbridging = DB::connection('mysql3')->select('SELECT * from order_table a WHERE DATE(a.ADMITDATE) BETWEEN ? AND ?   AND a.STATUS IN ("AP" ,"FN")', [$tgl_masuk_x,$now]);
+
+
+      
 
         $menu = 'expertisi_view1';
 
@@ -368,7 +371,7 @@ class RadiologiController extends Controller
         $tglbridging = Carbon::parse($request->tanggal_bridging)->format('Ymd');
         $tglbridging1 = Carbon::parse($request->tanggal_bridging1)->format('Ymd');
 
-        $pasienbridging = DB::connection('mysql3')->select('SELECT * from order_table a WHERE DATE(a.ADMITDATE) BETWEEN ? AND ?', [$tglbridging, $tglbridging1]);
+        $pasienbridging = DB::connection('mysql3')->select('SELECT * from order_table a WHERE DATE(a.ADMITDATE) BETWEEN ? AND ? AND a.STATUS IN ("AP" ,"FN")', [$tglbridging, $tglbridging1]);
         // dd($pasienbridging);
         return view('radiologi.tablebridgingexx', [
             'title' => 'SIRAMAH | RADIOLOGI',
