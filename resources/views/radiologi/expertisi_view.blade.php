@@ -51,7 +51,7 @@
                             <td>
                                 @if ($i->STATUS == 'NW-E')
                                 <span class="badge badge-danger">data tidak sesuai</span>
-                             
+
                                 @elseif ($i->STATUS == 'CM')
                                 <span class="badge badge-primary">PICTURE MATCH</span>
                                 @elseif ($i->STATUS == 'AP')
@@ -77,9 +77,11 @@
                                     <a class="btn btn-primary btn-sm cetakexpertise" href="#">
                                         <i class="fa fa-print" aria-hidden="true"> </i> </a>
                                     @elseif ($i->STATUS == 'FN')
-|                                    <a class="btn btn-primary btn-sm cetakexpertise" href="#">
+                                    | <a class="btn btn-primary btn-sm cetakexpertise" href="#">
                                         <i class="fa fa-print" aria-hidden="true"> </i> </a>
                                     @endif
+                                    <a class="btn btn-primary btn-sm cetakexpertise" href="#">
+                                        <i class="fa fa-print" aria-hidden="true"> </i> </a>
                                 </div>
 
                             </td>
