@@ -972,159 +972,8 @@ class RadiologiController extends Controller
             ', [$kj, $norm]);
         // dd($pasien);
 
-        if ($ex->errMsg == "Not Found Report") {
-            $pdf = new FPDF('P', 'mm', 'A4');
-            $pdf::AddPage('P', 'letter');
-            //Awal Header kertas
-            $pdf::Image('public/img/kab_cirebonn.png', 10, 4, 20, 20);
-            $pdf::Image('public/img/rsss.png', 180, 4, 20, 20);
-
-            $pdf::SetFont('Times', 'B', 12);
-            // $pdf::cell(10, 10,$qrCode );
-
-            $pdf::SetXY(65, 5);
-            $pdf::Cell(40, 10, 'PEMERINTAH KABUPATEN CIREBON');
-            $pdf::SetFont('Times', 'B', 16);
-            $pdf::SetXY(50, 10);
-            $pdf::Cell(40, 10, 'RUMAH SAKIT UMUM DAERAH WALED');
-            $pdf::SetFont('Times', '', 10);
-            $pdf::SetXY(49.5, 15);
-            $pdf::Cell(40, 10, 'Jl. Prabu Kiansantang No. 4 Telp. 0231 - 661126 Fax. 0231 - 664091 Cirebon');
-            $pdf::SetLineWidth(1);
-            $pdf::Line(10, 25, 200, 25);
-            $pdf::SetLineWidth(0.25);
-            $pdf::Line(10, 27, 200, 27);
-            $pdf::SetFont('Times', 'BU', 18);
-            $pdf::SetXY(67, 30);
-            $pdf::Cell(40, 10, 'INSTALASI RADIOLOGI');
-
-            //Awal kotak data pasien
-            $pdf::Rect(8, 40, 198, 50);
-
-            $pdf::SetFont('Times', '', 11);
-            $pdf::SetXY(10, 39);
-            $pdf::Cell(40, 10, 'Nomor Rad');
-            $pdf::SetXY(40, 39);
-            $pdf::Cell(40, 10, ':');
-            $pdf::SetFont('Times', '', 11);
-            $pdf::SetXY(42, 39);
-            $pdf::Cell(42, 10, $pemeriksaan[0]->ID . ' / ' . $acc);
-
-            $pdf::SetFont('Times', '', 10);
-            $pdf::SetXY(120, 39);
-            $pdf::Cell(40, 10, 'Tgl. REG');
-            $pdf::SetXY(139, 39);
-            $pdf::Cell(45, 10, ':');
-            $pdf::SetFont('Times', '', 10);
-            $pdf::SetXY(141, 39);
-            $tanggalin = Carbon::parse($pemeriksaan[0]->ADMITDATE)->translatedFormat('Y-m-d H:i:s');
-
-            $pdf::MultiCell(70, 10, $tanggalin . 'WIB');
-
-            $pdf::SetFont('Times', '', 11);
-            $pdf::SetXY(10, 45);
-            $pdf::Cell(40, 10, 'Ruangan');
-            $pdf::SetXY(40, 45);
-            $pdf::Cell(40, 10, ':');
-            $pdf::SetFont('Times', '', 11);
-            $pdf::SetXY(42, 45);
-            $pdf::Cell(42, 10, $pemeriksaan[0]->ENTERINGOGANIZATION);
-
-            $pdf::SetFont('Times', '', 10);
-            $pdf::SetXY(120, 45);
-            $pdf::Cell(40, 10, 'Nama Pasien');
-            $pdf::SetXY(139, 45);
-            $pdf::Cell(40, 10, ':');
-            $pdf::SetFont('Times', 'B', 10);
-            $pdf::SetXY(141, 45);
-            $pdf::MultiCell(70, 10, $pemeriksaan[0]->NAME);
-
-            $pdf::SetFont('Times', '', 11);
-            $pdf::SetXY(10, 51);
-            $pdf::Cell(40, 10, 'Penjamin / Kelas');
-            $pdf::SetXY(40, 51);
-            $pdf::Cell(40, 10, ':');
-            $pdf::SetFont('Times', '', 11);
-            $pdf::SetXY(42, 51);
-            $pdf::Cell(42, 10, $pasien[0]->nama_penjamin);
-
-            $pdf::SetFont('Times', '', 10);
-            $pdf::SetXY(120, 51);
-            $pdf::Cell(40, 10, 'NO. RM');
-            $pdf::SetXY(139, 51);
-            $pdf::Cell(40, 10, ':');
-            $pdf::SetFont('Times', 'B', 10);
-            $pdf::SetXY(141, 51);
-            $pdf::Cell(70, 10, $pemeriksaan[0]->PID);
-
-            $pdf::SetXY(160, 51);
-            $pdf::Cell(40, 10, '/');
-            $pdf::SetFont('Times', '', 10);
-            $pdf::SetXY(162, 51);
-            $pdf::Cell(70, 10, $pasien[0]->usia);
-
-
-            $pdf::SetFont('Times', '', 11);
-            $pdf::SetXY(10, 57);
-            $pdf::Cell(40, 10, 'Dr. Pengirim');
-            $pdf::SetXY(40, 57);
-            $pdf::Cell(40, 10, ':');
-            $pdf::SetFont('Times', '', 11);
-            $pdf::SetXY(42, 57);
-            $pdf::Cell(42, 10, $pemeriksaan[0]->REFERRINGDOCTORNAME);
-
-
-            $pdf::SetFont('Times', '', 10);
-            $pdf::SetXY(120, 57);
-            $pdf::Cell(40, 10, 'Tgl. Lahir');
-            $pdf::SetXY(139, 57);
-            $pdf::Cell(40, 10, ':');
-            $pdf::SetFont('Times', '', 10);
-            $pdf::SetXY(141, 57);
-            $lahir = Carbon::parse($pasien[0]->tgl_lahir)->translatedFormat('d-F-Y');
-
-            $pdf::Cell(70, 10, $lahir);
-
-            $pdf::SetFont('Times', '', 11);
-            $pdf::SetXY(120, 63);
-            $pdf::Cell(40, 10, 'Diagnosis');
-            $pdf::SetXY(139, 63);
-            $pdf::Cell(40, 10, ':');
-            $pdf::SetFont('Times', '', 11);
-            $pdf::SetXY(142, 66);
-            $pdf::Cell(40, 5, $pasien[0]->diagnosa);
-
-            $pdf::SetFont('Times', '', 11);
-            $pdf::SetXY(10, 63);
-            $pdf::Cell(40, 10, 'Alamat');
-            $pdf::SetXY(40, 63);
-            $pdf::Cell(40, 10, ':');
-            $pdf::SetFont('Times', '', 11);
-            //$pdf::SetXY(42, 63);
-            //$pdf::Cell(42, 10, $hasil['alamat'], 0, 1,'RIGHT');
-            $pdf::SetXY(42, 67);
-            $pdf::MultiCell(80, 4, $pasien[0]->alamat, 0, 'L');
-
-
-            $pdf::SetFont('Times', 'BU', 14);
-            $pdf::SetXY(10, 90);
-            $pdf::Cell(40, 10, 'HASIL PEMERIKSAAN : BELUM ADA HASIL EXPERTISE');
-
-
-            $pdf::SetLineWidth(0.1);
-            $pdf::Line(10, 245, 200, 245);
-            $pdf::SetFont('Times', 'I', 8);
-            $pdf::SetXY(10, 244);
-            $pdf::Cell(40, 10, 'Dicetak pada tanggal : ' . $now . ' WIB ');
-            $pdf::SetXY(160, 247);
-            $pdf::Cell(40, 10, 'Cetakan : ' . $now);
-            $pdf::SetFont('Times', 'I', 7);
-            $pdf::SetXY(10, 247);
-            $pdf::Cell(40, 10, '* Hasil Expertisi ini Dianggap Sah Jika Terdapat Tanda Tangan Dokter dan Stempel Unit !');
-
-            $pdf::Output();
-            exit;
-        } else {
+        if ($ex->httpStatus == "200") 
+            {
 
             $pdf = new FPDF('P', 'mm', 'A4');
             $pdf::AddPage('P', 'letter');
@@ -1373,7 +1222,160 @@ class RadiologiController extends Controller
 
             $pdf::Output();
             exit;
-        }
+        }else
+            {
+            $pdf = new FPDF('P', 'mm', 'A4');
+            $pdf::AddPage('P', 'letter');
+            //Awal Header kertas
+            $pdf::Image('public/img/kab_cirebonn.png', 10, 4, 20, 20);
+            $pdf::Image('public/img/rsss.png', 180, 4, 20, 20);
+
+            $pdf::SetFont('Times', 'B', 12);
+            // $pdf::cell(10, 10,$qrCode );
+
+            $pdf::SetXY(65, 5);
+            $pdf::Cell(40, 10, 'PEMERINTAH KABUPATEN CIREBON');
+            $pdf::SetFont('Times', 'B', 16);
+            $pdf::SetXY(50, 10);
+            $pdf::Cell(40, 10, 'RUMAH SAKIT UMUM DAERAH WALED');
+            $pdf::SetFont('Times', '', 10);
+            $pdf::SetXY(49.5, 15);
+            $pdf::Cell(40, 10, 'Jl. Prabu Kiansantang No. 4 Telp. 0231 - 661126 Fax. 0231 - 664091 Cirebon');
+            $pdf::SetLineWidth(1);
+            $pdf::Line(10, 25, 200, 25);
+            $pdf::SetLineWidth(0.25);
+            $pdf::Line(10, 27, 200, 27);
+            $pdf::SetFont('Times', 'BU', 18);
+            $pdf::SetXY(67, 30);
+            $pdf::Cell(40, 10, 'INSTALASI RADIOLOGI');
+
+            //Awal kotak data pasien
+            $pdf::Rect(8, 40, 198, 50);
+
+            $pdf::SetFont('Times', '', 11);
+            $pdf::SetXY(10, 39);
+            $pdf::Cell(40, 10, 'Nomor Rad');
+            $pdf::SetXY(40, 39);
+            $pdf::Cell(40, 10, ':');
+            $pdf::SetFont('Times', '', 11);
+            $pdf::SetXY(42, 39);
+            $pdf::Cell(42, 10, $pemeriksaan[0]->ID . ' / ' . $acc);
+
+            $pdf::SetFont('Times', '', 10);
+            $pdf::SetXY(120, 39);
+            $pdf::Cell(40, 10, 'Tgl. REG');
+            $pdf::SetXY(139, 39);
+            $pdf::Cell(45, 10, ':');
+            $pdf::SetFont('Times', '', 10);
+            $pdf::SetXY(141, 39);
+            $tanggalin = Carbon::parse($pemeriksaan[0]->ADMITDATE)->translatedFormat('Y-m-d H:i:s');
+
+            $pdf::MultiCell(70, 10, $tanggalin . 'WIB');
+
+            $pdf::SetFont('Times', '', 11);
+            $pdf::SetXY(10, 45);
+            $pdf::Cell(40, 10, 'Ruangan');
+            $pdf::SetXY(40, 45);
+            $pdf::Cell(40, 10, ':');
+            $pdf::SetFont('Times', '', 11);
+            $pdf::SetXY(42, 45);
+            $pdf::Cell(42, 10, $pemeriksaan[0]->ENTERINGOGANIZATION);
+
+            $pdf::SetFont('Times', '', 10);
+            $pdf::SetXY(120, 45);
+            $pdf::Cell(40, 10, 'Nama Pasien');
+            $pdf::SetXY(139, 45);
+            $pdf::Cell(40, 10, ':');
+            $pdf::SetFont('Times', 'B', 10);
+            $pdf::SetXY(141, 45);
+            $pdf::MultiCell(70, 10, $pemeriksaan[0]->NAME);
+
+            $pdf::SetFont('Times', '', 11);
+            $pdf::SetXY(10, 51);
+            $pdf::Cell(40, 10, 'Penjamin / Kelas');
+            $pdf::SetXY(40, 51);
+            $pdf::Cell(40, 10, ':');
+            $pdf::SetFont('Times', '', 11);
+            $pdf::SetXY(42, 51);
+            $pdf::Cell(42, 10, $pasien[0]->nama_penjamin);
+
+            $pdf::SetFont('Times', '', 10);
+            $pdf::SetXY(120, 51);
+            $pdf::Cell(40, 10, 'NO. RM');
+            $pdf::SetXY(139, 51);
+            $pdf::Cell(40, 10, ':');
+            $pdf::SetFont('Times', 'B', 10);
+            $pdf::SetXY(141, 51);
+            $pdf::Cell(70, 10, $pemeriksaan[0]->PID);
+
+            $pdf::SetXY(160, 51);
+            $pdf::Cell(40, 10, '/');
+            $pdf::SetFont('Times', '', 10);
+            $pdf::SetXY(162, 51);
+            $pdf::Cell(70, 10, $pasien[0]->usia);
+
+
+            $pdf::SetFont('Times', '', 11);
+            $pdf::SetXY(10, 57);
+            $pdf::Cell(40, 10, 'Dr. Pengirim');
+            $pdf::SetXY(40, 57);
+            $pdf::Cell(40, 10, ':');
+            $pdf::SetFont('Times', '', 11);
+            $pdf::SetXY(42, 57);
+            $pdf::Cell(42, 10, $pemeriksaan[0]->REFERRINGDOCTORNAME);
+
+
+            $pdf::SetFont('Times', '', 10);
+            $pdf::SetXY(120, 57);
+            $pdf::Cell(40, 10, 'Tgl. Lahir');
+            $pdf::SetXY(139, 57);
+            $pdf::Cell(40, 10, ':');
+            $pdf::SetFont('Times', '', 10);
+            $pdf::SetXY(141, 57);
+            $lahir = Carbon::parse($pasien[0]->tgl_lahir)->translatedFormat('d-F-Y');
+
+            $pdf::Cell(70, 10, $lahir);
+
+            $pdf::SetFont('Times', '', 11);
+            $pdf::SetXY(120, 63);
+            $pdf::Cell(40, 10, 'Diagnosis');
+            $pdf::SetXY(139, 63);
+            $pdf::Cell(40, 10, ':');
+            $pdf::SetFont('Times', '', 11);
+            $pdf::SetXY(142, 66);
+            $pdf::Cell(40, 5, $pasien[0]->diagnosa);
+
+            $pdf::SetFont('Times', '', 11);
+            $pdf::SetXY(10, 63);
+            $pdf::Cell(40, 10, 'Alamat');
+            $pdf::SetXY(40, 63);
+            $pdf::Cell(40, 10, ':');
+            $pdf::SetFont('Times', '', 11);
+            //$pdf::SetXY(42, 63);
+            //$pdf::Cell(42, 10, $hasil['alamat'], 0, 1,'RIGHT');
+            $pdf::SetXY(42, 67);
+            $pdf::MultiCell(80, 4, $pasien[0]->alamat, 0, 'L');
+
+
+            $pdf::SetFont('Times', 'BU', 14);
+            $pdf::SetXY(10, 90);
+            $pdf::Cell(40, 10, 'HASIL PEMERIKSAAN : BELUM ADA HASIL EXPERTISE');
+
+
+            $pdf::SetLineWidth(0.1);
+            $pdf::Line(10, 245, 200, 245);
+            $pdf::SetFont('Times', 'I', 8);
+            $pdf::SetXY(10, 244);
+            $pdf::Cell(40, 10, 'Dicetak pada tanggal : ' . $now . ' WIB ');
+            $pdf::SetXY(160, 247);
+            $pdf::Cell(40, 10, 'Cetakan : ' . $now);
+            $pdf::SetFont('Times', 'I', 7);
+            $pdf::SetXY(10, 247);
+            $pdf::Cell(40, 10, '* Hasil Expertisi ini Dianggap Sah Jika Terdapat Tanda Tangan Dokter dan Stempel Unit !');
+
+            $pdf::Output();
+            exit;
+        }  
         // AKHIR Header Kertas
 
     }

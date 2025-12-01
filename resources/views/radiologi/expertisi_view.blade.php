@@ -80,7 +80,7 @@
                                     | <a class="btn btn-primary btn-sm cetakexpertise" href="#">
                                         <i class="fa fa-print" aria-hidden="true"> </i> </a>
                                     @endif
-                                    
+                                 
                                 </div>
 
                             </td>
