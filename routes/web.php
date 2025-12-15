@@ -302,15 +302,22 @@ Route::group(['middleware' => ['hak_akses:17', 'auth']], function () {
 
     //tampil data
     Route::get('/gizi', [GiziControlller::class, 'index'])->name('gizi');
+    Route::get('/asseesmengizi', [GiziControlller::class, 'asseesmengizi'])->name('asseesmengizi');
+
+    
     Route::get('/gizibilling', [GiziControlller::class, 'gizibilling'])->name('gizibilling');
     Route::get('/monitoringmakan', [GiziControlller::class, 'monitoringmakan'])->name('monitoringmakan');
     Route::get('/riwayatordermakan', [GiziControlller::class, 'riwayatordermakan'])->name('riwayatordermakan');
 
+// form assesmen gizi
+    Route::post('assesgizi', [GiziControlller::class, 'assesgizi'])->name('assesgizi');
 
 
 
     //cari pasien
     Route::post('caripasienranap', [GiziControlller::class, 'caripasienranap'])->name('caripasienranap');
+    Route::post('caripasienranapgizi', [GiziControlller::class, 'caripasienranapgizi'])->name('caripasienranapgizi');
+
     Route::post('cariordermakan', [GiziControlller::class, 'cariordermakan'])->name('cariordermakan');
     Route::post('/detailordergizi', [GiziControlller::class, 'detailordergizi'])->name('detailordergizi');
     Route::post('cariordergizi', [GiziControlller::class, 'cariordergizi'])->name('cariordergizi');

@@ -24,7 +24,7 @@
 
                 <li class="nav-header">SIM-RS</li>
                 <li class="nav-item">
-                    <a href="{{ route('gizi') }}" class="nav-link @if($menu == 'asseesmengizi' ) active @endif">
+                    <a href="{{ route('asseesmengizi') }}" class="nav-link @if($menu == 'asseesmengizi' ) active @endif">
                         <i class="nav-icon fas fa-pen"></i>
 
                         <p>

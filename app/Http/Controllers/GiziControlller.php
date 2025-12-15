@@ -51,6 +51,30 @@ class GiziControlller extends Controller
         # code...
 
     }
+    public function asseesmengizi()
+    {
+        // $unit = auth()->user()->unit;
+        $user = auth()->user()->username;
+        $unit = DB::select('SELECT kode_unit,nama_unit FROM mt_unit WHERE kelas_unit IN (1,2)');
+
+        $menu = 'asseesmengizi';
+
+
+        // dd($unit);
+        return view('gizi.asseesmengizi', [
+            'title' => 'SIRAMAH | GIZI',
+            'unit' => $unit,
+            'user' => $user,
+
+            'menu' => $menu
+
+        ]);
+
+
+
+        # code...
+
+    }
     public function gizibilling()
     {
         $unit = auth()->user()->unit;
@@ -137,6 +161,24 @@ class GiziControlller extends Controller
 
     }
 
+    public function assesgizi(Request $request)
+    {
+        $kj = $request->kj;
+        $unit = $request->unit;
+        $norm = $request->norm;
+
+        $pasien = DB::select("CALL SP_PANGGIL_PASIEN_RAWAT_INAP_PER_UNIT_KUNJUNGAN_AKTIF_NEW('$unit','$norm','');");
+        // dd($pasien);
+
+        return view('gizi.formassesgizi', [
+            'title' => 'SIRAMAH | GIZI',
+            'pasien' => $pasien,
+            'unit' => $unit
+
+
+        ]);
+    }
+
     public function caripasienranap(Request $request)
     {
         $unit = $request->unit;
@@ -145,6 +187,23 @@ class GiziControlller extends Controller
         // dd($pasienranap);
 
         return view('gizi.pasienranap', [
+            'title' => 'SIRAMAH | GIZI',
+            'pasienranap' => $pasienranap,
+            'unit' => $unit
+
+
+
+
+        ]);
+    }
+    public function caripasienranapgizi(Request $request)
+    {
+        $unit = $request->unit;
+
+        $pasienranap = DB::select("CALL SP_PANGGIL_PASIEN_RAWAT_INAP_PER_UNIT_KUNJUNGAN_AKTIF_NEW('$unit','','');");
+        // dd($pasienranap);
+
+        return view('gizi.pasienranapgizi', [
             'title' => 'SIRAMAH | GIZI',
             'pasienranap' => $pasienranap,
             'unit' => $unit
