@@ -30,6 +30,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [LoginController::class, 'index']);
 Route::post('login', [LoginController::class, 'authenticate'])->middleware('guest')->name('login');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('/home', [LoginController::class, 'logout'])->name('home');
+
 
 
 //Route Antrian
