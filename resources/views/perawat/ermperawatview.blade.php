@@ -222,7 +222,7 @@
                             </li>
                             <li class="nav-item" id="pemeriksaan">
                                 <a href="#" class="nav-link pemantauan">
-                                    <i class="fas fa-male mr-2"></i>Pemantauan Tanda Vital Pasien (maintenance)
+                                    <i class="fas fa-male mr-2"></i>Pemantauan Tanda Vital Pasien 
                                 </a>
                             </li>
                              <li class="nav-item" id="pemeriksaan">

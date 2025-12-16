@@ -218,7 +218,7 @@
                         urine: $("#urine").val(),
                         spo2: $("#spo2").val(),
 
-                        nyeri: $("#nyeri").val()
+                        nyeri: $("#nyeri").val(),
                         keterangan: $("#keterangan").val()
 
 
