@@ -19,7 +19,7 @@
         <th>GCS</th>
         <th>PUPIL</th>
 
-        <th>PU</th>
+        <!-- <th>PU</th> -->
         <th>NYERI</th>
 
 
@@ -43,7 +43,6 @@
             <td>{{$l->suhu}}</td>
             <td>{{$l->gcs}}</td>
             <td>{{$l->pupil}}</td>
-            <td>{{$l->pu}}</td>
             <td>{{$l->nyeri}}</td>
             <td><a class="btn btn-warning btn-sm " href="#">
                     <i class="fas fa-sync-alt fa-spin"></i>

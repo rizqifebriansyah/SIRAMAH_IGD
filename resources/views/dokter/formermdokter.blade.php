@@ -1308,7 +1308,7 @@
                                     <td class="text-bold font-italic">KELUHAN UTAMA</td>
                                     <td>
                                         <div class="input-group">
-                                            <textarea class="form-control" id="subyek" name="subyek" placeholder=""></textarea>
+                                            <textarea class="form-control" id="subyek" name="subyek" placeholder="">{{$assesper[0]->keluhan_utama}}</textarea>
 
                                         </div>
                                     </td>
