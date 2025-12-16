@@ -83,7 +83,33 @@
                             <tr>
                                 <td class="text-bold font-italic">Transportasi Pulang</td>
                                 <td>
-                                    <textarea class="form-control" id="transportasi" name="transportasi" placeholder="Ketik Kendaraan ..."></textarea>
+                                    <!-- <textarea class="form-control" id="transportasi" name="transportasi" placeholder="Ketik Kendaraan ..."></textarea> -->
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="transportasi" id="transportasi" value="Mobil">
+                                                <label class="form-check-label">Mobil</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="transportasi" id="transportasi" value="Becak">
+                                                <label class="form-check-label">Becak</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="transportasi" id="transportasi" value="Cator">
+                                                <label class="form-check-label">Cator</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="transportasi" id="transportasi" value="Motor">
+                                                <label class="form-check-label">Motor</label>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                 </td>
                             </tr>
@@ -547,10 +573,72 @@
                         <tbody>
                             <tr>
                                 <td class="text-bold font-italic">Transportasi Pulang</td>
+                            <tr>
+                                <td class="text-bold font-italic">Transportasi Pulang</td>
                                 <td>
-                                    <textarea class="form-control" id="transportasi" name="transportasi" placeholder="Ketik Kendaraan ...">{{$rencanaplg[0]->transportasi}}</textarea>
+                                    <!-- <textarea class="form-control" id="transportasi" name="transportasi" placeholder="Ketik Kendaraan ..."></textarea> -->
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <div class="form-check">
+                                                @if($rencanaplg[0]->transportasi == 'Mobil')
+
+                                                <input class="form-check-input" type="checkbox" checked name="transportasi" id="transportasi" value="Mobil">
+                                                <label class="form-check-label">Mobil</label>
+                                                @else
+                                                <input class="form-check-input" type="checkbox" name="transportasi" id="transportasi" value="Mobil">
+                                                <label class="form-check-label">Mobil</label>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="form-check">
+                                                @if($rencanaplg[0]->transportasi == 'Becak')
+
+                                                <input class="form-check-input" type="checkbox" checked name="transportasi" id="transportasi" value="Becak">
+                                                <label class="form-check-label">Becak</label>
+                                                @else
+                                                <input class="form-check-input" type="checkbox" name="transportasi" id="transportasi" value="Becak">
+                                                <label class="form-check-label">Becak</label>
+                                                @endif
+
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="form-check">
+                                                @if($rencanaplg[0]->transportasi == 'Cator')
+
+                                                <input class="form-check-input" checked type="checkbox" name="transportasi" id="transportasi" value="Cator">
+                                                <label class="form-check-label">Cator</label>
+                                                @else
+                                                <input class="form-check-input" type="checkbox" name="transportasi" id="transportasi" value="Cator">
+                                                <label class="form-check-label">Cator</label>
+                                                @endif
+
+
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="form-check">
+                                                @if($rencanaplg[0]->transportasi == 'Motor')
+
+                                                <input class="form-check-input" checked type="checkbox" name="transportasi" id="transportasi" value="Motor">
+                                                <label class="form-check-label">Motor</label>
+                                                @else
+                                                <input class="form-check-input"  type="checkbox" name="transportasi" id="transportasi" value="Motor">
+                                                <label class="form-check-label">Motor</label>
+
+                                                @endif
+
+                                            </div>
+                                        </div>
+                                    </div>
 
                                 </td>
+                            </tr>
+                            <!-- <td>
+                                    <textarea class="form-control" id="transportasi" name="transportasi" placeholder="Ketik Kendaraan ...">{{$rencanaplg[0]->transportasi}}</textarea>
+
+                                </td> -->
                             </tr>
                         </tbody>
                     </table>
@@ -1021,7 +1109,7 @@
             var hambatan = $('#hambatan:checked').val()
             var medis = $('#medis:checked').val()
             var harian = $('#harian:checked').val()
-            var kendaraan = $('#transportasi').val()
+            var kendaraan = $('#transportasi:checked').val()
             var pendamping = $('#pendamping').val()
             var diet = $('#diet').val()
             var peralatan1 = $('#peralatan1:checked').val()
@@ -1078,7 +1166,7 @@
                             hambatan: $('#hambatan:checked').val(),
                             medis: $('#medis:checked').val(),
                             harian: $('#harian:checked').val(),
-                            kendaraan: $('#transportasi').val(),
+                            kendaraan: $('#transportasi:checked').val(),
                             pendamping: $('#pendamping').val(),
                             diet: $('#diet').val(),
                             peralatan1: $('#peralatan1:checked').val(),
@@ -1283,6 +1371,7 @@
             })
             return false;
         });
+
         function rncnplg() {
             spinner = $('#loader2');
             spinner.show();
