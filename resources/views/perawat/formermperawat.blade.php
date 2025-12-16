@@ -2551,38 +2551,38 @@
                                                                 <div class="col-md-3">
                                                                     <div class="form-check">
                                                                         @if($assesper[0]->pupil == 'Isokor')
-                                                                         <input class="form-check-input" type="radio" name="pupil" id="pupil" value="Isokor" checked>
+                                                                        <input class="form-check-input" type="radio" name="pupil" id="pupil" value="Isokor" checked>
                                                                         <label class="form-check-label">Isokor </label>
                                                                         @else
-                                                                          <input class="form-check-input" type="radio" name="pupil" id="pupil" value="Isokor">
+                                                                        <input class="form-check-input" type="radio" name="pupil" id="pupil" value="Isokor">
                                                                         <label class="form-check-label">Isokor </label>
                                                                         @endif
-                                                                  
+
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-3">
                                                                     <div class="form-check">
-                                                                           @if($assesper[0]->pupil == 'Anisokor')
-                                                                   <input class="form-check-input" type="radio" name="pupil" id="pupil" checked value="Anisokor">
+                                                                        @if($assesper[0]->pupil == 'Anisokor')
+                                                                        <input class="form-check-input" type="radio" name="pupil" id="pupil" checked value="Anisokor">
                                                                         <label class="form-check-label">Anisokor </label>
                                                                         @else
-                                                                  <input class="form-check-input" type="radio" name="pupil" id="pupil" value="Anisokor">
+                                                                        <input class="form-check-input" type="radio" name="pupil" id="pupil" value="Anisokor">
                                                                         <label class="form-check-label">Anisokor </label>
                                                                         @endif
-                                                                     
+
                                                                     </div>
                                                                 </div>
 
                                                                 <div class="col-md-3">
                                                                     <div class="form-check">
-                                                                          @if($assesper[0]->pupil == 'Tidak Ada')
-                                                                         <input class="form-check-input" type="radio" name="pupil" id="pupil" value="Tidak Ada" checked>
+                                                                        @if($assesper[0]->pupil == 'Tidak Ada')
+                                                                        <input class="form-check-input" type="radio" name="pupil" id="pupil" value="Tidak Ada" checked>
                                                                         <label class="form-check-label">Tidak Ada </label>
                                                                         @else
-                                                                        <input class="form-check-input" type="radio" name="pupil" id="pupil" value="Tidak Ada" >
+                                                                        <input class="form-check-input" type="radio" name="pupil" id="pupil" value="Tidak Ada">
                                                                         <label class="form-check-label">Tidak Ada </label>
                                                                         @endif
-                                                                 
+
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -4788,6 +4788,32 @@
                                     <tr>
                                         <td class="text-bold font-italic">TINDAKAN KEPERAWATAN</td>
                                         <td>
+                                            <form id="dynamic-form" class="formtindakanperawat">
+                                                <div id="form-container">
+                                                    <div class="row mt-2">
+                                                        <!-- <div class="col-3">
+                                                            <div class="form-group">
+                                                                <label for="name">Jam:</label>
+                                                                <input type="time" name="waktu" id="waktu" value="" class="waktu form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <div class="form-group">
+                                                                <label for="name">TINDAKAN KEPERAWATAN :</label>
+                                                                <input type="text" name="tindakankeperawatan" id="tindakankeperawatan" value="" class="tindakan_keperawatan form-control">
+                                                            </div>
+                                                        </div> -->
+                                                        <div class="col-3">
+                                                            <div class="form-group">
+                                                                <!-- <i class="bi bi-x-square remove form-group col-md-2 text-danger"></i> -->
+                                                                <button type="button" class="btn btn-success mb-2 " id="add">Tambah</button>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </form>
                                             <table class="table">
                                                 <thead>
                                                     <th>WAKTU</th>
@@ -4810,32 +4836,7 @@
                                                 </tbody>
                                             </table>
 
-                                            <form id="dynamic-form" class="formtindakanperawat">
-                                                <div id="form-container">
-                                                    <div class="row mt-2">
-                                                        <div class="col-3">
-                                                            <div class="form-group">
-                                                                <label for="name">Jam:</label>
-                                                                <input type="time" name="waktu" id="waktu" value="" class="waktu form-control">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="name">TINDAKAN KEPERAWATAN :</label>
-                                                                <input type="text" name="tindakankeperawatan" id="tindakankeperawatan" value="" class="tindakan_keperawatan form-control">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-3">
-                                                            <div class="form-group">
-                                                                <i class="bi bi-x-square remove form-group col-md-2 text-danger"></i>
-                                                                <button type="button" class="btn btn-success mb-2 " id="add">Tambah</button>
 
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </form>
                                         </td>
 
                                     </tr>

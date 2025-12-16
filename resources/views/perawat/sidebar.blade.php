@@ -50,7 +50,7 @@
                 </li>
                 @else
                 @endif
-                <li class="nav-header">KPO</li>
+                <!-- <li class="nav-header">KPO</li>
                 <li class="nav-item">
                     <a href="{{ route('kpo') }}" class="nav-link @if($menu == 'kpo' ) active @endif">
                         <i class="nav-icon fas fa-archive"></i>
@@ -58,7 +58,7 @@
                             KPO Elektronik
                         </p>
                     </a>
-                </li>
+                </li> -->
 
 
                 <li class="nav-item">

@@ -222,12 +222,12 @@
                             </li>
                             <li class="nav-item" id="pemeriksaan">
                                 <a href="#" class="nav-link pemantauan">
-                                    <i class="fas fa-male mr-2"></i>Pemantauan Tanda Vital Pasien
+                                    <i class="fas fa-male mr-2"></i>Pemantauan Tanda Vital Pasien (maintenance)
                                 </a>
                             </li>
                              <li class="nav-item" id="pemeriksaan">
                                 <a href="#" class="nav-link transferpasien">
-                                    <i class="fas fa-book mr-2"></i>Catatan Transfer Pasien
+                                    <i class="fas fa-book mr-2"></i>Catatan Transfer Pasien (progress)
                                 </a>
                             </li>
                             <li class="nav-item" id="pemeriksaan">
