@@ -743,12 +743,17 @@ class PerawatController extends Controller
         $kj = $request->kj;
 
         $rencanaplg = DB::select('SELECT * FROM rencana_plg WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
+        $unit = DB::select('SELECT kode_unit,nama_unit FROM mt_unit WHERE kode_unit = ?', [$rencanaplg[0]->poli_tuju]);
+        // dd($unit);
+        $poli = DB::select('SELECT kode_unit,nama_unit FROM mt_unit WHERE kelas_unit = 1');
         return view(
             'perawat.rencanaplg',
             [
                 'rencanaplg' => $rencanaplg,
                 'norm' => $norm,
                 'kj' => $kj,
+                'poli' => $poli,
+                'unit' => $unit
 
 
             ]
@@ -1092,7 +1097,7 @@ class PerawatController extends Controller
             'diberikan5' => $request->diberikan5,
             'diberikan6' => $request->diberikan6,
 
-            'jadwal_kontrol' => $request->tglpoli,
+            'tgl_kontrol' => $request->tglpoli,
             'poli_tuju' => $request->poli,
             'instruksi' => $request->planning,
             'status' => '1',

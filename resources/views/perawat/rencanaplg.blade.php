@@ -424,7 +424,11 @@
                                     <label for="">Poliklinik :</label>
                                     <select class="form-control select2" name="poli" id="poli">
                                         <option value=""> Pilih Poli</option>
+                                        @foreach($poli as $po )
+                                        <option value="{{$po->kode_unit}}"> {{$po->nama_unit}}</option>
 
+
+                                        @endforeach
 
                                     </select>
                                 </td>
@@ -624,7 +628,7 @@
                                                 <input class="form-check-input" checked type="checkbox" name="transportasi" id="transportasi" value="Motor">
                                                 <label class="form-check-label">Motor</label>
                                                 @else
-                                                <input class="form-check-input"  type="checkbox" name="transportasi" id="transportasi" value="Motor">
+                                                <input class="form-check-input" type="checkbox" name="transportasi" id="transportasi" value="Motor">
                                                 <label class="form-check-label">Motor</label>
 
                                                 @endif
@@ -1071,8 +1075,12 @@
                                 <td>
                                     <label for="">Poliklinik :</label>
                                     <select class="form-control select2" name="poli" id="poli">
-                                        <option value=""> Pilih Poli</option>
+                                        <option value="{{$unit[0]->kode_unit}}"> {{$unit[0]->nama_unit}}</option>
+                                        @foreach($poli as $po )
+                                        <option value="{{$po->kode_unit}}"> {{$po->nama_unit}}</option>
 
+
+                                        @endforeach
 
                                     </select>
                                 </td>
