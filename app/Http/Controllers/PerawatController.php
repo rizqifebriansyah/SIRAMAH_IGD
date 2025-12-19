@@ -1244,6 +1244,10 @@ class PerawatController extends Controller
                 'diagnosa_perawat11' => $request->diagnosakeperawatan11,
                 'diagnosa_perawat12' => $request->diagnosakeperawatan12,
                 'rencana_asuhan' => $request->rencanaasuhan,
+                'rencana_asuhan1' => $request->rencanaasuhan1,
+                'rencana_asuhan2' => $request->rencanaasuhan2,
+                'rencana_asuhan3' => $request->rencanaasuhan3,
+                'rencana_asuhan4' => $request->rencanaasuhan4,
                 'kolaborasi_1' => $request->kolaborasi1,
                 'kolaborasi_2' => $request->kolaborasi2,
                 'kolaborasi_3' => $request->kolaborasi3,
@@ -1735,7 +1739,7 @@ class PerawatController extends Controller
         $subyektif = $request->subject;
         $obyektif = $request->objek;
         $assesment = $request->assesmen;
-        $planning = $request->planning;
+        $planning = $request->rencanaasuhan;
 
         $kj = $request->kj;
         $norm = $request->norm;
@@ -1844,6 +1848,10 @@ class PerawatController extends Controller
                     'diagnosa_perawat11' => $request->diagnosakeperawatan11,
                     'diagnosa_perawat12' => $request->diagnosakeperawatan12,
                     'rencana_asuhan' => $request->rencanaasuhan,
+                    'rencana_asuhan1' => $request->rencanaasuhan1,
+                    'rencana_asuhan2' => $request->rencanaasuhan2,
+                    'rencana_asuhan3' => $request->rencanaasuhan3,
+                    'rencana_asuhan4' => $request->rencanaasuhan4,
                     'kolaborasi_1' => $request->kolaborasi1,
                     'kolaborasi_2' => $request->kolaborasi2,
                     'kolaborasi_3' => $request->kolaborasi3,
