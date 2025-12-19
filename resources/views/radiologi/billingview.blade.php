@@ -194,8 +194,6 @@
             <div class="card-header bg-secondary">Tindakan / Layanan Pasien</div>
             <div class="card-body">
                 <form action="" method="post" class="formtindakan">
-                    <button type="button" class="btn btn-warning mb-2 simpanradiologi" id="simpanradiologi">Simpan Tindakan</button>
-
                     <select class="form-control select2" name="dorad" id="dorad">
                         <option value=""> -- PILIH DOKTER --</option>
                         <option value="other">other</option>
@@ -207,6 +205,7 @@
                     <div class="input_fields_wrap mt-2">
                         <div>
                         </div>
+                        <button type="button" class="btn btn-warning mb-2 simpanradiologi" id="simpanradiologi">Simpan Tindakan</button>
 
                     </div>
 
@@ -407,9 +406,6 @@
             <div class="card-header bg-secondary">Tindakan / Layanan Pasien</div>
             <div class="card-body">
                 <form action="" method="post" class="formtindakan">
-                    <button type="button" class="btn btn-warning mb-2 simpanradiologi" id="simpanradiologi">Simpan Tindakan</button>
-                    <button type="button" class="btn btn-danger mb-2 batalradiologi" id="batalradiologi">Batal Tindakan</button>
-
                     <select class="form-control select2" name="dorad" id="dorad">
                         <option value=""> -- PILIH DOKTER --</option>
                         <option value="other">other</option>
@@ -463,6 +459,8 @@
                             @endforeach
                         </div>
                     </div>
+                    <button type="button" class="btn btn-warning mb-2 simpanradiologi" id="simpanradiologi">Simpan Tindakan</button>
+                    <button type="button" class="btn btn-danger mb-2 batalradiologi" id="batalradiologi">Batal Tindakan</button>
 
                 </form>
             </div>
