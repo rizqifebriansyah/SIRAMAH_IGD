@@ -62,7 +62,7 @@ class MonitoringController extends Controller
         where Date(a.tgl_masuk) = ?
         and a.status_kunjungan = 1
         and a.kode_unit = ?', [$now, $unit]);
-        dd($pasienigd);
+        // dd($pasienigd);
         return view(
             'monitoring.assesigd',
             [
