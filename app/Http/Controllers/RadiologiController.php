@@ -187,10 +187,10 @@ class RadiologiController extends Controller
         $tgl_masuk_x = date('Ymd', strtotime('-14 days', strtotime($now)));
 
         // $pasienbridging = DB::connection('mysql3')->select('SELECT * from order_table a WHERE DATE(a.ADMITDATE) BETWEEN ? AND ?', [$tgl_masuk_x,$now]);
-        $pasienbridging = DB::connection('mysql3')->select('SELECT * from order_table a WHERE DATE(a.ADMITDATE) BETWEEN ? AND ?   AND a.STATUS IN ("AP" ,"FN")', [$tgl_masuk_x,$now]);
+        $pasienbridging = DB::connection('mysql3')->select('SELECT * from order_table a WHERE DATE(a.ADMITDATE) BETWEEN ? AND ?   AND a.STATUS IN ("AP" ,"FN")', [$tgl_masuk_x, $now]);
 
 
-      
+
 
         $menu = 'expertisi_view1';
 
@@ -791,6 +791,8 @@ class RadiologiController extends Controller
         $now = $date . ' ' . $time;
         $cek = $request->all();
         $total = $request->totallayanan;
+        $namatarif = $request->namatarif;
+        $kodekunjungan = $request->kodekunjungan;
         $gt = $request->gt;
         $sisatotal = $total - $gt;
         $sisaqty = $request->qty - 1;
@@ -842,7 +844,10 @@ class RadiologiController extends Controller
         $tagpri = $hitung[0]->TAGPRI;
         $tagpen = $hitung[0]->TAGPEN;
         $updatehed = DB::select('UPDATE ts_layanan_header	SET total_layanan =?, tagihan_pribadi = ? ,tagihan_penjamin = ?	WHERE ID = ?', [$sisatotal, $tagpri, $tagpen, $request->idhed]);
-
+        $cek = DB::connection('mysql3')->select('SELECT ACCESSIONNUMBER FROM order_table WHERE KODE_KUNJUNGAN = ? AND PROCEDURENAME = ?', [$kodekunjungan, $namatarif]);
+        // dd($cek);
+        $acc = $cek[0]->ACCESSIONNUMBER;
+        $url = "https://ris-api.radsaas.co.id/order/cancel?accessionNumber=$acc";
         $back = [
             'kode' => 200,
             'message' => 'Retur Berhasil'
@@ -972,8 +977,7 @@ class RadiologiController extends Controller
             ', [$kj, $norm]);
         // dd($pasien);
 
-        if ($ex->httpStatus == "200") 
-            {
+        if ($ex->httpStatus == "200") {
 
             $pdf = new FPDF('P', 'mm', 'A4');
             $pdf::AddPage('P', 'letter');
@@ -1222,8 +1226,7 @@ class RadiologiController extends Controller
 
             $pdf::Output();
             exit;
-        }else
-            {
+        } else {
             $pdf = new FPDF('P', 'mm', 'A4');
             $pdf::AddPage('P', 'letter');
             //Awal Header kertas
@@ -1375,7 +1378,7 @@ class RadiologiController extends Controller
 
             $pdf::Output();
             exit;
-        }  
+        }
         // AKHIR Header Kertas
 
     }

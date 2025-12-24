@@ -106,12 +106,12 @@
                                         <i class="" aria-hidden="true">A</i>
                                     </a>
                                 </div>
-                                <div class="col-md-2">
+                                <!-- <div class="col-md-2">
                                     <a class="detailbarang btn btn-info btn-sm" href="#">
                                         <i class="fas fa-eye"></i>
 
                                     </a>
-                                </div>
+                                </div> -->
 
                             </div>
                         </td>
