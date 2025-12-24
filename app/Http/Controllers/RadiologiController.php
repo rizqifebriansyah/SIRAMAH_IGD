@@ -176,6 +176,41 @@ class RadiologiController extends Controller
 
         ]);
     }
+    public function riwayatretur(Request $request)
+    {
+        $user = auth()->user()->username;
+
+        $now = Carbon::now()->format('Y-m-d');
+        $noww = date('Y-m-d', strtotime('-3 days', strtotime($now)));
+
+        $hasil = DB::select('SELECT
+            a.kode_layanan_header
+            , a.status_retur
+            , fc_nama_px(c.no_rm) AS nama_pasien
+            , a.total_retur
+            , g.NAMA_TARIF
+            FROM ts_retur_header a 
+            INNER JOIN ts_retur_detail b ON b.row_id_header = a.id
+            INNER JOIN ts_layanan_header e ON e.kode_layanan_header = a.kode_layanan_header
+            INNER JOIN ts_layanan_detail f ON f.row_id_header = e.id
+            INNER JOIN mt_tarif_detail d ON d.KODE_TARIF_DETAIL = f.kode_tarif_detail
+            INNER JOIN mt_tarif_header g ON g.KODE_TARIF_HEADER = d.KODE_TARIF_HEADER
+
+            INNER JOIN ts_kunjungan c ON c.kode_kunjungan = a.kode_kunjungan
+            WHERE a.kode_layanan_header LIKE "%RAD%"
+            AND DATE(a.tgl_retur) BETWEEN ? AND ?',  [$now, $noww]);
+        $menu = 'riwayatretur';
+
+        return view('radiologi.tableretur', [
+            'title' => 'SIRAMAH | RADIOLOGI',
+            'menu' => $menu,
+
+            'hasil' => $hasil,
+            'user' => $user
+
+
+        ]);
+    }
     public function expertisi_view1()
     {
         // $unit = auth()->user()->unit;

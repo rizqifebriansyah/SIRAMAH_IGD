@@ -233,6 +233,7 @@ Route::group(['middleware' => ['hak_akses:3', 'auth']], function () {
     Route::get('/radiologi', [RadiologiController::class, 'radiologi'])->name('radiologi');
     Route::get('/riwayatorder', [RadiologiController::class, 'riwayatorder'])->name('riwayatorder');
     Route::get('/riwayatbridging', [RadiologiController::class, 'riwayatbridging'])->name('riwayatbridging');
+    Route::get('/riwayatretur', [RadiologiController::class, 'riwayatretur'])->name('riwayatretur');
 
     Route::post('detailpasienradiologi', [RadiologiController::class, 'detailpasienradiologi'])->name('detailpasienradiologi');
     Route::post('/riwayatradiologipasien', [RadiologiController::class, 'riwayatradiologipasien'])->name('riwayatradiologipasien');
