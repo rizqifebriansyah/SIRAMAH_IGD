@@ -494,6 +494,9 @@ class PerawatController extends Controller
         $kj = $request->kj;
         $norm = $request->norm;
         $now = Carbon::now()->format('Y-m-d H:i:s');
+        $ranap = DB::select('SELECT kode_unit,nama_unit FROM mt_unit WHERE kelas_unit = 2');
+        $ttv = DB::select('SELECT tekanan_darah, frekuensi_nafas, frekuensi_nadi, suhu, berat_badan, umur, keadaan_umum, kesadaran, gcs, spo2 FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
+        $riwayatrekonobat = DB::select('SELECT * FROM rekonsiliasi_obat WHERE kode_kunjungan = ?', [$kj]);
 
         return view(
             'perawat.transferpasien',
@@ -503,7 +506,9 @@ class PerawatController extends Controller
 
                 'now' => $now,
                 'norm' => $norm,
-
+                'ranap' => $ranap,
+                'ttv' => $ttv,
+                'riwayatrekonobat' => $riwayatrekonobat,
                 'kj' => $kj
 
 
