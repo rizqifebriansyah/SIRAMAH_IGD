@@ -1,4 +1,5 @@
 <div class="batas mt-2"></div>
+
 @if ($pasienkunjunganorder == NULL)
 
 
@@ -33,6 +34,8 @@
                     </div>
                 </div>
                 <input hidden type="text" id="kodekunjungan" value="{{ $pasienkunjungan[0]->kode_kunjungan}}" class="form-control">
+                <input hidden type="text" id="idsimrs" value="{{ $idsimrs}}" class="form-control">
+
                 <input hidden type="text" id="kodepenjamin" value="{{ $pasienkunjungan[0]->kode_penjamin }}" class="form-control">
                 <input hidden type="text" id="kelas" value="{{ $pasienkunjungan[0]->kelas }}" class="form-control">
             </div>
@@ -258,6 +261,8 @@
                     </div>
                 </div>
                 <input hidden type="text" id="kodekunjungan" value="{{ $pasienkunjunganorder[0]->kode_kunjungan}}" class="form-control">
+                <input hidden type="text" id="idsimrs" value="{{ $idsimrs}}" class="form-control">
+
                 <input hidden type="text" id="kodepenjamin" value="{{ $pasienkunjunganorder[0]->kode_penjamin }}" class="form-control">
                 <input hidden type="text" id="kelas" value="{{ $pasienkunjunganorder[0]->kelas }}" class="form-control">
             </div>
@@ -589,6 +594,8 @@
         var data = $('.formtindakan').serializeArray();
         var barang = $('.form_barang').serializeArray();
         var kodekunjungan = $('#kodekunjungan').val()
+        var idsimrs = $('#idsimrs').val()
+
         var alamat = $('#alamat').val()
 
         var kodepenjamin = $('#kodepenjamin').val()
@@ -628,6 +635,8 @@
                         barang: JSON.stringify(barang),
 
                         kodekunjungan: $('#kodekunjungan').val(),
+                        idsimrs: $('#idsimrs').val(),
+
                         alamat: $('#alamat').val(),
 
                         kodepenunjang: $('#namapenunjang').val(),
@@ -668,9 +677,16 @@
                                 text: 'data berhasil disimpan',
                                 footer: ''
                             })
-                            pdf(data.idhed, data.kode_header)
-                            etiket(data.idhed, data.kode_header)
-                            success();
+                            if (idsimrs == '1141') {
+                                pdf(data.idhed, data.kode_header)
+                                // etiket(data.idhed, data.kode_header)
+                                success();
+                            } else {
+                                pdf(data.idhed, data.kode_header)
+                                etiket(data.idhed, data.kode_header)
+                                success();
+                            }
+
 
 
                         }

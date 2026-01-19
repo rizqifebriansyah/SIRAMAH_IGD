@@ -4,7 +4,8 @@
     </div>
     <div class="card-body">
         <form action="" class="formrencanapulang">
-            @if ($rencanaplg == null)
+            @if ($rencanaplg == null) 
+
             <div class="row">
                 <div class="col-md-6">
                     <table class="table">
@@ -1075,7 +1076,6 @@
                                 <td>
                                     <label for="">Poliklinik :</label>
                                     <select class="form-control select2" name="poli" id="poli">
-                                        <option value="{{$unit[0]->kode_unit}}"> {{$unit[0]->nama_unit}}</option>
                                         @foreach($poli as $po )
                                         <option value="{{$po->kode_unit}}"> {{$po->nama_unit}}</option>
 

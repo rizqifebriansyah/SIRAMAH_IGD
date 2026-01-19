@@ -1807,7 +1807,7 @@ class RadiologiController extends Controller
         $unit = auth()->user()->unit;
         $user = auth()->user()->id_simrs;
 
-        $data = $idhed . '|' . $kode_header . '|' . '2';
+        $data = $idhed . '|' . $kode_header . '|' . '1';
         $now = Carbon::now();
 
         date_default_timezone_set('Asia/Jakarta');

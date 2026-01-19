@@ -26,7 +26,7 @@
         @if ($unit == '1002')
 
         <h4 class="col-md-5">Data Pasien IGD UMUM</h4>
-        @else 
+        @else
         <h4 class="col-md-5">Data Pasien IGD KEBIDANAN</h4>
 
         @endif
@@ -154,14 +154,19 @@
                             {{ $a->DIAGX }}
                         </td>
 
+                        @if ($a->nama_perawat == null)
 
                         <td class="status1" style="text-align: center;">
-                            @if ($a->nama_perawat == null)
-                            <button class="badge badge-danger "> belum diisi </button>
-                            @else
-                            <button class="badge badge-success ermdokter"> Sudah Diisi   </button>
+                            <button class="badge badge-danger "> belum diisi </button> |
+                        </td>
+                        <td class="status2" style="text-align: center;">
+                            <button class="badge badge-danger "> Menunggu isian Perawat </button>
+                        </td>
+
+                        @else
+                        <td class="status1" style="text-align: center;">
+                            <button class="badge badge-success ermdokter"> Sudah Diisi </button>
                             | {{ $a->nama_perawat }}
-                            @endif
                         </td>
                         <td class="status2" style="text-align: center;">
                             @if ($a->nama_paramedis == null)
@@ -171,6 +176,8 @@
                             {{ $a->nama_paramedis }}
                             @endif
                         </td>
+                        @endif
+                       
 
 
                     </tr>
