@@ -80,66 +80,65 @@
                             </tbody>
                         </table>
                         <p class="ml-3 mb-3">
-                            <button type="button" class="bg-success float-right updateradiologi mb-3" id="updateradiologi">UPDATE</button>
+                            <button type="button" class="bg-success float-right updateradiologi" id="updateradiologi">UPDATE</button>
                         </p>
                     </form>
                 </div>
 
                 <script>
+                   
                     $(".updateradiologi").click(function() {
-
-
-
                         var acc = $('#acc').val()
                         var modality = $('#modality').val()
 
                         Swal.fire({
-                            title: "Yakin Edit Modality?"
-                            , icon: 'warning'
-                            , showCancelButton: true
-                            , confirmButtonColor: '#3085d6'
-                            , confirmButtonText: 'Ya'
-                            , cancelButtonColor: '#d33'
-                            , cancelButtonText: "Batal"
+                            title: "Yakin update Layanan?",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: 'Ya',
+                            cancelButtonColor: '#d33',
+                            cancelButtonText: "Batal"
 
                         }).then(result => {
                             //jika klik ya maka arahkan ke proses.php
                             if (result.isConfirmed) {
                                 $.ajax({
-                                    async: true
-                                    , type: 'post'
-                                    , dataType: 'json'
-                                    , data: {
+                                    async: true,
+                                    type: 'post',
+                                    dataType: 'json',
+                                    data: {
                                         _token: "{{ csrf_token() }}",
+                                    
                                         acc: $('#acc').val(),
                                         modality: $('#modality').val()
-                                    }
-                                    , url: '<?= route('updateradiologi') ?>'
-                                    , error: function(data) {
+
+                                    },
+                                    url: '<?= route('updateradiologi') ?>',
+                                    error: function(data) {
                                         Swal.fire({
-                                            icon: 'error'
-                                            , title: 'Oops...'
-                                            , text: 'Sepertinya ada masalah ...'
-                                            , footer: ''
+                                            icon: 'error',
+                                            title: 'Oops...',
+                                            text: 'Sepertinya ada masalah ...',
+                                            footer: ''
                                         })
-                                    }
-                                    , success: function(data) {
+                                    },
+                                    success: function(data) {
                                         console.log(data)
                                         if (data.kode == 500) {
                                             Swal.fire({
-                                                icon: 'error'
-                                                , title: 'Oops...'
-                                                , text: data.message
-                                                , footer: ''
+                                                icon: 'error',
+                                                title: 'Oops...',
+                                                text: data.message,
+                                                footer: ''
                                             })
                                         } else {
                                             Swal.fire({
-                                                icon: 'success'
-                                                , title: 'OK'
-                                                , text: 'data berhasil disimpan'
-                                                , footer: ''
-                                            })
-
+                                                icon: 'success',
+                                                title: 'OK',
+                                                text: 'data berhasil disimpan',
+                                                footer: ''
+                                            }) 
                                         }
                                     }
                                 });
@@ -147,5 +146,4 @@
                         })
                         return false;
                     });
-
                 </script>
