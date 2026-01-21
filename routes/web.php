@@ -250,6 +250,7 @@ Route::group(['middleware' => ['hak_akses:3', 'auth']], function () {
 
     //simpan order
     Route::post('/simpanorderradiologi', [RadiologiController::class, 'simpanorderradiologi'])->name('simpanorderradiologi');
+    Route::post('/updateradiologi', [RadiologiController::class, 'updateradiologi'])->name('updateradiologi');
 
     //retur order
     Route::post('returorderrad', [RadiologiController::class, 'returorderrad'])->name('returorderrad');

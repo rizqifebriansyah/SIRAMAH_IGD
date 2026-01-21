@@ -266,6 +266,14 @@ class RadiologiController extends Controller
 
         ]);
     }
+    public function updateradiologi(Request $request)
+    {
+        $acc = $request->acc;
+        $modality = $request->modality;
+
+        $update = DB::connection('mysql3')->select('UPDATE order_table a SET MODALITY = ? WHERE ACCESSIONNUMBER = ?', [$modality, $acc]);
+        return response()->json(['success' => 'Data Berhasil Di Update']);
+    }
     public function riwayatbridging()
     {
         $unit = auth()->user()->unit;
@@ -407,7 +415,7 @@ class RadiologiController extends Controller
         $tglbridging1 = Carbon::parse($request->tanggal_bridging1)->format('Ymd');
 
         $pasienbridging = DB::connection('mysql3')->select('SELECT * from order_table a WHERE DATE(a.ADMITDATE) BETWEEN ? AND ? AND a.STATUS IN ("AP" ,"FN")', [$tglbridging, $tglbridging1]);
-        
+
         // dd($pasienbridging);
         return view('radiologi.tablebridgingexx', [
             'title' => 'SIRAMAH | RADIOLOGI',
