@@ -81,33 +81,7 @@
 
 
 
-    $(".editriwayatbridging").click(function() {
-        spinner = $('#loader2');
-        spinner.show();
-        var $row = $(this).closest("tr");
-        var acc = $row.find(".acc").text();
-
-
-        $.ajax({
-            type: "post",
-            data: {
-                _token: "{{ csrf_token() }}",
-                acc
-
-
-            },
-            url: " {{ route('editriwayatbridging') }}",
-
-            error: function(data) {
-                spinner.hide();
-                alert('error!!')
-            },
-            success: function(response) {
-                spinner.hide();
-                $('.detailbridging').html(response);
-            }
-        });
-    });
+  
     $(".cetakexpertise").click(function() {
         var $row = $(this).closest("tr");
 
@@ -170,4 +144,31 @@
         window.open('cetakexp/' + acc);
 
     }
+      $(".editriwayatbridging").click(function() {
+        spinner = $('#loader2');
+        spinner.show();
+        var $row = $(this).closest("tr");
+        var acc = $row.find(".acc").text();
+
+
+        $.ajax({
+            type: "post",
+            data: {
+                _token: "{{ csrf_token() }}",
+                acc
+
+
+            },
+            url: " {{ route('editriwayatbridging') }}",
+
+            error: function(data) {
+                spinner.hide();
+                alert('error!!')
+            },
+            success: function(response) {
+                spinner.hide();
+                $('.detailbridging').html(response);
+            }
+        });
+    });
 </script>

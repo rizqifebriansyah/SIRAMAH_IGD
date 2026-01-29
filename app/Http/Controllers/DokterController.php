@@ -1892,32 +1892,32 @@ AND b.kelas_tarif = 1');
             die;
         }
         //fr diagnosa      
-        try {
+        // try {
 
-            $frunit = di_pasien_diagnosa_frunit::create([
-                'no_rm' => $request->norm,
-                'kode_unit' => $unit,
-                'counter' => $request->counter,
-                'kode_kunjungan' => $request->kj,
-                'input_date' => $now,
-                'kode_paramedis' => $kp,
-                'diag_00' => $request->anamnesa,
-                'tipe_pasien' => $jenispasien,
-                'pic' => $user,
-                'is_ranap' => $kondisi,
-                'isSynch' => 0,
-                'created_at' => $now,
-                'status' => '1'
+        //     $frunit = di_pasien_diagnosa_frunit::create([
+        //         'no_rm' => $request->norm,
+        //         'kode_unit' => $unit,
+        //         'counter' => $request->counter,
+        //         'kode_kunjungan' => $request->kj,
+        //         'input_date' => $now,
+        //         'kode_paramedis' => $kp,
+        //         'diag_00' => $request->anamnesa,
+        //         'tipe_pasien' => $jenispasien,
+        //         'pic' => $user,
+        //         'is_ranap' => $kondisi,
+        //         'isSynch' => 0,
+        //         'created_at' => $now,
+        //         'status' => '1'
 
-            ]);
-        } catch (\Exception $e) {
-            $back = [
-                'kode' => 200,
-                'message' => $e->getMessage()
-            ];
-            echo json_encode($back);
-            die;
-        }
+        //     ]);
+        // } catch (\Exception $e) {
+        //     $back = [
+        //         'kode' => 200,
+        //         'message' => $e->getMessage()
+        //     ];
+        //     echo json_encode($back);
+        //     die;
+        // }
         // tindakan dpjp
         try {
             $tindakandpjp = json_decode($_POST['tindakandpjp'], true);
