@@ -157,10 +157,10 @@
                         @if ($a->nama_perawat == null)
 
                         <td class="status1" style="text-align: center;">
-                            <button class="badge badge-danger "> belum diisi </button> |
+                            <button class="badge badge-danger ermdokter"> belum diisi </button> |
                         </td>
-                        <td class="status2" style="text-align: center;">
-                            <button class="badge badge-danger "> Menunggu isian Perawat </button>
+                        <td class="status2" style="text-align: center; ">
+                            <button class="badge badge-danger ermdokter"> Menunggu isian Perawat </button>
                         </td>
 
                         @else

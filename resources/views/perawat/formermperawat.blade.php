@@ -1350,14 +1350,24 @@
                                                         <td class="text-bold">LOKASI NYERI </td>
 
                                                         <td>
-                                                            <div type="button" class="btn btn-secondary penandaan ml-3 mb-3" style="margin-top: 20px;">
+                                                            <!-- <div type="button" class="btn btn-secondary penandaan ml-3 mb-3" style="margin-top: 20px;">
                                                                 PENANDAAN GAMBAR
-                                                            </div>
+                                                            </div> -->
                                                             <div class="row">
                                                                 <div class="col-md-12">
 
                                                                     <div class="penandaangambar">
+                                                                        <div class="card">
+                                                                            <div class="card-header  bg-warning">Penandaan Gambar</div>
+                                                                            <div class="card-body">
+                                                                                <input type="text" hidden id="gambarcoret" name="gambarcoret">
+                                                                                <img id="gambarnya1" style="margin-top:50px" width="600px" height="400px" src="{{ asset('public/img/nyeri.png') }}" onclick="showMarkerArea(this);" />
+                                                                                <canvas hidden id="myCanvas1" width="600px" height="400px" style="border:1px solid #d3d3d3;">
+                                                                                </canvas>
+                                                                                <button type="button" class="btn btn-danger mt-2" onclick="batalgambar1()">batal</button>
 
+                                                                            </div>
+                                                                        </div>
 
                                                                     </div>
                                                                 </div>
@@ -2000,22 +2010,22 @@
                                     <tr>
                                         <td class="text-bold font-italic">RENCANA ASUHAN KEPERAWATAN</td>
                                         <td>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="rencanaasuhan1" id="rencanaasuhan1" value="Kaji keadaan umum pasien">
-                                                    <label class="form-check-label">Kaji keadaan umum pasien </label>
-                                                </div>
-                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="rencanaasuhan2" id="rencanaasuhan2" value="Monitor tanda - tanda vital">
-                                                    <label class="form-check-label">Monitor tanda - tanda vital </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="rencanaasuhan3" id="rencanaasuhan3" value="Kolaborasi dengan tim medis">
-                                                    <label class="form-check-label">Kolaborasi dengan tim medis </label>
-                                                </div>
-                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="rencanaasuhan4" id="rencanaasuhan4" value="Berikan edukasi kepada pasien dan keluarga">
-                                                    <label class="form-check-label">Berikan edukasi kepada pasien dan keluarga </label>
-                                                </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="rencanaasuhan1" id="rencanaasuhan1" value="Kaji keadaan umum pasien">
+                                                <label class="form-check-label">Kaji keadaan umum pasien </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="rencanaasuhan2" id="rencanaasuhan2" value="Monitor tanda - tanda vital">
+                                                <label class="form-check-label">Monitor tanda - tanda vital </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="rencanaasuhan3" id="rencanaasuhan3" value="Kolaborasi dengan tim medis">
+                                                <label class="form-check-label">Kolaborasi dengan tim medis </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="rencanaasuhan4" id="rencanaasuhan4" value="Berikan edukasi kepada pasien dan keluarga">
+                                                <label class="form-check-label">Berikan edukasi kepada pasien dan keluarga </label>
+                                            </div>
                                             <div class="input-group mt-2">
                                                 <textarea class="form-control" id="rencanaasuhan" name="rencanaasuhan" placeholder=""></textarea>
 
@@ -2167,7 +2177,7 @@
                                                         <div class="col-3">
                                                             <div class="form-group">
                                                                 <!-- <i class="bi bi-x-square remove form-group col-md-2 text-danger"></i> -->
-                                                                <button type="button" class="btn btn-danger mb-2  " id="remove">x</button>
+                                                                <!-- <button type="button" class="btn btn-danger mb-2 remove" >x</button> -->
                                                                 <button type="button" class="btn btn-success mb-2 " id="add">Tambah</button>
 
                                                             </div>
@@ -3038,7 +3048,7 @@
                                                                                 <input class="form-check-input" type="radio" name="pendarahan" id="pendarahan" value="Tidak Ada" checked>
                                                                                 <label class="form-check-label">Tidak Ada </label>
                                                                                 @else
-                                                                                <input class="form-check-input" type="radio" name="pendarahan" id="pendarahan" value="Tidak Ada" checked>
+                                                                                <input class="form-check-input" type="radio" name="pendarahan" id="pendarahan" value="Tidak Ada">
                                                                                 <label class="form-check-label">Tidak Ada </label>
                                                                                 @endif
 
@@ -3055,7 +3065,7 @@
                                                                         <input class="form-check-input" type="radio" name="pendarahan" id="pendarahan" value="pendarahan">
                                                                         <label class="form-check-label">Jumlah </label>
                                                                         @endif
-                                                                        <input class="form-control" placeholder="{{$assesper[0]->jumlah_pendarahan}}" type="input" name="jumlahdarah" id="jumlahdarah" value="">
+                                                                        <input class="form-control" placeholder="{{$assesper[0]->jumlah_pendarahan}}" type="input" name="jumlahdarah" id="jumlahdarah" value="{{$assesper[0]->jumlah_pendarahan}}">
                                                                     </div>
                                                                 </div>
 
@@ -3711,8 +3721,33 @@
 
                                                                     <div class="penandaangambar">
                                                                         @if($assesper[0]->penandaan_gambar == NULL)
+                                                                        <div class="card">
+                                                                            <div class="card-header  bg-warning">Penandaan Gambar</div>
+                                                                            <div class="card-body">
+                                                                                <input type="text" hidden id="gambarcoret" name="gambarcoret">
+                                                                                <img id="gambarnya1" style="margin-top:50px" width="600px" height="400px" src="{{ asset('public/img/nyeri.png') }}" onclick="showMarkerArea(this);" />
+                                                                                <canvas hidden id="myCanvas1" width="600px" height="400px" style="border:1px solid #d3d3d3;">
+                                                                                </canvas>
+                                                                                <button type="button" class="btn btn-danger mt-2" onclick="batalgambar1()">batal</button>
+
+                                                                            </div>
+                                                                        </div>
                                                                         @else
                                                                         <img id="gambarnya1" style="margin-top:50px" width="600px" height="400px" src="{{ $assesper[0]->penandaan_gambar }}" onclick="showMarkerArea(this);" />
+
+                                                                        <div class="card">
+                                                                            <div class="card-header  bg-warning">Penandaan Gambar</div>
+                                                                            <div class="card-body">
+                                                                                <input type="text" hidden id="gambarcoret" name="gambarcoret">
+                                                                                <img id="gambarnya1" style="margin-top:50px" width="600px" height="400px" src="{{ asset('public/img/nyeri.png') }}" onclick="showMarkerArea(this);" />
+                                                                                <canvas hidden id="myCanvas1" width="600px" height="400px" style="border:1px solid #d3d3d3;">
+                                                                                </canvas>
+                                                                                <button type="button" class="btn btn-danger mt-2" onclick="batalgambar1()">batal</button>
+
+                                                                            </div>
+                                                                        </div>
+
+
                                                                         @endif
 
                                                                     </div>
@@ -4085,7 +4120,7 @@
                                                                 <td>25 <br> 0 </td>
                                                                 <td>
                                                                     <div class="form-group">
-                                                                        <input type="number" name="rjvalue" id="rjvalue" class="form-control" min="0" placeholder="{{$assesper[0]->riwayat_jatuh}}" required />
+                                                                        <input type="number" name="rjvalue" id="rjvalue" class="form-control" min="0" value="{{$assesper[0]->riwayat_jatuh}}" required />
                                                                     </div>
                                                                 </td>
 
@@ -4096,7 +4131,7 @@
                                                                 <td>15 <br> 0 </td>
                                                                 <td>
                                                                     <div class="form-group">
-                                                                        <input type="number" name="dsvalue" id="dsvalue" class="form-control" min="0" placeholder="{{$assesper[0]->diagnosis_sekunder}}" required />
+                                                                        <input type="number" name="dsvalue" id="dsvalue" class="form-control" min="0" value="{{$assesper[0]->diagnosis_sekunder}}" required />
                                                                     </div>
                                                                 </td>
 
@@ -4107,7 +4142,7 @@
                                                                 <td>30 <br><br> 15 <br> <br> 0 </td>
                                                                 <td>
                                                                     <div class="form-group">
-                                                                        <input type="number" name="abvalue" id="abvalue" class="form-control" min="0" placeholder="{{$assesper[0]->alat_bantu}}" required />
+                                                                        <input type="number" name="abvalue" id="abvalue" class="form-control" min="0" value="{{$assesper[0]->alat_bantu}}" required />
                                                                     </div>
                                                                 </td>
 
@@ -4118,7 +4153,7 @@
                                                                 <td>20 <br> 0 </td>
                                                                 <td>
                                                                     <div class="form-group">
-                                                                        <input type="number" name="tivalue" id="tivalue" class="form-control" min="0" placeholder="{{$assesper[0]->terpasang_infuse}}" required />
+                                                                        <input type="number" name="tivalue" id="tivalue" class="form-control" min="0" value="{{$assesper[0]->terpasang_infuse}}" required />
                                                                     </div>
                                                                 </td>
 
@@ -4129,7 +4164,7 @@
                                                                 <td>20 <br> 10 <br> 0 </td>
                                                                 <td>
                                                                     <div class="form-group">
-                                                                        <input type="number" name="gbvalue" id="gbvalue" class="form-control" min="0" placeholder="{{$assesper[0]->gaya_berjalan}}" required />
+                                                                        <input type="number" name="gbvalue" id="gbvalue" class="form-control" min="0" value="{{$assesper[0]->gaya_berjalan}}" required />
                                                                     </div>
                                                                 </td>
 
@@ -4140,7 +4175,7 @@
                                                                 <td>15 <br><br> 10 </td>
                                                                 <td>
                                                                     <div class="form-group">
-                                                                        <input type="number" name="smvalue" id="smvalue" class="form-control" min="0" placeholder="{{$assesper[0]->status_mental}}" required />
+                                                                        <input type="number" name="smvalue" id="smvalue" class="form-control" min="0" value="{{$assesper[0]->status_mental}}" required />
                                                                     </div>
                                                                 </td>
 
@@ -4151,7 +4186,7 @@
                                                                 <td>Total score</td>
                                                                 <td>
                                                                     <div class="form-group">
-                                                                        <input readonly type="number" name="totalrisiko" id="totalrisiko" class="form-control" min="0" placeholder="{{$assesper[0]->total_resiko_dewasa}}" required />
+                                                                        <input readonly type="number" name="totalrisiko" id="totalrisiko" class="form-control" min="0" value="{{$assesper[0]->total_resiko_dewasa}}" required />
                                                                     </div>
                                                                 </td>
 
@@ -4183,7 +4218,7 @@
                                                                 <td>4 <br> 3 <br>2 <br>1 </td>
                                                                 <td>
                                                                     <div class="form-group">
-                                                                        <input type="number" name="uvalue" id="uvalue" class="form-control" min="0" placeholder="{{$assesper[0]->umur_resiko}}" required />
+                                                                        <input type="number" name="uvalue" id="uvalue" class="form-control" min="0" value="{{$assesper[0]->umur_resiko}}" required />
                                                                     </div>
                                                                 </td>
 
@@ -4194,7 +4229,7 @@
                                                                 <td> <br>1 </td>
                                                                 <td>
                                                                     <div class="form-group">
-                                                                        <input type="number" name="jkvalue" id="jkvalue" class="form-control" min="0" placeholder="{{$assesper[0]->jk_resiko}}" required />
+                                                                        <input type="number" name="jkvalue" id="jkvalue" class="form-control" min="0" value="{{$assesper[0]->jk_resiko}}" required />
                                                                     </div>
                                                                 </td>
 
@@ -4205,7 +4240,7 @@
                                                                 <td>4 <br> 3 <br><br>2 <br>1 </td>
                                                                 <td>
                                                                     <div class="form-group">
-                                                                        <input type="number" name="dvalue" id="dvalue" class="form-control" min="0" placeholder="{{$assesper[0]->diagnosa_resiko}}" required />
+                                                                        <input type="number" name="dvalue" id="dvalue" class="form-control" min="0" value="{{$assesper[0]->diagnosa_resiko}}" required />
                                                                     </div>
                                                                 </td>
 
@@ -4216,7 +4251,7 @@
                                                                 <td> 3 <br>2 <br><br>1 </td>
                                                                 <td>
                                                                     <div class="form-group">
-                                                                        <input type="number" name="gkvalue" id="gkvalue" class="form-control" min="0" placeholder="{{$assesper[0]->kognitif_resiko}}" required />
+                                                                        <input type="number" name="gkvalue" id="gkvalue" class="form-control" min="0" value="{{$assesper[0]->kognitif_resiko}}" required />
                                                                     </div>
                                                                 </td>
 
@@ -4227,7 +4262,7 @@
                                                                 <td> 3 <br>2 <br>1 </td>
                                                                 <td>
                                                                     <div class="form-group">
-                                                                        <input type="number" name="rvalue" id="rvalue" class="form-control" min="0" placeholder="{{$assesper[0]->respon_resiko}}" required />
+                                                                        <input type="number" name="rvalue" id="rvalue" class="form-control" min="0" value="{{$assesper[0]->respon_resiko}}" required />
                                                                     </div>
                                                                 </td>
 
@@ -4238,7 +4273,7 @@
                                                                 <td> 3 <br><br>2 <br><br>1 </td>
                                                                 <td>
                                                                     <div class="form-group">
-                                                                        <input type="number" name="ovalue" id="ovalue" class="form-control" min="0" placeholder="{{$assesper[0]->obat_resiko}}" required />
+                                                                        <input type="number" name="ovalue" id="ovalue" class="form-control" min="0" value="{{$assesper[0]->obat_resiko}}" required />
                                                                     </div>
                                                                 </td>
 
@@ -4249,7 +4284,7 @@
                                                                 <td>Total score</td>
                                                                 <td>
                                                                     <div class="form-group">
-                                                                        <input readonly type="number" name="totalrisiko1" id="totalrisiko1" class="form-control" min="0" placeholder="{{$assesper[0]->total_resiko_anak}}" required />
+                                                                        <input readonly type="number" name="totalrisiko1" id="totalrisiko1" class="form-control" min="0" value="{{$assesper[0]->total_resiko_anak}}" required />
                                                                     </div>
                                                                 </td>
 
@@ -4589,52 +4624,52 @@
                                     <tr>
                                         <td class="text-bold font-italic">RENCANA ASUHAN KEPERAWATAN</td>
                                         <td>
-                                                 @if($assesper[0]->rencana_asuhan1 == 'Kaji keadaan umum pasien')
-                                                <div class="form-check">
-                                                    <input class="form-check-input" checked type="checkbox" name="rencanaasuhan1" id="rencanaasuhan1" value="Kaji keadaan umum pasien">
-                                                    <label class="form-check-label">Kaji keadaan umum pasien </label>
-                                                </div>
-                                                @else
-                                                <div class="form-check">
-                                                    <input class="form-check-input"  type="checkbox" name="rencanaasuhan1" id="rencanaasuhan1" value="Kaji keadaan umum pasien">
-                                                    <label class="form-check-label">Kaji keadaan umum pasien </label>
-                                                </div>
-                                                @endif
-                                                 @if($assesper[0]->rencana_asuhan2 == 'Monitor tanda - tanda vital')
+                                            @if($assesper[0]->rencana_asuhan1 == 'Kaji keadaan umum pasien')
+                                            <div class="form-check">
+                                                <input class="form-check-input" checked type="checkbox" name="rencanaasuhan1" id="rencanaasuhan1" value="Kaji keadaan umum pasien">
+                                                <label class="form-check-label">Kaji keadaan umum pasien </label>
+                                            </div>
+                                            @else
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="rencanaasuhan1" id="rencanaasuhan1" value="Kaji keadaan umum pasien">
+                                                <label class="form-check-label">Kaji keadaan umum pasien </label>
+                                            </div>
+                                            @endif
+                                            @if($assesper[0]->rencana_asuhan2 == 'Monitor tanda - tanda vital')
 
-                                                 <div class="form-check">
-                                                    <input class="form-check-input" checked type="checkbox" name="rencanaasuhan2" id="rencanaasuhan2" value="Monitor tanda - tanda vital">
-                                                    <label class="form-check-label">Monitor tanda - tanda vital </label>
-                                                </div>
-                                                @else
-                                                 <div class="form-check">
-                                                    <input class="form-check-input"  type="checkbox" name="rencanaasuhan2" id="rencanaasuhan2" value="Monitor tanda - tanda vital">
-                                                    <label class="form-check-label">Monitor tanda - tanda vital </label>
-                                                </div>
-                                                @endif
-                                                @if($assesper[0]->rencana_asuhan3 == 'Kolaborasi dengan tim medis')
-                                                <div class="form-check">
-                                                    <input class="form-check-input" checked type="checkbox" name="rencanaasuhan3" id="rencanaasuhan3" value="Kolaborasi dengan tim medis">
-                                                    <label class="form-check-label">Kolaborasi dengan tim medis </label>
-                                                </div>
-                                                @else
-                                               <div class="form-check">
-                                                    <input class="form-check-input"  type="checkbox" name="rencanaasuhan3" id="rencanaasuhan3" value="Kolaborasi dengan tim medis">
-                                                    <label class="form-check-label">Kolaborasi dengan tim medis </label>
-                                                </div>
-                                                @endif
-                                               @if($assesper[0]->rencana_asuhan4 == 'Berikan edukasi kepada pasien dan keluarga')
-                                               <div class="form-check">
-                                                    <input class="form-check-input" checked type="checkbox" name="rencanaasuhan4" id="rencanaasuhan4" value="Berikan edukasi kepada pasien dan keluarga">
-                                                    <label class="form-check-label">Berikan edukasi kepada pasien dan keluarga </label>
-                                                </div>
-                                                @else
-                                              <div class="form-check">
-                                                    <input class="form-check-input"  type="checkbox" name="rencanaasuhan4" id="rencanaasuhan4" value="Berikan edukasi kepada pasien dan keluarga">
-                                                    <label class="form-check-label">Berikan edukasi kepada pasien dan keluarga </label>
-                                                </div>
-                                                @endif
-                                                 
+                                            <div class="form-check">
+                                                <input class="form-check-input" checked type="checkbox" name="rencanaasuhan2" id="rencanaasuhan2" value="Monitor tanda - tanda vital">
+                                                <label class="form-check-label">Monitor tanda - tanda vital </label>
+                                            </div>
+                                            @else
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="rencanaasuhan2" id="rencanaasuhan2" value="Monitor tanda - tanda vital">
+                                                <label class="form-check-label">Monitor tanda - tanda vital </label>
+                                            </div>
+                                            @endif
+                                            @if($assesper[0]->rencana_asuhan3 == 'Kolaborasi dengan tim medis')
+                                            <div class="form-check">
+                                                <input class="form-check-input" checked type="checkbox" name="rencanaasuhan3" id="rencanaasuhan3" value="Kolaborasi dengan tim medis">
+                                                <label class="form-check-label">Kolaborasi dengan tim medis </label>
+                                            </div>
+                                            @else
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="rencanaasuhan3" id="rencanaasuhan3" value="Kolaborasi dengan tim medis">
+                                                <label class="form-check-label">Kolaborasi dengan tim medis </label>
+                                            </div>
+                                            @endif
+                                            @if($assesper[0]->rencana_asuhan4 == 'Berikan edukasi kepada pasien dan keluarga')
+                                            <div class="form-check">
+                                                <input class="form-check-input" checked type="checkbox" name="rencanaasuhan4" id="rencanaasuhan4" value="Berikan edukasi kepada pasien dan keluarga">
+                                                <label class="form-check-label">Berikan edukasi kepada pasien dan keluarga </label>
+                                            </div>
+                                            @else
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="rencanaasuhan4" id="rencanaasuhan4" value="Berikan edukasi kepada pasien dan keluarga">
+                                                <label class="form-check-label">Berikan edukasi kepada pasien dan keluarga </label>
+                                            </div>
+                                            @endif
+
                                             <div class="input-group">
                                                 <textarea class="form-control" id="rencanaasuhan" name="rencanaasuhan" placeholder="">{{$assesper[0]->rencana_asuhan}}</textarea>
 
@@ -4987,58 +5022,58 @@
 
         // var sumberdata = $("#sumberdata:checked").val();
         Swal.fire({
-            title: "Yakin Retur Tindakan?"
-            , icon: 'warning'
-            , showCancelButton: true
-            , confirmButtonColor: '#3085d6'
-            , confirmButtonText: 'Ya'
-            , cancelButtonColor: '#d33'
-            , cancelButtonText: "Batal"
+            title: "Yakin Retur Tindakan?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Ya',
+            cancelButtonColor: '#d33',
+            cancelButtonText: "Batal"
 
         }).then(result => {
             //jika klik ya maka arahkan ke proses.php
             if (result.isConfirmed) {
                 $.ajax({
-                    async: true
-                    , type: 'post'
-                    , dataType: 'json'
-                    , data: {
-                        _token: "{{ csrf_token() }}"
-                        , data: JSON.stringify(data)
-                        , norm: $('#norm').val()
-                        , kj: $('#kj').val()
-                        , wtt
-                        , tindakan
-                        , idtindakan
+                    async: true,
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        data: JSON.stringify(data),
+                        norm: $('#norm').val(),
+                        kj: $('#kj').val(),
+                        wtt,
+                        tindakan,
+                        idtindakan
 
 
 
-                    }
-                    , url: '<?= route('returtinper') ?>',
+                    },
+                    url: '<?= route('returtinper') ?>',
 
                     error: function(data) {
                         Swal.fire({
-                            icon: 'error'
-                            , title: 'Oops...'
-                            , text: 'Sepertinya ada masalah ...'
-                            , footer: ''
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Sepertinya ada masalah ...',
+                            footer: ''
                         })
-                    }
-                    , success: function(data) {
+                    },
+                    success: function(data) {
                         console.log(data)
                         if (data.kode == 500) {
                             Swal.fire({
-                                icon: 'error'
-                                , title: 'Oops...'
-                                , text: data.message
-                                , footer: ''
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: data.message,
+                                footer: ''
                             })
                         } else {
                             Swal.fire({
-                                icon: 'success'
-                                , title: 'OK'
-                                , text: 'data berhasil diretur'
-                                , footer: ''
+                                icon: 'success',
+                                title: 'OK',
+                                text: 'data berhasil diretur',
+                                footer: ''
                             })
                             cpptperawat()
 
@@ -5055,26 +5090,26 @@
         spinner = $('#loader2');
         spinner.show();
         $.ajax({
-            type: "post"
-            , data: {
-                _token: "{{ csrf_token() }}"
-            , }
-            , url: '<?= route('penandaangambar') ?>'
-            , error: function(data) {
+            type: "post",
+            data: {
+                _token: "{{ csrf_token() }}",
+            },
+            url: '<?= route('penandaangambar') ?>',
+            error: function(data) {
                 spinner.hide();
                 alert('oke!!')
-            }
-            , success: function(response) {
+            },
+            success: function(response) {
                 spinner.hide();
                 $('.penandaangambar').html(response);
 
             }
         });
     });
-
 </script>
 <script>
     $(document).ready(function() {
+        var wrapper = $('.form-container');
         // Menambahkan field baru
         $("#add").click(function() {
             var html = '<div class="row mt-2">';
@@ -5090,15 +5125,23 @@
             html += '<input type="text" name="tindakankeperawatan" id="tindakankeperawatan" value="" class="tindakankeperawatan form-control">';
             html += '</div>';
             html += '</div>';
+            html += '<div class="col-3">';
+            html += '<div class="form-group">';
+            html += '<i class="bi bi-x-square  form-group col-md-2 text-danger"></i>';
+            html += '</div>';
+            html += '</div>';
+            // html += '';
+
             html += '</div>';
 
             $("#form-container").append(html);
+            $(wrapper).append(html)
         });
 
         // Menghapus field
-        $(document).on("click", ".remove", function(e) {
+        $(wrapper).on("click", ".remove", function(e) {
             e.preventDefault();
-            $(this).parent().remove();
+            $(this).parent('').parent('').remove();
         });
 
 
@@ -5165,15 +5208,15 @@
 
         $.ajax({
             data: {
-                _token: "{{ csrf_token() }}"
-            , }
-            , type: "post"
-            , url: " {{ route('ermperawat') }}"
-            , error: function(data) {
+                _token: "{{ csrf_token() }}",
+            },
+            type: "post",
+            url: " {{ route('ermperawat') }}",
+            error: function(data) {
                 spinner.hide();
                 alert('oke!!')
-            }
-            , success: function(response) {
+            },
+            success: function(response) {
                 spinner.hide();
                 $('.ermperawat1').html(response);
 
@@ -5185,15 +5228,15 @@
 
         $.ajax({
             data: {
-                _token: "{{ csrf_token() }}"
-            , }
-            , type: "post"
-            , url: " {{ route('formermperawat') }}"
-            , error: function(data) {
+                _token: "{{ csrf_token() }}",
+            },
+            type: "post",
+            url: " {{ route('formermperawat') }}",
+            error: function(data) {
                 spinner.hide();
                 alert('oke!!')
-            }
-            , success: function(response) {
+            },
+            success: function(response) {
                 spinner.hide();
                 $('.formermperawat').html(response);
 
@@ -5202,129 +5245,7 @@
     }
     $(".simpanassesperawat").click(function() {
         var gambar = document.getElementById("myCanvas1");
-        if (gambar == null) {
-
-            var data = $('.formerm').serializeArray();
-            var tindakan = $('.formtindakanperawat').serializeArray();
-
-            var sumberdata = $('#sumberdata:checked').val()
-            var asalmasuk = $('#asalmasuk:checked').val()
-            var caramasuk = $('#caramasuk:checked').val()
-            var subyek = $('#anamnesis').val()
-            var tekanandarah = $('#tekanandarah').val()
-            var frekuensinadi = $('#frekuensinadi').val()
-            var frekuensinafas = $('#frekuensinafas').val()
-            var suhutubuh = $('#suhutubuh').val()
-            var beratbadan = $('#beratbadan').val()
-            var usia = $('#usia').val()
-            var keadaanumum = $('#keadaanumum:checked').val()
-            var kesadaran = $('#kesadaran:checked').val()
-            var gcs = $('#gcs').val()
-            var spo2 = $('#SPO2').val()
-            var pupil = $('#pupil:checked').val()
-
-            var intra = $('#intra:checked').val()
-            var neuro = $('#neuro:checked').val()
-            var muskolo = $('#muskolo:checked').val()
-            var intergumen = $('#integumen:checked').val()
-            var turgor = $('#turgor:checked').val()
-            var edema = $('#edema:checked').val()
-            var mukosa = $('#mukosa:checked').val()
-            var pendarahan = $('#pendarahan:checked').val()
-            var jumlahdarah = $('#jumlahdarah').val()
-            var introksikasi = $('#intoksikasi:checked').val()
-            var BABF = $('#BABF').val()
-            var BABK = $('#BABK').val()
-            var BABKW = $('#BABKW').val()
-            var BAKF = $('#BAKF').val()
-            var BAKK = $('#BAKK').val()
-            var BAKKW = $('#BAKKW').val()
-            var kecemasan = $('#kecemasan:checked').val()
-            var koping = $('#koping:checked').val()
-            var pekerjaan = $('#pekerjaan').val()
-            var agama = $('#agama').val()
-            var nyeri = $('#nyeri:checked').val()
-            var lamanyeri = $('#lamanyeri:checked').val()
-            var rasanyeri = $('#rasanyeri:checked').val()
-            var seringnyeri = $('#seringnyeri:checked').val()
-            var serringnyeri = $('#serringnyeri:checked').val()
-            var berkurangnyeri = $('#berkurangnyeri:checked').val()
-            var scalenyeri = $('#scalenyeri:checked').val()
-            var scalenyeri1 = $('#scalenyeri1:checked').val()
-            // skrining jatuh 
-            var jatuhdewasa = $('#jatuh_dewasa:checked').val()
-            var rjvalue = $('#rjvalue').val()
-            var dsvalue = $('#dsvalue').val()
-            var abvalue = $('#abvalue').val()
-            var tivalue = $('#tivalue').val()
-            var gbvalue = $('#gbvalue').val()
-            var smvalue = $('#smvalue').val()
-            var totalrisiko = $('#totalrisiko').val()
-            var jatuhanak = $('#jatuh_anak:checked').val()
-
-            var uvalue = $('#uvalue').val()
-            var jkvalue = $('#jkvalue').val()
-            var dvalue = $('#dvalue').val()
-            var gkvalue = $('#gkvalue').val()
-            var rvalue = $('#rvalue').val()
-            var ovalue = $('#ovalue').val()
-            var totalrisiko1 = $('#totalrisiko1').val()
-            // skrining nutrisi
-            var nutrisidws = $('#nutrisi_dws:checked').val()
-            var pnvalue = $('#pnvalue').val()
-            var pbbvalue = $('#pbbvalue').val()
-            var nmvalue = $('#nmvalue').val()
-            var totalnutrisi = $('#totalnutrisi').val()
-            var nutrisiank = $('#nutrisi_ank:checked').val()
-
-            var kuvalue = $('#kuvalue').val()
-            var tbbvalue = $('#tbbvalue').val()
-            var ssvalue = $('#ssvalue').val()
-            var totalnutrisi1 = $('#totalnutrisi1').val()
-            var diagnosakeperawatan = $('#diagnosakeperawatan').val()
-            var diagnosakeperawatan1 = $('#diagnosakeperawatan1:checked').val()
-            var diagnosakeperawatan2 = $('#diagnosakeperawatan2:checked').val()
-            var diagnosakeperawatan3 = $('#diagnosakeperawatan3:checked').val()
-            var diagnosakeperawatan4 = $('#diagnosakeperawatan4:checked').val()
-            var diagnosakeperawatan5 = $('#diagnosakeperawatan5:checked').val()
-            var diagnosakeperawatan6 = $('#diagnosakeperawatan6:checked').val()
-            var diagnosakeperawatan7 = $('#diagnosakeperawatan7:checked').val()
-            var diagnosakeperawatan8 = $('#diagnosakeperawatan8:checked').val()
-            var diagnosakeperawatan9 = $('#diagnosakeperawatan9:checked').val()
-            var diagnosakeperawatan10 = $('#diagnosakeperawatan10:checked').val()
-            var diagnosakeperawatan11 = $('#diagnosakeperawatan11:checked').val()
-            var diagnosakeperawatan12 = $('#diagnosakeperawatan12:checked').val()
-
-            var rencanaasuhan = $('#rencanaasuhan').val()
-           var rencanaasuhan1 = $('#rencanaasuhan1:checked').val()
-            var rencanaasuhan2 = $('#rencanaasuhan2:checked').val()
-            var rencanaasuhan3 = $('#rencanaasuhan3:checked').val()
-            var rencanaasuhan4 = $('#rencanaasuhan4:checked').val()  
-            var kolaborasi1 = $('#kolaborasi1:checked').val()
-            var kolaborasi2 = $('#kolaborasi2:checked').val()
-            var kolaborasi3 = $('#kolaborasi3:checked').val()
-            var kolaborasi4 = $('#kolaborasi4:checked').val()
-            var kolaborasi5 = $('#kolaborasi5:checked').val()
-            var kolaborasi6 = $('#kolaborasi6:checked').val()
-            var kolaborasi7 = $('#kolaborasi7:checked').val()
-            var kolaborasi8 = $('#kolaborasi8:checked').val()
-            var kolaborasi9 = $('#kolaborasi9:checked').val()
-            var kolaborasi10 = $('#kolaborasi10:checked').val()
-            var kolaborasi11 = $('#kolaborasi11:checked').val()
-            var kolaborasi12 = $('#kolaborasi12:checked').val()
-            var kolaborasi13 = $('#kolaborasi13:checked').val()
-            var kolaborasi14 = $('#kolaborasi14:checked').val()
-            var kolaborasi15 = $('#kolaborasi15:checked').val()
-
-            var norm = $('#norm').val()
-            var kj = $('#kj').val()
-            var tglmasuk = $('#tglmasuk').val()
-            var alpul = $('#alpul').val()
-            var alpul1 = $('#alpul1').val()
-            var kopul = $('#kopul').val()
-            var kopul1 = $('#kopul1').val()
-
-        } else {
+       
             var ctx1 = gambar.getContext("2d");
             var img1 = document.getElementById("gambarnya1");
             ctx1.drawImage(img1, 10, 10);
@@ -5423,10 +5344,10 @@
             var diagnosakeperawatan12 = $('#diagnosakeperawatan12:checked').val()
 
             var rencanaasuhan = $('#rencanaasuhan').val()
-                var rencanaasuhan1 = $('#rencanaasuhan1:checked').val()
+            var rencanaasuhan1 = $('#rencanaasuhan1:checked').val()
             var rencanaasuhan2 = $('#rencanaasuhan2:checked').val()
             var rencanaasuhan3 = $('#rencanaasuhan3:checked').val()
-            var rencanaasuhan4 = $('#rencanaasuhan4:checked').val()  
+            var rencanaasuhan4 = $('#rencanaasuhan4:checked').val()
             var kolaborasi1 = $('#kolaborasi1:checked').val()
             var kolaborasi2 = $('#kolaborasi2:checked').val()
             var kolaborasi3 = $('#kolaborasi3:checked').val()
@@ -5450,168 +5371,167 @@
             var alpul1 = $('#alpul1').val()
             var kopul = $('#kopul').val()
             var kopul1 = $('#kopul1').val()
-        }
         // var sumberdata = $("#sumberdata:checked").val();
         Swal.fire({
-            title: "Yakin Simpan Assesmen?"
-            , icon: 'warning'
-            , showCancelButton: true
-            , confirmButtonColor: '#3085d6'
-            , confirmButtonText: 'Ya'
-            , cancelButtonColor: '#d33'
-            , cancelButtonText: "Batal"
+            title: "Yakin Simpan Assesmen?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Ya',
+            cancelButtonColor: '#d33',
+            cancelButtonText: "Batal"
 
         }).then(result => {
             //jika klik ya maka arahkan ke proses.php
             if (result.isConfirmed) {
                 $.ajax({
-                    async: true
-                    , type: 'post'
-                    , dataType: 'json'
-                    , data: {
-                        _token: "{{ csrf_token() }}"
-                        , data: JSON.stringify(data)
-                        , tindakan: JSON.stringify(tindakan),
+                    async: true,
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        data: JSON.stringify(data),
+                        tindakan: JSON.stringify(tindakan),
 
-                        sumberdata: $('#sumberdata:checked').val()
-                        , asalmasuk: $('#asalmasuk:checked').val()
-                        , caramasuk: $('#caramasuk:checked').val()
-                        , subyek: $('#anamnesis').val()
-                        , tekanandarah: $('#tekanandarah').val()
-                        , frekuensinadi: $('#frekuensinadi').val()
-                        , frekuensinafas: $('#frekuensinafas').val()
-                        , suhutubuh: $('#suhutubuh').val()
-                        , beratbadan: $('#beratbadan').val()
-                        , keadaanumum: $('#keadaanumum:checked').val()
-                        , kesadaran: $('#kesadaran:checked').val()
-                        , usia: $('#usia').val()
-                        , gcs: $('#gcs').val()
-                        , spo2: $('#SPO2').val()
-                        , pupil: $('#pupil:checked').val(),
+                        sumberdata: $('#sumberdata:checked').val(),
+                        asalmasuk: $('#asalmasuk:checked').val(),
+                        caramasuk: $('#caramasuk:checked').val(),
+                        subyek: $('#anamnesis').val(),
+                        tekanandarah: $('#tekanandarah').val(),
+                        frekuensinadi: $('#frekuensinadi').val(),
+                        frekuensinafas: $('#frekuensinafas').val(),
+                        suhutubuh: $('#suhutubuh').val(),
+                        beratbadan: $('#beratbadan').val(),
+                        keadaanumum: $('#keadaanumum:checked').val(),
+                        kesadaran: $('#kesadaran:checked').val(),
+                        usia: $('#usia').val(),
+                        gcs: $('#gcs').val(),
+                        spo2: $('#SPO2').val(),
+                        pupil: $('#pupil:checked').val(),
 
-                        intra: $('#intra:checked').val()
-                        , neuro: $('#neuro:checked').val()
-                        , muskolo: $('#muskolo:checked').val()
-                        , intergumen: $('#integumen:checked').val()
-                        , turgor: $('#turgor:checked').val()
-                        , edema: $('#edema:checked').val()
-                        , mukosa: $('#mukosa:checked').val()
-                        , pendarahan: $('#pendarahan:checked').val()
-                        , jumlahdarah: $('#jumlahdarah').val()
-                        , introksikasi: $('#intoksikasi:checked').val()
-                        , BABF: $('#BABF').val()
-                        , BABK: $('#BABK').val()
-                        , BABKW: $('#BABKW').val()
-                        , BAKF: $('#BAKF').val()
-                        , BAKK: $('#BAKK').val()
-                        , BAKKW: $('#BAKKW').val()
-                        , kecemasan: $('#kecemasan:checked').val()
-                        , koping: $('#koping:checked').val()
-                        , pekerjaan: $('#pekerjaan').val()
-                        , agama: $('#agama').val()
-                        , nyeri: $('#nyeri:checked').val()
-                        , gambar1: $('#gambarcoret').val()
-                        , lamanyeri: $('#lamanyeri:checked').val()
-                        , rasanyeri: $('#rasanyeri:checked').val()
-                        , seringnyeri: $('#seringnyeri:checked').val()
-                        , serringnyeri: $('#serringnyeri:checked').val()
-                        , berkurangnyeri: $('#berkurangnyeri:checked').val()
-                        , scalenyeri: $('#scalenyeri:checked').val()
-                        , scalenyeri1: $('#scalenyeri1:checked').val()
-                        , jatuhdewasa: $('#jatuh_dewasa:checked').val()
-                        , rjvalue: $('#rjvalue').val()
-                        , dsvalue: $('#dsvalue').val()
-                        , abvalue: $('#abvalue').val()
-                        , tivalue: $('#tivalue').val()
-                        , gbvalue: $('#gbvalue').val()
-                        , smvalue: $('#smvalue').val()
-                        , totalrisiko: $('#totalrisiko').val()
-                        , jatuhanak: $('#jatuh_anak:checked').val()
-                        , uvalue: $('#uvalue').val()
-                        , jkvalue: $('#jkvalue').val()
-                        , dvalue: $('#dvalue').val()
-                        , gkvalue: $('#gkvalue').val()
-                        , rvalue: $('#rvalue').val()
-                        , ovalue: $('#ovalue').val()
-                        , totalrisiko1: $('#totalrisiko1').val()
-                        , nutrisidws: $('#nutrisi_dws:checked').val()
-                        , pnvalue: $('#pnvalue').val()
-                        , pbbvalue: $('#pbbvalue').val()
-                        , nmvalue: $('#nmvalue').val()
-                        , totalnutrisi: $('#totalnutrisi').val()
-                        , nutrisiank: $('#nutrisi_ank:checked').val()
-                        , kuvalue: $('#kuvalue').val()
-                        , tbbvalue: $('#tbbvalue').val()
-                        , ssvalue: $('#ssvalue').val()
-                        , totalnutrisi1: $('#totalnutrisi1').val()
-                        , diagnosakeperawatan: $('#diagnosakeperawatan').val()
-                        , diagnosakeperawatan1: $('#diagnosakeperawatan1:checked').val()
-                        , diagnosakeperawatan2: $('#diagnosakeperawatan2:checked').val()
-                        , diagnosakeperawatan3: $('#diagnosakeperawatan3:checked').val()
-                        , diagnosakeperawatan4: $('#diagnosakeperawatan4:checked').val()
-                        , diagnosakeperawatan5: $('#diagnosakeperawatan5:checked').val()
-                        , diagnosakeperawatan6: $('#diagnosakeperawatan6:checked').val()
-                        , diagnosakeperawatan7: $('#diagnosakeperawatan7:checked').val()
-                        , diagnosakeperawatan8: $('#diagnosakeperawatan8:checked').val()
-                        , diagnosakeperawatan9: $('#diagnosakeperawatan9:checked').val()
-                        , diagnosakeperawatan10: $('#diagnosakeperawatan10:checked').val()
-                        , diagnosakeperawatan11: $('#diagnosakeperawatan11:checked').val()
-                        , diagnosakeperawatan12: $('#diagnosakeperawatan12:checked').val()
-                        , rencanaasuhan: $('#rencanaasuhan').val()
-                        , rencanaasuhan1: $('#rencanaasuhan1:checked').val()
-                        , rencanaasuhan2: $('#rencanaasuhan2:checked').val()
-                        , rencanaasuhan3: $('#rencanaasuhan3:checked').val()
-                        , rencanaasuhan4: $('#rencanaasuhan4:checked').val()
-                        , kolaborasi1: $('#kolaborasi1:checked').val()
-                        , kolaborasi2: $('#kolaborasi2:checked').val()
-                        , kolaborasi3: $('#kolaborasi3:checked').val()
-                        , kolaborasi4: $('#kolaborasi4:checked').val()
-                        , kolaborasi5: $('#kolaborasi5:checked').val()
-                        , kolaborasi6: $('#kolaborasi6:checked').val()
-                        , kolaborasi7: $('#kolaborasi7:checked').val()
-                        , kolaborasi8: $('#kolaborasi8:checked').val()
-                        , kolaborasi9: $('#kolaborasi9:checked').val()
-                        , kolaborasi10: $('#kolaborasi10:checked').val()
-                        , kolaborasi11: $('#kolaborasi11:checked').val()
-                        , kolaborasi12: $('#kolaborasi12:checked').val()
-                        , kolaborasi13: $('#kolaborasi13:checked').val()
-                        , kolaborasi14: $('#kolaborasi14:checked').val()
-                        , kolaborasi15: $('#kolaborasi15:checked').val()
-                        , norm: $('#norm').val()
-                        , kj: $('#kj').val()
-                        , tglmasuk: $('#tglmasuk').val()
-                        , alpul: $('#alpul').val()
-                        , alpul1: $('#alpul1').val()
-                        , kopul: $('#kopul').val()
-                        , kopul1: $('#kopul1').val(),
+                        intra: $('#intra:checked').val(),
+                        neuro: $('#neuro:checked').val(),
+                        muskolo: $('#muskolo:checked').val(),
+                        intergumen: $('#integumen:checked').val(),
+                        turgor: $('#turgor:checked').val(),
+                        edema: $('#edema:checked').val(),
+                        mukosa: $('#mukosa:checked').val(),
+                        pendarahan: $('#pendarahan:checked').val(),
+                        jumlahdarah: $('#jumlahdarah').val(),
+                        introksikasi: $('#intoksikasi:checked').val(),
+                        BABF: $('#BABF').val(),
+                        BABK: $('#BABK').val(),
+                        BABKW: $('#BABKW').val(),
+                        BAKF: $('#BAKF').val(),
+                        BAKK: $('#BAKK').val(),
+                        BAKKW: $('#BAKKW').val(),
+                        kecemasan: $('#kecemasan:checked').val(),
+                        koping: $('#koping:checked').val(),
+                        pekerjaan: $('#pekerjaan').val(),
+                        agama: $('#agama').val(),
+                        nyeri: $('#nyeri:checked').val(),
+                        gambar1: $('#gambarcoret').val(),
+                        lamanyeri: $('#lamanyeri:checked').val(),
+                        rasanyeri: $('#rasanyeri:checked').val(),
+                        seringnyeri: $('#seringnyeri:checked').val(),
+                        serringnyeri: $('#serringnyeri:checked').val(),
+                        berkurangnyeri: $('#berkurangnyeri:checked').val(),
+                        scalenyeri: $('#scalenyeri:checked').val(),
+                        scalenyeri1: $('#scalenyeri1:checked').val(),
+                        jatuhdewasa: $('#jatuh_dewasa:checked').val(),
+                        rjvalue: $('#rjvalue').val(),
+                        dsvalue: $('#dsvalue').val(),
+                        abvalue: $('#abvalue').val(),
+                        tivalue: $('#tivalue').val(),
+                        gbvalue: $('#gbvalue').val(),
+                        smvalue: $('#smvalue').val(),
+                        totalrisiko: $('#totalrisiko').val(),
+                        jatuhanak: $('#jatuh_anak:checked').val(),
+                        uvalue: $('#uvalue').val(),
+                        jkvalue: $('#jkvalue').val(),
+                        dvalue: $('#dvalue').val(),
+                        gkvalue: $('#gkvalue').val(),
+                        rvalue: $('#rvalue').val(),
+                        ovalue: $('#ovalue').val(),
+                        totalrisiko1: $('#totalrisiko1').val(),
+                        nutrisidws: $('#nutrisi_dws:checked').val(),
+                        pnvalue: $('#pnvalue').val(),
+                        pbbvalue: $('#pbbvalue').val(),
+                        nmvalue: $('#nmvalue').val(),
+                        totalnutrisi: $('#totalnutrisi').val(),
+                        nutrisiank: $('#nutrisi_ank:checked').val(),
+                        kuvalue: $('#kuvalue').val(),
+                        tbbvalue: $('#tbbvalue').val(),
+                        ssvalue: $('#ssvalue').val(),
+                        totalnutrisi1: $('#totalnutrisi1').val(),
+                        diagnosakeperawatan: $('#diagnosakeperawatan').val(),
+                        diagnosakeperawatan1: $('#diagnosakeperawatan1:checked').val(),
+                        diagnosakeperawatan2: $('#diagnosakeperawatan2:checked').val(),
+                        diagnosakeperawatan3: $('#diagnosakeperawatan3:checked').val(),
+                        diagnosakeperawatan4: $('#diagnosakeperawatan4:checked').val(),
+                        diagnosakeperawatan5: $('#diagnosakeperawatan5:checked').val(),
+                        diagnosakeperawatan6: $('#diagnosakeperawatan6:checked').val(),
+                        diagnosakeperawatan7: $('#diagnosakeperawatan7:checked').val(),
+                        diagnosakeperawatan8: $('#diagnosakeperawatan8:checked').val(),
+                        diagnosakeperawatan9: $('#diagnosakeperawatan9:checked').val(),
+                        diagnosakeperawatan10: $('#diagnosakeperawatan10:checked').val(),
+                        diagnosakeperawatan11: $('#diagnosakeperawatan11:checked').val(),
+                        diagnosakeperawatan12: $('#diagnosakeperawatan12:checked').val(),
+                        rencanaasuhan: $('#rencanaasuhan').val(),
+                        rencanaasuhan1: $('#rencanaasuhan1:checked').val(),
+                        rencanaasuhan2: $('#rencanaasuhan2:checked').val(),
+                        rencanaasuhan3: $('#rencanaasuhan3:checked').val(),
+                        rencanaasuhan4: $('#rencanaasuhan4:checked').val(),
+                        kolaborasi1: $('#kolaborasi1:checked').val(),
+                        kolaborasi2: $('#kolaborasi2:checked').val(),
+                        kolaborasi3: $('#kolaborasi3:checked').val(),
+                        kolaborasi4: $('#kolaborasi4:checked').val(),
+                        kolaborasi5: $('#kolaborasi5:checked').val(),
+                        kolaborasi6: $('#kolaborasi6:checked').val(),
+                        kolaborasi7: $('#kolaborasi7:checked').val(),
+                        kolaborasi8: $('#kolaborasi8:checked').val(),
+                        kolaborasi9: $('#kolaborasi9:checked').val(),
+                        kolaborasi10: $('#kolaborasi10:checked').val(),
+                        kolaborasi11: $('#kolaborasi11:checked').val(),
+                        kolaborasi12: $('#kolaborasi12:checked').val(),
+                        kolaborasi13: $('#kolaborasi13:checked').val(),
+                        kolaborasi14: $('#kolaborasi14:checked').val(),
+                        kolaborasi15: $('#kolaborasi15:checked').val(),
+                        norm: $('#norm').val(),
+                        kj: $('#kj').val(),
+                        tglmasuk: $('#tglmasuk').val(),
+                        alpul: $('#alpul').val(),
+                        alpul1: $('#alpul1').val(),
+                        kopul: $('#kopul').val(),
+                        kopul1: $('#kopul1').val(),
 
 
-                    }
-                    , url: '<?= route('simpanassemenperawat') ?>',
+                    },
+                    url: '<?= route('simpanassemenperawat') ?>',
 
                     error: function(data) {
                         Swal.fire({
-                            icon: 'error'
-                            , title: 'Oops...'
-                            , text: 'Sepertinya ada masalah ...'
-                            , footer: ''
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Sepertinya ada masalah ...',
+                            footer: ''
                         })
-                    }
-                    , success: function(data) {
+                    },
+                    success: function(data) {
                         console.log(data)
                         if (data.kode == 500) {
                             Swal.fire({
-                                icon: 'error'
-                                , title: 'Oops...'
-                                , text: data.message
-                                , footer: ''
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: data.message,
+                                footer: ''
                             })
                         } else {
                             Swal.fire({
-                                icon: 'success'
-                                , title: 'OK'
-                                , text: 'data berhasil disimpan'
-                                , footer: ''
+                                icon: 'success',
+                                title: 'OK',
+                                text: 'data berhasil disimpan',
+                                footer: ''
                             })
                             cpptperawat()
 
@@ -5634,54 +5554,54 @@
 
         // var sumberdata = $("#sumberdata:checked").val();
         Swal.fire({
-            title: "Yakin Validasi Assesmen?"
-            , icon: 'warning'
-            , showCancelButton: true
-            , confirmButtonColor: '#3085d6'
-            , confirmButtonText: 'Ya'
-            , cancelButtonColor: '#d33'
-            , cancelButtonText: "Batal"
+            title: "Yakin Validasi Assesmen?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Ya',
+            cancelButtonColor: '#d33',
+            cancelButtonText: "Batal"
 
         }).then(result => {
             //jika klik ya maka arahkan ke proses.php
             if (result.isConfirmed) {
                 $.ajax({
-                    async: true
-                    , type: 'post'
-                    , dataType: 'json'
-                    , data: {
-                        _token: "{{ csrf_token() }}"
-                        , data: JSON.stringify(data)
-                        , norm: $('#norm').val()
-                        , kj: $('#kj').val(),
+                    async: true,
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        data: JSON.stringify(data),
+                        norm: $('#norm').val(),
+                        kj: $('#kj').val(),
 
 
-                    }
-                    , url: '<?= route('validasiassemenperawat') ?>',
+                    },
+                    url: '<?= route('validasiassemenperawat') ?>',
 
                     error: function(data) {
                         Swal.fire({
-                            icon: 'error'
-                            , title: 'Oops...'
-                            , text: 'Sepertinya ada masalah ...'
-                            , footer: ''
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Sepertinya ada masalah ...',
+                            footer: ''
                         })
-                    }
-                    , success: function(data) {
+                    },
+                    success: function(data) {
                         console.log(data)
                         if (data.kode == 500) {
                             Swal.fire({
-                                icon: 'error'
-                                , title: 'Oops...'
-                                , text: data.message
-                                , footer: ''
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: data.message,
+                                footer: ''
                             })
                         } else {
                             Swal.fire({
-                                icon: 'success'
-                                , title: 'OK'
-                                , text: 'data berhasil disimpan'
-                                , footer: ''
+                                icon: 'success',
+                                title: 'OK',
+                                text: 'data berhasil disimpan',
+                                footer: ''
                             })
                             cpptperawat()
                         }
@@ -5693,127 +5613,7 @@
     });
     $(".updateassesperawat").click(function() {
         var gambar = document.getElementById("myCanvas1");
-        if (gambar == null) {
-            var data = $('.formerm').serializeArray();
-            var tindakan = $('.formtindakanperawat').serializeArray();
-
-            var sumberdata = $('#sumberdata:checked').val()
-            var asalmasuk = $('#asalmasuk:checked').val()
-            var caramasuk = $('#caramasuk:checked').val()
-            var subyek = $('#anamnesis').val()
-            var tekanandarah = $('#tekanandarah').val()
-            var frekuensinadi = $('#frekuensinadi').val()
-            var frekuensinafas = $('#frekuensinafas').val()
-            var suhutubuh = $('#suhutubuh').val()
-            var beratbadan = $('#beratbadan').val()
-            var usia = $('#usia').val()
-            var keadaanumum = $('#keadaanumum:checked').val()
-            var kesadaran = $('#kesadaran:checked').val()
-            var gcs = $('#gcs').val()
-            var spo2 = $('#SPO2').val()
-            var update = $('#update:checked').val()
-
-            var intra = $('#intra:checked').val()
-            var neuro = $('#neuro:checked').val()
-            var muskolo = $('#muskolo:checked').val()
-            var intergumen = $('#integumen:checked').val()
-            var turgor = $('#turgor:checked').val()
-            var edema = $('#edema:checked').val()
-            var mukosa = $('#mukosa:checked').val()
-            var pendarahan = $('#pendarahan:checked').val()
-            var jumlahdarah = $('#jumlahdarah').val()
-            var introksikasi = $('#intoksikasi:checked').val()
-            var BABF = $('#BABF').val()
-            var BABK = $('#BABK').val()
-            var BABKW = $('#BABKW').val()
-            var BAKF = $('#BAKF').val()
-            var BAKK = $('#BAKK').val()
-            var BAKKW = $('#BAKKW').val()
-            var kecemasan = $('#kecemasan:checked').val()
-            var koping = $('#koping:checked').val()
-            var pekerjaan = $('#pekerjaan').val()
-            var agama = $('#agama').val()
-            var nyeri = $('#nyeri:checked').val()
-            var lamanyeri = $('#lamanyeri:checked').val()
-            var rasanyeri = $('#rasanyeri:checked').val()
-            var seringnyeri = $('#seringnyeri:checked').val()
-            var serringnyeri = $('#serringnyeri:checked').val()
-            var berkurangnyeri = $('#berkurangnyeri:checked').val()
-            var scalenyeri = $('#scalenyeri:checked').val()
-            var scalenyeri1 = $('#scalenyeri1:checked').val()
-            // skrining jatuh 
-            var jatuhdewasa = $('#jatuh_dewasa:checked').val()
-            var rjvalue = $('#rjvalue').val()
-            var dsvalue = $('#dsvalue').val()
-            var abvalue = $('#abvalue').val()
-            var tivalue = $('#tivalue').val()
-            var gbvalue = $('#gbvalue').val()
-            var smvalue = $('#smvalue').val()
-            var totalrisiko = $('#totalrisiko').val()
-            var jatuhanak = $('#jatuh_anak:checked').val()
-
-            var uvalue = $('#uvalue').val()
-            var jkvalue = $('#jkvalue').val()
-            var dvalue = $('#dvalue').val()
-            var gkvalue = $('#gkvalue').val()
-            var rvalue = $('#rvalue').val()
-            var ovalue = $('#ovalue').val()
-            var totalrisiko1 = $('#totalrisiko1').val()
-            // skrining nutrisi
-            var nutrisidws = $('#nutrisi_dws:checked').val()
-            var pnvalue = $('#pnvalue').val()
-            var pbbvalue = $('#pbbvalue').val()
-            var nmvalue = $('#nmvalue').val()
-            var totalnutrisi = $('#totalnutrisi').val()
-            var nutrisiank = $('#nutrisi_ank:checked').val()
-
-            var kuvalue = $('#kuvalue').val()
-            var tbbvalue = $('#tbbvalue').val()
-            var ssvalue = $('#ssvalue').val()
-            var totalnutrisi1 = $('#totalnutrisi1').val()
-            var diagnosakeperawatan = $('#diagnosakeperawatan').val()
-            var diagnosakeperawatan1 = $('#diagnosakeperawatan1:checked').val()
-            var diagnosakeperawatan2 = $('#diagnosakeperawatan2:checked').val()
-            var diagnosakeperawatan3 = $('#diagnosakeperawatan3:checked').val()
-            var diagnosakeperawatan4 = $('#diagnosakeperawatan4:checked').val()
-            var diagnosakeperawatan5 = $('#diagnosakeperawatan5:checked').val()
-            var diagnosakeperawatan6 = $('#diagnosakeperawatan6:checked').val()
-            var diagnosakeperawatan7 = $('#diagnosakeperawatan7:checked').val()
-            var diagnosakeperawatan8 = $('#diagnosakeperawatan8:checked').val()
-            var diagnosakeperawatan9 = $('#diagnosakeperawatan9:checked').val()
-            var diagnosakeperawatan10 = $('#diagnosakeperawatan10:checked').val()
-            var diagnosakeperawatan11 = $('#diagnosakeperawatan11:checked').val()
-            var diagnosakeperawatan12 = $('#diagnosakeperawatan12:checked').val()
-
-            var rencanaasuhan = $('#rencanaasuhan').val()
-            var rencanaasuhan1 = $('#rencanaasuhan1:checked').val()
-            var rencanaasuhan2 = $('#rencanaasuhan2:checked').val()
-            var rencanaasuhan3 = $('#rencanaasuhan3:checked').val()
-            var rencanaasuhan4 = $('#rencanaasuhan4:checked').val()
-            var kolaborasi1 = $('#kolaborasi1:checked').val()
-            var kolaborasi2 = $('#kolaborasi2:checked').val()
-            var kolaborasi3 = $('#kolaborasi3:checked').val()
-            var kolaborasi4 = $('#kolaborasi4:checked').val()
-            var kolaborasi5 = $('#kolaborasi5:checked').val()
-            var kolaborasi6 = $('#kolaborasi6:checked').val()
-            var kolaborasi7 = $('#kolaborasi7:checked').val()
-            var kolaborasi8 = $('#kolaborasi8:checked').val()
-            var kolaborasi9 = $('#kolaborasi9:checked').val()
-            var kolaborasi10 = $('#kolaborasi10:checked').val()
-            var kolaborasi11 = $('#kolaborasi11:checked').val()
-            var kolaborasi12 = $('#kolaborasi12:checked').val()
-            var kolaborasi13 = $('#kolaborasi13:checked').val()
-            var kolaborasi14 = $('#kolaborasi14:checked').val()
-            var kolaborasi15 = $('#kolaborasi15:checked').val()
-
-            var norm = $('#norm').val()
-            var kj = $('#kj').val()
-            var tglmasuk = $('#tglmasuk').val()
-            var alpul = $('#alpul').val()
-            var alpul1 = $('#alpul1').val()
-            var kopul = $('#kopul').val()
-            var kopul1 = $('#kopul1').val()
-        } else {
+      
             var ctx1 = gambar.getContext("2d");
             var img1 = document.getElementById("gambarnya1");
             ctx1.drawImage(img1, 10, 10);
@@ -5939,167 +5739,167 @@
             var alpul1 = $('#alpul1').val()
             var kopul = $('#kopul').val()
             var kopul1 = $('#kopul1').val()
-        }
+        
         // var sumberdata = $("#sumberdata:checked").val();
         Swal.fire({
-            title: "Yakin Edit Assesmen?"
-            , icon: 'warning'
-            , showCancelButton: true
-            , confirmButtonColor: '#3085d6'
-            , confirmButtonText: 'Ya'
-            , cancelButtonColor: '#d33'
-            , cancelButtonText: "Batal"
+            title: "Yakin Edit Assesmen?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Ya',
+            cancelButtonColor: '#d33',
+            cancelButtonText: "Batal"
 
         }).then(result => {
             //jika klik ya maka arahkan ke proses.php
             if (result.isConfirmed) {
                 $.ajax({
-                    async: true
-                    , type: 'post'
-                    , dataType: 'json'
-                    , data: {
-                        _token: "{{ csrf_token() }}"
-                        , data: JSON.stringify(data)
-                        , tindakan: JSON.stringify(tindakan),
+                    async: true,
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        data: JSON.stringify(data),
+                        tindakan: JSON.stringify(tindakan),
 
-                        sumberdata: $('#sumberdata:checked').val()
-                        , asalmasuk: $('#asalmasuk:checked').val()
-                        , caramasuk: $('#caramasuk:checked').val()
-                        , subyek: $('#anamnesis').val()
-                        , tekanandarah: $('#tekanandarah').val()
-                        , frekuensinadi: $('#frekuensinadi').val()
-                        , frekuensinafas: $('#frekuensinafas').val()
-                        , suhutubuh: $('#suhutubuh').val()
-                        , beratbadan: $('#beratbadan').val()
-                        , keadaanumum: $('#keadaanumum:checked').val()
-                        , kesadaran: $('#kesadaran:checked').val()
-                        , usia: $('#usia').val()
-                        , gcs: $('#gcs').val()
-                        , spo2: $('#SPO2').val()
-                        , pupil: $('#pupil:checked').val(),
+                        sumberdata: $('#sumberdata:checked').val(),
+                        asalmasuk: $('#asalmasuk:checked').val(),
+                        caramasuk: $('#caramasuk:checked').val(),
+                        subyek: $('#anamnesis').val(),
+                        tekanandarah: $('#tekanandarah').val(),
+                        frekuensinadi: $('#frekuensinadi').val(),
+                        frekuensinafas: $('#frekuensinafas').val(),
+                        suhutubuh: $('#suhutubuh').val(),
+                        beratbadan: $('#beratbadan').val(),
+                        keadaanumum: $('#keadaanumum:checked').val(),
+                        kesadaran: $('#kesadaran:checked').val(),
+                        usia: $('#usia').val(),
+                        gcs: $('#gcs').val(),
+                        spo2: $('#SPO2').val(),
+                        pupil: $('#pupil:checked').val(),
 
-                        intra: $('#intra:checked').val()
-                        , neuro: $('#neuro:checked').val()
-                        , muskolo: $('#muskolo:checked').val()
-                        , intergumen: $('#integumen:checked').val()
-                        , turgor: $('#turgor:checked').val()
-                        , edema: $('#edema:checked').val()
-                        , mukosa: $('#mukosa:checked').val()
-                        , pendarahan: $('#pendarahan:checked').val()
-                        , jumlahdarah: $('#jumlahdarah').val()
-                        , introksikasi: $('#intoksikasi:checked').val()
-                        , BABF: $('#BABF').val()
-                        , BABK: $('#BABK').val()
-                        , BABKW: $('#BABKW').val()
-                        , BAKF: $('#BAKF').val()
-                        , BAKK: $('#BAKK').val()
-                        , BAKKW: $('#BAKKW').val()
-                        , kecemasan: $('#kecemasan:checked').val()
-                        , koping: $('#koping:checked').val()
-                        , pekerjaan: $('#pekerjaan').val()
-                        , agama: $('#agama').val()
-                        , nyeri: $('#nyeri:checked').val()
-                        , gambar1: $('#gambarcoret').val()
-                        , lamanyeri: $('#lamanyeri:checked').val()
-                        , rasanyeri: $('#rasanyeri:checked').val()
-                        , seringnyeri: $('#seringnyeri:checked').val()
-                        , serringnyeri: $('#serringnyeri:checked').val()
-                        , berkurangnyeri: $('#berkurangnyeri:checked').val()
-                        , scalenyeri: $('#scalenyeri:checked').val()
-                        , scalenyeri1: $('#scalenyeri1:checked').val()
-                        , jatuhdewasa: $('#jatuh_dewasa:checked').val()
-                        , rjvalue: $('#rjvalue').val()
-                        , dsvalue: $('#dsvalue').val()
-                        , abvalue: $('#abvalue').val()
-                        , tivalue: $('#tivalue').val()
-                        , gbvalue: $('#gbvalue').val()
-                        , smvalue: $('#smvalue').val()
-                        , totalrisiko: $('#totalrisiko').val()
-                        , jatuhanak: $('#jatuh_anak:checked').val()
-                        , uvalue: $('#uvalue').val()
-                        , jkvalue: $('#jkvalue').val()
-                        , dvalue: $('#dvalue').val()
-                        , gkvalue: $('#gkvalue').val()
-                        , rvalue: $('#rvalue').val()
-                        , ovalue: $('#ovalue').val()
-                        , totalrisiko1: $('#totalrisiko1').val()
-                        , nutrisidws: $('#nutrisi_dws:checked').val()
-                        , pnvalue: $('#pnvalue').val()
-                        , pbbvalue: $('#pbbvalue').val()
-                        , nmvalue: $('#nmvalue').val()
-                        , totalnutrisi: $('#totalnutrisi').val()
-                        , nutrisiank: $('#nutrisi_ank:checked').val()
-                        , kuvalue: $('#kuvalue').val()
-                        , tbbvalue: $('#tbbvalue').val()
-                        , ssvalue: $('#ssvalue').val()
-                        , totalnutrisi1: $('#totalnutrisi1').val()
-                        , diagnosakeperawatan: $('#diagnosakeperawatan').val()
-                        , diagnosakeperawatan1: $('#diagnosakeperawatan1:checked').val()
-                        , diagnosakeperawatan2: $('#diagnosakeperawatan2:checked').val()
-                        , diagnosakeperawatan3: $('#diagnosakeperawatan3:checked').val()
-                        , diagnosakeperawatan4: $('#diagnosakeperawatan4:checked').val()
-                        , diagnosakeperawatan5: $('#diagnosakeperawatan5:checked').val()
-                        , diagnosakeperawatan6: $('#diagnosakeperawatan6:checked').val()
-                        , diagnosakeperawatan7: $('#diagnosakeperawatan7:checked').val()
-                        , diagnosakeperawatan8: $('#diagnosakeperawatan8:checked').val()
-                        , diagnosakeperawatan9: $('#diagnosakeperawatan9:checked').val()
-                        , diagnosakeperawatan10: $('#diagnosakeperawatan10:checked').val()
-                        , diagnosakeperawatan11: $('#diagnosakeperawatan11:checked').val()
-                        , diagnosakeperawatan12: $('#diagnosakeperawatan12:checked').val()
-                        , rencanaasuhan: $('#rencanaasuhan').val()
-                        , rencanaasuhan1: $('#rencanaasuhan1:checked').val()
-                        , rencanaasuhan2: $('#rencanaasuhan2:checked').val()
-                        , rencanaasuhan3: $('#rencanaasuhan3:checked').val()
-                        , rencanaasuhan4: $('#rencanaasuhan4:checked').val()
-                        , kolaborasi1: $('#kolaborasi1:checked').val()
-                        , kolaborasi2: $('#kolaborasi2:checked').val()
-                        , kolaborasi3: $('#kolaborasi3:checked').val()
-                        , kolaborasi4: $('#kolaborasi4:checked').val()
-                        , kolaborasi5: $('#kolaborasi5:checked').val()
-                        , kolaborasi6: $('#kolaborasi6:checked').val()
-                        , kolaborasi7: $('#kolaborasi7:checked').val()
-                        , kolaborasi8: $('#kolaborasi8:checked').val()
-                        , kolaborasi9: $('#kolaborasi9:checked').val()
-                        , kolaborasi10: $('#kolaborasi10:checked').val()
-                        , kolaborasi11: $('#kolaborasi11:checked').val()
-                        , kolaborasi12: $('#kolaborasi12:checked').val()
-                        , kolaborasi13: $('#kolaborasi13:checked').val()
-                        , kolaborasi14: $('#kolaborasi14:checked').val()
-                        , kolaborasi15: $('#kolaborasi15:checked').val()
-                        , norm: $('#norm').val()
-                        , kj: $('#kj').val()
-                        , tglmasuk: $('#tglmasuk').val()
-                        , alpul: $('#alpul').val()
-                        , alpul1: $('#alpul1').val()
-                        , kopul: $('#kopul').val()
-                        , kopul1: $('#kopul1').val(),
+                        intra: $('#intra:checked').val(),
+                        neuro: $('#neuro:checked').val(),
+                        muskolo: $('#muskolo:checked').val(),
+                        intergumen: $('#integumen:checked').val(),
+                        turgor: $('#turgor:checked').val(),
+                        edema: $('#edema:checked').val(),
+                        mukosa: $('#mukosa:checked').val(),
+                        pendarahan: $('#pendarahan:checked').val(),
+                        jumlahdarah: $('#jumlahdarah').val(),
+                        introksikasi: $('#intoksikasi:checked').val(),
+                        BABF: $('#BABF').val(),
+                        BABK: $('#BABK').val(),
+                        BABKW: $('#BABKW').val(),
+                        BAKF: $('#BAKF').val(),
+                        BAKK: $('#BAKK').val(),
+                        BAKKW: $('#BAKKW').val(),
+                        kecemasan: $('#kecemasan:checked').val(),
+                        koping: $('#koping:checked').val(),
+                        pekerjaan: $('#pekerjaan').val(),
+                        agama: $('#agama').val(),
+                        nyeri: $('#nyeri:checked').val(),
+                        gambar1: $('#gambarcoret').val(),
+                        lamanyeri: $('#lamanyeri:checked').val(),
+                        rasanyeri: $('#rasanyeri:checked').val(),
+                        seringnyeri: $('#seringnyeri:checked').val(),
+                        serringnyeri: $('#serringnyeri:checked').val(),
+                        berkurangnyeri: $('#berkurangnyeri:checked').val(),
+                        scalenyeri: $('#scalenyeri:checked').val(),
+                        scalenyeri1: $('#scalenyeri1:checked').val(),
+                        jatuhdewasa: $('#jatuh_dewasa:checked').val(),
+                        rjvalue: $('#rjvalue').val(),
+                        dsvalue: $('#dsvalue').val(),
+                        abvalue: $('#abvalue').val(),
+                        tivalue: $('#tivalue').val(),
+                        gbvalue: $('#gbvalue').val(),
+                        smvalue: $('#smvalue').val(),
+                        totalrisiko: $('#totalrisiko').val(),
+                        jatuhanak: $('#jatuh_anak:checked').val(),
+                        uvalue: $('#uvalue').val(),
+                        jkvalue: $('#jkvalue').val(),
+                        dvalue: $('#dvalue').val(),
+                        gkvalue: $('#gkvalue').val(),
+                        rvalue: $('#rvalue').val(),
+                        ovalue: $('#ovalue').val(),
+                        totalrisiko1: $('#totalrisiko1').val(),
+                        nutrisidws: $('#nutrisi_dws:checked').val(),
+                        pnvalue: $('#pnvalue').val(),
+                        pbbvalue: $('#pbbvalue').val(),
+                        nmvalue: $('#nmvalue').val(),
+                        totalnutrisi: $('#totalnutrisi').val(),
+                        nutrisiank: $('#nutrisi_ank:checked').val(),
+                        kuvalue: $('#kuvalue').val(),
+                        tbbvalue: $('#tbbvalue').val(),
+                        ssvalue: $('#ssvalue').val(),
+                        totalnutrisi1: $('#totalnutrisi1').val(),
+                        diagnosakeperawatan: $('#diagnosakeperawatan').val(),
+                        diagnosakeperawatan1: $('#diagnosakeperawatan1:checked').val(),
+                        diagnosakeperawatan2: $('#diagnosakeperawatan2:checked').val(),
+                        diagnosakeperawatan3: $('#diagnosakeperawatan3:checked').val(),
+                        diagnosakeperawatan4: $('#diagnosakeperawatan4:checked').val(),
+                        diagnosakeperawatan5: $('#diagnosakeperawatan5:checked').val(),
+                        diagnosakeperawatan6: $('#diagnosakeperawatan6:checked').val(),
+                        diagnosakeperawatan7: $('#diagnosakeperawatan7:checked').val(),
+                        diagnosakeperawatan8: $('#diagnosakeperawatan8:checked').val(),
+                        diagnosakeperawatan9: $('#diagnosakeperawatan9:checked').val(),
+                        diagnosakeperawatan10: $('#diagnosakeperawatan10:checked').val(),
+                        diagnosakeperawatan11: $('#diagnosakeperawatan11:checked').val(),
+                        diagnosakeperawatan12: $('#diagnosakeperawatan12:checked').val(),
+                        rencanaasuhan: $('#rencanaasuhan').val(),
+                        rencanaasuhan1: $('#rencanaasuhan1:checked').val(),
+                        rencanaasuhan2: $('#rencanaasuhan2:checked').val(),
+                        rencanaasuhan3: $('#rencanaasuhan3:checked').val(),
+                        rencanaasuhan4: $('#rencanaasuhan4:checked').val(),
+                        kolaborasi1: $('#kolaborasi1:checked').val(),
+                        kolaborasi2: $('#kolaborasi2:checked').val(),
+                        kolaborasi3: $('#kolaborasi3:checked').val(),
+                        kolaborasi4: $('#kolaborasi4:checked').val(),
+                        kolaborasi5: $('#kolaborasi5:checked').val(),
+                        kolaborasi6: $('#kolaborasi6:checked').val(),
+                        kolaborasi7: $('#kolaborasi7:checked').val(),
+                        kolaborasi8: $('#kolaborasi8:checked').val(),
+                        kolaborasi9: $('#kolaborasi9:checked').val(),
+                        kolaborasi10: $('#kolaborasi10:checked').val(),
+                        kolaborasi11: $('#kolaborasi11:checked').val(),
+                        kolaborasi12: $('#kolaborasi12:checked').val(),
+                        kolaborasi13: $('#kolaborasi13:checked').val(),
+                        kolaborasi14: $('#kolaborasi14:checked').val(),
+                        kolaborasi15: $('#kolaborasi15:checked').val(),
+                        norm: $('#norm').val(),
+                        kj: $('#kj').val(),
+                        tglmasuk: $('#tglmasuk').val(),
+                        alpul: $('#alpul').val(),
+                        alpul1: $('#alpul1').val(),
+                        kopul: $('#kopul').val(),
+                        kopul1: $('#kopul1').val(),
 
-                    }
-                    , url: '<?= route('updateassemenperawat') ?>',
+                    },
+                    url: '<?= route('updateassemenperawat') ?>',
 
                     error: function(data) {
                         Swal.fire({
-                            icon: 'error'
-                            , title: 'Oops...'
-                            , text: 'Sepertinya ada masalah ...'
-                            , footer: ''
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Sepertinya ada masalah ...',
+                            footer: ''
                         })
-                    }
-                    , success: function(data) {
+                    },
+                    success: function(data) {
                         console.log(data)
                         if (data.kode == 500) {
                             Swal.fire({
-                                icon: 'error'
-                                , title: 'Oops...'
-                                , text: data.message
-                                , footer: ''
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: data.message,
+                                footer: ''
                             })
                         } else {
                             Swal.fire({
-                                icon: 'success'
-                                , title: 'OK'
-                                , text: 'data berhasil disimpan'
-                                , footer: ''
+                                icon: 'success',
+                                title: 'OK',
+                                text: 'data berhasil disimpan',
+                                footer: ''
                             })
                             cpptperawat()
                         }
@@ -6114,19 +5914,19 @@
         spinner.show();
 
         $.ajax({
-            type: "post"
-            , data: {
-                _token: "{{ csrf_token() }}"
-                , norm
-                , kj
+            type: "post",
+            data: {
+                _token: "{{ csrf_token() }}",
+                norm,
+                kj
 
-            }
-            , url: '<?= route('formdewasaigk') ?>'
-            , error: function(data) {
+            },
+            url: '<?= route('formdewasaigk') ?>',
+            error: function(data) {
                 spinner.hide();
                 alert('oke!!')
-            }
-            , success: function(response) {
+            },
+            success: function(response) {
                 spinner.hide();
                 $('.formigk').html(response);
 
@@ -6138,20 +5938,20 @@
         spinner.show();
 
         $.ajax({
-            type: "post"
-            , data: {
-                _token: "{{ csrf_token() }}"
-                , norm
-                , kj
+            type: "post",
+            data: {
+                _token: "{{ csrf_token() }}",
+                norm,
+                kj
 
-            }
-            , url: '<?= route('formbayikigk') ?>',
+            },
+            url: '<?= route('formbayikigk') ?>',
 
             error: function(data) {
                 spinner.hide();
                 alert('oke!!')
-            }
-            , success: function(response) {
+            },
+            success: function(response) {
                 spinner.hide();
                 $('.formigk').html(response);
 
@@ -6166,17 +5966,17 @@
         norm = $('#norm').val()
         $.ajax({
             data: {
-                _token: "{{ csrf_token() }}"
-                , norm
-                , kj
-            }
-            , type: "post"
-            , url: " {{ route('formermperawat') }}"
-            , error: function(data) {
+                _token: "{{ csrf_token() }}",
+                norm,
+                kj
+            },
+            type: "post",
+            url: " {{ route('formermperawat') }}",
+            error: function(data) {
                 spinner.hide();
                 alert('oke!!')
-            }
-            , success: function(response) {
+            },
+            success: function(response) {
                 spinner.hide();
                 $('.formermperawat').html(response);
 
@@ -6236,7 +6036,14 @@
             modalli.style.display = "none";
         }
     }
-
+</script>
+<script src="{{ asset('public/marker/markerjs2.js') }}"></script>
+<script>
+    function showMarkerArea(target) {
+        const markerArea = new markerjs2.MarkerArea(target);
+        markerArea.addEventListener("render", (event) => (target.src = event.dataUrl));
+        markerArea.show();
+    }
 </script>
 <!-- 
 <script src="{{ asset('public/img-mark/src/jquery.image-marker.js') }}"></script>

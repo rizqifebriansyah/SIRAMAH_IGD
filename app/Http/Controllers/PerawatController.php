@@ -1875,6 +1875,7 @@ class PerawatController extends Controller
                     'status' => '1',
                     'nama_perawat1' => $name
                 ]);
+                // dd($assesmen);
             }
         } catch (\Exception $e) {
             $back = [
