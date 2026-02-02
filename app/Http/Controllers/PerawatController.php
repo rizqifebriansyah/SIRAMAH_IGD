@@ -1,3 +1,4 @@
+
 <?php
 
 namespace App\Http\Controllers;
@@ -67,7 +68,7 @@ class PerawatController extends Controller
         // $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','$unit','$now')");
         // $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','$unit','$now')");
         $pasienigd = DB::select('SELECT DISTINCT
-        IFNULL(c.diag_00,"") AS DIAGX
+        e.diagnosa_kerja AS DIAGX
         ,a.no_rm
         ,IFNULL(d.nama_perawat,"") AS nama_perawat
         ,IFNULL(e.nama_paramedis,"") AS nama_paramedis

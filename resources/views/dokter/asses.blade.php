@@ -160,7 +160,7 @@
                             <button class="badge badge-danger ermdokter"> belum diisi </button> |
                         </td>
                         <td class="status2" style="text-align: center; ">
-                            <button class="badge badge-danger ermdokter"> Menunggu isian Perawat </button>
+                            <button class="badge badge-danger ermdokter"> Belum diisi</button>
                         </td>
 
                         @else

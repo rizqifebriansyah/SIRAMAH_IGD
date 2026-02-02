@@ -162,7 +162,7 @@ class DokterController extends Controller
         // $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','$unit','$now')");
         // $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','$unit','$now')");
         $pasienigd = DB::select('SELECT DISTINCT
-        IFNULL(c.diag_00,"") AS DIAGX
+        e.diagnosa_kerja AS DIAGX
         ,a.no_rm
         ,IFNULL(d.nama_perawat,"") AS nama_perawat
         ,IFNULL(e.nama_paramedis,"") AS nama_paramedis
@@ -780,6 +780,7 @@ AND b.kelas_tarif = 1');
 
         $triase = DB::select('SELECT * FROM ts_triase
            WHERE no_rm = ? AND kode_kunjungan = ? AND STATUS IN (1,2) ', [$norm, $kj]);
+        //    dd($triase);
         $dpjp = DB::select('SELECT 
                     a.kode_paramedis,
                     a.nama_paramedis
@@ -1279,7 +1280,7 @@ AND b.kelas_tarif = 1');
     public function simpanassesmen(Request $request)
     {
         $a = $request->all();
-        $diagnosa = $request->anamnesa;
+        $diagnosa = $request->diagnosa;
         $ku = $request->ku;
         $kj = $request->kj;
         $kop = $request->kp;
@@ -4170,206 +4171,206 @@ AND b.kelas_tarif = 1');
         }
 
         //tindakan GP
-        try {
-            $tindakangp = json_decode($_POST['tindakangp'], true);
+        // try {
+        //     $tindakangp = json_decode($_POST['tindakangp'], true);
 
 
-            if ($tindakangp == null) {
-            } else {
-                foreach ($tindakangp as $nama) {
-                    $index = $nama['name'];
-                    $value = $nama['value'];
-                    $dataGP[$index] = $value;
-                    if ($index == 'kode_dpjp') {
-                        $arrayindexgp[] = $dataGP;
-                    }
-                }
-                $sum = 0;
-                foreach ($arrayindexgp as $gp) {
-                    $discount = 0;
-                    $cyto = 0;
-                    $trf = array($gp['tarif']);
-                    $tarif =
-                        $sum += array_sum($trf);
-                    if ($cyto == 1) {
-                        if ($discount == $discount) {
-                            $a = $tarif + ($tarif * (50 / 100));
+        //     if ($tindakangp == null) {
+        //     } else {
+        //         foreach ($tindakangp as $nama) {
+        //             $index = $nama['name'];
+        //             $value = $nama['value'];
+        //             $dataGP[$index] = $value;
+        //             if ($index == 'kode_dpjp') {
+        //                 $arrayindexgp[] = $dataGP;
+        //             }
+        //         }
+        //         $sum = 0;
+        //         foreach ($arrayindexgp as $gp) {
+        //             $discount = 0;
+        //             $cyto = 0;
+        //             $trf = array($gp['tarif']);
+        //             $tarif =
+        //                 $sum += array_sum($trf);
+        //             if ($cyto == 1) {
+        //                 if ($discount == $discount) {
+        //                     $a = $tarif + ($tarif * (50 / 100));
 
-                            $gt = $a - ($a * $discount / 100);
-                        } else {
-                            $gt = $tarif + ($tarif * (50 / 100));
-                        }
-                    } elseif ($discount == $discount) {
-                        $gt = $tarif - ($tarif * $discount / 100);
-                    } else {
-                        $gt = $tarif;
-                    }
-                }
-                $kode_headergp = $this->createOrderHeadergp();
-                if ($kp == 'P01') {
-                    if ($ku == '2') {
-                        $data_layanan_header = [
-                            'kode_layanan_header' => $kode_headergp,
-                            'tgl_entry' => $now,
-                            'tgl_periksa' => $now,
-                            'no_rm' => $request->norm,
-                            'kode_kunjungan' => $request->kj,
-                            'qty_header' => $dataGP['qty'],
-                            'keterangan' => 'PENDING',
-                            'unit_pengirim' => $unit,
-                            'diagnosa' => $request->diagnosa . ' ' . $request->diagnosa1,
-                            'dok_kirim' => $kp,
-                            'total_layanan' => $gt,
-                            'tagihan_pribadi' => $gt,
-                            'diskon_global' => 0,
-                            'status_pembayaran' => $sp,
-                            'status_layanan' => 1,
-                            'status_order' => 1,
-                            'kode_unit' => '1002',
-                            'kode_tipe_transaksi' => 2,
-                            'kode_penjaminx' => $request->kp,
-                            // 'pic' => $user,
-                        ];
+        //                     $gt = $a - ($a * $discount / 100);
+        //                 } else {
+        //                     $gt = $tarif + ($tarif * (50 / 100));
+        //                 }
+        //             } elseif ($discount == $discount) {
+        //                 $gt = $tarif - ($tarif * $discount / 100);
+        //             } else {
+        //                 $gt = $tarif;
+        //             }
+        //         }
+        //         $kode_headergp = $this->createOrderHeadergp();
+        //         if ($kp == 'P01') {
+        //             if ($ku == '2') {
+        //                 $data_layanan_header = [
+        //                     'kode_layanan_header' => $kode_headergp,
+        //                     'tgl_entry' => $now,
+        //                     'tgl_periksa' => $now,
+        //                     'no_rm' => $request->norm,
+        //                     'kode_kunjungan' => $request->kj,
+        //                     'qty_header' => $dataGP['qty'],
+        //                     'keterangan' => 'PENDING',
+        //                     'unit_pengirim' => $unit,
+        //                     'diagnosa' => $request->diagnosa . ' ' . $request->diagnosa1,
+        //                     'dok_kirim' => $kp,
+        //                     'total_layanan' => $gt,
+        //                     'tagihan_pribadi' => $gt,
+        //                     'diskon_global' => 0,
+        //                     'status_pembayaran' => $sp,
+        //                     'status_layanan' => 1,
+        //                     'status_order' => 1,
+        //                     'kode_unit' => '1002',
+        //                     'kode_tipe_transaksi' => 2,
+        //                     'kode_penjaminx' => $request->kp,
+        //                     // 'pic' => $user,
+        //                 ];
 
-                        $head = ts_layanan_header_igd::create($data_layanan_header);
+        //                 $head = ts_layanan_header_igd::create($data_layanan_header);
 
-                        $id_detail = $this->createLayanandetailgp();
-                        foreach ($arrayindexgp as $gp) {
-                            $savedetailgp = [
-                                'id_layanan_detail' => $id_detail,
-                                'kode_layanan_header' => $kode_headergp,
-                                'kode_tarif_detail' =>  $gp['kodelayanan'],
-                                'total_tarif' => $gp['tarif'],
-                                'kode_dokter1' => $gp['kode_dpjp'],
+        //                 $id_detail = $this->createLayanandetailgp();
+        //                 foreach ($arrayindexgp as $gp) {
+        //                     $savedetailgp = [
+        //                         'id_layanan_detail' => $id_detail,
+        //                         'kode_layanan_header' => $kode_headergp,
+        //                         'kode_tarif_detail' =>  $gp['kodelayanan'],
+        //                         'total_tarif' => $gp['tarif'],
+        //                         'kode_dokter1' => $gp['kode_dpjp'],
 
-                                'jumlah_layanan' => $gp['qty'],
-                                'diskon_dokter' => 0,
-                                'cyto' => 0,
-                                'total_layanan' => $gp['tarif'],
-                                'grantotal_layanan' => $gp['tarif'] * $gp['qty'],
-                                'status_layanan_detail' => 'OPN',
-                                'tgl_layanan_detail' => $now,
-                                'tagihan_pribadi' => $gt,
-                                'tgl_layanan_detail_2' => $now,
-                                'row_id_header' => $head['id']
-                            ];
+        //                         'jumlah_layanan' => $gp['qty'],
+        //                         'diskon_dokter' => 0,
+        //                         'cyto' => 0,
+        //                         'total_layanan' => $gp['tarif'],
+        //                         'grantotal_layanan' => $gp['tarif'] * $gp['qty'],
+        //                         'status_layanan_detail' => 'OPN',
+        //                         'tgl_layanan_detail' => $now,
+        //                         'tagihan_pribadi' => $gt,
+        //                         'tgl_layanan_detail_2' => $now,
+        //                         'row_id_header' => $head['id']
+        //                     ];
 
-                            $ts_layanan_detail_igd = ts_layanan_detail_igd::create($savedetailgp);
-                        }
-                    } else {
+        //                     $ts_layanan_detail_igd = ts_layanan_detail_igd::create($savedetailgp);
+        //                 }
+        //             } else {
 
-                        $data_layanan_header = [
-                            'kode_layanan_header' => $kode_headergp,
-                            'tgl_entry' => $now,
-                            'tgl_periksa' => $now,
-                            'no_rm' => $request->norm,
-                            'kode_kunjungan' => $request->kj,
-                            'qty_header' => $dataGP['qty'],
-                            'keterangan' => 'PENDING',
-                            'unit_pengirim' => $unit,
-                            'diagnosa' => $request->diagnosa . ' ' . $request->diagnosa1,
-                            'dok_kirim' => $kp,
-                            'total_layanan' => $gt,
-                            'tagihan_pribadi' => $gt,
-                            'diskon_global' => 0,
-                            'status_pembayaran' => $sp,
-                            'status_layanan' => 1,
-                            'status_order' => 1,
-                            'kode_unit' => '1002',
-                            'kode_tipe_transaksi' => 1,
-                            'kode_penjaminx' => $request->kp,
-                            // 'pic' => $user,
-                        ];
-                        $head = ts_layanan_header_igd::create($data_layanan_header);
-
-
-                        $id_detail = $this->createLayanandetailgp();
-                        foreach ($arrayindexgp as $gp) {
-                            $savedetailgp = [
-                                'id_layanan_detail' => $id_detail,
-                                'kode_layanan_header' => $kode_headergp,
-                                'kode_tarif_detail' =>  $gp['kodelayanan'],
-                                'total_tarif' => $gp['tarif'],
-                                'jumlah_layanan' => $gp['qty'],
-                                'diskon_dokter' => 0,
-                                'kode_dokter1' => $gp['kode_dpjp'],
-
-                                'cyto' => 0,
-                                'total_layanan' => $gp['tarif'],
-                                'grantotal_layanan' => $gp['tarif'] * $gp['qty'],
-                                'status_layanan_detail' => 'OPN',
-                                'tgl_layanan_detail' => $now,
-                                'tagihan_pribadi' => $gt,
-                                'tgl_layanan_detail_2' => $now,
-                                'row_id_header' => $head['id']
-                            ];
-
-                            $ts_layanan_detail_igd = ts_layanan_detail_igd::create($savedetailgp);
-                        }
-                    }
-                } else {
-                    $data_layanan_header = [
-                        'kode_layanan_header' => $kode_headergp,
-                        'tgl_entry' => $now,
-                        'tgl_periksa' => $now,
-                        'no_rm' => $request->norm,
-                        'kode_kunjungan' => $request->kj,
-                        'qty_header' => $dataGP['qty'],
-                        'keterangan' => 'PENDING',
-                        'unit_pengirim' => $unit,
-                        'diagnosa' => $request->diagnosa . ' ' . $request->diagnosa1,
-                        'dok_kirim' => $kp,
-                        'total_layanan' => $gt,
-                        'tagihan_pribadi' => $gt,
-                        'diskon_global' => 0,
-                        'status_pembayaran' => $sp,
-                        'status_layanan' => 2,
-                        'status_order' => 1,
-                        'kode_unit' => '1002',
-                        'kode_tipe_transaksi' => 2,
-                        'kode_penjaminx' => $request->kp,
-                        // 'pic' => $user,
-                    ];
-
-                    $head = ts_layanan_header_igd::create($data_layanan_header);
+        //                 $data_layanan_header = [
+        //                     'kode_layanan_header' => $kode_headergp,
+        //                     'tgl_entry' => $now,
+        //                     'tgl_periksa' => $now,
+        //                     'no_rm' => $request->norm,
+        //                     'kode_kunjungan' => $request->kj,
+        //                     'qty_header' => $dataGP['qty'],
+        //                     'keterangan' => 'PENDING',
+        //                     'unit_pengirim' => $unit,
+        //                     'diagnosa' => $request->diagnosa . ' ' . $request->diagnosa1,
+        //                     'dok_kirim' => $kp,
+        //                     'total_layanan' => $gt,
+        //                     'tagihan_pribadi' => $gt,
+        //                     'diskon_global' => 0,
+        //                     'status_pembayaran' => $sp,
+        //                     'status_layanan' => 1,
+        //                     'status_order' => 1,
+        //                     'kode_unit' => '1002',
+        //                     'kode_tipe_transaksi' => 1,
+        //                     'kode_penjaminx' => $request->kp,
+        //                     // 'pic' => $user,
+        //                 ];
+        //                 $head = ts_layanan_header_igd::create($data_layanan_header);
 
 
-                    $id_detail = $this->createLayanandetailgp();
-                    foreach ($arrayindexgp as $gp) {
-                        $savedetailgp = [
-                            'id_layanan_detail' => $id_detail,
-                            'kode_layanan_header' => $kode_headergp,
-                            'kode_tarif_detail' =>  $gp['kodelayanan'],
-                            'total_tarif' => $gp['tarif'],
-                            'jumlah_layanan' => $gp['qty'],
-                            'kode_dokter1' => $gp['kode_dpjp'],
+        //                 $id_detail = $this->createLayanandetailgp();
+        //                 foreach ($arrayindexgp as $gp) {
+        //                     $savedetailgp = [
+        //                         'id_layanan_detail' => $id_detail,
+        //                         'kode_layanan_header' => $kode_headergp,
+        //                         'kode_tarif_detail' =>  $gp['kodelayanan'],
+        //                         'total_tarif' => $gp['tarif'],
+        //                         'jumlah_layanan' => $gp['qty'],
+        //                         'diskon_dokter' => 0,
+        //                         'kode_dokter1' => $gp['kode_dpjp'],
 
-                            'diskon_dokter' => 0,
-                            'cyto' => 0,
-                            'total_layanan' => $gp['tarif'],
-                            'grantotal_layanan' => $gp['tarif'] * $gp['qty'],
-                            'status_layanan_detail' => 'OPN',
-                            'tgl_layanan_detail' => $now,
-                            'tagihan_penjamin' => $gt,
-                            'tgl_layanan_detail_2' => $now,
-                            'row_id_header' => $head['id']
-                        ];
+        //                         'cyto' => 0,
+        //                         'total_layanan' => $gp['tarif'],
+        //                         'grantotal_layanan' => $gp['tarif'] * $gp['qty'],
+        //                         'status_layanan_detail' => 'OPN',
+        //                         'tgl_layanan_detail' => $now,
+        //                         'tagihan_pribadi' => $gt,
+        //                         'tgl_layanan_detail_2' => $now,
+        //                         'row_id_header' => $head['id']
+        //                     ];
 
-                        $ts_layanan_detail = ts_layanan_detail_igd::create($savedetailgp);
-                    }
-                }
-                $kode_header = $ts_layanan_detail['kode_layanan_header'];
-                $idhed = $ts_layanan_detail['row_id_header'];
-                $update = DB::select('UPDATE ts_layanan_header_igd SET status_order = 2 WHERE kode_kunjungan = ? AND no_rm = ?', [$request->kode_kunjungan, $request->norm]);
-            }
-        } catch (\Exception $e) {
-            $back = [
-                'kode' => 200,
-                'message' => $e->getMessage()
-            ];
-            echo json_encode($back);
-            die;
-        }
+        //                     $ts_layanan_detail_igd = ts_layanan_detail_igd::create($savedetailgp);
+        //                 }
+        //             }
+        //         } else {
+        //             $data_layanan_header = [
+        //                 'kode_layanan_header' => $kode_headergp,
+        //                 'tgl_entry' => $now,
+        //                 'tgl_periksa' => $now,
+        //                 'no_rm' => $request->norm,
+        //                 'kode_kunjungan' => $request->kj,
+        //                 'qty_header' => $dataGP['qty'],
+        //                 'keterangan' => 'PENDING',
+        //                 'unit_pengirim' => $unit,
+        //                 'diagnosa' => $request->diagnosa . ' ' . $request->diagnosa1,
+        //                 'dok_kirim' => $kp,
+        //                 'total_layanan' => $gt,
+        //                 'tagihan_pribadi' => $gt,
+        //                 'diskon_global' => 0,
+        //                 'status_pembayaran' => $sp,
+        //                 'status_layanan' => 2,
+        //                 'status_order' => 1,
+        //                 'kode_unit' => '1002',
+        //                 'kode_tipe_transaksi' => 2,
+        //                 'kode_penjaminx' => $request->kp,
+        //                 // 'pic' => $user,
+        //             ];
+
+        //             $head = ts_layanan_header_igd::create($data_layanan_header);
+
+
+        //             $id_detail = $this->createLayanandetailgp();
+        //             foreach ($arrayindexgp as $gp) {
+        //                 $savedetailgp = [
+        //                     'id_layanan_detail' => $id_detail,
+        //                     'kode_layanan_header' => $kode_headergp,
+        //                     'kode_tarif_detail' =>  $gp['kodelayanan'],
+        //                     'total_tarif' => $gp['tarif'],
+        //                     'jumlah_layanan' => $gp['qty'],
+        //                     'kode_dokter1' => $gp['kode_dpjp'],
+
+        //                     'diskon_dokter' => 0,
+        //                     'cyto' => 0,
+        //                     'total_layanan' => $gp['tarif'],
+        //                     'grantotal_layanan' => $gp['tarif'] * $gp['qty'],
+        //                     'status_layanan_detail' => 'OPN',
+        //                     'tgl_layanan_detail' => $now,
+        //                     'tagihan_penjamin' => $gt,
+        //                     'tgl_layanan_detail_2' => $now,
+        //                     'row_id_header' => $head['id']
+        //                 ];
+
+        //                 $ts_layanan_detail = ts_layanan_detail_igd::create($savedetailgp);
+        //             }
+        //         }
+        //         $kode_header = $ts_layanan_detail['kode_layanan_header'];
+        //         $idhed = $ts_layanan_detail['row_id_header'];
+        //         $update = DB::select('UPDATE ts_layanan_header_igd SET status_order = 2 WHERE kode_kunjungan = ? AND no_rm = ?', [$request->kode_kunjungan, $request->norm]);
+        //     }
+        // } catch (\Exception $e) {
+        //     $back = [
+        //         'kode' => 200,
+        //         'message' => $e->getMessage()
+        //     ];
+        //     echo json_encode($back);
+        //     die;
+        // }
         // try {
 
         //     $updatriase = DB::select('UPDATE ts_triase SET kode_paramedis_update = ?, jenis_triase = ?, tg_entri_triase_update = ?,klasifikasi_pasien = ?,kategori_triase = ?,pemeriksaan_triase = ?, kesadaran1 = ?,kesadaran2 = ?, kesadaran3 = ?, kesadaran4 = ?,kesadaran5 = ?, kesadaran6 = ?,kesadaran8 = ?,kesadaran9 = ?,kesadaran10 = ?,kesadaran11 = ?,kesadaran12 = ?,jalan_nafas1 = ?,jalan_nafas2 = ?,jalan_nafas3 = ?,jalan_nafas4 = ?,jalan_nafas5 = ?,upaya1 = ?,upaya2 = ?,upaya3 = ?,upaya4 = ?,upaya5 = ?,upaya6 = ?,upaya7 = ?,upaya8 = ?,sirkulasi1 = ?,sirkulasi2 = ?,sirkulasi3 = ?,sirkulasi4 = ?,sirkulasi5 = ?,sirkulasi6 = ?,sirkulasi7 = ?,sirkulasi8 = ?,sirkulasi9 = ?,sirkulasi10 = ?,sirkulasi11 = ?,sirkulasi12 = ?,sirkulasi13 = ?,sirkulasi14 = ?,sirkulasi15 = ?,sirkulasi16 = ?,sirkulasi17 = ?,sirkulasi18 = ?,sirkulasi20 = ?,sirkulasi21 = ?,sirkulasi22 = ?,sirkulasi23 = ?,sirkulasi24 = ?,sirkulasi25 = ?,gejala_respirasi1  = ?,gejala_respirasi2  = ?,gejala_respirasi3  = ?,gejala_respirasi4  = ?,gejala_respirasi5  = ?,gejala_respirasi7  = ?,gejala_respirasi8  = ?,gejala_respirasi9  = ?,gejala_respirasi10 = ?,gejala_respirasi11 = ?,gejala_respirasi12 = ?,gejala_respirasi13 = ?,gejala_respirasi14 = ?,gejala_respirasi15 = ?,gejala_respirasi16 = ?,gejala_respirasi17 = ?,gejala_respirasi18 = ?,gejala_respirasi19 = ?,gejala_respirasi20 = ?,gejala_respirasi21 = ?,gejala_respirasi22 = ?,gejala_respirasi23 = ?,gejala_respirasi24 = ?,gejala_respirasi25 = ?,gejala_respirasi26 = ?,gejala_respirasi27 = ?,gejala_respirasi28 = ?,gejala_respirasi29 = ?,status = 2 WHERE kode_kunjungan = 22495703', [$kp, $request->jenistriase, $dt, $request->klasifikasipasien, $request->kategoritriase, $request->jenisats, $request->kesadaran1, $request->kesadaran2, $request->kesadaran3, $request->kesadaran4, $request->kesadaran5, $request->kesadaran6, $request->kesadaran7, $request->kesadaran8, $request->kesadaran9, $request->kesadaran10, $request->kesadaran11, $request->kesadaran12, $request->jalannafas1, $request->jalannafas2, $request->jalannafas3, $request->jalannafas4, $request->jalannafas5, $request->upaya1, $request->upaya2, $request->upaya3, $request->upaya4, $request->upaya5, $request->upaya6, $request->upaya7, $request->upaya8, $request->sirkulasi1, $request->sirkulasi2, $request->sirkulasi3, $request->sirkulasi4, $request->sirkulasi5, $request->sirkulasi6, $request->sirkulasi7, $request->sirkulasi8, $request->sirkulasi9, $request->sirkulasi10, $request->sirkulasi11, $request->sirkulasi12, $request->sirkulasi13, $request->sirkulasi14, $request->sirkulasi15, $request->sirkulasi16, $request->sirkulasi17, $request->sirkulasi18, $request->sirkulasi19, $request->sirkulasi20, $request->sirkulasi21, $request->sirkulasi22, $request->sirkulasi23, $request->sirkulasi24, $request->sirkulasi25, $request->gejala1, $request->gejala2, $request->gejala3, $request->gejala4, $request->gejala5, $request->gejala6, $request->gejala7, $request->gejala8, $request->gejala9, $request->gejala10, $request->gejala11, $request->gejala12, $request->gejala13, $request->gejala14, $request->gejala15, $request->gejala16, $request->gejala17, $request->gejala18, $request->gejala19, $request->gejala20, $request->gejala21, $request->gejala22, $request->gejala23, $request->gejala24, $request->gejala25, $request->gejala26, $request->gejala27, $request->gejala28, $request->gejala29, $request->kj]);
