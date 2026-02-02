@@ -1308,8 +1308,16 @@
                                     <td class="text-bold font-italic">KELUHAN UTAMA</td>
                                     <td>
                                         <div class="input-group">
-                                            <textarea class="form-control" id="subyek" name="subyek" placeholder="">{{$assesper[0]->keluhan_utama}}</textarea>
+                                            @if ($assesper == null)
+                                            <textarea class="form-control" id="subyek" name="subyek" placeholder="">
+                                            
+                                            </textarea>
 
+                                            @else
+                                            <textarea class="form-control" id="subyek" name="subyek" placeholder="">
+                                            {{$assesper[0]->keluhan_utama}}
+                                            </textarea>
+                                            @endif
                                         </div>
                                     </td>
                                 </tr>
@@ -1746,7 +1754,7 @@
                                             <textarea class="form-control" id="talaksana" name="talaksana" placeholder=""></textarea>
 
                                         </div>
-                                        <div class="row mt-2">
+                                        <!-- <div class="row mt-2">
 
                                             <div class="col-md-6">
                                                 <table id="tablegp" class="table table-sm mt-3 table-hover">
@@ -1781,7 +1789,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </td>
                                 </tr>
                                 <tr>
@@ -6780,7 +6788,7 @@
                                             <textarea class="form-control" id="talaksana" name="talaksana" placeholder="">{{$assesdok[0]->tata_laksana}}</textarea>
 
                                         </div>
-                                        <div class="row mt-2">
+                                        <!-- <div class="row mt-2">
 
                                             <div class="col-md-6">
                                                 <table id="tablegp" class="table table-sm mt-3 table-hover">
@@ -6847,14 +6855,14 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">
 
                                         <div class="row">
-                                            \ <table id="tabletdpjp" class="table tabletdpjp table-bordered">
+                                            <table id="tabletdpjp" class="table tabletdpjp table-bordered">
                                                 <thead>
 
                                                     <th hidden>id</th>
@@ -8322,7 +8330,7 @@
         var rekobat = $('.formtinjutobat').serializeArray()
         var tindakandpjp = $('.formtindakandpjp').serializeArray()
 
-        var tindakangp = $('.formtindakangp').serializeArray();
+        // var tindakangp = $('.formtindakangp').serializeArray();
         //triase
         var kategoritriase = $("#kategoritriase:checked").val()
         var jenisats = $("#jenisats:checked").val()
@@ -8467,7 +8475,7 @@
                         datarad: JSON.stringify(datarad),
                         rekobat: JSON.stringify(rekobat),
                         tindakandpjp: JSON.stringify(tindakandpjp),
-                        tindakangp: JSON.stringify(tindakangp),
+                        // tindakangp: JSON.stringify(tindakangp),
 
                         //triase
                         kategoritriase: $("#kategoritriase:checked").val(),
@@ -8570,8 +8578,8 @@
                         ats3lain: $('#ats3lain').val(),
                         ats4lain: $('#ats4lain').val(),
                         ats5lain: $('#ats5lain').val(),
-                       
-                       
+
+
                         //triase
                         sumberdata: $('#sumberdata:checked').val(),
                         macamkasus: $('#macamkasus:checked').val(),
@@ -8651,7 +8659,7 @@
         // var data = $('.formtindakandokter').serializeArray();
         var tindakandpjp = $('.formtindakandpjp').serializeArray();
 
-        var tindakangp = $('.formtindakangp').serializeArray();
+        // var tindakangp = $('.formtindakangp').serializeArray();
         var datalab = $('.formlab').serializeArray();
 
         var datarad = $('.formradio').serializeArray();
@@ -8816,7 +8824,7 @@
                         // data: JSON.stringify(data),
                         tindakandpjp: JSON.stringify(tindakandpjp),
 
-                        tindakangp: JSON.stringify(tindakangp),
+                        // tindakangp: JSON.stringify(tindakangp),
                         datalab: JSON.stringify(datalab),
 
                         datarad: JSON.stringify(datarad),
@@ -8936,8 +8944,8 @@
                         ats3lain: $('#ats3lain').val(),
                         ats4lain: $('#ats4lain').val(),
                         ats5lain: $('#ats5lain').val(),
-                        
-                        
+
+
                         //triase
                         sumberdata: $('#sumberdata:checked').val(),
                         macamkasus: $('#macamkasus:checked').val(),
