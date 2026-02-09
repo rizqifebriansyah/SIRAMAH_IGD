@@ -806,6 +806,8 @@ AND b.kelas_tarif = 1');
         AND a.kode_kunjungan = ?
         AND a.status_order ="1"
         AND b.satus_order = "1"', ['1002', $request->kj]);
+        $ruang = DB::select('SELECT kode_unit,nama_unit FROM mt_unit WHERE kode_unit  LIKE "%20%" AND act = 1');
+
         return view(
             'dokter.formermdokter',
             [
@@ -815,7 +817,7 @@ AND b.kelas_tarif = 1');
 
                 'riwayatobat' => $riwayatobat,
                 'tindakanigd' => $tindakanigd,
-
+                'ruang' => $ruang,
                 'riwayatrekonobat' => $riwayatrekonobat,
                 'riwayatordergp' => $riwayatordergp,
 
