@@ -7409,7 +7409,7 @@
         <div class="card-header bg-secondary" id="headingOne">
             <h2 class="mb-0">
                 <button class="btn btn-link btn-block text-left text-light font-weight" type="button" data-toggle="collapse" data-target="#collapseOne30" aria-expanded="true" aria-controls="collapseOne30">
-                    <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Tindak Lanjut Di IGD (*PROGRESS)
+                    <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Tindak Lanjut Di IGD 
                 </button>
             </h2>
         </div>
