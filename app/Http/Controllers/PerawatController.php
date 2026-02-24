@@ -565,6 +565,8 @@ class PerawatController extends Controller
         // dd($tindakan);
         return view(
             'perawat.formermperawat',
+            // 'perawat.perbaikan',
+
             [
                 'title' => 'SiRAMAH PERAWAT',
                 'unit' => $unit,
