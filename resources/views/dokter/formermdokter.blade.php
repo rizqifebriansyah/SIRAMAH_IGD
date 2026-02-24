@@ -7424,10 +7424,10 @@
                                     <label>Keputusan Ke Ruang</label>
 
                                     <select class="form-control select2" name="tinjutt" id="tinjutt">
-                                        <option value=""> -- Select One --</option>
+                                        <option value="{{$assesdok[0]->keputusan_ruang}}"> {{$assesdok[0]->keputusan_ruang}}</option>
 
                                         @foreach ($ruang as $i => $p)
-                                        <option value="{{ $p->kode_unit }}">{{ $p->nama_unit }}
+                                        <option value="{{ $p->nama_unit }}">{{ $p->nama_unit }}
                                         </option>
                                         @endforeach
 
@@ -7442,7 +7442,7 @@
                                 <div class="row">
                                     <label>Jam</label>
 
-                                    <input type="time" class="form-control" aria-label="Recipient's username" id="jammasukk" name="jammasukk" aria-describedby="basic-addon2">
+                                    <input type="time" class="form-control" aria-label="Recipient's username" value="{{$assesdok[0]->jam_ruang}}" id="jammasukk" name="jammasukk" aria-describedby="basic-addon2">
 
 
                                 </div>
@@ -7450,7 +7450,7 @@
                             <td colspan="2">
 
                                 <label>Dikirim Ke Ruang Perawatan Jam</label>
-                                <input type="time" class="form-control" aria-label="Recipient's username" id="jamper" name="jamper" aria-describedby="basic-addon2">
+                                <input type="time" class="form-control" value="{{$assesdok[0]->kirim_ruang}}" aria-label="Recipient's username" id="jamper" name="jamper" aria-describedby="basic-addon2">
 
 
                             </td>
@@ -7461,7 +7461,7 @@
                                 <div class="row">
 
                                     <label for="">Stabil</label>
-                                    <input type="text" class="form-control" aria-label="Recipient's username" id="stabil" name="stabil" aria-describedby="basic-addon2">
+                                    <input type="text" class="form-control" value="{{$assesdok[0]->stabil}}" aria-label="Recipient's username" id="stabil" name="stabil" aria-describedby="basic-addon2">
                                 </div>
 
                             </td>
@@ -7469,7 +7469,7 @@
                                 <div class="row">
 
                                     <label for="">Tidak Stabil</label>
-                                    <input type="text" class="form-control" aria-label="Recipient's username" id="tidakstabil" name="tidakstabil" aria-describedby="basic-addon2">
+                                    <input type="text" class="form-control" aria-label="Recipient's username" value="{{$assesdok[0]->tidak_stabil}}" id="tidakstabil" name="tidakstabil" aria-describedby="basic-addon2">
                             </td>
             </div>
             </td>
@@ -7479,7 +7479,7 @@
                     <div class="row">
 
                         <label for="">Keputusan Ruang Operasi Di kirim Ke ruang Perawatan Jam?</label>
-                        <input type="time" class="form-control" aria-label="Recipient's username" id="keputusanruangoperasi" name="keputusanruangoperasi" aria-describedby="basic-addon2">
+                        <input type="time" class="form-control" aria-label="Recipient's username" value="{{$assesdok[0]->jam_ro}}" id="keputusanruangoperasi" name="keputusanruangoperasi" aria-describedby="basic-addon2">
                     </div>
 
                 </td>
@@ -7487,7 +7487,7 @@
                     <div class="row">
 
                         <label for="">Keputusan ke Kamar Jenazah Di kirim Ke ruang Perawatan Jam?</label>
-                        <input type="time" class="form-control" aria-label="Recipient's username" id="keputusankamarjenazah" name="keputusankamarjenazah" aria-describedby="basic-addon2">
+                        <input type="time" class="form-control" aria-label="Recipient's username" value="{{$assesdok[0]->jam_km}}" id="keputusankamarjenazah" name="keputusankamarjenazah" aria-describedby="basic-addon2">
                 </td>
         </div>
         </td>
@@ -7497,7 +7497,7 @@
                 <div class="row">
 
                     <label for="">Keputusan Pulang Jam?</label>
-                    <input type="time" class="form-control" aria-label="Recipient's username" id="keputusanpulang" name="keputusanpulang" aria-describedby="basic-addon2">
+                    <input type="time" class="form-control" aria-label="Recipient's username" value="{{$assesdok[0]->jam_plg}}" id="keputusanpulang" name="keputusanpulang" aria-describedby="basic-addon2">
                 </div>
 
             </td>
