@@ -1476,6 +1476,18 @@ AND b.kelas_tarif = 1');
                 'tiga_pertama' => $request->tigap,
                 'tiga_kedua' => $request->tigak,
                 'diagnosa_kerja' => $request->diagnosa,
+                'keputusan_ruang' => $request->tinjutt,
+                'jam_ruang' => $request->jammasukk,
+                'kirim_ruang' => $request->jamper,
+                'stabil' => $request->stabil,
+                'tidak_stabil' => $request->tidakstabil,
+                'jam_ro' => $request->keputusanruangoperasi,
+                'jam_km' => $request->keputusankamarjenazah,
+                'jam_plg' => $request->keputusanpulang,
+
+
+
+
                 'cara_pulang' => $request->alpul . ' ' . $request->alpul1,
                 'keadaan_pulang' => $request->kopul . ' ' . $request->kopul1,
                 'primary_survey' => $request->primary,
@@ -3454,7 +3466,7 @@ AND b.kelas_tarif = 1');
         $norm = $request->norm;
 
         $update = DB::select('UPDATE erm_cppt_dokter
-        SET status = 3 WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
+        SET status = 2 WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
         $back = [
             'kode' => 200,
             'message' => 'Validasi Berhasil'
@@ -3594,8 +3606,57 @@ AND b.kelas_tarif = 1');
 
         //assesmentdokter
         try {
+            $cekcpp = DB::select('SELECT status FROM erm_cppt_dokter WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
+            //ada
+            if ($cekcpp[0]->status == 1) {
+                $cekcpp = DB::select('UPDATE erm_cppt_dokter SET status = "3"  WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
 
-            $update = DB::select('UPDATE erm_cppt_dokter SET id_cppt_dokter = ?, tgl_input_2 = ?, sumber_data = ?, macam_kasus = ?, keluhan_utama = ?, trauma = ?,anamnesa = ?,tata_laksana = ?,  riwayat_penyakit = ?, tiga_pertama = ?, tiga_kedua = ?, diagnosa_kerja = ?,cara_pulang = ? ,keadaan_pulang = ?, primary_survey = ?,secondary_survey = ?, kode_paramedis_2 = ?, nama_paramedis2 = ?, is_ranap = ?, status = 2 WHERE no_rm = ? AND kode_kunjungan = ?', [$user, $now, $request->sumberdata, $request->macamkasus, $request->subject, $request->trauma, $request->anamnesa, $request->talaksana, $request->riwayatpenyakit, $request->tigap, $request->tigak, $request->diagnosa, $request->alpul . ' ' . $request->alpul1, $request->kopul . ' ' . $request->kopul1, $request->primary, $request->secondary, $kp, $name, $kondisi, $norm, $kj]);
+                 $assesmen = erm_cppt_dokter::create([
+                'id_cppt_dokter' => $user,
+                'tgl_kunjungan' => $request->tglmasuk,
+                'tgl_input' => $now,
+                'kode_unit' => $unit,
+                'kode_kunjungan' => $request->kj,
+                'no_rm' => $request->norm,
+                'sumber_data' => $request->sumberdata,
+                'macam_kasus' => $request->macamkasus,
+                'keluhan_utama' => $request->subject,
+                'trauma' => $request->trauma,
+                'anamnesa' => $request->anamnesa,
+                'tata_laksana' => $request->talaksana,
+                'tata_laksana_dpjp' => $request->talaksanadpjp,
+                // 'kode_dpjp' => $request->kodedpjp,
+                // 'nama_dpjp' => $request->namadpjp,
+                'riwayat_penyakit' => $request->riwayatpenyakit,
+                'tiga_pertama' => $request->tigap,
+                'tiga_kedua' => $request->tigak,
+                'diagnosa_kerja' => $request->diagnosa,
+                'keputusan_ruang' => $request->tinjutt,
+                'jam_ruang' => $request->jammasukk,
+                'kirim_ruang' => $request->jamper,
+                'stabil' => $request->stabil,
+                'tidak_stabil' => $request->tidakstabil,
+                'jam_ro' => $request->keputusanruangoperasi,
+                'jam_km' => $request->keputusankamarjenazah,
+                'jam_plg' => $request->keputusanpulang,
+
+
+
+
+                'cara_pulang' => $request->alpul . ' ' . $request->alpul1,
+                'keadaan_pulang' => $request->kopul . ' ' . $request->kopul1,
+                'primary_survey' => $request->primary,
+                'secondary_survey' => $request->secondary,
+                'kode_paramedis' => $kp,
+                'nama_paramedis' => $name,
+                'is_ranap' => $kondisi,
+                'status' => '1'
+
+            ]);
+
+        }
+
+            // $update = DB::select('UPDATE erm_cppt_dokter SET id_cppt_dokter = ?, tgl_input_2 = ?, sumber_data = ?, macam_kasus = ?, keluhan_utama = ?, trauma = ?,anamnesa = ?,tata_laksana = ?,  riwayat_penyakit = ?, tiga_pertama = ?, tiga_kedua = ?, diagnosa_kerja = ?,cara_pulang = ? ,keadaan_pulang = ?, primary_survey = ?,secondary_survey = ?, kode_paramedis_2 = ?, nama_paramedis2 = ?, is_ranap = ?, status = 2 WHERE no_rm = ? AND kode_kunjungan = ?', [$user, $now, $request->sumberdata, $request->macamkasus, $request->subject, $request->trauma, $request->anamnesa, $request->talaksana, $request->riwayatpenyakit, $request->tigap, $request->tigak, $request->diagnosa, $request->alpul . ' ' . $request->alpul1, $request->kopul . ' ' . $request->kopul1, $request->primary, $request->secondary, $kp, $name, $kondisi, $norm, $kj]);
 
 
             // $updatee = DB::select('UPDATE ts_kunjungan SET diagx = ? WHERE no_rm = ? AND kode_kunjungan = ?', [$request->anamnesa, $norm, $kj]);

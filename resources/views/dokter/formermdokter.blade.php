@@ -2066,7 +2066,7 @@
                                                 <option value=""> -- Select One --</option>
 
                                                 @foreach ($ruang as $i => $p)
-                                                <option value="{{ $p->kode_unit }}">{{ $p->nama_unit }}
+                                                <option value="{{ $p->nama_unit }}">{{ $p->nama_unit }}
                                                 </option>
                                                 @endforeach
 
@@ -8933,6 +8933,14 @@
         var alpul1 = $('#alpul1').val()
         var kopul = $('#kopul').val()
         var kopul1 = $('#kopul1').val()
+        var tinjutt = $('#tinjutt').val()
+        var jammasukk = $('#jammasukk').val()
+        var jamper = $('#jamper').val()
+        var stabil = $('#stabil').val()
+        var tidakstabil = $('#tidakstabil').val()
+        var keputusanruangoperasi = $('#keputusanruangoperasi').val()
+        var keputusankamarjenazah = $('#keputusankamarjenazah').val()
+        var keputusanpulang = $('#keputusanpulang').val()
 
         // var sumberdata = $("#sumberdata:checked").val();
         Swal.fire({
@@ -9091,6 +9099,14 @@
                         primary: $('#primary').val(),
                         secondary: $('#secondary').val(),
                         tglmasuk: $('#tglmasuk').val(),
+                        tinjutt : $('#tinjutt').val(),
+                        jammasukk : $('#jammasukk').val(),
+                        jamper : $('#jamper').val(),
+                        stabil : $('#stabil').val(),
+                        tidakstabil : $('#tidakstabil').val(),
+                        keputusanruangoperasi : $('#keputusanruangoperasi').val(),
+                        keputusankamarjenazah : $('#keputusankamarjenazah').val(),
+                        keputusanpulang : $('#keputusanpulang').val()
 
 
                     },
@@ -9283,6 +9299,17 @@
         var alpul1 = $('#alpul1').val()
         var kopul = $('#kopul').val()
         var kopul1 = $('#kopul1').val()
+        var tinjutt = $('#tinjutt').val()
+        var jammasukk = $('#jammasukk').val()
+        var jamper = $('#jamper').val()
+        var stabil = $('#stabil').val()
+        var tidakstabil = $('#tidakstabil').val()
+        var keputusanruangoperasi = $('#keputusanruangoperasi').val()
+        var keputusankamarjenazah = $('#keputusankamarjenazah').val()
+        var keputusanpulang = $('#keputusanpulang').val()
+
+
+
 
 
         // var sumberdata = $("#sumberdata:checked").val();
@@ -9457,6 +9484,14 @@
                         primary: $('#primary').val(),
                         secondary: $('#secondary').val(),
                         tglmasuk: $('#tglmasuk').val(),
+                        tinjutt : $('#tinjutt').val(),
+                        jammasukk : $('#jammasukk').val(),
+                        jamper : $('#jamper').val(),
+                        stabil : $('#stabil').val(),
+                        tidakstabil : $('#tidakstabil').val(),
+                        keputusanruangoperasi : $('#keputusanruangoperasi').val(),
+                        keputusankamarjenazah : $('#keputusankamarjenazah').val(),
+                        keputusanpulang : $('#keputusanpulang').val()
                     },
                     url: '<?= route('simpanassesmen') ?>',
 
