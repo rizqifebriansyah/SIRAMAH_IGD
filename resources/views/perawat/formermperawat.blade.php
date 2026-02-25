@@ -2622,10 +2622,10 @@
                                                                 <div class="col-md-3">
                                                                     <div class="form-check">
                                                                         @if($assesper[0]->tekanan_intrakranial == 'Sakit Kepala')
-                                                                        <input class="form-check-input" type="chechkbox" name="intra" id="intra" value="Sakit Kepala" checked>
+                                                                        <input class="form-check-input" type="checkbox" name="intra" id="intra" value="Sakit Kepala" checked>
                                                                         <label class="form-check-label">Sakit Kepala </label>
                                                                         @else
-                                                                        <input class="form-check-input" type="chechkbox" name="intra" id="intra" value="Sakit Kepala">
+                                                                        <input class="form-check-input" type="checkbox" name="intra" id="intra" value="Sakit Kepala">
                                                                         <label class="form-check-label">Sakit Kepala </label>
                                                                         @endif
                                                                     </div>
@@ -2804,7 +2804,7 @@
                                                                 <div class="col-md-3">
                                                                     <div class="form-check">
                                                                         @if($assesper[0]->muskolo_skletal_4 == 'Tidak Ada')
-                                                                        <input class="form-check-input" type="radio" name="muskolo" id="muskolo" value="Tidak Ada" checked>
+                                                                        <input class="form-check-input" type="checkbox" name="muskolo" id="muskolo" value="Tidak Ada" checked>
                                                                         <label class="form-check-label">Tidak Ada </label>
                                                                         @else
                                                                         <input class="form-check-input" type="checkbox" name="muskolo4" id="muskolo4" value="Tidak Ada">

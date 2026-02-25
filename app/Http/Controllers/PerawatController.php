@@ -564,8 +564,8 @@ class PerawatController extends Controller
         $tindakan = DB::select('SELECT * FROM erm_tindakan_keperawatan WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
         // dd($tindakan);
         return view(
-            // 'perawat.formermperawat',
-            'perawat.perbaikan',
+            'perawat.formermperawat',
+            // 'perawat.perbaikan',
 
             [
                 'title' => 'SiRAMAH PERAWAT',
