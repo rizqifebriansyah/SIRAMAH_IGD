@@ -283,7 +283,7 @@
                         <td class="text-bold font-italic">Sumber Data</td>
                         <td>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="chechkbox" name="sumberdata" id="sumberdata" value="Pasien Sendiri">
+                                <input class="form-check-input" type="checkbox" name="sumberdata" id="sumberdata" value="Pasien Sendiri">
                                 <label class="form-check-label" for="inlineRadio1">Pasien Sendiri /
                                     Autoanamase</label>
                             </div>
@@ -291,7 +291,7 @@
                         </td>
                         <td>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="chechkbox" name="sumberdata1" id="sumberdata1" value="Keluarga">
+                                <input class="form-check-input" type="checkbox" name="sumberdata1" id="sumberdata1" value="Keluarga">
                                 <label class="form-check-label" for="inlineRadio2">Keluarga / Alloanamnesa</label>
                             </div>
                         </td>
@@ -2221,11 +2221,12 @@
                         <td class="text-bold font-italic">Sumber Data</td>
                         <td>
                             <div class="form-check form-check-inline">
-                                @if($assesper[0]->sumber_data == 'Pasien Sendiri')
-                                <input class="form-check-input" type="chechkbox" name="sumberdata" id="sumberdata" value="Pasien Sendiri" checked>
+                                @if($assesper[0]->sumber_data == null)
+                                <input class="form-check-input" type="checkbox" name="sumberdata" id="sumberdata" value="Pasien Sendiri">
                                 <label class="form-check-label" for="inlineRadio1">Pasien Sendiri / Autoanamase</label>
+                                
                                 @else
-                                <input class="form-check-input" type="chechkbox" name="sumberdata" id="sumberdata" value="Pasien Sendiri">
+                                <input class="form-check-input" type="checkbox" name="sumberdata" id="sumberdata" value="Pasien Sendiri" checked>
                                 <label class="form-check-label" for="inlineRadio1">Pasien Sendiri / Autoanamase</label>
                                 @endif
                             </div>
@@ -2233,11 +2234,12 @@
                         </td>
                         <td>
                             <div class="form-check form-check-inline">
-                                @if($assesper[0]->sumber_data_1 == 'Keluarga')
-                                <input class="form-check-input" type="chechkbox" name="sumberdata1" id="sumberdata1" value="Keluarga" checked>
+                                @if($assesper[0]->sumber_data_1 == null)
+                                <input class="form-check-input" type="checkbox" name="sumberdata1" id="sumberdata1" value="Keluarga">
                                 <label class="form-check-label" for="inlineRadio2">Keluarga / Alloanamnesa</label>
+                                
                                 @else
-                                <input class="form-check-input" type="chechkbox" name="sumberdata1" id="sumberdata1" value="Keluarga">
+                                <input class="form-check-input" type="checkbox" name="sumberdata1" id="sumberdata1" value="Keluarga" checked>
                                 <label class="form-check-label" for="inlineRadio2">Keluarga / Alloanamnesa</label>
                                 @endif
                             </div>

@@ -1698,7 +1698,7 @@ class RadiologiController extends Controller
         $pdf::SetFont('Times', 'B', 12);
         // $pdf::Image('public/img/cap.png', 145, 211, 40, 25);
 
-        if ($ex->data->approver == 'dr. Nunik Royyani, Sp.Rad') {
+        if ($ex->data->approver == 'dr. Nunik Royyani, Sp.Rad' ) {
             $pdf::Image($path, 123, 220, 20, 20, 'PNG');
 
             $pdf::Image('public/img/ttd_036.png', 150, 211, 40, 25);
@@ -1711,7 +1711,22 @@ class RadiologiController extends Controller
             $pdf::Line(145, 240, 195, 240);
             $pdf::SetXY(152, 237);
             $pdf::Cell(40, 10, 'Spesialis Radiologi');
-        } else {
+        }elseif ($ex->data->approver == 'dr. Nunik Royyani. Sp.Rad' ) {
+            $pdf::Image($path, 123, 220, 20, 20, 'PNG');
+
+            $pdf::Image('public/img/ttd_036.png', 150, 211, 40, 25);
+            $pdf::SetXY(145, 232);
+            $pdf::Cell(40, 10, $ex->data->approver);
+
+
+            $pdf::SetLineWidth(0.5);
+
+            $pdf::Line(145, 240, 195, 240);
+            $pdf::SetXY(152, 237);
+            $pdf::Cell(40, 10, 'Spesialis Radiologi');
+        }
+        
+        else {
 
 
 
