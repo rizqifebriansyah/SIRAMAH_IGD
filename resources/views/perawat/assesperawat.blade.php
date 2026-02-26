@@ -145,7 +145,7 @@
 
 
                         <td class="status1" style="text-align: center;">
-                            @if ($a->nama_perawat == null)
+                            @if ($a->nama_perawat == null && $a->nama_perawat1 == null)
                             <button class="badge badge-danger ermperawat"> belum diisi </button>
                             @else
                             <button class="badge badge-success ermperawat"> Sudah Diisi </button> | {{ $a->nama_perawat }}

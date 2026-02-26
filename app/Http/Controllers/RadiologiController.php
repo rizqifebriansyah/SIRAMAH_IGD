@@ -1390,7 +1390,7 @@ class RadiologiController extends Controller
             $pdf::Cell(40, 10, ':');
             $pdf::SetFont('Times', '', 11);
             $pdf::SetXY(142, 66);
-            $pdf::Cell(40, 5, $pasien[0]->diagnosa);
+            $pdf::Cell(60, 5, $pasien[0]->diagnosa);
 
             $pdf::SetFont('Times', '', 11);
             $pdf::SetXY(10, 63);
@@ -1618,7 +1618,7 @@ class RadiologiController extends Controller
         $pdf::Cell(40, 10, ':');
         $pdf::SetFont('Times', '', 11);
         $pdf::SetXY(142, 66);
-        $pdf::MultiCell(50, 5, $pasien[0]->diagnosa);
+        $pdf::MultiCell(60, 5, $pasien[0]->diagnosa);
 
         $pdf::SetFont('Times', '', 11);
         $pdf::SetXY(10, 63);
@@ -1698,7 +1698,7 @@ class RadiologiController extends Controller
         $pdf::SetFont('Times', 'B', 12);
         // $pdf::Image('public/img/cap.png', 145, 211, 40, 25);
 
-        if ($ex->data->approver == 'dr. Nunik Royyani. Sp.Rad') {
+        if ($ex->data->approver == 'dr. Nunik Royyani, Sp.Rad') {
             $pdf::Image($path, 123, 220, 20, 20, 'PNG');
 
             $pdf::Image('public/img/ttd_036.png', 150, 211, 40, 25);

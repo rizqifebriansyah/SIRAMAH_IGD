@@ -70,6 +70,7 @@ class PerawatController extends Controller
         e.diagnosa_kerja AS DIAGX
         ,a.no_rm
         ,IFNULL(d.nama_perawat,"") AS nama_perawat
+        ,IFNULL(d.nama_perawat1,"") AS nama_perawat1
         ,IFNULL(e.nama_paramedis,"") AS nama_paramedis
         ,fc_nama_px(a.no_rm) AS nama_px
         ,a.tgl_masuk
@@ -88,6 +89,7 @@ class PerawatController extends Controller
         LEFT OUTER JOIN	erm_cppt_dokter e ON e.kode_kunjungan = a.kode_kunjungan
         where Date(a.tgl_masuk) = ?
         and a.status_kunjungan = 1
+        and d.status = 1
         and a.kode_unit = ?', [$now, $unit]);
         return view(
             'perawat.assesperawat',
