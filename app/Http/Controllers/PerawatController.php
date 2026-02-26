@@ -1163,6 +1163,8 @@ class PerawatController extends Controller
 
             $assesmen = erm_cppt_perawat::create([
                 'sumber_data' =>  $request->sumberdata,
+                'sumber_data_1' =>  $request->sumberdata1,
+
                 'asal_masuk' =>  $request->asalmasuk,
                 'cara_masuk' =>  $request->caramasuk,
                 'keluhan_utama' =>  $request->subyek,
@@ -1820,6 +1822,8 @@ class PerawatController extends Controller
                 $cekcpp = DB::select('UPDATE erm_cppt_perawat SET status = "3"  WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
                 $assesmen = erm_cppt_perawat::create([
                     'sumber_data' =>  $request->sumberdata,
+                    'sumber_data_1' =>  $request->sumberdata1,
+
                     'asal_masuk' =>  $request->asalmasuk,
                     'cara_masuk' =>  $request->caramasuk,
                     'keluhan_utama' =>  $request->subyek,
