@@ -108,8 +108,8 @@
 <script>
     spinner = $('#loader2');
     spinner.hide();
-    document.getElementById('tanggal_order').valueAsDate = new Date()
-    document.getElementById('tanggal_order1').valueAsDate = new Date()
+    // document.getElementById('tanggal_order').valueAsDate = new Date()
+    // document.getElementById('tanggal_order1').valueAsDate = new Date()
     $(function() {
         $("#datapasienorder").DataTable({
             "responsive": false,
@@ -125,6 +125,7 @@
         spinner = $('#loader2');
         spinner.show();
         namaunit = $('#namaunit').val()
+        // alert(namaunit)
         waktumakanorder = $('#waktumakanorder').val()
 
 

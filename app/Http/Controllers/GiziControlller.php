@@ -107,6 +107,7 @@ class GiziControlller extends Controller
         $unit = auth()->user()->unit;
         $user = auth()->user()->username;
         $now = Carbon::now()->format('Y-m-d');
+
         $tgl_masuk_x = date('Y-m-d', strtotime('-2 days', strtotime($now)));
 
         $pagi = DB::connection('mysql2')->select('SELECT * FROM ts_layanan_detail_gizi WHERE waktu_makan = "MAKAN PAGI" ');
@@ -166,6 +167,7 @@ class GiziControlller extends Controller
         $kj = $request->kj;
         $unit = $request->unit;
         $norm = $request->norm;
+        $ttv = DB::select('SELECT tekanan_darah, frekuensi_nafas, keadaan_umum, kesadaran, frekuensi_nadi, suhu, berat_badan, umur FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $request->kj]);
 
         $pasien = DB::select("CALL SP_PANGGIL_PASIEN_RAWAT_INAP_PER_UNIT_KUNJUNGAN_AKTIF_NEW('$unit','$norm','');");
         // dd($pasien);
@@ -173,6 +175,7 @@ class GiziControlller extends Controller
         return view('gizi.formassesgizi', [
             'title' => 'SIRAMAH | GIZI',
             'pasien' => $pasien,
+            'ttv' => $ttv,
             'unit' => $unit
 
 
@@ -182,13 +185,15 @@ class GiziControlller extends Controller
     public function caripasienranap(Request $request)
     {
         $unit = $request->unit;
+        $time = Carbon::now()->format('H:i:s');
 
         $pasienranap = DB::select("CALL SP_PANGGIL_PASIEN_RAWAT_INAP_PER_UNIT_KUNJUNGAN_AKTIF_NEW('$unit','','');");
-        // dd($pasienranap);
+        // dd($time);
 
         return view('gizi.pasienranap', [
             'title' => 'SIRAMAH | GIZI',
             'pasienranap' => $pasienranap,
+            'time' => $time,
             'unit' => $unit
 
 
@@ -323,7 +328,7 @@ class GiziControlller extends Controller
                 $index = $nama['name'];
                 $value = $nama['value'];
                 $dataSet[$index] = $value;
-                if ($index == 'diet1') {
+                if ($index == 'bentuk1') {
                     $ordergizi[] = $dataSet;
                 }
             }
@@ -334,7 +339,7 @@ class GiziControlller extends Controller
                     $savedetail = [
                         'no_rm' => $pa->no_rm,
                         'kode_kunjungan' => $pa->kode_kunjungan,
-                        'diit' => $p['diet'],
+                        'bentuk' => $p['bentuk'],
                         'waktu_makan' => $p['waktumakan'],
                         'kode_unit' => $p['unit'],
                         'dokter' => $pa->Dokter,
@@ -350,6 +355,45 @@ class GiziControlller extends Controller
                     ];
                     $ordergizi = ts_layanan_detail_gizi::create($savedetail);
                 }
+            }
+        } catch (\Exception $e) {
+            $back = [
+                'kode' => 200,
+                'message' => $e->getMessage()
+            ];
+            echo json_encode($back);
+            die;
+        }
+        $back = [
+            'kode' => 200,
+            'message' => 'Berhasil'
+        ];
+        echo json_encode($back);
+        die;
+    }
+    public function simpanorderahligizi(Request $request)
+    {
+        // order makan dari ruangan
+        $now = Carbon::now()->format('Y-m-d H:i:s');
+
+
+        try {
+            $formorderahligizi = json_decode($_POST['formorderahligizi'], true);
+            // dd($formorderahligizi);
+            foreach ($formorderahligizi as $nama) {
+                $index = $nama['name'];
+                $value = $nama['value'];
+                $dataSet[$index] = $value;
+                if ($index == 'diet1') {
+                    $ordergizi[] = $dataSet;
+                }
+            }
+
+            foreach ($ordergizi as $p) {
+                    $diet = $p['diet'];
+                    $kodetail = $p['kodetail'];
+                    $diet1 = $p['diet1'];
+                    $ordergizi = DB::connection('mysql2')->select('UPDATE ts_layanan_detail_gizi SET diit = ?, diit1 = ? WHERE id = ? ', [$diet, $diet1, $kodetail]);
             }
         } catch (\Exception $e) {
             $back = [

@@ -22,10 +22,19 @@
     <link rel="stylesheet" href="{{ asset('public/adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('public/adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('public/adminlte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+    {{-- select2 --}}
+    <link rel="{{ asset('public/adminlte/plugins/select2/css/select2.min.css') }}">
+    <link rel="{{ asset('public/adminlte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+    <!-- Select2 -->
+    <script src="{{ asset('public/adminlte/plugins/select2/js/select2.full.min.js') }}"></script>
+
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+
     <script src="{{ asset('public/adminlte/dist/js/jquery-3.js') }}"></script>
     <script src="{{ asset('public/adminlte/dist/js/jquery-ui.min.js') }}"></script>
-    {{-- <script src="{{ asset('public/adminlte/plugins/jquery/jquery.min.js') }}"></script> --}}
+    <script src="{{ asset('public/adminlte/plugins/jquery/jquery.min.js') }}"></script>
 
     <!-- Bootstrap -->
     <script src="{{ asset('public/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -433,6 +442,7 @@
             transform: translate(-50%, -50%);
             font: 14px arial;
         }
+
     </style>
 </head>
 
@@ -461,19 +471,20 @@
     <script>
         function logout() {
             Swal.fire({
-                title: 'Logout Lah!!!!',
-                text: "anda akan logout",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Keluar'
+                title: 'Logout Lah!!!!'
+                , text: "anda akan logout"
+                , icon: 'warning'
+                , showCancelButton: true
+                , confirmButtonColor: '#3085d6'
+                , cancelButtonColor: '#d33'
+                , confirmButtonText: 'Keluar'
             }).then((result) => {
                 if (result.isConfirmed) {
                     location.href = "<?= route('logout') ?>"
                 }
             })
         }
+
     </script>
 </body>
 

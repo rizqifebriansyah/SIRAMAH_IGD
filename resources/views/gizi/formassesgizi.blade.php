@@ -130,7 +130,7 @@
              </td>
              <td colspan="3">
                  <div class="form-check">
-                     <input class="form-check-input" type="checkbox" name="dk1" id="dk1" value="Tidak">
+                     <input class="form-check-input" type="checkbox" checked name="dk1" id="dk1" value="Tidak">
                      <label class="form-check-label">Tidak</label>
                  </div>
                  <div class="form-check">
@@ -287,5 +287,297 @@
 
 
          </tr>
+     </table>
+     <table class="table">
+         <thead class="bg-warning">
+             <th colspan="4">ASSESMEN GIZI LANJUTAN (Nutrion Care Process)</th>
+         </thead>
+         <tbody>
+             <tr>
+                 <td class="text-bold font-italic">Antropometri </td>
+
+                 <td>
+
+                 </td>
+                 <td class="text-bold font-italic"> </td>
+                 <td>
+
+                 </td>
+             </tr>
+             <tr>
+                 <td class="text-bold font-italic">Berat Badan</td>
+                 <td>
+                     <div class="input-group">
+                         <input type="text" class="form-control" placeholder="Berat Badan pasien ..." aria-label="Recipient's username" id="bb" name="bb" aria-describedby="basic-addon2" value="">
+                         <div class="input-group-append">
+                             <span class="input-group-text" id="basic-addon2">Kg</span>
+                         </div>
+                     </div>
+                 </td>
+                 <td class="text-bold font-italic">IMT </td>
+                 <td>
+                     <div class="input-group">
+                         <input type="text" class="form-control" placeholder="IMT pasien ..." id="imt" name="imt" aria-label="Recipient's username" aria-describedby="basic-addon2" value="">
+                         <div class="input-group-append">
+                             <span class="input-group-text" id="basic-addon2">Kg/m2t</span>
+                         </div>
+                     </div>
+                 </td>
+             </tr>
+             <tr>
+                 <td class="text-bold font-italic">TB</td>
+                 <td>
+                     <div class="input-group">
+                         <input type="text" class="form-control" placeholder="Tinggi Badan pasien ..." aria-label="Recipient's username" id="tb" name="tb" aria-describedby="basic-addon2" value="">
+                         <div class="input-group-append">
+                             <span class="input-group-text" id="basic-addon2">cm</span>
+                         </div>
+                     </div>
+                 </td>
+                 <td class="text-bold font-italic">BB/U </td>
+                 <td>
+                     <div class="input-group">
+                         <input type="text" class="form-control" placeholder="bbu pasien ..." id="bbu" name="bbu" aria-label="Recipient's username" aria-describedby="basic-addon2" value="">
+                         <div class="input-group-append">
+                             <span class="input-group-text" id="basic-addon2"></span>
+                         </div>
+                     </div>
+                 </td>
+             </tr>
+             <tr>
+                 <td class="text-bold font-italic">LILA</td>
+                 <td>
+                     <div class="input-group">
+                         <input type="text" class="form-control" placeholder="LILA pasien ..." aria-label="Recipient's username" id="lila" name="lila" aria-describedby="basic-addon2" value="">
+                         <div class="input-group-append">
+                             <span class="input-group-text" id="basic-addon2">cm</span>
+                         </div>
+                     </div>
+                 </td>
+                 <td class="text-bold font-italic">TB/U </td>
+                 <td>
+                     <div class="input-group">
+                         <input type="text" class="form-control" placeholder="tbu pasien ..." id="tbu" name="tbu" aria-label="Recipient's username" aria-describedby="basic-addon2" value="">
+                         <div class="input-group-append">
+                             <span class="input-group-text" id="basic-addon2"></span>
+                         </div>
+                     </div>
+                 </td>
+             </tr>
+             <tr>
+                 <td class="text-bold font-italic">Tinggu Lutut</td>
+                 <td>
+                     <div class="input-group">
+                         <input type="text" class="form-control" placeholder="Tinggu Lutut pasien ..." aria-label="Recipient's username" id="tilut" name="tilut" aria-describedby="basic-addon2" value="">
+                         <div class="input-group-append">
+                             <span class="input-group-text" id="basic-addon2">cm</span>
+                         </div>
+                     </div>
+                 </td>
+                 <td class="text-bold font-italic">BB/TB </td>
+                 <td>
+                     <div class="input-group">
+                         <input type="text" class="form-control" placeholder="bb/tb pasien ..." id="bbtb" name="bbtb" aria-label="Recipient's username" aria-describedby="basic-addon2" value="">
+                         <div class="input-group-append">
+                             <span class="input-group-text" id="basic-addon2"></span>
+                         </div>
+                     </div>
+                 </td>
+             </tr>
+             <tr>
+                 <td class="text-bold font-italic"></td>
+                 <td>
+
+                 </td>
+                 <td class="text-bold font-italic">IMT/U </td>
+                 <td>
+                     <div class="input-group">
+                         <input type="text" class="form-control" placeholder="imt/u pasien ..." id="imtu" name="imtu" aria-label="Recipient's username" aria-describedby="basic-addon2" value="">
+                         <div class="input-group-append">
+                             <span class="input-group-text" id="basic-addon2"></span>
+                         </div>
+                     </div>
+                 </td>
+             </tr>
+             <tr>
+                 <td class="text-bold font-italic">Riwayat Gizi </td>
+
+                 <td>
+
+                 </td>
+                 <td class="text-bold font-italic"> </td>
+                 <td>
+
+                 </td>
+             </tr>
+             <tr>
+                 <td>
+                     <label class="form-check-label">Kebiasaan Makan Utama : </label>
+
+                 </td>
+                 <td>
+                     <div class="form-check">
+                         <input class="form-check-input" type="checkbox" name="kmu1" id="kmu1" value="pagi">
+                         <label class="form-check-label">Pagi</label>
+                     </div>
+                     <div class="form-check">
+                         <input class="form-check-input" type="checkbox" name="kmu2" id="kmu2" value="siang">
+                         <label class="form-check-label">Siang</label>
+                     </div>
+                     <div class="form-check">
+                         <input class="form-check-input" type="checkbox" name="kmu3" id="kmu3" value="malam">
+                         <label class="form-check-label">Malam</label>
+                     </div>
+
+
+                 </td>
+                 <td>
+                     <label class="form-check-label">Asupan Makan Harian : </label>
+
+                 </td>
+                 <td>
+                     <div class="form-group">
+
+                         <div class="form-check">
+                             <input class="form-check-input" type="checkbox" name="amh" id="amh" value=">100%">
+                             <label class="form-check-label">Lebih >100%</label>
+                         </div>
+                         <div class="form-check">
+                             <input class="form-check-input" type="checkbox" name="amh" id="amh" value=">80%">
+                             <label class="form-check-label">Baik >80%</label>
+                         </div>
+                         <div class="form-check">
+                             <input class="form-check-input" type="checkbox" name="amh" id="amh" value="<80%">
+                             <label class="form-check-label"> Kurang <80% </label>
+                         </div>
+                         <div class="form-check">
+                             <input class="form-check-input" type="checkbox" name="amh" id="amh" value="<50%">
+                             <label class="form-check-label"> Buruk <50% </label>
+                         </div>
+                     </div>
+
+
+                 </td>
+
+             </tr>
+             <tr>
+                 <td class="text-bold font-italic">Kebiasaan Cemilan</td>
+                 <td>
+                     <div class="input-group">
+                         <input type="text" class="form-control" placeholder="Kebiasaan Cemilan pasien ..." aria-label="Recipient's username" id="kbc" name="kbc" aria-describedby="basic-addon2" value="">
+
+                     </div>
+                 </td>
+                 <td class="text-bold font-italic">Alergi Makanan </td>
+                 <td>
+                     <div class="input-group">
+                         <input type="text" class="form-control" placeholder="Alergi Makanan pasien ..." id="alergi_makanan" name="alergi_makanan" aria-label="Recipient's username" aria-describedby="basic-addon2" value="">
+
+                     </div>
+                 </td>
+             </tr>
+             <tr>
+                 <td>
+                     <label class="form-check-label">gangguan Gastrointestinal : </label>
+
+                 </td>
+                 <td>
+                     <div class="form-group">
+
+                         <div class="form-check">
+                             <input class="form-check-input" type="checkbox" name="gg" id="gg" value="anoresksia">
+                             <label class="form-check-label">A. anoresksia</label>
+                         </div>
+                         <div class="form-check">
+                             <input class="form-check-input" type="checkbox" name="gg" id="gg" value="mual">
+                             <label class="form-check-label">Mual</label>
+                         </div>
+                         <div class="form-check">
+                             <input class="form-check-input" type="checkbox" name="gg" id="gg" value="muntah">
+                             <label class="form-check-label">Muntah</label>
+                         </div>
+                         <div class="form-check">
+                             <input class="form-check-input" type="checkbox" name="gg" id="gg" value="diare">
+                             <label class="form-check-label">Diare</label>
+                         </div>
+                         <div class="form-check">
+                             <input class="form-check-input" type="checkbox" name="gg" id="gg" value="Kesulitan Mengunyah">
+                             <label class="form-check-label">Kesulitan Mengunyah</label>
+                         </div>
+                         <div class="form-check">
+                             <input class="form-check-input" type="checkbox" name="gg" id="gg" value="Kesulitan Menelan">
+                             <label class="form-check-label">Kesulitan Menelan</label>
+                         </div>
+                         <div class="form-check">
+                             <input class="form-check-input" type="checkbox" name="gg" id="gg" value="Konstipasi   ">
+                             <label class="form-check-label">Konstipasi</label>
+                         </div>
+                         <div class="form-check">
+                             <input class="form-check-input" type="checkbox" name="gg" id="gg" value="Gangguan gigi geligi">
+                             <label class="form-check-label">Gangguan gigi geligi</label>
+                         </div>
+                     </div>
+
+
+                 </td>
+
+                 <td>
+                     <label class="form-check-label">Bentuk Makanan Sebelum Masuk RS : </label>
+
+                 </td>
+                 <td>
+                     <div class="form-group">
+
+                         <div class="form-check">
+                             <input class="form-check-input" type="checkbox" name="bm" id="bm" value="Biasa">
+                             <label class="form-check-label">Biasa</label>
+                         </div>
+                         <div class="form-check">
+                             <input class="form-check-input" type="checkbox" name="bm" id="bm" value="Lunak">
+                             <label class="form-check-label">Lunak</label>
+                         </div>
+                         <div class="form-check">
+                             <input class="form-check-input" type="checkbox" name="bm" id="bm" value="Saring">
+                             <label class="form-check-label">Saring</label>
+                         </div>
+                         <div class="form-check">
+                             <input class="form-check-input" type="checkbox" name="bm" id="bm" value="Cair">
+                             <label class="form-check-label">Cair</label>
+                         </div>
+                     </div>
+
+
+                 </td>
+             </tr>
+             <tr>
+                 <td class="text-bold font-italic">Bio Kimia</td>
+                 <td>
+                     <div class="input-group">
+                         <input type="text" class="form-control" placeholder="Bio Kimia pasien ..." aria-label="Recipient's username" id="biok" name="biok" aria-describedby="basic-addon2" value="">
+
+                     </div>
+                 </td>
+                 <td class="text-bold font-italic">Fisik / Klinis </td>
+                 <td>
+                     <div class="input-group">
+                         <input type="text" class="form-control" placeholder="Fisik / Klinis pasien ..." id="fiskli" name="fiskli" aria-label="Recipient's username" aria-describedby="basic-addon2" value="">
+
+                     </div>
+                 </td>
+             </tr>
+               <tr>
+                 <td class="text-bold font-italic">Bio Kimia</td>
+                 <td>
+                   
+                 </td>
+                 <td class="text-bold font-italic">Fisik / Klinis </td>
+                 <td>
+                     <div class="input-group">
+                         <input type="text" class="form-control" placeholder="Fisik / Klinis pasien ..." id="fiskli" name="fiskli" aria-label="Recipient's username" aria-describedby="basic-addon2" value="">
+
+                     </div>
+                 </td>
+             </tr>
+         </tbody>
      </table>
  </div>

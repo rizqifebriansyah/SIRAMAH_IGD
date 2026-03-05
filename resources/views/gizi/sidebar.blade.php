@@ -28,7 +28,7 @@
                         <i class="nav-icon fas fa-pen"></i>
 
                         <p>
-                            Assesmen Gizi
+                            Rencan Asuhan Gizi
                         </p>
                     </a>
                 </li>

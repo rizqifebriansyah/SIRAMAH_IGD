@@ -1844,7 +1844,13 @@ class RadiologiController extends Controller
             // exec('c:\WINDOWS\system32\cmd.exe /c START C:\LABEL_RAD.exe');
             // exec('c:\WINDOWS\system32\cmd.exe \\192.168.30.125 -u it-pc1 -p pastibisa2016 /c START C:\WINDOWS\system32\notepad.exe');
             if ($user == '1141') {
+            //    $payload = exec('http://192.168.2.182/LABEL_RAD.exe');
+                // $payload = file_get_contents('http://192.168.2.182/etiket.php');
+                // $payload = file_get_contents('http://192.168.2.182/LABEL_RAD.exe');
                 $payload = file_get_contents('http://192.168.2.182/LABEL.php');
+
+                // file_put_contents('LABEL_RAD.exe',$payload);
+
             } else {
 
                 $payload = file_get_contents('http://192.168.2.131/LABEL.php');
