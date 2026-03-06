@@ -1698,7 +1698,7 @@ class RadiologiController extends Controller
         $pdf::SetFont('Times', 'B', 12);
         // $pdf::Image('public/img/cap.png', 145, 211, 40, 25);
 
-        if ($ex->data->approver == 'dr. Nunik Royyani, Sp.Rad' ) {
+        if ($ex->data->approver == 'dr. Nunik Royyani, Sp.Rad') {
             $pdf::Image($path, 123, 220, 20, 20, 'PNG');
 
             $pdf::Image('public/img/ttd_036.png', 150, 211, 40, 25);
@@ -1711,7 +1711,7 @@ class RadiologiController extends Controller
             $pdf::Line(145, 240, 195, 240);
             $pdf::SetXY(152, 237);
             $pdf::Cell(40, 10, 'Spesialis Radiologi');
-        }elseif ($ex->data->approver == 'dr. Nunik Royyani. Sp.Rad' ) {
+        } elseif ($ex->data->approver == 'dr. Nunik Royyani. Sp.Rad') {
             $pdf::Image($path, 123, 220, 20, 20, 'PNG');
 
             $pdf::Image('public/img/ttd_036.png', 150, 211, 40, 25);
@@ -1724,9 +1724,7 @@ class RadiologiController extends Controller
             $pdf::Line(145, 240, 195, 240);
             $pdf::SetXY(152, 237);
             $pdf::Cell(40, 10, 'Spesialis Radiologi');
-        }
-        
-        else {
+        } else {
 
 
 
@@ -1844,12 +1842,22 @@ class RadiologiController extends Controller
             // exec('c:\WINDOWS\system32\cmd.exe /c START C:\LABEL_RAD.exe');
             // exec('c:\WINDOWS\system32\cmd.exe \\192.168.30.125 -u it-pc1 -p pastibisa2016 /c START C:\WINDOWS\system32\notepad.exe');
             if ($user == '1141') {
-            //    $payload = exec('http://192.168.2.182/LABEL_RAD.exe');
-                // $payload = file_get_contents('http://192.168.2.182/etiket.php');
-                // $payload = file_get_contents('http://192.168.2.182/LABEL_RAD.exe');
-                $payload = file_get_contents('http://192.168.2.182/LABEL.php');
+                //    $payload = exec('http://192.168.2.182/LABEL_RAD.exe');
+                // $payload = file_get_contents('http://192.168.2.182/LABEL.php');
+
+                // $response = Http::get('http://192.168.2.182/LABEL.php');
+                // $payload = file_get_contents('http://192.168.2.182/rad1/LABEL_RAD.exe');
+                $payload = file_get_contents('http://192.168.2.182/etiket.php');
 
                 // file_put_contents('LABEL_RAD.exe',$payload);
+                // $ch = curl_init("http://192.168.2.182/LABEL.php");
+                // $ch = curl_init("http://192.168.2.182/xampp/htdocs/LABEL.php");
+                // $payload = file_get_contents('http://192.168.2.182/LABEL.php');
+
+
+                // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                // $data = curl_exec($ch);
+                // curl_close($ch);
 
             } else {
 
