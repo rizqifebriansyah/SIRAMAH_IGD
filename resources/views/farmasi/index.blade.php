@@ -17,7 +17,7 @@
         </div>
 
         <div>
-            <button type="submit" class="btn btn-primary" onclick="caripasienigd()"> <i class="bi bi-search-heart"></i>
+            <button type="submit" class="btn btn-primary" onclick="caripasienrekon()"> <i class="bi bi-search-heart"></i>
             </button>
         </div>
     </div>
@@ -32,7 +32,7 @@
                     <th style="text-align: center;">NoRM</th>
                     <th style="text-align: center;">JK</th>
                     <th style="text-align: center;">Diagnosa</th>
-                    <th style="text-align: center;">Assesment Perawat</th>
+                    <th style="text-align: center;">Action</th>
                     <th hidden style="text-align: center;">kodekunjungan</th>
                     <th hidden style="text-align: center;">kelas</th>
                     <th hidden style="text-align: center;">counter</th>
@@ -40,7 +40,7 @@
                     <th hidden style="text-align: center;">kodepenjamin</th>
                     <th hidden style="text-align: center;">kelas unit</th>
 
-                    <th style="text-align: center;">Assesment Dokter</th>
+                    <th style="text-align: center;">Dokter</th>
 
 
                 </thead>
@@ -60,21 +60,20 @@
                         <td hidden style="text-align: center;" class="ku">{{ $a->KELAS_UNIT }}</td>
 
                         <td class="diag2" style="text-align: center;">
-                            {{ $a->DIAGX }}
                         </td>
 
 
                         <td class="status1" style="text-align: center;">
-                            <button class="badge badge-info isiobat"> Rekon Obat </button>
+                            @if ($a->status == 1)
+                            <button class="badge badge-success isiobat"> Sudah Diisi </button>
+
+                            @else
+                            <button class="badge badge-danger isiobat"> belum diisi </button>
+                            @endif
 
                         </td>
                         <td class="status2" style="text-align: center;">
-                            @if ($a->DIAGX == null)
-                            <button class="badge badge-danger "> belum diisi </button>
-                            @else
-                            <button class="badge badge-success "> Sudah Diisi </button> |
                             {{ $a->nama_dpjp }}
-                            @endif
                         </td>
 
 
@@ -153,6 +152,33 @@
             }
         });
     });
+
+    function caripasienrekon() {
+        spinner = $('#loader2');
+        spinner.show();
+        tglkunjungan = $('#tanggal_kunjungan').val()
+
+        $.ajax({
+            type: "post",
+            data: {
+                _token: " {{ csrf_token() }}",
+                tglkunjungan
+
+            },
+            url: " {{ route('caripasienrekon') }}",
+            error: function(data) {
+                spinner.hide();
+
+                alert('error!!!')
+            },
+            success: function(response) {
+                spinner.hide();
+
+                $('.datapasienigd').html(response);
+            }
+        })
+
+    }
 </script>
 
 

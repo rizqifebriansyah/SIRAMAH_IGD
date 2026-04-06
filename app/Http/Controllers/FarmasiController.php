@@ -21,8 +21,31 @@ class FarmasiController extends Controller
 
         $now = Carbon::now()->format('Y-m-d');
         // $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','$unit','$now')");
-        $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$now')");
+        // $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$now')");
+        $pasienigd = DB::select('SELECT DISTINCT
+        
+        a.no_rm
+    
+        ,fc_nama_px(a.no_rm) AS nama_px
+        ,a.tgl_masuk
+        ,fc_NAMA_PARAMEDIS1(a.kode_paramedis) nama_dpjp
+        ,a.kode_penjamin
+        ,a.kode_kunjungan
+        ,a.kelas
+        ,a.kelas AS KELAS_UNIT
+        ,a.counter
+        ,b.jenis_kelamin
+        ,d.status
 
+        FROM ts_kunjungan a
+        INNER JOIN mt_pasien b ON b.no_rm = a.no_rm
+        LEFT OUTER JOIN di_pasien_diagnosa_frunit c ON c.kode_kunjungan = a.kode_kunjungan 
+        LEFT OUTER JOIN rekonsiliasi_obat d ON d.kode_kunjungan = a.kode_kunjungan
+        
+        
+        WHERE DATE(a.tgl_masuk) = ?
+        AND a.status_kunjungan NOT IN (8,11)
+        AND a.kode_unit = "1002"', [$now]);
         return view(
             'farmasi.index',
             [
@@ -98,6 +121,47 @@ class FarmasiController extends Controller
                 'kp' => $kp,
                 'ku' => $ku,
                 'counter' => $counter
+
+            ]
+        );
+    }
+    public function caripasienrekon(Request $request)
+    {
+        $tgl = $request->tglkunjungan;
+        $unit = auth()->user()->unit;
+
+        // $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$tgl')");
+        // $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','$unit','$tgl')");
+        $pasienigd = DB::select('SELECT DISTINCT
+        
+        a.no_rm
+    
+        ,fc_nama_px(a.no_rm) AS nama_px
+        ,a.tgl_masuk
+        ,fc_NAMA_PARAMEDIS1(a.kode_paramedis) nama_dpjp
+        ,a.kode_penjamin
+        ,a.kode_kunjungan
+        ,a.kelas
+        ,a.kelas AS KELAS_UNIT
+        ,a.counter
+        ,b.jenis_kelamin
+        ,d.status
+
+        FROM ts_kunjungan a
+        INNER JOIN mt_pasien b ON b.no_rm = a.no_rm
+        LEFT OUTER JOIN di_pasien_diagnosa_frunit c ON c.kode_kunjungan = a.kode_kunjungan 
+        LEFT OUTER JOIN rekonsiliasi_obat d ON d.kode_kunjungan = a.kode_kunjungan
+        
+        
+        WHERE DATE(a.tgl_masuk) = ?
+        AND a.status_kunjungan NOT IN (8,11)
+        AND a.kode_unit = "1002"', [$tgl]);
+
+        return view(
+            'farmasi.tablepasienfarmasi',
+            [
+                'title' => 'ERM FARMASI',
+                'pasienigd' => $pasienigd,
 
             ]
         );

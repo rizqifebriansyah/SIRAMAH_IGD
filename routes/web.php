@@ -55,8 +55,17 @@ Route::group(['middleware' => ['hak_akses:6', 'auth']], function () {
     Route::get('farmasi', [FarmasiController::class, 'index'])->name('farmasi');
     Route::get('kpoo', [FarmasiController::class, 'kpoo'])->name('kpoo');
     Route::post('isiobat', [FarmasiController::class, 'isiobat'])->name('isiobat');
-    Route::post('simpanrekon', [FarmasiController::class, 'simpanrekon'])->name('simpanrekon');
     Route::post('riwayatrekon', [FarmasiController::class, 'riwayatrekon'])->name('riwayatrekon');
+   
+   
+   
+       //cari
+    Route::post('caripasienrekon', [FarmasiController::class, 'caripasienrekon'])->name('caripasienrekon');
+
+
+    //simpan pasien
+     Route::post('simpanrekon', [FarmasiController::class, 'simpanrekon'])->name('simpanrekon');
+   
 });
 
 

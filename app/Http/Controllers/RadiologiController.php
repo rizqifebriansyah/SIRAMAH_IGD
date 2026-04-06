@@ -1697,8 +1697,8 @@ class RadiologiController extends Controller
         $pdf::Cell(40, 10, 'Radiologi,');
         $pdf::SetFont('Times', 'B', 12);
         // $pdf::Image('public/img/cap.png', 145, 211, 40, 25);
-
-        if ($ex->data->approver == 'dr. Nunik Royyani, Sp.Rad') {
+        if (str_contains($ex->data->approver, 'Nunik')) {
+            // if ($ex->data->approver == 'dr. Nunik Royyani, Sp.Rad') {
             $pdf::Image($path, 123, 220, 20, 20, 'PNG');
 
             $pdf::Image('public/img/ttd_036.png', 150, 211, 40, 25);
@@ -1711,20 +1711,22 @@ class RadiologiController extends Controller
             $pdf::Line(145, 240, 195, 240);
             $pdf::SetXY(152, 237);
             $pdf::Cell(40, 10, 'Spesialis Radiologi');
-        } elseif ($ex->data->approver == 'dr. Nunik Royyani. Sp.Rad') {
-            $pdf::Image($path, 123, 220, 20, 20, 'PNG');
+        } 
+        // elseif ($ex->data->approver == 'dr. Nunik Royyani. Sp.Rad') {
+        //     $pdf::Image($path, 123, 220, 20, 20, 'PNG');
 
-            $pdf::Image('public/img/ttd_036.png', 150, 211, 40, 25);
-            $pdf::SetXY(145, 232);
-            $pdf::Cell(40, 10, $ex->data->approver);
+        //     $pdf::Image('public/img/ttd_036.png', 150, 211, 40, 25);
+        //     $pdf::SetXY(145, 232);
+        //     $pdf::Cell(40, 10, $ex->data->approver);
 
 
-            $pdf::SetLineWidth(0.5);
+        //     $pdf::SetLineWidth(0.5);
 
-            $pdf::Line(145, 240, 195, 240);
-            $pdf::SetXY(152, 237);
-            $pdf::Cell(40, 10, 'Spesialis Radiologi');
-        } else {
+        //     $pdf::Line(145, 240, 195, 240);
+        //     $pdf::SetXY(152, 237);
+        //     $pdf::Cell(40, 10, 'Spesialis Radiologi');
+        // } 
+        else {
 
 
 
@@ -1843,11 +1845,11 @@ class RadiologiController extends Controller
             // exec('c:\WINDOWS\system32\cmd.exe \\192.168.30.125 -u it-pc1 -p pastibisa2016 /c START C:\WINDOWS\system32\notepad.exe');
             if ($user == '1141') {
                 //    $payload = exec('http://192.168.2.182/LABEL_RAD.exe');
-                // $payload = file_get_contents('http://192.168.2.182/LABEL.php');
+                $payload = file_get_contents('http://192.168.2.182/LABEL.php');
 
                 // $response = Http::get('http://192.168.2.182/LABEL.php');
                 // $payload = file_get_contents('http://192.168.2.182/rad1/LABEL_RAD.exe');
-                $payload = file_get_contents('http://192.168.2.182/etiket.php');
+                // $payload = file_get_contents('http://192.168.2.182/etiket.php');
 
                 // file_put_contents('LABEL_RAD.exe',$payload);
                 // $ch = curl_init("http://192.168.2.182/LABEL.php");
