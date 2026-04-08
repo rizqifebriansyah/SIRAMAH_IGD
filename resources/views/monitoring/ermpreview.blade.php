@@ -14,6 +14,8 @@
     <div class="card-header">
         <button type="submit" class="btn btn-info cetakresumecpptdokter"> <i class="fa fa-print"></i> Cetak Resume </button>
         <input type="text" class="form-check-input" id="kj" name="kj" value="{{$kj}}" hidden>
+        <input type="text" class="form-check-input" id="norm" name="norm" value="{{$norm}}" hidden>
+
 
     </div>
     <div class="card-body">

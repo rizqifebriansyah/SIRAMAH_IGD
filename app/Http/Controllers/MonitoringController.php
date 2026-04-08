@@ -179,7 +179,7 @@ class MonitoringController extends Controller
     public function ermpreview(Request $request)
     {
         $kj =  $request->kj;
-        $norm =  $request->kj;
+        $norm =  $request->norm;
         $unit = auth()->user()->unit;
 
         $now = Carbon::now()->format('Y-m-d H:i:s');

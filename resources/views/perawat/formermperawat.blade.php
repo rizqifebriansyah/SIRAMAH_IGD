@@ -2224,7 +2224,7 @@
                                 @if($assesper[0]->sumber_data == null)
                                 <input class="form-check-input" type="checkbox" name="sumberdata" id="sumberdata" value="Pasien Sendiri">
                                 <label class="form-check-label" for="inlineRadio1">Pasien Sendiri / Autoanamase</label>
-                                
+
                                 @else
                                 <input class="form-check-input" type="checkbox" name="sumberdata" id="sumberdata" value="Pasien Sendiri" checked>
                                 <label class="form-check-label" for="inlineRadio1">Pasien Sendiri / Autoanamase</label>
@@ -2237,7 +2237,7 @@
                                 @if($assesper[0]->sumber_data_1 == null)
                                 <input class="form-check-input" type="checkbox" name="sumberdata1" id="sumberdata1" value="Keluarga">
                                 <label class="form-check-label" for="inlineRadio2">Keluarga / Alloanamnesa</label>
-                                
+
                                 @else
                                 <input class="form-check-input" type="checkbox" name="sumberdata1" id="sumberdata1" value="Keluarga" checked>
                                 <label class="form-check-label" for="inlineRadio2">Keluarga / Alloanamnesa</label>
@@ -2567,10 +2567,10 @@
                                                                 <div class="col-md-3">
                                                                     <div class="form-check">
                                                                         @if($assesper[0]->pupil_2 == 'Midriasis')
-                                                                        <input class="form-check-input" type="checkbox" name="pupil2" id="pupil2"  checked value="Midriasis">
+                                                                        <input class="form-check-input" type="checkbox" name="pupil2" id="pupil2" checked value="Midriasis">
                                                                         <label class="form-check-label">Midriasis </label>
                                                                         @else
-                                                                        <input class="form-check-input" type="checkbox" name="pupil2" id="pupil2"  value="Midriasis">
+                                                                        <input class="form-check-input" type="checkbox" name="pupil2" id="pupil2" value="Midriasis">
                                                                         <label class="form-check-label">Midriasis </label>
                                                                         @endif
 
@@ -3719,23 +3719,10 @@
                                                                 PENANDAAN GAMBAR
                                                             </div>
                                                             <div class="row">
-                                                                <div class="col-md-12">
 
-                                                                    <div class="penandaangambar">
-                                                                        @if($assesper[0]->penandaan_gambar == NULL)
-                                                                        <div class="card">
-                                                                            <div class="card-header  bg-warning">Penandaan Gambar</div>
-                                                                            <div class="card-body">
-                                                                                <input type="text" hidden id="gambarcoret" name="gambarcoret">
-                                                                                <img id="gambarnya1" style="margin-top:50px" width="600px" height="400px" src="{{ asset('public/img/nyeri.png') }}" onclick="showMarkerArea(this);" />
-                                                                                <canvas hidden id="myCanvas1" width="600px" height="400px" style="border:1px solid #d3d3d3;">
-                                                                                </canvas>
-                                                                                <button type="button" class="btn btn-danger mt-2" onclick="batalgambar1()">batal</button>
-
-                                                                            </div>
-                                                                        </div>
-                                                                        @else
-                                                                        <img id="gambarnya1" style="margin-top:50px" width="600px" height="400px" src="{{ $assesper[0]->penandaan_gambar }}" onclick="showMarkerArea(this);" />
+                                                                <div class="penandaangambar">
+                                                                    @if($assesper[0]->penandaan_gambar == NULL)
+                                                                    <div class="col-md-12">
 
                                                                         <div class="card">
                                                                             <div class="card-header  bg-warning">Penandaan Gambar</div>
@@ -3748,11 +3735,29 @@
 
                                                                             </div>
                                                                         </div>
-
-
-                                                                        @endif
-
                                                                     </div>
+                                                                    @else
+                                                                    <div class="col-md-5">
+
+                                                                        <img id="gambarnya1" style="margin-top:50px" width="600px" height="400px" src="{{ $assesper[0]->penandaan_gambar }}" onclick="showMarkerArea(this);" />
+                                                                    </div>
+                                                                    <div class="col-md-5">
+
+                                                                        <div class="card">
+                                                                            <div class="card-header  bg-warning">Penandaan Gambar</div>
+                                                                            <div class="card-body">
+                                                                                <input type="text" hidden id="gambarcoret" name="gambarcoret">
+                                                                                <img id="gambarnya1" style="margin-top:50px" width="600px" height="400px" src="{{ asset('public/img/nyeri.png') }}" onclick="showMarkerArea(this);" />
+                                                                                <canvas hidden id="myCanvas1" width="600px" height="400px" style="border:1px solid #d3d3d3;">
+                                                                                </canvas>
+                                                                                <button type="button" class="btn btn-danger mt-2" onclick="batalgambar1()">batal</button>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    @endif
+
                                                                 </div>
                                                             </div>
 
@@ -5463,54 +5468,54 @@
                         gcs: $('#gcs').val(),
                         spo2: $('#SPO2').val(),
                         pupil: $('#pupil:checked').val(),
-                        pupil1 : $('#pupil1:checked').val(),
-                        pupil2 : $('#pupil2:checked').val(),
-                        pupil3 : $('#pupil3:checked').val(),
-                        pupil4 : $('#pupil4:checked').val(),
-                        pupil5 : $('#pupil5:checked').val(),
+                        pupil1: $('#pupil1:checked').val(),
+                        pupil2: $('#pupil2:checked').val(),
+                        pupil3: $('#pupil3:checked').val(),
+                        pupil4: $('#pupil4:checked').val(),
+                        pupil5: $('#pupil5:checked').val(),
                         intra: $('#intra:checked').val(),
-                        intra1 : $('#intra1:checked').val(),
-                        intra2 : $('#intra2:checked').val(),
-                        intra3 : $('#intra3:checked').val(),
-                        intra4 : $('#intra4:checked').val(),
-                        intra5 : $('#intra5:checked').val(),
-                        intra6 : $('#intra6:checked').val(),
+                        intra1: $('#intra1:checked').val(),
+                        intra2: $('#intra2:checked').val(),
+                        intra3: $('#intra3:checked').val(),
+                        intra4: $('#intra4:checked').val(),
+                        intra5: $('#intra5:checked').val(),
+                        intra6: $('#intra6:checked').val(),
                         neuro: $('#neuro:checked').val(),
-                        neuro1 : $('#neuro1:checked').val(),
-                        neuro2 : $('#neuro2:checked').val(),
-                        neuro3 : $('#neuro3:checked').val(),
-                        muskolo : $('#muskolo:checked').val(),
-                        muskolo1 : $('#muskolo1:checked').val(),
-                        muskolo2 : $('#muskolo2:checked').val(),
-                        muskolo3 : $('#muskolo3:checked').val(),
-                        muskolo4 : $('#muskolo4:checked').val(),
-                        intergumen : $('#integumen:checked').val(),
-                        intergumen1 : $('#integumen1:checked').val(),
-                        intergumen2 : $('#integumen2:checked').val(),
-                        intergumen3 : $('#integumen3:checked').val(),
-                        intergumen4 : $('#integumen4:checked').val(),
-                        intergumen5 : $('#integumen5:checked').val(),
-                        turgor : $('#turgor:checked').val(),
-                        turgor1 : $('#turgor1:checked').val(),
-                        turgor2 : $('#turgor2:checked').val(),
+                        neuro1: $('#neuro1:checked').val(),
+                        neuro2: $('#neuro2:checked').val(),
+                        neuro3: $('#neuro3:checked').val(),
+                        muskolo: $('#muskolo:checked').val(),
+                        muskolo1: $('#muskolo1:checked').val(),
+                        muskolo2: $('#muskolo2:checked').val(),
+                        muskolo3: $('#muskolo3:checked').val(),
+                        muskolo4: $('#muskolo4:checked').val(),
+                        intergumen: $('#integumen:checked').val(),
+                        intergumen1: $('#integumen1:checked').val(),
+                        intergumen2: $('#integumen2:checked').val(),
+                        intergumen3: $('#integumen3:checked').val(),
+                        intergumen4: $('#integumen4:checked').val(),
+                        intergumen5: $('#integumen5:checked').val(),
+                        turgor: $('#turgor:checked').val(),
+                        turgor1: $('#turgor1:checked').val(),
+                        turgor2: $('#turgor2:checked').val(),
 
-                        edema : $('#edema:checked').val(),
-                        edema1 : $('#edema1:checked').val(),
-                        edema2 : $('#edema2:checked').val(),
-                        edema3 : $('#edema3:checked').val(),
-                        edema4 : $('#edema4:checked').val(),
+                        edema: $('#edema:checked').val(),
+                        edema1: $('#edema1:checked').val(),
+                        edema2: $('#edema2:checked').val(),
+                        edema3: $('#edema3:checked').val(),
+                        edema4: $('#edema4:checked').val(),
 
-                        mukosa : $('#mukosa:checked').val(),
-                        mukosa1 : $('#mukosa1:checked').val(),
-                        mukosa2 : $('#mukosa2:checked').val(),
+                        mukosa: $('#mukosa:checked').val(),
+                        mukosa1: $('#mukosa1:checked').val(),
+                        mukosa2: $('#mukosa2:checked').val(),
                         pendarahan: $('#pendarahan:checked').val(),
                         jumlahdarah: $('#jumlahdarah').val(),
                         introksikasi: $('#intoksikasi:checked').val(),
-                        introksikasi1 : $('#intoksikasi1:checked').val(),
-                        introksikasi2 : $('#intoksikasi2:checked').val(),
-                        introksikasi3 : $('#intoksikasi3:checked').val(),
-                        introksikasi4 : $('#intoksikasi4:checked').val(),
-                        introksikasi5 : $('#intoksikasi5:checked').val(),
+                        introksikasi1: $('#intoksikasi1:checked').val(),
+                        introksikasi2: $('#intoksikasi2:checked').val(),
+                        introksikasi3: $('#intoksikasi3:checked').val(),
+                        introksikasi4: $('#intoksikasi4:checked').val(),
+                        introksikasi5: $('#intoksikasi5:checked').val(),
                         BABF: $('#BABF').val(),
                         BABK: $('#BABK').val(),
                         BABKW: $('#BABKW').val(),
@@ -5525,15 +5530,15 @@
                         gambar1: $('#gambarcoret').val(),
                         lamanyeri: $('#lamanyeri:checked').val(),
                         rasanyeri: $('#rasanyeri:checked').val(),
-                        rasanyeri1 : $('#rasanyeri1:checked').val(),
-                        rasanyeri2 : $('#rasanyeri2:checked').val(),
-                        rasanyeri3 : $('#rasanyeri3:checked').val(),
-                        rasanyeri4 : $('#rasanyeri4:checked').val(),
-                        rasanyeri5 : $('#rasanyeri5:checked').val(),
-                        rasanyeri6 : $('#rasanyeri6:checked').val(),
-                        rasanyeri7 : $('#rasanyeri7:checked').val(),
-                        rasanyeri8 : $('#rasanyeri8:checked').val(),
-                        rasanyeri9 : $('#rasanyeri9:checked').val(),
+                        rasanyeri1: $('#rasanyeri1:checked').val(),
+                        rasanyeri2: $('#rasanyeri2:checked').val(),
+                        rasanyeri3: $('#rasanyeri3:checked').val(),
+                        rasanyeri4: $('#rasanyeri4:checked').val(),
+                        rasanyeri5: $('#rasanyeri5:checked').val(),
+                        rasanyeri6: $('#rasanyeri6:checked').val(),
+                        rasanyeri7: $('#rasanyeri7:checked').val(),
+                        rasanyeri8: $('#rasanyeri8:checked').val(),
+                        rasanyeri9: $('#rasanyeri9:checked').val(),
                         seringnyeri: $('#seringnyeri:checked').val(),
                         serringnyeri: $('#serringnyeri:checked').val(),
                         berkurangnyeri: $('#berkurangnyeri:checked').val(),
@@ -5927,55 +5932,55 @@
                         usia: $('#usia').val(),
                         gcs: $('#gcs').val(),
                         spo2: $('#SPO2').val(),
-                         pupil: $('#pupil:checked').val(),
-                        pupil1 : $('#pupil1:checked').val(),
-                        pupil2 : $('#pupil2:checked').val(),
-                        pupil3 : $('#pupil3:checked').val(),
-                        pupil4 : $('#pupil4:checked').val(),
-                        pupil5 : $('#pupil5:checked').val(),
+                        pupil: $('#pupil:checked').val(),
+                        pupil1: $('#pupil1:checked').val(),
+                        pupil2: $('#pupil2:checked').val(),
+                        pupil3: $('#pupil3:checked').val(),
+                        pupil4: $('#pupil4:checked').val(),
+                        pupil5: $('#pupil5:checked').val(),
                         intra: $('#intra:checked').val(),
-                        intra1 : $('#intra1:checked').val(),
-                        intra2 : $('#intra2:checked').val(),
-                        intra3 : $('#intra3:checked').val(),
-                        intra4 : $('#intra4:checked').val(),
-                        intra5 : $('#intra5:checked').val(),
-                        intra6 : $('#intra6:checked').val(),
+                        intra1: $('#intra1:checked').val(),
+                        intra2: $('#intra2:checked').val(),
+                        intra3: $('#intra3:checked').val(),
+                        intra4: $('#intra4:checked').val(),
+                        intra5: $('#intra5:checked').val(),
+                        intra6: $('#intra6:checked').val(),
                         neuro: $('#neuro:checked').val(),
-                        neuro1 : $('#neuro1:checked').val(),
-                        neuro2 : $('#neuro2:checked').val(),
-                        neuro3 : $('#neuro3:checked').val(),
-                        muskolo : $('#muskolo:checked').val(),
-                        muskolo1 : $('#muskolo1:checked').val(),
-                        muskolo2 : $('#muskolo2:checked').val(),
-                        muskolo3 : $('#muskolo3:checked').val(),
-                        muskolo4 : $('#muskolo4:checked').val(),
-                        intergumen : $('#integumen:checked').val(),
-                        intergumen1 : $('#integumen1:checked').val(),
-                        intergumen2 : $('#integumen2:checked').val(),
-                        intergumen3 : $('#integumen3:checked').val(),
-                        intergumen4 : $('#integumen4:checked').val(),
-                        intergumen5 : $('#integumen5:checked').val(),
-                        turgor : $('#turgor:checked').val(),
-                        turgor1 : $('#turgor1:checked').val(),
-                        turgor2 : $('#turgor2:checked').val(),
+                        neuro1: $('#neuro1:checked').val(),
+                        neuro2: $('#neuro2:checked').val(),
+                        neuro3: $('#neuro3:checked').val(),
+                        muskolo: $('#muskolo:checked').val(),
+                        muskolo1: $('#muskolo1:checked').val(),
+                        muskolo2: $('#muskolo2:checked').val(),
+                        muskolo3: $('#muskolo3:checked').val(),
+                        muskolo4: $('#muskolo4:checked').val(),
+                        intergumen: $('#integumen:checked').val(),
+                        intergumen1: $('#integumen1:checked').val(),
+                        intergumen2: $('#integumen2:checked').val(),
+                        intergumen3: $('#integumen3:checked').val(),
+                        intergumen4: $('#integumen4:checked').val(),
+                        intergumen5: $('#integumen5:checked').val(),
+                        turgor: $('#turgor:checked').val(),
+                        turgor1: $('#turgor1:checked').val(),
+                        turgor2: $('#turgor2:checked').val(),
 
-                        edema : $('#edema:checked').val(),
-                        edema1 : $('#edema1:checked').val(),
-                        edema2 : $('#edema2:checked').val(),
-                        edema3 : $('#edema3:checked').val(),
-                        edema4 : $('#edema4:checked').val(),
+                        edema: $('#edema:checked').val(),
+                        edema1: $('#edema1:checked').val(),
+                        edema2: $('#edema2:checked').val(),
+                        edema3: $('#edema3:checked').val(),
+                        edema4: $('#edema4:checked').val(),
 
-                        mukosa : $('#mukosa:checked').val(),
-                        mukosa1 : $('#mukosa1:checked').val(),
-                        mukosa2 : $('#mukosa2:checked').val(),
+                        mukosa: $('#mukosa:checked').val(),
+                        mukosa1: $('#mukosa1:checked').val(),
+                        mukosa2: $('#mukosa2:checked').val(),
                         pendarahan: $('#pendarahan:checked').val(),
                         jumlahdarah: $('#jumlahdarah').val(),
                         introksikasi: $('#intoksikasi:checked').val(),
-                        introksikasi1 : $('#intoksikasi1:checked').val(),
-                        introksikasi2 : $('#intoksikasi2:checked').val(),
-                        introksikasi3 : $('#intoksikasi3:checked').val(),
-                        introksikasi4 : $('#intoksikasi4:checked').val(),
-                        introksikasi5 : $('#intoksikasi5:checked').val(),
+                        introksikasi1: $('#intoksikasi1:checked').val(),
+                        introksikasi2: $('#intoksikasi2:checked').val(),
+                        introksikasi3: $('#intoksikasi3:checked').val(),
+                        introksikasi4: $('#intoksikasi4:checked').val(),
+                        introksikasi5: $('#intoksikasi5:checked').val(),
                         BABF: $('#BABF').val(),
                         BABK: $('#BABK').val(),
                         BABKW: $('#BABKW').val(),
@@ -5990,15 +5995,15 @@
                         gambar1: $('#gambarcoret').val(),
                         lamanyeri: $('#lamanyeri:checked').val(),
                         rasanyeri: $('#rasanyeri:checked').val(),
-                        rasanyeri1 : $('#rasanyeri1:checked').val(),
-                        rasanyeri2 : $('#rasanyeri2:checked').val(),
-                        rasanyeri3 : $('#rasanyeri3:checked').val(),
-                        rasanyeri4 : $('#rasanyeri4:checked').val(),
-                        rasanyeri5 : $('#rasanyeri5:checked').val(),
-                        rasanyeri6 : $('#rasanyeri6:checked').val(),
-                        rasanyeri7 : $('#rasanyeri7:checked').val(),
-                        rasanyeri8 : $('#rasanyeri8:checked').val(),
-                        rasanyeri9 : $('#rasanyeri9:checked').val(),
+                        rasanyeri1: $('#rasanyeri1:checked').val(),
+                        rasanyeri2: $('#rasanyeri2:checked').val(),
+                        rasanyeri3: $('#rasanyeri3:checked').val(),
+                        rasanyeri4: $('#rasanyeri4:checked').val(),
+                        rasanyeri5: $('#rasanyeri5:checked').val(),
+                        rasanyeri6: $('#rasanyeri6:checked').val(),
+                        rasanyeri7: $('#rasanyeri7:checked').val(),
+                        rasanyeri8: $('#rasanyeri8:checked').val(),
+                        rasanyeri9: $('#rasanyeri9:checked').val(),
                         seringnyeri: $('#seringnyeri:checked').val(),
                         serringnyeri: $('#serringnyeri:checked').val(),
                         berkurangnyeri: $('#berkurangnyeri:checked').val(),

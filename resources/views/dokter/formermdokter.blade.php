@@ -1920,31 +1920,7 @@
                                             <div class="field_wrapperrrr">
                                                 <div class="form-group">
                                                     <div class="row">
-                                                        <div class="col-md-5"><label for="">PILIH DPJP</label>
-                                                            <select class="form-control  select2" name="kode_dpjp" id="kode_dpjp" placeholder="Cari opsi...">
-                                                                @foreach ($dpjp as $i => $p) <option value="{{ $p->kode_paramedis }}">{{ $p->nama_paramedis }} </option> @endforeach
-                                                            </select>
-
-                                                        </div>
-                                                        <div class="col-md-5">
-                                                            <label for="">Tata Laksana DPJP</label>
-                                                            <!-- <input class="form-control" placeholder="Tata Laksana DPJP" type="text-area" row="3" name="talaksanadpjp[]" value="" /> -->
-                                                            <textarea class="form-control" id="talaksanadpjp" name="talaksanadpjp" placeholder=""></textarea>
-                                                            <!-- <select class="form-control select2" name="talaksanadpjp" id="talaksanadpjp">
-                                                                <option value=""> -- Select One --</option>
-                                                                <option value="TX42331">Konsultasi Dokter Fetomaternal Dari Dokter Spesialis
-                                                                </option>
-                                                                <option value="TX45131">Konsultasi Dokter Spesialis (On Call)
-                                                                </option>
-                                                                <option value="TX45121">Konsultasi Dokter Spesialis (On Site)
-                                                                </option>
-
-
-
-                                                            </select> -->
-
-
-                                                        </div>
+                                                        <H5>KLIK TOMBOL TAMBAH UNTUK MENAMBAHKAN TINDAKAN DPJP</H5>
 
                                                         <div class="col-md-2">
                                                             <a class="btn btn-success" href="javascript:void(0);" id="add_button" title="Add field">TAMBAH</a>
@@ -2611,10 +2587,11 @@
                     PENANDAAN GAMBAR
                 </div>
                 <div class="row penandaangambar">
+
+                    @if($triase[0]->penandaan_gambar == NULL)
                     <div class="col-md-5">
 
                         <div class="card">
-                            @if($triase[0]->penandaan_gambar == NULL)
 
                             <div class="card-header  bg-warning">Penandaan Gambar</div>
                             <div class="card-body">
@@ -2625,211 +2602,230 @@
                                 <button type="button" class="btn btn-danger mt-2" onclick="batalgambar1()">batal</button>
 
                             </div>
-
-                            @else
-                            <img id="gambarnya1" style="margin-top:50px" width="600px" height="400px" src="{{ $triase[0]->penandaan_gambar }}" onclick="showMarkerArea(this);" />
-                            @endif
-
                         </div>
                     </div>
-
+                    @else
                     <div class="col-md-5">
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td class="text-bold font-italic">Kesadaran</td>
-                                    <td>
-                                        @if($triase[0]->kesadaran_1 == NULL)
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" name="kesadaran_1" id="kesadaran_1" value="Compos Mentis">
-                                            <label class="form-check-label" for="inlineRadio1">Compos Mentis</label>
-                                        </div>
-                                        @else
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" checked name="kesadaran_1" id="kesadaran_1" value="Compos Mentis">
-                                            <label class="form-check-label" for="inlineRadio1">Compos Mentis</label>
-                                        </div>
-                                        @endif
 
-
-
-                                    </td>
-                                    <td>
-                                        @if($triase[0]->kesadaran_2 == NULL)
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" name="kesadaran_2" id="kesadaran_2" value="Letargik">
-                                            <label class="form-check-label" for="inlineRadio2">Letargik</label>
-                                        </div>
-                                        @else
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" checked name="kesadaran_2" id="kesadaran_2" value="Letargik">
-                                            <label class="form-check-label" for="inlineRadio2">Letargik</label>
-                                        </div>
-                                        @endif
-
-                                    </td>
-                                    <td>
-                                        <label class="form-check-label" for="inlineRadio2">Lainya</label>
-
-                                        <input class="form-" type="input" name="kesadaran_3" id="kesadaran_3" value="{{$triase[0]->kesadaran_3}}">
-
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-bold font-italic">Status Psikologi</td>
-                                    <td>
-                                        @if($triase[0]->status_psikologis == NULL)
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" name="spsi" id="spsi" value="Marah">
-                                            <label class="form-check-label" for="inlineRadio1">Marah</label>
-                                        </div>
-                                        @else
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" name="spsi" checked id="spsi" value="Marah">
-                                            <label class="form-check-label" for="inlineRadio1">Marah</label>
-                                        </div>
-                                        @endif
-
-
-                                    </td>
-                                    <td>
-                                        @if($triase[0]->status_psikologis1 == NULL)
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" name="spsi1" id="spsi1" value="Depresi">
-                                            <label class="form-check-label" for="inlineRadio2">Depresi</label>
-                                        </div>
-                                        @else
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" checked name="spsi1" id="spsi1" value="Depresi">
-                                            <label class="form-check-label" for="inlineRadio2">Depresi</label>
-                                        </div>
-                                        @endif
-
-                                    </td>
-                                    <td>
-                                        @if($triase[0]->status_psikologis2 == NULL)
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" name="spsi2" id="spsi2" value="Takut">
-                                            <label class="form-check-label" for="inlineRadio2">Takut</label>
-                                        </div>
-                                        @else
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" checked name="spsi2" id="spsi2" value="Takut">
-                                            <label class="form-check-label" for="inlineRadio2">Takut</label>
-                                        </div>
-                                        @endif
-
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-bold font-italic"></td>
-                                    <td>
-                                        @if($triase[0]->status_psikologis3 == NULL)
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" name="spsi3" id="spsi3" value="Gelisah">
-                                            <label class="form-check-label" for="inlineRadio1">Gelisah</label>
-                                        </div>
-                                        @else
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" checked name="spsi3" id="spsi3" value="Gelisah">
-                                            <label class="form-check-label" for="inlineRadio1">Gelisah</label>
-                                        </div>
-                                        @endif
-
-
-                                    </td>
-                                    <td>
-                                        @if($triase[0]->status_psikologis4 == NULL)
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" name="spsi4" id="spsi4" value="Psikotik">
-                                            <label class="form-check-label" for="inlineRadio2">Psikotik</label>
-                                        </div>
-                                        @else
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" checked name="spsi4" id="spsi4" value="Psikotik">
-                                            <label class="form-check-label" for="inlineRadio2">Psikotik</label>
-                                        </div>
-                                        @endif
-
-                                    </td>
-                                    <td>
-                                        @if($triase[0]->status_psikologis5 == NULL)
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" name="spsi5" id="spsi5" value="Cemas">
-                                            <label class="form-check-label" for="inlineRadio2">Cemas</label>
-                                        </div>
-                                        @else
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" checked name="spsi5" id="spsi5" value="Cemas">
-                                            <label class="form-check-label" for="inlineRadio2">Cemas</label>
-                                        </div>
-                                        @endif
-
-
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-bold font-italic"></td>
-                                    <td>
-                                        @if($triase[0]->status_psikologis6 == NULL)
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" name="spsi6" id="spsi6" value="Gelisah">
-                                            <label class="form-check-label" for="inlineRadio1">Gelisah</label>
-                                        </div>
-                                        @else
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" checked name="spsi6" id="spsi6" value="Gelisah">
-                                            <label class="form-check-label" for="inlineRadio1">Gelisah</label>
-                                        </div>
-                                        @endif
-
-
-
-                                    </td>
-                                    <td>
-                                        @if($triase[0]->status_psikologis7 == NULL)
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" name="spsi7" id="spsi7" value="Kecendrungan Bunuh Diri">
-                                            <label class="form-check-label" for="inlineRadio2">Kecendrungan Bunuh Diri</label>
-                                        </div>
-                                        @else
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" checked name="spsi7" id="spsi7" value="Kecendrungan Bunuh Diri">
-                                            <label class="form-check-label" for="inlineRadio2">Kecendrungan Bunuh Diri</label>
-                                        </div>
-                                        @endif
-
-                                    </td>
-                                    <td>
-                                        @if($triase[0]->status_psikologis8 == NULL)
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" name="spsi8" id="spsi8" value="Tidak Ada Masalah">
-                                            <label class="form-check-label" for="inlineRadio2">Tidak Ada Masalah</label>
-                                        </div>
-                                        @else
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" checked name="spsi8" id="spsi8" value="Tidak Ada Masalah">
-                                            <label class="form-check-label" for="inlineRadio2">Tidak Ada Masalah</label>
-                                        </div>
-                                        @endif
-
-
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-bold font-italic"></td>
-
-                                    <td>
-                                        <label class="form-check-label" for="inlineRadio2">Lainya</label>
-
-                                        <input class="form-" type="input" name="spsi9" id="spsi9" value="{{$triase[0]->status_psikologis9}}">
-
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-
+                        <img id="gambarnya2" style="margin-top:50px" width="600px" height="400px" src="{{ $triase[0]->penandaan_gambar }}" onclick="showMarkerArea(this);" />
                     </div>
+                    <div class="col-md-5">
+
+                        <div class="card">
+
+                            <div class="card-header  bg-warning">Penandaan Gambar</div>
+                            <div class="card-body">
+                                <input type="text" hidden id="gambarcoret1" name="gambarcoret1">
+                                <img id="gambarnya2" style="margin-top:50px" width="400px" height="400px" src="{{ asset('public/img/nyeri.png') }}" onclick="showMarkerArea(this);" />
+                                <canvas hidden id="myCanvas2" width="600px" height="400px" style="border:1px solid #d3d3d3;">
+                                </canvas>
+                                <button type="button" class="btn btn-danger mt-2" onclick="batalgambar1()">batal</button>
+
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+
+
+                </div>
+
+                <div class="col-md-5">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td class="text-bold font-italic">Kesadaran</td>
+                                <td>
+                                    @if($triase[0]->kesadaran_1 == NULL)
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" name="kesadaran_1" id="kesadaran_1" value="Compos Mentis">
+                                        <label class="form-check-label" for="inlineRadio1">Compos Mentis</label>
+                                    </div>
+                                    @else
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" checked name="kesadaran_1" id="kesadaran_1" value="Compos Mentis">
+                                        <label class="form-check-label" for="inlineRadio1">Compos Mentis</label>
+                                    </div>
+                                    @endif
+
+
+
+                                </td>
+                                <td>
+                                    @if($triase[0]->kesadaran_2 == NULL)
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" name="kesadaran_2" id="kesadaran_2" value="Letargik">
+                                        <label class="form-check-label" for="inlineRadio2">Letargik</label>
+                                    </div>
+                                    @else
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" checked name="kesadaran_2" id="kesadaran_2" value="Letargik">
+                                        <label class="form-check-label" for="inlineRadio2">Letargik</label>
+                                    </div>
+                                    @endif
+
+                                </td>
+                                <td>
+                                    <label class="form-check-label" for="inlineRadio2">Lainya</label>
+
+                                    <input class="form-" type="input" name="kesadaran_3" id="kesadaran_3" value="{{$triase[0]->kesadaran_3}}">
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic">Status Psikologi</td>
+                                <td>
+                                    @if($triase[0]->status_psikologis == NULL)
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" name="spsi" id="spsi" value="Marah">
+                                        <label class="form-check-label" for="inlineRadio1">Marah</label>
+                                    </div>
+                                    @else
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" name="spsi" checked id="spsi" value="Marah">
+                                        <label class="form-check-label" for="inlineRadio1">Marah</label>
+                                    </div>
+                                    @endif
+
+
+                                </td>
+                                <td>
+                                    @if($triase[0]->status_psikologis1 == NULL)
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" name="spsi1" id="spsi1" value="Depresi">
+                                        <label class="form-check-label" for="inlineRadio2">Depresi</label>
+                                    </div>
+                                    @else
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" checked name="spsi1" id="spsi1" value="Depresi">
+                                        <label class="form-check-label" for="inlineRadio2">Depresi</label>
+                                    </div>
+                                    @endif
+
+                                </td>
+                                <td>
+                                    @if($triase[0]->status_psikologis2 == NULL)
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" name="spsi2" id="spsi2" value="Takut">
+                                        <label class="form-check-label" for="inlineRadio2">Takut</label>
+                                    </div>
+                                    @else
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" checked name="spsi2" id="spsi2" value="Takut">
+                                        <label class="form-check-label" for="inlineRadio2">Takut</label>
+                                    </div>
+                                    @endif
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic"></td>
+                                <td>
+                                    @if($triase[0]->status_psikologis3 == NULL)
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" name="spsi3" id="spsi3" value="Gelisah">
+                                        <label class="form-check-label" for="inlineRadio1">Gelisah</label>
+                                    </div>
+                                    @else
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" checked name="spsi3" id="spsi3" value="Gelisah">
+                                        <label class="form-check-label" for="inlineRadio1">Gelisah</label>
+                                    </div>
+                                    @endif
+
+
+                                </td>
+                                <td>
+                                    @if($triase[0]->status_psikologis4 == NULL)
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" name="spsi4" id="spsi4" value="Psikotik">
+                                        <label class="form-check-label" for="inlineRadio2">Psikotik</label>
+                                    </div>
+                                    @else
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" checked name="spsi4" id="spsi4" value="Psikotik">
+                                        <label class="form-check-label" for="inlineRadio2">Psikotik</label>
+                                    </div>
+                                    @endif
+
+                                </td>
+                                <td>
+                                    @if($triase[0]->status_psikologis5 == NULL)
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" name="spsi5" id="spsi5" value="Cemas">
+                                        <label class="form-check-label" for="inlineRadio2">Cemas</label>
+                                    </div>
+                                    @else
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" checked name="spsi5" id="spsi5" value="Cemas">
+                                        <label class="form-check-label" for="inlineRadio2">Cemas</label>
+                                    </div>
+                                    @endif
+
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic"></td>
+                                <td>
+                                    @if($triase[0]->status_psikologis6 == NULL)
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" name="spsi6" id="spsi6" value="Gelisah">
+                                        <label class="form-check-label" for="inlineRadio1">Gelisah</label>
+                                    </div>
+                                    @else
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" checked name="spsi6" id="spsi6" value="Gelisah">
+                                        <label class="form-check-label" for="inlineRadio1">Gelisah</label>
+                                    </div>
+                                    @endif
+
+
+
+                                </td>
+                                <td>
+                                    @if($triase[0]->status_psikologis7 == NULL)
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" name="spsi7" id="spsi7" value="Kecendrungan Bunuh Diri">
+                                        <label class="form-check-label" for="inlineRadio2">Kecendrungan Bunuh Diri</label>
+                                    </div>
+                                    @else
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" checked name="spsi7" id="spsi7" value="Kecendrungan Bunuh Diri">
+                                        <label class="form-check-label" for="inlineRadio2">Kecendrungan Bunuh Diri</label>
+                                    </div>
+                                    @endif
+
+                                </td>
+                                <td>
+                                    @if($triase[0]->status_psikologis8 == NULL)
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" name="spsi8" id="spsi8" value="Tidak Ada Masalah">
+                                        <label class="form-check-label" for="inlineRadio2">Tidak Ada Masalah</label>
+                                    </div>
+                                    @else
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" checked name="spsi8" id="spsi8" value="Tidak Ada Masalah">
+                                        <label class="form-check-label" for="inlineRadio2">Tidak Ada Masalah</label>
+                                    </div>
+                                    @endif
+
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic"></td>
+
+                                <td>
+                                    <label class="form-check-label" for="inlineRadio2">Lainya</label>
+
+                                    <input class="form-" type="input" name="spsi9" id="spsi9" value="{{$triase[0]->status_psikologis9}}">
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
                 </div>
             </td>
             @endif
@@ -7409,7 +7405,7 @@
         <div class="card-header bg-secondary" id="headingOne">
             <h2 class="mb-0">
                 <button class="btn btn-link btn-block text-left text-light font-weight" type="button" data-toggle="collapse" data-target="#collapseOne30" aria-expanded="true" aria-controls="collapseOne30">
-                    <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Tindak Lanjut Di IGD 
+                    <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Tindak Lanjut Di IGD
                 </button>
             </h2>
         </div>
@@ -8714,7 +8710,7 @@
                                 text: 'data berhasil diretur',
                                 footer: ''
                             })
-                            cpptdokter()
+                            // cpptdokter()
 
 
 
@@ -9099,14 +9095,14 @@
                         primary: $('#primary').val(),
                         secondary: $('#secondary').val(),
                         tglmasuk: $('#tglmasuk').val(),
-                        tinjutt : $('#tinjutt').val(),
-                        jammasukk : $('#jammasukk').val(),
-                        jamper : $('#jamper').val(),
-                        stabil : $('#stabil').val(),
-                        tidakstabil : $('#tidakstabil').val(),
-                        keputusanruangoperasi : $('#keputusanruangoperasi').val(),
-                        keputusankamarjenazah : $('#keputusankamarjenazah').val(),
-                        keputusanpulang : $('#keputusanpulang').val()
+                        tinjutt: $('#tinjutt').val(),
+                        jammasukk: $('#jammasukk').val(),
+                        jamper: $('#jamper').val(),
+                        stabil: $('#stabil').val(),
+                        tidakstabil: $('#tidakstabil').val(),
+                        keputusanruangoperasi: $('#keputusanruangoperasi').val(),
+                        keputusankamarjenazah: $('#keputusankamarjenazah').val(),
+                        keputusanpulang: $('#keputusanpulang').val()
 
 
                     },
@@ -9484,14 +9480,14 @@
                         primary: $('#primary').val(),
                         secondary: $('#secondary').val(),
                         tglmasuk: $('#tglmasuk').val(),
-                        tinjutt : $('#tinjutt').val(),
-                        jammasukk : $('#jammasukk').val(),
-                        jamper : $('#jamper').val(),
-                        stabil : $('#stabil').val(),
-                        tidakstabil : $('#tidakstabil').val(),
-                        keputusanruangoperasi : $('#keputusanruangoperasi').val(),
-                        keputusankamarjenazah : $('#keputusankamarjenazah').val(),
-                        keputusanpulang : $('#keputusanpulang').val()
+                        tinjutt: $('#tinjutt').val(),
+                        jammasukk: $('#jammasukk').val(),
+                        jamper: $('#jamper').val(),
+                        stabil: $('#stabil').val(),
+                        tidakstabil: $('#tidakstabil').val(),
+                        keputusanruangoperasi: $('#keputusanruangoperasi').val(),
+                        keputusankamarjenazah: $('#keputusankamarjenazah').val(),
+                        keputusanpulang: $('#keputusanpulang').val()
                     },
                     url: '<?= route('simpanassesmen') ?>',
 
