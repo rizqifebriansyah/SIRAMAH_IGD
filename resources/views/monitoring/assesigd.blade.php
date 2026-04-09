@@ -107,7 +107,7 @@
         </div>
 
         <div>
-            <button type="submit" class="btn btn-primary" onclick="caripasienigdperawat()"> <i class="bi bi-search-heart"></i>
+            <button type="submit" class="btn btn-primary" onclick="carimonitoringpasien()"> <i class="bi bi-search-heart"></i>
             </button>
         </div>
     </div>
@@ -188,7 +188,7 @@
     });
 
 
-    function caripasienigdperawat() {
+    function carimonitoringpasien() {
         spinner = $('#loader2');
         spinner.show();
         tglkunjungan = $('#tanggal_kunjungan').val()
@@ -200,7 +200,7 @@
                 tglkunjungan
 
             },
-            url: " {{ route('caripasienigdperawat') }}",
+            url: " {{ route('carimonitoringpasien') }}",
             error: function(data) {
                 spinner.hide();
 

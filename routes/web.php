@@ -47,6 +47,9 @@ Route::group(['middleware' => ['hak_akses:18', 'auth']], function () {
 
     Route::get('monitoring', [MonitoringController::class, 'monitoring'])->name('monitoring');
     Route::post('ermpreview', [MonitoringController::class, 'ermpreview'])->name('ermpreview');
+
+    //cari
+    Route::post('carimonitoringpasien', [MonitoringController::class, 'carimonitoringpasien'])->name('carimonitoringpasien');
 });
 //route farmasi
 Route::group(['middleware' => ['hak_akses:6', 'auth']], function () {
@@ -56,16 +59,15 @@ Route::group(['middleware' => ['hak_akses:6', 'auth']], function () {
     Route::get('kpoo', [FarmasiController::class, 'kpoo'])->name('kpoo');
     Route::post('isiobat', [FarmasiController::class, 'isiobat'])->name('isiobat');
     Route::post('riwayatrekon', [FarmasiController::class, 'riwayatrekon'])->name('riwayatrekon');
-   
-   
-   
-       //cari
+
+
+
+    //cari
     Route::post('caripasienrekon', [FarmasiController::class, 'caripasienrekon'])->name('caripasienrekon');
 
 
     //simpan pasien
-     Route::post('simpanrekon', [FarmasiController::class, 'simpanrekon'])->name('simpanrekon');
-   
+    Route::post('simpanrekon', [FarmasiController::class, 'simpanrekon'])->name('simpanrekon');
 });
 
 
@@ -317,12 +319,12 @@ Route::group(['middleware' => ['hak_akses:17', 'auth']], function () {
     Route::get('/gizi', [GiziControlller::class, 'index'])->name('gizi');
     Route::get('/asseesmengizi', [GiziControlller::class, 'asseesmengizi'])->name('asseesmengizi');
 
-    
+
     Route::get('/gizibilling', [GiziControlller::class, 'gizibilling'])->name('gizibilling');
     Route::get('/monitoringmakan', [GiziControlller::class, 'monitoringmakan'])->name('monitoringmakan');
     Route::get('/riwayatordermakan', [GiziControlller::class, 'riwayatordermakan'])->name('riwayatordermakan');
 
-// form assesmen gizi
+    // form assesmen gizi
     Route::post('assesgizi', [GiziControlller::class, 'assesgizi'])->name('assesgizi');
 
 
