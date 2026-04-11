@@ -1236,16 +1236,34 @@
                     </td>
                     <td>
                         <select class="form-control select2" name="trauma" id="trauma">
-                            <option value=""> -- Pilih Trauma --</option>
-                            <option value="Keecelakaan Lalu Lintas">Keecelakaan Lalu Lintas
+                             <option value=""> -- Pilih Trauma --</option>
+                            <option value="Keecelakaan Lalu Lintas Darat">Keecelakaan Lalu Lintas Darat
+                            </option>
+                            <option value="Keecelakaan Lalu Lintas Perairan">Keecelakaan Lalu Lintas Perairan
+                            </option>
+                            <option value="Keecelakaan Lalu Lintas Udara">Keecelakaan Lalu Lintas Udara
                             </option>
                             <option value="Kekerasan Dalam Rumah Tangga">Kekerasan Dalam Rumah Tangga
                             </option>
-                            <option value="Pasien Non Bedah">Pasien Non Bedah
+                            <option value="Kekerasan Terhadap Perempuan (>=18tahun)">Kekerasan Terhadap Perempuan (>=18tahun)
+                            </option>
+                             <option value="Kekerasan Terhadap Anak (< 18tahun)">Kekerasan Terhadap Anak (< 18tahun)
+                            </option>
+                            <option value="Kekerasan Lainya">Kekerasan Lainya
+                            </option>
+                            <option value="Non Bedah Lainya">Non Bedah Lainya
                             </option>
                             <option value="Kecelakaan Kerja">Kecelakaan Kerja
                             </option>
-                            <option value="Child Abuse (Kekerasan Anak)">Child Abuse (Kekerasan Anak)
+                            <option value="Kebidanan">Kebidanan
+                            </option>
+                             <option value="Psikiatrik">Psikiatrik
+                            </option>
+                             <option value="Bayi">Bayi
+                            </option>
+                             <option value="Anak">Anak
+                            </option>
+                             <option value="Geriatri">Geriatri
                             </option>
 
 
@@ -2361,7 +2379,7 @@
         </div>
     </div>
 </div>
-@elseif($assesdok[0]->status == 3)
+@elseif($assesdok[0]->status == 2)
 <h1>Data Sudah Tidak Bisa Diubah Karena sudah di Validasi</h1>
 <!-- igd umum dengan isi  -->
 @else
@@ -2438,16 +2456,34 @@
             <td>
                 <select class="form-control select2" name="trauma" id="trauma">
                     <option value=""> {{$assesdok[0]->trauma}}</option>
-                    <option value="Keecelakaan Lalu Lintas">Keecelakaan Lalu Lintas
-                    </option>
-                    <option value="Kekerasan Dalam Rumah Tangga">Kekerasan Dalam Rumah Tangga
-                    </option>
-                    <option value="Pasien Non Bedah">Pasien Non Bedah
-                    </option>
-                    <option value="Kecelakaan Kerja">Kecelakaan Kerja
-                    </option>
-                    <option value="Child Abuse (Kekerasan Anak)">Child Abuse (Kekerasan Anak)
-                    </option>
+                            <option value="Keecelakaan Lalu Lintas Darat">Keecelakaan Lalu Lintas Darat
+                            </option>
+                            <option value="Keecelakaan Lalu Lintas Perairan">Keecelakaan Lalu Lintas Perairan
+                            </option>
+                            <option value="Keecelakaan Lalu Lintas Udara">Keecelakaan Lalu Lintas Udara
+                            </option>
+                            <option value="Kekerasan Dalam Rumah Tangga">Kekerasan Dalam Rumah Tangga
+                            </option>
+                            <option value="Kekerasan Terhadap Perempuan (>=18tahun)">Kekerasan Terhadap Perempuan (>=18tahun)
+                            </option>
+                             <option value="Kekerasan Terhadap Anak (< 18tahun)">Kekerasan Terhadap Anak (< 18tahun)
+                            </option>
+                            <option value="Kekerasan Lainya">Kekerasan Lainya
+                            </option>
+                            <option value="Non Bedah Lainya">Non Bedah Lainya
+                            </option>
+                            <option value="Kecelakaan Kerja">Kecelakaan Kerja
+                            </option>
+                            <option value="Kebidanan">Kebidanan
+                            </option>
+                             <option value="Psikiatrik">Psikiatrik
+                            </option>
+                             <option value="Bayi">Bayi
+                            </option>
+                             <option value="Anak">Anak
+                            </option>
+                             <option value="Geriatri">Geriatri
+                            </option>
 
 
                 </select>

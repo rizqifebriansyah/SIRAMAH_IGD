@@ -64,62 +64,114 @@ class PerawatController extends Controller
 
 
         $now = Carbon::now()->format('Y-m-d');
+        $tgl_masuk_1 = date('Ymd', strtotime('+1 days', strtotime($now)));
+
+        $pasienigd = DB::select('SELECT 
+                e.diagnosa_kerja AS DIAGX,
+                a.no_rm,
+                "" AS nama_perawat,
+                IFNULL(d.nama_perawat1, IFNULL(d.nama_perawat,"")) AS nama_perawat1,
+                IFNULL(e.nama_paramedis2, IFNULL(e.nama_paramedis,"")) AS nama_paramedis,
+                fc_nama_px(a.no_rm) AS nama_px,
+                a.tgl_masuk,
+                fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,
+                a.kode_penjamin,
+                a.kode_kunjungan,
+                a.kelas,
+                a.kelas AS KELAS_UNIT,
+                a.counter,
+                b.jenis_kelamin
+
+            FROM ts_kunjungan a
+            INNER JOIN mt_pasien b ON b.no_rm = a.no_rm
+
+            -- FIX PERAWAT (optional tapi disarankan)
+            LEFT JOIN (
+                SELECT d1.*
+                FROM erm_cppt_perawat d1
+                INNER JOIN (
+                    SELECT kode_kunjungan, MAX(id) AS max_id
+                    FROM erm_cppt_perawat
+                    WHERE STATUS NOT IN (2,3)
+                    GROUP BY kode_kunjungan
+                ) d2 
+                ON d1.kode_kunjungan = d2.kode_kunjungan 
+                AND d1.id = d2.max_id
+            ) d ON d.kode_kunjungan = a.kode_kunjungan
+
+            -- FIX DOKTER (INI KUNCI)
+            LEFT JOIN (
+                SELECT e1.*
+                FROM erm_cppt_dokter e1
+                INNER JOIN (
+                    SELECT kode_kunjungan, MAX(id) AS max_id
+                    FROM erm_cppt_dokter
+                    GROUP BY kode_kunjungan
+                ) e2 
+                ON e1.kode_kunjungan = e2.kode_kunjungan 
+                AND e1.id = e2.max_id
+            ) e ON e.kode_kunjungan = a.kode_kunjungan
+
+            WHERE a.tgl_masuk >= ?
+            AND a.tgl_masuk < ?
+            AND a.status_kunjungan NOT IN (8,11)
+            AND a.kode_unit = ?', [$now, $tgl_masuk_1, $unit]);
         // $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','$unit','$now')");
         // $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','$unit','$now')");
 
-        $pasienigd = DB::select('SELECT DISTINCT
-        e.diagnosa_kerja AS DIAGX
-        ,a.no_rm
-        ,IFNULL(d.nama_perawat,"") AS nama_perawat
-        ,IFNULL(d.nama_perawat1,"") AS nama_perawat1
-        ,IFNULL(e.nama_paramedis,"") AS nama_paramedis
-        ,fc_nama_px(a.no_rm) AS nama_px
-        ,a.tgl_masuk
-        ,fc_NAMA_PARAMEDIS1(a.kode_paramedis) nama_dpjp
-        ,a.kode_penjamin
-        ,a.kode_kunjungan
-        ,a.kelas
-        ,a.kelas AS KELAS_UNIT
-        ,a.counter
-        ,b.jenis_kelamin
+        // $pasienigd = DB::select('SELECT DISTINCT
+        // e.diagnosa_kerja AS DIAGX
+        // ,a.no_rm
+        // ,IFNULL(d.nama_perawat,"") AS nama_perawat
+        // ,IFNULL(d.nama_perawat1,"") AS nama_perawat1
+        // ,IFNULL(e.nama_paramedis,"") AS nama_paramedis
+        // ,fc_nama_px(a.no_rm) AS nama_px
+        // ,a.tgl_masuk
+        // ,fc_NAMA_PARAMEDIS1(a.kode_paramedis) nama_dpjp
+        // ,a.kode_penjamin
+        // ,a.kode_kunjungan
+        // ,a.kelas
+        // ,a.kelas AS KELAS_UNIT
+        // ,a.counter
+        // ,b.jenis_kelamin
 
-        FROM ts_kunjungan a
-        INNER JOIN mt_pasien b ON b.no_rm = a.no_rm
-        LEFT OUTER JOIN di_pasien_diagnosa_frunit c ON c.kode_kunjungan = a.kode_kunjungan 
-        LEFT OUTER JOIN erm_cppt_perawat d ON d.kode_kunjungan = a.kode_kunjungan
-        LEFT OUTER JOIN	erm_cppt_dokter e ON e.kode_kunjungan = a.kode_kunjungan
-        where Date(a.tgl_masuk) = ?
-        AND a.status_kunjungan NOT IN (8,11)
-        and d.status NOT IN (2,3)
-        and a.kode_unit = ?
-        
-        
-        UNION
-        SELECT DISTINCT
-        e.diagnosa_kerja AS DIAGX
-        ,a.no_rm
-        ,IFNULL(d.nama_perawat,"") AS nama_perawat
-        ,IFNULL(d.nama_perawat1,"") AS nama_perawat1
+        // FROM ts_kunjungan a
+        // INNER JOIN mt_pasien b ON b.no_rm = a.no_rm
+        // LEFT OUTER JOIN di_pasien_diagnosa_frunit c ON c.kode_kunjungan = a.kode_kunjungan 
+        // LEFT OUTER JOIN erm_cppt_perawat d ON d.kode_kunjungan = a.kode_kunjungan
+        // LEFT OUTER JOIN	erm_cppt_dokter e ON e.kode_kunjungan = a.kode_kunjungan
+        // where Date(a.tgl_masuk) = ?
+        // AND a.status_kunjungan NOT IN (8,11)
+        // and d.status NOT IN (2,3)
+        // and a.kode_unit = ?
 
-        ,IFNULL(e.nama_paramedis,"") AS nama_paramedis
-        ,fc_nama_px(a.no_rm) AS nama_px
-        ,a.tgl_masuk
-        ,fc_NAMA_PARAMEDIS1(a.kode_paramedis) nama_dpjp
-        ,a.kode_penjamin
-        ,a.kode_kunjungan
-        ,a.kelas
-        ,a.kelas AS KELAS_UNIT
-        ,a.counter
-        ,b.jenis_kelamin
 
-        FROM ts_kunjungan a
-        INNER JOIN mt_pasien b ON b.no_rm = a.no_rm
-        LEFT OUTER JOIN di_pasien_diagnosa_frunit c ON c.kode_kunjungan = a.kode_kunjungan 
-        LEFT OUTER JOIN erm_cppt_perawat d ON d.kode_kunjungan = a.kode_kunjungan
-        LEFT OUTER JOIN	erm_cppt_dokter e ON e.kode_kunjungan = a.kode_kunjungan
-        where Date(a.tgl_masuk) = ?
-        and a.status_kunjungan NOT IN (8,11)
-        and a.kode_unit = ?', [$now, $unit,$now, $unit]);
+        // UNION
+        // SELECT DISTINCT
+        // e.diagnosa_kerja AS DIAGX
+        // ,a.no_rm
+        // ,IFNULL(d.nama_perawat,"") AS nama_perawat
+        // ,IFNULL(d.nama_perawat1,"") AS nama_perawat1
+
+        // ,IFNULL(e.nama_paramedis,"") AS nama_paramedis
+        // ,fc_nama_px(a.no_rm) AS nama_px
+        // ,a.tgl_masuk
+        // ,fc_NAMA_PARAMEDIS1(a.kode_paramedis) nama_dpjp
+        // ,a.kode_penjamin
+        // ,a.kode_kunjungan
+        // ,a.kelas
+        // ,a.kelas AS KELAS_UNIT
+        // ,a.counter
+        // ,b.jenis_kelamin
+
+        // FROM ts_kunjungan a
+        // INNER JOIN mt_pasien b ON b.no_rm = a.no_rm
+        // LEFT OUTER JOIN di_pasien_diagnosa_frunit c ON c.kode_kunjungan = a.kode_kunjungan 
+        // LEFT OUTER JOIN erm_cppt_perawat d ON d.kode_kunjungan = a.kode_kunjungan
+        // LEFT OUTER JOIN	erm_cppt_dokter e ON e.kode_kunjungan = a.kode_kunjungan
+        // where Date(a.tgl_masuk) = ?
+        // and a.status_kunjungan NOT IN (8,11)
+        // and a.kode_unit = ?', [$now, $unit, $now, $unit]);
 
         // if ($pasienigd == null) {
 
@@ -943,62 +995,113 @@ class PerawatController extends Controller
     {
         $tgl = $request->tglkunjungan;
         $unit = auth()->user()->unit;
+        $tgl_masuk_1 = date('Ymd', strtotime('+1 days', strtotime($tgl)));
 
+        $pasienigd = DB::select('SELECT 
+                e.diagnosa_kerja AS DIAGX,
+                a.no_rm,
+                "" AS nama_perawat,
+                IFNULL(d.nama_perawat1, IFNULL(d.nama_perawat,"")) AS nama_perawat1,
+                IFNULL(e.nama_paramedis2, IFNULL(e.nama_paramedis,"")) AS nama_paramedis,
+                fc_nama_px(a.no_rm) AS nama_px,
+                a.tgl_masuk,
+                fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,
+                a.kode_penjamin,
+                a.kode_kunjungan,
+                a.kelas,
+                a.kelas AS KELAS_UNIT,
+                a.counter,
+                b.jenis_kelamin
+
+            FROM ts_kunjungan a
+            INNER JOIN mt_pasien b ON b.no_rm = a.no_rm
+
+            -- FIX PERAWAT (optional tapi disarankan)
+            LEFT JOIN (
+                SELECT d1.*
+                FROM erm_cppt_perawat d1
+                INNER JOIN (
+                    SELECT kode_kunjungan, MAX(id) AS max_id
+                    FROM erm_cppt_perawat
+                    WHERE STATUS NOT IN (2,3)
+                    GROUP BY kode_kunjungan
+                ) d2 
+                ON d1.kode_kunjungan = d2.kode_kunjungan 
+                AND d1.id = d2.max_id
+            ) d ON d.kode_kunjungan = a.kode_kunjungan
+
+            -- FIX DOKTER (INI KUNCI)
+            LEFT JOIN (
+                SELECT e1.*
+                FROM erm_cppt_dokter e1
+                INNER JOIN (
+                    SELECT kode_kunjungan, MAX(id) AS max_id
+                    FROM erm_cppt_dokter
+                    GROUP BY kode_kunjungan
+                ) e2 
+                ON e1.kode_kunjungan = e2.kode_kunjungan 
+                AND e1.id = e2.max_id
+            ) e ON e.kode_kunjungan = a.kode_kunjungan
+
+            WHERE a.tgl_masuk >= ?
+            AND a.tgl_masuk < ?
+            AND a.status_kunjungan NOT IN (8,11)
+            AND a.kode_unit = ?', [$tgl, $tgl_masuk_1, $unit]);
         // $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','$unit','$tgl')");
         // $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$tgl')");
- $pasienigd = DB::select('SELECT DISTINCT
-        e.diagnosa_kerja AS DIAGX
-        ,a.no_rm
-        ,IFNULL(d.nama_perawat,"") AS nama_perawat
-        ,IFNULL(d.nama_perawat1,"") AS nama_perawat1
-        ,IFNULL(e.nama_paramedis,"") AS nama_paramedis
-        ,fc_nama_px(a.no_rm) AS nama_px
-        ,a.tgl_masuk
-        ,fc_NAMA_PARAMEDIS1(a.kode_paramedis) nama_dpjp
-        ,a.kode_penjamin
-        ,a.kode_kunjungan
-        ,a.kelas
-        ,a.kelas AS KELAS_UNIT
-        ,a.counter
-        ,b.jenis_kelamin
+        // $pasienigd = DB::select('SELECT DISTINCT
+        // e.diagnosa_kerja AS DIAGX
+        // ,a.no_rm
+        // ,IFNULL(d.nama_perawat,"") AS nama_perawat
+        // ,IFNULL(d.nama_perawat1,"") AS nama_perawat1
+        // ,IFNULL(e.nama_paramedis,"") AS nama_paramedis
+        // ,fc_nama_px(a.no_rm) AS nama_px
+        // ,a.tgl_masuk
+        // ,fc_NAMA_PARAMEDIS1(a.kode_paramedis) nama_dpjp
+        // ,a.kode_penjamin
+        // ,a.kode_kunjungan
+        // ,a.kelas
+        // ,a.kelas AS KELAS_UNIT
+        // ,a.counter
+        // ,b.jenis_kelamin
 
-        FROM ts_kunjungan a
-        INNER JOIN mt_pasien b ON b.no_rm = a.no_rm
-        LEFT OUTER JOIN di_pasien_diagnosa_frunit c ON c.kode_kunjungan = a.kode_kunjungan 
-        LEFT OUTER JOIN erm_cppt_perawat d ON d.kode_kunjungan = a.kode_kunjungan
-        LEFT OUTER JOIN	erm_cppt_dokter e ON e.kode_kunjungan = a.kode_kunjungan
-        where Date(a.tgl_masuk) = ?
-        AND a.status_kunjungan NOT IN (8,11)
-        and d.status NOT IN (2,3)
-        and a.kode_unit = ?
-        
-        
-        UNION
-        SELECT DISTINCT
-        e.diagnosa_kerja AS DIAGX
-        ,a.no_rm
-        ,IFNULL(d.nama_perawat,"") AS nama_perawat
-        ,IFNULL(d.nama_perawat1,"") AS nama_perawat1
+        // FROM ts_kunjungan a
+        // INNER JOIN mt_pasien b ON b.no_rm = a.no_rm
+        // LEFT OUTER JOIN di_pasien_diagnosa_frunit c ON c.kode_kunjungan = a.kode_kunjungan 
+        // LEFT OUTER JOIN erm_cppt_perawat d ON d.kode_kunjungan = a.kode_kunjungan
+        // LEFT OUTER JOIN	erm_cppt_dokter e ON e.kode_kunjungan = a.kode_kunjungan
+        // where Date(a.tgl_masuk) = ?
+        // AND a.status_kunjungan NOT IN (8,11)
+        // and d.status NOT IN (2,3)
+        // and a.kode_unit = ?
 
-        ,IFNULL(e.nama_paramedis,"") AS nama_paramedis
-        ,fc_nama_px(a.no_rm) AS nama_px
-        ,a.tgl_masuk
-        ,fc_NAMA_PARAMEDIS1(a.kode_paramedis) nama_dpjp
-        ,a.kode_penjamin
-        ,a.kode_kunjungan
-        ,a.kelas
-        ,a.kelas AS KELAS_UNIT
-        ,a.counter
-        ,b.jenis_kelamin
 
-        FROM ts_kunjungan a
-        INNER JOIN mt_pasien b ON b.no_rm = a.no_rm
-        LEFT OUTER JOIN di_pasien_diagnosa_frunit c ON c.kode_kunjungan = a.kode_kunjungan 
-        LEFT OUTER JOIN erm_cppt_perawat d ON d.kode_kunjungan = a.kode_kunjungan
-        LEFT OUTER JOIN	erm_cppt_dokter e ON e.kode_kunjungan = a.kode_kunjungan
-        where Date(a.tgl_masuk) = ?
-        and a.status_kunjungan NOT IN (8,11)
-        and a.kode_unit = ?', [$tgl, $unit,$tgl, $unit]);
+        // UNION
+        // SELECT DISTINCT
+        // e.diagnosa_kerja AS DIAGX
+        // ,a.no_rm
+        // ,IFNULL(d.nama_perawat,"") AS nama_perawat
+        // ,IFNULL(d.nama_perawat1,"") AS nama_perawat1
+
+        // ,IFNULL(e.nama_paramedis,"") AS nama_paramedis
+        // ,fc_nama_px(a.no_rm) AS nama_px
+        // ,a.tgl_masuk
+        // ,fc_NAMA_PARAMEDIS1(a.kode_paramedis) nama_dpjp
+        // ,a.kode_penjamin
+        // ,a.kode_kunjungan
+        // ,a.kelas
+        // ,a.kelas AS KELAS_UNIT
+        // ,a.counter
+        // ,b.jenis_kelamin
+
+        // FROM ts_kunjungan a
+        // INNER JOIN mt_pasien b ON b.no_rm = a.no_rm
+        // LEFT OUTER JOIN di_pasien_diagnosa_frunit c ON c.kode_kunjungan = a.kode_kunjungan 
+        // LEFT OUTER JOIN erm_cppt_perawat d ON d.kode_kunjungan = a.kode_kunjungan
+        // LEFT OUTER JOIN	erm_cppt_dokter e ON e.kode_kunjungan = a.kode_kunjungan
+        // where Date(a.tgl_masuk) = ?
+        // and a.status_kunjungan NOT IN (8,11)
+        // and a.kode_unit = ?', [$tgl, $unit, $tgl, $unit]);
         // $pasienigd = DB::select('SELECT DISTINCT
         // e.diagnosa_kerja AS DIAGX
         // ,a.no_rm
@@ -2160,7 +2263,7 @@ class PerawatController extends Controller
                     'tindakan_keperawatan' => $arr['tindakankeperawatan'],
                     'waktu_tindakan' => $arr['waktu'],
                     'tgl_input' => $now,
-                    'status' => 2
+                    'status' => 1
 
                 ];
                 $tindakanperawat = erm_tindakan_keperawatan::create($savedetail);
