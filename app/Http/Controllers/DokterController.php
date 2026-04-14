@@ -6850,112 +6850,73 @@ AND b.kelas_tarif = 1');
             $pdf::SetXY(20, 57);
             $pdf::MultiCell(198, 5, $assesdok[0]->primary_survey);
 
-            $pdf::Rect(10, 92, 188, 33);
+            // $pdf::Rect(10, 92, 188, 33);
             $pdf::SetFont('Times', '', 10);
             $pdf::SetXY(9, 87);
             $pdf::Cell(40, 5, '2. Secondary Survey (Pemeriksaan Head to Toe, Tanda-tanda Vital, Riwayat)');
-            $pdf::SetXY(10, 92);
-            $pdf::Cell(40, 10, 'Pemeriksaan Fisik :');
-            $pdf::SetXY(37, 95);
-            $pdf::MultiCell(198, 3.5, $assesdok[0]->secondary_survey);
+            $pdf::ln();
+            $pdf::setFillColor(255, 255, 255);
+
+            $pdf::MultiCell(188, 5, 'Pemeriksaan Fisik : ' . $assesdok[0]->secondary_survey, 1, 0,  true);
+            $text = "Tanda - tanda Vital\n";
+            $text .= "TD : " . $ttv[0]->tekanan_darah . " mmHg" . "   Nadi : " . $ttv[0]->frekuensi_nadi . " x/menit" . "   Frekuensi Pernafasan : " . $ttv[0]->frekuensi_nafas . " x/menit" . "   Suhu : " . $ttv[0]->suhu . " °C";
+
+
+
+            $pdf::MultiCell(188, 5, $text, 1, "L", true);
+
+
+            // $pdf::SetXY(37, 95);
+            // $pdf::MultiCell(198, 3.5, $assesdok[0]->secondary_survey);
             //ttv skrining
-            $pdf::Rect(10, 125, 188, 13);
+
+
             $pdf::SetFont('Times', '', 10);
 
-            $pdf::SetXY(10, 123);
-            $pdf::Cell(40, 10, 'Tanda - tanda Vital');
-            $pdf::SetXY(10, 128);
-            $pdf::Cell(40, 10, 'TD : ' . $ttv[0]->tekanan_darah . ' mmHg');
-            $pdf::SetXY(45, 128);
-            $pdf::Cell(40, 10, 'Nadi : ' . $ttv[0]->frekuensi_nadi . ' x/menit');
-            $pdf::SetXY(75, 128);
-            $pdf::Cell(40, 10, 'Frekuensi Pernafasan : ' . $ttv[0]->frekuensi_nafas . ' x/menit');
+            $pdf::Cell(188, 5, 'Saturasi Oksigen : ', 1, true);
 
-            $pdf::SetXY(130, 128);
-            $pdf::Cell(40, 10, 'Suhu : ' . $ttv[0]->suhu . ' °C');
-
-            $pdf::Rect(10, 138, 188, 7);
             $pdf::SetFont('Times', '', 10);
 
-            $pdf::SetXY(10, 136);
-            $pdf::Cell(40, 10, 'Saturasi Oksigen : ');
+            $pdf::Cell(188, 5, 'Riwayat Penyakit / Pengobatan Sebelumnya : ' . $riwayatpenyakit, 1, true);
 
-            $pdf::Rect(10, 145, 188, 15);
+
+
+            $pdf::Cell(188, 5, 'Klasifikasi Pasien : IGD', 0, true);
+
+            $pdf::Cell(188, 5, 'Triase(ATS : Australian Triage Scale) : ' . $triase[0]->pemeriksaan_triase, 0, true);
+
+            $pdf::Cell(40, 5, 'Pemeriksaan Penunjang : ');
+
+            // LAB
+            checkbox($pdf, $assesper[0]->kolaborasi_2 != NULL);
+
             $pdf::SetFont('Times', '', 10);
+            $pdf::Cell(13, 5, 'LAB');
 
-            $pdf::SetXY(10, 145);
-            $pdf::Cell(198, 10, 'Riwayat Penyakit / Pengobatan Sebelumnya : ');
+            // EKG
+            checkbox($pdf, $assesper[0]->kolaborasi_3 != NULL);
 
-            $pdf::SetXY(10, 150);
-            $pdf::Cell(198, 10, $riwayatpenyakit);
+            $pdf::SetFont('Times', '', 10);
+            $pdf::Cell(13, 5, 'EKG');
 
-            $pdf::SetXY(10, 160);
-            $pdf::Cell(198, 10, 'Klasifikasi Pasien : IGD');
+            // Radiologi
+            checkbox($pdf, $riwayatorderrad != NULL);
 
-            $pdf::SetXY(10, 165);
-            $pdf::Cell(198, 10, 'Triase(ATS : Australian Triage Scale) : ' . $triase[0]->pemeriksaan_triase);
+            $pdf::SetFont('Times', '', 10);
+            $pdf::Cell(100, 5, 'Radiologi');
+            $pdf::ln();
+            $pdf::Cell(188, 5, 'Tindak Lanjut : ', 0, true);
 
-            $pdf::SetXY(10, 170);
-            $pdf::Cell(198, 10, 'Pemeriksaan Penunjang : ');
+            $pdf::Cell(188, 5, 'Sumber Informasi : ' . $assesper[0]->sumber_data, 0, true);
 
-            if ($assesper[0]->kolaborasi_2 == NULL) {
-                $pdf::SetXY(50, 174);
 
-                checkbox($pdf, false);
-                $pdf::SetFont('Times', '', 10);
-                $pdf::SetXY(53, 173);
-                $pdf::Cell(55, 5, 'LAB');
-            } else {
-                $pdf::SetXY(50, 174);
-                checkbox($pdf, True);
-
-                $pdf::SetFont('Times', '', 10);
-                $pdf::SetXY(53, 173);
-                $pdf::Cell(55, 5, 'LAB');
-            }
-
-            if ($assesper[0]->kolaborasi_3 == NULL) {
-                $pdf::SetXY(70, 174);
-
-                checkbox($pdf, false);
-                $pdf::SetFont('Times', '', 10);
-                $pdf::SetXY(72, 173);
-                $pdf::Cell(55, 5, 'EKG');
-            } else {
-                $pdf::SetXY(70, 174);
-                checkbox($pdf, True);
-
-                $pdf::SetFont('Times', '', 10);
-                $pdf::SetXY(72, 173);
-                $pdf::Cell(55, 5, 'EKG');
-            }
-            if ($riwayatorderrad == NULL) {
-                $pdf::SetXY(90, 174);
-
-                checkbox($pdf, false);
-                $pdf::SetFont('Times', '', 10);
-                $pdf::SetXY(92, 173);
-                $pdf::Cell(55, 5, 'Radiologi');
-            } else {
-                $pdf::SetXY(90, 174);
-                checkbox($pdf, True);
-
-                $pdf::SetFont('Times', '', 10);
-                $pdf::SetXY(92, 173);
-                $pdf::Cell(55, 5, 'Radiologi');
-            }
-            $pdf::SetXY(10, 174);
-            $pdf::Cell(198, 10, 'Tindak Lanjut : ');
-
-            $pdf::SetXY(10, 178);
-            $pdf::Cell(198, 10, 'Sumber Informasi : ');
             //kotak TTD
             $pdf::SetXY(148, 180);
-            $pdf::Cell(40, 10, 'Waled, ' . $nowwww);
+            $pdf::Cell(40, 5, 'Waled, ' . $nowwww);
             $pdf::SetXY(150, 185);
-            $pdf::Cell(40, 10, 'Petugas Skrining ');
-            $pdf::SetXY(150, 205);
-            $pdf::Cell(40, 10, '(' . $kunjungan[0]->dokter . ')');
+            $pdf::Cell(40, 5, 'Petugas Skrining ');
+            $pdf::ln();
+            $pdf::Cell(173, 40, '(' . $kunjungan[0]->dokter . ')', 0, "R", true);
         }
 
         //triase awal
@@ -7034,7 +6995,7 @@ AND b.kelas_tarif = 1');
             if ($triase[0]->jenis_triase == 'dewasa') {
 
                 //kategori triase
-                $pdf::Rect(8, 33, 198, 5);
+                $pdf::Rect(8, 34, 198, 4);
                 $pdf::SetFont('Times', 'B', 10);
                 $pdf::SetXY(9, 31);
                 $pdf::Cell(40, 10, 'KATEGORI TRIASE :');
@@ -10018,7 +9979,7 @@ AND b.kelas_tarif = 1');
                 // $pdf::Image($triase[0]->penandaan_gambar, 12, 195, 80, 40);
                 // $pdf::Image($tmpFilename, null, null, 0, 0);
 
-                $pdf::Image($tmpFilename, 12, 44, 70, 40, 'PNG');
+                $pdf::Image($tmpFilename, 12, 44, 150, 80, 'PNG');
                 // $pdf::SetXY(10, 186);
 
                 // $pdf::Cell(40, 10, $triase[0]->penandaan_gambar);
@@ -10258,51 +10219,49 @@ AND b.kelas_tarif = 1');
             $pdf::MultiCell(190, 10, 'Tata Laksana : ');
         } else {
             ///keluhan utama triase
-            $pdf::Rect(8, 108, 198, 10);
-            $pdf::SetXY(10, 107);
-            $pdf::MultiCell(190, 10, 'Keluhan Utama : ' . $triase[0]->keluhan_utama);
+            $pdf::setFillColor(255, 255, 255);
+
+            $pdf::SetXY(8, 108);
+            $pdf::Multicell(198, 10, 'Keluhan Utama : ' . $triase[0]->keluhan_utama, 1, 0, 'L', true);
 
             ///Diagnosa utama triase
-            $pdf::Rect(8, 118, 198, 35);
-            $pdf::SetXY(10, 120);
-            $pdf::MultiCell(190, 5, 'Pemeriksaan fisik (temuan signifikan) : ');
-            $pdf::SetXY(70, 120);
+            $pdf::SetX(8);
 
-            $pdf::MultiCell(190, 5, $triase[0]->pemeriksaan_fisik);
+            $pdf::MultiCell(198, 5, 'Pemeriksaan fisik (temuan signifikan) : ' . $triase[0]->pemeriksaan_fisik, 1, 0, 'L', true);
+
 
 
             ///Tatalaksana triase
-            $pdf::Rect(8, 153, 198, 10);
-            $pdf::SetXY(10, 153.5);
-            $pdf::MultiCell(190, 10, 'Diagnosa Triase : ' . $triase[0]->diagnosa_triase);
+            $pdf::SetX(8);
+
+            $pdf::MultiCell(198, 10, 'Diagnosa Triase : ' . $triase[0]->diagnosa_triase, 1, 0, 'L', true);
             ///Tindak Lanjut triase
-            $pdf::Rect(8, 163, 198, 45);
-            $pdf::SetXY(10, 165.5);
-            $pdf::MultiCell(190, 5, 'Tata Laksana : ' );
-            $pdf::SetXY(35, 165.5);
-            $pdf::MultiCell(190, 5, $triase[0]->tata_laksana);
+            $pdf::SetX(8);
+            $pdf::MultiCell(198, 5, 'Tata Laksana : ' . $triase[0]->tata_laksana, 1, 0, 'L', true);
+            $pdf::SetX(8);
+
+            $pdf::MultiCell(198, 5, 'Tindak Lanjut : ', 1, 0, 'L', true);
 
 
 
             ///Cara Keluar Fari IGD triase
-            $pdf::Rect(8, 208, 99, 10);
-            $pdf::SetXY(10, 208.5);
-            $pdf::MultiCell(190, 10, 'Cara Keluar dari Instalasi Gawat Darurat : ');
+            $pdf::SetX(8);
+            $pdf::Cell(99, 5, 'Cara Keluar dari Instalasi Gawat Darurat : ', 1, 0, 'L', true);
 
             ///Keadaan Keluar Fari IGD triase
-            // $pdf::Rect(107, 153, 99, 10);
-            // $pdf::SetXY(107, 153.5);
-            // $pdf::MultiCell(190, 10, 'Keadaan pada saat keluar  : ' . $assesdok[0]->keadaan_pulang);
+            $pdf::Cell(99, 5, 'Keadaan pada saat keluar  : ' . $assesdok[0]->keadaan_pulang, 1, 0, 'L', true);
+            $pdf::ln();
 
 
             //kotak TTD
-            //     $pdf::Rect(8, 163, 198, 30);
-            //     $pdf::SetXY(10, 163);
-            //     $pdf::Cell(40, 10, 'Pasien keluar dari triage, tanggal ' . $tgltriase . ' Jam : ' . $jamtriase . ' WIB');
-            //     $pdf::SetXY(163, 163);
-            //     $pdf::Cell(40, 10, 'Dokter Triage');
-            //     $pdf::SetXY(157, 185);
-            //     $pdf::Cell(40, 10, '(' . $kunjungan[0]->dokter . ')');
+            $pdf::SetX(10);
+            $pdf::Cell(40, 5, 'Pasien keluar dari triage, tanggal ' . $tgltriase . ' Jam : ' . $jamtriase . ' WIB');
+            $pdf::SetX(163);
+            $pdf::Cell(40, 5, 'Dokter Triage');
+            $pdf::ln();
+
+            $pdf::SetX(8);
+            $pdf::Cell(185, 40, '(' . $kunjungan[0]->dokter . ')', 0, 0, 'R', true);
         }
         //assesmen awal medis
         $pdf::AddPage('P', 'letter');
