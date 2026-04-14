@@ -3,1116 +3,1242 @@
         <h3 class="card-title">Rencana Pemulangan Pasien</h3>
     </div>
     <div class="card-body">
-        <form action="" class="formrencanapulang">
-            @if ($rencanaplg == null) 
 
-            <div class="row">
-                <div class="col-md-6">
-                    <table class="table">
-                        <tbody>
+        @if ($rencanaplg == null)
 
-                            <tr>
-                                <td class="text-bold font-italic">Usia lanjut (60 tahun atau lebih)</td>
-                                <td>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="usialanjut" id="usialanjut" value="Ya">
-                                        <label class="form-check-label">Ya</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="usialanjut" id="usialanjut" value="Tidak">
-                                        <label class="form-check-label">Tidak</label>
-                                    </div>
-                                </td>
-                            </tr>
+        <div class="row">
+            <div class="col-md-6">
+                <table class="table">
+                    <tbody>
 
-                            <tr>
-                                <td class="text-bold font-italic">Hambatan Mobilisasi</td>
-                                <td>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="hambatan" id="hambatan" value="Ya">
-                                        <label class="form-check-label">Ya</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="hambatan" id="hambatan" value="Tidak">
-                                        <label class="form-check-label">Tidak</label>
-                                    </div>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td class="text-bold font-italic">Usia lanjut (60 tahun atau lebih)</td>
+                            <td>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="usialanjut" id="usialanjut" value="Ya">
+                                    <label class="form-check-label">Ya</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="usialanjut" id="usialanjut" value="Tidak">
+                                    <label class="form-check-label">Tidak</label>
+                                </div>
+                            </td>
+                        </tr>
 
-                            <tr>
-                                <td class="text-bold font-italic">Membutuhkan pelayanan medis dan perawatan
-                                    berkelanjutan
-                                </td>
-                                <td>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="medis" id="medis" value="Ya">
-                                        <label class="form-check-label">Ya</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="medis" id="medis" value="Tidak">
-                                        <label class="form-check-label">Tidak</label>
-                                    </div>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td class="text-bold font-italic">Hambatan Mobilisasi</td>
+                            <td>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="hambatan" id="hambatan" value="Ya">
+                                    <label class="form-check-label">Ya</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="hambatan" id="hambatan" value="Tidak">
+                                    <label class="form-check-label">Tidak</label>
+                                </div>
+                            </td>
+                        </tr>
 
-                            <tr>
-                                <td class="text-bold font-italic">Tergantung dengan orang lain dalam aktifitas harian
-                                </td>
-                                <td>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="harian" id="harian" value="Ya">
-                                        <label class="form-check-label">Ya</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="harian" id="harian" value="Tidak">
-                                        <label class="form-check-label">Tidak</label>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="col-md-6">
-                    <h4><br><br><br>jika satu ya saja terpenuhi, <br>
-                        berarti pasien membutuhkan perencanaan <br> pulang khusus</h4>
-                </div>
-                {{-- transportasi --}}
+                        <tr>
+                            <td class="text-bold font-italic">Membutuhkan pelayanan medis dan perawatan
+                                berkelanjutan
+                            </td>
+                            <td>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="medis" id="medis" value="Ya">
+                                    <label class="form-check-label">Ya</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="medis" id="medis" value="Tidak">
+                                    <label class="form-check-label">Tidak</label>
+                                </div>
+                            </td>
+                        </tr>
 
-                <div class="col-md-6">
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <td class="text-bold font-italic">Transportasi Pulang</td>
-                                <td>
-                                    <!-- <textarea class="form-control" id="transportasi" name="transportasi" placeholder="Ketik Kendaraan ..."></textarea> -->
-                                    <div class="row">
-                                        <div class="col-3">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="transportasi" id="transportasi" value="Mobil">
-                                                <label class="form-check-label">Mobil</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-3">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="transportasi" id="transportasi" value="Becak">
-                                                <label class="form-check-label">Becak</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-3">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="transportasi" id="transportasi" value="Cator">
-                                                <label class="form-check-label">Cator</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-3">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="transportasi" id="transportasi" value="Motor">
-                                                <label class="form-check-label">Motor</label>
-                                            </div>
+                        <tr>
+                            <td class="text-bold font-italic">Tergantung dengan orang lain dalam aktifitas harian
+                            </td>
+                            <td>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="harian" id="harian" value="Ya">
+                                    <label class="form-check-label">Ya</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="harian" id="harian" value="Tidak">
+                                    <label class="form-check-label">Tidak</label>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <h4><br><br><br>jika satu ya saja terpenuhi, <br>
+                    berarti pasien membutuhkan perencanaan <br> pulang khusus</h4>
+            </div>
+            {{-- transportasi --}}
+
+            <div class="col-md-6">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td class="text-bold font-italic">Transportasi Pulang</td>
+                            <td>
+                                <!-- <textarea class="form-control" id="transportasi" name="transportasi" placeholder="Ketik Kendaraan ..."></textarea> -->
+                                <div class="row">
+                                    <div class="col-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="transportasi" id="transportasi" value="Mobil">
+                                            <label class="form-check-label">Mobil</label>
                                         </div>
                                     </div>
-
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                {{-- oreang yang mendampingi  --}}
-
-                <div class="col-md-6">
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <td class="text-bold font-italic">Orang yang mendampingi dan merawat pasien di rumah
-                                </td>
-                                <td>
-                                    <textarea class="form-control" id="pendamping" name="pendamping" placeholder="Ketik pendamping ..."></textarea>
-
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                {{-- diet khusus  --}}
-
-                <div class="col-md-12">
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <td class="text-bold font-italic">Diet Khusus : </td>
-
-                            </tr>
-                            <tr>
-                                <td>
-                                    <textarea class="form-control" id="diet" name="diet" placeholder="Ketik Diet ..."></textarea>
-
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-
-                </div>
-                {{-- perawatan medis di rumah  --}}
-
-                <div class="col-md-6">
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <td class="text-bold font-italic">Perawatan / peralatan medis yang dilanjutkan di rumah
-                                    : </td>
-
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="peralatan1" id="peralatan1" value="Oksigen Portable">
-                                        <label class="form-check-label">Oksigen Portable</label>
+                                    <div class="col-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="transportasi" id="transportasi" value="Becak">
+                                            <label class="form-check-label">Becak</label>
+                                        </div>
                                     </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="peralatan2" id="peralatan2" value="Tracheostomi">
-                                        <label class="form-check-label">Tracheostomi</label>
+                                    <div class="col-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="transportasi" id="transportasi" value="Cator">
+                                            <label class="form-check-label">Cator</label>
+                                        </div>
                                     </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="peralatan3" id="peralatan3" value="Dower-Kateter">
-                                        <label class="form-check-label">Dower-Kateter</label>
+                                    <div class="col-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="transportasi" id="transportasi" value="Motor">
+                                            <label class="form-check-label">Motor</label>
+                                        </div>
                                     </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="peralatan4" id="peralatan4" value="NGT">
-                                        <label class="form-check-label">NGT</label>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                {{-- alat bantu --}}
+                                </div>
 
-                <div class="col-md-6">
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <td class="text-bold font-italic">Alat bantu yang dipakai di rumah : </td>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            {{-- oreang yang mendampingi  --}}
 
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="alatbantu1" id="alatbantu1" value="Kursi Roda">
-                                        <label class="form-check-label">Kursi Roda</label>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="alatbantu2" id="alatbantu2" value="Tongkat">
-                                        <label class="form-check-label">Tongkat</label>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label class="form-check-label">Lainya</label>
+            <div class="col-md-6">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td class="text-bold font-italic">Orang yang mendampingi dan merawat pasien di rumah
+                            </td>
+                            <td>
+                                <textarea class="form-control" id="pendamping" name="pendamping" placeholder="Ketik pendamping ..."></textarea>
 
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="text" name="alatbantu" id="alatbantu" value="">
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                {{-- pendidikan kesehatan  --}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            {{-- obat pulang  --}}
 
-                <div class="col-md-12">
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <td class="text-bold font-italic">Pendidikan Kesehatan Untuk di rumah : </td>
+            <div class="col-md-12">
 
-                            </tr>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td class="text-bold font-italic">Pengobatan yang di lanjutkan di rumah : </td>
 
-                        </tbody>
-                    </table>
-                </div>
-                <div class="col-md-4">
-                    <table class="table">
-                        <tbody>
+                        </tr>
+                        <tr>
+                            <td>
+                                <form id="dynamic-form" class="formobatplg">
+                                    <h5>Klik Tombol Tambah untuk menambahkan obat pulang</h5>
 
-                            <tr>
-                                <td>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="pendidikan1" id="pendidikan1" value="Balutan jangan basah / kotor">
-                                        <label class="form-check-label">Balutan jangan basah / kotor</label>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="pendidikan2" id="pendidikan2" value="Hindari mengangkat beban berat">
-                                        <label class="form-check-label">Hindari mengangkat beban berat</label>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="pendidikan3" id="pendidikan3" value="Jangan mengendarai kendaraan sendiri / menyupir">
-                                        <label class="form-check-label">Jangan mengendarai kendaraan sendiri /
-                                            menyupir</label>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="pendidikan4" id="pendidikan4" value="Cek Laboratorium sebelum kontrol">
-                                        <label class="form-check-label">Cek Laboratorium sebelum kontrol</label>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label class="form-check-label">Lainya</label>
-
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="text" name="pendidikan" id="pendidikan" value="">
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="col-md-8">
-                    <table class="table">
-                        <tbody>
-
-                            <tr>
-                                <td>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="pendidikan5" id="pendidikan5" value="Jangan menaiki tangga lebih dari dua atau tiga kali sehari">
-                                        <label class="form-check-label">Jangan menaiki tangga lebih dari dua atau tiga
-                                            kali sehari</label>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="pendidikan6" id="pendidikan6" value="Batasi pekerjaan rumah tangga dan kegiatan sosial melakukan aktifitas secara bertahap sampai kesehatan pulih kembali">
-                                        <label class="form-check-label">Batasi pekerjaan rumah tangga dan kegiatan
-                                            sosial melakukan aktifitas secara bertahap sampai kesehatan pulih
-                                            kembali</label>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="pendidikan7" id="pendidikan7" value="Jika muncul keluhan nyeri / rasa sakit tidak berkurang dengan obat anda atau menjadi lebih, segera datang ke RS">
-                                        <label class="form-check-label">Jika muncul keluhan nyeri / rasa sakit tidak
-                                            berkurang dengan obat anda atau menjadi lebih, segera datang ke RS</label>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="pendidikan8" id="pendidikan8" value="Perlu perawatan lanjutan ke puskesmas / Rumah Sakit terdekat">
-                                        <label class="form-check-label">Perlu perawatan lanjutan ke puskesmas / Rumah
-                                            Sakit terdekat</label>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label class="form-check-label">Lainya</label>
-
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="text" name="pendidikan" id="pendidikan" value="">
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                {{-- di berikan kepada pasien / keluarga --}}
-
-                <div class="col-md-6" style="margin-top:15px;">
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <td class="text-bold font-italic">Diberikan obat kepada pasien / keluarga
-                                    : </td>
-
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="diberikan1" id="diberikan1" value="obat-obatan">
-                                        <label class="form-check-label">obat-obatan</label>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="diberikan2" id="diberikan2" value="Peralatan / barang pribadi">
-                                        <label class="form-check-label">Peralatan / barang pribadi</label>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="diberikan3" id="diberikan3" value="hasil pemeriksaan penunjang">
-                                        <label class="form-check-label">hasil pemeriksaan penunjang</label>
-                                    </div>
-                                    <br>
-                                    <div class="form-check" style="margin-left: 15px">
-                                        <input class="form-check-input" type="checkbox" name="diberikan4" id="diberikan4" value="Laboratorium">
-                                        <label class="form-check-label">Laboratorium</label>
-                                    </div>
-                                    <br>
-                                    <div class="form-check" style="margin-left: 15px">
-                                        <input class="form-check-input" type="checkbox" name="diberikan5" id="diberikan5" value="Radiologi">
-                                        <label class="form-check-label">Radiologi</label>
-                                    </div>
-                                    <br>
-                                    <div class="form-check" style="margin-left: 15px">
-                                        <input class="form-check-input" type="checkbox" name="diberikan6" id="diberikan6" value="EKG">
-                                        <label class="form-check-label">EKG</label>
-                                    </div>
-                                </td>
-
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label class="form-check-label">Lainya</label>
-
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="text" name="diberikan" id="diberikan" value="">
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                {{-- alat bantu --}}
-
-                <div class="col-md-6" style="margin-top:15px;">
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <td class="text-bold font-italic">Jadwal Kontrol berikutnya : </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label for="">Poliklinik :</label>
-                                    <select class="form-control select2" name="poli" id="poli">
-                                        <option value=""> Pilih Poli</option>
-                                        @foreach($poli as $po )
-                                        <option value="{{$po->kode_unit}}"> {{$po->nama_unit}}</option>
+                                    <div class="field_wrapperrr">
+                                        <div class="row mt-2">
 
 
-                                        @endforeach
+                                            <div class="col-md-2">
+                                                <a class="btn btn-success" href="javascript:void(0);" id="add_button" title="Add field">TAMBAH</a>
+                                            </div>
+                                        </div>
 
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="text" name="norm" id="norm" value="{{ $norm }}" hidden>
-                                    <input type="text" name="kj" id="kj" value="{{ $kj }}" hidden>
-                                    <div class="form-group">
-                                        <label for="exampleFormControlSelect1">Tanggal Pemeriksaan
-                                            Poli</label>
-                                        <input type="date" id="tglpoli" name="tglpoli" value="" class="form-control">
                                     </div>
-                                </td>
-                            </tr>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
 
-                        </tbody>
-                    </table>
-                </div>
 
             </div>
-            <div type="button" class="btn float-right btn-success simpanrencanaplg" style="margin-top: 20px;">
-                SIMPAN
+            {{-- diet khusus  --}}
+
+            <div class="col-md-12">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td class="text-bold font-italic">Diet Khusus : </td>
+
+                        </tr>
+                        <tr>
+                            <td>
+                                <textarea class="form-control" id="diet" name="diet" placeholder="Ketik Diet ..."></textarea>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
             </div>
-            @else
-            <div class="row">
-                <div class="col-md-6">
-                    <table class="table">
-                        <tbody>
+            {{-- perawatan medis di rumah  --}}
 
-                            <tr>
-                                <td class="text-bold font-italic">Usia lanjut (60 tahun atau lebih)</td>
-                                <td>
-                                    <div class="form-check">
-                                        @if($rencanaplg[0]->usia_lanjut == 'Ya')
-                                        <input class="form-check-input" type="radio" name="usialanjut" id="usialanjut" value="Ya" checked>
-                                        <label class="form-check-label">Ya</label>
-                                        @else
-                                        <input class="form-check-input" type="radio" name="usialanjut" id="usialanjut" value="Ya">
-                                        <label class="form-check-label">Ya</label>
-                                        @endif
-                                    </div>
-                                    <div class="form-check">
-                                        @if($rencanaplg[0]->usia_lanjut == 'Tidak')
-                                        <input class="form-check-input" type="radio" name="usialanjut" id="usialanjut" value="Tidak" checked>
-                                        <label class="form-check-label">Tidak</label>
-                                        @else
-                                        <input class="form-check-input" type="radio" name="usialanjut" id="usialanjut" value="Tidak">
-                                        <label class="form-check-label">Tidak</label>
-                                        @endif
+            <div class="col-md-6">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td class="text-bold font-italic">Perawatan / peralatan medis yang dilanjutkan di rumah
+                                : </td>
 
-                                    </div>
-                                </td>
-                            </tr>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="peralatan1" id="peralatan1" value="Oksigen Portable">
+                                    <label class="form-check-label">Oksigen Portable</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="peralatan2" id="peralatan2" value="Tracheostomi">
+                                    <label class="form-check-label">Tracheostomi</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="peralatan3" id="peralatan3" value="Dower-Kateter">
+                                    <label class="form-check-label">Dower-Kateter</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="peralatan4" id="peralatan4" value="NGT">
+                                    <label class="form-check-label">NGT</label>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            {{-- alat bantu --}}
 
-                            <tr>
-                                <td class="text-bold font-italic">Hambatan Mobilisasi</td>
-                                <td>
-                                    <div class="form-check">
-                                        @if($rencanaplg[0]->hambatan == 'Ya')
-                                        <input class="form-check-input" type="radio" name="hambatan" id="hambatan" value="Ya" checked>
-                                        <label class="form-check-label">Ya</label>
-                                        @else
-                                        <input class="form-check-input" type="radio" name="hambatan" id="hambatan" value="Ya">
-                                        <label class="form-check-label">Ya</label>
-                                        @endif
-                                    </div>
-                                    <div class="form-check">
-                                        @if($rencanaplg[0]->hambatan == 'Tidak')
-                                        <input class="form-check-input" type="radio" name="hambatan" id="hambatan" value="Tidak" checked>
-                                        <label class="form-check-label">Tidak</label>
-                                        @else
-                                        <input class="form-check-input" type="radio" name="hambatan" id="hambatan" value="Tidak">
-                                        <label class="form-check-label">Tidak</label>
-                                        @endif
+            <div class="col-md-6">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td class="text-bold font-italic">Alat bantu yang dipakai di rumah : </td>
 
-                                    </div>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="alatbantu1" id="alatbantu1" value="Kursi Roda">
+                                    <label class="form-check-label">Kursi Roda</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="alatbantu2" id="alatbantu2" value="Tongkat">
+                                    <label class="form-check-label">Tongkat</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="form-check-label">Lainya</label>
 
-                                </td>
-                            </tr>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="text" name="alatbantu" id="alatbantu" value="">
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            {{-- pendidikan kesehatan  --}}
 
-                            <tr>
-                                <td class="text-bold font-italic">Membutuhkan pelayanan medis dan perawatan
-                                    berkelanjutan
-                                </td>
-                                <td>
-                                    <div class="form-check">
-                                        @if($rencanaplg[0]->pelayanan_medis == 'Ya')
-                                        <input class="form-check-input" type="radio" name="medis" id="medis" value="Ya" checked>
-                                        <label class="form-check-label">Ya</label>
-                                        @else
-                                        <input class="form-check-input" type="radio" name="medis" id="medis" value="Ya">
-                                        <label class="form-check-label">Ya</label>
-                                        @endif
-                                    </div>
-                                    <div class="form-check">
-                                        @if($rencanaplg[0]->pelayanan_medis == 'Tidak')
-                                        <input class="form-check-input" type="radio" name="medis" id="medis" value="Tidak" checked>
-                                        <label class="form-check-label">Tidak</label>
-                                        @else
-                                        <input class="form-check-input" type="radio" name="medis" id="medis" value="Tidak">
-                                        <label class="form-check-label">Tidak</label>
-                                        @endif
+            <div class="col-md-12">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td class="text-bold font-italic">Pendidikan Kesehatan Untuk di rumah : </td>
 
-                                    </div>
-                                </td>
-                            </tr>
+                        </tr>
 
-                            <tr>
-                                <td class="text-bold font-italic">Tergantung dengan orang lain dalam aktifitas harian
-                                </td>
-                                <td>
-                                    <div class="form-check">
-                                        @if($rencanaplg[0]->tergantung == 'Ya')
-                                        <input class="form-check-input" type="radio" name="harian" id="harian" value="Ya" checked>
-                                        <label class="form-check-label">Ya</label>
-                                        @else
-                                        <input class="form-check-input" type="radio" name="harian" id="harian" value="Ya">
-                                        <label class="form-check-label">Ya</label>
-                                        @endif
-                                    </div>
-                                    <div class="form-check">
-                                        @if($rencanaplg[0]->tergantung == 'Tidak')
-                                        <input class="form-check-input" type="radio" name="harian" id="harian" value="Tidak" checked>
-                                        <label class="form-check-label">Tidak</label>
-                                        @else
-                                        <input class="form-check-input" type="radio" name="harian" id="harian" value="Tidak">
-                                        <label class="form-check-label">Tidak</label>
-                                        @endif
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <table class="table">
+                    <tbody>
 
-                                    </div>
+                        <tr>
+                            <td>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="pendidikan1" id="pendidikan1" value="Balutan jangan basah / kotor">
+                                    <label class="form-check-label">Balutan jangan basah / kotor</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="pendidikan2" id="pendidikan2" value="Hindari mengangkat beban berat">
+                                    <label class="form-check-label">Hindari mengangkat beban berat</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="pendidikan3" id="pendidikan3" value="Jangan mengendarai kendaraan sendiri / menyupir">
+                                    <label class="form-check-label">Jangan mengendarai kendaraan sendiri /
+                                        menyupir</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="pendidikan4" id="pendidikan4" value="Cek Laboratorium sebelum kontrol">
+                                    <label class="form-check-label">Cek Laboratorium sebelum kontrol</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="form-check-label">Lainya</label>
 
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="col-md-6">
-                    <h4><br><br><br>jika satu ya saja terpenuhi, <br>
-                        berarti pasien membutuhkan perencanaan <br> pulang khusus</h4>
-                </div>
-                {{-- transportasi --}}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="text" name="pendidikan" id="pendidikan" value="">
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-8">
+                <table class="table">
+                    <tbody>
 
-                <div class="col-md-6">
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <td class="text-bold font-italic">Transportasi Pulang</td>
-                            <tr>
-                                <td class="text-bold font-italic">Transportasi Pulang</td>
-                                <td>
-                                    <!-- <textarea class="form-control" id="transportasi" name="transportasi" placeholder="Ketik Kendaraan ..."></textarea> -->
-                                    <div class="row">
-                                        <div class="col-3">
-                                            <div class="form-check">
-                                                @if($rencanaplg[0]->transportasi == 'Mobil')
+                        <tr>
+                            <td>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="pendidikan5" id="pendidikan5" value="Jangan menaiki tangga lebih dari dua atau tiga kali sehari">
+                                    <label class="form-check-label">Jangan menaiki tangga lebih dari dua atau tiga
+                                        kali sehari</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="pendidikan6" id="pendidikan6" value="Batasi pekerjaan rumah tangga dan kegiatan sosial melakukan aktifitas secara bertahap sampai kesehatan pulih kembali">
+                                    <label class="form-check-label">Batasi pekerjaan rumah tangga dan kegiatan
+                                        sosial melakukan aktifitas secara bertahap sampai kesehatan pulih
+                                        kembali</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="pendidikan7" id="pendidikan7" value="Jika muncul keluhan nyeri / rasa sakit tidak berkurang dengan obat anda atau menjadi lebih, segera datang ke RS">
+                                    <label class="form-check-label">Jika muncul keluhan nyeri / rasa sakit tidak
+                                        berkurang dengan obat anda atau menjadi lebih, segera datang ke RS</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="pendidikan8" id="pendidikan8" value="Perlu perawatan lanjutan ke puskesmas / Rumah Sakit terdekat">
+                                    <label class="form-check-label">Perlu perawatan lanjutan ke puskesmas / Rumah
+                                        Sakit terdekat</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="form-check-label">Lainya</label>
 
-                                                <input class="form-check-input" type="checkbox" checked name="transportasi" id="transportasi" value="Mobil">
-                                                <label class="form-check-label">Mobil</label>
-                                                @else
-                                                <input class="form-check-input" type="checkbox" name="transportasi" id="transportasi" value="Mobil">
-                                                <label class="form-check-label">Mobil</label>
-                                                @endif
-                                            </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="text" name="pendidikan" id="pendidikan" value="">
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            {{-- di berikan kepada pasien / keluarga --}}
+
+            <div class="col-md-6" style="margin-top:15px;">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td class="text-bold font-italic">Diberikan obat kepada pasien / keluarga
+                                : </td>
+
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="diberikan1" id="diberikan1" value="obat-obatan">
+                                    <label class="form-check-label">obat-obatan</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="diberikan2" id="diberikan2" value="Peralatan / barang pribadi">
+                                    <label class="form-check-label">Peralatan / barang pribadi</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="diberikan3" id="diberikan3" value="hasil pemeriksaan penunjang">
+                                    <label class="form-check-label">hasil pemeriksaan penunjang</label>
+                                </div>
+                                <br>
+                                <div class="form-check" style="margin-left: 15px">
+                                    <input class="form-check-input" type="checkbox" name="diberikan4" id="diberikan4" value="Laboratorium">
+                                    <label class="form-check-label">Laboratorium</label>
+                                </div>
+                                <br>
+                                <div class="form-check" style="margin-left: 15px">
+                                    <input class="form-check-input" type="checkbox" name="diberikan5" id="diberikan5" value="Radiologi">
+                                    <label class="form-check-label">Radiologi</label>
+                                </div>
+                                <br>
+                                <div class="form-check" style="margin-left: 15px">
+                                    <input class="form-check-input" type="checkbox" name="diberikan6" id="diberikan6" value="EKG">
+                                    <label class="form-check-label">EKG</label>
+                                </div>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="form-check-label">Lainya</label>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="text" name="diberikan" id="diberikan" value="">
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            {{-- alat bantu --}}
+
+            <div class="col-md-6" style="margin-top:15px;">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td class="text-bold font-italic">Jadwal Kontrol berikutnya : </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="">Poliklinik :</label>
+                                <select class="form-control select2" name="poli" id="poli">
+                                    <option value=""> Pilih Poli</option>
+                                    @foreach($poli as $po )
+                                    <option value="{{$po->kode_unit}}"> {{$po->nama_unit}}</option>
+
+
+                                    @endforeach
+
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text" name="norm" id="norm" value="{{ $norm }}" hidden>
+                                <input type="text" name="kj" id="kj" value="{{ $kj }}" hidden>
+                                <div class="form-group">
+                                    <label for="exampleFormControlSelect1">Tanggal Pemeriksaan
+                                        Poli</label>
+                                    <input type="date" id="tglpoli" name="tglpoli" value="" class="form-control">
+                                </div>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <div type="button" class="btn float-right btn-success simpanrencanaplg" style="margin-top: 20px;">
+            SIMPAN
+        </div>
+        @else
+        <div class="row">
+            <div class="col-md-6">
+                <table class="table">
+                    <tbody>
+
+                        <tr>
+                            <td class="text-bold font-italic">Usia lanjut (60 tahun atau lebih)</td>
+                            <td>
+                                <div class="form-check">
+                                    @if($rencanaplg[0]->usia_lanjut == 'Ya')
+                                    <input class="form-check-input" type="radio" name="usialanjut" id="usialanjut" value="Ya" checked>
+                                    <label class="form-check-label">Ya</label>
+                                    @else
+                                    <input class="form-check-input" type="radio" name="usialanjut" id="usialanjut" value="Ya">
+                                    <label class="form-check-label">Ya</label>
+                                    @endif
+                                </div>
+                                <div class="form-check">
+                                    @if($rencanaplg[0]->usia_lanjut == 'Tidak')
+                                    <input class="form-check-input" type="radio" name="usialanjut" id="usialanjut" value="Tidak" checked>
+                                    <label class="form-check-label">Tidak</label>
+                                    @else
+                                    <input class="form-check-input" type="radio" name="usialanjut" id="usialanjut" value="Tidak">
+                                    <label class="form-check-label">Tidak</label>
+                                    @endif
+
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-bold font-italic">Hambatan Mobilisasi</td>
+                            <td>
+                                <div class="form-check">
+                                    @if($rencanaplg[0]->hambatan == 'Ya')
+                                    <input class="form-check-input" type="radio" name="hambatan" id="hambatan" value="Ya" checked>
+                                    <label class="form-check-label">Ya</label>
+                                    @else
+                                    <input class="form-check-input" type="radio" name="hambatan" id="hambatan" value="Ya">
+                                    <label class="form-check-label">Ya</label>
+                                    @endif
+                                </div>
+                                <div class="form-check">
+                                    @if($rencanaplg[0]->hambatan == 'Tidak')
+                                    <input class="form-check-input" type="radio" name="hambatan" id="hambatan" value="Tidak" checked>
+                                    <label class="form-check-label">Tidak</label>
+                                    @else
+                                    <input class="form-check-input" type="radio" name="hambatan" id="hambatan" value="Tidak">
+                                    <label class="form-check-label">Tidak</label>
+                                    @endif
+
+                                </div>
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-bold font-italic">Membutuhkan pelayanan medis dan perawatan
+                                berkelanjutan
+                            </td>
+                            <td>
+                                <div class="form-check">
+                                    @if($rencanaplg[0]->pelayanan_medis == 'Ya')
+                                    <input class="form-check-input" type="radio" name="medis" id="medis" value="Ya" checked>
+                                    <label class="form-check-label">Ya</label>
+                                    @else
+                                    <input class="form-check-input" type="radio" name="medis" id="medis" value="Ya">
+                                    <label class="form-check-label">Ya</label>
+                                    @endif
+                                </div>
+                                <div class="form-check">
+                                    @if($rencanaplg[0]->pelayanan_medis == 'Tidak')
+                                    <input class="form-check-input" type="radio" name="medis" id="medis" value="Tidak" checked>
+                                    <label class="form-check-label">Tidak</label>
+                                    @else
+                                    <input class="form-check-input" type="radio" name="medis" id="medis" value="Tidak">
+                                    <label class="form-check-label">Tidak</label>
+                                    @endif
+
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-bold font-italic">Tergantung dengan orang lain dalam aktifitas harian
+                            </td>
+                            <td>
+                                <div class="form-check">
+                                    @if($rencanaplg[0]->tergantung == 'Ya')
+                                    <input class="form-check-input" type="radio" name="harian" id="harian" value="Ya" checked>
+                                    <label class="form-check-label">Ya</label>
+                                    @else
+                                    <input class="form-check-input" type="radio" name="harian" id="harian" value="Ya">
+                                    <label class="form-check-label">Ya</label>
+                                    @endif
+                                </div>
+                                <div class="form-check">
+                                    @if($rencanaplg[0]->tergantung == 'Tidak')
+                                    <input class="form-check-input" type="radio" name="harian" id="harian" value="Tidak" checked>
+                                    <label class="form-check-label">Tidak</label>
+                                    @else
+                                    <input class="form-check-input" type="radio" name="harian" id="harian" value="Tidak">
+                                    <label class="form-check-label">Tidak</label>
+                                    @endif
+
+                                </div>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <h4><br><br><br>jika satu ya saja terpenuhi, <br>
+                    berarti pasien membutuhkan perencanaan <br> pulang khusus</h4>
+            </div>
+            {{-- transportasi --}}
+
+            <div class="col-md-6">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td class="text-bold font-italic">Transportasi Pulang</td>
+                        <tr>
+                            <td class="text-bold font-italic">Transportasi Pulang</td>
+                            <td>
+                                <!-- <textarea class="form-control" id="transportasi" name="transportasi" placeholder="Ketik Kendaraan ..."></textarea> -->
+                                <div class="row">
+                                    <div class="col-3">
+                                        <div class="form-check">
+                                            @if($rencanaplg[0]->transportasi == 'Mobil')
+
+                                            <input class="form-check-input" type="checkbox" checked name="transportasi" id="transportasi" value="Mobil">
+                                            <label class="form-check-label">Mobil</label>
+                                            @else
+                                            <input class="form-check-input" type="checkbox" name="transportasi" id="transportasi" value="Mobil">
+                                            <label class="form-check-label">Mobil</label>
+                                            @endif
                                         </div>
-                                        <div class="col-3">
-                                            <div class="form-check">
-                                                @if($rencanaplg[0]->transportasi == 'Becak')
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-check">
+                                            @if($rencanaplg[0]->transportasi == 'Becak')
 
-                                                <input class="form-check-input" type="checkbox" checked name="transportasi" id="transportasi" value="Becak">
-                                                <label class="form-check-label">Becak</label>
-                                                @else
-                                                <input class="form-check-input" type="checkbox" name="transportasi" id="transportasi" value="Becak">
-                                                <label class="form-check-label">Becak</label>
-                                                @endif
+                                            <input class="form-check-input" type="checkbox" checked name="transportasi" id="transportasi" value="Becak">
+                                            <label class="form-check-label">Becak</label>
+                                            @else
+                                            <input class="form-check-input" type="checkbox" name="transportasi" id="transportasi" value="Becak">
+                                            <label class="form-check-label">Becak</label>
+                                            @endif
 
-                                            </div>
-                                        </div>
-                                        <div class="col-3">
-                                            <div class="form-check">
-                                                @if($rencanaplg[0]->transportasi == 'Cator')
-
-                                                <input class="form-check-input" checked type="checkbox" name="transportasi" id="transportasi" value="Cator">
-                                                <label class="form-check-label">Cator</label>
-                                                @else
-                                                <input class="form-check-input" type="checkbox" name="transportasi" id="transportasi" value="Cator">
-                                                <label class="form-check-label">Cator</label>
-                                                @endif
-
-
-                                            </div>
-                                        </div>
-                                        <div class="col-3">
-                                            <div class="form-check">
-                                                @if($rencanaplg[0]->transportasi == 'Motor')
-
-                                                <input class="form-check-input" checked type="checkbox" name="transportasi" id="transportasi" value="Motor">
-                                                <label class="form-check-label">Motor</label>
-                                                @else
-                                                <input class="form-check-input" type="checkbox" name="transportasi" id="transportasi" value="Motor">
-                                                <label class="form-check-label">Motor</label>
-
-                                                @endif
-
-                                            </div>
                                         </div>
                                     </div>
+                                    <div class="col-3">
+                                        <div class="form-check">
+                                            @if($rencanaplg[0]->transportasi == 'Cator')
 
-                                </td>
-                            </tr>
-                            <!-- <td>
+                                            <input class="form-check-input" checked type="checkbox" name="transportasi" id="transportasi" value="Cator">
+                                            <label class="form-check-label">Cator</label>
+                                            @else
+                                            <input class="form-check-input" type="checkbox" name="transportasi" id="transportasi" value="Cator">
+                                            <label class="form-check-label">Cator</label>
+                                            @endif
+
+
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-check">
+                                            @if($rencanaplg[0]->transportasi == 'Motor')
+
+                                            <input class="form-check-input" checked type="checkbox" name="transportasi" id="transportasi" value="Motor">
+                                            <label class="form-check-label">Motor</label>
+                                            @else
+                                            <input class="form-check-input" type="checkbox" name="transportasi" id="transportasi" value="Motor">
+                                            <label class="form-check-label">Motor</label>
+
+                                            @endif
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </td>
+                        </tr>
+                        <!-- <td>
                                     <textarea class="form-control" id="transportasi" name="transportasi" placeholder="Ketik Kendaraan ...">{{$rencanaplg[0]->transportasi}}</textarea>
 
                                 </td> -->
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                {{-- oreang yang mendampingi  --}}
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            {{-- oreang yang mendampingi  --}}
 
-                <div class="col-md-6">
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <td class="text-bold font-italic">Orang yang mendampingi dan merawat pasien di rumah
-                                </td>
-                                <td>
-                                    <textarea class="form-control" id="pendamping" name="pendamping" placeholder="Ketik pendamping ...">{{$rencanaplg[0]->pendamping}}</textarea>
+            <div class="col-md-6">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td class="text-bold font-italic">Orang yang mendampingi dan merawat pasien di rumah
+                            </td>
+                            <td>
+                                <textarea class="form-control" id="pendamping" name="pendamping" placeholder="Ketik pendamping ...">{{$rencanaplg[0]->pendamping}}</textarea>
 
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                {{-- diet khusus  --}}
-
-                <div class="col-md-12">
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <td class="text-bold font-italic">Diet Khusus : </td>
-
-                            </tr>
-                            <tr>
-                                <td>
-                                    <textarea class="form-control" id="diet" name="diet" placeholder="Ketik Diet ...">{{$rencanaplg[0]->diet_khusus}}</textarea>
-
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-
-                </div>
-                {{-- perawatan medis di rumah  --}}
-
-                <div class="col-md-6">
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <td class="text-bold font-italic">Perawatan / peralatan medis yang dilanjutkan di rumah
-                                    : </td>
-
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="form-check">
-                                        @if($rencanaplg[0]->peralatan_medis1 == 'Oksigen Portable')
-
-                                        <input class="form-check-input" type="checkbox" name="peralatan1" id="peralatan1" value="Oksigen Portable" checked>
-                                        <label class="form-check-label">Oksigen Portable</label>
-                                        @else
-                                        <input class="form-check-input" type="checkbox" name="peralatan1" id="peralatan1" value="Oksigen Portable">
-                                        <label class="form-check-label">Oksigen Portable</label>
-                                        @endif
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="form-check">
-                                        @if($rencanaplg[0]->peralatan_medis2 == 'Tracheostomi')
-                                        <input class="form-check-input" type="checkbox" name="peralatan2" id="peralatan2" value="Tracheostomi" checked>
-                                        <label class="form-check-label">Tracheostomi</label>
-                                        @else
-                                        <input class="form-check-input" type="checkbox" name="peralatan2" id="peralatan2" value="Tracheostomi">
-                                        <label class="form-check-label">Tracheostomi</label>
-                                        @endif
-
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="form-check">
-                                        @if($rencanaplg[0]->peralatan_medis3 == 'Dower-Kateter')
-                                        <input class="form-check-input" type="checkbox" name="peralatan3" id="peralatan3" value="Dower-Kateter" checked>
-                                        <label class="form-check-label">Dower-Kateter</label>
-                                        @else
-                                        <input class="form-check-input" type="checkbox" name="peralatan3" id="peralatan3" value="Dower-Kateter">
-                                        <label class="form-check-label">Dower-Kateter</label>
-                                        @endif
-
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="form-check">
-                                        @if($rencanaplg[0]->peralatan_medis4 == 'NGT')
-                                        <input class="form-check-input" type="checkbox" name="peralatan4" id="peralatan4" value="NGT" checked>
-                                        <label class="form-check-label">NGT</label>
-                                        @else
-                                        <input class="form-check-input" type="checkbox" name="peralatan4" id="peralatan4" value="NGT">
-                                        <label class="form-check-label">NGT</label>
-                                        @endif
-
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                {{-- alat bantu --}}
-
-                <div class="col-md-6">
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <td class="text-bold font-italic">Alat bantu yang dipakai di rumah : </td>
-
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="form-check">
-                                        @if($rencanaplg[0]->alat_bantu1 == 'Kursi Roda')
-                                        <input class="form-check-input" type="checkbox" name="alatbantu1" id="alatbantu1" value="Kursi Roda" checked>
-                                        <label class="form-check-label">Kursi Roda</label>
-                                        @else
-                                        <input class="form-check-input" type="checkbox" name="alatbantu1" id="alatbantu1" value="Kursi Roda">
-                                        <label class="form-check-label">Kursi Roda</label>
-                                        @endif
-
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="form-check">
-                                        @if($rencanaplg[0]->alat_bantu2 == 'Tongkat')
-                                        <input class="form-check-input" type="checkbox" name="alatbantu2" id="alatbantu2" value="Tongkat" checked>
-                                        <label class="form-check-label">Tongkat</label>
-                                        @else
-                                        <input class="form-check-input" type="checkbox" name="alatbantu2" id="alatbantu2" value="Tongkat">
-                                        <label class="form-check-label">Tongkat</label>
-                                        @endif
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label class="form-check-label">Lainya</label>
-
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="text" name="alatbantu" id="alatbantu" value="{{$rencanaplg[0]->alat_bantu}}">
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                {{-- pendidikan kesehatan  --}}
-
-                <div class="col-md-12">
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <td class="text-bold font-italic">Pendidikan Kesehatan Untuk di rumah : </td>
-
-                            </tr>
-
-                        </tbody>
-                    </table>
-                </div>
-                <div class="col-md-4">
-                    <table class="table">
-                        <tbody>
-
-                            <tr>
-                                <td>
-                                    <div class="form-check">
-                                        @if($rencanaplg[0]->pendidikan_kesehatan1 == 'Balutan jangan basah / kotor')
-                                        <input class="form-check-input" type="checkbox" name="pendidikan1" id="pendidikan1" value="Balutan jangan basah / kotor" checked>
-                                        <label class="form-check-label">Balutan jangan basah / kotor</label>
-                                        @else
-                                        <input class="form-check-input" type="checkbox" name="pendidikan1" id="pendidikan1" value="Balutan jangan basah / kotor">
-                                        <label class="form-check-label">Balutan jangan basah / kotor</label>
-                                        @endif
-
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="form-check">
-                                        @if($rencanaplg[0]->pendidikan_kesehatan2 == 'Hindari mengangkat beban berat')
-                                        <input class="form-check-input" type="checkbox" name="pendidikan2" id="pendidikan2" value="Hindari mengangkat beban berat" checked>
-                                        <label class="form-check-label">Hindari mengangkat beban berat</label>
-                                        @else
-                                        <input class="form-check-input" type="checkbox" name="pendidikan2" id="pendidikan2" value="Hindari mengangkat beban berat">
-                                        <label class="form-check-label">Hindari mengangkat beban berat</label>
-                                        @endif
-
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="form-check">
-                                        @if($rencanaplg[0]->pendidikan_kesehatan3 == 'Jangan mengendarai kendaraan sendiri / menyupir')
-                                        <input class="form-check-input" type="checkbox" name="pendidikan3" id="pendidikan3" value="Jangan mengendarai kendaraan sendiri / menyupir" checked>
-                                        <label class="form-check-label">Jangan mengendarai kendaraan sendiri /
-                                            menyupir</label>
-                                        @else
-                                        <input class="form-check-input" type="checkbox" name="pendidikan3" id="pendidikan3" value="Jangan mengendarai kendaraan sendiri / menyupir">
-                                        <label class="form-check-label">Jangan mengendarai kendaraan sendiri /
-                                            menyupir</label>
-                                        @endif
-
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="form-check">
-                                        @if($rencanaplg[0]->pendidikan_kesehatan4 == 'Cek Laboratorium sebelum kontrol')
-                                        <input class="form-check-input" type="checkbox" name="pendidikan4" id="pendidikan4" value="Cek Laboratorium sebelum kontrol" checked>
-                                        <label class="form-check-label">Cek Laboratorium sebelum kontrol</label>
-                                        @else
-                                        <input class="form-check-input" type="checkbox" name="pendidikan4" id="pendidikan4" value="Cek Laboratorium sebelum kontrol">
-                                        <label class="form-check-label">Cek Laboratorium sebelum kontrol</label>
-                                        @endif
-
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label class="form-check-label">Lainya</label>
-
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="text" name="pendidikan" id="pendidikan" value="{{$rencanaplg[0]->pendidikan_kesehatan}}">
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="col-md-8">
-                    <table class="table">
-                        <tbody>
-
-                            <tr>
-                                <td>
-                                    <div class="form-check">
-                                        @if($rencanaplg[0]->pendidikan_kesehatan5 == 'Jangan menaiki tangga lebih dari dua atau tiga kali sehari')
-                                        <input class="form-check-input" type="checkbox" name="pendidikan5" id="pendidikan5" value="Jangan menaiki tangga lebih dari dua atau tiga kali sehari" checked>
-                                        <label class="form-check-label">Jangan menaiki tangga lebih dari dua atau tiga
-                                            kali sehari</label>
-                                        @else
-                                        <input class="form-check-input" type="checkbox" name="pendidikan5" id="pendidikan5" value="Jangan menaiki tangga lebih dari dua atau tiga kali sehari">
-                                        <label class="form-check-label">Jangan menaiki tangga lebih dari dua atau tiga
-                                            kali sehari</label>
-                                        @endif
-
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="form-check">
-                                        @if($rencanaplg[0]->pendidikan_kesehatan6 == 'Batasi pekerjaan rumah tangga dan kegiatan sosial melakukan aktifitas secara bertahap sampai kesehatan pulih kembali')
-                                        <input class="form-check-input" type="checkbox" name="pendidikan6" id="pendidikan6" value="Batasi pekerjaan rumah tangga dan kegiatan sosial melakukan aktifitas secara bertahap sampai kesehatan pulih kembali" checked>
-                                        <label class="form-check-label">Batasi pekerjaan rumah tangga dan kegiatan
-                                            sosial melakukan aktifitas secara bertahap sampai kesehatan pulih
-                                            kembali</label>
-                                        @else
-                                        <input class="form-check-input" type="checkbox" name="pendidikan6" id="pendidikan6" value="Batasi pekerjaan rumah tangga dan kegiatan sosial melakukan aktifitas secara bertahap sampai kesehatan pulih kembali">
-                                        <label class="form-check-label">Batasi pekerjaan rumah tangga dan kegiatan
-                                            sosial melakukan aktifitas secara bertahap sampai kesehatan pulih
-                                            kembali</label>
-                                        @endif
-
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="form-check">
-                                        @if($rencanaplg[0]->pendidikan_kesehatan7 == 'Jika muncul keluhan nyeri / rasa sakit tidak berkurang dengan obat anda atau menjadi lebih, segera datang ke RS')
-                                        <input class="form-check-input" type="checkbox" name="pendidikan7" id="pendidikan7" value="Jika muncul keluhan nyeri / rasa sakit tidak berkurang dengan obat anda atau menjadi lebih, segera datang ke RS" checked>
-                                        <label class="form-check-label">Jika muncul keluhan nyeri / rasa sakit tidak berkurang dengan obat anda atau menjadi lebih, segera datang ke RS</label>
-                                        @else
-                                        <input class="form-check-input" type="checkbox" name="pendidikan7" id="pendidikan7" value="Jika muncul keluhan nyeri / rasa sakit tidak berkurang dengan obat anda atau menjadi lebih, segera datang ke RS">
-                                        <label class="form-check-label">Jika muncul keluhan nyeri / rasa sakit tidak berkurang dengan obat anda atau menjadi lebih, segera datang ke RS</label>
-                                        @endif
-
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="form-check">
-                                        @if($rencanaplg[0]->pendidikan_kesehatan8 == 'Perlu perawatan lanjutan ke puskesmas / Rumah Sakit terdekat')
-                                        <input class="form-check-input" type="checkbox" name="pendidikan8" id="pendidikan8" value="Perlu perawatan lanjutan ke puskesmas / Rumah Sakit terdekat" checked>
-                                        <label class="form-check-label">Perlu perawatan lanjutan ke puskesmas / Rumah Sakit terdekat</label>
-                                        @else
-                                        <input class="form-check-input" type="checkbox" name="pendidikan8" id="pendidikan8" value="Perlu perawatan lanjutan ke puskesmas / Rumah Sakit terdekat">
-                                        <label class="form-check-label">Perlu perawatan lanjutan ke puskesmas / Rumah Sakit terdekat</label>
-                                        @endif
-
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label class="form-check-label">Lainya</label>
-
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="text" name="pendidikan" id="pendidikan" value="{{$rencanaplg[0]->pendidikan_kesehatan}}">
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                {{-- di berikan kepada pasien / keluarga --}}
-
-                <div class="col-md-6" style="margin-top:15px;">
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <td class="text-bold font-italic">Diberikan obat kepada pasien / keluarga
-                                    : </td>
-
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="form-check">
-                                        @if($rencanaplg[0]->diberikan1 == 'obat-obatan')
-                                        <input class="form-check-input" type="checkbox" name="diberikan1" id="diberikan1" value="obat-obatan" checked>
-                                        <label class="form-check-label">obat-obatan</label>
-                                        @else
-                                        <input class="form-check-input" type="checkbox" name="diberikan1" id="diberikan1" value="obat-obatan">
-                                        <label class="form-check-label">obat-obatan</label>
-                                        @endif
-
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="form-check">
-                                        @if($rencanaplg[0]->diberikan2 == 'Peralatan / barang pribadi')
-                                        <input class="form-check-input" type="checkbox" name="diberikan2" id="diberikan2" value="Peralatan / barang pribadi" checked>
-                                        <label class="form-check-label">Peralatan / barang pribadi</label>
-                                        @else
-                                        <input class="form-check-input" type="checkbox" name="diberikan2" id="diberikan2" value="Peralatan / barang pribadi">
-                                        <label class="form-check-label">Peralatan / barang pribadi</label>
-                                        @endif
-
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="form-check">
-                                        @if($rencanaplg[0]->diberikan3 == 'hasil pemeriksaan penunjang')
-                                        <input class="form-check-input" type="checkbox" name="diberikan3" id="diberikan3" value="hasil pemeriksaan penunjang" checked>
-                                        <label class="form-check-label">hasil pemeriksaan penunjang</label>
-                                        @else
-                                        <input class="form-check-input" type="checkbox" name="diberikan3" id="diberikan3" value="hasil pemeriksaan penunjang">
-                                        <label class="form-check-label">hasil pemeriksaan penunjang</label>
-                                        @endif
-
-                                    </div>
-                                    <br>
-                                    <div class="form-check" style="margin-left: 15px">
-                                        @if($rencanaplg[0]->diberikan4 == 'Laboratorium')
-                                        <input class="form-check-input" type="checkbox" name="diberikan4" id="diberikan4" value="Laboratorium" checked>
-                                        <label class="form-check-label">Laboratorium</label>
-                                        @else
-                                        <input class="form-check-input" type="checkbox" name="diberikan4" id="diberikan4" value="Laboratorium">
-                                        <label class="form-check-label">Laboratorium</label>
-                                        @endif
-
-                                    </div>
-                                    <br>
-                                    <div class="form-check" style="margin-left: 15px">
-                                        @if($rencanaplg[0]->diberikan5 == 'Radiologi')
-                                        <input class="form-check-input" type="checkbox" name="diberikan5" id="diberikan5" value="Radiologi" checked>
-                                        <label class="form-check-label">Radiologi</label>
-                                        @else
-                                        <input class="form-check-input" type="checkbox" name="diberikan5" id="diberikan5" value="Radiologi">
-                                        <label class="form-check-label">Radiologi</label>
-                                        @endif
-
-                                    </div>
-                                    <br>
-                                    <div class="form-check" style="margin-left: 15px">
-                                        @if($rencanaplg[0]->diberikan6 == 'EKG')
-                                        <input class="form-check-input" type="checkbox" name="diberikan6" id="diberikan6" value="EKG" checked>
-                                        <label class="form-check-label">EKG</label>
-                                        @else
-                                        <input class="form-check-input" type="checkbox" name="diberikan6" id="diberikan6" value="EKG">
-                                        <label class="form-check-label">EKG</label>
-                                        @endif
-
-                                    </div>
-                                </td>
-
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label class="form-check-label">Lainya</label>
-
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="text" name="diberikan" id="diberikan" value="{{$rencanaplg[0]->diberikan}}">
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                {{-- alat bantu --}}
-
-                <div class="col-md-6" style="margin-top:15px;">
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <td class="text-bold font-italic">Jadwal Kontrol berikutnya : </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label for="">Poliklinik :</label>
-                                    <select class="form-control select2" name="poli" id="poli">
-                                        @foreach($poli as $po )
-                                        <option value="{{$po->kode_unit}}"> {{$po->nama_unit}}</option>
-
-
-                                        @endforeach
-
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="text" name="norm" id="norm" value="{{ $norm }}" hidden>
-                                    <input type="text" name="kj" id="kj" value="{{ $kj }}" hidden>
-                                    <div class="form-group">
-                                        <label for="exampleFormControlSelect1">Tanggal Pemeriksaan
-                                            Poli</label>
-                                        <input type="date" id="tglpoli" name="tglpoli" value="" class="form-control">
-                                    </div>
-                                </td>
-                            </tr>
-
-                        </tbody>
-                    </table>
-                </div>
-
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
-            @endif
-        </form>
+            {{-- obat pulang  --}}
+
+            <div class="col-md-12">
+                <table id="tableobatrekon" class="table">
+                    <thead>
+                        <th hidden>ID</th>
+                        <th>Nama Obat</th>
+                        <th>Dosis</th>
+                        <th>Jam Pemberian</th>
+                        <th>Instruksi Khusus</th>
+
+                        <th>Action</th>
+
+                    </thead>
+                    <tbody>
+                        @foreach ($obatplg as $ri => $r)
+                        <tr>
+                            <td class="id" hidden>{{$r->id}}</td>
+                            <td class="nama_obat">{{$r->nama_obat}}</td>
+                            <td class="dosis">{{$r->dosis}}</td>
+
+                            <td class="jam_pemberian">{{$r->jam_pemberian}}</td>
+                            <td class="instruksi_khusus">{{$r->instruksi_khusus}}</td>
+
+                            <td>
+                                <button class="badge badge-danger returobatplg" id="returobatplg"> Hapus </button>
+
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+
+                </table>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td class="text-bold font-italic">Pengobatan yang di lanjutkan di rumah : </td>
+
+                        </tr>
+                        <tr>
+                            <td>
+                                <form id="dynamic-form" class="formobatplg">
+                                    <h5>Klik Tombol Tambah untuk menambahkan obat pulang</h5>
+                                    <div class="field_wrapperrr">
+                                        <div class="row mt-2">
+
+
+                                            <div class="col-md-2">
+                                                <a class="btn btn-success" href="javascript:void(0);" id="add_button" title="Add field">TAMBAH</a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            {{-- diet khusus  --}}
+
+            <div class="col-md-12">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td class="text-bold font-italic">Diet Khusus : </td>
+
+                        </tr>
+                        <tr>
+                            <td>
+                                <textarea class="form-control" id="diet" name="diet" placeholder="Ketik Diet ...">{{$rencanaplg[0]->diet_khusus}}</textarea>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+            </div>
+            {{-- perawatan medis di rumah  --}}
+
+            <div class="col-md-6">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td class="text-bold font-italic">Perawatan / peralatan medis yang dilanjutkan di rumah
+                                : </td>
+
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-check">
+                                    @if($rencanaplg[0]->peralatan_medis1 == 'Oksigen Portable')
+
+                                    <input class="form-check-input" type="checkbox" name="peralatan1" id="peralatan1" value="Oksigen Portable" checked>
+                                    <label class="form-check-label">Oksigen Portable</label>
+                                    @else
+                                    <input class="form-check-input" type="checkbox" name="peralatan1" id="peralatan1" value="Oksigen Portable">
+                                    <label class="form-check-label">Oksigen Portable</label>
+                                    @endif
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-check">
+                                    @if($rencanaplg[0]->peralatan_medis2 == 'Tracheostomi')
+                                    <input class="form-check-input" type="checkbox" name="peralatan2" id="peralatan2" value="Tracheostomi" checked>
+                                    <label class="form-check-label">Tracheostomi</label>
+                                    @else
+                                    <input class="form-check-input" type="checkbox" name="peralatan2" id="peralatan2" value="Tracheostomi">
+                                    <label class="form-check-label">Tracheostomi</label>
+                                    @endif
+
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-check">
+                                    @if($rencanaplg[0]->peralatan_medis3 == 'Dower-Kateter')
+                                    <input class="form-check-input" type="checkbox" name="peralatan3" id="peralatan3" value="Dower-Kateter" checked>
+                                    <label class="form-check-label">Dower-Kateter</label>
+                                    @else
+                                    <input class="form-check-input" type="checkbox" name="peralatan3" id="peralatan3" value="Dower-Kateter">
+                                    <label class="form-check-label">Dower-Kateter</label>
+                                    @endif
+
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-check">
+                                    @if($rencanaplg[0]->peralatan_medis4 == 'NGT')
+                                    <input class="form-check-input" type="checkbox" name="peralatan4" id="peralatan4" value="NGT" checked>
+                                    <label class="form-check-label">NGT</label>
+                                    @else
+                                    <input class="form-check-input" type="checkbox" name="peralatan4" id="peralatan4" value="NGT">
+                                    <label class="form-check-label">NGT</label>
+                                    @endif
+
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            {{-- alat bantu --}}
+
+            <div class="col-md-6">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td class="text-bold font-italic">Alat bantu yang dipakai di rumah : </td>
+
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-check">
+                                    @if($rencanaplg[0]->alat_bantu1 == 'Kursi Roda')
+                                    <input class="form-check-input" type="checkbox" name="alatbantu1" id="alatbantu1" value="Kursi Roda" checked>
+                                    <label class="form-check-label">Kursi Roda</label>
+                                    @else
+                                    <input class="form-check-input" type="checkbox" name="alatbantu1" id="alatbantu1" value="Kursi Roda">
+                                    <label class="form-check-label">Kursi Roda</label>
+                                    @endif
+
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-check">
+                                    @if($rencanaplg[0]->alat_bantu2 == 'Tongkat')
+                                    <input class="form-check-input" type="checkbox" name="alatbantu2" id="alatbantu2" value="Tongkat" checked>
+                                    <label class="form-check-label">Tongkat</label>
+                                    @else
+                                    <input class="form-check-input" type="checkbox" name="alatbantu2" id="alatbantu2" value="Tongkat">
+                                    <label class="form-check-label">Tongkat</label>
+                                    @endif
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="form-check-label">Lainya</label>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="text" name="alatbantu" id="alatbantu" value="{{$rencanaplg[0]->alat_bantu}}">
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            {{-- pendidikan kesehatan  --}}
+
+            <div class="col-md-12">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td class="text-bold font-italic">Pendidikan Kesehatan Untuk di rumah : </td>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <table class="table">
+                    <tbody>
+
+                        <tr>
+                            <td>
+                                <div class="form-check">
+                                    @if($rencanaplg[0]->pendidikan_kesehatan1 == 'Balutan jangan basah / kotor')
+                                    <input class="form-check-input" type="checkbox" name="pendidikan1" id="pendidikan1" value="Balutan jangan basah / kotor" checked>
+                                    <label class="form-check-label">Balutan jangan basah / kotor</label>
+                                    @else
+                                    <input class="form-check-input" type="checkbox" name="pendidikan1" id="pendidikan1" value="Balutan jangan basah / kotor">
+                                    <label class="form-check-label">Balutan jangan basah / kotor</label>
+                                    @endif
+
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-check">
+                                    @if($rencanaplg[0]->pendidikan_kesehatan2 == 'Hindari mengangkat beban berat')
+                                    <input class="form-check-input" type="checkbox" name="pendidikan2" id="pendidikan2" value="Hindari mengangkat beban berat" checked>
+                                    <label class="form-check-label">Hindari mengangkat beban berat</label>
+                                    @else
+                                    <input class="form-check-input" type="checkbox" name="pendidikan2" id="pendidikan2" value="Hindari mengangkat beban berat">
+                                    <label class="form-check-label">Hindari mengangkat beban berat</label>
+                                    @endif
+
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-check">
+                                    @if($rencanaplg[0]->pendidikan_kesehatan3 == 'Jangan mengendarai kendaraan sendiri / menyupir')
+                                    <input class="form-check-input" type="checkbox" name="pendidikan3" id="pendidikan3" value="Jangan mengendarai kendaraan sendiri / menyupir" checked>
+                                    <label class="form-check-label">Jangan mengendarai kendaraan sendiri /
+                                        menyupir</label>
+                                    @else
+                                    <input class="form-check-input" type="checkbox" name="pendidikan3" id="pendidikan3" value="Jangan mengendarai kendaraan sendiri / menyupir">
+                                    <label class="form-check-label">Jangan mengendarai kendaraan sendiri /
+                                        menyupir</label>
+                                    @endif
+
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-check">
+                                    @if($rencanaplg[0]->pendidikan_kesehatan4 == 'Cek Laboratorium sebelum kontrol')
+                                    <input class="form-check-input" type="checkbox" name="pendidikan4" id="pendidikan4" value="Cek Laboratorium sebelum kontrol" checked>
+                                    <label class="form-check-label">Cek Laboratorium sebelum kontrol</label>
+                                    @else
+                                    <input class="form-check-input" type="checkbox" name="pendidikan4" id="pendidikan4" value="Cek Laboratorium sebelum kontrol">
+                                    <label class="form-check-label">Cek Laboratorium sebelum kontrol</label>
+                                    @endif
+
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="form-check-label">Lainya</label>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="text" name="pendidikan" id="pendidikan" value="{{$rencanaplg[0]->pendidikan_kesehatan}}">
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-8">
+                <table class="table">
+                    <tbody>
+
+                        <tr>
+                            <td>
+                                <div class="form-check">
+                                    @if($rencanaplg[0]->pendidikan_kesehatan5 == 'Jangan menaiki tangga lebih dari dua atau tiga kali sehari')
+                                    <input class="form-check-input" type="checkbox" name="pendidikan5" id="pendidikan5" value="Jangan menaiki tangga lebih dari dua atau tiga kali sehari" checked>
+                                    <label class="form-check-label">Jangan menaiki tangga lebih dari dua atau tiga
+                                        kali sehari</label>
+                                    @else
+                                    <input class="form-check-input" type="checkbox" name="pendidikan5" id="pendidikan5" value="Jangan menaiki tangga lebih dari dua atau tiga kali sehari">
+                                    <label class="form-check-label">Jangan menaiki tangga lebih dari dua atau tiga
+                                        kali sehari</label>
+                                    @endif
+
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-check">
+                                    @if($rencanaplg[0]->pendidikan_kesehatan6 == 'Batasi pekerjaan rumah tangga dan kegiatan sosial melakukan aktifitas secara bertahap sampai kesehatan pulih kembali')
+                                    <input class="form-check-input" type="checkbox" name="pendidikan6" id="pendidikan6" value="Batasi pekerjaan rumah tangga dan kegiatan sosial melakukan aktifitas secara bertahap sampai kesehatan pulih kembali" checked>
+                                    <label class="form-check-label">Batasi pekerjaan rumah tangga dan kegiatan
+                                        sosial melakukan aktifitas secara bertahap sampai kesehatan pulih
+                                        kembali</label>
+                                    @else
+                                    <input class="form-check-input" type="checkbox" name="pendidikan6" id="pendidikan6" value="Batasi pekerjaan rumah tangga dan kegiatan sosial melakukan aktifitas secara bertahap sampai kesehatan pulih kembali">
+                                    <label class="form-check-label">Batasi pekerjaan rumah tangga dan kegiatan
+                                        sosial melakukan aktifitas secara bertahap sampai kesehatan pulih
+                                        kembali</label>
+                                    @endif
+
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-check">
+                                    @if($rencanaplg[0]->pendidikan_kesehatan7 == 'Jika muncul keluhan nyeri / rasa sakit tidak berkurang dengan obat anda atau menjadi lebih, segera datang ke RS')
+                                    <input class="form-check-input" type="checkbox" name="pendidikan7" id="pendidikan7" value="Jika muncul keluhan nyeri / rasa sakit tidak berkurang dengan obat anda atau menjadi lebih, segera datang ke RS" checked>
+                                    <label class="form-check-label">Jika muncul keluhan nyeri / rasa sakit tidak berkurang dengan obat anda atau menjadi lebih, segera datang ke RS</label>
+                                    @else
+                                    <input class="form-check-input" type="checkbox" name="pendidikan7" id="pendidikan7" value="Jika muncul keluhan nyeri / rasa sakit tidak berkurang dengan obat anda atau menjadi lebih, segera datang ke RS">
+                                    <label class="form-check-label">Jika muncul keluhan nyeri / rasa sakit tidak berkurang dengan obat anda atau menjadi lebih, segera datang ke RS</label>
+                                    @endif
+
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-check">
+                                    @if($rencanaplg[0]->pendidikan_kesehatan8 == 'Perlu perawatan lanjutan ke puskesmas / Rumah Sakit terdekat')
+                                    <input class="form-check-input" type="checkbox" name="pendidikan8" id="pendidikan8" value="Perlu perawatan lanjutan ke puskesmas / Rumah Sakit terdekat" checked>
+                                    <label class="form-check-label">Perlu perawatan lanjutan ke puskesmas / Rumah Sakit terdekat</label>
+                                    @else
+                                    <input class="form-check-input" type="checkbox" name="pendidikan8" id="pendidikan8" value="Perlu perawatan lanjutan ke puskesmas / Rumah Sakit terdekat">
+                                    <label class="form-check-label">Perlu perawatan lanjutan ke puskesmas / Rumah Sakit terdekat</label>
+                                    @endif
+
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="form-check-label">Lainya</label>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="text" name="pendidikan" id="pendidikan" value="{{$rencanaplg[0]->pendidikan_kesehatan}}">
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            {{-- di berikan kepada pasien / keluarga --}}
+
+            <div class="col-md-6" style="margin-top:15px;">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td class="text-bold font-italic">Diberikan obat kepada pasien / keluarga
+                                : </td>
+
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-check">
+                                    @if($rencanaplg[0]->diberikan1 == 'obat-obatan')
+                                    <input class="form-check-input" type="checkbox" name="diberikan1" id="diberikan1" value="obat-obatan" checked>
+                                    <label class="form-check-label">obat-obatan</label>
+                                    @else
+                                    <input class="form-check-input" type="checkbox" name="diberikan1" id="diberikan1" value="obat-obatan">
+                                    <label class="form-check-label">obat-obatan</label>
+                                    @endif
+
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-check">
+                                    @if($rencanaplg[0]->diberikan2 == 'Peralatan / barang pribadi')
+                                    <input class="form-check-input" type="checkbox" name="diberikan2" id="diberikan2" value="Peralatan / barang pribadi" checked>
+                                    <label class="form-check-label">Peralatan / barang pribadi</label>
+                                    @else
+                                    <input class="form-check-input" type="checkbox" name="diberikan2" id="diberikan2" value="Peralatan / barang pribadi">
+                                    <label class="form-check-label">Peralatan / barang pribadi</label>
+                                    @endif
+
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-check">
+                                    @if($rencanaplg[0]->diberikan3 == 'hasil pemeriksaan penunjang')
+                                    <input class="form-check-input" type="checkbox" name="diberikan3" id="diberikan3" value="hasil pemeriksaan penunjang" checked>
+                                    <label class="form-check-label">hasil pemeriksaan penunjang</label>
+                                    @else
+                                    <input class="form-check-input" type="checkbox" name="diberikan3" id="diberikan3" value="hasil pemeriksaan penunjang">
+                                    <label class="form-check-label">hasil pemeriksaan penunjang</label>
+                                    @endif
+
+                                </div>
+                                <br>
+                                <div class="form-check" style="margin-left: 15px">
+                                    @if($rencanaplg[0]->diberikan4 == 'Laboratorium')
+                                    <input class="form-check-input" type="checkbox" name="diberikan4" id="diberikan4" value="Laboratorium" checked>
+                                    <label class="form-check-label">Laboratorium</label>
+                                    @else
+                                    <input class="form-check-input" type="checkbox" name="diberikan4" id="diberikan4" value="Laboratorium">
+                                    <label class="form-check-label">Laboratorium</label>
+                                    @endif
+
+                                </div>
+                                <br>
+                                <div class="form-check" style="margin-left: 15px">
+                                    @if($rencanaplg[0]->diberikan5 == 'Radiologi')
+                                    <input class="form-check-input" type="checkbox" name="diberikan5" id="diberikan5" value="Radiologi" checked>
+                                    <label class="form-check-label">Radiologi</label>
+                                    @else
+                                    <input class="form-check-input" type="checkbox" name="diberikan5" id="diberikan5" value="Radiologi">
+                                    <label class="form-check-label">Radiologi</label>
+                                    @endif
+
+                                </div>
+                                <br>
+                                <div class="form-check" style="margin-left: 15px">
+                                    @if($rencanaplg[0]->diberikan6 == 'EKG')
+                                    <input class="form-check-input" type="checkbox" name="diberikan6" id="diberikan6" value="EKG" checked>
+                                    <label class="form-check-label">EKG</label>
+                                    @else
+                                    <input class="form-check-input" type="checkbox" name="diberikan6" id="diberikan6" value="EKG">
+                                    <label class="form-check-label">EKG</label>
+                                    @endif
+
+                                </div>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="form-check-label">Lainya</label>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="text" name="diberikan" id="diberikan" value="{{$rencanaplg[0]->diberikan}}">
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            {{-- alat bantu --}}
+
+            <div class="col-md-6" style="margin-top:15px;">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td class="text-bold font-italic">Jadwal Kontrol berikutnya : </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="">Poliklinik :</label>
+                                <select class="form-control select2" name="poli" id="poli">
+                                    @foreach($poli as $po )
+                                    <option value="{{$po->kode_unit}}"> {{$po->nama_unit}}</option>
+
+
+                                    @endforeach
+
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text" name="norm" id="norm" value="{{ $norm }}" hidden>
+                                <input type="text" name="kj" id="kj" value="{{ $kj }}" hidden>
+                                <div class="form-group">
+                                    <label for="exampleFormControlSelect1">Tanggal Pemeriksaan
+                                        Poli</label>
+                                    <input type="date" id="tglpoli" name="tglpoli" value="" class="form-control">
+                                </div>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <div type="button" class="btn float-right btn-info updaterencanaplg" style="margin-top: 20px;">
+            UPDATE
+        </div>
+        @endif
 
     </div>
 
     <script>
         document.getElementById('tglpoli').valueAsDate = new Date()
+        $(document).ready(function() {
+            var maxField = 100; //Input fields increment limitation
+            var addButton = $('#add_button'); //Add button selector
+            var wrapper = $('.field_wrapperrr'); //Input field wrapper
+            var fieldHTML = '<div class="row mt-2">';
+            fieldHTML = fieldHTML + '   <div class="col-2"><div class="form-group"><label for="name">Nama Obat:</label><input type="text" name="namaobat" id="namaobat" value="" class="obat form-control"></div></div>';
+            fieldHTML = fieldHTML + ' <div class="col-2"><div class="form-group"><label for="name">Jumlah / Dosis :</label><input type="text" name="dosis" id="dosis" value="" class="dss form-control"></div></div>';
+            fieldHTML = fieldHTML + '   <div class="col-2"><div class="form-group"><label for="name">Jam Pemberian :</label><input type="text" name="jampemberian" id="jampemberian" value="" class="jp form-control"></div></div>';
+            fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Instruksi Khusus :</label><input type="text" name="intruksi" id="intruksi" value="" class="ik form-control"></div></div>';
+
+            fieldHTML = fieldHTML + '<div class="col-md-2"><a href="javascript:void(0);" class="remove_button btn btn-danger">HAPUS</a></div>';
+            fieldHTML = fieldHTML + '</div></div>';
+            var x = 1; //Initial field counter is 1
+
+            //Once add button is clicked
+            $(addButton).click(function() {
+                //Check maximum number of input fields
+                if (x < maxField) {
+                    x++; //Increment field counter
+                    $(wrapper).append(fieldHTML); //Add field html
+                }
+            });
+
+            //Once remove button is clicked
+            $(wrapper).on('click', '.remove_button', function(e) {
+                e.preventDefault();
+                $(this).parent('').parent('').remove(); //Remove field html
+                x--; //Decrement field counter
+            });
+        });
 
         $(".simpanrencanaplg").click(function() {
-            var data = $('.formrencanapulang').serializeArray();
+            var obatplg = $('.formobatplg').serializeArray();
+
             var usialanjut = $('#usialanjut:checked').val()
             var hambatan = $('#hambatan:checked').val()
             var medis = $('#medis:checked').val()
@@ -1169,7 +1295,8 @@
                         dataType: 'json',
                         data: {
                             _token: "{{ csrf_token() }}",
-                            data: JSON.stringify(data),
+                            obatplg: JSON.stringify(obatplg),
+
                             usialanjut: $('#usialanjut:checked').val(),
                             hambatan: $('#hambatan:checked').val(),
                             medis: $('#medis:checked').val(),
@@ -1246,7 +1373,8 @@
             return false;
         });
         $(".updaterencanaplg").click(function() {
-            var data = $('.formrencanapulang').serializeArray();
+            var obatplg = $('.formobatplg').serializeArray();
+
             var usialanjut = $('#usialanjut:checked').val()
             var hambatan = $('#hambatan:checked').val()
             var medis = $('#medis:checked').val()
@@ -1303,7 +1431,7 @@
                         dataType: 'json',
                         data: {
                             _token: "{{ csrf_token() }}",
-                            data: JSON.stringify(data),
+                            obatplg: JSON.stringify(obatplg),
                             usialanjut: $('#usialanjut:checked').val(),
                             hambatan: $('#hambatan:checked').val(),
                             medis: $('#medis:checked').val(),
@@ -1404,4 +1532,83 @@
                 }
             });
         }
+        $(".returobatplg").click(function() {
+            var $row = $(this).closest("tr");
+            var id = $row.find(".id").text();
+            var nama_obat = $row.find(".nama_obat").text();
+            var dosis = $row.find(".dosis").text();
+            var jam_pemberian = $row.find(".jam_pemberian").text();
+            var instruksi_khusus = $row.find(".instruksi_khusus").text();
+
+
+
+
+
+            // var sumberdata = $("#sumberdata:checked").val();
+            Swal.fire({
+                title: "Yakin Retur Tindakan?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Ya',
+                cancelButtonColor: '#d33',
+                cancelButtonText: "Batal"
+
+            }).then(result => {
+                //jika klik ya maka arahkan ke proses.php
+                if (result.isConfirmed) {
+                    $.ajax({
+                        async: true,
+                        type: 'post',
+                        dataType: 'json',
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            norm: $('#norm').val(),
+                            kj: $('#kj').val(),
+                            id,
+                            nama_obat,
+                            dosis,
+                            jam_pemberian,
+                            instruksi_khusus
+
+
+
+                        },
+                        url: '<?= route('returobatplg') ?>',
+
+                        error: function(data) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Sepertinya ada masalah ...',
+                                footer: ''
+                            })
+                        },
+                        success: function(data) {
+                            console.log(data)
+                            if (data.kode == 500) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: data.message,
+                                    footer: ''
+                                })
+                            } else {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'OK',
+                                    text: 'data berhasil diretur',
+                                    footer: ''
+                                })
+                                // cpptperawat()
+
+
+
+                            }
+                        }
+                    });
+                }
+            })
+            return false;
+        });
     </script>

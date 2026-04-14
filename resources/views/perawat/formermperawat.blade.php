@@ -275,8 +275,8 @@
                         </td>
                         <td class="text-bold font-italic">Tanggal Pengkajian</td>
                         <td>
-                            <h5 class="text-bold">{{$now}}</h5>
-
+                            <!-- <h5 class="text-bold">{{$now}}</h5> -->
+                            <input class="form-control" type="datetime-local" name="tgl_input" id="tgl_input">
                         </td>
                     </tr>
                     <tr>
@@ -2213,8 +2213,8 @@
                         </td>
                         <td class="text-bold font-italic">Tanggal Pengkajian</td>
                         <td>
-                            <h5 class="text-bold">{{$now}}</h5>
-
+                            <!-- <h5 class="text-bold">{{$now}}</h5> -->
+                            <input class="form-control" type="datetime-local" name="tgl_input" id="tgl_input" value="{{$assesper[0]->tgl_input}}">
                         </td>
                     </tr>
                     <tr>
@@ -5264,6 +5264,7 @@
 
         var sumberdata = $('#sumberdata:checked').val()
         var sumberdata1 = $('#sumberdata1:checked').val()
+        var tgl_input = $('#tgl_input').val()
 
         var asalmasuk = $('#asalmasuk:checked').val()
         var caramasuk = $('#caramasuk:checked').val()
@@ -5453,6 +5454,7 @@
 
                         sumberdata: $('#sumberdata:checked').val(),
                         sumberdata1: $('#sumberdata1:checked').val(),
+                        tgl_input: $('#tgl_input').val(),
 
                         asalmasuk: $('#asalmasuk:checked').val(),
                         caramasuk: $('#caramasuk:checked').val(),
@@ -5731,6 +5733,7 @@
 
         var sumberdata = $('#sumberdata:checked').val()
         var sumberdata1 = $('#sumberdata1:checked').val()
+        var tgl_input = $('#tgl_input').val()
 
         var asalmasuk = $('#asalmasuk:checked').val()
         var caramasuk = $('#caramasuk:checked').val()
@@ -5918,6 +5921,7 @@
 
                         sumberdata: $('#sumberdata:checked').val(),
                         sumberdata1: $('#sumberdata1:checked').val(),
+                        tgl_input: $('#tgl_input').val(),
 
                         asalmasuk: $('#asalmasuk:checked').val(),
                         caramasuk: $('#caramasuk:checked').val(),

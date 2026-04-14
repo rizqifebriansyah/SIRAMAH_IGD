@@ -1195,7 +1195,8 @@
                     </td>
                     <td class="text-bold font-italic">Tanggal Pengkajian</td>
                     <td>
-                        <h5 class="text-bold">{{$now}}</h5>
+                        <input class="form-control" type="datetime-local" name="tgl_input" id="tgl_input">
+
 
                     </td>
                 </tr>
@@ -1236,7 +1237,7 @@
                     </td>
                     <td>
                         <select class="form-control select2" name="trauma" id="trauma">
-                             <option value=""> -- Pilih Trauma --</option>
+                            <option value=""> -- Pilih Trauma --</option>
                             <option value="Keecelakaan Lalu Lintas Darat">Keecelakaan Lalu Lintas Darat
                             </option>
                             <option value="Keecelakaan Lalu Lintas Perairan">Keecelakaan Lalu Lintas Perairan
@@ -1247,8 +1248,8 @@
                             </option>
                             <option value="Kekerasan Terhadap Perempuan (>=18tahun)">Kekerasan Terhadap Perempuan (>=18tahun)
                             </option>
-                             <option value="Kekerasan Terhadap Anak (< 18tahun)">Kekerasan Terhadap Anak (< 18tahun)
-                            </option>
+                            <option value="Kekerasan Terhadap Anak (< 18tahun)">Kekerasan Terhadap Anak (< 18tahun)
+                                    </option>
                             <option value="Kekerasan Lainya">Kekerasan Lainya
                             </option>
                             <option value="Non Bedah Lainya">Non Bedah Lainya
@@ -1257,13 +1258,13 @@
                             </option>
                             <option value="Kebidanan">Kebidanan
                             </option>
-                             <option value="Psikiatrik">Psikiatrik
+                            <option value="Psikiatrik">Psikiatrik
                             </option>
-                             <option value="Bayi">Bayi
+                            <option value="Bayi">Bayi
                             </option>
-                             <option value="Anak">Anak
+                            <option value="Anak">Anak
                             </option>
-                             <option value="Geriatri">Geriatri
+                            <option value="Geriatri">Geriatri
                             </option>
 
 
@@ -1402,7 +1403,49 @@
 
                                         </div>
                                     </div>
+                                    <table class="table">
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-bold font-italic">KELUHAN UTAMA</td>
+                                                <td>
+                                                    <div class="input-group">
+                                                        <textarea class="form-control" id="keluhan_triase" name="keluhan_triase" placeholder="">
 
+                                            </textarea>
+
+
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-bold font-italic">Pemeriksaan Fisik (temuan signifikan)</td>
+                                                <td>
+                                                    <div class="input-group">
+                                                        <textarea class="form-control" id="pemfis_triase" name="pemfis_triase" placeholder=""></textarea>
+
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-bold font-italic">Diagnosa Triase</td>
+                                                <td>
+                                                    <div class="input-group">
+                                                        <textarea class="form-control" id="diagnosa_triase" name="diagnosa_triase" placeholder=""></textarea>
+
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-bold font-italic">Tata Laksana</td>
+                                                <td>
+                                                    <div class="input-group">
+                                                        <textarea class="form-control" id="talak_triase" name="talak_triase" placeholder=""></textarea>
+
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -2381,6 +2424,7 @@
 </div>
 @elseif($assesdok[0]->status == 2)
 <h1>Data Sudah Tidak Bisa Diubah Karena sudah di Validasi</h1>
+
 <!-- igd umum dengan isi  -->
 @else
 <table class="table">
@@ -2393,7 +2437,9 @@
             </td>
             <td class="text-bold font-italic">Tanggal Pengkajian</td>
             <td>
-                <h5 class="text-bold">{{$now}}</h5>
+                <input class="form-control" type="datetime-local" name="tgl_input" id="tgl_input" value="{{$assesdok[0]->tgl_input}}">
+
+
 
             </td>
         </tr>
@@ -2456,34 +2502,34 @@
             <td>
                 <select class="form-control select2" name="trauma" id="trauma">
                     <option value=""> {{$assesdok[0]->trauma}}</option>
-                            <option value="Keecelakaan Lalu Lintas Darat">Keecelakaan Lalu Lintas Darat
+                    <option value="Keecelakaan Lalu Lintas Darat">Keecelakaan Lalu Lintas Darat
+                    </option>
+                    <option value="Keecelakaan Lalu Lintas Perairan">Keecelakaan Lalu Lintas Perairan
+                    </option>
+                    <option value="Keecelakaan Lalu Lintas Udara">Keecelakaan Lalu Lintas Udara
+                    </option>
+                    <option value="Kekerasan Dalam Rumah Tangga">Kekerasan Dalam Rumah Tangga
+                    </option>
+                    <option value="Kekerasan Terhadap Perempuan (>=18tahun)">Kekerasan Terhadap Perempuan (>=18tahun)
+                    </option>
+                    <option value="Kekerasan Terhadap Anak (< 18tahun)">Kekerasan Terhadap Anak (< 18tahun)
                             </option>
-                            <option value="Keecelakaan Lalu Lintas Perairan">Keecelakaan Lalu Lintas Perairan
-                            </option>
-                            <option value="Keecelakaan Lalu Lintas Udara">Keecelakaan Lalu Lintas Udara
-                            </option>
-                            <option value="Kekerasan Dalam Rumah Tangga">Kekerasan Dalam Rumah Tangga
-                            </option>
-                            <option value="Kekerasan Terhadap Perempuan (>=18tahun)">Kekerasan Terhadap Perempuan (>=18tahun)
-                            </option>
-                             <option value="Kekerasan Terhadap Anak (< 18tahun)">Kekerasan Terhadap Anak (< 18tahun)
-                            </option>
-                            <option value="Kekerasan Lainya">Kekerasan Lainya
-                            </option>
-                            <option value="Non Bedah Lainya">Non Bedah Lainya
-                            </option>
-                            <option value="Kecelakaan Kerja">Kecelakaan Kerja
-                            </option>
-                            <option value="Kebidanan">Kebidanan
-                            </option>
-                             <option value="Psikiatrik">Psikiatrik
-                            </option>
-                             <option value="Bayi">Bayi
-                            </option>
-                             <option value="Anak">Anak
-                            </option>
-                             <option value="Geriatri">Geriatri
-                            </option>
+                    <option value="Kekerasan Lainya">Kekerasan Lainya
+                    </option>
+                    <option value="Non Bedah Lainya">Non Bedah Lainya
+                    </option>
+                    <option value="Kecelakaan Kerja">Kecelakaan Kerja
+                    </option>
+                    <option value="Kebidanan">Kebidanan
+                    </option>
+                    <option value="Psikiatrik">Psikiatrik
+                    </option>
+                    <option value="Bayi">Bayi
+                    </option>
+                    <option value="Anak">Anak
+                    </option>
+                    <option value="Geriatri">Geriatri
+                    </option>
 
 
                 </select>
@@ -2623,245 +2669,292 @@
                     PENANDAAN GAMBAR
                 </div>
                 <div class="row penandaangambar">
-
-                    @if($triase[0]->penandaan_gambar == NULL)
-                    <div class="col-md-5">
+                    <div class="col-md-12">
 
                         <div class="card">
+                            @if($triase[0]->penandaan_gambar == NULL)
 
-                            <div class="card-header  bg-warning">Penandaan Gambar</div>
-                            <div class="card-body">
-                                <input type="text" hidden id="gambarcoret1" name="gambarcoret1">
-                                <img id="gambarnya2" style="margin-top:50px" width="400px" height="400px" src="{{ asset('public/img/nyeri.png') }}" onclick="showMarkerArea(this);" />
-                                <canvas hidden id="myCanvas2" width="600px" height="400px" style="border:1px solid #d3d3d3;">
-                                </canvas>
-                                <button type="button" class="btn btn-danger mt-2" onclick="batalgambar1()">batal</button>
+                            <div class="card">
+
+                                <div class="card-header  bg-warning">Penandaan Gambar</div>
+                                <div class="card-body">
+                                    <input type="text" hidden id="gambarcoret1" name="gambarcoret1">
+                                    <img id="gambarnya2" style="margin-top:50px" width="400px" height="400px" src="{{ asset('public/img/nyeri.png') }}" onclick="showMarkerArea(this);" />
+                                    <canvas hidden id="myCanvas2" width="600px" height="400px" style="border:1px solid #d3d3d3;">
+                                    </canvas>
+                                    <button type="button" class="btn btn-danger mt-2" onclick="batalgambar1()">batal</button>
+
+                                </div>
+                            </div>
+                            @else
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <img id="gambarnya2" style="margin-top:50px" width="600px" height="400px" src="{{ $triase[0]->penandaan_gambar }}" onclick="showMarkerArea(this);" />
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card">
+
+                                        <div class="card-header  bg-warning">Penandaan Gambar</div>
+                                        <div class="card-body">
+                                            <input type="text" hidden id="gambarcoret1" name="gambarcoret1">
+                                            <img id="gambarnya2" style="margin-top:50px" width="400px" height="400px" src="{{ asset('public/img/nyeri.png') }}" onclick="showMarkerArea(this);" />
+                                            <canvas hidden id="myCanvas2" width="600px" height="400px" style="border:1px solid #d3d3d3;">
+                                            </canvas>
+                                            <button type="button" class="btn btn-danger mt-2" onclick="batalgambar1()">batal</button>
+
+                                        </div>
+                                    </div>
+                                </div>
+
 
                             </div>
+
+
+                            @endif
+
                         </div>
                     </div>
-                    @else
-                    <div class="col-md-5">
 
-                        <img id="gambarnya2" style="margin-top:50px" width="600px" height="400px" src="{{ $triase[0]->penandaan_gambar }}" onclick="showMarkerArea(this);" />
+                    <div class="col-md-12">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td class="text-bold font-italic">Kesadaran</td>
+                                    <td>
+                                        @if($triase[0]->kesadaran_1 == NULL)
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" name="kesadaran_1" id="kesadaran_1" value="Compos Mentis">
+                                            <label class="form-check-label" for="inlineRadio1">Compos Mentis</label>
+                                        </div>
+                                        @else
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" checked name="kesadaran_1" id="kesadaran_1" value="Compos Mentis">
+                                            <label class="form-check-label" for="inlineRadio1">Compos Mentis</label>
+                                        </div>
+                                        @endif
+
+
+
+                                    </td>
+                                    <td>
+                                        @if($triase[0]->kesadaran_2 == NULL)
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" name="kesadaran_2" id="kesadaran_2" value="Letargik">
+                                            <label class="form-check-label" for="inlineRadio2">Letargik</label>
+                                        </div>
+                                        @else
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" checked name="kesadaran_2" id="kesadaran_2" value="Letargik">
+                                            <label class="form-check-label" for="inlineRadio2">Letargik</label>
+                                        </div>
+                                        @endif
+
+                                    </td>
+                                    <td>
+                                        <label class="form-check-label" for="inlineRadio2">Lainya</label>
+
+                                        <input class="form-" type="input" name="kesadaran_3" id="kesadaran_3" value="{{$triase[0]->kesadaran_3}}">
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold font-italic">Status Psikologi</td>
+                                    <td>
+                                        @if($triase[0]->status_psikologis == NULL)
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" name="spsi" id="spsi" value="Marah">
+                                            <label class="form-check-label" for="inlineRadio1">Marah</label>
+                                        </div>
+                                        @else
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" name="spsi" checked id="spsi" value="Marah">
+                                            <label class="form-check-label" for="inlineRadio1">Marah</label>
+                                        </div>
+                                        @endif
+
+
+                                    </td>
+                                    <td>
+                                        @if($triase[0]->status_psikologis1 == NULL)
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" name="spsi1" id="spsi1" value="Depresi">
+                                            <label class="form-check-label" for="inlineRadio2">Depresi</label>
+                                        </div>
+                                        @else
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" checked name="spsi1" id="spsi1" value="Depresi">
+                                            <label class="form-check-label" for="inlineRadio2">Depresi</label>
+                                        </div>
+                                        @endif
+
+                                    </td>
+                                    <td>
+                                        @if($triase[0]->status_psikologis2 == NULL)
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" name="spsi2" id="spsi2" value="Takut">
+                                            <label class="form-check-label" for="inlineRadio2">Takut</label>
+                                        </div>
+                                        @else
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" checked name="spsi2" id="spsi2" value="Takut">
+                                            <label class="form-check-label" for="inlineRadio2">Takut</label>
+                                        </div>
+                                        @endif
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold font-italic"></td>
+                                    <td>
+                                        @if($triase[0]->status_psikologis3 == NULL)
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" name="spsi3" id="spsi3" value="Gelisah">
+                                            <label class="form-check-label" for="inlineRadio1">Gelisah</label>
+                                        </div>
+                                        @else
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" checked name="spsi3" id="spsi3" value="Gelisah">
+                                            <label class="form-check-label" for="inlineRadio1">Gelisah</label>
+                                        </div>
+                                        @endif
+
+
+                                    </td>
+                                    <td>
+                                        @if($triase[0]->status_psikologis4 == NULL)
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" name="spsi4" id="spsi4" value="Psikotik">
+                                            <label class="form-check-label" for="inlineRadio2">Psikotik</label>
+                                        </div>
+                                        @else
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" checked name="spsi4" id="spsi4" value="Psikotik">
+                                            <label class="form-check-label" for="inlineRadio2">Psikotik</label>
+                                        </div>
+                                        @endif
+
+                                    </td>
+                                    <td>
+                                        @if($triase[0]->status_psikologis5 == NULL)
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" name="spsi5" id="spsi5" value="Cemas">
+                                            <label class="form-check-label" for="inlineRadio2">Cemas</label>
+                                        </div>
+                                        @else
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" checked name="spsi5" id="spsi5" value="Cemas">
+                                            <label class="form-check-label" for="inlineRadio2">Cemas</label>
+                                        </div>
+                                        @endif
+
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold font-italic"></td>
+                                    <td>
+                                        @if($triase[0]->status_psikologis6 == NULL)
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" name="spsi6" id="spsi6" value="Gelisah">
+                                            <label class="form-check-label" for="inlineRadio1">Gelisah</label>
+                                        </div>
+                                        @else
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" checked name="spsi6" id="spsi6" value="Gelisah">
+                                            <label class="form-check-label" for="inlineRadio1">Gelisah</label>
+                                        </div>
+                                        @endif
+
+
+
+                                    </td>
+                                    <td>
+                                        @if($triase[0]->status_psikologis7 == NULL)
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" name="spsi7" id="spsi7" value="Kecendrungan Bunuh Diri">
+                                            <label class="form-check-label" for="inlineRadio2">Kecendrungan Bunuh Diri</label>
+                                        </div>
+                                        @else
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" checked name="spsi7" id="spsi7" value="Kecendrungan Bunuh Diri">
+                                            <label class="form-check-label" for="inlineRadio2">Kecendrungan Bunuh Diri</label>
+                                        </div>
+                                        @endif
+
+                                    </td>
+                                    <td>
+                                        @if($triase[0]->status_psikologis8 == NULL)
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" name="spsi8" id="spsi8" value="Tidak Ada Masalah">
+                                            <label class="form-check-label" for="inlineRadio2">Tidak Ada Masalah</label>
+                                        </div>
+                                        @else
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" checked name="spsi8" id="spsi8" value="Tidak Ada Masalah">
+                                            <label class="form-check-label" for="inlineRadio2">Tidak Ada Masalah</label>
+                                        </div>
+                                        @endif
+
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold font-italic"></td>
+
+                                    <td>
+                                        <label class="form-check-label" for="inlineRadio2">Lainya</label>
+
+                                        <input class="form-" type="input" name="spsi9" id="spsi9" value="{{$triase[0]->status_psikologis9}}">
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td class="text-bold font-italic">KELUHAN UTAMA</td>
+                                    <td>
+                                        <div class="input-group">
+                                            <textarea class="form-control" id="keluhan_triase" name="keluhan_triase" placeholder="">{{$triase[0]->keluhan_utama}}
+
+                                            </textarea>
+
+
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold font-italic">Pemeriksaan Fisik (temuan signifikan)</td>
+                                    <td>
+                                        <div class="input-group">
+                                            <textarea class="form-control" id="pemfis_triase" name="pemfis_triase" placeholder="">{{$triase[0]->pemeriksaan_fisik}}</textarea>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold font-italic">Diagnosa Triase</td>
+                                    <td>
+                                        <div class="input-group">
+                                            <textarea class="form-control" id="diagnosa_triase" name="diagnosa_triase" placeholder="">{{$triase[0]->diagnosa_triase}}</textarea>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold font-italic">Tata Laksana</td>
+                                    <td>
+                                        <div class="input-group">
+                                            <textarea class="form-control" id="talak_triase" name="talak_triase" placeholder="">{{$triase[0]->tata_laksana}}</textarea>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <div class="col-md-5">
-
-                        <div class="card">
-
-                            <div class="card-header  bg-warning">Penandaan Gambar</div>
-                            <div class="card-body">
-                                <input type="text" hidden id="gambarcoret1" name="gambarcoret1">
-                                <img id="gambarnya2" style="margin-top:50px" width="400px" height="400px" src="{{ asset('public/img/nyeri.png') }}" onclick="showMarkerArea(this);" />
-                                <canvas hidden id="myCanvas2" width="600px" height="400px" style="border:1px solid #d3d3d3;">
-                                </canvas>
-                                <button type="button" class="btn btn-danger mt-2" onclick="batalgambar1()">batal</button>
-
-                            </div>
-                        </div>
-                    </div>
-                    @endif
-
-
-                </div>
-
-                <div class="col-md-5">
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td class="text-bold font-italic">Kesadaran</td>
-                                <td>
-                                    @if($triase[0]->kesadaran_1 == NULL)
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" name="kesadaran_1" id="kesadaran_1" value="Compos Mentis">
-                                        <label class="form-check-label" for="inlineRadio1">Compos Mentis</label>
-                                    </div>
-                                    @else
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" checked name="kesadaran_1" id="kesadaran_1" value="Compos Mentis">
-                                        <label class="form-check-label" for="inlineRadio1">Compos Mentis</label>
-                                    </div>
-                                    @endif
-
-
-
-                                </td>
-                                <td>
-                                    @if($triase[0]->kesadaran_2 == NULL)
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" name="kesadaran_2" id="kesadaran_2" value="Letargik">
-                                        <label class="form-check-label" for="inlineRadio2">Letargik</label>
-                                    </div>
-                                    @else
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" checked name="kesadaran_2" id="kesadaran_2" value="Letargik">
-                                        <label class="form-check-label" for="inlineRadio2">Letargik</label>
-                                    </div>
-                                    @endif
-
-                                </td>
-                                <td>
-                                    <label class="form-check-label" for="inlineRadio2">Lainya</label>
-
-                                    <input class="form-" type="input" name="kesadaran_3" id="kesadaran_3" value="{{$triase[0]->kesadaran_3}}">
-
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-bold font-italic">Status Psikologi</td>
-                                <td>
-                                    @if($triase[0]->status_psikologis == NULL)
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" name="spsi" id="spsi" value="Marah">
-                                        <label class="form-check-label" for="inlineRadio1">Marah</label>
-                                    </div>
-                                    @else
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" name="spsi" checked id="spsi" value="Marah">
-                                        <label class="form-check-label" for="inlineRadio1">Marah</label>
-                                    </div>
-                                    @endif
-
-
-                                </td>
-                                <td>
-                                    @if($triase[0]->status_psikologis1 == NULL)
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" name="spsi1" id="spsi1" value="Depresi">
-                                        <label class="form-check-label" for="inlineRadio2">Depresi</label>
-                                    </div>
-                                    @else
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" checked name="spsi1" id="spsi1" value="Depresi">
-                                        <label class="form-check-label" for="inlineRadio2">Depresi</label>
-                                    </div>
-                                    @endif
-
-                                </td>
-                                <td>
-                                    @if($triase[0]->status_psikologis2 == NULL)
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" name="spsi2" id="spsi2" value="Takut">
-                                        <label class="form-check-label" for="inlineRadio2">Takut</label>
-                                    </div>
-                                    @else
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" checked name="spsi2" id="spsi2" value="Takut">
-                                        <label class="form-check-label" for="inlineRadio2">Takut</label>
-                                    </div>
-                                    @endif
-
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-bold font-italic"></td>
-                                <td>
-                                    @if($triase[0]->status_psikologis3 == NULL)
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" name="spsi3" id="spsi3" value="Gelisah">
-                                        <label class="form-check-label" for="inlineRadio1">Gelisah</label>
-                                    </div>
-                                    @else
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" checked name="spsi3" id="spsi3" value="Gelisah">
-                                        <label class="form-check-label" for="inlineRadio1">Gelisah</label>
-                                    </div>
-                                    @endif
-
-
-                                </td>
-                                <td>
-                                    @if($triase[0]->status_psikologis4 == NULL)
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" name="spsi4" id="spsi4" value="Psikotik">
-                                        <label class="form-check-label" for="inlineRadio2">Psikotik</label>
-                                    </div>
-                                    @else
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" checked name="spsi4" id="spsi4" value="Psikotik">
-                                        <label class="form-check-label" for="inlineRadio2">Psikotik</label>
-                                    </div>
-                                    @endif
-
-                                </td>
-                                <td>
-                                    @if($triase[0]->status_psikologis5 == NULL)
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" name="spsi5" id="spsi5" value="Cemas">
-                                        <label class="form-check-label" for="inlineRadio2">Cemas</label>
-                                    </div>
-                                    @else
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" checked name="spsi5" id="spsi5" value="Cemas">
-                                        <label class="form-check-label" for="inlineRadio2">Cemas</label>
-                                    </div>
-                                    @endif
-
-
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-bold font-italic"></td>
-                                <td>
-                                    @if($triase[0]->status_psikologis6 == NULL)
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" name="spsi6" id="spsi6" value="Gelisah">
-                                        <label class="form-check-label" for="inlineRadio1">Gelisah</label>
-                                    </div>
-                                    @else
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" checked name="spsi6" id="spsi6" value="Gelisah">
-                                        <label class="form-check-label" for="inlineRadio1">Gelisah</label>
-                                    </div>
-                                    @endif
-
-
-
-                                </td>
-                                <td>
-                                    @if($triase[0]->status_psikologis7 == NULL)
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" name="spsi7" id="spsi7" value="Kecendrungan Bunuh Diri">
-                                        <label class="form-check-label" for="inlineRadio2">Kecendrungan Bunuh Diri</label>
-                                    </div>
-                                    @else
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" checked name="spsi7" id="spsi7" value="Kecendrungan Bunuh Diri">
-                                        <label class="form-check-label" for="inlineRadio2">Kecendrungan Bunuh Diri</label>
-                                    </div>
-                                    @endif
-
-                                </td>
-                                <td>
-                                    @if($triase[0]->status_psikologis8 == NULL)
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" name="spsi8" id="spsi8" value="Tidak Ada Masalah">
-                                        <label class="form-check-label" for="inlineRadio2">Tidak Ada Masalah</label>
-                                    </div>
-                                    @else
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" checked name="spsi8" id="spsi8" value="Tidak Ada Masalah">
-                                        <label class="form-check-label" for="inlineRadio2">Tidak Ada Masalah</label>
-                                    </div>
-                                    @endif
-
-
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-bold font-italic"></td>
-
-                                <td>
-                                    <label class="form-check-label" for="inlineRadio2">Lainya</label>
-
-                                    <input class="form-" type="input" name="spsi9" id="spsi9" value="{{$triase[0]->status_psikologis9}}">
-
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                </div>
                 </div>
             </td>
             @endif
@@ -8850,6 +8943,25 @@
         var kategoritriase = $("#kategoritriase:checked").val()
         var jenisats = $("#jenisats:checked").val()
         var jenistriase = $('#jenistriase').val()
+
+        var kesadaran_1 = $("#kesadaran_1:checked").val();
+        var kesadaran_2 = $("#kesadaran_2:checked").val();
+        var kesadaran_3 = $("#kesadaran_3").val();
+        var keluhan_triase = $("#keluhan_triase").val();
+        var pemfis_triase = $("#pemfis_triase").val();
+        var diagnosa_triase = $("#diagnosa_triase").val();
+        var talak_triase = $("#talak_triase").val();
+
+        var spsi1 = $("#spsi1:checked").val();
+        var spsi2 = $("#spsi2:checked").val();
+        var spsi3 = $("#spsi3:checked").val();
+        var spsi4 = $("#spsi4:checked").val();
+        var spsi5 = $("#spsi5:checked").val();
+        var spsi6 = $("#spsi6:checked").val();
+        var spsi7 = $("#spsi7:checked").val();
+        var spsi8 = $("#spsi8:checked").val();
+        var spsi9 = $("#spsi9").val();
+        var spsi = $("#spsi:checked").val();
         //kesadaran var kesadaran1=$("#kesadaran1:checked").val() 
         var kesadaran2 = $("#kesadaran2:checked").val()
         var kesadaran3 = $("#kesadaran3:checked").val()
@@ -8939,6 +9051,7 @@
         var sumberdata = $('#sumberdata:checked').val()
         var macamkasus = $('#macamkasus:checked').val()
         var trauma = $('#trauma').val()
+        var tgl_input = $('#tgl_input').val()
 
         var subject = $('#subyek').val()
         var objek = $('#objek').val()
@@ -9007,382 +9120,16 @@
                         // anak : $("#anak:checked").val(),
                         jenisats: $("#jenisats:checked").val(),
                         jenistriase: $('#jenistriase').val(),
-
-                        //kesadaran
-                        kesadaran1: $("#kesadaran1:checked").val(),
-                        kesadaran2: $("#kesadaran2:checked").val(),
-                        kesadaran3: $("#kesadaran3:checked").val(),
-                        kesadaran4: $("#kesadaran4:checked").val(),
-                        kesadaran5: $("#kesadaran5:checked").val(),
-                        kesadaran6: $("#kesadaran6:checked").val(),
-                        kesadaran7: $("#kesadaran7:checked").val(),
-                        kesadaran8: $("#kesadaran8:checked").val(),
-                        kesadaran9: $("#kesadaran9:checked").val(),
-                        kesadaran10: $("#kesadaran10:checked").val(),
-                        kesadaran11: $("#kesadaran11:checked").val(),
-                        kesadaran12: $("#kesadaran12:checked").val(),
-
-                        //jalannafas
-                        jalannafas1: $("#jalannafas1:checked").val(),
-                        jalannafas2: $("#jalannafas2:checked").val(),
-                        jalannafas3: $("#jalannafas3:checked").val(),
-                        jalannafas4: $("#jalannafas4:checked").val(),
-                        jalannafas5: $("#jalannafas5:checked").val(),
-
-                        //pernafasan
-                        upaya1: $("#upaya1:checked").val(),
-                        upaya2: $("#upaya2:checked").val(),
-                        upaya3: $("#upaya3:checked").val(),
-                        upaya4: $("#upaya4:checked").val(),
-                        upaya5: $("#upaya5:checked").val(),
-                        upaya6: $("#upaya6:checked").val(),
-                        upaya7: $("#upaya7:checked").val(),
-                        upaya8: $("#upaya8:checked").val(),
-
-                        //sirkulasi
-                        sirkulasi1: $("#sirkulasi1:checked").val(),
-                        sirkulasi2: $("#sirkulasi2:checked").val(),
-                        sirkulasi3: $("#sirkulasi3:checked").val(),
-                        sirkulasi4: $("#sirkulasi4:checked").val(),
-                        sirkulasi5: $("#sirkulasi5:checked").val(),
-                        sirkulasi6: $("#sirkulasi6:checked").val(),
-                        sirkulasi7: $("#sirkulasi7:checked").val(),
-                        sirkulasi8: $("#sirkulasi8:checked").val(),
-                        sirkulasi9: $("#sirkulasi9:checked").val(),
-                        sirkulasi10: $("#sirkulasi10:checked").val(),
-                        sirkulasi11: $("#sirkulasi11:checked").val(),
-                        sirkulasi12: $("#sirkulasi12:checked").val(),
-                        sirkulasi13: $("#sirkulasi13:checked").val(),
-                        sirkulasi14: $("#sirkulasi14:checked").val(),
-                        sirkulasi15: $("#sirkulasi15:checked").val(),
-                        sirkulasi16: $("#sirkulasi16:checked").val(),
-                        sirkulasi17: $("#sirkulasi17:checked").val(),
-                        sirkulasi18: $("#sirkulasi18:checked").val(),
-                        sirkulasi19: $("#sirkulasi19:checked").val(),
-                        sirkulasi20: $("#sirkulasi20:checked").val(),
-                        sirkulasi21: $("#sirkulasi21:checked").val(),
-                        sirkulasi22: $("#sirkulasi22:checked").val(),
-                        sirkulasi23: $("#sirkulasi23:checked").val(),
-                        sirkulasi24: $("#sirkulasi24:checked").val(),
-                        sirkulasi25: $("#sirkulasi25:checked").val(),
-
-                        //gejalaspesifik
-                        gejala1: $("#gejala1:checked").val(),
-                        gejala2: $("#gejala2:checked").val(),
-                        gejala3: $("#gejala3:checked").val(),
-                        gejala4: $("#gejala4:checked").val(),
-                        gejala5: $("#gejala5:checked").val(),
-                        gejala6: $("#gejala6:checked").val(),
-                        gejala7: $("#gejala7:checked").val(),
-                        gejala8: $("#gejala8:checked").val(),
-                        gejala9: $("#gejala9:checked").val(),
-                        gejala10: $("#gejala10:checked").val(),
-                        gejala11: $("#gejala11:checked").val(),
-                        gejala12: $("#gejala12:checked").val(),
-                        gejala13: $("#gejala13:checked").val(),
-                        gejala14: $("#gejala14:checked").val(),
-                        gejala15: $("#gejala15:checked").val(),
-                        gejala16: $("#gejala16:checked").val(),
-                        gejala17: $("#gejala17:checked").val(),
-                        gejala18: $("#gejala18:checked").val(),
-                        gejala19: $("#gejala19:checked").val(),
-                        gejala20: $("#gejala20:checked").val(),
-                        gejala21: $("#gejala21:checked").val(),
-                        gejala22: $("#gejala22:checked").val(),
-                        gejala23: $("#gejala23:checked").val(),
-                        gejala24: $("#gejala24:checked").val(),
-                        gejala25: $("#gejala25:checked").val(),
-                        gejala26: $("#gejala26:checked").val(),
-                        gejala27: $("#gejala27:checked").val(),
-                        gejala28: $("#gejala28:checked").val(),
-                        gejala29: $("#gejala29:checked").val(),
-                        ats1lain: $('#ats1lain').val(),
-                        ats2lain: $('#ats2lain').val(),
-                        ats3lain: $('#ats3lain').val(),
-                        ats4lain: $('#ats4lain').val(),
-                        ats5lain: $('#ats5lain').val(),
-
-
-                        //triase
-                        sumberdata: $('#sumberdata:checked').val(),
-                        macamkasus: $('#macamkasus:checked').val(),
-                        trauma: $('#trauma').val(),
-                        subject: $('#subyek').val(),
-                        objek: $('#objek').val(),
-                        anamnesa: $('#anamnesa').val(),
-                        diagnosa: $('#diagnosa').val(),
-                        namadpjp: $('#namadpjp').val(),
-                        kodedpjp: $('#kodedpjp').val(),
-                        talaksana: $('#talaksana').val(),
-                        talaksanadpjp: $('#talaksanadpjp').val(),
-                        riwayatpenyakit: $('#riwayatpenyakit').val(),
-
-                        tigap: $('#tigap').val(),
-                        tigak: $('#tigak').val(),
-                        norm: $('#norm').val(),
-                        counter: $('#counter').val(),
-                        kj: $('#kj').val(),
-                        alpul: $('#alpul').val(),
-                        alpul1: $('#alpul1').val(),
-                        kopul: $('#kopul').val(),
-                        kopul1: $('#kopul1').val(),
-                        ku: $('#ku').val(),
-                        kp: $('#kp').val(),
-                        primary: $('#primary').val(),
-                        secondary: $('#secondary').val(),
-                        tglmasuk: $('#tglmasuk').val(),
-                        tinjutt: $('#tinjutt').val(),
-                        jammasukk: $('#jammasukk').val(),
-                        jamper: $('#jamper').val(),
-                        stabil: $('#stabil').val(),
-                        tidakstabil: $('#tidakstabil').val(),
-                        keputusanruangoperasi: $('#keputusanruangoperasi').val(),
-                        keputusankamarjenazah: $('#keputusankamarjenazah').val(),
-                        keputusanpulang: $('#keputusanpulang').val()
-
-
-                    },
-                    url: '<?= route('updateassemen') ?>',
-
-                    error: function(data) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Sepertinya ada masalah ...',
-                            footer: ''
-                        })
-                    },
-                    success: function(data) {
-                        console.log(data)
-                        if (data.kode == 500) {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Oops...',
-                                text: data.message,
-                                footer: ''
-                            })
-                        } else {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'OK',
-                                text: 'Update berhasil disimpan',
-                                footer: ''
-                            })
-                            cpptdokter();
-
-
-                        }
-                    }
-                });
-            }
-        })
-        return false;
-    });
-    $(".simpanasses").click(function() {
-        var gambar = document.getElementById("myCanvas2");
-
-        var ctx1 = gambar.getContext("2d");
-        var img1 = document.getElementById("gambarnya2");
-        ctx1.drawImage(img1, 10, 10);
-        var dataUrl1 = gambar.toDataURL();
-        $('#gambarcoret1').val(dataUrl1)
-        gambar1 = $('#gambarcoret1').val()
-        // var data = $('.formtindakandokter').serializeArray();
-        var tindakandpjp = $('.formtindakandpjp').serializeArray();
-
-        // var tindakangp = $('.formtindakangp').serializeArray();
-        var datalab = $('.formlab').serializeArray();
-
-        var datarad = $('.formradio').serializeArray();
-        var rekobat = $('.formtinjutobat').serializeArray();
-        //triase
-        var kategoritriase = $("#kategoritriase:checked").val();
-        var jenisats = $("#jenisats:checked").val();
-        var jenistriase = $('#jenistriase').val();
-
-        var kesadaran_1 = $("#kesadaran_1:checked").val();
-        var kesadaran_2 = $("#kesadaran_2:checked").val();
-        var kesadaran_3 = $("#kesadaran_3").val();
-        var spsi1 = $("#spsi1:checked").val();
-        var spsi2 = $("#spsi2:checked").val();
-        var spsi3 = $("#spsi3:checked").val();
-        var spsi4 = $("#spsi4:checked").val();
-        var spsi5 = $("#spsi5:checked").val();
-        var spsi6 = $("#spsi6:checked").val();
-        var spsi7 = $("#spsi7:checked").val();
-        var spsi8 = $("#spsi8:checked").val();
-        var spsi9 = $("#spsi9").val();
-        var spsi = $("#spsi:checked").val();
-        //kesadaran var kesadaran1=$("#kesadaran1:checked").val(); 
-        var kesadaran2 = $("#kesadaran2:checked").val();
-        var kesadaran3 = $("#kesadaran3:checked").val();
-        var kesadaran4 = $("#kesadaran4:checked").val();
-        var kesadaran5 = $("#kesadaran5:checked").val();
-        var kesadaran6 = $("#kesadaran6:checked").val();
-        var kesadaran7 = $("#kesadaran7:checked").val();
-        var kesadaran8 = $("#kesadaran8:checked").val();
-        var kesadaran9 = $("#kesadaran9:checked").val();
-        var kesadaran10 = $("#kesadaran10:checked").val();
-        var kesadaran11 = $("#kesadaran11:checked").val();
-        var kesadaran12 = $("#kesadaran12:checked").val();
-        //jalannafas var jalannafas1=$("#jalannafas1:checked").val();
-        var jalannafas2 = $("#jalannafas2:checked").val();
-        var jalannafas3 = $("#jalannafas3:checked").val();
-        var jalannafas4 = $("#jalannafas4:checked").val();
-        var jalannafas5 = $("#jalannafas5:checked").val();
-        //pernafasan var upaya1=$("#upaya1:checked").val(); 
-        var upaya2 = $("#upaya2:checked").val();
-        var upaya3 = $("#upaya3:checked").val();
-        var upaya4 = $("#upaya4:checked").val();
-        var upaya5 = $("#upaya5:checked").val();
-        var upaya6 = $("#upaya6:checked").val();
-        var upaya7 = $("#upaya7:checked").val();
-        var upaya8 = $("#upaya8:checked").val();
-        //sirkulasi var sirkulasi1=$("#sirkulasi1:checked").val(); 
-        var sirkulasi2 = $("#sirkulasi2:checked").val();
-        var sirkulasi3 = $("#sirkulasi3:checked").val();
-        var sirkulasi4 = $("#sirkulasi4:checked").val();
-        var sirkulasi5 = $("#sirkulasi5:checked").val();
-        var sirkulasi6 = $("#sirkulasi6:checked").val();
-        var sirkulasi7 = $("#sirkulasi7:checked").val();
-        var sirkulasi8 = $("#sirkulasi8:checked").val();
-        var sirkulasi9 = $("#sirkulasi9:checked").val();
-        var sirkulasi10 = $("#sirkulasi10:checked").val();
-        var sirkulasi11 = $("#sirkulasi11:checked").val();
-        var sirkulasi12 = $("#sirkulasi12:checked").val();
-        var sirkulasi13 = $("#sirkulasi13:checked").val();
-        var sirkulasi14 = $("#sirkulasi14:checked").val();
-        var sirkulasi15 = $("#sirkulasi15:checked").val();
-        var sirkulasi16 = $("#sirkulasi16:checked").val();
-        var sirkulasi17 = $("#sirkulasi17:checked").val();
-        var sirkulasi18 = $("#sirkulasi18:checked").val();
-        var sirkulasi19 = $("#sirkulasi19:checked").val();
-        var sirkulasi20 = $("#sirkulasi20:checked").val();
-        var sirkulasi21 = $("#sirkulasi21:checked").val();
-        var sirkulasi22 = $("#sirkulasi22:checked").val();
-        var sirkulasi23 = $("#sirkulasi23:checked").val();
-        var sirkulasi24 = $("#sirkulasi24:checked").val();
-        var sirkulasi25 = $("#sirkulasi25:checked").val();
-        //gejalaspesifik var gejala1=$("#gejala1:checked").val(); 
-        var gejala1 = $("#gejala1:checked").val();
-
-        var gejala2 = $("#gejala2:checked").val();
-        var gejala3 = $("#gejala3:checked").val();
-        var gejala4 = $("#gejala4:checked").val();
-        var gejala5 = $("#gejala5:checked").val();
-        var gejala6 = $("#gejala6:checked").val();
-        var gejala7 = $("#gejala7:checked").val();
-        var gejala8 = $("#gejala8:checked").val();
-        var gejala9 = $("#gejala9:checked").val();
-        var gejala10 = $("#gejala10:checked").val();
-        var gejala11 = $("#gejala11:checked").val();
-        var gejala12 = $("#gejala12:checked").val();
-        var gejala13 = $("#gejala13:checked").val();
-        var gejala14 = $("#gejala14:checked").val();
-        var gejala15 = $("#gejala15:checked").val();
-        var gejala15 = $("#gejala15:checked").val();
-        var gejala17 = $("#gejala17:checked").val();
-        var gejala18 = $("#gejala18:checked").val();
-        var gejala19 = $("#gejala19:checked").val();
-        var gejala20 = $("#gejala20:checked").val();
-        var gejala21 = $("#gejala21:checked").val();
-        var gejala22 = $("#gejala22:checked").val();
-        var gejala23 = $("#gejala23:checked").val();
-        var gejala24 = $("#gejala24:checked").val();
-        var gejala25 = $("#gejala25:checked").val();
-        var gejala26 = $("#gejala26:checked").val();
-        var gejala27 = $("#gejala27:checked").val();
-        var gejala28 = $("#gejala28:checked").val();
-        var gejala29 = $("#gejala29:checked").val();
-        var ats1lain = $('#ats1lain').val()
-        var ats2lain = $('#ats2lain').val()
-        var ats3lain = $('#ats3lain').val()
-        var ats4lain = $('#ats4lain').val()
-        var ats5lain = $('#ats5lain').val()
-
-        //triase
-        var ku = $('#ku').val()
-        var sumberdata = $('#sumberdata:checked').val()
-        var macamkasus = $('#macamkasus:checked').val()
-        var trauma = $('#trauma').val()
-
-        var subject = $('#subyek').val()
-        var objek = $('#objek').val()
-        var primary = $('#primary').val()
-        var secondary = $('#secondary').val()
-        var anamnesa = $('#anamnesa').val()
-        var riwayatpenyakit = $('#riwayatpenyakit').val()
-
-        var diagnosa = $('#diagnosa').val()
-        var namadpjp = $('#namadpjp').val()
-        var kodedpjp = $('#kodedpjp').val()
-
-        var talaksana = $('#talaksana').val()
-        var talaksanadpjp = $('#talaksanadpjp').val()
-
-        var tigap = $('#tigap').val()
-        var tigak = $('#tigak').val()
-        var norm = $('#norm').val()
-        var kj = $('#kj').val()
-        var kp = $('#kp').val()
-        var counter = $('#counter').val()
-        var tglmasuk = $('#tglmasuk').val()
-        var alpul = $('#alpul').val()
-        var alpul1 = $('#alpul1').val()
-        var kopul = $('#kopul').val()
-        var kopul1 = $('#kopul1').val()
-        var tinjutt = $('#tinjutt').val()
-        var jammasukk = $('#jammasukk').val()
-        var jamper = $('#jamper').val()
-        var stabil = $('#stabil').val()
-        var tidakstabil = $('#tidakstabil').val()
-        var keputusanruangoperasi = $('#keputusanruangoperasi').val()
-        var keputusankamarjenazah = $('#keputusankamarjenazah').val()
-        var keputusanpulang = $('#keputusanpulang').val()
-
-
-
-
-
-        // var sumberdata = $("#sumberdata:checked").val();
-        Swal.fire({
-            title: "Yakin Simpan Assesmen?",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            confirmButtonText: 'Ya',
-            cancelButtonColor: '#d33',
-            cancelButtonText: "Batal"
-
-        }).then(result => {
-            //jika klik ya maka arahkan ke proses.php
-            if (result.isConfirmed) {
-                $.ajax({
-                    async: true,
-                    type: 'post',
-                    dataType: 'json',
-                    data: {
-                        _token: "{{ csrf_token() }}",
-                        // data: JSON.stringify(data),
-                        tindakandpjp: JSON.stringify(tindakandpjp),
-
-                        // tindakangp: JSON.stringify(tindakangp),
-                        datalab: JSON.stringify(datalab),
-
-                        datarad: JSON.stringify(datarad),
-                        rekobat: JSON.stringify(rekobat),
-                        //triase
-                        kategoritriase: $("#kategoritriase:checked").val(),
-                        // bedah : $("#bedah:checked").val(),
-                        // obgyn : $("#obgyn:checked").val(),
-                        // anak : $("#anak:checked").val(),
-                        jenisats: $("#jenisats:checked").val(),
-                        jenistriase: $('#jenistriase').val(),
                         gambar1: $('#gambarcoret1').val(),
 
                         kesadaran_1: $("#kesadaran_1:checked").val(),
                         kesadaran_2: $("#kesadaran_2:checked").val(),
                         kesadaran_3: $("#kesadaran_3").val(),
+                        keluhan_triase: $("#keluhan_triase").val(),
+                        pemfis_triase: $("#pemfis_triase").val(),
+                        diagnosa_triase: $("#diagnosa_triase").val(),
+                        talak_triase: $("#talak_triase").val(),
+
                         spsi1: $("#spsi1:checked").val(),
                         spsi2: $("#spsi2:checked").val(),
                         spsi3: $("#spsi3:checked").val(),
@@ -9492,6 +9239,404 @@
                         sumberdata: $('#sumberdata:checked').val(),
                         macamkasus: $('#macamkasus:checked').val(),
                         trauma: $('#trauma').val(),
+                        tgl_input: $('#tgl_input').val(),
+
+                        subject: $('#subyek').val(),
+                        objek: $('#objek').val(),
+                        anamnesa: $('#anamnesa').val(),
+                        diagnosa: $('#diagnosa').val(),
+                        namadpjp: $('#namadpjp').val(),
+                        kodedpjp: $('#kodedpjp').val(),
+                        talaksana: $('#talaksana').val(),
+                        talaksanadpjp: $('#talaksanadpjp').val(),
+                        riwayatpenyakit: $('#riwayatpenyakit').val(),
+
+                        tigap: $('#tigap').val(),
+                        tigak: $('#tigak').val(),
+                        norm: $('#norm').val(),
+                        counter: $('#counter').val(),
+                        kj: $('#kj').val(),
+                        alpul: $('#alpul').val(),
+                        alpul1: $('#alpul1').val(),
+                        kopul: $('#kopul').val(),
+                        kopul1: $('#kopul1').val(),
+                        ku: $('#ku').val(),
+                        kp: $('#kp').val(),
+                        primary: $('#primary').val(),
+                        secondary: $('#secondary').val(),
+                        tglmasuk: $('#tglmasuk').val(),
+                        tinjutt: $('#tinjutt').val(),
+                        jammasukk: $('#jammasukk').val(),
+                        jamper: $('#jamper').val(),
+                        stabil: $('#stabil').val(),
+                        tidakstabil: $('#tidakstabil').val(),
+                        keputusanruangoperasi: $('#keputusanruangoperasi').val(),
+                        keputusankamarjenazah: $('#keputusankamarjenazah').val(),
+                        keputusanpulang: $('#keputusanpulang').val()
+
+
+                    },
+                    url: '<?= route('updateassemen') ?>',
+
+                    error: function(data) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Sepertinya ada masalah ...',
+                            footer: ''
+                        })
+                    },
+                    success: function(data) {
+                        console.log(data)
+                        if (data.kode == 500) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: data.message,
+                                footer: ''
+                            })
+                        } else {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'OK',
+                                text: 'Update berhasil disimpan',
+                                footer: ''
+                            })
+                            cpptdokter();
+
+
+                        }
+                    }
+                });
+            }
+        })
+        return false;
+    });
+    $(".simpanasses").click(function() {
+        var gambar = document.getElementById("myCanvas2");
+
+        var ctx1 = gambar.getContext("2d");
+        var img1 = document.getElementById("gambarnya2");
+        ctx1.drawImage(img1, 10, 10);
+        var dataUrl1 = gambar.toDataURL();
+        $('#gambarcoret1').val(dataUrl1)
+        gambar1 = $('#gambarcoret1').val()
+        // var data = $('.formtindakandokter').serializeArray();
+        var tindakandpjp = $('.formtindakandpjp').serializeArray();
+
+        // var tindakangp = $('.formtindakangp').serializeArray();
+        var datalab = $('.formlab').serializeArray();
+
+        var datarad = $('.formradio').serializeArray();
+        var rekobat = $('.formtinjutobat').serializeArray();
+        //triase
+        var kategoritriase = $("#kategoritriase:checked").val();
+        var jenisats = $("#jenisats:checked").val();
+        var jenistriase = $('#jenistriase').val();
+
+        var kesadaran_1 = $("#kesadaran_1:checked").val();
+        var kesadaran_2 = $("#kesadaran_2:checked").val();
+        var kesadaran_3 = $("#kesadaran_3").val();
+        var keluhan_triase = $("#keluhan_triase").val();
+        var pemfis_triase = $("#pemfis_triase").val();
+        var diagnosa_triase = $("#diagnosa_triase").val();
+        var talak_triase = $("#talak_triase").val();
+        var spsi1 = $("#spsi1:checked").val();
+        var spsi2 = $("#spsi2:checked").val();
+        var spsi3 = $("#spsi3:checked").val();
+        var spsi4 = $("#spsi4:checked").val();
+        var spsi5 = $("#spsi5:checked").val();
+        var spsi6 = $("#spsi6:checked").val();
+        var spsi7 = $("#spsi7:checked").val();
+        var spsi8 = $("#spsi8:checked").val();
+        var spsi9 = $("#spsi9").val();
+        var spsi = $("#spsi:checked").val();
+        //kesadaran var kesadaran1=$("#kesadaran1:checked").val(); 
+        var kesadaran2 = $("#kesadaran2:checked").val();
+        var kesadaran3 = $("#kesadaran3:checked").val();
+        var kesadaran4 = $("#kesadaran4:checked").val();
+        var kesadaran5 = $("#kesadaran5:checked").val();
+        var kesadaran6 = $("#kesadaran6:checked").val();
+        var kesadaran7 = $("#kesadaran7:checked").val();
+        var kesadaran8 = $("#kesadaran8:checked").val();
+        var kesadaran9 = $("#kesadaran9:checked").val();
+        var kesadaran10 = $("#kesadaran10:checked").val();
+        var kesadaran11 = $("#kesadaran11:checked").val();
+        var kesadaran12 = $("#kesadaran12:checked").val();
+        //jalannafas var jalannafas1=$("#jalannafas1:checked").val();
+        var jalannafas2 = $("#jalannafas2:checked").val();
+        var jalannafas3 = $("#jalannafas3:checked").val();
+        var jalannafas4 = $("#jalannafas4:checked").val();
+        var jalannafas5 = $("#jalannafas5:checked").val();
+        //pernafasan var upaya1=$("#upaya1:checked").val(); 
+        var upaya2 = $("#upaya2:checked").val();
+        var upaya3 = $("#upaya3:checked").val();
+        var upaya4 = $("#upaya4:checked").val();
+        var upaya5 = $("#upaya5:checked").val();
+        var upaya6 = $("#upaya6:checked").val();
+        var upaya7 = $("#upaya7:checked").val();
+        var upaya8 = $("#upaya8:checked").val();
+        //sirkulasi var sirkulasi1=$("#sirkulasi1:checked").val(); 
+        var sirkulasi2 = $("#sirkulasi2:checked").val();
+        var sirkulasi3 = $("#sirkulasi3:checked").val();
+        var sirkulasi4 = $("#sirkulasi4:checked").val();
+        var sirkulasi5 = $("#sirkulasi5:checked").val();
+        var sirkulasi6 = $("#sirkulasi6:checked").val();
+        var sirkulasi7 = $("#sirkulasi7:checked").val();
+        var sirkulasi8 = $("#sirkulasi8:checked").val();
+        var sirkulasi9 = $("#sirkulasi9:checked").val();
+        var sirkulasi10 = $("#sirkulasi10:checked").val();
+        var sirkulasi11 = $("#sirkulasi11:checked").val();
+        var sirkulasi12 = $("#sirkulasi12:checked").val();
+        var sirkulasi13 = $("#sirkulasi13:checked").val();
+        var sirkulasi14 = $("#sirkulasi14:checked").val();
+        var sirkulasi15 = $("#sirkulasi15:checked").val();
+        var sirkulasi16 = $("#sirkulasi16:checked").val();
+        var sirkulasi17 = $("#sirkulasi17:checked").val();
+        var sirkulasi18 = $("#sirkulasi18:checked").val();
+        var sirkulasi19 = $("#sirkulasi19:checked").val();
+        var sirkulasi20 = $("#sirkulasi20:checked").val();
+        var sirkulasi21 = $("#sirkulasi21:checked").val();
+        var sirkulasi22 = $("#sirkulasi22:checked").val();
+        var sirkulasi23 = $("#sirkulasi23:checked").val();
+        var sirkulasi24 = $("#sirkulasi24:checked").val();
+        var sirkulasi25 = $("#sirkulasi25:checked").val();
+        //gejalaspesifik var gejala1=$("#gejala1:checked").val(); 
+        var gejala1 = $("#gejala1:checked").val();
+
+        var gejala2 = $("#gejala2:checked").val();
+        var gejala3 = $("#gejala3:checked").val();
+        var gejala4 = $("#gejala4:checked").val();
+        var gejala5 = $("#gejala5:checked").val();
+        var gejala6 = $("#gejala6:checked").val();
+        var gejala7 = $("#gejala7:checked").val();
+        var gejala8 = $("#gejala8:checked").val();
+        var gejala9 = $("#gejala9:checked").val();
+        var gejala10 = $("#gejala10:checked").val();
+        var gejala11 = $("#gejala11:checked").val();
+        var gejala12 = $("#gejala12:checked").val();
+        var gejala13 = $("#gejala13:checked").val();
+        var gejala14 = $("#gejala14:checked").val();
+        var gejala15 = $("#gejala15:checked").val();
+        var gejala15 = $("#gejala15:checked").val();
+        var gejala17 = $("#gejala17:checked").val();
+        var gejala18 = $("#gejala18:checked").val();
+        var gejala19 = $("#gejala19:checked").val();
+        var gejala20 = $("#gejala20:checked").val();
+        var gejala21 = $("#gejala21:checked").val();
+        var gejala22 = $("#gejala22:checked").val();
+        var gejala23 = $("#gejala23:checked").val();
+        var gejala24 = $("#gejala24:checked").val();
+        var gejala25 = $("#gejala25:checked").val();
+        var gejala26 = $("#gejala26:checked").val();
+        var gejala27 = $("#gejala27:checked").val();
+        var gejala28 = $("#gejala28:checked").val();
+        var gejala29 = $("#gejala29:checked").val();
+        var ats1lain = $('#ats1lain').val()
+        var ats2lain = $('#ats2lain').val()
+        var ats3lain = $('#ats3lain').val()
+        var ats4lain = $('#ats4lain').val()
+        var ats5lain = $('#ats5lain').val()
+
+        //triase
+        var ku = $('#ku').val()
+        var sumberdata = $('#sumberdata:checked').val()
+        var macamkasus = $('#macamkasus:checked').val()
+        var trauma = $('#trauma').val()
+        var tgl_input = $('#tgl_input').val()
+
+        var subject = $('#subyek').val()
+        var objek = $('#objek').val()
+        var primary = $('#primary').val()
+        var secondary = $('#secondary').val()
+        var anamnesa = $('#anamnesa').val()
+        var riwayatpenyakit = $('#riwayatpenyakit').val()
+
+        var diagnosa = $('#diagnosa').val()
+        var namadpjp = $('#namadpjp').val()
+        var kodedpjp = $('#kodedpjp').val()
+
+        var talaksana = $('#talaksana').val()
+        var talaksanadpjp = $('#talaksanadpjp').val()
+
+        var tigap = $('#tigap').val()
+        var tigak = $('#tigak').val()
+        var norm = $('#norm').val()
+        var kj = $('#kj').val()
+        var kp = $('#kp').val()
+        var counter = $('#counter').val()
+        var tglmasuk = $('#tglmasuk').val()
+        var alpul = $('#alpul').val()
+        var alpul1 = $('#alpul1').val()
+        var kopul = $('#kopul').val()
+        var kopul1 = $('#kopul1').val()
+        var tinjutt = $('#tinjutt').val()
+        var jammasukk = $('#jammasukk').val()
+        var jamper = $('#jamper').val()
+        var stabil = $('#stabil').val()
+        var tidakstabil = $('#tidakstabil').val()
+        var keputusanruangoperasi = $('#keputusanruangoperasi').val()
+        var keputusankamarjenazah = $('#keputusankamarjenazah').val()
+        var keputusanpulang = $('#keputusanpulang').val()
+
+
+
+
+
+        // var sumberdata = $("#sumberdata:checked").val();
+        Swal.fire({
+            title: "Yakin Simpan Assesmen?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Ya',
+            cancelButtonColor: '#d33',
+            cancelButtonText: "Batal"
+
+        }).then(result => {
+            //jika klik ya maka arahkan ke proses.php
+            if (result.isConfirmed) {
+                $.ajax({
+                    async: true,
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        // data: JSON.stringify(data),
+                        tindakandpjp: JSON.stringify(tindakandpjp),
+
+                        // tindakangp: JSON.stringify(tindakangp),
+                        datalab: JSON.stringify(datalab),
+
+                        datarad: JSON.stringify(datarad),
+                        rekobat: JSON.stringify(rekobat),
+                        //triase
+                        kategoritriase: $("#kategoritriase:checked").val(),
+                        // bedah : $("#bedah:checked").val(),
+                        // obgyn : $("#obgyn:checked").val(),
+                        // anak : $("#anak:checked").val(),
+                        jenisats: $("#jenisats:checked").val(),
+                        jenistriase: $('#jenistriase').val(),
+                        gambar1: $('#gambarcoret1').val(),
+
+                        kesadaran_1: $("#kesadaran_1:checked").val(),
+                        kesadaran_2: $("#kesadaran_2:checked").val(),
+                        kesadaran_3: $("#kesadaran_3").val(),
+                        keluhan_triase: $("#keluhan_triase").val(),
+                        pemfis_triase: $("#pemfis_triase").val(),
+                        diagnosa_triase: $("#diagnosa_triase").val(),
+                        talak_triase: $("#talak_triase").val(),
+                        spsi1: $("#spsi1:checked").val(),
+                        spsi2: $("#spsi2:checked").val(),
+                        spsi3: $("#spsi3:checked").val(),
+                        spsi4: $("#spsi4:checked").val(),
+                        spsi5: $("#spsi5:checked").val(),
+                        spsi6: $("#spsi6:checked").val(),
+                        spsi7: $("#spsi7:checked").val(),
+                        spsi8: $("#spsi8:checked").val(),
+                        spsi9: $("#spsi9").val(),
+                        spsi: $("#spsi:checked").val(),
+                        //kesadaran
+                        kesadaran1: $("#kesadaran1:checked").val(),
+                        kesadaran2: $("#kesadaran2:checked").val(),
+                        kesadaran3: $("#kesadaran3:checked").val(),
+                        kesadaran4: $("#kesadaran4:checked").val(),
+                        kesadaran5: $("#kesadaran5:checked").val(),
+                        kesadaran6: $("#kesadaran6:checked").val(),
+                        kesadaran7: $("#kesadaran7:checked").val(),
+                        kesadaran8: $("#kesadaran8:checked").val(),
+                        kesadaran9: $("#kesadaran9:checked").val(),
+                        kesadaran10: $("#kesadaran10:checked").val(),
+                        kesadaran11: $("#kesadaran11:checked").val(),
+                        kesadaran12: $("#kesadaran12:checked").val(),
+
+                        //jalannafas
+                        jalannafas1: $("#jalannafas1:checked").val(),
+                        jalannafas2: $("#jalannafas2:checked").val(),
+                        jalannafas3: $("#jalannafas3:checked").val(),
+                        jalannafas4: $("#jalannafas4:checked").val(),
+                        jalannafas5: $("#jalannafas5:checked").val(),
+
+                        //pernafasan
+                        upaya1: $("#upaya1:checked").val(),
+                        upaya2: $("#upaya2:checked").val(),
+                        upaya3: $("#upaya3:checked").val(),
+                        upaya4: $("#upaya4:checked").val(),
+                        upaya5: $("#upaya5:checked").val(),
+                        upaya6: $("#upaya6:checked").val(),
+                        upaya7: $("#upaya7:checked").val(),
+                        upaya8: $("#upaya8:checked").val(),
+
+                        //sirkulasi
+                        sirkulasi1: $("#sirkulasi1:checked").val(),
+                        sirkulasi2: $("#sirkulasi2:checked").val(),
+                        sirkulasi3: $("#sirkulasi3:checked").val(),
+                        sirkulasi4: $("#sirkulasi4:checked").val(),
+                        sirkulasi5: $("#sirkulasi5:checked").val(),
+                        sirkulasi6: $("#sirkulasi6:checked").val(),
+                        sirkulasi7: $("#sirkulasi7:checked").val(),
+                        sirkulasi8: $("#sirkulasi8:checked").val(),
+                        sirkulasi9: $("#sirkulasi9:checked").val(),
+                        sirkulasi10: $("#sirkulasi10:checked").val(),
+                        sirkulasi11: $("#sirkulasi11:checked").val(),
+                        sirkulasi12: $("#sirkulasi12:checked").val(),
+                        sirkulasi13: $("#sirkulasi13:checked").val(),
+                        sirkulasi14: $("#sirkulasi14:checked").val(),
+                        sirkulasi15: $("#sirkulasi15:checked").val(),
+                        sirkulasi16: $("#sirkulasi16:checked").val(),
+                        sirkulasi17: $("#sirkulasi17:checked").val(),
+                        sirkulasi18: $("#sirkulasi18:checked").val(),
+                        sirkulasi19: $("#sirkulasi19:checked").val(),
+                        sirkulasi20: $("#sirkulasi20:checked").val(),
+                        sirkulasi21: $("#sirkulasi21:checked").val(),
+                        sirkulasi22: $("#sirkulasi22:checked").val(),
+                        sirkulasi23: $("#sirkulasi23:checked").val(),
+                        sirkulasi24: $("#sirkulasi24:checked").val(),
+                        sirkulasi25: $("#sirkulasi25:checked").val(),
+
+                        //gejalaspesifik
+                        gejala1: $("#gejala1:checked").val(),
+                        gejala2: $("#gejala2:checked").val(),
+                        gejala3: $("#gejala3:checked").val(),
+                        gejala4: $("#gejala4:checked").val(),
+                        gejala5: $("#gejala5:checked").val(),
+                        gejala6: $("#gejala6:checked").val(),
+                        gejala7: $("#gejala7:checked").val(),
+                        gejala8: $("#gejala8:checked").val(),
+                        gejala9: $("#gejala9:checked").val(),
+                        gejala10: $("#gejala10:checked").val(),
+                        gejala11: $("#gejala11:checked").val(),
+                        gejala12: $("#gejala12:checked").val(),
+                        gejala13: $("#gejala13:checked").val(),
+                        gejala14: $("#gejala14:checked").val(),
+                        gejala15: $("#gejala15:checked").val(),
+                        gejala16: $("#gejala16:checked").val(),
+                        gejala17: $("#gejala17:checked").val(),
+                        gejala18: $("#gejala18:checked").val(),
+                        gejala19: $("#gejala19:checked").val(),
+                        gejala20: $("#gejala20:checked").val(),
+                        gejala21: $("#gejala21:checked").val(),
+                        gejala22: $("#gejala22:checked").val(),
+                        gejala23: $("#gejala23:checked").val(),
+                        gejala24: $("#gejala24:checked").val(),
+                        gejala25: $("#gejala25:checked").val(),
+                        gejala26: $("#gejala26:checked").val(),
+                        gejala27: $("#gejala27:checked").val(),
+                        gejala28: $("#gejala28:checked").val(),
+                        gejala29: $("#gejala29:checked").val(),
+                        ats1lain: $('#ats1lain').val(),
+                        ats2lain: $('#ats2lain').val(),
+                        ats3lain: $('#ats3lain').val(),
+                        ats4lain: $('#ats4lain').val(),
+                        ats5lain: $('#ats5lain').val(),
+
+
+                        //triase
+                        sumberdata: $('#sumberdata:checked').val(),
+                        macamkasus: $('#macamkasus:checked').val(),
+                        trauma: $('#trauma').val(),
+                        tgl_input: $('#tgl_input').val(),
+
                         subject: $('#subyek').val(),
                         objek: $('#objek').val(),
                         anamnesa: $('#anamnesa').val(),

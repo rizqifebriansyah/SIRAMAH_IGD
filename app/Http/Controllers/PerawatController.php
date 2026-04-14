@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Models\erm_cppt_perawat;
 use App\Models\erm_tindakan_keperawatan;
+use App\Models\erm_obat_pulang_igd;
 
 use App\Models\rencana_plg;
 use App\Models\mt_kode_header;
@@ -857,12 +858,14 @@ class PerawatController extends Controller
             []
         );
     }
-    public function rencanaplg(Request $request)
+      public function rencanaplg(Request $request)
     {
         $norm = $request->norm;
         $kj = $request->kj;
 
-        $rencanaplg = DB::select('SELECT * FROM rencana_plg WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
+        $rencanaplg = DB::select('SELECT * FROM rencana_plg WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
+        $obatplg = DB::select('SELECT * FROM erm_obat_pulang_igd WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
+
         // $unit = DB::select('SELECT kode_unit,nama_unit FROM mt_unit WHERE kode_unit = ?', [$rencanaplg[0]->poli_tuju]);
         // dd($unit);
         $poli = DB::select('SELECT kode_unit,nama_unit FROM mt_unit WHERE kelas_unit = 1');
@@ -872,6 +875,8 @@ class PerawatController extends Controller
                 'rencanaplg' => $rencanaplg,
                 'norm' => $norm,
                 'kj' => $kj,
+                'obatplg' => $obatplg,
+
                 'poli' => $poli
                 // 'unit' => $unit
 
@@ -1310,58 +1315,103 @@ class PerawatController extends Controller
         $kj = $request->kj;
         $norm = $request->norm;
 
-        $rencanaplg = rencana_plg::create([
-            'tgl_input' => $now,
-            'tgl_kunjungan' => $now,
-            'no_rm' => $request->norm,
-            'kode_kunjungan' => $request->kj,
-            'usia_lanjut' => $request->usialanjut,
-            'hambatan' => $request->hambatan,
-            'pelayanan_medis' => $request->medis,
-            'tergantung' => $request->harian,
-            'transportasi' => $request->kendaraan,
-            'pendamping' => $request->pendamping,
-            'diet_khusus' => $request->diet,
+        //simpan rencana pulang pasien
+        try {
+            $rencanaplg = rencana_plg::create([
+                'tgl_input' => $now,
+                'tgl_kunjungan' => $now,
+                'no_rm' => $request->norm,
+                'kode_kunjungan' => $request->kj,
+                'usia_lanjut' => $request->usialanjut,
+                'hambatan' => $request->hambatan,
+                'pelayanan_medis' => $request->medis,
+                'tergantung' => $request->harian,
+                'transportasi' => $request->kendaraan,
+                'pendamping' => $request->pendamping,
+                'diet_khusus' => $request->diet,
 
-            'peralatan_medis1' => $request->peralatan1,
-            'peralatan_medis2' => $request->peralatan2,
-            'peralatan_medis3' => $request->peralatan3,
-            'peralatan_medis4' => $request->peralatan4,
+                'peralatan_medis1' => $request->peralatan1,
+                'peralatan_medis2' => $request->peralatan2,
+                'peralatan_medis3' => $request->peralatan3,
+                'peralatan_medis4' => $request->peralatan4,
 
-            'alat_bantu' => $request->alatbantu,
-            'alat_bantu1' => $request->alatbantu1,
-            'alat_bantu2' => $request->alatbantu2,
+                'alat_bantu' => $request->alatbantu,
+                'alat_bantu1' => $request->alatbantu1,
+                'alat_bantu2' => $request->alatbantu2,
 
-            'pendidikan_kesehatan' => $request->pendidikan,
-            'pendidikan_kesehatan1' => $request->pendidikan1,
-            'pendidikan_kesehatan2' => $request->pendidikan2,
-            'pendidikan_kesehatan3' => $request->pendidikan3,
-            'pendidikan_kesehatan4' => $request->pendidikan4,
-            'pendidikan_kesehatan5' => $request->pendidikan5,
-            'pendidikan_kesehatan6' => $request->pendidikan6,
-            'pendidikan_kesehatan7' => $request->pendidikan7,
-            'pendidikan_kesehatan8' => $request->pendidikan8,
+                'pendidikan_kesehatan' => $request->pendidikan,
+                'pendidikan_kesehatan1' => $request->pendidikan1,
+                'pendidikan_kesehatan2' => $request->pendidikan2,
+                'pendidikan_kesehatan3' => $request->pendidikan3,
+                'pendidikan_kesehatan4' => $request->pendidikan4,
+                'pendidikan_kesehatan5' => $request->pendidikan5,
+                'pendidikan_kesehatan6' => $request->pendidikan6,
+                'pendidikan_kesehatan7' => $request->pendidikan7,
+                'pendidikan_kesehatan8' => $request->pendidikan8,
 
-            'diberikan' => $request->diberikan,
-            'diberikan1' => $request->diberikan1,
-            'diberikan2' => $request->diberikan2,
-            'diberikan3' => $request->diberikan3,
-            'diberikan4' => $request->diberikan4,
-            'diberikan5' => $request->diberikan5,
-            'diberikan6' => $request->diberikan6,
+                'diberikan' => $request->diberikan,
+                'diberikan1' => $request->diberikan1,
+                'diberikan2' => $request->diberikan2,
+                'diberikan3' => $request->diberikan3,
+                'diberikan4' => $request->diberikan4,
+                'diberikan5' => $request->diberikan5,
+                'diberikan6' => $request->diberikan6,
 
-            'tgl_kontrol' => $request->tglpoli,
-            'poli_tuju' => $request->poli,
-            'instruksi' => $request->planning,
-            'status' => '1',
-            'nama_perawat' => $name
-
-
-
-        ]);
+                'tgl_kontrol' => $request->tglpoli,
+                'poli_tuju' => $request->poli,
+                'instruksi' => $request->planning,
+                'status' => '1',
+                'nama_perawat' => $name
 
 
 
+            ]);
+        } catch (\Exception $e) {
+            $back = [
+                'kode' => 200,
+                'message' => 'error input asses'
+            ];
+            echo json_encode($back);
+            die;
+        }
+
+        try {
+            $obatpllg = json_decode($_POST['obatplg'], true);
+            foreach ($obatpllg as $nama) {
+                $index = $nama['name'];
+                $value = $nama['value'];
+                $dataSet[$index] = $value;
+                if ($index == 'intruksi') {
+                    $arrayindex[] = $dataSet;
+                }
+            }
+            // $id_detail = $this->createLayanandetail();
+            foreach ($arrayindex as $arr) {
+                $savedetailobatplg = [
+                    // 'kode_detail_obat' => $id_detail,
+                    'no_rm' => $norm,
+                    'kode_kunjungan' => $kj,
+                    'kode_unit' => '1002',
+                    'nama_obat' => $arr['namaobat'],
+                    'dosis' => $arr['dosis'],
+                    'jam_pemberian' => $arr['jampemberian'],
+                    'instrusi_khusus' => $arr['intruksi'],
+
+
+                    'tgl_input' => $now,
+                    'status' => 1
+
+                ];
+                $obatpulang = erm_obat_pulang_igd::create($savedetailobatplg);
+            }
+        } catch (\Exception $e) {
+            $back = [
+                'kode' => 200,
+                'message' => 'error input obat pulang'
+            ];
+            echo json_encode($back);
+            die;
+        }
 
         $back = [
             'kode' => 200,
@@ -1379,10 +1429,108 @@ class PerawatController extends Controller
         $kp = auth()->user()->kode_paramedis;
         $kj = $request->kj;
         $norm = $request->norm;
-        $update = DB::select('UPDATE rencana_plg SET  tgl_input1 = ?,usia_lanjut = ?,hambatan = ?,pelayanan_medis = ?,tergantung = ?,transportasi = ?,pendamping = ?,diet_khusus = ?,peralatan_medis1 = ?,peralatan_medis2 = ?,peralatan_medis3 = ?, peralatan_medis4 = ?,alat_bantu = ?,alat_bantu1 = ?,alat_bantu2 = ?, pendidikan_kesehatan = ?,pendidikan_kesehatan1 = ?,pendidikan_kesehatan2 = ?,pendidikan_kesehatan3 = ?,pendidikan_kesehatan4 = ?,pendidikan_kesehatan5 = ?,pendidikan_kesehatan6 = ?,pendidikan_kesehatan7 = ?,pendidikan_kesehatan8 = ?,diberikan = ?,diberikan1 = ?,diberikan2 = ?,diberikan3 = ?,diberikan4 = ?,diberikan5 = ?,diberikan6 = ?,instruksi = ?,status = ?,nama_perawat1 = ?
-        WHERE no_rm = ? AND kode_kunjungan = ?', [$now, $request->usialanjut, $request->hambatan, $request->medis, $request->harian, $request->kendaraan, $request->pendamping, $request->diet, $request->peralatan1, $request->peralatan2, $request->peralatan3, $request->peralatan4, $request->alatbantu, $request->alatbantu1, $request->alatbantu2, $request->pendidikan, $request->pendidikan1, $request->pendidikan2, $request->pendidikan3, $request->pendidikan4, $request->pendidikan5, $request->pendidikan6, $request->pendidikan7, $request->pendidikan8, $request->diberikan, $request->diberikan1, $request->diberikan2, $request->diberikan3, $request->diberikan4, $request->diberikan5, $request->diberikan6, $name, $norm, $kj]);
+
+        try {
+            $cekcpp = DB::select('SELECT status FROM rencana_plg WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
+            //ada
+            if ($cekcpp[0]->status == 1) {
+                $cekcpp = DB::select('UPDATE rencana_plg SET status = "3"  WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
+                $rencanaplg = rencana_plg::create([
+                    'tgl_input' => $now,
+                    'tgl_kunjungan' => $now,
+                    'no_rm' => $request->norm,
+                    'kode_kunjungan' => $request->kj,
+                    'usia_lanjut' => $request->usialanjut,
+                    'hambatan' => $request->hambatan,
+                    'pelayanan_medis' => $request->medis,
+                    'tergantung' => $request->harian,
+                    'transportasi' => $request->kendaraan,
+                    'pendamping' => $request->pendamping,
+                    'diet_khusus' => $request->diet,
+
+                    'peralatan_medis1' => $request->peralatan1,
+                    'peralatan_medis2' => $request->peralatan2,
+                    'peralatan_medis3' => $request->peralatan3,
+                    'peralatan_medis4' => $request->peralatan4,
+
+                    'alat_bantu' => $request->alatbantu,
+                    'alat_bantu1' => $request->alatbantu1,
+                    'alat_bantu2' => $request->alatbantu2,
+
+                    'pendidikan_kesehatan' => $request->pendidikan,
+                    'pendidikan_kesehatan1' => $request->pendidikan1,
+                    'pendidikan_kesehatan2' => $request->pendidikan2,
+                    'pendidikan_kesehatan3' => $request->pendidikan3,
+                    'pendidikan_kesehatan4' => $request->pendidikan4,
+                    'pendidikan_kesehatan5' => $request->pendidikan5,
+                    'pendidikan_kesehatan6' => $request->pendidikan6,
+                    'pendidikan_kesehatan7' => $request->pendidikan7,
+                    'pendidikan_kesehatan8' => $request->pendidikan8,
+
+                    'diberikan' => $request->diberikan,
+                    'diberikan1' => $request->diberikan1,
+                    'diberikan2' => $request->diberikan2,
+                    'diberikan3' => $request->diberikan3,
+                    'diberikan4' => $request->diberikan4,
+                    'diberikan5' => $request->diberikan5,
+                    'diberikan6' => $request->diberikan6,
+
+                    'tgl_kontrol' => $request->tglpoli,
+                    'poli_tuju' => $request->poli,
+                    'instruksi' => $request->planning,
+                    'status' => '1',
+                    'nama_perawat' => $name
 
 
+
+                ]);
+            }
+        } catch (\Exception $e) {
+            $back = [
+                'kode' => 200,
+                'message' => 'error input rencana pulang'
+            ];
+            echo json_encode($back);
+            die;
+        }
+
+        try {
+            $obatpllg = json_decode($_POST['obatplg'], true);
+            foreach ($obatpllg as $nama) {
+                $index = $nama['name'];
+                $value = $nama['value'];
+                $dataSet[$index] = $value;
+                if ($index == 'intruksi') {
+                    $arrayindex[] = $dataSet;
+                }
+            }
+            // $id_detail = $this->createLayanandetail();
+            foreach ($arrayindex as $arr) {
+                $savedetailobatplg = [
+                    // 'kode_detail_obat' => $id_detail,
+                    'no_rm' => $norm,
+                    'kode_kunjungan' => $kj,
+                    'kode_unit' => '1002',
+                    'nama_obat' => $arr['namaobat'],
+                    'dosis' => $arr['dosis'],
+                    'jam_pemberian' => $arr['jampemberian'],
+                    'instrusi_khusus' => $arr['intruksi'],
+
+
+                    'tgl_input' => $now,
+                    'status' => 1
+
+                ];
+                $obatpulang = erm_obat_pulang_igd::create($savedetailobatplg);
+            }
+        } catch (\Exception $e) {
+            $back = [
+                'kode' => 200,
+                'message' => 'error input obat pulang'
+            ];
+            echo json_encode($back);
+            die;
+        }
 
 
 
@@ -2071,7 +2219,7 @@ class PerawatController extends Controller
                     'asal_masuk' =>  $request->asalmasuk,
                     'cara_masuk' =>  $request->caramasuk,
                     'keluhan_utama' =>  $request->subyek,
-                    'tgl_input' => $now,
+                    'tgl_input' => $request->tgl_input,
                     'tgl_kunjungan' => $request->tglmasuk,
                     'tekanan_darah' => $request->tekanandarah,
                     'frekuensi_nadi' => $request->frekuensinadi,
@@ -2704,7 +2852,25 @@ class PerawatController extends Controller
         echo json_encode($back);
         die;
     }
+    public function returobatplg(Request $request)
+    {
+        $kj = $request->kj;
 
+
+        $id = $request->id;
+        $retin = DB::select('UPDATE erm_obat_pulang_igd SET status = "3"  WHERE id = ? ', [$id]);
+
+
+
+
+
+        $back = [
+            'kode' => 200,
+            'message' => 'Berhasil'
+        ];
+        echo json_encode($back);
+        die;
+    }
 
 
     public function validasiassemenperawat(Request $request)

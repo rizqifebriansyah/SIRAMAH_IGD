@@ -219,6 +219,8 @@ Route::group(['middleware' => ['hak_akses:4', 'auth']], function () {
     Route::post('/simpantindakankebidanan', [PerawatController::class, 'simpantindakankebidanan'])->name('simpantindakankebidanan');
 
     Route::post('returtinper', [PerawatController::class, 'returtinper'])->name('returtinper');
+    Route::post('returobatplg', [PerawatController::class, 'returobatplg'])->name('returobatplg');
+
 });
 
 
