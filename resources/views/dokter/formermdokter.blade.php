@@ -1204,15 +1204,27 @@
                     <td class="text-bold font-italic">Sumber Data</td>
                     <td>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="sumberdata" id="sumberdata" value="Pasien Sendiri">
+                            @if($assesper[0]->sumber_data == null)
+                            <input class="form-check-input" type="checkbox" name="sumberdata" id="sumberdata" value="Pasien Sendiri">
                             <label class="form-check-label" for="inlineRadio1">Pasien Sendiri / Autoanamase</label>
+
+                            @else
+                            <input class="form-check-input" type="checkbox" name="sumberdata" id="sumberdata" value="Pasien Sendiri" checked>
+                            <label class="form-check-label" for="inlineRadio1">Pasien Sendiri / Autoanamase</label>
+                            @endif
                         </div>
 
                     </td>
                     <td>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="sumberdata" id="sumberdata" value="Keluarga">
+                            @if($assesper[0]->sumber_data_1 == null)
+                            <input class="form-check-input" type="checkbox" name="sumberdata1" id="sumberdata1" value="Keluarga">
                             <label class="form-check-label" for="inlineRadio2">Keluarga / Alloanamnesa</label>
+
+                            @else
+                            <input class="form-check-input" type="checkbox" name="sumberdata1" id="sumberdata1" value="Keluarga" checked>
+                            <label class="form-check-label" for="inlineRadio2">Keluarga / Alloanamnesa</label>
+                            @endif
                         </div>
                     </td>
                     <td>
@@ -1369,8 +1381,8 @@
                                                         <td class="text-bold font-italic"></td>
                                                         <td>
                                                             <div class="form-check form-check-inline">
-                                                                <input class="form-check-input" type="checkbox" name="spsi6" id="spsi6" value="Gelisah">
-                                                                <label class="form-check-label" for="inlineRadio1">Gelisah</label>
+                                                                <input class="form-check-input" type="checkbox" name="spsi6" id="spsi6" value="Kecenderungan bunuh diri">
+                                                                <label class="form-check-label" for="inlineRadio1">Kecenderungan bunuh diri</label>
                                                             </div>
 
                                                         </td>
@@ -1417,7 +1429,7 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                            <tr>
+                                            <!-- <tr>
                                                 <td class="text-bold font-italic">Pemeriksaan Fisik (temuan signifikan)</td>
                                                 <td>
                                                     <div class="input-group">
@@ -1425,7 +1437,7 @@
 
                                                     </div>
                                                 </td>
-                                            </tr>
+                                            </tr> -->
                                             <tr>
                                                 <td class="text-bold font-italic">Diagnosa Triase</td>
                                                 <td>
@@ -1440,6 +1452,39 @@
                                                 <td>
                                                     <div class="input-group">
                                                         <textarea class="form-control" id="talak_triase" name="talak_triase" placeholder=""></textarea>
+
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-bold font-italic">Tindak Lanjut</td>
+                                                <td>
+                                                    <div class="input-group">
+                                                        <select class="form-control select2" name="tinjut_triase" id="tinjut_triase">
+                                                            <option value=""> -- Pilih Tindak Lanjut --</option>
+                                                            <option value="Rawat">Rawat </option>
+                                                            <option value="Rujuk">Rujuk </option>
+                                                            <option value="Berobat Jalan">Berobat Jalan </option>
+
+
+
+                                                        </select>
+
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-bold font-italic">Sumber Informasi</td>
+                                                <td>
+                                                    <div class="input-group">
+                                                        <select class="form-control select2" name="si_triase" id="si_triase">
+                                                            <option value=""> -- Pilih Sumber Informasi --</option>
+                                                            <option value="Pasien Sendiri">Pasien Sendiri </option>
+                                                            <option value="Keluarga Pasien">Keluarga Pasien </option>
+
+
+
+                                                        </select>
 
                                                     </div>
                                                 </td>
@@ -2447,11 +2492,12 @@
             <td class="text-bold font-italic">Sumber Data</td>
             <td>
                 <div class="form-check form-check-inline">
-                    @if($assesdok[0]->sumber_data == 'Pasien Sendiri')
-                    <input class="form-check-input" type="radio" name="sumberdata" id="sumberdata" value="Pasien Sendiri" checked>
+                    @if($assesper[0]->sumber_data == null)
+                    <input class="form-check-input" type="checkbox" name="sumberdata" id="sumberdata" value="Pasien Sendiri">
                     <label class="form-check-label" for="inlineRadio1">Pasien Sendiri / Autoanamase</label>
+
                     @else
-                    <input class="form-check-input" type="radio" name="sumberdata" id="sumberdata" value="Pasien Sendiri">
+                    <input class="form-check-input" type="checkbox" name="sumberdata" id="sumberdata" value="Pasien Sendiri" checked>
                     <label class="form-check-label" for="inlineRadio1">Pasien Sendiri / Autoanamase</label>
                     @endif
                 </div>
@@ -2459,15 +2505,17 @@
             </td>
             <td>
                 <div class="form-check form-check-inline">
-                    @if($assesdok[0]->sumber_data == 'Keluarga')
-                    <input class="form-check-input" type="radio" name="sumberdata" id="sumberdata" value="Keluarga" checked>
+                    @if($assesper[0]->sumber_data_1 == null)
+                    <input class="form-check-input" type="checkbox" name="sumberdata1" id="sumberdata1" value="Keluarga">
                     <label class="form-check-label" for="inlineRadio2">Keluarga / Alloanamnesa</label>
+
                     @else
-                    <input class="form-check-input" type="radio" name="sumberdata" id="sumberdata" value="Keluarga">
+                    <input class="form-check-input" type="checkbox" name="sumberdata1" id="sumberdata1" value="Keluarga" checked>
                     <label class="form-check-label" for="inlineRadio2">Keluarga / Alloanamnesa</label>
                     @endif
                 </div>
             </td>
+            <td>
             <td>
 
             </td>
@@ -2628,24 +2676,18 @@
                                     <td class="text-bold font-italic"></td>
                                     <td>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" name="spsi6" id="spsi6" value="Gelisah">
-                                            <label class="form-check-label" for="inlineRadio1">Gelisah</label>
+                                            <input class="form-check-input" type="checkbox" name="spsi6" id="spsi6" value="Kecenderungan bunuh diri">
+                                            <label class="form-check-label" for="inlineRadio1">Kecenderungan bunuh diri</label>
                                         </div>
 
                                     </td>
                                     <td>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" name="spsi7" id="spsi7" value="Kecendrungan Bunuh Diri">
-                                            <label class="form-check-label" for="inlineRadio2">Kecendrungan Bunuh Diri</label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" name="spsi8" id="spsi8" value="Tidak Ada Masalah">
+                                            <input class="form-check-input" type="checkbox" name="spsi7" id="spsi7" value="Tidak Ada Masalah">
                                             <label class="form-check-label" for="inlineRadio2">Tidak Ada Masalah</label>
                                         </div>
-
                                     </td>
+
                                 </tr>
                                 <tr>
                                     <td class="text-bold font-italic"></td>
@@ -2877,24 +2919,14 @@
                                         </div>
                                         @else
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" checked name="spsi7" id="spsi7" value="Kecendrungan Bunuh Diri">
-                                            <label class="form-check-label" for="inlineRadio2">Kecendrungan Bunuh Diri</label>
+                                            <input class="form-check-input" type="checkbox" checked name="spsi7" id="spsi7" value="Tidak ada masalah">
+                                            <label class="form-check-label" for="inlineRadio2">Tidak ada masalah</label>
                                         </div>
                                         @endif
 
                                     </td>
                                     <td>
-                                        @if($triase[0]->status_psikologis8 == NULL)
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" name="spsi8" id="spsi8" value="Tidak Ada Masalah">
-                                            <label class="form-check-label" for="inlineRadio2">Tidak Ada Masalah</label>
-                                        </div>
-                                        @else
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" checked name="spsi8" id="spsi8" value="Tidak Ada Masalah">
-                                            <label class="form-check-label" for="inlineRadio2">Tidak Ada Masalah</label>
-                                        </div>
-                                        @endif
+
 
 
                                     </td>
@@ -2925,7 +2957,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <tr>
+                                <!-- <tr>
                                     <td class="text-bold font-italic">Pemeriksaan Fisik (temuan signifikan)</td>
                                     <td>
                                         <div class="input-group">
@@ -2933,7 +2965,7 @@
 
                                         </div>
                                     </td>
-                                </tr>
+                                </tr> -->
                                 <tr>
                                     <td class="text-bold font-italic">Diagnosa Triase</td>
                                     <td>
@@ -2952,6 +2984,40 @@
                                         </div>
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td class="text-bold font-italic">Tindak Lanjut</td>
+                                    <td>
+                                        <div class="input-group">
+                                            <select class="form-control select2" name="tinjut_triase" id="tinjut_triase">
+                                                <option value="{{$triase[0]->tindak_lanjut}}">{{$triase[0]->tindak_lanjut}}</option>
+                                                <option value="Rawat">Rawat </option>
+                                                <option value="Rujuk">Rujuk </option>
+                                                <option value="Berobat Jalan">Berobat Jalan </option>
+
+
+
+                                            </select>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold font-italic">Sumber Informasi</td>
+                                    <td>
+                                        <div class="input-group">
+                                            <select class="form-control select2" name="si_triase" id="si_triase">
+                                                <option value="{{$triase[0]->sumber_informasi}}"> {{$triase[0]->sumber_informasi}}</option>
+                                                <option value="Pasien Sendiri">Pasien Sendiri </option>
+                                                <option value="Keluarga Pasien">Keluarga Pasien </option>
+
+
+
+                                            </select>
+
+                                        </div>
+                                    </td>
+                                </tr>
+
                             </tbody>
                         </table>
                     </div>
@@ -8951,7 +9017,8 @@
         var pemfis_triase = $("#pemfis_triase").val();
         var diagnosa_triase = $("#diagnosa_triase").val();
         var talak_triase = $("#talak_triase").val();
-
+        var tinjut_triase = $("#tinjut_triase").val();
+        var si_triase = $("#si_triase").val();
         var spsi1 = $("#spsi1:checked").val();
         var spsi2 = $("#spsi2:checked").val();
         var spsi3 = $("#spsi3:checked").val();
@@ -9129,7 +9196,8 @@
                         pemfis_triase: $("#pemfis_triase").val(),
                         diagnosa_triase: $("#diagnosa_triase").val(),
                         talak_triase: $("#talak_triase").val(),
-
+                        tinjut_triase: $("#tinjut_triase").val(),
+                        si_triase: $("#si_triase").val(),
                         spsi1: $("#spsi1:checked").val(),
                         spsi2: $("#spsi2:checked").val(),
                         spsi3: $("#spsi3:checked").val(),
@@ -9341,6 +9409,8 @@
         var pemfis_triase = $("#pemfis_triase").val();
         var diagnosa_triase = $("#diagnosa_triase").val();
         var talak_triase = $("#talak_triase").val();
+        var tinjut_triase = $("#tinjut_triase").val();
+        var si_triase = $("#si_triase").val();
         var spsi1 = $("#spsi1:checked").val();
         var spsi2 = $("#spsi2:checked").val();
         var spsi3 = $("#spsi3:checked").val();
@@ -9526,6 +9596,8 @@
                         pemfis_triase: $("#pemfis_triase").val(),
                         diagnosa_triase: $("#diagnosa_triase").val(),
                         talak_triase: $("#talak_triase").val(),
+                        tinjut_triase: $("#tinjut_triase").val(),
+                        si_triase: $("#si_triase").val(),
                         spsi1: $("#spsi1:checked").val(),
                         spsi2: $("#spsi2:checked").val(),
                         spsi3: $("#spsi3:checked").val(),
