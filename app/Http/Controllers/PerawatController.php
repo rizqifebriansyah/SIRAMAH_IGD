@@ -858,7 +858,7 @@ class PerawatController extends Controller
             []
         );
     }
-      public function rencanaplg(Request $request)
+    public function rencanaplg(Request $request)
     {
         $norm = $request->norm;
         $kj = $request->kj;
@@ -1919,11 +1919,50 @@ class PerawatController extends Controller
 
         $norm = $request->norm;
         $kj = $request->kj;
-        // dd($data);
+        $wpj = $request->wpj;
+        $wdj = $request->wdj;
+
+        if ($wpj == 'Pagi') {
+            $wpjp = $wpj;
+            $wpjs = NULL;
+            $wpjm = NULL;
+        } elseif ($wpj == 'Siang') {
+            $wpjp = NULL;
+            $wpjs = $wpj;
+            $wpjm = NULL;
+        } elseif ($wpj == 'Malam') {
+            $wpjp = NULL;
+            $wpjs = NULL;
+            $wpjm = $wpj;
+        }
+
+        if ($wdj == 'Pagi') {
+            $wdjp = $wdj;
+            $wdjs = NULL;
+            $wdjm = NULL;
+
+
+        } elseif ($wdj == 'Siang') {
+            $wdjp = NULL;
+            $wdjs = $wdj;
+            $wdjm = NULL;
+
+        } elseif ($wdj == 'Malam') {
+            $wdjp = NULL;
+            $wdjs = NULL;
+            $wdjm = $wdj;
+        }
         $input = pemantauan_ttv::create([
-            'waktu_jaga_dokter' => $request->wdj,
+            'waktu_jaga_dokter_pagi' => $wdjp,
+            'waktu_jaga_dokter_siang' => $wdjs,
+            'waktu_jaga_dokter_malam' => $wdjm,
+
             'dokter_jaga' => $request->dj,
-            'waktu_jaga_perawat' => $request->wpj,
+            'waktu_jaga_perawat_pagi' => $wpjp,
+            'waktu_jaga_perawat_siang' => $wpjs,
+            'waktu_jaga_perawat_malam' => $wpjm,
+
+
             'perawat_jaga' => $request->pj,
             'kategori_pasien' => $request->kapa,
             'diagnosa_kerja' => $request->dk,
@@ -1941,10 +1980,11 @@ class PerawatController extends Controller
 
             'norm' => $request->norm,
             'kj' => $request->kj,
-            'tgl_input' => $now,
+            'tgl_input' => $request->waktu_pantau,
+            'create_at' => $now,
+
             'user' => $user
         ]);
-
 
 
         $back = [

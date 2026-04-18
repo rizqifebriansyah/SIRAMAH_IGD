@@ -130,6 +130,12 @@
                         <input type="text" name="keterangan" id="keterangan" value="" class=" form-control">
                     </div>
                 </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        <label for="name">Waktu</label>
+                        <input type="datetime-local" name="waktu_pantau" id="waktu_pantau" value="" class=" form-control">
+                    </div>
+                </div>
 
                 <div class="col-3">
                     <div type="button" class="btn float-left btn-success simpanpemantauan" style="margin-top: 20px;">
@@ -177,6 +183,8 @@
 
         var nyeri = $("#nyeri").val();
         var keterangan = $("#keterangan").val();
+        var waktu_pantau = $("#waktu_pantau").val();
+
 
 
 
@@ -219,7 +227,8 @@
                         spo2: $("#spo2").val(),
 
                         nyeri: $("#nyeri").val(),
-                        keterangan: $("#keterangan").val()
+                        keterangan: $("#keterangan").val(),
+                        waktu_pantau: $("#waktu_pantau").val(),
 
 
 

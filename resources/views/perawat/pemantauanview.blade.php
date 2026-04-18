@@ -31,9 +31,9 @@
         <tr>
             <td>{{$l->tgl_input}}</td>
             <td>{{$l->dokter_jaga}}</td>
-            <td>{{$l->waktu_jaga_dokter}}</td>
+            <td>{{$l->waktu_jaga_dokter_pagi}}{{$l->waktu_jaga_dokter_siang}}{{$l->waktu_jaga_dokter_malam}}</td>
    <td>{{$l->perawat_jaga}}</td>
-            <td>{{$l->waktu_jaga_perawat}}</td>
+            <td>{{$l->waktu_jaga_perawat_pagi}}{{$l->waktu_jaga_perawat_siang}}{{$l->waktu_jaga_perawat_malam}}</td>
             <td>{{$l->kategori_pasien}}</td>
             <td>{{$l->diagnosa_kerja}}</td>
 

@@ -1190,7 +1190,7 @@
                 <tr>
                     <td class="text-bold font-italic">Tanggal Kunjungan</td>
                     <td>
-                        <h5 class="text-bold">{{$now}}</h5>
+                        <h5 class="text-bold">{{$kunjungan[0]->tgl_masuk}}</h5>
 
                     </td>
                     <td class="text-bold font-italic">Tanggal Pengkajian</td>
@@ -2477,7 +2477,8 @@
         <tr>
             <td class="text-bold font-italic">Tanggal Kunjungan</td>
             <td>
-                <h5 class="text-bold">{{$now}}</h5>
+                <h5 class="text-bold">{{$kunjungan[0]->tgl_masuk}}</h5>
+
 
             </td>
             <td class="text-bold font-italic">Tanggal Pengkajian</td>
