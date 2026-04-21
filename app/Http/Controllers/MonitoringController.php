@@ -186,7 +186,7 @@ class MonitoringController extends Controller
         $rencanaplg = DB::select('SELECT * FROM rencana_plg WHERE kode_kunjungan = ?
         ', [$kj]);
         $triase = DB::select('SELECT * FROM ts_triase
-           WHERE no_rm = ? AND kode_kunjungan = ? AND STATUS IN (1,2) ', [$request->norm, $request->kj]);
+           WHERE no_rm = ? AND kode_kunjungan = ? AND STATUS IN (11) ', [$request->norm, $request->kj]);
         $hasil = DB::select('SELECT 
          a.tgl_kunjungan,
          a.hasil_ekg,
