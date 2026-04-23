@@ -36,9 +36,11 @@ class MonitoringController extends Controller
 
 
         $now = Carbon::now()->format('Y-m-d');
+        $tgl_masuk_x = date('Y-m-d', strtotime('- days', strtotime($now)));
+
         // $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','$unit','$now')");
         // $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','$unit','$now')");
-         $pasienigd = DB::select('SELECT DISTINCT
+        $pasienigd = DB::select('SELECT DISTINCT
         e.diagnosa_kerja AS DIAGX
         ,a.no_rm
         ,IFNULL(d.nama_perawat,"") AS nama_perawat
@@ -59,7 +61,7 @@ class MonitoringController extends Controller
         LEFT OUTER JOIN di_pasien_diagnosa_frunit c ON c.kode_kunjungan = a.kode_kunjungan 
         LEFT OUTER JOIN erm_cppt_perawat d ON d.kode_kunjungan = a.kode_kunjungan
         LEFT OUTER JOIN	erm_cppt_dokter e ON e.kode_kunjungan = a.kode_kunjungan
-        where Date(a.tgl_masuk) = ?
+        where Date(a.tgl_masuk)  BETWEEN ? AND ?
         AND a.status_kunjungan NOT IN (8,11)
         and d.status NOT IN (2,3)
         and e.status NOT IN (2, 3)
@@ -89,9 +91,9 @@ class MonitoringController extends Controller
         LEFT OUTER JOIN di_pasien_diagnosa_frunit c ON c.kode_kunjungan = a.kode_kunjungan 
         LEFT OUTER JOIN erm_cppt_perawat d ON d.kode_kunjungan = a.kode_kunjungan
         LEFT OUTER JOIN	erm_cppt_dokter e ON e.kode_kunjungan = a.kode_kunjungan
-        where Date(a.tgl_masuk) = ?
+        where Date(a.tgl_masuk)  BETWEEN ? AND ?
         and a.status_kunjungan NOT IN (8,11)
-        and a.kode_unit = ?', [$now, $unit, $now, $unit]);
+        and a.kode_unit = ?', [$tgl_masuk_x,  $now,$unit, $tgl_masuk_x,$now, $unit]);
         // dd($pasienigd);
         return view(
             'monitoring.assesigd',
