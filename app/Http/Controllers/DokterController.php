@@ -1587,6 +1587,10 @@ AND b.kelas_tarif = 1');
                 'id_cppt_dokter' => $user,
                 'tgl_kunjungan' => $tgl_kunjungan,
                 'tgl_input' => $request->tgl_input,
+                'tgl_asses' => $request->tgl_asses,
+
+                'tgl_plg' => $request->tgl_plg,
+
                 'kode_unit' => $unit,
                 'kode_kunjungan' => $request->kj,
                 'no_rm' => $request->norm,
@@ -3744,6 +3748,10 @@ AND b.kelas_tarif = 1');
                     'id_cppt_dokter' => $user,
                     'tgl_kunjungan' => $request->tglmasuk,
                     'tgl_input' => $request->tgl_input,
+                    'tgl_asses' => $request->tgl_asses,
+
+                    'tgl_plg' => $request->tgl_plg,
+
                     'kode_unit' => $unit,
                     'kode_kunjungan' => $request->kj,
                     'no_rm' => $request->norm,
@@ -6791,7 +6799,7 @@ AND b.kelas_tarif = 1');
         $metaDatass = stream_get_meta_data($tempfilee);
         $tmpFilenamee = $metaDatass['uri'];
 
-        $pdf = new FPDF('P', 'mm', 'A4');
+        $pdf = new FPDF('P', 'mm', 'F4');
         $pdf::AddPage('P', 'letter');
         //Awal Header kertas
         $pdf::Rect(8, 10, 198, 260);
@@ -7050,6 +7058,10 @@ AND b.kelas_tarif = 1');
 
             $pdf::Cell(135, 5, 'Sumber Informasi : ' . $ttv[0]->sumber_data);
             $pdf::ln();
+            $pdf::ln();
+            $pdf::ln();
+            $pdf::ln();
+
 
 
             //kotak TTD
@@ -10756,17 +10768,21 @@ AND b.kelas_tarif = 1');
             $pdf::SetFont('Times', 'B', 10);
             $pdf::SetX(9);
             $pdf::MultiCell(40, 5, 'Pemeriksaan Fisik : ', 0, 'L');
+            $y = $pdf::GetY();
             $pdf::SetFont('Times', '', 10);
             //Primary Survey
 
             $pdf::SetX(9);
             $pdf::Cell(25, 5, 'Primary Survey : ');
-            $pdf::MultiCell(158, 5, $assesdok[0]->primary_survey, 0, 'L', true);
-            //Secondary Survey
+            $pdf::SetX(35);
 
-            $pdf::SetX(9);
+            $pdf::MultiCell(50, 5, $assesdok[0]->primary_survey);
+
+            //Secondary Survey
+            $pdf::SetXY(95, $y);
+
             $pdf::Cell(30, 5, 'Secondary Survey : ');
-            $pdf::MultiCell(158, 5, $assesdok[0]->secondary_survey, 0, 'L', true);
+            $pdf::MultiCell(81, 5, $assesdok[0]->secondary_survey);
             $pdf::SetX(8);
             //diagnosa kerja
 
@@ -15518,7 +15534,7 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
 
 
 
-        
+
         $pdf::Output();
 
 

@@ -1560,7 +1560,10 @@ class PerawatController extends Controller
                 'asal_masuk' =>  $request->asalmasuk,
                 'cara_masuk' =>  $request->caramasuk,
                 'keluhan_utama' =>  $request->subyek,
-                'tgl_input' => $now,
+                'tgl_input' => $request->tgl_input,
+                'tgl_plg' => $request->tgl_plg,
+
+
                 'tgl_kunjungan' => $request->tglmasuk,
                 'tekanan_darah' => $request->tekanandarah,
                 'frekuensi_nadi' => $request->frekuensinadi,
@@ -1940,13 +1943,10 @@ class PerawatController extends Controller
             $wdjp = $wdj;
             $wdjs = NULL;
             $wdjm = NULL;
-
-
         } elseif ($wdj == 'Siang') {
             $wdjp = NULL;
             $wdjs = $wdj;
             $wdjm = NULL;
-
         } elseif ($wdj == 'Malam') {
             $wdjp = NULL;
             $wdjs = NULL;
@@ -2260,6 +2260,8 @@ class PerawatController extends Controller
                     'cara_masuk' =>  $request->caramasuk,
                     'keluhan_utama' =>  $request->subyek,
                     'tgl_input' => $request->tgl_input,
+                    'tgl_plg' => $request->tgl_plg,
+
                     'tgl_kunjungan' => $request->tglmasuk,
                     'tekanan_darah' => $request->tekanandarah,
                     'frekuensi_nadi' => $request->frekuensinadi,

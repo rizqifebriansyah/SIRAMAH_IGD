@@ -1993,6 +1993,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="accordion" id="accordionExample911">
                 <div class="card">
                     <div class="card-header " style="background-color: rgba(110, 245, 137, 0.745)" id="headingOne">
@@ -2032,7 +2033,39 @@
                                             </div>
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <td class="text-bold font-italic">TINDAKAN KEPERAWATAN</td>
+                                        <td>
+                                            <form id="dynamic-form" class="formtindakanperawat">
+                                                <div id="form-container">
+                                                    <div class="row mt-2">
+                                                        <div class="col-3">
+                                                            <div class="form-group">
+                                                                <label for="name">Jam:</label>
+                                                                <input type="time" name="waktu" id="waktu" value="" class="waktu form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <div class="form-group">
+                                                                <label for="name">TINDAKAN KEPERAWATAN :</label>
+                                                                <input type="text" name="tindakankeperawatan" id="tindakankeperawatan" value="" class="tindakan_keperawatan form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-3">
+                                                            <div class="form-group">
+                                                                <!-- <i class="bi bi-x-square remove form-group col-md-2 text-danger"></i> -->
+                                                                <!-- <button type="button" class="btn btn-danger mb-2 remove" >x</button> -->
+                                                                <button type="button" class="btn btn-success mb-2 " id="add">Tambah</button>
 
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </form>
+                                        </td>
+
+                                    </tr>
                                     <tr>
                                         <td class="text-bold font-italic">KOLABORASI </td>
                                         <td>
@@ -2134,62 +2167,15 @@
                                         </td>
 
                                     </tr>
-                                </tbody>
-                            </table>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="accordion" id="accordionExample912">
-                <div class="card">
-                    <div class="card-header " style="background-color: rgba(110, 245, 137, 0.745)" id="headingOne">
-                        <h2 class="mb-0">
-                            <button class="btn  btn-block text-left text-bold  font-weight" type="button" data-toggle="collapse" data-target="#collapseOne12" aria-expanded="true" aria-controls="collapseOne12">
-                                <i class="bi bi-book mr-1 ml-1"></i>(I) IMPLEMENTATION
-                            </button>
-                        </h2>
-                    </div>
-
-                    <div id="collapseOne12" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample912">
-                        <div class="card-body bg-light">
-                            <table class="table">
-                                <tbody>
-
                                     <tr>
-                                        <td class="text-bold font-italic">TINDAKAN KEPERAWATAN</td>
+                                        <td class="text-bold font-italic">Tanggal dan Jam Selesai Asesmen</td>
+
                                         <td>
-                                            <form id="dynamic-form" class="formtindakanperawat">
-                                                <div id="form-container">
-                                                    <div class="row mt-2">
-                                                        <div class="col-3">
-                                                            <div class="form-group">
-                                                                <label for="name">Jam:</label>
-                                                                <input type="time" name="waktu" id="waktu" value="" class="waktu form-control">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="name">TINDAKAN KEPERAWATAN :</label>
-                                                                <input type="text" name="tindakankeperawatan" id="tindakankeperawatan" value="" class="tindakan_keperawatan form-control">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-3">
-                                                            <div class="form-group">
-                                                                <!-- <i class="bi bi-x-square remove form-group col-md-2 text-danger"></i> -->
-                                                                <!-- <button type="button" class="btn btn-danger mb-2 remove" >x</button> -->
-                                                                <button type="button" class="btn btn-success mb-2 " id="add">Tambah</button>
+                                            <input class="form-control" type="datetime-local" value="" name="tgl_plg" id="tgl_plg">
 
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </form>
                                         </td>
 
                                     </tr>
-
                                 </tbody>
                             </table>
 
@@ -2197,6 +2183,7 @@
                     </div>
                 </div>
             </div>
+
             <div type="button" class="btn float-right btn-success simpanassesperawat" style="margin-top: 20px;">
                 SIMPAN
             </div>
@@ -4614,6 +4601,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="accordion" id="accordionExample911">
                 <div class="card">
                     <div class="card-header " style="background-color: rgba(110, 245, 137, 0.745)" id="headingOne">
@@ -4682,6 +4670,61 @@
 
                                             </div>
                                         </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-bold font-italic">TINDAKAN KEPERAWATAN</td>
+                                        <td>
+                                            <form id="dynamic-form" class="formtindakanperawat">
+                                                <div id="form-container">
+                                                    <div class="row mt-2">
+                                                        <!-- <div class="col-3">
+                                                            <div class="form-group">
+                                                                <label for="name">Jam:</label>
+                                                                <input type="time" name="waktu" id="waktu" value="" class="waktu form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <div class="form-group">
+                                                                <label for="name">TINDAKAN KEPERAWATAN :</label>
+                                                                <input type="text" name="tindakankeperawatan" id="tindakankeperawatan" value="" class="tindakan_keperawatan form-control">
+                                                            </div>
+                                                        </div> -->
+                                                        <div class="col-3">
+                                                            <div class="form-group">
+                                                                <!-- <i class="bi bi-x-square remove form-group col-md-2 text-danger"></i> -->
+                                                                <button type="button" class="btn btn-success mb-2 " id="add">Tambah</button>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </form>
+                                            <table class="table">
+                                                <thead>
+                                                    <th>WAKTU</th>
+                                                    <th>TINDAKAN</th>
+                                                    <th>Action</th>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach($tindakan as $ti => $t)
+                                                    <tr>
+                                                        <td class="wtt">{{$t->waktu_tindakan}} </td>
+                                                        <td class="tindakan"> {{$t->tindakan_keperawatan}} </td>
+                                                        <td class="idtindakan" hidden> {{$t->id}}</td>
+                                                        <td> <a class=" btn btn-danger btn-sm returtinper" href="#">
+                                                                <i class="fas fa-sync-alt fa-spin"></i>
+                                                                RETUR
+                                                            </a></td>
+
+                                                    </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+
+
+                                        </td>
+
                                     </tr>
                                     <tr>
                                         <td class="text-bold font-italic">KOLABORASI </td>
@@ -4867,84 +4910,14 @@
                                         </td>
 
                                     </tr>
-                                </tbody>
-                            </table>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="accordion" id="accordionExample912">
-                <div class="card">
-                    <div class="card-header " style="background-color: rgba(110, 245, 137, 0.745)" id="headingOne">
-                        <h2 class="mb-0">
-                            <button class="btn  btn-block text-left text-bold  font-weight" type="button" data-toggle="collapse" data-target="#collapseOne12" aria-expanded="true" aria-controls="collapseOne12">
-                                <i class="bi bi-book mr-1 ml-1"></i>(I) IMPLEMENTATION
-                            </button>
-                        </h2>
-                    </div>
-
-                    <div id="collapseOne12" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample912">
-                        <div class="card-body bg-light">
-                            <table class="table">
-                                <tbody>
-
                                     <tr>
-                                        <td class="text-bold font-italic">TINDAKAN KEPERAWATAN</td>
+                                        <td class="text-bold font-italic">Tanggal dan Jam Selesai Asesmen</td>
                                         <td>
-                                            <form id="dynamic-form" class="formtindakanperawat">
-                                                <div id="form-container">
-                                                    <div class="row mt-2">
-                                                        <!-- <div class="col-3">
-                                                            <div class="form-group">
-                                                                <label for="name">Jam:</label>
-                                                                <input type="time" name="waktu" id="waktu" value="" class="waktu form-control">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="name">TINDAKAN KEPERAWATAN :</label>
-                                                                <input type="text" name="tindakankeperawatan" id="tindakankeperawatan" value="" class="tindakan_keperawatan form-control">
-                                                            </div>
-                                                        </div> -->
-                                                        <div class="col-3">
-                                                            <div class="form-group">
-                                                                <!-- <i class="bi bi-x-square remove form-group col-md-2 text-danger"></i> -->
-                                                                <button type="button" class="btn btn-success mb-2 " id="add">Tambah</button>
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </form>
-                                            <table class="table">
-                                                <thead>
-                                                    <th>WAKTU</th>
-                                                    <th>TINDAKAN</th>
-                                                    <th>Action</th>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach($tindakan as $ti => $t)
-                                                    <tr>
-                                                        <td class="wtt">{{$t->waktu_tindakan}} </td>
-                                                        <td class="tindakan"> {{$t->tindakan_keperawatan}} </td>
-                                                        <td class="idtindakan" hidden> {{$t->id}}</td>
-                                                        <td> <a class=" btn btn-danger btn-sm returtinper" href="#">
-                                                                <i class="fas fa-sync-alt fa-spin"></i>
-                                                                RETUR
-                                                            </a></td>
-
-                                                    </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-
+                                            <input class="form-control" type="datetime-local" value="{{$assesper[0]->tgl_plg}}" name="tgl_plg" id="tgl_plg">
 
                                         </td>
 
                                     </tr>
-
                                 </tbody>
                             </table>
 
@@ -4952,6 +4925,7 @@
                     </div>
                 </div>
             </div>
+
             <div type="button" class="btn float-right btn-info updateassesperawat" style="margin-top: 20px;">
                 Edit
             </div>
@@ -5265,6 +5239,8 @@
         var sumberdata = $('#sumberdata:checked').val()
         var sumberdata1 = $('#sumberdata1:checked').val()
         var tgl_input = $('#tgl_input').val()
+        var tgl_plg = $('#tgl_plg').val()
+
 
         var asalmasuk = $('#asalmasuk:checked').val()
         var caramasuk = $('#caramasuk:checked').val()
@@ -5455,6 +5431,8 @@
                         sumberdata: $('#sumberdata:checked').val(),
                         sumberdata1: $('#sumberdata1:checked').val(),
                         tgl_input: $('#tgl_input').val(),
+                        tgl_plg: $('#tgl_plg').val(),
+
 
                         asalmasuk: $('#asalmasuk:checked').val(),
                         caramasuk: $('#caramasuk:checked').val(),
@@ -5734,6 +5712,8 @@
         var sumberdata = $('#sumberdata:checked').val()
         var sumberdata1 = $('#sumberdata1:checked').val()
         var tgl_input = $('#tgl_input').val()
+        var tgl_plg = $('#tgl_plg').val()
+
 
         var asalmasuk = $('#asalmasuk:checked').val()
         var caramasuk = $('#caramasuk:checked').val()
@@ -5922,6 +5902,8 @@
                         sumberdata: $('#sumberdata:checked').val(),
                         sumberdata1: $('#sumberdata1:checked').val(),
                         tgl_input: $('#tgl_input').val(),
+                        tgl_plg: $('#tgl_plg').val(),
+
 
                         asalmasuk: $('#asalmasuk:checked').val(),
                         caramasuk: $('#caramasuk:checked').val(),

@@ -36,7 +36,7 @@ class MonitoringController extends Controller
 
 
         $now = Carbon::now()->format('Y-m-d');
-        $tgl_masuk_x = date('Y-m-d', strtotime('- days', strtotime($now)));
+        $tgl_masuk_x = date('Y-m-d', strtotime('-3 days', strtotime($now)));
 
         // $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','$unit','$now')");
         // $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','$unit','$now')");
@@ -94,7 +94,6 @@ class MonitoringController extends Controller
         where Date(a.tgl_masuk)  BETWEEN ? AND ?
         and a.status_kunjungan NOT IN (8,11)
         and a.kode_unit = ?', [$tgl_masuk_x,  $now,$unit, $tgl_masuk_x,$now, $unit]);
-        // dd($pasienigd);
         return view(
             'monitoring.assesigd',
             [

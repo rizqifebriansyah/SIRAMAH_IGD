@@ -1200,7 +1200,7 @@
 
                     </td>
                 </tr>
-              
+
 
                 <tr>
                     <td class="text-bold font-italic">Macam Kasus</td>
@@ -2219,6 +2219,7 @@
 
         <div id="collapseOne3" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample3">
             <div class="card-body bg-light">
+
                 <select class="form-control select2" name="alpul" id="alpul">
                     <option value=""> -- Select One --</option>
 
@@ -2232,6 +2233,10 @@
                 </select>
                 <label>Lain-lain</label>
                 <textarea class="form-control" id="alpul1" name="alpul1" rows="2" placeholder=""></textarea>
+                <label>Tanggal Pulang</label>
+
+                <input class="form-control" type="datetime-local" value="" name="tgl_plg" id="tgl_plg">
+
 
             </div>
         </div>
@@ -2431,7 +2436,14 @@
 </div>
 
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-6">
+        <label for="">Tanggal dan Jam Selesai Asesmen</label>
+        <input class="form-control ml-2 mb-2" type="datetime-local" value="" name="tgl_asses" id="tgl_asses">
+
+    </div>
+    <div class="col-md-6">
+
+
         <div type="button" class="btn float-right btn-success simpanasses mt-3 mb-3 mr-3">
             SIMPAN
         </div>
@@ -7707,6 +7719,9 @@
                 </select>
                 <label>Lain-lain</label>
                 <textarea class="form-control" id="alpul1" name="alpul1" rows="2" placeholder=""></textarea>
+                <label>Tanggal Pulang</label>
+
+                <input class="form-control" type="datetime-local" value="{{$assesdok[0]->tgl_plg}}" name="tgl_plg" id="tgl_plg">
 
             </div>
         </div>
@@ -8021,12 +8036,21 @@
 </div>
 
 <div class="row ml-3 mb-2">
-    <div type="button" class="btn  btn-success updateasses" style="margin-top: 20px;">
-        UPDATE
+
+    <div class="col-md-6">
+        <label for="">Tanggal dan Jam Selesai Asesmen</label>
+        <input class="form-control  ml-2 mb-2" type="datetime-local" value="{{$assesdok[0]->tgl_asses}}" name="tgl_asses" id="tgl_asses">
+
     </div>
-    <div type="button" class="btn  btn-success ml-2 validasiasssesdok" style="margin-top: 20px;">
-        Validasi
+    <div class="col-md-6">
+        <div type="button" class="btn  btn-success updateasses" style="margin-top: 20px;">
+            UPDATE
+        </div>
+        <div type="button" class="btn  btn-success ml-2 validasiasssesdok" style="margin-top: 20px;">
+            Validasi
+        </div>
     </div>
+
 
 </div>
 
@@ -9090,6 +9114,10 @@
         var macamkasus = $('#macamkasus:checked').val()
         var trauma = $('#trauma').val()
         var tgl_input = $('#tgl_input').val()
+        var tgl_asses = $('#tgl_asses').val()
+
+        var tgl_plg = $('#tgl_plg').val()
+
 
         var subject = $('#subyek').val()
         var objek = $('#objek').val()
@@ -9279,6 +9307,10 @@
                         macamkasus: $('#macamkasus:checked').val(),
                         trauma: $('#trauma').val(),
                         tgl_input: $('#tgl_input').val(),
+                        tgl_asses: $('#tgl_asses').val(),
+
+                        tgl_plg: $('#tgl_plg').val(),
+
 
                         subject: $('#subyek').val(),
                         objek: $('#objek').val(),
@@ -9485,6 +9517,10 @@
         var macamkasus = $('#macamkasus:checked').val()
         var trauma = $('#trauma').val()
         var tgl_input = $('#tgl_input').val()
+        var tgl_asses = $('#tgl_asses').val()
+
+        var tgl_plg = $('#tgl_plg').val()
+
 
         var subject = $('#subyek').val()
         var objek = $('#objek').val()
@@ -9679,6 +9715,10 @@
                         macamkasus: $('#macamkasus:checked').val(),
                         trauma: $('#trauma').val(),
                         tgl_input: $('#tgl_input').val(),
+                        tgl_asses: $('#tgl_asses').val(),
+
+                        tgl_plg: $('#tgl_plg').val(),
+
 
                         subject: $('#subyek').val(),
                         objek: $('#objek').val(),
