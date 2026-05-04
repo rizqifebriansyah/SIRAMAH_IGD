@@ -1188,19 +1188,55 @@
         <table class="table">
             <tbody>
                 <tr>
-                    <td class="text-bold font-italic">Tanggal Kunjungan</td>
+                    <td class="text-bold font-italic">Tanggal Kunjungan Skrining</td>
                     <td>
-                        <h5 class="text-bold">{{$kunjungan[0]->tgl_masuk}}</h5>
+                        <input class="form-control" type="datetime-local" value="{{$tgl_msk_skrining}}" name="tgl_msk_skrining" id="tgl_msk_skrining">
+
 
                     </td>
-                    <td class="text-bold font-italic">Tanggal Pengkajian</td>
+                    <td class="text-bold font-italic">Tanggal Kunjungan </td>
                     <td>
-                        <input class="form-control" type="datetime-local" name="tgl_input" id="tgl_input">
+                        <input class="form-control" type="datetime-local" value="{{$kunjungan[0]->tgl_masuk}}" name="tgl_kunjungan" id="tgl_kunjungan">
+
+
+                    </td>
+
+                </tr>
+                <tr>
+                    <td class="text-bold font-italic">Tanggal Awal Triase</td>
+                    <td>
+                        <input class="form-control" type="datetime-local" value="" name="tgl_input_triase" id="tgl_input_triase">
+
+
+                    </td>
+                    <td class="text-bold font-italic">Tanggal Selesai Triase</td>
+                    <td>
+                        <input class="form-control" type="datetime-local" value="" name="tgl_selesai_triase" id="tgl_selesai_triase">
 
 
                     </td>
                 </tr>
+                <tr>
+                    <td class="text-bold font-italic">Tanggal Awal Asesmen</td>
+                    <td>
+                        <input class="form-control" type="datetime-local" value="" name="tgl_asses" id="tgl_asses">
 
+
+                    </td>
+                    <td class="text-bold font-italic">Tanggal Selesai Asesmen</td>
+                    <td>
+                        <input class="form-control ml-2 mb-2" type="datetime-local" value="" name="tgl_selesai_asses" id="tgl_selesai_asses">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-bold font-italic">Tanggal Pulang</td>
+                    <td>
+                        <input class="form-control" type="datetime-local" value="" name="tgl_plg" id="tgl_plg">
+                    </td>
+                    <td></td>
+                    <td></td>
+
+                </tr>
 
                 <tr>
                     <td class="text-bold font-italic">Macam Kasus</td>
@@ -2233,9 +2269,7 @@
                 </select>
                 <label>Lain-lain</label>
                 <textarea class="form-control" id="alpul1" name="alpul1" rows="2" placeholder=""></textarea>
-                <label>Tanggal Pulang</label>
 
-                <input class="form-control" type="datetime-local" value="" name="tgl_plg" id="tgl_plg">
 
 
             </div>
@@ -2436,12 +2470,8 @@
 </div>
 
 <div class="row">
-    <div class="col-md-6">
-        <label for="">Tanggal dan Jam Selesai Asesmen</label>
-        <input class="form-control ml-2 mb-2" type="datetime-local" value="" name="tgl_asses" id="tgl_asses">
 
-    </div>
-    <div class="col-md-6">
+    <div class="col-md-12">
 
 
         <div type="button" class="btn float-right btn-success simpanasses mt-3 mb-3 mr-3">
@@ -2457,19 +2487,54 @@
 <table class="table">
     <tbody>
         <tr>
-            <td class="text-bold font-italic">Tanggal Kunjungan</td>
+            <td class="text-bold font-italic">Tanggal Kunjungan Skrining</td>
             <td>
-                <h5 class="text-bold">{{$kunjungan[0]->tgl_masuk}}</h5>
+                <input class="form-control" type="datetime-local" value="{{$tgl_msk_skrining}}" name="tgl_msk_skrining" id="tgl_msk_skrining">
 
 
             </td>
-            <td class="text-bold font-italic">Tanggal Pengkajian</td>
+            <td class="text-bold font-italic">Tanggal Kunjungan </td>
             <td>
-                <input class="form-control" type="datetime-local" name="tgl_input" id="tgl_input" value="{{$assesdok[0]->tgl_input}}">
-
+                <input class="form-control" type="datetime-local" value="{{$kunjungan[0]->tgl_masuk}}" name="tgl_kunjungan" id="tgl_kunjungan">
 
 
             </td>
+
+        </tr>
+        <tr>
+            <td class="text-bold font-italic">Tanggal Awal Triase</td>
+            <td>
+                <input class="form-control" type="datetime-local" value="{{$triase[0]->tg_entri_triase}}" name="tgl_input_triase" id="tgl_input_triase">
+
+
+            </td>
+            <td class="text-bold font-italic">Tanggal Selesai Triase</td>
+            <td>
+                <input class="form-control" type="datetime-local" value="{{$triase[0]->tgl_selesai_triase}}" name="tgl_selesai_triase" id="tgl_selesai_triase">
+
+
+            </td>
+        </tr>
+        <tr>
+            <td class="text-bold font-italic">Tanggal Awal Asesmen</td>
+            <td>
+                <input class="form-control" value="{{$assesdok[0]->tgl_asses}}" type="datetime-local" name="tgl_asses" id="tgl_asses">
+
+
+            </td>
+            <td class="text-bold font-italic">Tanggal Selesai Asesmen</td>
+            <td>
+                <input class="form-control ml-2 mb-2" type="datetime-local" value="{{$assesdok[0]->tgl_selesai_asses}}" name="tgl_selesai_asses" id="tgl_selesai_asses">
+            </td>
+        </tr>
+        <tr>
+            <td class="text-bold font-italic">Tanggal Pulang</td>
+            <td>
+                <input class="form-control" type="datetime-local" value="{{$assesdok[0]->tgl_plg}}" name="tgl_plg" id="tgl_plg">
+            </td>
+            <td></td>
+            <td></td>
+
         </tr>
         <tr>
             <td class="text-bold font-italic">Sumber Data</td>
@@ -9113,9 +9178,12 @@
         var sumberdata = $('#sumberdata:checked').val()
         var macamkasus = $('#macamkasus:checked').val()
         var trauma = $('#trauma').val()
-        var tgl_input = $('#tgl_input').val()
+        var tgl_msk_skrining = $('#tgl_msk_skrining').val()
+        var tgl_kunjungan = $('#tgl_kunjungan').val()
+        var tgl_input_triase = $('#tgl_input_triase').val()
+        var tgl_selesai_triase = $('#tgl_selesai_triase').val()
+        var tgl_selesai_asses = $('#tgl_selesai_asses').val()
         var tgl_asses = $('#tgl_asses').val()
-
         var tgl_plg = $('#tgl_plg').val()
 
 
@@ -9306,9 +9374,12 @@
                         sumberdata: $('#sumberdata:checked').val(),
                         macamkasus: $('#macamkasus:checked').val(),
                         trauma: $('#trauma').val(),
-                        tgl_input: $('#tgl_input').val(),
+                        tgl_msk_skrining: $('#tgl_msk_skrining').val(),
+                        tgl_kunjungan: $('#tgl_kunjungan').val(),
+                        tgl_input_triase: $('#tgl_input_triase').val(),
+                        tgl_selesai_triase: $('#tgl_selesai_triase').val(),
+                        tgl_selesai_asses: $('#tgl_selesai_asses').val(),
                         tgl_asses: $('#tgl_asses').val(),
-
                         tgl_plg: $('#tgl_plg').val(),
 
 
@@ -9516,9 +9587,12 @@
         var sumberdata = $('#sumberdata:checked').val()
         var macamkasus = $('#macamkasus:checked').val()
         var trauma = $('#trauma').val()
-        var tgl_input = $('#tgl_input').val()
+        var tgl_msk_skrining = $('#tgl_msk_skrining').val()
+        var tgl_kunjungan = $('#tgl_kunjungan').val()
+        var tgl_input_triase = $('#tgl_input_triase').val()
+        var tgl_selesai_triase = $('#tgl_selesai_triase').val()
+        var tgl_selesai_asses = $('#tgl_selesai_asses').val()
         var tgl_asses = $('#tgl_asses').val()
-
         var tgl_plg = $('#tgl_plg').val()
 
 
@@ -9714,9 +9788,12 @@
                         sumberdata: $('#sumberdata:checked').val(),
                         macamkasus: $('#macamkasus:checked').val(),
                         trauma: $('#trauma').val(),
-                        tgl_input: $('#tgl_input').val(),
+                        tgl_msk_skrining: $('#tgl_msk_skrining').val(),
+                        tgl_kunjungan: $('#tgl_kunjungan').val(),
+                        tgl_input_triase: $('#tgl_input_triase').val(),
+                        tgl_selesai_triase: $('#tgl_selesai_triase').val(),
+                        tgl_selesai_asses: $('#tgl_selesai_asses').val(),
                         tgl_asses: $('#tgl_asses').val(),
-
                         tgl_plg: $('#tgl_plg').val(),
 
 

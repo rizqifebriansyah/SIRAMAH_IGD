@@ -664,6 +664,8 @@ class PerawatController extends Controller
         $kj = $request->kj;
         $norm = $request->norm;
         $now = Carbon::now()->format('Y-m-d H:i:s');
+        $kunjungan = DB::select('SELECT a.`tgl_masuk`FROM ts_kunjungan a WHERE a.kode_kunjungan = ?', [$kj]);
+
         $datadiri = DB::select('SELECT 
         a.perujuk,
         fc_umur(a.no_rm) AS umur,
@@ -862,6 +864,7 @@ class PerawatController extends Controller
     {
         $norm = $request->norm;
         $kj = $request->kj;
+        $kunjungan = DB::select('SELECT a.`tgl_masuk`FROM ts_kunjungan a WHERE a.kode_kunjungan = ?', [$kj]);
 
         $rencanaplg = DB::select('SELECT * FROM rencana_plg WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
         $obatplg = DB::select('SELECT * FROM erm_obat_pulang_igd WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
@@ -876,6 +879,8 @@ class PerawatController extends Controller
                 'norm' => $norm,
                 'kj' => $kj,
                 'obatplg' => $obatplg,
+                'kunjungan' => $kunjungan,
+
 
                 'poli' => $poli
                 // 'unit' => $unit
@@ -1319,7 +1324,10 @@ class PerawatController extends Controller
         try {
             $rencanaplg = rencana_plg::create([
                 'tgl_input' => $now,
-                'tgl_kunjungan' => $now,
+                'tgl_kunjungan' => $request->tgl_kunjungan,
+                'tgl_pengkajian' => $request->tgl_pengkajian,
+                'tgl_plg' => $request->tgl_plg,
+                'jam_plg' => $request->jam_plg,
                 'no_rm' => $request->norm,
                 'kode_kunjungan' => $request->kj,
                 'usia_lanjut' => $request->usialanjut,
@@ -1437,7 +1445,10 @@ class PerawatController extends Controller
                 $cekcpp = DB::select('UPDATE rencana_plg SET status = "3"  WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
                 $rencanaplg = rencana_plg::create([
                     'tgl_input' => $now,
-                    'tgl_kunjungan' => $now,
+                    'tgl_kunjungan' => $request->tgl_kunjungan,
+                    'tgl_pengkajian' => $request->tgl_pengkajian,
+                    'tgl_plg' => $request->tgl_plg,
+                    'jam_plg' => $request->jam_plg,
                     'no_rm' => $request->norm,
                     'kode_kunjungan' => $request->kj,
                     'usia_lanjut' => $request->usialanjut,

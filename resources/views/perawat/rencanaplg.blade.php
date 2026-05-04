@@ -10,6 +10,33 @@
             <div class="col-md-6">
                 <table class="table">
                     <tbody>
+                        <tr>
+                            <td class="text-bold font-italic">Tanggal Kunjungan</td>
+                            <td>
+                                <input class="form-control" type="text" value="{{$kunjungan[0]->tgl_masuk}}" name="tgl_kunjungan" id="tgl_kunjungan">
+
+
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td class="text-bold font-italic">Tanggal Pengkajian</td>
+                            <td>
+                                <input class="form-control" type="datetime-local" name="tgl_pengkajian" id="tgl_pengkajian">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-bold font-italic">Rencana Tanggal Pulang</td>
+                            <td>
+                                <input class="form-control" type="date" name="tgl_plg" id="tgl_plg">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-bold font-italic">Rencana Jam Pulang</td>
+                            <td>
+                                <input class="form-control" type="Time" name="jam_plg" id="jam_plg">
+                            </td>
+                        </tr>
 
                         <tr>
                             <td class="text-bold font-italic">Usia lanjut (60 tahun atau lebih)</td>
@@ -459,7 +486,7 @@
                                 <select class="form-control select2" name="poli" id="poli">
                                     <option value=""> Pilih Poli</option>
                                     @foreach($poli as $po )
-                                    <option value="{{$po->kode_unit}}"> {{$po->nama_unit}}</option>
+                                    <option value="{{$po->nama_unit}}"> {{$po->nama_unit}}</option>
 
 
                                     @endforeach
@@ -492,7 +519,33 @@
             <div class="col-md-6">
                 <table class="table">
                     <tbody>
+                        <tr>
+                            <td class="text-bold font-italic">Tanggal Kunjungan</td>
+                            <td>
+                                <input class="form-control" type="text" value="{{$kunjungan[0]->tgl_masuk}}" name="tgl_kunjungan" id="tgl_kunjungan">
 
+
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td class="text-bold font-italic">Tanggal Pengkajian</td>
+                            <td>
+                                <input class="form-control" type="datetime-local" value="{{$rencanaplg[0]->tgl_pengkajian}}" name="tgl_pengkajian" id="tgl_pengkajian">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-bold font-italic">Rencana Tanggal Pulang</td>
+                            <td>
+                                <input class="form-control" type="date" value="{{$rencanaplg[0]->tgl_plg}}" name="tgl_plg" id="tgl_plg">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-bold font-italic">Rencana Jam Pulang</td>
+                            <td>
+                                <input class="form-control" value="{{$rencanaplg[0]->jam_plg}}" type="Time" name="jam_plg" id="jam_plg">
+                            </td>
+                        </tr>
                         <tr>
                             <td class="text-bold font-italic">Usia lanjut (60 tahun atau lebih)</td>
                             <td>
@@ -1170,8 +1223,10 @@
                             <td>
                                 <label for="">Poliklinik :</label>
                                 <select class="form-control select2" name="poli" id="poli">
+                                    <option value="{{$rencanaplg[0]->poli_tuju}}"> {{$rencanaplg[0]->poli_tuju}}</option>
+
                                     @foreach($poli as $po )
-                                    <option value="{{$po->kode_unit}}"> {{$po->nama_unit}}</option>
+                                    <option value="{{$po->nama_unit}}"> {{$po->nama_unit}}</option>
 
 
                                     @endforeach
@@ -1186,7 +1241,7 @@
                                 <div class="form-group">
                                     <label for="exampleFormControlSelect1">Tanggal Pemeriksaan
                                         Poli</label>
-                                    <input type="date" id="tglpoli" name="tglpoli" value="" class="form-control">
+                                    <input type="date" id="tglpoli" name="tglpoli" value="{{$rencanaplg[0]->tgl_kontrol}}" class="form-control">
                                 </div>
                             </td>
                         </tr>
@@ -1238,6 +1293,10 @@
 
         $(".simpanrencanaplg").click(function() {
             var obatplg = $('.formobatplg').serializeArray();
+            var tgl_kunjungan = $('#tgl_kunjungan').val()
+            var tgl_pengkajian = $('#tgl_pengkajian').val()
+            var tgl_plg = $('#tgl_plg').val()
+            var jam_plg = $('#jam_plg').val()
 
             var usialanjut = $('#usialanjut:checked').val()
             var hambatan = $('#hambatan:checked').val()
@@ -1296,7 +1355,10 @@
                         data: {
                             _token: "{{ csrf_token() }}",
                             obatplg: JSON.stringify(obatplg),
-
+                            tgl_kunjungan: $('#tgl_kunjungan').val(),
+                            tgl_pengkajian: $('#tgl_pengkajian').val(),
+                            tgl_plg: $('#tgl_plg').val(),
+                            jam_plg: $('#jam_plg').val(),
                             usialanjut: $('#usialanjut:checked').val(),
                             hambatan: $('#hambatan:checked').val(),
                             medis: $('#medis:checked').val(),
@@ -1375,6 +1437,11 @@
         $(".updaterencanaplg").click(function() {
             var obatplg = $('.formobatplg').serializeArray();
 
+            var tgl_kunjungan = $('#tgl_kunjungan').val()
+            var tgl_pengkajian = $('#tgl_pengkajian').val()
+            var tgl_plg = $('#tgl_plg').val()
+            var jam_plg = $('#jam_plg').val()
+
             var usialanjut = $('#usialanjut:checked').val()
             var hambatan = $('#hambatan:checked').val()
             var medis = $('#medis:checked').val()
@@ -1432,6 +1499,10 @@
                         data: {
                             _token: "{{ csrf_token() }}",
                             obatplg: JSON.stringify(obatplg),
+                            tgl_kunjungan: $('#tgl_kunjungan').val(),
+                            tgl_pengkajian: $('#tgl_pengkajian').val(),
+                            tgl_plg: $('#tgl_plg').val(),
+                            jam_plg: $('#jam_plg').val(),
                             usialanjut: $('#usialanjut:checked').val(),
                             hambatan: $('#hambatan:checked').val(),
                             medis: $('#medis:checked').val(),
