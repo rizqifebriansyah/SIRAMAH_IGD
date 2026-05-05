@@ -181,7 +181,8 @@ Route::group(['middleware' => ['hak_akses:4', 'auth']], function () {
     Route::post('pemantauanview', [PerawatController::class, 'pemantauanview'])->name('pemantauanview');
 
 
-
+Route::post('transferpasien', [PerawatController::class, 'transferpasien'])->name('transferpasien');
+    Route::post('catatantficu', [PerawatController::class, 'catatantficu'])->name('catatantficu');
     Route::post('rencanaplg', [PerawatController::class, 'rencanaplg'])->name('rencanaplg');
     Route::post('sri', [PerawatController::class, 'sri'])->name('sri');
     Route::post('upload', [PerawatController::class, 'upload'])->name('upload');
@@ -193,6 +194,7 @@ Route::group(['middleware' => ['hak_akses:4', 'auth']], function () {
     Route::post('caripasienigdperawat', [PerawatController::class, 'caripasienigdperawat'])->name('caripasienigdperawat');
     Route::post('cariruangan', [PerawatController::class, 'cariruangan'])->name('cariruangan');
 
+    Route::post('simpanctttransfer', [PerawatController::class, 'simpanctttransfer'])->name('simpanctttransfer');
 
     Route::post('simpanrencanaplg', [PerawatController::class, 'simpanrencanaplg'])->name('simpanrencanaplg');
     Route::post('updaterencanaplg', [PerawatController::class, 'updaterencanaplg'])->name('updaterencanaplg');

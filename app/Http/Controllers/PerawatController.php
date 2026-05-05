@@ -611,6 +611,7 @@ class PerawatController extends Controller
         $ranap = DB::select('SELECT kode_unit,nama_unit FROM mt_unit WHERE kelas_unit = 2');
         $ttv = DB::select('SELECT tekanan_darah, frekuensi_nafas, frekuensi_nadi, suhu, berat_badan, umur, keadaan_umum, kesadaran, gcs, spo2 FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
         $riwayatrekonobat = DB::select('SELECT * FROM rekonsiliasi_obat WHERE kode_kunjungan = ?', [$kj]);
+        $poli = DB::select('SELECT kode_unit,nama_unit FROM mt_unit WHERE kelas_unit = 2');
 
         return view(
             'perawat.transferpasien',
@@ -621,6 +622,8 @@ class PerawatController extends Controller
                 'now' => $now,
                 'norm' => $norm,
                 'ranap' => $ranap,
+                'poli' => $poli,
+
                 'ttv' => $ttv,
                 'riwayatrekonobat' => $riwayatrekonobat,
                 'kj' => $kj
@@ -631,7 +634,21 @@ class PerawatController extends Controller
             ]
         );
     }
+    public function catatantficu(Request $request)
+    {
 
+
+
+        return view(
+            'perawat.catatantficu',
+            [
+                'title' => 'SiRAMAH PERAWAT',
+
+
+
+            ]
+        );
+    }
     public function pemantauan(Request $request)
     {
         $unit = auth()->user()->unit;
@@ -1309,7 +1326,137 @@ class PerawatController extends Controller
         echo json_encode($back);
         die;
     }
+ public function simpanctttransfer(Request $request)
+    {
+        $a = $request->all();
+        $now = Carbon::now();
+        $user = auth()->user()->id_simrs;
+        $name = auth()->user()->nama;
+        $kp = auth()->user()->kode_paramedis;
+        $kj = $request->kj;
+        $norm = $request->norm;
 
+        //simpan catatan transfer pasien
+        try {
+            $catatan = catatan_transfer_pasien::create([
+                'kode_kunjungan' => $kj,
+                'no_rm' => $norm,
+                'ruangan_asal' => 'IGD',
+                'kode_unit' => '1002',
+                'pindah_ke' => $request->tinjutt,
+                'tgl_pindah' => $request->tgl_pindah,
+                'tgl_pengkajian_transfer' => $request->tgl_input_transfer,
+                'tgl_selesai_transfer' => $request->tgl_selesai_transfer,
+
+                'dokter_yang_merawat' => $request->doktergp,
+                'alasan_dirawat' => $request->alasan_rawat,
+                'alasan_pindah' => $request->alasan_pindah,
+                'keluhan_pasien_terkini' => $request->situation,
+                'keterangan_backgroung' => $request->backgroung,
+                'kondisi_kesadaran' => $request->kesadaran,
+                'gcs_e' => $request->E,
+                'gcs_m' => $request->M,
+                'gcs_v' => $request->V,
+                'tekanandarah' => $request->tekanandarah,
+                'nadi' => $request->frekuensinado,
+                'pernafasan' => $request->frekuensinafas,
+                'suhu' => $request->suhutubuh,
+                'penggunaan_oksigen' => $request->oksigen,
+                'cairan_parental' => $request->parental,
+                'transfusi' => $request->transfusi,
+                'penggunaan_cateter' => $request->cateter,
+                'tgl_pemakaian'  => $request->tgl_cateter,
+                'hasil_pemeriksaan_selama_dirawat' => $request->hasil_pemmeriksaan,
+                'tindakan_yang_sudah_dilakukan' => $request->prosedur,
+                'diagnosa_medis' => $request->diagd,
+                'diagnosa_keperawatan' => $request->diagp,
+                'tindakan_belum_dilakukan' => $request->prosedur_tindakan,
+                'die' => $request->diet,
+                'mobilisasi' => $request->Mobilisasi,
+                'edukasi' => $request->Edukasi,
+                'riwayat_alergi' => $request->ria,
+                'program_nyeri' =>  $request->rinye,
+                'pengelihatan' => $request->peng,
+                'pendengaran' => $request->pend,
+                'komunikasi' => $request->kom,
+                'm_bed_activity' => $request->M_B,
+                'pp_bed_activity' => $request->PPB,
+                'tm_bed_activity' => $request->TMB,
+                'm_personal_hygiene' => $request->M_P,
+                'pp_personal_hygiene' => $request->PPP,
+                'tm_personal_hygiene' => $request->TMP,
+                'm_dressing' => $request->M_D,
+                'pp_dressing' => $request->PPD,
+                'tm_dressing' => $request->TMD,
+                'm_eating' => $request->M_E,
+                'pp_eating' => $request->PPE,
+                'tm_eating' => $request->TME,
+                'm_transfer' => $request->M_T,
+                'pp_transfer' => $request->PPT,
+                'tm_transfer' => $request->TMT,
+
+                //banyak yang belum
+                'catatan_khusus' => $request->ck,
+                'kriteria_transfer' => $request->kri,
+                'created_at' => $now
+
+
+            ]);
+            dd($catatan);
+        } catch (\Exception $e) {
+            $back = [
+                'kode' => 200,
+                'message' => 'error input catatan transfer'
+            ];
+            echo json_encode($back);
+            die;
+        }
+
+        try {
+            $obatpllg = json_decode($_POST['obatplg'], true);
+            foreach ($obatpllg as $nama) {
+                $index = $nama['name'];
+                $value = $nama['value'];
+                $dataSet[$index] = $value;
+                if ($index == 'intruksi') {
+                    $arrayindex[] = $dataSet;
+                }
+            }
+            // $id_detail = $this->createLayanandetail();
+            foreach ($arrayindex as $arr) {
+                $savedetailobatplg = [
+                    // 'kode_detail_obat' => $id_detail,
+                    'rm' => $norm,
+                    'kode_kunjungan' => $kj,
+                    'kode_unit' => '1002',
+                    'nama_obat' => $arr['namaobat'],
+                    'dosis' => $arr['dosis'],
+                    'jam_pemberian' => $arr['jampemberian'],
+                    'instrusi_khusus' => $arr['intruksi'],
+
+
+                    'tgl_input' => $now,
+                    'status' => 4
+
+                ];
+                $obatpulang = erm_obat_pulang_igd::create($savedetailobatplg);
+            }
+        } catch (\Exception $e) {
+            $back = [
+                'kode' => 200,
+                'message' => 'error input obat pulang'
+            ];
+            echo json_encode($back);
+            die;
+        }
+
+        $back = [
+            'kode' => 200,
+            'message' => 'Berhasil'
+        ];
+        echo json_encode($back);
+        die;
+    }
     public function simpanrencanaplg(Request $request)
     {
         $a = $request->all();
