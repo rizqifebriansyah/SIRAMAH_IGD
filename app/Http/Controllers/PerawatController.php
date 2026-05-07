@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\erm_cppt_kebidanan;
 use App\Models\pemantauan_ttv;
+use App\Models\catatan_transfer_pasien;
 
 use App\Models\erm_cppt_kebidanan_bayi;
 use Illuminate\Http\Request;

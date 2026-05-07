@@ -23,7 +23,7 @@
     <div class="row " style="align-content: 10px;">
         @if ($unit == '1002')
 
-        <h4 class="col-md-5">Data Pasien IGD UMUM</h4>
+        <h4 class="col-md-5">Monitoring Pasien IGD UMUM</h4>
         @else
         <h4 class="col-md-5">Data Pasien IGD KEBIDANAN</h4>
 
@@ -117,11 +117,12 @@
                 <thead class="bg-light">
                     <th style="text-align: center;">Tanggal Masuk</th>
                     <th style="text-align: center;">NoRM</th>
+                    <th style="text-align: center;">Nama Pasien</th>
+
                     <th style="text-align: center;">JK</th>
                     <th style="text-align: center;">Diagnosa</th>
                     <th style="text-align: center;">Assesment Perawat</th>
                     <th hidden style="text-align: center;">kodekunjungan</th>
-                    <th hidden style="text-align: center;">tgl_masuk</th>
 
 
 
@@ -132,11 +133,12 @@
                 <tbody>
                     @foreach ($pasienigd as $key => $a)
                     <tr>
+                        <td  style="text-align: center;" class="tglmasuk">{{ $a->tgl_masuk }}</td>
+
                         <td style="text-align: center;" class="norm">{{ $a->no_rm }}</td>
                         <td style="text-align: center;" class="namapx">{{ $a->nama_px }}</td>
                         <td style="text-align: center;" class="jk">{{ $a->jenis_kelamin }}</td>
                         <td hidden style="text-align: center;" class="kj">{{ $a->kode_kunjungan }}</td>
-                        <td hidden style="text-align: center;" class="tglmasuk">{{ $a->tgl_masuk }}</td>
 
 
                         <td class="diag2" style="text-align: center;">

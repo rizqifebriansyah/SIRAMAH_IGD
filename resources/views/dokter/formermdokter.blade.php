@@ -7784,10 +7784,7 @@
                 </select>
                 <label>Lain-lain</label>
                 <textarea class="form-control" id="alpul1" name="alpul1" rows="2" placeholder=""></textarea>
-                <label>Tanggal Pulang</label>
-
-                <input class="form-control" type="datetime-local" value="{{$assesdok[0]->tgl_plg}}" name="tgl_plg" id="tgl_plg">
-
+           
             </div>
         </div>
     </div>

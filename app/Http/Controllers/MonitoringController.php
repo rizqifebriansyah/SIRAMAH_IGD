@@ -40,60 +40,56 @@ class MonitoringController extends Controller
 
         // $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','$unit','$now')");
         // $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','$unit','$now')");
-        $pasienigd = DB::select('SELECT DISTINCT
-        e.diagnosa_kerja AS DIAGX
-        ,a.no_rm
-        ,IFNULL(d.nama_perawat,"") AS nama_perawat
-        ,IFNULL(d.nama_perawat1,"") AS nama_perawat1
-        ,IFNULL(e.nama_paramedis,"") AS nama_paramedis
-        ,fc_nama_px(a.no_rm) AS nama_px
-        ,a.tgl_masuk
-        ,fc_NAMA_PARAMEDIS1(a.kode_paramedis) nama_dpjp
-        ,a.kode_penjamin
-        ,a.kode_kunjungan
-        ,a.kelas
-        ,a.kelas AS KELAS_UNIT
-        ,a.counter
-        ,b.jenis_kelamin
+        $pasienigd = DB::select('SELECT 
+                e.diagnosa_kerja AS DIAGX,
+                a.no_rm,
+                "" AS nama_perawat,
+                IFNULL(d.nama_perawat1, IFNULL(d.nama_perawat,"")) AS nama_perawat1,
+                IFNULL(e.nama_paramedis2, IFNULL(e.nama_paramedis,"")) AS nama_paramedis,
+                fc_nama_px(a.no_rm) AS nama_px,
+                a.tgl_masuk,
+                fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,
+                a.kode_penjamin,
+                a.kode_kunjungan,
+                a.kelas,
+                a.kelas AS KELAS_UNIT,
+                a.counter,
+                b.jenis_kelamin
 
-        FROM ts_kunjungan a
-        INNER JOIN mt_pasien b ON b.no_rm = a.no_rm
-        LEFT OUTER JOIN di_pasien_diagnosa_frunit c ON c.kode_kunjungan = a.kode_kunjungan 
-        LEFT OUTER JOIN erm_cppt_perawat d ON d.kode_kunjungan = a.kode_kunjungan
-        LEFT OUTER JOIN	erm_cppt_dokter e ON e.kode_kunjungan = a.kode_kunjungan
-        where Date(a.tgl_masuk)  BETWEEN ? AND ?
-        AND a.status_kunjungan NOT IN (8,11)
-        and d.status NOT IN (2,3)
-        and e.status NOT IN (2, 3)
-        and a.kode_unit = ?
-        
-        
-        UNION
-        SELECT DISTINCT
-        e.diagnosa_kerja AS DIAGX
-        ,a.no_rm
-        ,IFNULL(d.nama_perawat,"") AS nama_perawat
-        ,IFNULL(d.nama_perawat1,"") AS nama_perawat1
+            FROM ts_kunjungan a
+            INNER JOIN mt_pasien b ON b.no_rm = a.no_rm
 
-        ,IFNULL(e.nama_paramedis,"") AS nama_paramedis
-        ,fc_nama_px(a.no_rm) AS nama_px
-        ,a.tgl_masuk
-        ,fc_NAMA_PARAMEDIS1(a.kode_paramedis) nama_dpjp
-        ,a.kode_penjamin
-        ,a.kode_kunjungan
-        ,a.kelas
-        ,a.kelas AS KELAS_UNIT
-        ,a.counter
-        ,b.jenis_kelamin
+            -- FIX PERAWAT (optional tapi disarankan)
+            LEFT JOIN (
+                SELECT d1.*
+                FROM erm_cppt_perawat d1
+                INNER JOIN (
+                    SELECT kode_kunjungan, MAX(id) AS max_id
+                    FROM erm_cppt_perawat
+                    WHERE STATUS NOT IN (2,3)
+                    GROUP BY kode_kunjungan
+                ) d2 
+                ON d1.kode_kunjungan = d2.kode_kunjungan 
+                AND d1.id = d2.max_id
+            ) d ON d.kode_kunjungan = a.kode_kunjungan
 
-        FROM ts_kunjungan a
-        INNER JOIN mt_pasien b ON b.no_rm = a.no_rm
-        LEFT OUTER JOIN di_pasien_diagnosa_frunit c ON c.kode_kunjungan = a.kode_kunjungan 
-        LEFT OUTER JOIN erm_cppt_perawat d ON d.kode_kunjungan = a.kode_kunjungan
-        LEFT OUTER JOIN	erm_cppt_dokter e ON e.kode_kunjungan = a.kode_kunjungan
-        where Date(a.tgl_masuk)  BETWEEN ? AND ?
-        and a.status_kunjungan NOT IN (8,11)
-        and a.kode_unit = ?', [$tgl_masuk_x,  $now,$unit, $tgl_masuk_x,$now, $unit]);
+            -- FIX DOKTER (INI KUNCI)
+            LEFT JOIN (
+                SELECT e1.*
+                FROM erm_cppt_dokter e1
+                INNER JOIN (
+                    SELECT kode_kunjungan, MAX(id) AS max_id
+                    FROM erm_cppt_dokter
+                    GROUP BY kode_kunjungan
+                ) e2 
+                ON e1.kode_kunjungan = e2.kode_kunjungan 
+                AND e1.id = e2.max_id
+            ) e ON e.kode_kunjungan = a.kode_kunjungan
+
+            WHERE a.tgl_masuk >= ?
+            AND a.tgl_masuk < ?
+            AND a.status_kunjungan NOT IN (8,11)
+            AND a.kode_unit = ?', [$tgl_masuk_x,  $now,$unit]);
         return view(
             'monitoring.assesigd',
             [
@@ -199,6 +195,8 @@ class MonitoringController extends Controller
 
         $assesdok = DB::select('SELECT * FROM erm_cppt_dokter
         WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $request->kj]);
+        $tgl_msk_skrining = Carbon::parse($assesdok[0]->tgl_kunjungan)->subMinutes(10);
+
         $assesdokbid = DB::select('SELECT * FROM erm_cppt_dokter_kebidanan WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $kj]);
         // dd($assesdokbid);
         $riwayatorderrad = DB::select('SELECT
@@ -253,7 +251,7 @@ class MonitoringController extends Controller
         $assesbid = DB::select('SELECT * FROM erm_cppt_kebidanan WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $kj]);
         $assesbidbay = DB::select('SELECT * FROM erm_cppt_kebidanan_bayi WHERE no_rm = ? AND kode_kunjungan = ? AND status IN (1,2)', [$request->norm, $kj]);
         $dpjp = DB::select('SELECT fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,a.kode_paramedis,a.tindakan_kedokteran FROM erm_tindakan_kedokteran a WHERE kode_kunjungan = ?', [$kj]);
-
+$riwayattindakandpjp = DB::select('SELECT id,fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,a.kode_paramedis,a.tindakan_kedokteran FROM erm_tindakan_kedokteran a WHERE kode_kunjungan = ? AND status = 1', [$kj]);
 
         return view(
             'monitoring.ermpreview',
@@ -266,8 +264,8 @@ class MonitoringController extends Controller
                 'ttv' => $ttv,
                 'ttb' => $ttb,
                 'dpjp' => $dpjp,
-
-
+                'tgl_msk_skrining' => $tgl_msk_skrining,
+                'riwayattindakandpjp' => $riwayattindakandpjp,
                 'rencanaplg' => $rencanaplg,
                 'tindakan' => $tindakan,
                 'tindakan1' => $tindakan1,
