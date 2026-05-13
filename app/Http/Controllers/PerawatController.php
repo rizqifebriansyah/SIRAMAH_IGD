@@ -1403,7 +1403,6 @@ class PerawatController extends Controller
 
 
             ]);
-            dd($catatan);
         } catch (\Exception $e) {
             $back = [
                 'kode' => 200,
@@ -1412,6 +1411,7 @@ class PerawatController extends Controller
             echo json_encode($back);
             die;
         }
+        
 
         try {
             $obatpllg = json_decode($_POST['obatplg'], true);

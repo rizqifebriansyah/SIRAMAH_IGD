@@ -4677,21 +4677,9 @@
                                             <form id="dynamic-form" class="formtindakanperawat">
                                                 <div id="form-container">
                                                     <div class="row mt-2">
-                                                        <!-- <div class="col-3">
-                                                            <div class="form-group">
-                                                                <label for="name">Jam:</label>
-                                                                <input type="time" name="waktu" id="waktu" value="" class="waktu form-control">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="name">TINDAKAN KEPERAWATAN :</label>
-                                                                <input type="text" name="tindakankeperawatan" id="tindakankeperawatan" value="" class="tindakan_keperawatan form-control">
-                                                            </div>
-                                                        </div> -->
+                                                      
                                                         <div class="col-3">
                                                             <div class="form-group">
-                                                                <!-- <i class="bi bi-x-square remove form-group col-md-2 text-danger"></i> -->
                                                                 <button type="button" class="btn btn-success mb-2 " id="add">Tambah</button>
 
                                                             </div>

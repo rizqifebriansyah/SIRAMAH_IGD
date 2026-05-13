@@ -3,7 +3,7 @@
 <div class="formcatatantf">
 
     <div class="card-header ">
-        <h3 class="card-title">PEMANTAUAN TANDA VITAL PASIEN GAWAT DARURAT</h3>
+        <h3 class="card-title">CATATAN TRANSFER PASIEN GAWAT DARURAT</h3>
     </div>
     <div class="ml-2">
         <form id="dynamic-form" class="formtransferpasien">
@@ -209,7 +209,7 @@
                                     <td class="text-bold font-italic">Cairan Parental</td>
                                     <td>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Umur pasien ..." aria-label="Cairan Parental" name="parental" id="parental" aria-describedby="basic-addon2" value="">
+                                            <input type="text" class="form-control" placeholder="Cairan Parental ..." aria-label="Cairan Parental" name="parental" id="parental" aria-describedby="basic-addon2" value="">
                                             <div class="input-group-append">
                                                 <span class="input-group-text" id="basic-addon2">ml/24 jam</span>
                                             </div>

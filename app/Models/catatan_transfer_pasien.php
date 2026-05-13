@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class catatan_transfer_pasien extends Model
 {
     use HasFactory;
-    protected $connection = 'mysql3';
+    protected $connection = 'mysql4';
     const UPDATED_AT = null;
     const CREATED_AT = null;
     protected $table = 'catatan_transfer_pasien';

@@ -89,7 +89,7 @@ class MonitoringController extends Controller
             WHERE a.tgl_masuk >= ?
             AND a.tgl_masuk < ?
             AND a.status_kunjungan NOT IN (8,11)
-            AND a.kode_unit = ?', [$tgl_masuk_x,  $now,$unit]);
+            AND a.kode_unit = ?', [$tgl_masuk_x,  $now, $unit]);
         return view(
             'monitoring.assesigd',
             [
@@ -251,7 +251,7 @@ class MonitoringController extends Controller
         $assesbid = DB::select('SELECT * FROM erm_cppt_kebidanan WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $kj]);
         $assesbidbay = DB::select('SELECT * FROM erm_cppt_kebidanan_bayi WHERE no_rm = ? AND kode_kunjungan = ? AND status IN (1,2)', [$request->norm, $kj]);
         $dpjp = DB::select('SELECT fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,a.kode_paramedis,a.tindakan_kedokteran FROM erm_tindakan_kedokteran a WHERE kode_kunjungan = ?', [$kj]);
-$riwayattindakandpjp = DB::select('SELECT id,fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,a.kode_paramedis,a.tindakan_kedokteran FROM erm_tindakan_kedokteran a WHERE kode_kunjungan = ? AND status = 1', [$kj]);
+        $riwayattindakandpjp = DB::select('SELECT id,fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,a.kode_paramedis,a.tindakan_kedokteran FROM erm_tindakan_kedokteran a WHERE kode_kunjungan = ? AND status = 1', [$kj]);
 
         return view(
             'monitoring.ermpreview',

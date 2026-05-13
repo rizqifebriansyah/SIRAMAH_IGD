@@ -17324,6 +17324,272 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
             $pdf::SetX(8);
             $pdf::Cell(198, 5, "Kriteria Pasien :", 1);
         } else {
+
+            $pdf::SetFont('Times', '', 10);
+            $pdf::SetXY(8, 34);
+            $pdf::Cell(198, 5, 'Ruang Asal : IGD', 1);
+            $pdf::ln();
+            $pdf::SetX(8);
+            $pdf::Cell(198, 5, 'Pindah ke : ', 1);
+            $pdf::ln();
+            $pdf::SetX(8);
+            $pdf::Cell(198, 5, 'Dokter yang merawat : ', 1);
+            $pdf::ln();
+            $pdf::SetX(8);
+            $pdf::Cell(198, 5, 'Alasan Dirawat : ', 1);
+            $pdf::ln();
+            $pdf::SetX(8);
+            $pdf::Cell(198, 5, 'Alasan Pindah : ', 1);
+            $pdf::ln();
+            $y = $pdf::GetY();
+            $pdf::SetFont('Times', 'B', 10);
+            $pdf::SetX(8);
+            $pdf::MultiCell(198, 5, "S (Situation)\nKeluhan pasien terkini :", 1);
+            $pdf::SetFont('Times', 'B', 10);
+            $pdf::SetX(8);
+            $pdf::MultiCell(198, 5, "B (Background) :");
+            $pdf::SetFont('Times', '', 10);
+            $pdf::SetX(8);
+            $pdf::Cell(198, 5, "Kondisi Pasien Saat Pindah : Kesadaran : " . "     Compos mentis" . "          Apatis" . "        Delirium" . "      Sofor" . "        GCS : " . "" . "E:" . "     " . "M:" . "     " . "V:", 1);
+            //compos mentis
+
+                $pdf::SetXY(69, $y + 16);
+
+                checkbox($pdf, True);
+           
+            // apatis
+
+             
+                $pdf::SetXY(100, $y + 16);
+
+                checkbox($pdf, False);
+            // delirium
+            
+                $pdf::SetXY(117, $y + 16);
+
+                checkbox($pdf, False);
+            // sofor
+           
+                $pdf::SetXY(135, $y + 16);
+
+                checkbox($pdf, False);
+            // gcs
+            
+                $pdf::SetXY(149, $y + 16);
+
+                checkbox($pdf, False);
+            $pdf::ln();
+            $pdf::ln();
+            $pdf::SetFont('Times', '', 10);
+
+            $cel = iconv('UTF-8', 'ISO-8859-1//TRANSLIT', '°C');
+
+            $pdf::SetX(8);
+            $pdf::MultiCell(198, 5, "Tekanan Darah : " . "     mm Hg," . " Nadi : " . "     x/menit" . "   Pernafasan : " . "     x/menit," . "   Suhu : " . "    " . $cel, 1);
+            $pdf::SetX(8);
+            $pdf::MultiCell(198, 5, "Penggunaan Oksifen : " . "     L/menit," . " Cairan Parental : " . "     ml/24jam" . "   Transfusi : " . "     ml,", 1);
+            $pdf::SetX(8);
+            $pdf::MultiCell(198, 5, "Penggunaan Cateter : " . " Ada/Tidak," . " Pemakaian Ke : " . "     " . "   tgl : " . "     " . " Jam :", 1);
+            $pdf::SetX(8);
+            $pdf::MultiCell(198, 5, "Hasil Pemeriksaan Selama dirawat (Pemeriksaan Fisik & Penunjang yang mendukung diagnosis) ");
+            $pdf::SetX(8);
+            $pdf::MultiCell(198, 5, "\n\n\n");
+            $pdf::SetX(8);
+            $pdf::MultiCell(198, 5, "Prosedur / Tindakan yang sudah di lakukan ");
+            $pdf::SetX(8);
+            $pdf::MultiCell(198, 5, "\n\n\n");
+            $pdf::SetFont('Times', 'B', 10);
+
+            $pdf::SetX(8);
+            $pdf::MultiCell(198, 5, "A (Assesment) : \n Diagnosa Medis : ");
+            $pdf::SetFont('Times', '', 10);
+
+            $pdf::SetX(8);
+            $pdf::MultiCell(198, 5, " Diagnosa Keperawatan : ");
+            $pdf::SetX(8);
+            $pdf::MultiCell(198, 5, "\n\n\n");
+            $pdf::SetFont('Times', 'B', 10);
+
+            $pdf::SetX(8);
+            $pdf::MultiCell(198, 5, "R (Recomendaation) : \n Prosedur / Tindakan yang belum dilakukan / saran untuk mengatasi masalah Pasien : ");
+            $pdf::SetFont('Times', '', 10);
+            $pdf::SetX(8);
+            $pdf::MultiCell(198, 5, "\n\n\n");
+            $pdf::SetFont('Times', '', 10);
+
+            $pdf::SetX(8);
+            $pdf::MultiCell(198, 5, "Diet : ", 1);
+            $pdf::SetX(8);
+            $pdf::MultiCell(198, 5, "Mobilisasi : ", 1);
+            $pdf::SetX(8);
+            $pdf::MultiCell(198, 5, "Edukasi : ", 1);
+
+            //table obat
+            $y = $pdf::GetY();
+            $pdf::SetX(8);
+            $pdf::SetFont('Times', 'B', 10);
+
+            $pdf::Cell(10, 5, 'NO', 1, 'C');
+            $pdf::SetXY(18, $y);
+            $pdf::Cell(50, 5, 'Nama Obat', 1, 0, "C");
+            $pdf::SetXY(68, $y);
+            $pdf::Cell(25, 5, 'Jumlah / Dosis', 1, 0, "C");
+            $pdf::SetXY(93, $y);
+            $pdf::Cell(40, 5, 'Aturan Pakai', 1, 0, "C");
+            $pdf::SetXY(133, $y);
+            $pdf::Cell(20, 5, 'Jumlah', 1, 0, "C");
+            $pdf::SetXY(153, $y);
+            $pdf::Cell(53, 5, 'TERAPI DILANJUT', 1, 0, "C");
+            $pdf::ln();
+            $y = $pdf::GetY();
+            $pdf::SetX(8);
+            $pdf::SetFont('Times', 'B', 10);
+            $pdf::Cell(10, 5, '', 1, 'C');
+            $pdf::SetXY(18, $y);
+            $pdf::Cell(50, 5, '', 1, 0, "C");
+            $pdf::SetXY(68, $y);
+            $pdf::Cell(25, 5, '', 1, 0, "C");
+            $pdf::SetXY(93, $y);
+            $pdf::Cell(40, 5, '', 1, 0, "C");
+            $pdf::SetXY(133, $y);
+            $pdf::Cell(20, 5, '', 1, 0, "C");
+            $pdf::SetXY(153, $y);
+            $pdf::Cell(53, 5, '', 1, 0, "C");
+            $pdf::ln();
+            $y = $pdf::GetY();
+            $pdf::SetX(8);
+            $pdf::SetFont('Times', 'B', 10);
+            $pdf::Cell(10, 5, '', 1, 'C');
+            $pdf::SetXY(18, $y);
+            $pdf::Cell(50, 5, '', 1, 0, "C");
+            $pdf::SetXY(68, $y);
+            $pdf::Cell(25, 5, '', 1, 0, "C");
+            $pdf::SetXY(93, $y);
+            $pdf::Cell(40, 5, '', 1, 0, "C");
+            $pdf::SetXY(133, $y);
+            $pdf::Cell(20, 5, '', 1, 0, "C");
+            $pdf::SetXY(153, $y);
+            $pdf::Cell(53, 5, '', 1, 0, "C");
+            $pdf::ln();
+            $pdf::SetX(8);
+            $pdf::MultiCell(198, 5, "Keterangan : Obat - obatan yang tidak di lanjutkan di retur ke instalsi farmasi ", 1);
+            $pdf::SetFont('Times', '', 10);
+
+            $pdf::SetX(8);
+            $pdf::MultiCell(198, 5, "Riwayat Alergi :", 1);
+            $pdf::SetX(8);
+            $pdf::MultiCell(198, 5, "Riwayat Nyeri :", 1);
+
+            $pdf::SetX(8);
+            $pdf::Cell(99, 5, "Riwayat Hambatan ", 1);
+            $pdf::SetX(107);
+            $pdf::Cell(99, 5, "Tingkat Kemampuan Fungsi ", 1);
+            $pdf::ln();
+            $pdf::SetX(8);
+            $pdf::Cell(33, 5, "Pengelihatan ", 1);
+            $pdf::SetX(41);
+            $pdf::Cell(33, 5, "Pendengaran ", 1);
+            $pdf::SetX(74);
+            $pdf::Cell(33, 5, "Komunikasi ", 1);
+
+            $pdf::SetX(107);
+            $pdf::Cell(54, 5, " ", 1);
+
+            $pdf::SetX(161);
+            $pdf::Cell(15, 5, "M ", 1);
+            $pdf::SetX(176);
+            $pdf::Cell(15, 5, "PP ", 1);
+            $pdf::SetX(191);
+            $pdf::Cell(15, 5, "TM ", 1);
+
+
+            $pdf::ln();
+            $pdf::SetX(8);
+            $pdf::Cell(33, 5, "Adekuat ", 1);
+            $pdf::SetX(41);
+            $pdf::Cell(33, 5, "Earing Aid S/D ", 1);
+            $pdf::SetX(74);
+            $pdf::Cell(33, 5, "Baca normal ", 1);
+
+            $pdf::SetX(107);
+            $pdf::Cell(54, 5, "Bed Activity ", 1);
+
+            $pdf::SetX(161);
+            $pdf::Cell(15, 5, "", 1);
+            $pdf::SetX(176);
+            $pdf::Cell(15, 5, "", 1);
+            $pdf::SetX(191);
+            $pdf::Cell(15, 5, " ", 1);
+
+            $pdf::ln();
+            $pdf::SetX(8);
+            $pdf::Cell(33, 5, "Kaca Maata ", 1);
+            $pdf::SetX(41);
+            $pdf::Cell(33, 5, "Tulis Sebagian", 1);
+            $pdf::SetX(74);
+            $pdf::Cell(33, 5, "Non Verbal ", 1);
+
+            $pdf::SetX(107);
+            $pdf::Cell(54, 5, "Personal Hyfeiene ", 1);
+
+            $pdf::SetX(161);
+            $pdf::Cell(15, 5, "", 1);
+            $pdf::SetX(176);
+            $pdf::Cell(15, 5, "", 1);
+            $pdf::SetX(191);
+            $pdf::Cell(15, 5, " ", 1);
+
+            $pdf::ln();
+            $pdf::SetX(8);
+            $pdf::Cell(33, 5, "Buta", 1);
+            $pdf::SetX(41);
+            $pdf::Cell(33, 5, "Tuli Total", 1);
+            $pdf::SetX(74);
+            $pdf::Cell(33, 5, "Afasia ", 1);
+
+            $pdf::SetX(107);
+            $pdf::Cell(54, 5, "Dressing ", 1);
+
+            $pdf::SetX(161);
+            $pdf::Cell(15, 5, "", 1);
+            $pdf::SetX(176);
+            $pdf::Cell(15, 5, "", 1);
+            $pdf::SetX(191);
+            $pdf::Cell(15, 5, " ", 1);
+
+            $pdf::ln();
+            $pdf::SetX(8);
+            $pdf::Cell(33, 5, "", 1);
+            $pdf::SetX(41);
+            $pdf::Cell(33, 5, "", 1);
+            $pdf::SetX(74);
+            $pdf::Cell(33, 5, "", 1);
+
+            $pdf::SetX(107);
+            $pdf::Cell(54, 5, "Eating ", 1);
+
+            $pdf::SetX(161);
+            $pdf::Cell(15, 5, "", 1);
+            $pdf::SetX(176);
+            $pdf::Cell(15, 5, "", 1);
+            $pdf::SetX(191);
+            $pdf::Cell(15, 5, " ", 1);
+
+            $pdf::ln();
+            $pdf::SetFont('Times', '', 10);
+
+            $pdf::SetX(8);
+            $pdf::Cell(198, 5, "Barang - barang yang diserahkan :", 1);
+            $pdf::ln();
+            $pdf::SetFont('Times', '', 10);
+
+            $pdf::SetX(8);
+            $pdf::Cell(198, 5, "Catatan KKhusus :", 1);
+            $pdf::ln();
+            $pdf::SetFont('Times', '', 10);
+
+            $pdf::SetX(8);
+            $pdf::Cell(198, 5, "Kriteria Pasien :", 1);
         }
 
         $pdf::Output();

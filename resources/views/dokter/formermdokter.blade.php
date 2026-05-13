@@ -7489,7 +7489,7 @@
                                                 <td>{{$td->tindakan_kedokteran}}</td>
 
                                                 <td> <a class=" btn btn-danger btn-sm returordertdp" href="#">
-                                                        <i class="fas fa-sync-alt fa-spin"></i>
+                                                        <!-- <i class="fas fa-sync-alt fa-spin"></i> -->
                                                         RETUR
                                                     </a></td>
                                             </tr>
@@ -8090,12 +8090,8 @@
 
 <div class="row ml-3 mb-2">
 
-    <div class="col-md-6">
-        <label for="">Tanggal dan Jam Selesai Asesmen</label>
-        <input class="form-control  ml-2 mb-2" type="datetime-local" value="{{$assesdok[0]->tgl_asses}}" name="tgl_asses" id="tgl_asses">
-
-    </div>
-    <div class="col-md-6">
+  
+    <div class="col-md-12">
         <div type="button" class="btn  btn-success updateasses" style="margin-top: 20px;">
             UPDATE
         </div>
