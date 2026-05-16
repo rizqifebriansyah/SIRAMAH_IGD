@@ -15361,52 +15361,122 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
 
             //hasil observasi
             foreach ($hasilp as $k) {
-                $x = $pdf::GetX();
-                $y = $pdf::GetY();
-                $pdf::SetXY(8, $y);
 
-                $pdf::Cell(15, 5, $k->tgl_obs, 1, "", "C");
-                $pdf::SetXY(23, $y);
+                $pdf::SetX(8);
 
-                $pdf::Cell(10, 5, $k->jam_obs, 1, "", "C");
-                $pdf::SetXY(33, $y);
+                $ket = trim($k->keterangan);
 
-                $pdf::Cell(15, 5, $k->td, 1, "", "C");
-                $pdf::SetXY(48, $y);
+                $lineHeight = 5;
+                $maxChar = 18; // sesuaikan dengan lebar kolom
 
-                $pdf::Cell(18, 5, $k->nadi, 1, "", "C");
-                $pdf::SetXY(66, $y);
+                // hitung jumlah baris TANPA multicell dummy
+                $lines = ceil(strlen($ket) / $maxChar);
 
-                $pdf::Cell(18, 5, $k->rr, 1, "", "C");
-                $pdf::SetXY(84, $y);
+                // minimal 1 baris
+                if ($lines < 1) {
+                    $lines = 1;
+                }
 
-                $pdf::Cell(18, 5, $k->suhu, 1, "", "C");
-                $pdf::SetXY(102, $y);
+                // tinggi row
+                $rowHeight = $lines * $lineHeight;
 
-                $pdf::Cell(10, 5, $k->gcs, 1, "", "C");
-                $pdf::SetXY(112, $y);
+                // posisi awal
+                $startX = $pdf::GetX();
+                $startY = $pdf::GetY();
 
-                $pdf::Cell(10, 5, $k->pupil, 1, "", "C");
-                $pdf::SetXY(122, $y);
+                /*
+    |--------------------------------------------------------------------------
+    | CELL BIASA
+    |--------------------------------------------------------------------------
+    */
 
-                $pdf::Cell(10, 5, $k->urine, 1, "", "C");
-                $pdf::SetXY(132, $y);
+                $pdf::Cell(15, $rowHeight, $k->tgl_obs, 1, 0, "C");
+                $pdf::Cell(10, $rowHeight, $k->jam_obs, 1, 0, "C");
+                $pdf::Cell(15, $rowHeight, $k->td, 1, 0, "C");
+                $pdf::Cell(18, $rowHeight, $k->nadi, 1, 0, "C");
+                $pdf::Cell(18, $rowHeight, $k->rr, 1, 0, "C");
+                $pdf::Cell(18, $rowHeight, $k->suhu, 1, 0, "C");
+                $pdf::Cell(10, $rowHeight, $k->gcs, 1, 0, "C");
+                $pdf::Cell(10, $rowHeight, $k->pupil, 1, 0, "C");
+                $pdf::Cell(10, $rowHeight, $k->urine, 1, 0, "C");
+                $pdf::Cell(25, $rowHeight, $k->nyeri, 1, 0, "C");
 
-                $pdf::MultiCell(25, 5, $k->nyeri, 1, "", "C");
-                $pdf::SetXY(157, $y);
+                /*
+    |--------------------------------------------------------------------------
+    | KETERANGAN
+    |--------------------------------------------------------------------------
+    */
 
-                $pdf::MultiCell(28, 5, $k->keterangan, 1, "", "C");
-                $pdf::SetXY(185, $y);
+                $xKet = $pdf::GetX();
+                $yKet = $pdf::GetY();
 
-                $pdf::Cell(21, 5, "", 1, "", "C");
+                $pdf::MultiCell(28, $lineHeight, $ket, 1, "L");
 
+                /*
+    |--------------------------------------------------------------------------
+    | NAMA & PARAF
+    |--------------------------------------------------------------------------
+    */
 
+                $pdf::SetXY($xKet + 28, $yKet);
 
+                $pdf::Cell(21, $rowHeight, "", 1, 0, "C");
 
-                $pdf::Ln();
-                $x = $pdf::GetX();
-                $y = $pdf::GetY();
+                /*
+    |--------------------------------------------------------------------------
+    | NEXT ROW
+    |--------------------------------------------------------------------------
+    */
+
+                $pdf::SetXY($startX, $startY + $rowHeight);
             }
+            // foreach ($hasilp as $k) {
+            //     $x = $pdf::GetX();
+            //     $y = $pdf::GetY();
+            //     $pdf::SetXY(8, $y);
+
+            //     $pdf::Cell(15, 5, $k->tgl_obs, 1, "", "C");
+            //     $pdf::SetXY(23, $y);
+
+            //     $pdf::Cell(10, 5, $k->jam_obs, 1, "", "C");
+            //     $pdf::SetXY(33, $y);
+
+            //     $pdf::Cell(15, 5, $k->td, 1, "", "C");
+            //     $pdf::SetXY(48, $y);
+
+            //     $pdf::Cell(18, 5, $k->nadi, 1, "", "C");
+            //     $pdf::SetXY(66, $y);
+
+            //     $pdf::Cell(18, 5, $k->rr, 1, "", "C");
+            //     $pdf::SetXY(84, $y);
+
+            //     $pdf::Cell(18, 5, $k->suhu, 1, "", "C");
+            //     $pdf::SetXY(102, $y);
+
+            //     $pdf::Cell(10, 5, $k->gcs, 1, "", "C");
+            //     $pdf::SetXY(112, $y);
+
+            //     $pdf::Cell(10, 5, $k->pupil, 1, "", "C");
+            //     $pdf::SetXY(122, $y);
+
+            //     $pdf::Cell(10, 5, $k->urine, 1, "", "C");
+            //     $pdf::SetXY(132, $y);
+
+            //     $pdf::MultiCell(25, 5, $k->nyeri, 1, "", "C");
+            //     $pdf::SetXY(157, $y);
+
+            //     $pdf::MultiCell(28, 5, $k->keterangan, 1, "", "C");
+            //     $pdf::SetXY(185, $y);
+
+            //     $pdf::Cell(21, 5, "", 1, "", "C");
+
+
+
+
+            //     $pdf::Ln();
+            //     $x = $pdf::GetX();
+            //     $y = $pdf::GetY();
+            // }
         }
 
 
@@ -17353,31 +17423,31 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
             $pdf::Cell(198, 5, "Kondisi Pasien Saat Pindah : Kesadaran : " . "     Compos mentis" . "          Apatis" . "        Delirium" . "      Sofor" . "        GCS : " . "" . "E:" . "     " . "M:" . "     " . "V:", 1);
             //compos mentis
 
-                $pdf::SetXY(69, $y + 16);
+            $pdf::SetXY(69, $y + 16);
 
-                checkbox($pdf, True);
-           
+            checkbox($pdf, True);
+
             // apatis
 
-             
-                $pdf::SetXY(100, $y + 16);
 
-                checkbox($pdf, False);
+            $pdf::SetXY(100, $y + 16);
+
+            checkbox($pdf, False);
             // delirium
-            
-                $pdf::SetXY(117, $y + 16);
 
-                checkbox($pdf, False);
+            $pdf::SetXY(117, $y + 16);
+
+            checkbox($pdf, False);
             // sofor
-           
-                $pdf::SetXY(135, $y + 16);
 
-                checkbox($pdf, False);
+            $pdf::SetXY(135, $y + 16);
+
+            checkbox($pdf, False);
             // gcs
-            
-                $pdf::SetXY(149, $y + 16);
 
-                checkbox($pdf, False);
+            $pdf::SetXY(149, $y + 16);
+
+            checkbox($pdf, False);
             $pdf::ln();
             $pdf::ln();
             $pdf::SetFont('Times', '', 10);
@@ -25850,29 +25920,54 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
         $pdf::Ln();
 
         //hasil observasi
+        $html = '
+<table border="1" cellpadding="3">
+    <tr>
+        <th width="15%">Tgl</th>
+        <th width="10%">Jam</th>
+        <th width="15%">TD</th>
+        <th width="20%">Keterangan</th>
+        <th width="15%">Nama & Paraf</th>
+    </tr>';
+
         foreach ($hasilp as $k) {
-            $pdf::SetX(8);
 
-            $pdf::Cell(15, 10, $k->tgl_obs, 1, "", "C");
-
-            $pdf::Cell(10, 10, $k->jam_obs, 1, "", "C");
-            $pdf::Cell(15, 10, $k->td, 1, "", "C");
-            $pdf::Cell(18, 10, $k->nadi, 1, "", "C");
-            $pdf::Cell(18, 10, $k->rr, 1, "", "C");
-            $pdf::Cell(18, 10, $k->suhu, 1, "", "C");
-            $pdf::Cell(10, 10, $k->gcs, 1, "", "C");
-            $pdf::Cell(10, 10, $k->pupil, 1, "", "C");
-            $pdf::Cell(10, 10, $k->urine, 1, "", "C");
-            $pdf::Cell(25, 10, $k->nyeri, 1, "", "C");
-            $pdf::Cell(28, 10, $k->keterangan, 1, "", "C");
-
-            $pdf::Cell(21, 10, "", 1, "", "C");
-
-
-
-
-            $pdf::Ln();
+            $html .= '
+    <tr>
+        <td>' . $k->tgl_obs . '</td>
+        <td>' . $k->jam_obs . '</td>
+        <td>' . $k->td . '</td>
+        <td>' . $k->keterangan . '</td>
+        <td></td>
+    </tr>';
         }
+
+        $html .= '</table>';
+
+        $pdf::writeHTML($html, true, false, true, false, '');
+        // foreach ($hasilp as $k) {
+        //     $pdf::SetX(8);
+
+        //     $pdf::Cell(15, 10, $k->tgl_obs, 1, "", "C");
+
+        //     $pdf::Cell(10, 10, $k->jam_obs, 1, "", "C");
+        //     $pdf::Cell(15, 10, $k->td, 1, "", "C");
+        //     $pdf::Cell(18, 10, $k->nadi, 1, "", "C");
+        //     $pdf::Cell(18, 10, $k->rr, 1, "", "C");
+        //     $pdf::Cell(18, 10, $k->suhu, 1, "", "C");
+        //     $pdf::Cell(10, 10, $k->gcs, 1, "", "C");
+        //     $pdf::Cell(10, 10, $k->pupil, 1, "", "C");
+        //     $pdf::Cell(10, 10, $k->urine, 1, "", "C");
+        //     $pdf::Cell(25, 10, $k->nyeri, 1, "", "C");
+        //     $pdf::Cell(28, 10, $k->keterangan, 1, "", "C");
+
+        //     $pdf::Cell(21, 10, "", 1, "", "C");
+
+
+
+
+        //     $pdf::Ln();
+        // }
 
         $pdf::Output();
 
