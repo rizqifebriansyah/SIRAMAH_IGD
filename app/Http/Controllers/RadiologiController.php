@@ -364,6 +364,24 @@ class RadiologiController extends Controller
 
         ]);
     }
+    public function expertisiviewbaru(Request $request)
+    {
+        $acc = $request->acc;
+
+        $expertisi = DB::connection('mysql3')->select('SELECT
+       *
+        FROM
+        order_table
+      
+        WHERE ACCESSIONNUMBER  = ?
+        ', [$acc]);
+       
+        return view('radiologi.expertisi_view_baru', [
+            'expertisi' => $expertisi
+
+        ]);
+        
+    }
     public function detailbarang(Request $request)
     {
         $kj = $request->kodekunjungan;
@@ -1711,7 +1729,7 @@ class RadiologiController extends Controller
             $pdf::Line(145, 240, 195, 240);
             $pdf::SetXY(152, 237);
             $pdf::Cell(40, 10, 'Spesialis Radiologi');
-        } 
+        }
         // elseif ($ex->data->approver == 'dr. Nunik Royyani. Sp.Rad') {
         //     $pdf::Image($path, 123, 220, 20, 20, 'PNG');
 

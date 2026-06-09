@@ -46,11 +46,12 @@
                     @if ($i->STATUS == 'AP')
 
                     |
-                    <a class="btn btn-primary btn-sm cetakexpertise" href="#">
-                        <i class="fa fa-print" aria-hidden="true"> </i> </a>
-                    @elseif ($i->STATUS == 'FN')
-                    | <a class="btn btn-primary btn-sm cetakexpertise" href="#">
-                        <i class="fa fa-print" aria-hidden="true"> </i> </a>
+                    <a class="btn btn-info btn-sm expertisiviewbaru" href="#">
+                        <i class="" aria-hidden="true">E </i> </a>
+                    @elseif ($i->STATUS == 'FN') | <a class="btn btn-info btn-sm expertisiviewbaru" href="#">
+                        <i class="" aria-hidden="true">E </i> </a>
+                    <!--  <a class="btn btn-primary btn-sm cetakexpertise" href="#">
+                        <i class="fa fa-print" aria-hidden="true"> </i> </a> -->
                     @endif
 
                 </div>
@@ -109,6 +110,33 @@
             success: function(response) {
                 spinner.hide();
                 $('.detailbridging').html(response);
+            }
+        });
+    });
+    $(".expertisiviewbaru").click(function() {
+        spinner = $('#loader2');
+        spinner.show();
+        var $row = $(this).closest("tr");
+        var acc = $row.find(".acc").text();
+
+
+        $.ajax({
+            type: "post",
+            data: {
+                _token: "{{ csrf_token() }}",
+                acc
+
+
+            },
+            url: " {{ route('expertisiviewbaru') }}",
+
+            error: function(data) {
+                spinner.hide();
+                alert('error!!')
+            },
+            success: function(response) {
+                spinner.hide();
+                $('.expertisiviewbaruu').html(response);
             }
         });
     });

@@ -181,7 +181,7 @@ Route::group(['middleware' => ['hak_akses:4', 'auth']], function () {
     Route::post('pemantauanview', [PerawatController::class, 'pemantauanview'])->name('pemantauanview');
 
 
-Route::post('transferpasien', [PerawatController::class, 'transferpasien'])->name('transferpasien');
+    Route::post('transferpasien', [PerawatController::class, 'transferpasien'])->name('transferpasien');
     Route::post('catatantficu', [PerawatController::class, 'catatantficu'])->name('catatantficu');
     Route::post('rencanaplg', [PerawatController::class, 'rencanaplg'])->name('rencanaplg');
     Route::post('sri', [PerawatController::class, 'sri'])->name('sri');
@@ -222,7 +222,6 @@ Route::post('transferpasien', [PerawatController::class, 'transferpasien'])->nam
 
     Route::post('returtinper', [PerawatController::class, 'returtinper'])->name('returtinper');
     Route::post('returobatplg', [PerawatController::class, 'returobatplg'])->name('returobatplg');
-
 });
 
 
@@ -232,6 +231,8 @@ Route::post('transferpasien', [PerawatController::class, 'transferpasien'])->nam
 
 // expertisi view ruangan
 Route::get('/expertisi_view', [RadiologiController::class, 'expertisi_view'])->name('expertisi_view');
+Route::post('/expertisiviewbaru', [RadiologiController::class, 'expertisiviewbaru'])->name('expertisiviewbaru');
+
 Route::get('cetakexp/{acc}', [RadiologiController::class, 'cetakexpertise2']);
 Route::post('cetakexpertise', [RadiologiController::class, 'cetakexpertise'])->name('cetakexpertise');
 Route::post('carigambarbridging', [RadiologiController::class, 'carigambarbridging'])->name('carigambarbridging');
@@ -253,6 +254,7 @@ Route::group(['middleware' => ['hak_akses:3', 'auth']], function () {
     Route::post('detailpasienradiologi', [RadiologiController::class, 'detailpasienradiologi'])->name('detailpasienradiologi');
     Route::post('/riwayatradiologipasien', [RadiologiController::class, 'riwayatradiologipasien'])->name('riwayatradiologipasien');
     Route::post('/detailbarang', [RadiologiController::class, 'detailbarang'])->name('detailbarang');
+
     Route::post('/successview', [RadiologiController::class, 'successview'])->name('successview');
 
 

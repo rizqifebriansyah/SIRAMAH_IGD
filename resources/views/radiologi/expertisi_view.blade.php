@@ -26,7 +26,7 @@
     </div>
     <div class="row">
 
-        <div class="col-md-11 mt-3 ">
+        <div class="col-md-6 mt-3 ">
             <div class="tablebridging">
                 <table id="databridging" class="table  table-sm text-sm table-bordered table-hover">
                     <thead class="bg-success">
@@ -74,11 +74,11 @@
                                     @if ($i->STATUS == 'AP')
 
                                     |
-                                    <a class="btn btn-primary btn-sm cetakexpertise" href="#">
-                                        <i class="fa fa-print" aria-hidden="true"> </i> </a>
+                                    <a class="btn btn-info btn-sm expertisiviewbaru" href="#">
+                                        <i class="" aria-hidden="true">E </i> </a>
                                     @elseif ($i->STATUS == 'FN')
-                                    | <a class="btn btn-primary btn-sm cetakexpertise" href="#">
-                                        <i class="fa fa-print" aria-hidden="true"> </i> </a>
+                                    | <a class="btn btn-info btn-sm expertisiviewbaru" href="#">
+                                        <i class="" aria-hidden="true">E </i> </a>
                                     @endif
                                  
                                 </div>
@@ -96,7 +96,7 @@
             </div>
         </div>
         <div class="col-md-5 mt-3">
-            <div class="detailbridging">
+            <div class="expertisiviewbaruu">
 
             </div>
         </div>
@@ -124,7 +124,7 @@
 
 
 
-    $(".editriwayatbridging").click(function() {
+    $(".expertisiviewbaru").click(function() {
         spinner = $('#loader2');
         spinner.show();
         var $row = $(this).closest("tr");
@@ -139,7 +139,7 @@
 
 
             },
-            url: " {{ route('editriwayatbridging') }}",
+            url: " {{ route('expertisiviewbaru') }}",
 
             error: function(data) {
                 spinner.hide();
@@ -147,7 +147,7 @@
             },
             success: function(response) {
                 spinner.hide();
-                $('.detailbridging').html(response);
+                $('.expertisiviewbaruu').html(response);
             }
         });
     });
