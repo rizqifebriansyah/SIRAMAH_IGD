@@ -1551,7 +1551,7 @@ class PerawatController extends Controller
                     'nama_obat' => $arr['namaobat'],
                     'dosis' => $arr['dosis'],
                     'jam_pemberian' => $arr['jampemberian'],
-                    'instrusi_khusus' => $arr['intruksi'],
+                    'instruksi_khusus' => $arr['intruksi'],
 
 
                     'tgl_input' => $now,
