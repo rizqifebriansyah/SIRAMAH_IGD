@@ -731,6 +731,11 @@ class PerawatController extends Controller
 
         $alasanplg  = DB::select('SELECT * FROM mt_alasan_pulang');
         $assesper = DB::select('SELECT * FROM erm_cppt_kebidanan WHERE no_rm = ? AND kode_kunjungan = ? AND status IN (1,2)', [$norm, $kj]);
+        $lanjutan = DB::select('SELECT * FROM erm_cppt_kebidanan_lanjutan WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
+        // dd($lanjutan);
+        $tindakan = DB::select('SELECT * FROM erm_tindakan_keperawatan WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
+        $obatplg = DB::select('SELECT * FROM erm_obat_pulang_igd WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
+        $partus = DB::select('SELECT * FROM riwayat_partus WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
 
         return view(
             'perawat.formdewasaigk',
@@ -738,6 +743,12 @@ class PerawatController extends Controller
                 'title' => 'SiRAMAH BIDAN',
                 'unit' => $unit,
                 'assesper' => $assesper,
+                 'tindakan' => $tindakan,
+                'lanjutan' => $lanjutan,
+
+                'partus' => $partus,
+
+                'obatplg' => $obatplg,
                 'alasanpulang' => $alasanplg,
                 'norm' => $norm,
                 'kj' => $kj,
@@ -758,6 +769,8 @@ class PerawatController extends Controller
         $alasanplg  = DB::select('SELECT * FROM mt_alasan_pulang');
         $assesper = DB::select('SELECT * FROM erm_cppt_kebidanan_bayi WHERE no_rm = ? AND kode_kunjungan = ? AND status IN (1,2)', [$norm, $kj]);
         // dd($assesper);
+        $tindakan = DB::select('SELECT * FROM erm_tindakan_keperawatan WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
+
         return view(
             'perawat.formbayikigk',
             [
@@ -765,6 +778,8 @@ class PerawatController extends Controller
                 'unit' => $unit,
                 'assesper' => $assesper,
                 'alasanpulang' => $alasanplg,
+                'tindakan' => $tindakan,
+
                 'now' => $now
 
 
@@ -1327,7 +1342,7 @@ class PerawatController extends Controller
         echo json_encode($back);
         die;
     }
- public function simpanctttransfer(Request $request)
+    public function simpanctttransfer(Request $request)
     {
         $a = $request->all();
         $now = Carbon::now();
@@ -1411,7 +1426,7 @@ class PerawatController extends Controller
             echo json_encode($back);
             die;
         }
-        
+
 
         try {
             $obatpllg = json_decode($_POST['obatplg'], true);
@@ -1545,7 +1560,7 @@ class PerawatController extends Controller
             foreach ($arrayindex as $arr) {
                 $savedetailobatplg = [
                     // 'kode_detail_obat' => $id_detail,
-                    'no_rm' => $norm,\
+                    'no_rm' => $norm,
                     'kode_kunjungan' => $kj,
                     'kode_unit' => '1002',
                     'nama_obat' => $arr['namaobat'],
@@ -2336,7 +2351,7 @@ class PerawatController extends Controller
         echo json_encode($back);
         die;
     }
-     public function simpanassesbidan(Request $request)
+    public function simpanassesbidan(Request $request)
     {
         $a = $request->all();
         $now = Carbon::now();
@@ -2626,7 +2641,6 @@ class PerawatController extends Controller
                 'berkurangnyeri' => $request->berkurangnyeri
 
             ]);
-
         } catch (\Exception $e) {
             $back = [
                 'kode' => 200,
@@ -3242,7 +3256,7 @@ class PerawatController extends Controller
         echo json_encode($back);
         die;
     }
- public function updateassesbidan(Request $request)
+    public function updateassesbidan(Request $request)
     {
         $a = $request->all();
 
@@ -4068,7 +4082,7 @@ class PerawatController extends Controller
             echo json_encode($back);
             die;
         }
- //tindakan kebidanan
+        //tindakan kebidanan
         try {
             $tindakanbidan = json_decode($_POST['tindakankebidanan'], true);
             foreach ($tindakanbidan as $nama) {
