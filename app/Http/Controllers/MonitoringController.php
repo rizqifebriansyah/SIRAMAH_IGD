@@ -192,6 +192,7 @@ class MonitoringController extends Controller
          a.transfer_pasien
          FROM erm_cppt_perawat a
          WHERE a.kode_kunjungan = ?', [$kj]);
+        //  dd($hasil);
 
         $assesdok = DB::select('SELECT * FROM erm_cppt_dokter
         WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $request->kj]);
