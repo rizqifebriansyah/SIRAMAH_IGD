@@ -145,10 +145,22 @@
 
 
                         <td class="status1" style="text-align: center;">
+                            @if ($unit == '1002')
+
                             @if ($a->nama_perawat == null && $a->nama_perawat1 == null)
                             <button class="badge badge-danger ermperawat"> belum diisi </button>
                             @else
                             <button class="badge badge-success ermperawat"> Sudah Diisi </button> | {{ $a->nama_perawat }} {{ $a->nama_perawat1 }}
+                            @endif
+
+                            <!-- data igd kebidanan 1023 -->
+                            @else
+                            @if ($a->nama_perawat == null)
+                            <button class="badge badge-danger ermperawat"> belum diisi </button>
+                            @else
+                            <button class="badge badge-success ermperawat"> Sudah Diisi </button> | {{ $a->nama_perawat }} 
+                            @endif
+
                             @endif
                         </td>
                         <td class="status2" style="text-align: center;">
