@@ -2077,28 +2077,31 @@ AND b.kelas_tarif = 1');
         // tindakan dpjp
         try {
             $tindakandpjp = json_decode($_POST['tindakandpjp'], true);
-            foreach ($tindakandpjp as $nama) {
-                $index = $nama['name'];
-                $value = $nama['value'];
-                $dataSet[$index] = $value;
-                if ($index == 'talaksanadpjp') {
-                    $tindakan[] = $dataSet;
+            if ($tindakandpjp == null) {
+            } else {
+                foreach ($tindakandpjp as $nama) {
+                    $index = $nama['name'];
+                    $value = $nama['value'];
+                    $dataSet[$index] = $value;
+                    if ($index == 'talaksanadpjp') {
+                        $tindakan[] = $dataSet;
+                    }
                 }
-            }
-            // $id_detail = $this->createLayanandetail();
-            foreach ($tindakan as $arrr) {
-                $savedetail = [
-                    // 'kode_detail_obat' => $id_detail,
-                    'no_rm' => $norm,
-                    'kode_kunjungan' => $kj,
-                    'kode_unit' => '1002',
-                    'kode_paramedis' => $arrr['kode_dpjp[]'],
-                    'tindakan_kedokteran' => $arrr['talaksanadpjp'],
-                    'tgl_input' => $now,
-                    'status' => 1
+                // $id_detail = $this->createLayanandetail();
+                foreach ($tindakan as $arrr) {
+                    $savedetail = [
+                        // 'kode_detail_obat' => $id_detail,
+                        'no_rm' => $norm,
+                        'kode_kunjungan' => $kj,
+                        'kode_unit' => '1002',
+                        'kode_paramedis' => $arrr['kode_dpjp[]'],
+                        'tindakan_kedokteran' => $arrr['talaksanadpjp'],
+                        'tgl_input' => $now,
+                        'status' => 1
 
-                ];
-                $tindakandpjpdetail = erm_tindakan_kedokteran::create($savedetail);
+                    ];
+                    $tindakandpjpdetail = erm_tindakan_kedokteran::create($savedetail);
+                }
             }
         } catch (\Exception $e) {
             $back = [

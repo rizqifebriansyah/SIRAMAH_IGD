@@ -3017,7 +3017,7 @@
             </div>
         </div>
     </div>
-    <div class="accordion" id="accordionExample95">
+    <!-- <div class="accordion" id="accordionExample95">
         <div class="card">
             <div class="card-header " style="background-color: rgba(110, 245, 137, 0.745)" id="headingOne">
                 <h2 class="mb-0">
@@ -3163,7 +3163,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <div class="accordion" id="accordionExample912">
         <div class="card">
             <div class="card-header " style="background-color: rgba(110, 245, 137, 0.745)" id="headingOne">
@@ -7927,7 +7927,7 @@
             </div>
         </div>
     </div>
-    <div class="accordion" id="accordionExample95">
+    <!-- <div class="accordion" id="accordionExample95">
         <div class="card">
             <div class="card-header " style="background-color: rgba(110, 245, 137, 0.745)" id="headingOne">
                 <h2 class="mb-0">
@@ -8171,7 +8171,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <div class="accordion" id="accordionExample912">
         <div class="card">
             <div class="card-header " style="background-color: rgba(110, 245, 137, 0.745)" id="headingOne">
