@@ -22,6 +22,8 @@
                         <input type="text" name="counter" id="counter" value="{{ $counter }}" hidden>
 
                         <input type="text" name="tglmasuk" id="tglmasuk" value="{{ $tglmasuk }}" hidden>
+                        <input type="text" name="unit" id="unit" value="{{ $unit }}" hidden>
+
 
                         @if ($unit == '1002')
                         <!-- ttv perawat  -->
@@ -167,8 +169,8 @@
                                 <b>SPO2</b> <a class="float-right">{{ $ttvb[0]->SPO2 }} </a>
                             </li>
                         </ul>
-                 
-                     
+
+
                         @else
                         <p class="text-muted text-center">PASIEN INSTALASI GAWAT DARURAT</p>
                         <ul class="list-group list-group-unbordered mb-3">
@@ -771,7 +773,7 @@
         }
     });
 
- $(".icare").click(function() {
+    $(".icare").click(function() {
         spinner = $('#loader2');
         spinner.show();
         norm = $('#norm').val()
@@ -831,6 +833,7 @@
         kp = $('#kp').val()
         ku = $('#ku').val()
         counter = $('#counter').val()
+        unit = $('#unit').val()
 
 
 
@@ -842,6 +845,8 @@
                 norm,
                 kj,
                 kp,
+                unit,
+
                 ku,
                 counter,
                 kelas
@@ -918,12 +923,15 @@
         kj = $('#kj').val()
         norm = $('#norm').val()
 
+        unit = $('#unit').val()
 
         $.ajax({
             type: "post",
             data: {
                 _token: "{{ csrf_token() }}",
                 kj,
+                unit,
+
                 norm
 
             },

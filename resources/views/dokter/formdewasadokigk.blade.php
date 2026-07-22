@@ -2301,30 +2301,7 @@
                 });
             });
 
-            $(".caridokter").click(function() {
-                spinner = $('#loader2');
-                spinner.show();
-                namadokter = $('#namadpjp').val()
-
-
-                $.ajax({
-                    type: "post",
-                    data: {
-                        _token: "{{ csrf_token() }}",
-                        namadokter,
-
-                    },
-                    url: "{{ route('caridokter') }}",
-                    error: function(data) {
-                        spinner.hide()
-                        alert('Errorrr!!!')
-                    },
-                    success: function(response) {
-                        spinner.hide();
-                        $('.detaildokter').html(response);
-                    }
-                })
-            })
+          
             $('#tablelab').on('click', '.pilihlayanan', function() {
                 var max_fields = 10; //maximum input boxes allowed
                 var wrapper = $(".input_fields_wrap_lab"); //Fields wrapper

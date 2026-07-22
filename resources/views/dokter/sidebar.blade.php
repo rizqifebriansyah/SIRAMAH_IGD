@@ -52,7 +52,15 @@
                     <a href="{{ route('asses') }}" class="nav-link @if($menu == 'asses' ) active @endif">
                         <i class="nav-icon fas fa-archive"></i>
                         <p>
-                            Assesment Dokter
+                            IGD UMUM
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('assesigk') }}" class="nav-link @if($menu == 'assesigk' ) active @endif">
+                        <i class="nav-icon fas fa-archive"></i>
+                        <p>
+                            IGD KEBIDANAN
                         </p>
                     </a>
                 </li>

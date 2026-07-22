@@ -60,6 +60,7 @@
                                 </div>
                             </div>
                             <div class="form-group row">
+
                                 <label for="inputExperience" class="col-sm-2 col-form-label">Alamat</label>
                                 <div class="col-sm-12">
                                     <textarea class="form-control" id="inputExperience" placeholder="Alamat"></textarea>
@@ -69,6 +70,7 @@
                                 <label for="inputSkills" class="col-sm-2 col-form-label">No.Hp</label>
                                 <div class="col-sm-12">
                                     <input type="text" class="form-control" id="inputSkills" placeholder="No.Hp">
+
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -103,6 +105,8 @@
         </div>
         <div class="col-sm-3">
             <input type="text" class="form-control" placeholder="Alamat">
+            <input type="input" hidden value="{{ $unit }}" class="form-control" id="unit" name="unit" placeholder="NIK">
+
         </div>
         <div class="col-sm-2">
             <input type="date" class="form-control" id="tanggal_kunjungan" autocomplete="off" data-language="en" data-date-format="yyyy-mm-dd" placeholder="Tanggal">
@@ -168,7 +172,7 @@
                             @endif
                         </td>
 
-                      
+
 
 
                     </tr>
@@ -201,11 +205,15 @@
         spinner = $('#loader2');
         spinner.show();
         tglkunjungan = $('#tanggal_kunjungan').val()
+        unit = $('#unit').val()
+
 
         $.ajax({
             type: "post",
             data: {
                 _token: " {{ csrf_token() }}",
+                unit,
+
                 tglkunjungan
 
             },
@@ -241,12 +249,16 @@
         var kp = $row.find(".kp").text();
         var tglmasuk = $row.find(".tglmasuk").text();
         var status2 = $row.find(".status2").text();
+        unit = $('#unit').val()
+
         $.ajax({
             type: "post",
             data: {
                 _token: "{{ csrf_token() }}",
                 norm,
                 namapx,
+                unit,
+
                 jk,
                 kj,
                 status1,

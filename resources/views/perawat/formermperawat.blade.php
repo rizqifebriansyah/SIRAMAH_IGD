@@ -4677,7 +4677,7 @@
                                             <form id="dynamic-form" class="formtindakanperawat">
                                                 <div id="form-container">
                                                     <div class="row mt-2">
-                                                      
+
                                                         <div class="col-3">
                                                             <div class="form-group">
                                                                 <button type="button" class="btn btn-success mb-2 " id="add">Tambah</button>
@@ -4934,6 +4934,41 @@
 
 
 <div class="card-body">
+    <div class="formtriasebidan">
+        <div class="card-header bg-info float-center mb-2">
+            <i class=" mr-1 ml-1"></i> SURAT KETERANGAN GAWAT DARURAT
+        </div>
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        <label for="">ANAMNESA</label>
+
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            <textarea class="form-control" id="anamnesis_triase_bidan" name="anamnesis_triase_bidan" placeholder=""></textarea>
+
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="">Diagnosa Masuk Rumah Sakit</label>
+
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            <textarea class="form-control" id="diagnosa_triase_bidan" name="diagnosa_triase_bidan" placeholder=""></textarea>
+
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+    </div>
     <div type="button" class="btn btn-secondary formdewasa ml-3 mb-3" style="margin-top: 20px;">
         FORM IBU
     </div>

@@ -80,6 +80,8 @@ Route::group(['middleware' => ['hak_akses:5', 'auth']], function () {
     Route::get('dokter', [DokterController::class, 'index'])->name('dokter');
     Route::get('triase', [DokterController::class, 'triase'])->name('triase');
     Route::get('asses', [DokterController::class, 'asses'])->name('asses');
+    Route::get('assesigk', [DokterController::class, 'assesigk'])->name('assesigk');
+
     Route::get('kpo', [DokterController::class, 'kpo'])->name('kpo');
 
     //form-form

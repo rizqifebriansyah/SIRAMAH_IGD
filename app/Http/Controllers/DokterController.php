@@ -112,13 +112,64 @@ class DokterController extends Controller
     public function caripasienigd(Request $request)
     {
         $tgl = $request->tglkunjungan;
-        $unit = auth()->user()->unit;
+        $unit = $request->unit;
 
         // $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$tgl')");
         // $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','$unit','$tgl')");
         $tgl_masuk_1 = date('Ymd', strtotime('+1 days', strtotime($tgl)));
+ if ($unit == '1023') {
+            $pasienigd = DB::select('SELECT 
+                e.diagnosa_kerja AS DIAGX,
+                a.no_rm,
+                "" AS nama_perawat,
+                IFNULL(d.nama_bidan, IFNULL(d.nama_bidan,"")) AS nama_perawat1,
+                IFNULL(e.nama_paramedis2, IFNULL(e.nama_paramedis,"")) AS nama_paramedis,
+                fc_nama_px(a.no_rm) AS nama_px,
+                a.tgl_masuk,
+                fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,
+                a.kode_penjamin,
+                a.kode_kunjungan,
+                a.kelas,
+                a.kelas AS KELAS_UNIT,
+                a.counter,
+                b.jenis_kelamin
 
-        $pasienigd = DB::select('SELECT 
+            FROM ts_kunjungan a
+            INNER JOIN mt_pasien b ON b.no_rm = a.no_rm
+
+            -- FIX PERAWAT (optional tapi disarankan)
+            LEFT JOIN (
+                SELECT d1.*
+                FROM erm_cppt_kebidanan d1
+                INNER JOIN (
+                    SELECT kode_kunjungan, MAX(id) AS max_id
+                    FROM erm_cppt_kebidanan
+                    WHERE STATUS NOT IN (2,3)
+                    GROUP BY kode_kunjungan
+                ) d2 
+                ON d1.kode_kunjungan = d2.kode_kunjungan 
+                AND d1.id = d2.max_id
+            ) d ON d.kode_kunjungan = a.kode_kunjungan
+
+            -- FIX DOKTER (INI KUNCI)
+            LEFT JOIN (
+                SELECT e1.*
+                FROM erm_cppt_dokter e1
+                INNER JOIN (
+                    SELECT kode_kunjungan, MAX(id) AS max_id
+                    FROM erm_cppt_dokter
+                    GROUP BY kode_kunjungan
+                ) e2 
+                ON e1.kode_kunjungan = e2.kode_kunjungan 
+                AND e1.id = e2.max_id
+            ) e ON e.kode_kunjungan = a.kode_kunjungan
+
+            WHERE a.tgl_masuk >= ?
+            AND a.tgl_masuk < ?
+            AND a.status_kunjungan NOT IN (8,11)
+            AND a.kode_unit = ?', [$tgl, $tgl_masuk_1, $unit]);
+        } else {
+            $pasienigd = DB::select('SELECT 
                 e.diagnosa_kerja AS DIAGX,
                 a.no_rm,
                 "" AS nama_perawat,
@@ -168,6 +219,57 @@ class DokterController extends Controller
             AND a.tgl_masuk < ?
             AND a.status_kunjungan NOT IN (8,11)
             AND a.kode_unit = ?', [$tgl, $tgl_masuk_1, $unit]);
+        }
+        // $pasienigd = DB::select('SELECT 
+        //         e.diagnosa_kerja AS DIAGX,
+        //         a.no_rm,
+        //         "" AS nama_perawat,
+        //         IFNULL(d.nama_perawat1, IFNULL(d.nama_perawat,"")) AS nama_perawat1,
+        //         IFNULL(e.nama_paramedis2, IFNULL(e.nama_paramedis,"")) AS nama_paramedis,
+        //         fc_nama_px(a.no_rm) AS nama_px,
+        //         a.tgl_masuk,
+        //         fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,
+        //         a.kode_penjamin,
+        //         a.kode_kunjungan,
+        //         a.kelas,
+        //         a.kelas AS KELAS_UNIT,
+        //         a.counter,
+        //         b.jenis_kelamin
+
+        //     FROM ts_kunjungan a
+        //     INNER JOIN mt_pasien b ON b.no_rm = a.no_rm
+
+        //     -- FIX PERAWAT (optional tapi disarankan)
+        //     LEFT JOIN (
+        //         SELECT d1.*
+        //         FROM erm_cppt_perawat d1
+        //         INNER JOIN (
+        //             SELECT kode_kunjungan, MAX(id) AS max_id
+        //             FROM erm_cppt_perawat
+        //             WHERE STATUS NOT IN (2,3)
+        //             GROUP BY kode_kunjungan
+        //         ) d2 
+        //         ON d1.kode_kunjungan = d2.kode_kunjungan 
+        //         AND d1.id = d2.max_id
+        //     ) d ON d.kode_kunjungan = a.kode_kunjungan
+
+        //     -- FIX DOKTER (INI KUNCI)
+        //     LEFT JOIN (
+        //         SELECT e1.*
+        //         FROM erm_cppt_dokter e1
+        //         INNER JOIN (
+        //             SELECT kode_kunjungan, MAX(id) AS max_id
+        //             FROM erm_cppt_dokter
+        //             GROUP BY kode_kunjungan
+        //         ) e2 
+        //         ON e1.kode_kunjungan = e2.kode_kunjungan 
+        //         AND e1.id = e2.max_id
+        //     ) e ON e.kode_kunjungan = a.kode_kunjungan
+
+        //     WHERE a.tgl_masuk >= ?
+        //     AND a.tgl_masuk < ?
+        //     AND a.status_kunjungan NOT IN (8,11)
+        //     AND a.kode_unit = ?', [$tgl, $tgl_masuk_1, $unit]);
         // if ($pasienigd == null) {
 
         //     $pasienigd = DB::select('SELECT DISTINCT
@@ -310,6 +412,81 @@ class DokterController extends Controller
             ]
         );
     }
+    public function assesigk()
+    {
+        $menu = 'assesigk';
+        $user = auth()->user()->nama;
+        $unit = '1023';
+        // dd($unit);
+
+
+        $now = Carbon::now()->format('Y-m-d');
+        // $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','$unit','$now')");
+        // $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','$unit','$now')");
+        $tgl_masuk_1 = date('Ymd', strtotime('-2 days', strtotime($now)));
+
+        $pasienigd = DB::select('SELECT 
+                e.diagnosis AS DIAGX,
+                a.no_rm,
+                "" AS nama_perawat,
+                IFNULL(d.nama_bidan_update, IFNULL(d.nama_bidan,"")) AS nama_perawat1,
+                IFNULL(e.nama_paramedis2, IFNULL(e.nama_paramedis,"")) AS nama_paramedis,
+                fc_nama_px(a.no_rm) AS nama_px,
+                a.tgl_masuk,
+                fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,
+                a.kode_penjamin,
+                a.kode_kunjungan,
+                a.kelas,
+                a.kelas AS KELAS_UNIT,
+                a.counter,
+                b.jenis_kelamin
+
+            FROM ts_kunjungan a
+            INNER JOIN mt_pasien b ON b.no_rm = a.no_rm
+
+            -- FIX PERAWAT (optional tapi disarankan)
+            LEFT JOIN (
+                SELECT d1.*
+                FROM erm_cppt_kebidanan d1
+                INNER JOIN (
+                    SELECT kode_kunjungan, MAX(id) AS max_id
+                    FROM erm_cppt_kebidanan
+                    WHERE STATUS NOT IN (2,3)
+                    GROUP BY kode_kunjungan
+                ) d2 
+                ON d1.kode_kunjungan = d2.kode_kunjungan 
+                AND d1.id = d2.max_id
+            ) d ON d.kode_kunjungan = a.kode_kunjungan
+
+            -- FIX DOKTER (INI KUNCI)
+            LEFT JOIN (
+                SELECT e1.*
+                FROM erm_cppt_dokter_kebidanan e1
+                INNER JOIN (
+                    SELECT kode_kunjungan, MAX(id) AS max_id
+                    FROM erm_cppt_dokter_kebidanan
+                    GROUP BY kode_kunjungan
+                ) e2 
+                ON e1.kode_kunjungan = e2.kode_kunjungan 
+                AND e1.id = e2.max_id
+            ) e ON e.kode_kunjungan = a.kode_kunjungan
+
+            WHERE a.tgl_masuk >= ?
+            AND a.tgl_masuk < ?
+            AND a.status_kunjungan NOT IN (8,11)
+            AND a.kode_unit = "1023"', [$tgl_masuk_1, $now]);
+
+        return view(
+            'dokter.asses',
+            [
+                'title' => 'ERM DOKTER',
+                'menu' => $menu,
+                'pasienigd' => $pasienigd,
+                'user' => $user,
+                'unit' => $unit
+            ]
+        );
+    }
     public function assesmentdokter(Request $request)
     {
 
@@ -339,7 +516,8 @@ class DokterController extends Controller
 
         $kelas = $request->kelas;
         $tglmasuk = $request->tglmasuk;
-        $unit = auth()->user()->unit;
+        $unit =  $request->unit;
+
 
         $ttv = DB::select('SELECT tekanan_darah, keadaan_umum, kesadaran, frekuensi_nafas, frekuensi_nadi, suhu, berat_badan, umur, GCS, spo2 FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
         $ttvb = DB::select('SELECT tekanan_darah, keadaan_umum, kesadaran, frekuensi_nafas, frekuensi_nadi, suhu, berat_badan, umur, GCS, SPO2 FROM erm_cppt_kebidanan WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
@@ -801,7 +979,8 @@ AND b.kelas_tarif = 1');
         $kp = $request->kp;
         $ku = $request->ku;
         $counter = $request->counter;
-        $unit = auth()->user()->unit;
+        $unit = $request->unit;
+
         $nama = auth()->user()->nama;
         $kgp = auth()->user()->kode_paramedis;
 
@@ -1014,7 +1193,7 @@ AND b.kelas_tarif = 1');
     {
         $kj =  $request->kj;
         $norm =  $request->kj;
-        $unit = auth()->user()->unit;
+        $unit = $request->unit;
 
         $now = Carbon::now()->format('Y-m-d H:i:s');
         $rencanaplg = DB::select('SELECT * FROM rencana_plg WHERE kode_kunjungan = ?

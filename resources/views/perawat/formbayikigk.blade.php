@@ -3584,6 +3584,8 @@
 
     $(".simpanassesbidanbayi").click(function() {
         var tindakankebidanan = $('.formtindakankebidanan').serializeArray();
+        var anamnesis_triase_bidan = $('#anamnesis_triase_bidan').val()
+        var diagnosa_triase_bidan = $('#diagnosa_triase_bidan').val()
 
         var norm = $('#norm').val()
         var kj = $('#kj').val()
@@ -3720,6 +3722,8 @@
                     data: {
                         _token: "{{ csrf_token() }}",
                         tindakankebidanan: JSON.stringify(tindakankebidanan),
+                        anamnesis_triase_bidan: $('#anamnesis_triase_bidan').val(),
+                        diagnosa_triase_bidan: $('#diagnosa_triase_bidan').val(),
 
                         norm: $('#norm').val(),
                         kj: $('#kj').val(),
@@ -3876,6 +3880,8 @@
 
     $(".updateassesbidanbayi").click(function() {
         var tindakankebidanan = $('.formtindakankebidanan').serializeArray();
+        var anamnesis_triase_bidan = $('#anamnesis_triase_bidan').val()
+        var diagnosa_triase_bidan = $('#diagnosa_triase_bidan').val()
 
         var norm = $('#norm').val()
         var kj = $('#kj').val()
@@ -4012,6 +4018,8 @@
                     data: {
                         _token: "{{ csrf_token() }}",
                         tindakankebidanan: JSON.stringify(tindakankebidanan),
+                        anamnesis_triase_bidan: $('#anamnesis_triase_bidan').val(),
+                        diagnosa_triase_bidan: $('#diagnosa_triase_bidan').val(),
 
                         norm: $('#norm').val(),
                         kj: $('#kj').val(),
