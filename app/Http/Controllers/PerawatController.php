@@ -51,11 +51,14 @@ class PerawatController extends Controller
     {
         $kj  = $request->kj;
         $norm = $request->norm;
+        $unit = auth()->user()->unit;
+
         $hasilp = DB::select('SELECT * FROM pemantauan_ttv WHERE kj = ? AND norm = ?', [$kj, $norm]);
         // dd($hasilp);
 
         return view('perawat.pemantauanview', [
-            'hasilp' => $hasilp
+            'hasilp' => $hasilp,
+            'unit' => $unit
 
 
 
@@ -754,6 +757,9 @@ class PerawatController extends Controller
         // dd($assesper);
         $tindakan = DB::select('SELECT * FROM erm_tindakan_keperawatan WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
         // dd($tindakan);
+        $trp = DB::select('SELECT anamnesa_triase, diagnosa_triase FROM erm_cppt_kebidanan_lanjutan WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
+        $trb = DB::select('SELECT anamnesa_triase, diagnosa_triase FROM erm_cppt_kebidanan_bayi WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
+
         return view(
             'perawat.formermperawat',
             // 'perawat.perbaikan',
@@ -761,6 +767,9 @@ class PerawatController extends Controller
             [
                 'title' => 'SiRAMAH PERAWAT',
                 'unit' => $unit,
+                'trp' => $trp,
+                'trb' => $trb,
+
                 'assesdok' => $assesdok,
                 'assesper' => $assesper,
 
@@ -1200,7 +1209,7 @@ class PerawatController extends Controller
             AND a.status_kunjungan NOT IN (8,11)
             AND a.kode_unit = ?', [$tgl, $tgl_masuk_1, $unit]);
         }
-       
+
         // $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','$unit','$tgl')");
         // $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','1002','$tgl')");
         // $pasienigd = DB::select('SELECT DISTINCT
@@ -2077,7 +2086,8 @@ class PerawatController extends Controller
                 'cara_masuk' => $request->caramasuk,
                 'subyek' => $request->subyek,
                 'tgl_pengkajian' => $request->tgl_pengkajian,
-
+                'anamnesa_triase' => $request->anamnesis_triase_bidan,
+                'diagnosa_triase' => $request->diagnosa_triase_bidan,
                 'tgl_input' => $now,
                 'tgl_kunjungan' => $request->tglmasuk,
                 'tekanan_darah' => $request->tekanandarah,
@@ -2443,6 +2453,13 @@ class PerawatController extends Controller
             'urine' => $request->urine,
             'spo2' => $request->spo2,
 
+            'his' => $request->his,
+            'djj' => $request->djj,
+            'obatcairan' => $request->obatcairan,
+            'tetesan' => $request->tetesan,
+            'lama' => $request->lama,
+
+
             'nyeri' => $request->nyeri,
             'keterangan' => $request->keterangan,
 
@@ -2691,6 +2708,9 @@ class PerawatController extends Controller
                 'tgl_input' => $now,
                 'tgl_kunjungan' => $request->tglmasuk,
                 'tgl_pengkajian' => $request->tgl_pengkajian,
+                'anamnesa_triase' => $request->anamnesis_triase_bidan,
+                'diagnosa_triase' => $request->diagnosa_triase_bidan,
+
 
                 'kode_unit' => '1023',
                 'no_rm' => $request->norm,

@@ -5,6 +5,7 @@
     <form id="dynamic-form" class="formpemantauan">
         <div id="form-container">
             <div class="row mt-2">
+                @if ($unit == '1002')
                 <div class="col-2">
                     <label for="name">Dokter Jaga</label>
                     <div class="form-group">
@@ -112,7 +113,7 @@
                         <input type="text" name="urine" id="urine" value="" class=" form-control">
                     </div>
                 </div>
-                  <div class="col-3">
+                <div class="col-3">
                     <div class="form-group">
                         <label for="name">SPO2</label>
                         <input type="text" name="spo2" id="spo2" value="" class=" form-control">
@@ -124,7 +125,7 @@
                         <input type="text" name="nyeri" id="nyeri" value="" class=" form-control">
                     </div>
                 </div>
-                   <div class="col-3">
+                <div class="col-3">
                     <div class="form-group">
                         <label for="name">Keterangan</label>
                         <input type="text" name="keterangan" id="keterangan" value="" class=" form-control">
@@ -136,7 +137,83 @@
                         <input type="datetime-local" name="waktu_pantau" id="waktu_pantau" value="" class=" form-control">
                     </div>
                 </div>
+                @else
+                <div class="col-2">
+                    <div class="form-group">
+                        <label for="name">Diagnosa Kerja</label>
+                        <input type="text" name="dk" id="dk" value="" class=" form-control">
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="form-group">
+                        <label for="name">TD</label>
+                        <input type="text" name="kj" id="kj" value="{{$kj}}" hidden class=" form-control">
+                        <input type="text" name="norm" id="norm" value="{{$norm}}" hidden class=" form-control">
 
+                        <input type="text" name="ttd" id="ttd" value="" class=" form-control">
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="form-group">
+                        <label for="name">Nadi</label>
+                        <input type="text" name="nadi" id="nadi" value="" class=" form-control">
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="form-group">
+                        <label for="name">RR</label>
+                        <input type="text" name="rr" id="rr" value="" class=" form-control">
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="form-group">
+                        <label for="name">SUHU</label>
+                        <input type="text" name="suhu" id="suhu" value="" class=" form-control">
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="form-group">
+                        <label for="name">10'</label>
+                        <input type="text" name="his" id="his" value="" class=" form-control">
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        <label for="name">lama</label>
+                        <input type="text" name="lama" id="lama" value="" class=" form-control">
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        <label for="name">djj</label>
+                        <input type="text" name="djj" id="djj" value="" class=" form-control">
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        <label for="name">obat/cairan</label>
+                        <input type="text" name="obatcairan" id="obatcairan" value="" class=" form-control">
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        <label for="name">tetesan</label>
+                        <input type="text" name="tetesan" id="tetesan" value="" class=" form-control">
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        <label for="name">Keterangan</label>
+                        <input type="text" name="keterangan" id="keterangan" value="" class=" form-control">
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        <label for="name">Waktu</label>
+                        <input type="datetime-local" name="waktu_pantau" id="waktu_pantau" value="" class=" form-control">
+                    </div>
+                </div>
+                @endif
                 <div class="col-3">
                     <div type="button" class="btn float-left btn-success simpanpemantauan" style="margin-top: 20px;">
                         SIMPAN
@@ -182,6 +259,13 @@
         var spo2 = $("#spo2").val();
 
         var nyeri = $("#nyeri").val();
+        var his = $("#his").val();
+        var djj = $("#djj").val();
+        var obatcairan = $("#obatcairan").val();
+        var tetesan = $("#tetesan").val();
+        var lama = $("#lama").val();
+
+
         var keterangan = $("#keterangan").val();
         var waktu_pantau = $("#waktu_pantau").val();
 
@@ -209,12 +293,12 @@
                     dataType: 'json',
                     data: {
                         _token: "{{ csrf_token() }}",
-                        wdj : $("#wdj").val(),
-                        dj : $("#dj").val(),
-                        wpj : $("#wpj").val(),
-                        pj : $("#pj").val(),
-                        kapa : $("#kapa").val(),
-                        dk : $("#dk").val(),
+                        wdj: $("#wdj").val(),
+                        dj: $("#dj").val(),
+                        wpj: $("#wpj").val(),
+                        pj: $("#pj").val(),
+                        kapa: $("#kapa").val(),
+                        dk: $("#dk").val(),
                         ttd: $("#ttd").val(),
                         kj: $("#kj").val(),
                         norm: $("#norm").val(),
@@ -227,6 +311,11 @@
                         spo2: $("#spo2").val(),
 
                         nyeri: $("#nyeri").val(),
+                        his: $("#his").val(),
+                        djj: $("#djj").val(),
+                        obatcairan: $("#obatcairan").val(),
+                        tetesan: $("#tetesan").val(),
+                        lama: $("#lama").val(),
                         keterangan: $("#keterangan").val(),
                         waktu_pantau: $("#waktu_pantau").val(),
 
