@@ -156,6 +156,9 @@ Route::post('resumecpptdokter', [DokterController::class, 'resumecpptdokter'])->
 //cetak resume
 Route::post('cetakresumecpptdokter', [DokterController::class, 'cetakresumecpptdokter'])->name('cetakresumecpptdokter');
 Route::get('cetaktresumecppt/{kj}/{norm}', [DokterController::class, 'cetaktresumecppt']);
+Route::post('cetakassesperawat', [DokterController::class, 'cetakassesperawat'])->name('cetakassesperawat');
+Route::get('cetakassesmenperawat/{kj}/{norm}', [DokterController::class, 'cetakassesmenperawat']);
+
 Route::post('cetakresumedokterkebidanan', [DokterController::class, 'cetakresumedokterkebidanan'])->name('cetakresumedokterkebidanan');
 Route::get('cetaktresumekebidanan/{kj}/{norm}', [DokterController::class, 'cetaktresumekebidanan']);
 Route::post('cetakpemantauan', [DokterController::class, 'cetakpemantauan'])->name('cetakpemantauan');

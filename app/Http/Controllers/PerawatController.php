@@ -857,6 +857,7 @@ class PerawatController extends Controller
         $kj =  $request->kj;
         $antrian = $request->antrian;
         $unit = auth()->user()->unit;
+        // dd($unit);
 
         $now = Carbon::now()->format('Y-m-d H:i:s');
         $name = auth()->user()->nama;
@@ -2028,7 +2029,8 @@ class PerawatController extends Controller
             die;
         }
         try {
-            $rekon = json_decode($_POST['data'], true);
+            $rekon = json_decode($_POST['tindakan'], true);
+            // dd($rekon);
             foreach ($rekon as $nama) {
                 $index = $nama['name'];
                 $value = $nama['value'];
@@ -3350,7 +3352,7 @@ class PerawatController extends Controller
             die;
         }
         try {
-            $rekon = json_decode($_POST['data'], true);
+            $rekon = json_decode($_POST['tindakan'], true);
             foreach ($rekon as $nama) {
                 $index = $nama['name'];
                 $value = $nama['value'];
