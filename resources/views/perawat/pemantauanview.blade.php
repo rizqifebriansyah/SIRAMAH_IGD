@@ -1,3 +1,5 @@
+@if ($unit == '1002')
+
 <table id="datapemantauan" class="table ml-2 datapemantauan table-sm text-sm table-bordered table-hover">
     <thead class="bg-success">
 
@@ -32,7 +34,7 @@
             <td>{{$l->tgl_input}}</td>
             <td>{{$l->dokter_jaga}}</td>
             <td>{{$l->waktu_jaga_dokter_pagi}}{{$l->waktu_jaga_dokter_siang}}{{$l->waktu_jaga_dokter_malam}}</td>
-   <td>{{$l->perawat_jaga}}</td>
+            <td>{{$l->perawat_jaga}}</td>
             <td>{{$l->waktu_jaga_perawat_pagi}}{{$l->waktu_jaga_perawat_siang}}{{$l->waktu_jaga_perawat_malam}}</td>
             <td>{{$l->kategori_pasien}}</td>
             <td>{{$l->diagnosa_kerja}}</td>
@@ -53,6 +55,60 @@
 
     </tbody>
 </table>
+@else
+<table id="datapemantauan" class="table ml-2 datapemantauan table-sm text-sm table-bordered table-hover">
+    <thead class="bg-success">
+
+
+        <th>tgl/waktu</th>
+
+        <th>Diagnosa Kerja</th>
+
+        <th>TD</th>
+        <th>Nadi</th>
+
+        <th>RR</th>
+        <th>SUHU</th>
+
+        <th>10</th>
+        <th>lama</th>
+
+        <!-- <th>PU</th> -->
+        <th>djj</th>
+        <th>obat/cairan</th>
+        <th>tetesan</th>
+        <th>ket</th>
+
+
+
+        <th>ACTION</th>
+    </thead>
+    <tbody>
+        @foreach($hasilp as $lap => $l)
+        <tr>
+            <td>{{$l->tgl_input}}</td>
+            <td>{{$l->diagnosa_kerja}}</td>
+
+            <td>{{$l->td}}</td>
+            <td>{{$l->nadi}}</td>
+            <td>{{$l->rr}}</td>
+            <td>{{$l->suhu}}</td>
+            <td>{{$l->10}}</td>
+            <td>{{$l->lama}}</td>
+            <td>{{$l->djj}}</td>
+            <td>{{$l->obatcairan}}</td>
+            <td>{{$l->tetesan}}</td>
+
+            <td><a class="btn btn-warning btn-sm " href="#">
+                    <i class="fas fa-sync-alt fa-spin"></i>
+                    RETUR
+                </a></td>
+        </tr>
+        @endforeach
+
+    </tbody>
+</table>
+@endif
 
 
 <script>

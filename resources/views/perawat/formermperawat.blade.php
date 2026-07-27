@@ -4701,8 +4701,7 @@
                                                         <td class="tindakan"> {{$t->tindakan_keperawatan}} </td>
                                                         <td class="idtindakan" hidden> {{$t->id}}</td>
                                                         <td> <a class=" btn btn-danger btn-sm returtinper" href="#">
-                                                                <i class="fas fa-sync-alt fa-spin"></i>
-                                                                RETUR
+                                                                batal
                                                             </a></td>
 
                                                     </tr>
@@ -4938,7 +4937,7 @@
         <div class="card-header bg-info float-center mb-2">
             <i class=" mr-1 ml-1"></i> SURAT KETERANGAN GAWAT DARURAT
         </div>
-        @if ($trp != NULL)
+        @if ($trp != NULL && $trb == NULL)
         <table>
             <tbody>
                 <tr>
@@ -4948,7 +4947,7 @@
                     </td>
                     <td>
                         <div class="input-group">
-                            <textarea class="form-control" id="anamnesis_triase_bidan" name="anamnesis_triase_bidan" placeholder="">{{$trp->anamnesa_triase}}</textarea>
+                            <textarea class="form-control" id="anamnesis_triase_bidan" name="anamnesis_triase_bidan" placeholder="">{{$trp[0]->anamnesa_triase}}</textarea>
 
                         </div>
                     </td>
@@ -4960,14 +4959,14 @@
                     </td>
                     <td>
                         <div class="input-group">
-                            <textarea class="form-control" id="diagnosa_triase_bidan" name="diagnosa_triase_bidan" placeholder="">{{$trp->diagnosa_triase}}</textarea>
+                            <textarea class="form-control" id="diagnosa_triase_bidan" name="diagnosa_triase_bidan" placeholder="">{{$trp[0]->diagnosa_triase}}</textarea>
 
                         </div>
                     </td>
                 </tr>
             </tbody>
         </table>
-        @elseif ($trb != NULL)
+        @elseif ($trb != NULL && $trp != NULL)
         <table>
             <tbody>
                 <tr>
@@ -4977,7 +4976,7 @@
                     </td>
                     <td>
                         <div class="input-group">
-                            <textarea class="form-control" id="anamnesis_triase_bidan" name="anamnesis_triase_bidan" placeholder="">{{$trb->anamnesa_triase}}</textarea>
+                            <textarea class="form-control" id="anamnesis_triase_bidan" name="anamnesis_triase_bidan" placeholder="">{{$trb[0]->anamnesa_triase}}</textarea>
 
                         </div>
                     </td>
@@ -4989,7 +4988,7 @@
                     </td>
                     <td>
                         <div class="input-group">
-                            <textarea class="form-control" id="diagnosa_triase_bidan" name="diagnosa_triase_bidan" placeholder="">{{$trb->diagnosa_triase}}</textarea>
+                            <textarea class="form-control" id="diagnosa_triase_bidan" name="diagnosa_triase_bidan" placeholder="">{{$trb[0]->diagnosa_triase}}</textarea>
 
                         </div>
                     </td>

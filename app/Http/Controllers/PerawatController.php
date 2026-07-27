@@ -2453,7 +2453,7 @@ class PerawatController extends Controller
             'urine' => $request->urine,
             'spo2' => $request->spo2,
 
-            'his' => $request->his,
+            '10' => $request->his,
             'djj' => $request->djj,
             'obatcairan' => $request->obatcairan,
             'tetesan' => $request->tetesan,
