@@ -4212,9 +4212,12 @@
 
 <div id="printableArea">
     <div class="card-header">
-        <button type="submit" class="btn btn-info cetakresumecpptdokter"> <i class="fa fa-print"></i> Cetak Resume </button>
+        <button type="submit" class="btn btn-primary cetakresumecpptdokter"> <i class="fa fa-print"></i> Cetak Resume </button>
         <button type="submit" class="btn btn-warning cetakassesperawat"> <i class="fa fa-print"></i> Cetak assesmen perawat </button>
-        <button type="submit" class="btn btn-info cetakresumecpptdokter"> <i class="fa fa-print"></i> Cetak assesmen dokter </button>
+        <button type="submit" class="btn btn-success cetakassesdokter"> <i class="fa fa-print"></i> Cetak assesmen dokter </button>
+        <button type="submit" class="btn btn-info cetakobsperawat"> <i class="fa fa-print"></i> Cetak observasi </button>
+        <button type="submit" class="btn btn-info mt-2 cetakrencplg"> <i class="fa fa-print"></i> Cetak rencana pulang </button>
+
 
 
         <input type="text" class="form-check-input" id="kj" name="kj" value="{{$kj}}" hidden>
@@ -10239,9 +10242,74 @@
         function cetaktresumecppt(kj, norm) {
             window.open('cetaktresumecppt/' + kj + '/' + norm);
 
+
         }
 
-         $(".cetakassesperawat").click(function() {
+         $(".cetakassesdokter").click(function() {
+            kj = $('#kj').val()
+            norm = $('#norm').val()
+
+
+
+
+
+            Swal.fire({
+                title: "Apakah ingin print Assesmen Dokter?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Ya',
+                cancelButtonColor: '#d33',
+                cancelButtonText: "Batal"
+
+            }).then(result => {
+                //jika klik ya maka arahkan ke proses.php
+                if (result.isConfirmed) {
+                    $.ajax({
+                        async: true,
+                        type: 'post',
+                        dataType: 'json',
+                        data: {
+                            _token: "{{ csrf_token() }}",
+
+                            kj,
+                            norm
+
+                        },
+                        url: '<?= route('cetakassesdokter') ?>',
+                        error: function(data) {
+                            spinner.hide()
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Ooops....',
+                                text: 'Sepertinya ada masalah......',
+                                footer: ''
+                            })
+                        },
+                        success: function(data) {
+                            spinner.hide()
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'OK',
+                                text: data.message,
+                                footer: ''
+                            })
+                            cetakassesmendokter(data.kj, data.norm)
+
+                        }
+                    });
+                }
+            })
+            return false;
+        });
+
+
+        function cetakassesmendokter(kj, norm) {
+            window.open('cetakassesmendokter/' + kj + '/' + norm);
+
+        }
+
+        $(".cetakassesperawat").click(function() {
             kj = $('#kj').val()
             norm = $('#norm').val()
 
@@ -10305,5 +10373,131 @@
 
         }
 
-        
+        $(".cetakobsperawat").click(function() {
+            kj = $('#kj').val()
+            norm = $('#norm').val()
+
+
+
+
+
+            Swal.fire({
+                title: "Apakah ingin print pemantauan?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Ya',
+                cancelButtonColor: '#d33',
+                cancelButtonText: "Batal"
+
+            }).then(result => {
+                //jika klik ya maka arahkan ke proses.php
+                if (result.isConfirmed) {
+                    $.ajax({
+                        async: true,
+                        type: 'post',
+                        dataType: 'json',
+                        data: {
+                            _token: "{{ csrf_token() }}",
+
+                            kj,
+                            norm
+
+                        },
+                        url: '<?= route('cetakobsperawat') ?>',
+                        error: function(data) {
+                            spinner.hide()
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Ooops....',
+                                text: 'Sepertinya ada masalah......',
+                                footer: ''
+                            })
+                        },
+                        success: function(data) {
+                            spinner.hide()
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'OK',
+                                text: data.message,
+                                footer: ''
+                            })
+                            cetakobservasiperawat(data.kj, data.norm)
+
+                        }
+                    });
+                }
+            })
+            return false;
+        });
+
+
+        function cetakobservasiperawat(kj, norm) {
+            window.open('cetakobservasiperawat/' + kj + '/' + norm);
+
+        }
+
+          $(".cetakrencplg").click(function() {
+            kj = $('#kj').val()
+            norm = $('#norm').val()
+
+
+
+
+
+            Swal.fire({
+                title: "Apakah ingin print rencana pulang?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Ya',
+                cancelButtonColor: '#d33',
+                cancelButtonText: "Batal"
+
+            }).then(result => {
+                //jika klik ya maka arahkan ke proses.php
+                if (result.isConfirmed) {
+                    $.ajax({
+                        async: true,
+                        type: 'post',
+                        dataType: 'json',
+                        data: {
+                            _token: "{{ csrf_token() }}",
+
+                            kj,
+                            norm
+
+                        },
+                        url: '<?= route('cetakrencplg') ?>',
+                        error: function(data) {
+                            spinner.hide()
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Ooops....',
+                                text: 'Sepertinya ada masalah......',
+                                footer: ''
+                            })
+                        },
+                        success: function(data) {
+                            spinner.hide()
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'OK',
+                                text: data.message,
+                                footer: ''
+                            })
+                            cetakrencanapulang(data.kj, data.norm)
+
+                        }
+                    });
+                }
+            })
+            return false;
+        });
+
+
+        function cetakrencanapulang(kj, norm) {
+            window.open('cetakrencanapulang/' + kj + '/' + norm);
+
+        }
     </script>

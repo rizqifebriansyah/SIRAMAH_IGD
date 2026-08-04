@@ -117,7 +117,7 @@
                 <thead class="bg-light">
                     <th style="text-align: center;">Tanggal Masuk</th>
                     <th style="text-align: center;">NoRM</th>
-                    <th  style="text-align: center;">Nama Pasien</th>
+                    <th style="text-align: center;">Nama Pasien</th>
 
                     <th style="text-align: center;">JK</th>
                     <th style="text-align: center;">Diagnosa</th>
@@ -133,7 +133,7 @@
                 <tbody>
                     @foreach ($pasienigd as $key => $a)
                     <tr>
-                        <td  style="text-align: center;" class="tglmasuk">{{ $a->tgl_masuk }}</td>
+                        <td style="text-align: center;" class="tglmasuk">{{ $a->tgl_masuk }}</td>
 
                         <td style="text-align: center;" class="norm">{{ $a->no_rm }}</td>
                         <td style="text-align: center;" class="namapx">{{ $a->nama_px }}</td>
@@ -149,18 +149,25 @@
                         <td class="status1" style="text-align: center;">
                             @if ($unit == '1002')
 
-                            @if ($a->nama_perawat == null && $a->nama_perawat1 == null)
+                            @if ($a->nama_perawat == null && $a->nama_perawat1 == null && $a->status == null)
                             <button class="badge badge-danger ermperawat"> belum diisi </button>
+                            @elseif ($a->status == 2 )
+                            <button class="badge badge-success ermperawat"> Sudah validasi </button> | {{ $a->nama_perawat }} {{ $a->nama_perawat1 }}
                             @else
-                            <button class="badge badge-success ermperawat"> Sudah Diisi </button> | {{ $a->nama_perawat }} {{ $a->nama_perawat1 }}
+                            <button class="badge badge-warning ermperawat"> belum validasi </button> | {{ $a->nama_perawat }} {{ $a->nama_perawat1 }}
+
                             @endif
 
                             <!-- data igd kebidanan 1023 -->
                             @else
                             @if ($a->nama_perawat == null)
                             <button class="badge badge-danger ermperawat"> belum diisi </button>
+                            @elseif ($a->status == 2)
+                            <button class="badge badge-success ermperawat"> Sudah validasi </button> | {{ $a->nama_perawat }}
+
                             @else
-                            <button class="badge badge-success ermperawat"> Sudah Diisi </button> | {{ $a->nama_perawat }} 
+                            <button class="badge badge-warning ermperawat"> belum validasi </button> | {{ $a->nama_perawat }}
+
                             @endif
 
                             @endif
@@ -168,8 +175,11 @@
                         <td class="status2" style="text-align: center;">
                             @if ($a->nama_paramedis == null)
                             <button class="badge badge-danger "> belum diisi </button>
+                            @elseif ($a->status_dokter == 2)
+                            <button class="badge badge-success"> Sudah validasi </button> | {{ $a->nama_perawat }}
+
                             @else
-                            <button class="badge badge-success "> Sudah Diisi </button> | {{ $a->nama_paramedis }}
+                            <button class="badge badge-warning ">  Belum Validasi </button> | {{ $a->nama_paramedis }}
                             @endif
                         </td>
 

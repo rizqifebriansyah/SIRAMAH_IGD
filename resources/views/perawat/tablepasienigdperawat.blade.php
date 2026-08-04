@@ -34,19 +34,25 @@
              <td class="status1" style="text-align: center;">
                  @if ($a->nama_perawat == null && $a->nama_perawat1 == null)
                  <button class="badge badge-danger ermperawat"> belum diisi </button>
+                 @elseif ($a->status == 2 )
+                 <button class="badge badge-success ermperawat"> Sudah validasi </button> | {{ $a->nama_perawat }} {{ $a->nama_perawat1 }}
                  @else
-                 <button class="badge badge-success ermperawat"> Sudah Diisi </button> | {{ $a->nama_perawat }} {{ $a->nama_perawat1 }}
+                 <button class="badge badge-warning ermperawat"> belum validasi </button> | {{ $a->nama_perawat }} {{ $a->nama_perawat1 }}
+
                  @endif
              </td>
              <td class="status2" style="text-align: center;">
                  @if ($a->nama_paramedis == null)
                  <button class="badge badge-danger "> belum diisi </button>
+                  @elseif ($a->status_dokter == 2)
+                 <button class="badge badge-success"> Sudah validasi </button> | {{ $a->nama_perawat }}
+
                  @else
-                 <button class="badge badge-success "> Sudah Diisi </button> | {{ $a->nama_paramedis }}
+                 <button class="badge badge-warning "> Belum Validasi </button> | {{ $a->nama_paramedis }}
                  @endif
              </td>
 
-
+         
 
          </tr>
          @endforeach

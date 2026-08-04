@@ -57,10 +57,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('assesigk') }}" class="nav-link @if($menu == 'assesigk' ) active @endif">
+                    <!-- <a href="{{ route('assesigk') }}" class="nav-link @if($menu == 'assesigk' ) active @endif"> -->
+                    
+                <a href="" class="nav-link @if($menu == 'assesigk' ) active @endif">
                         <i class="nav-icon fas fa-archive"></i>
                         <p>
-                            IGD KEBIDANAN
+                            IGDK Perbaikan
                         </p>
                     </a>
                 </li>

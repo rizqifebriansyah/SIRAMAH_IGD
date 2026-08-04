@@ -1863,7 +1863,7 @@ class RadiologiController extends Controller
             // exec('c:\WINDOWS\system32\cmd.exe \\192.168.30.125 -u it-pc1 -p pastibisa2016 /c START C:\WINDOWS\system32\notepad.exe');
             if ($user == '1141') {
                 //    $payload = exec('http://192.168.2.182/LABEL_RAD.exe');
-                $payload = file_get_contents('http://192.168.2.182/LABEL.php');
+                $payload = file_get_contents('http://192.168.10.100/LABEL.php');
 
                 // $response = Http::get('http://192.168.2.182/LABEL.php');
                 // $payload = file_get_contents('http://192.168.2.182/rad1/LABEL_RAD.exe');
@@ -1926,7 +1926,7 @@ class RadiologiController extends Controller
             // $img = EscposImage::load("public/img/rsss.png");
             if ($user == '1141') {
                 // $connector = new WindowsPrintConnector("smb://192.168.2.182/EPSON TM-T82X Receipt");
-                $connector = new WindowsPrintConnector("smb://PRINTER:cushman2@192.168.2.182/EPSON TM-T82X Receipt");
+                $connector = new WindowsPrintConnector("smb://PRINTER:cushman2@192.168.10.100/EPSON TM-T82X Receipt");
             } else {
 
                 // $connector = new WindowsPrintConnector("smb://192.168.2.131/printernota");

@@ -88,6 +88,8 @@ Route::group(['middleware' => ['hak_akses:5', 'auth']], function () {
     Route::post('assesmentdokter', [DokterController::class, 'assesmentdokter'])->name('assesmentdokter');
     Route::post('ermdokter', [DokterController::class, 'ermdokter'])->name('ermdokter');
     Route::post('riwayatcppt', [DokterController::class, 'riwayatcppt'])->name('riwayatcppt');
+    Route::post('assemenbunuhdiri', [DokterController::class, 'assemenbunuhdiri'])->name('assemenbunuhdiri');
+    
     Route::post('icare', [DokterController::class, 'icare'])->name('icare');
 
 
@@ -158,6 +160,13 @@ Route::post('cetakresumecpptdokter', [DokterController::class, 'cetakresumecpptd
 Route::get('cetaktresumecppt/{kj}/{norm}', [DokterController::class, 'cetaktresumecppt']);
 Route::post('cetakassesperawat', [DokterController::class, 'cetakassesperawat'])->name('cetakassesperawat');
 Route::get('cetakassesmenperawat/{kj}/{norm}', [DokterController::class, 'cetakassesmenperawat']);
+Route::post('cetakassesdokter', [DokterController::class, 'cetakassesdokter'])->name('cetakassesdokter');
+Route::get('cetakassesmendokter/{kj}/{norm}', [DokterController::class, 'cetakassesmendokter']);
+
+Route::post('cetakobsperawat', [DokterController::class, 'cetakobsperawat'])->name('cetakobsperawat');
+Route::get('cetakobservasiperawat/{kj}/{norm}', [DokterController::class, 'cetakobservasiperawat']);
+Route::post('cetakrencplg', [DokterController::class, 'cetakrencplg'])->name('cetakrencplg');
+Route::get('cetakrencanapulang/{kj}/{norm}', [DokterController::class, 'cetakrencanapulang']);
 
 Route::post('cetakresumedokterkebidanan', [DokterController::class, 'cetakresumedokterkebidanan'])->name('cetakresumedokterkebidanan');
 Route::get('cetaktresumekebidanan/{kj}/{norm}', [DokterController::class, 'cetaktresumekebidanan']);

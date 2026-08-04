@@ -192,7 +192,9 @@
                 <div class="col-3">
                     <div class="form-group">
                         <label for="name">obat/cairan</label>
-                        <input type="text" name="obatcairan" id="obatcairan" value="" class=" form-control">
+                        <!-- <input type="text" name="obatcairan" id="obatcairan" value="" class=" form-control"> -->
+                        <textarea class="form-control" id="obatcairan" rows="3" name="obatcairan" placeholder=""></textarea>
+
                     </div>
                 </div>
                 <div class="col-3">
@@ -204,7 +206,9 @@
                 <div class="col-3">
                     <div class="form-group">
                         <label for="name">Keterangan</label>
-                        <input type="text" name="keterangan" id="keterangan" value="" class=" form-control">
+                        <textarea class="form-control" id="keterangan" rows="3" name="keterangan" placeholder=""></textarea>
+
+                        <!-- <input type="text" name="keterangan" id="keterangan" value="" class=" form-control"> -->
                     </div>
                 </div>
                 <div class="col-3">

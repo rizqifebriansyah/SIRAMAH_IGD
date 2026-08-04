@@ -81,6 +81,9 @@ class PerawatController extends Controller
                 a.no_rm,
                 "" AS nama_perawat,
                 IFNULL(d.nama_bidan, IFNULL(d.nama_bidan,"")) AS nama_perawat,
+                d.status,
+                e.status as status_dokter,
+
                 IFNULL(e.nama_paramedis2, IFNULL(e.nama_paramedis,"")) AS nama_paramedis,
                 fc_nama_px(a.no_rm) AS nama_px,
                 a.tgl_masuk,
@@ -133,6 +136,10 @@ class PerawatController extends Controller
                 "" AS nama_perawat,
                 IFNULL(d.nama_perawat1, IFNULL(d.nama_perawat,"")) AS nama_perawat1,
                 IFNULL(e.nama_paramedis2, IFNULL(e.nama_paramedis,"")) AS nama_paramedis,
+                d.status,
+                e.status as status_dokter,
+
+                
                 fc_nama_px(a.no_rm) AS nama_px,
                 a.tgl_masuk,
                 fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,
@@ -178,6 +185,7 @@ class PerawatController extends Controller
             AND a.status_kunjungan NOT IN (8,11)
             AND a.kode_unit = ?', [$now, $tgl_masuk_1, $unit]);
         }
+        // dd($pasienigd);
         // $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','$unit','$now')");
         // $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','$unit','$now')");
 
@@ -1115,6 +1123,8 @@ class PerawatController extends Controller
                 IFNULL(d.nama_bidan, IFNULL(d.nama_bidan,"")) AS nama_perawat1,
                 IFNULL(e.nama_paramedis2, IFNULL(e.nama_paramedis,"")) AS nama_paramedis,
                 fc_nama_px(a.no_rm) AS nama_px,
+                 d.status,
+                e.status as status_dokter,
                 a.tgl_masuk,
                 fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,
                 a.kode_penjamin,
@@ -1166,6 +1176,8 @@ class PerawatController extends Controller
                 IFNULL(d.nama_perawat1, IFNULL(d.nama_perawat,"")) AS nama_perawat1,
                 IFNULL(e.nama_paramedis2, IFNULL(e.nama_paramedis,"")) AS nama_paramedis,
                 fc_nama_px(a.no_rm) AS nama_px,
+                 d.status,
+                e.status as status_dokter,
                 a.tgl_masuk,
                 fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,
                 a.kode_penjamin,
@@ -2030,29 +2042,32 @@ class PerawatController extends Controller
         }
         try {
             $rekon = json_decode($_POST['tindakan'], true);
-            // dd($rekon);
-            foreach ($rekon as $nama) {
-                $index = $nama['name'];
-                $value = $nama['value'];
-                $dataSet[$index] = $value;
-                if ($index == 'tindakankeperawatan') {
-                    $arrayindex[] = $dataSet;
+            if ($rekon == null) {
+            } else {
+                // dd($rekon);
+                foreach ($rekon as $nama) {
+                    $index = $nama['name'];
+                    $value = $nama['value'];
+                    $dataSet[$index] = $value;
+                    if ($index == 'tindakankeperawatan') {
+                        $arrayindex[] = $dataSet;
+                    }
                 }
-            }
-            // $id_detail = $this->createLayanandetail();
-            foreach ($arrayindex as $arr) {
-                $savedetail = [
-                    // 'kode_detail_obat' => $id_detail,
-                    'no_rm' => $norm,
-                    'kode_kunjungan' => $kj,
-                    'kode_unit' => '1002',
-                    'tindakan_keperawatan' => $arr['tindakankeperawatan'],
-                    'waktu_tindakan' => $arr['waktu'],
-                    'tgl_input' => $now,
-                    'status' => 1
+                // $id_detail = $this->createLayanandetail();
+                foreach ($arrayindex as $arr) {
+                    $savedetail = [
+                        // 'kode_detail_obat' => $id_detail,
+                        'no_rm' => $norm,
+                        'kode_kunjungan' => $kj,
+                        'kode_unit' => '1002',
+                        'tindakan_keperawatan' => $arr['tindakankeperawatan'],
+                        'waktu_tindakan' => $arr['waktu'],
+                        'tgl_input' => $now,
+                        'status' => 1
 
-                ];
-                $tindakanperawat = erm_tindakan_keperawatan::create($savedetail);
+                    ];
+                    $tindakanperawat = erm_tindakan_keperawatan::create($savedetail);
+                }
             }
         } catch (\Exception $e) {
             $back = [
@@ -2087,6 +2102,8 @@ class PerawatController extends Controller
                 'asal_masuk' => $request->asalmasuk,
                 'cara_masuk' => $request->caramasuk,
                 'subyek' => $request->subyek,
+                'asal_rujukan' => $request->asal_rujukan,
+
                 'tgl_pengkajian' => $request->tgl_pengkajian,
                 'anamnesa_triase' => $request->anamnesis_triase_bidan,
                 'diagnosa_triase' => $request->diagnosa_triase_bidan,
@@ -2217,28 +2234,31 @@ class PerawatController extends Controller
         //tindakan kebidanan
         try {
             $tindakanbidan = json_decode($_POST['tindakankebidanan'], true);
-            foreach ($tindakanbidan as $nama) {
-                $index = $nama['name'];
-                $value = $nama['value'];
-                $dataSet[$index] = $value;
-                if ($index == 'tindakan_kebidanan') {
-                    $arrayindex[] = $dataSet;
+            if ($tindakanbidan == null) {
+            } else {
+                foreach ($tindakanbidan as $nama) {
+                    $index = $nama['name'];
+                    $value = $nama['value'];
+                    $dataSet[$index] = $value;
+                    if ($index == 'tindakan_kebidanan') {
+                        $arrayindex[] = $dataSet;
+                    }
                 }
-            }
-            // $id_detail = $this->createLayanandetail();
-            foreach ($arrayindex as $arr) {
-                $savedetail = [
-                    // 'kode_detail_obat' => $id_detail,
-                    'no_rm' => $norm,
-                    'kode_kunjungan' => $kj,
-                    'kode_unit' => '1023',
-                    'tindakan_keperawatan' => $arr['tindakan_kebidanan'],
-                    'waktu_tindakan' => $arr['jam_tindakan'],
-                    'tgl_input' => $now,
-                    'status' => 1
+                // $id_detail = $this->createLayanandetail();
+                foreach ($arrayindex as $arr) {
+                    $savedetail = [
+                        // 'kode_detail_obat' => $id_detail,
+                        'no_rm' => $norm,
+                        'kode_kunjungan' => $kj,
+                        'kode_unit' => '1023',
+                        'tindakan_keperawatan' => $arr['tindakan_kebidanan'],
+                        'waktu_tindakan' => $arr['jam_tindakan'],
+                        'tgl_input' => $now,
+                        'status' => 1
 
-                ];
-                $tindakankebidanan = erm_tindakan_keperawatan::create($savedetail);
+                    ];
+                    $tindakankebidanan = erm_tindakan_keperawatan::create($savedetail);
+                }
             }
         } catch (\Exception $e) {
             $back = [
@@ -2399,79 +2419,118 @@ class PerawatController extends Controller
         $user = auth()->user()->id_simrs;
         $kp = auth()->user()->kode_paramedis;
         $name = auth()->user()->nama;
+        $unit = auth()->user()->unit;
+
 
         $norm = $request->norm;
         $kj = $request->kj;
-        $wpj = $request->wpj;
-        $wdj = $request->wdj;
+        if ($unit == '1002') {
+            $wpj = $request->wpj;
+            $wdj = $request->wdj;
 
-        if ($wpj == 'Pagi') {
-            $wpjp = $wpj;
-            $wpjs = NULL;
-            $wpjm = NULL;
-        } elseif ($wpj == 'Siang') {
-            $wpjp = NULL;
-            $wpjs = $wpj;
-            $wpjm = NULL;
-        } elseif ($wpj == 'Malam') {
-            $wpjp = NULL;
-            $wpjs = NULL;
-            $wpjm = $wpj;
+            if ($wpj == 'Pagi') {
+                $wpjp = $wpj;
+                $wpjs = NULL;
+                $wpjm = NULL;
+            } elseif ($wpj == 'Siang') {
+                $wpjp = NULL;
+                $wpjs = $wpj;
+                $wpjm = NULL;
+            } elseif ($wpj == 'Malam') {
+                $wpjp = NULL;
+                $wpjs = NULL;
+                $wpjm = $wpj;
+            }
+
+            if ($wdj == 'Pagi') {
+                $wdjp = $wdj;
+                $wdjs = NULL;
+                $wdjm = NULL;
+            } elseif ($wdj == 'Siang') {
+                $wdjp = NULL;
+                $wdjs = $wdj;
+                $wdjm = NULL;
+            } elseif ($wdj == 'Malam') {
+                $wdjp = NULL;
+                $wdjs = NULL;
+                $wdjm = $wdj;
+            }
+            $input = pemantauan_ttv::create([
+                'waktu_jaga_dokter_pagi' => $wdjp,
+                'waktu_jaga_dokter_siang' => $wdjs,
+                'waktu_jaga_dokter_malam' => $wdjm,
+
+                'dokter_jaga' => $request->dj,
+                'waktu_jaga_perawat_pagi' => $wpjp,
+                'waktu_jaga_perawat_siang' => $wpjs,
+                'waktu_jaga_perawat_malam' => $wpjm,
+
+
+                'perawat_jaga' => $request->pj,
+                'kategori_pasien' => $request->kapa,
+                'diagnosa_kerja' => $request->dk,
+                'td' => $request->ttd,
+                'nadi' => $request->nadi,
+                'rr' => $request->rr,
+                'suhu' => $request->suhu,
+                'gcs' => $request->gcs,
+                'pupil' => $request->pupil,
+                'urine' => $request->urine,
+                'spo2' => $request->spo2,
+
+                'his' => $request->his,
+                'djj' => $request->djj,
+                'obatcairan' => $request->obatcairan,
+                'tetesan' => $request->tetesan,
+                'lama' => $request->lama,
+
+
+                'nyeri' => $request->nyeri,
+                'keterangan' => $request->keterangan,
+
+                'norm' => $request->norm,
+                'kj' => $request->kj,
+                'tgl_input' => $request->waktu_pantau,
+                'create_at' => $now,
+
+                'user' => $user
+            ]);
+        } else {
+            $input = pemantauan_ttv::create([
+
+
+
+                'perawat_jaga' => $request->pj,
+                'kategori_pasien' => $request->kapa,
+                'diagnosa_kerja' => $request->dk,
+                'td' => $request->ttd,
+                'nadi' => $request->nadi,
+                'rr' => $request->rr,
+                'suhu' => $request->suhu,
+                'gcs' => $request->gcs,
+                'pupil' => $request->pupil,
+                'urine' => $request->urine,
+                'spo2' => $request->spo2,
+
+                'his' => $request->his,
+                'djj' => $request->djj,
+                'obatcairan' => $request->obatcairan,
+                'tetesan' => $request->tetesan,
+                'lama' => $request->lama,
+
+
+                'nyeri' => $request->nyeri,
+                'keterangan' => $request->keterangan,
+
+                'norm' => $request->norm,
+                'kj' => $request->kj,
+                'tgl_input' => $request->waktu_pantau,
+                'create_at' => $now,
+
+                'user' => $user
+            ]);
         }
 
-        if ($wdj == 'Pagi') {
-            $wdjp = $wdj;
-            $wdjs = NULL;
-            $wdjm = NULL;
-        } elseif ($wdj == 'Siang') {
-            $wdjp = NULL;
-            $wdjs = $wdj;
-            $wdjm = NULL;
-        } elseif ($wdj == 'Malam') {
-            $wdjp = NULL;
-            $wdjs = NULL;
-            $wdjm = $wdj;
-        }
-        $input = pemantauan_ttv::create([
-            'waktu_jaga_dokter_pagi' => $wdjp,
-            'waktu_jaga_dokter_siang' => $wdjs,
-            'waktu_jaga_dokter_malam' => $wdjm,
-
-            'dokter_jaga' => $request->dj,
-            'waktu_jaga_perawat_pagi' => $wpjp,
-            'waktu_jaga_perawat_siang' => $wpjs,
-            'waktu_jaga_perawat_malam' => $wpjm,
-
-
-            'perawat_jaga' => $request->pj,
-            'kategori_pasien' => $request->kapa,
-            'diagnosa_kerja' => $request->dk,
-            'td' => $request->ttd,
-            'nadi' => $request->nadi,
-            'rr' => $request->rr,
-            'suhu' => $request->suhu,
-            'gcs' => $request->gcs,
-            'pupil' => $request->pupil,
-            'urine' => $request->urine,
-            'spo2' => $request->spo2,
-
-            '10' => $request->his,
-            'djj' => $request->djj,
-            'obatcairan' => $request->obatcairan,
-            'tetesan' => $request->tetesan,
-            'lama' => $request->lama,
-
-
-            'nyeri' => $request->nyeri,
-            'keterangan' => $request->keterangan,
-
-            'norm' => $request->norm,
-            'kj' => $request->kj,
-            'tgl_input' => $request->waktu_pantau,
-            'create_at' => $now,
-
-            'user' => $user
-        ]);
 
 
         $back = [
@@ -2498,6 +2557,9 @@ class PerawatController extends Controller
                 'asal_masuk' => $request->asalmasuk,
                 'cara_masuk' => $request->caramasuk,
                 'subyek' => $request->subyek,
+                'tgl_pengkajian' => $request->tgl_pengkajian,
+                'asal_rujukan' => $request->asal_rujukan,
+
                 'tgl_input' => $now,
                 'tgl_kunjungan' => $request->tglmasuk,
                 'tekanan_darah' => $request->tekanandarah,
@@ -2788,32 +2850,35 @@ class PerawatController extends Controller
         //riwayat obat
         try {
             $obatpllg = json_decode($_POST['obatplg'], true);
-            foreach ($obatpllg as $nama) {
-                $index = $nama['name'];
-                $value = $nama['value'];
-                $dataSetobat[$index] = $value;
-                if ($index == 'intruksi') {
-                    $arrayindexobat[] = $dataSetobat;
+            if ($obatpllg == null) {
+            } else {
+                foreach ($obatpllg as $nama) {
+                    $index = $nama['name'];
+                    $value = $nama['value'];
+                    $dataSetobat[$index] = $value;
+                    if ($index == 'intruksi') {
+                        $arrayindexobat[] = $dataSetobat;
+                    }
                 }
-            }
-            // $id_detail = $this->createLayanandetail();
-            foreach ($arrayindexobat as $oba) {
-                $savedetailrwytobat = [
-                    // 'kode_detail_obat' => $id_detail,
-                    'no_rm' => $norm,
-                    'kode_kunjungan' => $kj,
-                    'kode_unit' => '1023',
-                    'nama_obat' => $oba['namaobat'],
-                    'dosis' => $oba['dosis'],
-                    'jam_pemberian' => $oba['jampemberian'],
-                    'instruksi_khusus' => $oba['intruksi'],
+                // $id_detail = $this->createLayanandetail();
+                foreach ($arrayindexobat as $oba) {
+                    $savedetailrwytobat = [
+                        // 'kode_detail_obat' => $id_detail,
+                        'no_rm' => $norm,
+                        'kode_kunjungan' => $kj,
+                        'kode_unit' => '1023',
+                        'nama_obat' => $oba['namaobat'],
+                        'dosis' => $oba['dosis'],
+                        'jam_pemberian' => $oba['jampemberian'],
+                        'instruksi_khusus' => $oba['intruksi'],
 
 
-                    'tgl_input' => $now,
-                    'status' => 1
+                        'tgl_input' => $now,
+                        'status' => 1
 
-                ];
-                $riwayat = erm_obat_pulang_igd::create($savedetailrwytobat);
+                    ];
+                    $riwayat = erm_obat_pulang_igd::create($savedetailrwytobat);
+                }
             }
         } catch (\Exception $e) {
             $back = [
@@ -2827,38 +2892,41 @@ class PerawatController extends Controller
         //riwayat partus
         try {
             $riwayatpartus = json_decode($_POST['riwayatpartus'], true);
-            foreach ($riwayatpartus as $nama) {
-                $index = $nama['name'];
-                $value = $nama['value'];
-                $dataSetpartus[$index] = $value;
-                if ($index == 'keadaan_anak_sekarang') {
-                    $arrayindexpartus[] = $dataSetpartus;
+            if ($riwayatpartus == null) {
+            } else {
+                foreach ($riwayatpartus as $nama) {
+                    $index = $nama['name'];
+                    $value = $nama['value'];
+                    $dataSetpartus[$index] = $value;
+                    if ($index == 'keadaan_anak_sekarang') {
+                        $arrayindexpartus[] = $dataSetpartus;
+                    }
                 }
-            }
-            // dd($arrayindexpartus);
-            // $id_detail = $this->createLayanandetail();
-            foreach ($arrayindexpartus as $pts) {
-                $savedetailpartus = [
-                    // 'kode_detail_obat' => $id_detail,
-                    'no_rm' => $norm,
-                    'kode_kunjungan' => $kj,
-                    'kode_unit' => '1023',
-                    'tgl_partus' => $pts['tt_partus'],
-                    'tempat_partus' => $pts['tempat_partus'],
-                    'umur_partus' => $pts['umur_hamil'],
-                    'jenis_persalinan' => $pts['jenis_persalinan'],
-                    'penolong_persalinan' => $pts['penolong_persalinan'],
-                    'penyulit' => $pts['penyulit'],
-                    'nifas' => $pts['nifas'],
-                    'kelamin_BB' => $pts['kelamin_bb'],
-                    'keadaan_anak' => $pts['keadaan_anak_sekarang'],
+                // dd($arrayindexpartus);
+                // $id_detail = $this->createLayanandetail();
+                foreach ($arrayindexpartus as $pts) {
+                    $savedetailpartus = [
+                        // 'kode_detail_obat' => $id_detail,
+                        'no_rm' => $norm,
+                        'kode_kunjungan' => $kj,
+                        'kode_unit' => '1023',
+                        'tgl_partus' => $pts['tt_partus'],
+                        'tempat_partus' => $pts['tempat_partus'],
+                        'umur_partus' => $pts['umur_hamil'],
+                        'jenis_persalinan' => $pts['jenis_persalinan'],
+                        'penolong_persalinan' => $pts['penolong_persalinan'],
+                        'penyulit' => $pts['penyulit'],
+                        'nifas' => $pts['nifas'],
+                        'kelamin_BB' => $pts['kelamin_bb'],
+                        'keadaan_anak' => $pts['keadaan_anak_sekarang'],
 
 
-                    'tgl_input' => $now,
-                    'status' => 1
+                        'tgl_input' => $now,
+                        'status' => 1
 
-                ];
-                $riwayat = riwayat_partus::create($savedetailpartus);
+                    ];
+                    $riwayat = riwayat_partus::create($savedetailpartus);
+                }
             }
         } catch (\Exception $e) {
             $back = [
@@ -2873,28 +2941,31 @@ class PerawatController extends Controller
         //tindakan kebidanan
         try {
             $tindakanbidan = json_decode($_POST['tindakankebidanan'], true);
-            foreach ($tindakanbidan as $nama) {
-                $index = $nama['name'];
-                $value = $nama['value'];
-                $dataSet[$index] = $value;
-                if ($index == 'tindakan_kebidanan') {
-                    $arrayindex[] = $dataSet;
+            if ($tindakanbidan == null) {
+            } else {
+                foreach ($tindakanbidan as $nama) {
+                    $index = $nama['name'];
+                    $value = $nama['value'];
+                    $dataSet[$index] = $value;
+                    if ($index == 'tindakan_kebidanan') {
+                        $arrayindex[] = $dataSet;
+                    }
                 }
-            }
-            // $id_detail = $this->createLayanandetail();
-            foreach ($arrayindex as $arr) {
-                $savedetail = [
-                    // 'kode_detail_obat' => $id_detail,
-                    'no_rm' => $norm,
-                    'kode_kunjungan' => $kj,
-                    'kode_unit' => '1023',
-                    'tindakan_keperawatan' => $arr['tindakan_kebidanan'],
-                    'waktu_tindakan' => $arr['jam_tindakan'],
-                    'tgl_input' => $now,
-                    'status' => 1
+                // $id_detail = $this->createLayanandetail();
+                foreach ($arrayindex as $arr) {
+                    $savedetail = [
+                        // 'kode_detail_obat' => $id_detail,
+                        'no_rm' => $norm,
+                        'kode_kunjungan' => $kj,
+                        'kode_unit' => '1023',
+                        'tindakan_keperawatan' => $arr['tindakan_kebidanan'],
+                        'waktu_tindakan' => $arr['jam_tindakan'],
+                        'tgl_input' => $now,
+                        'status' => 1
 
-                ];
-                $tindakankebidanan = erm_tindakan_keperawatan::create($savedetail);
+                    ];
+                    $tindakankebidanan = erm_tindakan_keperawatan::create($savedetail);
+                }
             }
         } catch (\Exception $e) {
             $back = [
@@ -3160,7 +3231,8 @@ class PerawatController extends Controller
         $kesadaran = $request->kesadaran;
         $keadaanumum = $request->keadaanumum;
 
-        $now = Carbon::now();
+        $now = Carbon::now()->format('Y-m-d');
+
         $user = auth()->user()->id_simrs;
         $name = auth()->user()->nama;
 
@@ -3353,28 +3425,31 @@ class PerawatController extends Controller
         }
         try {
             $rekon = json_decode($_POST['tindakan'], true);
-            foreach ($rekon as $nama) {
-                $index = $nama['name'];
-                $value = $nama['value'];
-                $dataSet[$index] = $value;
-                if ($index == 'tindakankeperawatan') {
-                    $arrayindex[] = $dataSet;
+            if ($rekon == null) {
+            } else {
+                foreach ($rekon as $nama) {
+                    $index = $nama['name'];
+                    $value = $nama['value'];
+                    $dataSet[$index] = $value;
+                    if ($index == 'tindakankeperawatan') {
+                        $arrayindex[] = $dataSet;
+                    }
                 }
-            }
-            // $id_detail = $this->createLayanandetail();
-            foreach ($arrayindex as $arr) {
-                $savedetail = [
-                    // 'kode_detail_obat' => $id_detail,
-                    'no_rm' => $norm,
-                    'kode_kunjungan' => $kj,
-                    'kode_unit' => '1002',
-                    'tindakan_keperawatan' => $arr['tindakankeperawatan'],
-                    'waktu_tindakan' => $arr['waktu'],
-                    'tgl_input' => $now,
-                    'status' => 1
+                // $id_detail = $this->createLayanandetail();
+                foreach ($arrayindex as $arr) {
+                    $savedetail = [
+                        // 'kode_detail_obat' => $id_detail,
+                        'no_rm' => $norm,
+                        'kode_kunjungan' => $kj,
+                        'kode_unit' => '1002',
+                        'tindakan_keperawatan' => $arr['tindakankeperawatan'],
+                        'waktu_tindakan' => $arr['waktu'],
+                        'tgl_input' => $now,
+                        'status' => 1
 
-                ];
-                $tindakanperawat = erm_tindakan_keperawatan::create($savedetail);
+                    ];
+                    $tindakanperawat = erm_tindakan_keperawatan::create($savedetail);
+                }
             }
         } catch (\Exception $e) {
             $back = [
@@ -3434,6 +3509,9 @@ class PerawatController extends Controller
                     'cara_masuk' => $request->caramasuk,
                     'subyek' => $request->subyek,
                     'tgl_input' => $now,
+                    'tgl_pengkajian' => $request->tgl_pengkajian,
+                    'asal_rujukan' => $request->asal_rujukan,
+
                     'tgl_kunjungan' => $request->tglmasuk,
                     'tekanan_darah' => $request->tekanandarah,
                     'frekuensi_nadi' => $request->frekuensinadi,
@@ -3647,6 +3725,8 @@ class PerawatController extends Controller
                     'tgl_input' => $now,
                     'tgl_kunjungan' => $request->tglmasuk,
                     'tgl_pengkajian' => $request->tgl_pengkajian,
+                    'anamnesa_triase' => $request->anamnesis_triase_bidan,
+                    'diagnosa_triase' => $request->diagnosa_triase_bidan,
 
                     'kode_unit' => '1023',
                     'no_rm' => $request->norm,
@@ -3724,32 +3804,35 @@ class PerawatController extends Controller
         //riwayat obat
         try {
             $obatpllg = json_decode($_POST['obatplg'], true);
-            foreach ($obatpllg as $nama) {
-                $index = $nama['name'];
-                $value = $nama['value'];
-                $dataSetobat[$index] = $value;
-                if ($index == 'intruksi') {
-                    $arrayindexobat[] = $dataSetobat;
+            if ($obatpllg == null) {
+            } else {
+                foreach ($obatpllg as $nama) {
+                    $index = $nama['name'];
+                    $value = $nama['value'];
+                    $dataSetobat[$index] = $value;
+                    if ($index == 'intruksi') {
+                        $arrayindexobat[] = $dataSetobat;
+                    }
                 }
-            }
-            // $id_detail = $this->createLayanandetail();
-            foreach ($arrayindexobat as $oba) {
-                $savedetailrwytobat = [
-                    // 'kode_detail_obat' => $id_detail,
-                    'no_rm' => $norm,
-                    'kode_kunjungan' => $kj,
-                    'kode_unit' => '1023',
-                    'nama_obat' => $oba['namaobat'],
-                    'dosis' => $oba['dosis'],
-                    'jam_pemberian' => $oba['jampemberian'],
-                    'instruksi_khusus' => $oba['intruksi'],
+                // $id_detail = $this->createLayanandetail();
+                foreach ($arrayindexobat as $oba) {
+                    $savedetailrwytobat = [
+                        // 'kode_detail_obat' => $id_detail,
+                        'no_rm' => $norm,
+                        'kode_kunjungan' => $kj,
+                        'kode_unit' => '1023',
+                        'nama_obat' => $oba['namaobat'],
+                        'dosis' => $oba['dosis'],
+                        'jam_pemberian' => $oba['jampemberian'],
+                        'instruksi_khusus' => $oba['intruksi'],
 
 
-                    'tgl_input' => $now,
-                    'status' => 1
+                        'tgl_input' => $now,
+                        'status' => 1
 
-                ];
-                $riwayat = erm_obat_pulang_igd::create($savedetailrwytobat);
+                    ];
+                    $riwayat = erm_obat_pulang_igd::create($savedetailrwytobat);
+                }
             }
         } catch (\Exception $e) {
             $back = [
@@ -3763,38 +3846,42 @@ class PerawatController extends Controller
         //riwayat partus
         try {
             $riwayatpartus = json_decode($_POST['riwayatpartus'], true);
-            foreach ($riwayatpartus as $nama) {
-                $index = $nama['name'];
-                $value = $nama['value'];
-                $dataSetpartus[$index] = $value;
-                if ($index == 'keadaan_anak_sekarang') {
-                    $arrayindexpartus[] = $dataSetpartus;
+            if ($riwayatpartus == null) {
+            } else {
+                foreach ($riwayatpartus as $nama) {
+                    $index = $nama['name'];
+                    $value = $nama['value'];
+                    $dataSetpartus[$index] = $value;
+                    if ($index == 'keadaan_anak_sekarang') {
+                        $arrayindexpartus[] = $dataSetpartus;
+                    }
                 }
-            }
-            // dd($arrayindexpartus);
-            // $id_detail = $this->createLayanandetail();
-            foreach ($arrayindexpartus as $pts) {
-                $savedetailpartus = [
-                    // 'kode_detail_obat' => $id_detail,
-                    'no_rm' => $norm,
-                    'kode_kunjungan' => $kj,
-                    'kode_unit' => '1023',
-                    'tgl_partus' => $pts['tt_partus'],
-                    'tempat_partus' => $pts['tempat_partus'],
-                    'umur_partus' => $pts['umur_hamil'],
-                    'jenis_persalinan' => $pts['jenis_persalinan'],
-                    'penolong_persalinan' => $pts['penolong_persalinan'],
-                    'penyulit' => $pts['penyulit'],
-                    'nifas' => $pts['nifas'],
-                    'kelamin_BB' => $pts['kelamin_bb'],
-                    'keadaan_anak' => $pts['keadaan_anak_sekarang'],
+                // dd($arrayindexpartus);
+                // $id_detail = $this->createLayanandetail();
+                foreach ($arrayindexpartus as $pts) {
+                    $savedetailpartus = [
+                        // 'kode_detail_obat' => $id_detail,
+                        'no_rm' => $norm,
+                        'kode_kunjungan' => $kj,
+                        'kode_unit' => '1023',
+                        'tgl_partus' => $pts['tt_partus'],
+                        'tempat_partus' => $pts['tempat_partus'],
+                        'umur_partus' => $pts['umur_hamil'],
+                        'jenis_persalinan' => $pts['jenis_persalinan'],
+                        'penolong_persalinan' => $pts['penolong_persalinan'],
+                        'penyulit' => $pts['penyulit'],
+                        'nifas' => $pts['nifas'],
+                        'kelamin_BB' => $pts['kelamin_bb'],
+                        'keadaan_anak' => $pts['keadaan_anak_sekarang'],
 
 
-                    'tgl_input' => $now,
-                    'status' => 1
+                        'tgl_input' => $now,
+                        'status' => 1
 
-                ];
-                $riwayat = riwayat_partus::create($savedetailpartus);
+                    ];
+                    // dd($savedetailpartus);
+                    $riwayat = riwayat_partus::create($savedetailpartus);
+                }
             }
         } catch (\Exception $e) {
             $back = [
@@ -3809,28 +3896,31 @@ class PerawatController extends Controller
         //tindakan kebidanan
         try {
             $tindakanbidan = json_decode($_POST['tindakankebidanan'], true);
-            foreach ($tindakanbidan as $nama) {
-                $index = $nama['name'];
-                $value = $nama['value'];
-                $dataSet[$index] = $value;
-                if ($index == 'tindakan_kebidanan') {
-                    $arrayindex[] = $dataSet;
+            if ($tindakanbidan == null) {
+            } else {
+                foreach ($tindakanbidan as $nama) {
+                    $index = $nama['name'];
+                    $value = $nama['value'];
+                    $dataSet[$index] = $value;
+                    if ($index == 'tindakan_kebidanan') {
+                        $arrayindex[] = $dataSet;
+                    }
                 }
-            }
-            // $id_detail = $this->createLayanandetail();
-            foreach ($arrayindex as $arr) {
-                $savedetail = [
-                    // 'kode_detail_obat' => $id_detail,
-                    'no_rm' => $norm,
-                    'kode_kunjungan' => $kj,
-                    'kode_unit' => '1023',
-                    'tindakan_keperawatan' => $arr['tindakan_kebidanan'],
-                    'waktu_tindakan' => $arr['jam_tindakan'],
-                    'tgl_input' => $now,
-                    'status' => 1
+                // $id_detail = $this->createLayanandetail();
+                foreach ($arrayindex as $arr) {
+                    $savedetail = [
+                        // 'kode_detail_obat' => $id_detail,
+                        'no_rm' => $norm,
+                        'kode_kunjungan' => $kj,
+                        'kode_unit' => '1023',
+                        'tindakan_keperawatan' => $arr['tindakan_kebidanan'],
+                        'waktu_tindakan' => $arr['jam_tindakan'],
+                        'tgl_input' => $now,
+                        'status' => 1
 
-                ];
-                $tindakankebidanan = erm_tindakan_keperawatan::create($savedetail);
+                    ];
+                    $tindakankebidanan = erm_tindakan_keperawatan::create($savedetail);
+                }
             }
         } catch (\Exception $e) {
             $back = [
@@ -4095,7 +4185,13 @@ class PerawatController extends Controller
                     'asal_masuk' =>  $request->asalmasuk,
                     'cara_masuk' =>  $request->caramasuk,
                     'subyek' =>  $request->subyek,
+                    'anamnesa_triase' => $request->anamnesis_triase_bidan,
+                    'diagnosa_triase' => $request->diagnosa_triase_bidan,
+                    'asal_rujukan' => $request->asal_rujukan,
+
                     'tgl_input' => $now,
+                    'tgl_pengkajian' => $request->tgl_pengkajian,
+
                     'tgl_kunjungan' => $request->tglmasuk,
                     'tekanan_darah' => $request->tekanandarah,
                     'frekuensi_nadi' => $request->frekuensinadi,
@@ -4284,16 +4380,16 @@ class PerawatController extends Controller
             echo json_encode($back);
             die;
         }
-        try {
-            $delete = DB::select('DELETE FROM erm_cppt_kebidanan WHERE no_rm = ? AND kode_kunjungan = ? AND STATUS = "3" ', [$norm, $kj]);
-        } catch (\Exception $e) {
-            $back = [
-                'kode' => 200,
-                'message' => $e->getMessage()
-            ];
-            echo json_encode($back);
-            die;
-        }
+        // try {
+        //     $delete = DB::select('DELETE FROM erm_cppt_kebidanan WHERE no_rm = ? AND kode_kunjungan = ? AND STATUS = "3" ', [$norm, $kj]);
+        // } catch (\Exception $e) {
+        //     $back = [
+        //         'kode' => 200,
+        //         'message' => $e->getMessage()
+        //     ];
+        //     echo json_encode($back);
+        //     die;
+        // }
         $back = [
             'kode' => 200,
             'message' => 'Berhasil'
@@ -4345,16 +4441,16 @@ class PerawatController extends Controller
             echo json_encode($back);
             die;
         }
-        try {
-            $delete = DB::select('DELETE FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ? AND STATUS = "3" ', [$norm, $kj]);
-        } catch (\Exception $e) {
-            $back = [
-                'kode' => 200,
-                'message' => $e->getMessage()
-            ];
-            echo json_encode($back);
-            die;
-        }
+        // try {
+        //     $delete = DB::select('DELETE FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ? AND STATUS = "3" ', [$norm, $kj]);
+        // } catch (\Exception $e) {
+        //     $back = [
+        //         'kode' => 200,
+        //         'message' => $e->getMessage()
+        //     ];
+        //     echo json_encode($back);
+        //     die;
+        // }
 
         $back = [
             'kode' => 200,
@@ -4386,16 +4482,16 @@ class PerawatController extends Controller
             echo json_encode($back);
             die;
         }
-        try {
-            $delete = DB::select('DELETE FROM erm_cppt_kebidanan_bayi WHERE no_rm = ? AND kode_kunjungan = ? AND STATUS = "3" ', [$norm, $kj]);
-        } catch (\Exception $e) {
-            $back = [
-                'kode' => 200,
-                'message' => $e->getMessage()
-            ];
-            echo json_encode($back);
-            die;
-        }
+        // try {
+        //     $delete = DB::select('DELETE FROM erm_cppt_kebidanan_bayi WHERE no_rm = ? AND kode_kunjungan = ? AND STATUS = "3" ', [$norm, $kj]);
+        // } catch (\Exception $e) {
+        //     $back = [
+        //         'kode' => 200,
+        //         'message' => $e->getMessage()
+        //     ];
+        //     echo json_encode($back);
+        //     die;
+        // }
         $back = [
             'kode' => 200,
             'message' => 'Berhasil'

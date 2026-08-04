@@ -12,7 +12,8 @@
             </td>
             <td class="text-bold font-italic">Tanggal Pengkajian</td>
             <td>
-                <h5 class="text-bold">{{$now}}</h5>
+                <input class="form-control" type="datetime-local" name="tgl_pengkajian" id="tgl_pengkajian" value="">
+
 
             </td>
         </tr>
@@ -53,7 +54,9 @@
                 </div>
             </td>
             <td>
-
+                <input type="text" class="form-control"
+                    placeholder="Asal Rujukan ..." id="asal_rujukan"
+                    name="asal_rujukan" value="">
             </td>
         </tr>
         <tr>
@@ -1483,7 +1486,8 @@
             </td>
             <td class="text-bold font-italic">Tanggal Pengkajian</td>
             <td>
-                <h5 class="text-bold">{{$now}}</h5>
+                <input class="form-control" type="datetime-local" name="tgl_pengkajian" id="tgl_pengkajian" value="{{$assesper[0]->tgl_pengkajian}}">
+
 
             </td>
         </tr>
@@ -1547,7 +1551,9 @@
                 </div>
             </td>
             <td>
-
+                <input type="text" class="form-control"
+                    placeholder="Asal Rujukan ..." id="asal_rujukan"
+                    name="asal_rujukan" value="">
             </td>
         </tr>
         <tr>
@@ -3586,6 +3592,8 @@
         var tindakankebidanan = $('.formtindakankebidanan').serializeArray();
         var anamnesis_triase_bidan = $('#anamnesis_triase_bidan').val()
         var diagnosa_triase_bidan = $('#diagnosa_triase_bidan').val()
+        var asal_rujukan = $('#asal_rujukan').val()
+
 
         var norm = $('#norm').val()
         var kj = $('#kj').val()
@@ -3724,6 +3732,7 @@
                         tindakankebidanan: JSON.stringify(tindakankebidanan),
                         anamnesis_triase_bidan: $('#anamnesis_triase_bidan').val(),
                         diagnosa_triase_bidan: $('#diagnosa_triase_bidan').val(),
+                        asal_rujukan: $('#asal_rujukan').val(),
 
                         norm: $('#norm').val(),
                         kj: $('#kj').val(),
@@ -3882,6 +3891,7 @@
         var tindakankebidanan = $('.formtindakankebidanan').serializeArray();
         var anamnesis_triase_bidan = $('#anamnesis_triase_bidan').val()
         var diagnosa_triase_bidan = $('#diagnosa_triase_bidan').val()
+        var asal_rujukan = $('#asal_rujukan').val()
 
         var norm = $('#norm').val()
         var kj = $('#kj').val()
@@ -4020,6 +4030,7 @@
                         tindakankebidanan: JSON.stringify(tindakankebidanan),
                         anamnesis_triase_bidan: $('#anamnesis_triase_bidan').val(),
                         diagnosa_triase_bidan: $('#diagnosa_triase_bidan').val(),
+                        asal_rujukan: $('#asal_rujukan').val(),
 
                         norm: $('#norm').val(),
                         kj: $('#kj').val(),

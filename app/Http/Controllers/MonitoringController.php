@@ -36,7 +36,7 @@ class MonitoringController extends Controller
 
 
         $now = Carbon::now()->format('Y-m-d');
-        $tgl_masuk_x = date('Y-m-d', strtotime('-3 days', strtotime($now)));
+        $tgl_masuk_x = date('Y-m-d', strtotime('-1 days', strtotime($now)));
 
         // $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','$unit','$now')");
         // $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','$unit','$now')");
@@ -48,6 +48,8 @@ class MonitoringController extends Controller
                 IFNULL(e.nama_paramedis2, IFNULL(e.nama_paramedis,"")) AS nama_paramedis,
                 fc_nama_px(a.no_rm) AS nama_px,
                 a.tgl_masuk,
+                  d.status,
+                e.status as status_dokter,
                 fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,
                 a.kode_penjamin,
                 a.kode_kunjungan,
@@ -117,6 +119,8 @@ class MonitoringController extends Controller
         ,IFNULL(e.nama_paramedis,"") AS nama_paramedis
         ,fc_nama_px(a.no_rm) AS nama_px
         ,a.tgl_masuk
+          d.status,
+                e.status as status_dokter,
         ,fc_NAMA_PARAMEDIS1(a.kode_paramedis) nama_dpjp
         ,a.kode_penjamin
         ,a.kode_kunjungan
@@ -196,8 +200,11 @@ class MonitoringController extends Controller
 
         $assesdok = DB::select('SELECT * FROM erm_cppt_dokter
         WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $request->kj]);
-        $tgl_msk_skrining = Carbon::parse($assesdok[0]->tgl_kunjungan)->subMinutes(10);
-
+        if ($assesdok != NULL) {
+            $tgl_msk_skrining = Carbon::parse($assesdok[0]->tgl_kunjungan)->subMinutes(10);
+        } else {
+            $tgl_masuk_skrining = '0';
+        }
         $assesdokbid = DB::select('SELECT * FROM erm_cppt_dokter_kebidanan WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $kj]);
         // dd($assesdokbid);
         $riwayatorderrad = DB::select('SELECT
@@ -265,7 +272,7 @@ class MonitoringController extends Controller
                 'ttv' => $ttv,
                 'ttb' => $ttb,
                 'dpjp' => $dpjp,
-                'tgl_msk_skrining' => $tgl_msk_skrining,
+                // 'tgl_msk_skrining' => $tgl_msk_skrining,
                 'riwayattindakandpjp' => $riwayattindakandpjp,
                 'rencanaplg' => $rencanaplg,
                 'tindakan' => $tindakan,

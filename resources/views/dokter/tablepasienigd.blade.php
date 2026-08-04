@@ -42,15 +42,21 @@
                  @if ($a->nama_perawat == null && $a->nama_perawat1 == null)
 
                  <button class="badge badge-danger ermdokter"> belum diisi </button>
+                 @elseif ($a->status == 2)
+                 <button class="badge badge-success ermdokter"> Sudah Validasi </button> | {{ $a->nama_perawat }} {{ $a->nama_perawat1 }}
+
                  @else
-                 <button class="badge badge-success ermdokter"> Sudah Diisi </button> | {{ $a->nama_perawat }} {{ $a->nama_perawat1 }}
+                 <button class="badge badge-warning ermdokter"> Belum Validasi </button> | {{ $a->nama_perawat }} {{ $a->nama_perawat1 }}
                  @endif
              </td>
              <td class="status2" style="text-align: center;">
                  @if ($a->nama_paramedis == null)
                  <button class="badge badge-danger ermdokter"> belum diisi </button>
+                 @elseif($a->status_dokter == 2)
+                 <button class="badge badge-success ermdokter"> Sudah Validasi </button> | {{ $a->nama_paramedis }}
+
                  @else
-                 <button class="badge badge-success ermdokter"> Sudah Diisi </button> | {{ $a->nama_paramedis }}
+                 <button class="badge badge-warning ermdokter"> Belum Validasi </button> | {{ $a->nama_paramedis }}
                  @endif
              </td>
 
@@ -89,6 +95,8 @@
          var kj = $row.find(".kj").text();
          var tglmasuk = $row.find(".tglmasuk").text();
          var status2 = $row.find(".status2").text();
+         unit = $('#unit').val()
+
          $.ajax({
              type: "post",
              data: {
@@ -99,6 +107,7 @@
                  kj,
                  status1,
                  status2,
+                 unit,
                  tglmasuk
 
              },

@@ -22,7 +22,7 @@
                         <input type="text" name="counter" id="counter" value="{{ $counter }}" hidden>
 
                         <input type="text" name="tglmasuk" id="tglmasuk" value="{{ $tglmasuk }}" hidden>
-                        <input type="text" name="unit" id="unit" value="{{ $unit }}" hidden>
+                        <input type="text" hidden name="unit" id="unit" value="{{ $unit }}" >
 
 
                         @if ($unit == '1002')
@@ -246,6 +246,11 @@
                             <li class="nav-item" id="pemeriksaan">
                                 <a href="#" class="nav-link cpptdokter">
                                     <i class="fas fa-male mr-2"></i>Catatan Perkembangan Pasien Terintegrasi (CPPT)
+                                </a>
+                            </li>
+                               <li class="nav-item" id="pemeriksaan">
+                                <a href="#" class="nav-link assemenbunuhdiri">
+                                    <i class="fas fa-male mr-2"></i>Assesmen Khusus Resiko Bunuh Diri
                                 </a>
                             </li>
                             <li class="nav-item" id="pemeriksaan">
@@ -917,6 +922,37 @@
     //         }
     //     });
     // });
+    
+     $(".assemenbunuhdiri").click(function() {
+        spinner = $('#loader2');
+        spinner.show();
+        kj = $('#kj').val()
+        norm = $('#norm').val()
+
+        unit = $('#unit').val()
+
+        $.ajax({
+            type: "post",
+            data: {
+                _token: "{{ csrf_token() }}",
+                kj,
+                unit,
+
+                norm
+
+            },
+            url: '<?= route('assemenbunuhdiri') ?>',
+            error: function(data) {
+                spinner.hide();
+                alert('oke!!')
+            },
+            success: function(response) {
+                spinner.hide();
+                $('.formermdokter').html(response);
+
+            }
+        });
+    });
     $(".resumecpptdokter").click(function() {
         spinner = $('#loader2');
         spinner.show();

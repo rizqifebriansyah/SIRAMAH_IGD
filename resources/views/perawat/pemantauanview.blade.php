@@ -93,7 +93,7 @@
             <td>{{$l->nadi}}</td>
             <td>{{$l->rr}}</td>
             <td>{{$l->suhu}}</td>
-            <td>{{$l->10}}</td>
+            <td>{{$l->his}}</td>
             <td>{{$l->lama}}</td>
             <td>{{$l->djj}}</td>
             <td>{{$l->obatcairan}}</td>

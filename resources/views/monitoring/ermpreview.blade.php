@@ -13,6 +13,12 @@
 <div id="printableArea">
     <div class="card-header">
         <button type="submit" class="btn btn-info cetakresumecpptdokter"> <i class="fa fa-print"></i> Cetak Resume </button>
+        <button type="submit" class="btn btn-primary cetakresumecpptdokter"> <i class="fa fa-print"></i> Cetak Resume </button>
+        <button type="submit" class="btn btn-warning cetakassesperawat"> <i class="fa fa-print"></i> Cetak assesmen perawat </button>
+        <button type="submit" class="btn btn-success cetakassesdokter"> <i class="fa fa-print"></i> Cetak assesmen dokter </button>
+        <button type="submit" class="btn btn-info cetakobsperawat"> <i class="fa fa-print"></i> Cetak observasi </button>
+        <button type="submit" class="btn btn-info mt-2 cetakrencplg"> <i class="fa fa-print"></i> Cetak rencana pulang </button>
+
         <input type="text" class="form-check-input" id="kj" name="kj" value="{{$kj}}" hidden>
         <input type="text" class="form-check-input" id="norm" name="norm" value="{{$norm}}" hidden>
 
@@ -4520,693 +4526,693 @@
                         <i class="bi bi-book mr-1 ml-1"></i>PEMERIKSAAN FISIK
                     </div>
 
-                   <table class="table">
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="text-bold font-italic">Pupil </td>
-                                                        <td>
-                                                            <div class="row">
-                                                                <div class="col-md-3">
-                                                                    <div class="form-check">
-                                                                        @if($assesper[0]->pupil == 'Normal')
-                                                                        <input class="form-check-input" type="checkbox" name="pupil" id="pupil" value="Normal" checked>
-                                                                        <label class="form-check-label">Normal </label>
-                                                                        @else
-                                                                        <input class="form-check-input" type="checkbox" name="pupil" id="pupil" value="Normal">
-                                                                        <label class="form-check-label">Normal </label>
-                                                                        @endif
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td class="text-bold font-italic">Pupil </td>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                @if($assesper[0]->pupil == 'Normal')
+                                                <input class="form-check-input" type="checkbox" name="pupil" id="pupil" value="Normal" checked>
+                                                <label class="form-check-label">Normal </label>
+                                                @else
+                                                <input class="form-check-input" type="checkbox" name="pupil" id="pupil" value="Normal">
+                                                <label class="form-check-label">Normal </label>
+                                                @endif
 
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-check">
-                                                                        @if($assesper[0]->pupil_1 == 'Miosis')
-                                                                        <input class="form-check-input" type="checkbox" name="pupil1" id="pupil1" value="Miosis" checked>
-                                                                        <label class="form-check-label">Miosis </label>
-                                                                        @else
-                                                                        <input class="form-check-input" type="checkbox" name="pupil1" id="pupil1" value="Miosis">
-                                                                        <label class="form-check-label">Miosis </label>
-                                                                        @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                @if($assesper[0]->pupil_1 == 'Miosis')
+                                                <input class="form-check-input" type="checkbox" name="pupil1" id="pupil1" value="Miosis" checked>
+                                                <label class="form-check-label">Miosis </label>
+                                                @else
+                                                <input class="form-check-input" type="checkbox" name="pupil1" id="pupil1" value="Miosis">
+                                                <label class="form-check-label">Miosis </label>
+                                                @endif
 
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-check">
-                                                                        @if($assesper[0]->pupil_2 == 'Midriasis')
-                                                                        <input class="form-check-input" type="checkbox" name="pupil2" id="pupil2" checked value="Midriasis">
-                                                                        <label class="form-check-label">Midriasis </label>
-                                                                        @else
-                                                                        <input class="form-check-input" type="checkbox" name="pupil2" id="pupil2" value="Midriasis">
-                                                                        <label class="form-check-label">Midriasis </label>
-                                                                        @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                @if($assesper[0]->pupil_2 == 'Midriasis')
+                                                <input class="form-check-input" type="checkbox" name="pupil2" id="pupil2" checked value="Midriasis">
+                                                <label class="form-check-label">Midriasis </label>
+                                                @else
+                                                <input class="form-check-input" type="checkbox" name="pupil2" id="pupil2" value="Midriasis">
+                                                <label class="form-check-label">Midriasis </label>
+                                                @endif
 
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-check">
-                                                                        @if($assesper[0]->pupil_3 == 'Isokor')
-                                                                        <input class="form-check-input" type="checkbox" name="pupil3" id="pupil3" value="Isokor" checked>
-                                                                        <label class="form-check-label">Isokor </label>
-                                                                        @else
-                                                                        <input class="form-check-input" type="checkbox" name="pupil3" id="pupil3" value="Isokor">
-                                                                        <label class="form-check-label">Isokor </label>
-                                                                        @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                @if($assesper[0]->pupil_3 == 'Isokor')
+                                                <input class="form-check-input" type="checkbox" name="pupil3" id="pupil3" value="Isokor" checked>
+                                                <label class="form-check-label">Isokor </label>
+                                                @else
+                                                <input class="form-check-input" type="checkbox" name="pupil3" id="pupil3" value="Isokor">
+                                                <label class="form-check-label">Isokor </label>
+                                                @endif
 
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-check">
-                                                                        @if($assesper[0]->pupil_4 == 'Anisokor')
-                                                                        <input class="form-check-input" type="checkbox" name="pupil4" id="pupil4" checked value="Anisokor">
-                                                                        <label class="form-check-label">Anisokor </label>
-                                                                        @else
-                                                                        <input class="form-check-input" type="checkbox" name="pupil4" id="pupil4" value="Anisokor">
-                                                                        <label class="form-check-label">Anisokor </label>
-                                                                        @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                @if($assesper[0]->pupil_4 == 'Anisokor')
+                                                <input class="form-check-input" type="checkbox" name="pupil4" id="pupil4" checked value="Anisokor">
+                                                <label class="form-check-label">Anisokor </label>
+                                                @else
+                                                <input class="form-check-input" type="checkbox" name="pupil4" id="pupil4" value="Anisokor">
+                                                <label class="form-check-label">Anisokor </label>
+                                                @endif
 
-                                                                    </div>
-                                                                </div>
+                                            </div>
+                                        </div>
 
-                                                                <div class="col-md-3">
-                                                                    <div class="form-check">
-                                                                        @if($assesper[0]->pupil_5 == 'Tidak Ada')
-                                                                        <input class="form-check-input" type="checkbox" name="pupil5" id="pupil5" value="Tidak Ada" checked>
-                                                                        <label class="form-check-label">Tidak Ada </label>
-                                                                        @else
-                                                                        <input class="form-check-input" type="checkbox" name="pupil5" id="pupil5" value="Tidak Ada">
-                                                                        <label class="form-check-label">Tidak Ada </label>
-                                                                        @endif
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                @if($assesper[0]->pupil_5 == 'Tidak Ada')
+                                                <input class="form-check-input" type="checkbox" name="pupil5" id="pupil5" value="Tidak Ada" checked>
+                                                <label class="form-check-label">Tidak Ada </label>
+                                                @else
+                                                <input class="form-check-input" type="checkbox" name="pupil5" id="pupil5" value="Tidak Ada">
+                                                <label class="form-check-label">Tidak Ada </label>
+                                                @endif
 
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </td>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
 
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-bold font-italic">Tekanan Intrakranial </td>
-                                                        <td>
-                                                            <div class="row">
-                                                                <div class="col-md-3">
-                                                                    <div class="form-check">
-                                                                        @if($assesper[0]->tekanan_intrakranial == 'Sakit Kepala')
-                                                                        <input class="form-check-input" type="checkbox" name="intra" id="intra" value="Sakit Kepala" checked>
-                                                                        <label class="form-check-label">Sakit Kepala </label>
-                                                                        @else
-                                                                        <input class="form-check-input" type="checkbox" name="intra" id="intra" value="Sakit Kepala">
-                                                                        <label class="form-check-label">Sakit Kepala </label>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-check">
-                                                                        @if($assesper[0]->tekanan_intrakranial_1 == 'Muntah')
-                                                                        <input class="form-check-input" type="checkbox" name="intra1" id="intra1" value="Muntah" checked>
-                                                                        <label class="form-check-label">Muntah </label>
-                                                                        @else
-                                                                        <input class="form-check-input" type="checkbox" name="intra1" id="intra1" value="Muntah">
-                                                                        <label class="form-check-label">Muntah </label>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-check">
-                                                                        @if($assesper[0]->tekanan_intrakranial_2 == 'Pusing')
-                                                                        <input class="form-check-input" type="checkbox" name="intra2" id="intra2" value="Pusing" checked>
-                                                                        <label class="form-check-label">Pusing </label>
-                                                                        @else
-                                                                        <input class="form-check-input" type="checkbox" name="intra2" id="intra2" value="Pusing">
-                                                                        <label class="form-check-label">Pusing </label>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-check">
-                                                                        @if($assesper[0]->tekanan_intrakranial_3 == 'Hypertensi')
-                                                                        <input class="form-check-input" type="checkbox" name="intra3" id="intra3" value="Hypertensi" checked>
-                                                                        <label class="form-check-label">Hypertensi </label>
-                                                                        @else
-                                                                        <input class="form-check-input" type="checkbox" name="intra3" id="intra3" value="Hypertensi">
-                                                                        <label class="form-check-label">Hypertensi </label>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-check">
-                                                                        @if($assesper[0]->tekanan_intrakranial_4 == 'Bingung')
-                                                                        <input class="form-check-input" type="checkbox" name="intra4" id="intra4" value="Bingung" checked>
-                                                                        <label class="form-check-label">Bingung </label>
-                                                                        @else
-                                                                        <input class="form-check-input" type="checkbox" name="intra4" id="intra4" value="Bingung">
-                                                                        <label class="form-check-label">Bingung </label>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-check">
-                                                                        @if($assesper[0]->tekanan_intrakranial_5 == 'Hipotensi')
-                                                                        <input class="form-check-input" type="checkbox" name="intra5" id="intra5" value="Hipotensi" checked>
-                                                                        <label class="form-check-label">Hipotensi </label>
-                                                                        @else
-                                                                        <input class="form-check-input" type="checkbox" name="intra5" id="intra5" value="Hipotensi">
-                                                                        <label class="form-check-label">Hipotensi </label>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-check">
-                                                                        @if($assesper[0]->tekanan_intrakranial_6 == 'Tidak Ada')
-                                                                        <input class="form-check-input" type="checkbox" name="intra6" id="intra6" value="Tidak Ada" checked>
-                                                                        <label class="form-check-label">Tidak Ada </label>
-                                                                        @else
-                                                                        <input class="form-check-input" type="checkbox" name="intra6" id="intra6" value="Tidak Ada">
-                                                                        <label class="form-check-label">Tidak Ada </label>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </td>
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic">Tekanan Intrakranial </td>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                @if($assesper[0]->tekanan_intrakranial == 'Sakit Kepala')
+                                                <input class="form-check-input" type="checkbox" name="intra" id="intra" value="Sakit Kepala" checked>
+                                                <label class="form-check-label">Sakit Kepala </label>
+                                                @else
+                                                <input class="form-check-input" type="checkbox" name="intra" id="intra" value="Sakit Kepala">
+                                                <label class="form-check-label">Sakit Kepala </label>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                @if($assesper[0]->tekanan_intrakranial_1 == 'Muntah')
+                                                <input class="form-check-input" type="checkbox" name="intra1" id="intra1" value="Muntah" checked>
+                                                <label class="form-check-label">Muntah </label>
+                                                @else
+                                                <input class="form-check-input" type="checkbox" name="intra1" id="intra1" value="Muntah">
+                                                <label class="form-check-label">Muntah </label>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                @if($assesper[0]->tekanan_intrakranial_2 == 'Pusing')
+                                                <input class="form-check-input" type="checkbox" name="intra2" id="intra2" value="Pusing" checked>
+                                                <label class="form-check-label">Pusing </label>
+                                                @else
+                                                <input class="form-check-input" type="checkbox" name="intra2" id="intra2" value="Pusing">
+                                                <label class="form-check-label">Pusing </label>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                @if($assesper[0]->tekanan_intrakranial_3 == 'Hypertensi')
+                                                <input class="form-check-input" type="checkbox" name="intra3" id="intra3" value="Hypertensi" checked>
+                                                <label class="form-check-label">Hypertensi </label>
+                                                @else
+                                                <input class="form-check-input" type="checkbox" name="intra3" id="intra3" value="Hypertensi">
+                                                <label class="form-check-label">Hypertensi </label>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                @if($assesper[0]->tekanan_intrakranial_4 == 'Bingung')
+                                                <input class="form-check-input" type="checkbox" name="intra4" id="intra4" value="Bingung" checked>
+                                                <label class="form-check-label">Bingung </label>
+                                                @else
+                                                <input class="form-check-input" type="checkbox" name="intra4" id="intra4" value="Bingung">
+                                                <label class="form-check-label">Bingung </label>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                @if($assesper[0]->tekanan_intrakranial_5 == 'Hipotensi')
+                                                <input class="form-check-input" type="checkbox" name="intra5" id="intra5" value="Hipotensi" checked>
+                                                <label class="form-check-label">Hipotensi </label>
+                                                @else
+                                                <input class="form-check-input" type="checkbox" name="intra5" id="intra5" value="Hipotensi">
+                                                <label class="form-check-label">Hipotensi </label>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                @if($assesper[0]->tekanan_intrakranial_6 == 'Tidak Ada')
+                                                <input class="form-check-input" type="checkbox" name="intra6" id="intra6" value="Tidak Ada" checked>
+                                                <label class="form-check-label">Tidak Ada </label>
+                                                @else
+                                                <input class="form-check-input" type="checkbox" name="intra6" id="intra6" value="Tidak Ada">
+                                                <label class="form-check-label">Tidak Ada </label>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
 
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-bold font-italic">Neuro Sensorik</td>
-                                                        <td>
-                                                            <div class="row">
-                                                                <div class="col-md-3">
-                                                                    <div class="form-check">
-                                                                        @if($assesper[0]->neuro_sensorik == 'Spasme otot')
-                                                                        <input class="form-check-input" type="checkbox" name="neuro" id="neuro" value="Spasme otot" checked>
-                                                                        <label class="form-check-label">Spasme otot </label>
-                                                                        @else
-                                                                        <input class="form-check-input" type="checkbox" name="neuro" id="neuro" value="Spasme otot">
-                                                                        <label class="form-check-label">Spasme otot </label>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-check">
-                                                                        @if($assesper[0]->neuro_sensorik_1 == 'Perubahan Sensorik')
-                                                                        <input class="form-check-input" type="checkbox" name="neuro1" id="neuro1" value="Perubahan Sensorik" checked>
-                                                                        <label class="form-check-label">Perubahan Sensorik </label>
-                                                                        @else
-                                                                        <input class="form-check-input" type="checkbox" name="neuro1" id="neuro1" value="Perubahan Sensorik">
-                                                                        <label class="form-check-label">Perubahan Sensorik </label>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-check">
-                                                                        @if($assesper[0]->neuro_sensorik_2 == 'Perubahan Motorik')
-                                                                        <input class="form-check-input" type="checkbox" name="neuro2" id="neuro2" value="Perubahan Motorik" checked>
-                                                                        <label class="form-check-label">Perubahan Motorik </label>
-                                                                        @else
-                                                                        <input class="form-check-input" type="checkbox" name="neuro2" id="neuro2" value="Perubahan Motorik">
-                                                                        <label class="form-check-label">Perubahan Motorik </label>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-check">
-                                                                        @if($assesper[0]->neuro_sensorik_3 == 'Tidak Ada')
-                                                                        <input class="form-check-input" type="checkbox" name="neuro3" id="neuro3" value="Tidak Ada" checked>
-                                                                        <label class="form-check-label">Tidak Ada </label>
-                                                                        @else
-                                                                        <input class="form-check-input" type="checkbox" name="neuro3" id="neuro3" value="Tidak Ada">
-                                                                        <label class="form-check-label">Tidak Ada </label>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic">Neuro Sensorik</td>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                @if($assesper[0]->neuro_sensorik == 'Spasme otot')
+                                                <input class="form-check-input" type="checkbox" name="neuro" id="neuro" value="Spasme otot" checked>
+                                                <label class="form-check-label">Spasme otot </label>
+                                                @else
+                                                <input class="form-check-input" type="checkbox" name="neuro" id="neuro" value="Spasme otot">
+                                                <label class="form-check-label">Spasme otot </label>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                @if($assesper[0]->neuro_sensorik_1 == 'Perubahan Sensorik')
+                                                <input class="form-check-input" type="checkbox" name="neuro1" id="neuro1" value="Perubahan Sensorik" checked>
+                                                <label class="form-check-label">Perubahan Sensorik </label>
+                                                @else
+                                                <input class="form-check-input" type="checkbox" name="neuro1" id="neuro1" value="Perubahan Sensorik">
+                                                <label class="form-check-label">Perubahan Sensorik </label>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                @if($assesper[0]->neuro_sensorik_2 == 'Perubahan Motorik')
+                                                <input class="form-check-input" type="checkbox" name="neuro2" id="neuro2" value="Perubahan Motorik" checked>
+                                                <label class="form-check-label">Perubahan Motorik </label>
+                                                @else
+                                                <input class="form-check-input" type="checkbox" name="neuro2" id="neuro2" value="Perubahan Motorik">
+                                                <label class="form-check-label">Perubahan Motorik </label>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                @if($assesper[0]->neuro_sensorik_3 == 'Tidak Ada')
+                                                <input class="form-check-input" type="checkbox" name="neuro3" id="neuro3" value="Tidak Ada" checked>
+                                                <label class="form-check-label">Tidak Ada </label>
+                                                @else
+                                                <input class="form-check-input" type="checkbox" name="neuro3" id="neuro3" value="Tidak Ada">
+                                                <label class="form-check-label">Tidak Ada </label>
+                                                @endif
+                                            </div>
+                                        </div>
 
-                                                            </div>
-                                                        </td>
+                                    </div>
+                                </td>
 
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-bold font-italic">Muskolo Skeletal</td>
-                                                        <td>
-                                                            <div class="row">
-                                                                <div class="col-md-3">
-                                                                    <div class="form-check">
-                                                                        @if($assesper[0]->muskolo_skletal == 'Kerusakan Jaringan / Luka')
-                                                                        <input class="form-check-input" type="checkbox" name="muskolo" id="muskolo" value="Kerusakan Jaringan / Luka" checked>
-                                                                        <label class="form-check-label">Kerusakan Jaringan / Luka </label>
-                                                                        @else
-                                                                        <input class="form-check-input" type="checkbox" name="muskolo" id="muskolo" value="Kerusakan Jaringan / Luka">
-                                                                        <label class="form-check-label">Kerusakan Jaringan / Luka </label>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-check">
-                                                                        @if($assesper[0]->muskolo_skletal_1 == 'Perubahan Ekstremitas')
-                                                                        <input class="form-check-input" type="checkbox" name="muskolo1" id="muskolo1" value="Perubahan Ekstremitas" checked>
-                                                                        <label class="form-check-label">Perubahan Ekstremitas </label>
-                                                                        @else
-                                                                        <input class="form-check-input" type="checkbox" name="muskolo1" id="muskolo1" value="Perubahan Ekstremitas">
-                                                                        <label class="form-check-label">Perubahan Ekstremitas </label>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-check">
-                                                                        @if($assesper[0]->muskolo_skletal_2 == 'Penurunan Tingkat Kesadaran')
-                                                                        <input class="form-check-input" type="checkbox" name="muskolo2" id="muskolo2" value="Penurunan Tingkat Kesadaran" checked>
-                                                                        <label class="form-check-label">Penurunan Tingkat Kesadaran </label>
-                                                                        @else
-                                                                        <input class="form-check-input" type="checkbox" name="muskolo2" id="muskolo2" value="Penurunan Tingkat Kesadaran">
-                                                                        <label class="form-check-label">Penurunan Tingkat Kesadaran </label>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-check">
-                                                                        @if($assesper[0]->muskolo_skletal_3 == 'Fraktur / Dislokasi / Luksasio')
-                                                                        <input class="form-check-input" type="checkbox" name="muskolo3" id="muskolo3" value="Fraktur / Dislokasi / Luksasio" checked>
-                                                                        <label class="form-check-label">Fraktur / Dislokasi / Luksasio </label>
-                                                                        @else
-                                                                        <input class="form-check-input" type="checkbox" name="muskolo3" id="muskolo3" value="Fraktur / Dislokasi / Luksasio">
-                                                                        <label class="form-check-label">Fraktur / Dislokasi / Luksasio </label>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-check">
-                                                                        @if($assesper[0]->muskolo_skletal_4 == 'Tidak Ada')
-                                                                        <input class="form-check-input" type="checkbox" name="muskolo" id="muskolo" value="Tidak Ada" checked>
-                                                                        <label class="form-check-label">Tidak Ada </label>
-                                                                        @else
-                                                                        <input class="form-check-input" type="checkbox" name="muskolo4" id="muskolo4" value="Tidak Ada">
-                                                                        <label class="form-check-label">Tidak Ada </label>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </td>
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic">Muskolo Skeletal</td>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                @if($assesper[0]->muskolo_skletal == 'Kerusakan Jaringan / Luka')
+                                                <input class="form-check-input" type="checkbox" name="muskolo" id="muskolo" value="Kerusakan Jaringan / Luka" checked>
+                                                <label class="form-check-label">Kerusakan Jaringan / Luka </label>
+                                                @else
+                                                <input class="form-check-input" type="checkbox" name="muskolo" id="muskolo" value="Kerusakan Jaringan / Luka">
+                                                <label class="form-check-label">Kerusakan Jaringan / Luka </label>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                @if($assesper[0]->muskolo_skletal_1 == 'Perubahan Ekstremitas')
+                                                <input class="form-check-input" type="checkbox" name="muskolo1" id="muskolo1" value="Perubahan Ekstremitas" checked>
+                                                <label class="form-check-label">Perubahan Ekstremitas </label>
+                                                @else
+                                                <input class="form-check-input" type="checkbox" name="muskolo1" id="muskolo1" value="Perubahan Ekstremitas">
+                                                <label class="form-check-label">Perubahan Ekstremitas </label>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                @if($assesper[0]->muskolo_skletal_2 == 'Penurunan Tingkat Kesadaran')
+                                                <input class="form-check-input" type="checkbox" name="muskolo2" id="muskolo2" value="Penurunan Tingkat Kesadaran" checked>
+                                                <label class="form-check-label">Penurunan Tingkat Kesadaran </label>
+                                                @else
+                                                <input class="form-check-input" type="checkbox" name="muskolo2" id="muskolo2" value="Penurunan Tingkat Kesadaran">
+                                                <label class="form-check-label">Penurunan Tingkat Kesadaran </label>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                @if($assesper[0]->muskolo_skletal_3 == 'Fraktur / Dislokasi / Luksasio')
+                                                <input class="form-check-input" type="checkbox" name="muskolo3" id="muskolo3" value="Fraktur / Dislokasi / Luksasio" checked>
+                                                <label class="form-check-label">Fraktur / Dislokasi / Luksasio </label>
+                                                @else
+                                                <input class="form-check-input" type="checkbox" name="muskolo3" id="muskolo3" value="Fraktur / Dislokasi / Luksasio">
+                                                <label class="form-check-label">Fraktur / Dislokasi / Luksasio </label>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                @if($assesper[0]->muskolo_skletal_4 == 'Tidak Ada')
+                                                <input class="form-check-input" type="checkbox" name="muskolo" id="muskolo" value="Tidak Ada" checked>
+                                                <label class="form-check-label">Tidak Ada </label>
+                                                @else
+                                                <input class="form-check-input" type="checkbox" name="muskolo4" id="muskolo4" value="Tidak Ada">
+                                                <label class="form-check-label">Tidak Ada </label>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
 
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-bold font-italic">Integumen</td>
-                                                        <td>
-                                                            <div class="row">
-                                                                <div class="col-md-3">
-                                                                    <div class="form-check">
-                                                                        @if($assesper[0]->integumen == 'Luka Bakar')
-                                                                        <input class="form-check-input" type="checkbox" name="integumen" id="integumen" value="Luka Bakar" checked>
-                                                                        <label class="form-check-label">Luka Bakar </label>
-                                                                        @else
-                                                                        <input class="form-check-input" type="checkbox" name="integumen" id="integumen" value="Luka Bakar">
-                                                                        <label class="form-check-label">Luka Bakar </label>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-check">
-                                                                        @if($assesper[0]->integumen_1 == 'Luka Robek')
-                                                                        <input class="form-check-input" type="checkbox" name="integumen1" id="integumen1" value="Luka Robek" checked>
-                                                                        <label class="form-check-label">Luka Robek </label>
-                                                                        @else
-                                                                        <input class="form-check-input" type="checkbox" name="integumen1" id="integumen1" value="Luka Robek">
-                                                                        <label class="form-check-label">Luka Robek </label>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-check">
-                                                                        @if($assesper[0]->integumen_2 == 'Lecet')
-                                                                        <input class="form-check-input" type="checkbox" name="integumen2" id="integumen2" value="Lecet" checked>
-                                                                        <label class="form-check-label">Lecet </label>
-                                                                        @else
-                                                                        <input class="form-check-input" type="checkbox" name="integumen2" id="integumen2" value="Lecet">
-                                                                        <label class="form-check-label">Lecet </label>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-check">
-                                                                        @if($assesper[0]->integumen_3 == 'Luka Dekubitus')
-                                                                        <input class="form-check-input" type="checkbox" name="integumen3" id="integumen3" value="Luka Dekubitus" checked>
-                                                                        <label class="form-check-label">Luka Dekubitus </label>
-                                                                        @else
-                                                                        <input class="form-check-input" type="checkbox" name="integumen3" id="integumen3" value="Luka Dekubitus">
-                                                                        <label class="form-check-label">Luka Dekubitus </label>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-check">
-                                                                        @if($assesper[0]->integumen_4 == 'Luka gangren')
-                                                                        <input class="form-check-input" type="checkbox" name="integumen4" id="integumen4" value="Luka gangren" checked>
-                                                                        <label class="form-check-label">Luka gangren </label>
-                                                                        @else
-                                                                        <input class="form-check-input" type="checkbox" name="integumen4" id="integumen4" value="Luka gangren">
-                                                                        <label class="form-check-label">Luka gangren </label>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-check">
-                                                                        @if($assesper[0]->integumen_5 == 'Tidak Ada')
-                                                                        <input class="form-check-input" type="checkbox" name="integumen5" id="integumen5" value="Tidak Ada" checked>
-                                                                        <label class="form-check-label">Tidak Ada </label>
-                                                                        @else
-                                                                        <input class="form-check-input" type="checkbox" name="integumen5" id="integumen5" value="Tidak Ada">
-                                                                        <label class="form-check-label">Tidak Ada </label>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic">Integumen</td>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                @if($assesper[0]->integumen == 'Luka Bakar')
+                                                <input class="form-check-input" type="checkbox" name="integumen" id="integumen" value="Luka Bakar" checked>
+                                                <label class="form-check-label">Luka Bakar </label>
+                                                @else
+                                                <input class="form-check-input" type="checkbox" name="integumen" id="integumen" value="Luka Bakar">
+                                                <label class="form-check-label">Luka Bakar </label>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                @if($assesper[0]->integumen_1 == 'Luka Robek')
+                                                <input class="form-check-input" type="checkbox" name="integumen1" id="integumen1" value="Luka Robek" checked>
+                                                <label class="form-check-label">Luka Robek </label>
+                                                @else
+                                                <input class="form-check-input" type="checkbox" name="integumen1" id="integumen1" value="Luka Robek">
+                                                <label class="form-check-label">Luka Robek </label>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                @if($assesper[0]->integumen_2 == 'Lecet')
+                                                <input class="form-check-input" type="checkbox" name="integumen2" id="integumen2" value="Lecet" checked>
+                                                <label class="form-check-label">Lecet </label>
+                                                @else
+                                                <input class="form-check-input" type="checkbox" name="integumen2" id="integumen2" value="Lecet">
+                                                <label class="form-check-label">Lecet </label>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                @if($assesper[0]->integumen_3 == 'Luka Dekubitus')
+                                                <input class="form-check-input" type="checkbox" name="integumen3" id="integumen3" value="Luka Dekubitus" checked>
+                                                <label class="form-check-label">Luka Dekubitus </label>
+                                                @else
+                                                <input class="form-check-input" type="checkbox" name="integumen3" id="integumen3" value="Luka Dekubitus">
+                                                <label class="form-check-label">Luka Dekubitus </label>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                @if($assesper[0]->integumen_4 == 'Luka gangren')
+                                                <input class="form-check-input" type="checkbox" name="integumen4" id="integumen4" value="Luka gangren" checked>
+                                                <label class="form-check-label">Luka gangren </label>
+                                                @else
+                                                <input class="form-check-input" type="checkbox" name="integumen4" id="integumen4" value="Luka gangren">
+                                                <label class="form-check-label">Luka gangren </label>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                @if($assesper[0]->integumen_5 == 'Tidak Ada')
+                                                <input class="form-check-input" type="checkbox" name="integumen5" id="integumen5" value="Tidak Ada" checked>
+                                                <label class="form-check-label">Tidak Ada </label>
+                                                @else
+                                                <input class="form-check-input" type="checkbox" name="integumen5" id="integumen5" value="Tidak Ada">
+                                                <label class="form-check-label">Tidak Ada </label>
+                                                @endif
+                                            </div>
+                                        </div>
 
-                                                            </div>
-                                                        </td>
+                                    </div>
+                                </td>
 
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-bold font-italic">Turgor Kulit</td>
-                                                        <td>
-                                                            <div class="row">
-                                                                <div class="col-md-3">
-                                                                    <div class="form-check">
-                                                                        @if($assesper[0]->turgor_kulit == 'Baik')
-                                                                        <input class="form-check-input" type="checkbox" name="turgor" id="turgor" value="Baik" checked>
-                                                                        <label class="form-check-label">Baik </label>
-                                                                        @else
-                                                                        <input class="form-check-input" type="checkbox" name="turgor" id="turgor" value="Baik">
-                                                                        <label class="form-check-label">Baik </label>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-check">
-                                                                        @if($assesper[0]->turgor_kulit_1 == 'Menurun')
-                                                                        <input class="form-check-input" type="checkbox" name="turgor1" id="turgor1" value="Menurun" checked>
-                                                                        <label class="form-check-label">Menurun </label>
-                                                                        @else
-                                                                        <input class="form-check-input" type="checkbox" name="turgor1" id="turgor1" value="Menurun">
-                                                                        <label class="form-check-label">Menurun </label>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-check">
-                                                                        @if($assesper[0]->turgor_kulit_2 == 'Tidak Ada')
-                                                                        <input class="form-check-input" type="checkbox" name="turgor2" id="turgor2" value="Tidak Ada" checked>
-                                                                        <label class="form-check-label">Tidak Ada </label>
-                                                                        @else
-                                                                        <input class="form-check-input" type="checkbox" name="turgor2" id="turgor2" value="Tidak Ada">
-                                                                        <label class="form-check-label">Tidak Ada </label>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </td>
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic">Turgor Kulit</td>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                @if($assesper[0]->turgor_kulit == 'Baik')
+                                                <input class="form-check-input" type="checkbox" name="turgor" id="turgor" value="Baik" checked>
+                                                <label class="form-check-label">Baik </label>
+                                                @else
+                                                <input class="form-check-input" type="checkbox" name="turgor" id="turgor" value="Baik">
+                                                <label class="form-check-label">Baik </label>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                @if($assesper[0]->turgor_kulit_1 == 'Menurun')
+                                                <input class="form-check-input" type="checkbox" name="turgor1" id="turgor1" value="Menurun" checked>
+                                                <label class="form-check-label">Menurun </label>
+                                                @else
+                                                <input class="form-check-input" type="checkbox" name="turgor1" id="turgor1" value="Menurun">
+                                                <label class="form-check-label">Menurun </label>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                @if($assesper[0]->turgor_kulit_2 == 'Tidak Ada')
+                                                <input class="form-check-input" type="checkbox" name="turgor2" id="turgor2" value="Tidak Ada" checked>
+                                                <label class="form-check-label">Tidak Ada </label>
+                                                @else
+                                                <input class="form-check-input" type="checkbox" name="turgor2" id="turgor2" value="Tidak Ada">
+                                                <label class="form-check-label">Tidak Ada </label>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
 
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-bold font-italic">Edema</td>
-                                                        <td>
-                                                            <div class="row">
-                                                                <div class="col-md-3">
-                                                                    <div class="form-check">
-                                                                        @if($assesper[0]->edema == 'Ekstremitas')
-                                                                        <input class="form-check-input" type="checkbox" name="edema" id="edema" value="Ekstremitas" checked>
-                                                                        <label class="form-check-label">Ekstremitas </label>
-                                                                        @else
-                                                                        <input class="form-check-input" type="checkbox" name="edema" id="edema" value="Ekstremitas">
-                                                                        <label class="form-check-label">Ekstremitas </label>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-check">
-                                                                        @if($assesper[0]->edema_1 == 'Seluruh tubuh')
-                                                                        <input class="form-check-input" type="checkbox" name="edema1" id="edema1" value="Seluruh tubuh" checked>
-                                                                        <label class="form-check-label">Seluruh tubuh </label>
-                                                                        @else
-                                                                        <input class="form-check-input" type="checkbox" name="edema1" id="edema1" value="Seluruh tubuh">
-                                                                        <label class="form-check-label">Seluruh tubuh </label>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-check">
-                                                                        @if($assesper[0]->edema_2 == 'Ascites')
-                                                                        <input class="form-check-input" type="checkbox" name="edema2" id="edema2" value="Ascites" checked>
-                                                                        <label class="form-check-label">Ascites </label>
-                                                                        @else
-                                                                        <input class="form-check-input" type="checkbox" name="edema2" id="edema2" value="Ascites">
-                                                                        <label class="form-check-label">Ascites </label>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-check">
-                                                                        @if($assesper[0]->edema_3 == 'Palpebra')
-                                                                        <input class="form-check-input" type="checkbox" name="edema3" id="edema3" value="Palpebra" checked>
-                                                                        <label class="form-check-label">Palpebra </label>
-                                                                        @else
-                                                                        <input class="form-check-input" type="checkbox" name="edema3" id="edema3" value="Palpebra">
-                                                                        <label class="form-check-label">Palpebra </label>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-check">
-                                                                        @if($assesper[0]->edema_4 == 'Tidak Ada')
-                                                                        <input class="form-check-input" type="checkbox" name="edema4" id="edema4" value="Tidak Ada" checked>
-                                                                        <label class="form-check-label">Tidak Ada </label>
-                                                                        @else
-                                                                        <input class="form-check-input" type="checkbox" name="edema4" id="edema4" value="Tidak Ada">
-                                                                        <label class="form-check-label">Tidak Ada </label>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </td>
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic">Edema</td>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                @if($assesper[0]->edema == 'Ekstremitas')
+                                                <input class="form-check-input" type="checkbox" name="edema" id="edema" value="Ekstremitas" checked>
+                                                <label class="form-check-label">Ekstremitas </label>
+                                                @else
+                                                <input class="form-check-input" type="checkbox" name="edema" id="edema" value="Ekstremitas">
+                                                <label class="form-check-label">Ekstremitas </label>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                @if($assesper[0]->edema_1 == 'Seluruh tubuh')
+                                                <input class="form-check-input" type="checkbox" name="edema1" id="edema1" value="Seluruh tubuh" checked>
+                                                <label class="form-check-label">Seluruh tubuh </label>
+                                                @else
+                                                <input class="form-check-input" type="checkbox" name="edema1" id="edema1" value="Seluruh tubuh">
+                                                <label class="form-check-label">Seluruh tubuh </label>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                @if($assesper[0]->edema_2 == 'Ascites')
+                                                <input class="form-check-input" type="checkbox" name="edema2" id="edema2" value="Ascites" checked>
+                                                <label class="form-check-label">Ascites </label>
+                                                @else
+                                                <input class="form-check-input" type="checkbox" name="edema2" id="edema2" value="Ascites">
+                                                <label class="form-check-label">Ascites </label>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                @if($assesper[0]->edema_3 == 'Palpebra')
+                                                <input class="form-check-input" type="checkbox" name="edema3" id="edema3" value="Palpebra" checked>
+                                                <label class="form-check-label">Palpebra </label>
+                                                @else
+                                                <input class="form-check-input" type="checkbox" name="edema3" id="edema3" value="Palpebra">
+                                                <label class="form-check-label">Palpebra </label>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                @if($assesper[0]->edema_4 == 'Tidak Ada')
+                                                <input class="form-check-input" type="checkbox" name="edema4" id="edema4" value="Tidak Ada" checked>
+                                                <label class="form-check-label">Tidak Ada </label>
+                                                @else
+                                                <input class="form-check-input" type="checkbox" name="edema4" id="edema4" value="Tidak Ada">
+                                                <label class="form-check-label">Tidak Ada </label>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
 
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-bold font-italic">Mukosa Mulut</td>
-                                                        <td>
-                                                            <div class="row">
-                                                                <div class="col-md-3">
-                                                                    <div class="form-check">
-                                                                        @if($assesper[0]->mukosa_mulut == 'Kering')
-                                                                        <input class="form-check-input" type="checkbox" name="Mukosa" id="Mukosa" value="Kering" checked>
-                                                                        <label class="form-check-label">Kering </label>
-                                                                        @else
-                                                                        <input class="form-check-input" type="checkbox" name="Mukosa" id="Mukosa" value="Kering">
-                                                                        <label class="form-check-label">Kering </label>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-check">
-                                                                        @if($assesper[0]->mukosa_mulut_1 == 'Lembab')
-                                                                        <input class="form-check-input" type="checkbox" name="mukosa1" id="mukosa1" value="Lembab" checked>
-                                                                        <label class="form-check-label">Lembab </label>
-                                                                        @else
-                                                                        <input class="form-check-input" type="checkbox" name="mukosa1" id="mukosa1" value="Lembab">
-                                                                        <label class="form-check-label">Lembab </label>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-check">
-                                                                        @if($assesper[0]->mukosa_mulut_2 == 'Tidak Ada')
-                                                                        <input class="form-check-input" type="checkbox" name="mukosa2" id="mukosa2" value="Tidak Ada" checked>
-                                                                        <label class="form-check-label">Tidak Ada </label>
-                                                                        @else
-                                                                        <input class="form-check-input" type="checkbox" name="mukosa2" id="mukosa2" value="Tidak Ada">
-                                                                        <label class="form-check-label">Tidak Ada </label>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </td>
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic">Mukosa Mulut</td>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                @if($assesper[0]->mukosa_mulut == 'Kering')
+                                                <input class="form-check-input" type="checkbox" name="Mukosa" id="Mukosa" value="Kering" checked>
+                                                <label class="form-check-label">Kering </label>
+                                                @else
+                                                <input class="form-check-input" type="checkbox" name="Mukosa" id="Mukosa" value="Kering">
+                                                <label class="form-check-label">Kering </label>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                @if($assesper[0]->mukosa_mulut_1 == 'Lembab')
+                                                <input class="form-check-input" type="checkbox" name="mukosa1" id="mukosa1" value="Lembab" checked>
+                                                <label class="form-check-label">Lembab </label>
+                                                @else
+                                                <input class="form-check-input" type="checkbox" name="mukosa1" id="mukosa1" value="Lembab">
+                                                <label class="form-check-label">Lembab </label>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                @if($assesper[0]->mukosa_mulut_2 == 'Tidak Ada')
+                                                <input class="form-check-input" type="checkbox" name="mukosa2" id="mukosa2" value="Tidak Ada" checked>
+                                                <label class="form-check-label">Tidak Ada </label>
+                                                @else
+                                                <input class="form-check-input" type="checkbox" name="mukosa2" id="mukosa2" value="Tidak Ada">
+                                                <label class="form-check-label">Tidak Ada </label>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
 
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-bold font-italic">Pendarahan</td>
-                                                        <td>
-                                                            <div class="row">
-                                                                <div class="col-md-3">
-                                                                    <div class="form-check">
-                                                                        <div class="col-md-3">
-                                                                            <div class="form-check">
-                                                                                @if($assesper[0]->pendarahan == 'Tidak Ada')
-                                                                                <input class="form-check-input" type="radio" name="pendarahan" id="pendarahan" value="Tidak Ada" checked>
-                                                                                <label class="form-check-label">Tidak Ada </label>
-                                                                                @else
-                                                                                <input class="form-check-input" type="radio" name="pendarahan" id="pendarahan" value="Tidak Ada">
-                                                                                <label class="form-check-label">Tidak Ada </label>
-                                                                                @endif
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic">Pendarahan</td>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                <div class="col-md-3">
+                                                    <div class="form-check">
+                                                        @if($assesper[0]->pendarahan == 'Tidak Ada')
+                                                        <input class="form-check-input" type="radio" name="pendarahan" id="pendarahan" value="Tidak Ada" checked>
+                                                        <label class="form-check-label">Tidak Ada </label>
+                                                        @else
+                                                        <input class="form-check-input" type="radio" name="pendarahan" id="pendarahan" value="Tidak Ada">
+                                                        <label class="form-check-label">Tidak Ada </label>
+                                                        @endif
 
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-group">
-                                                                        @if($assesper[0]->pendarahan == 'ADA')
-                                                                        <input class="form-check-input" type="radio" name="pendarahan" id="pendarahan" value="pendarahan" checked>
-                                                                        <label class="form-check-label">Jumlah </label>
-                                                                        @else
-                                                                        <input class="form-check-input" type="radio" name="pendarahan" id="pendarahan" value="pendarahan">
-                                                                        <label class="form-check-label">Jumlah </label>
-                                                                        @endif
-                                                                        <input class="form-control" placeholder="{{$assesper[0]->jumlah_pendarahan}}" type="input" name="jumlahdarah" id="jumlahdarah" value="{{$assesper[0]->jumlah_pendarahan}}">
-                                                                    </div>
-                                                                </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                @if($assesper[0]->pendarahan == 'ADA')
+                                                <input class="form-check-input" type="radio" name="pendarahan" id="pendarahan" value="pendarahan" checked>
+                                                <label class="form-check-label">Jumlah </label>
+                                                @else
+                                                <input class="form-check-input" type="radio" name="pendarahan" id="pendarahan" value="pendarahan">
+                                                <label class="form-check-label">Jumlah </label>
+                                                @endif
+                                                <input class="form-control" placeholder="{{$assesper[0]->jumlah_pendarahan}}" type="input" name="jumlahdarah" id="jumlahdarah" value="{{$assesper[0]->jumlah_pendarahan}}">
+                                            </div>
+                                        </div>
 
-                                                            </div>
-                                                        </td>
+                                    </div>
+                                </td>
 
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-bold font-italic">Intoksikasi</td>
-                                                        <td>
-                                                            <div class="row">
-                                                                <div class="col-md-3">
-                                                                    <div class="form-check">
-                                                                        @if($assesper[0]->introksikasi == 'Makanan')
-                                                                        <input class="form-check-input" type="checkbox" name="intoksikasi" id="intoksikasi" value="Makanan" checked>
-                                                                        <label class="form-check-label">Makanan </label>
-                                                                        @else
-                                                                        <input class="form-check-input" type="checkbox" name="intoksikasi" id="intoksikasi" value="Makanan">
-                                                                        <label class="form-check-label">Makanan </label>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-check">
-                                                                        @if($assesper[0]->introksikasi_1 == 'Gigitan Binatang')
-                                                                        <input class="form-check-input" type="checkbox" name="intoksikasi1" id="intoksikasi1" value="Gigitan Binatang" checked>
-                                                                        <label class="form-check-label">Gigitan Binatang </label>
-                                                                        @else
-                                                                        <input class="form-check-input" type="checkbox" name="intoksikasi1" id="intoksikasi1" value="Gigitan Binatang">
-                                                                        <label class="form-check-label">Gigitan Binatang </label>
-                                                                        @endif
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic">Intoksikasi</td>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                @if($assesper[0]->introksikasi == 'Makanan')
+                                                <input class="form-check-input" type="checkbox" name="intoksikasi" id="intoksikasi" value="Makanan" checked>
+                                                <label class="form-check-label">Makanan </label>
+                                                @else
+                                                <input class="form-check-input" type="checkbox" name="intoksikasi" id="intoksikasi" value="Makanan">
+                                                <label class="form-check-label">Makanan </label>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                @if($assesper[0]->introksikasi_1 == 'Gigitan Binatang')
+                                                <input class="form-check-input" type="checkbox" name="intoksikasi1" id="intoksikasi1" value="Gigitan Binatang" checked>
+                                                <label class="form-check-label">Gigitan Binatang </label>
+                                                @else
+                                                <input class="form-check-input" type="checkbox" name="intoksikasi1" id="intoksikasi1" value="Gigitan Binatang">
+                                                <label class="form-check-label">Gigitan Binatang </label>
+                                                @endif
 
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-check">
-                                                                        @if($assesper[0]->introksikasi_2 == 'Zat Kimia')
-                                                                        <input class="form-check-input" type="checkbox" name="intoksikasi2" id="intoksikasi2" value="Zat Kimia" checked>
-                                                                        <label class="form-check-label">Zat Kimia </label>
-                                                                        @else
-                                                                        <input class="form-check-input" type="checkbox" name="intoksikasi2" id="intoksikasi2" value="Zat Kimia">
-                                                                        <label class="form-check-label">Zat Kimia </label>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-check">
-                                                                        @if($assesper[0]->introksikasi_3 == 'Gas')
-                                                                        <input class="form-check-input" type="checkbox" name="intoksikasi3" id="intoksikasi3" value="Gas" checked>
-                                                                        <label class="form-check-label">Gas </label>
-                                                                        @else
-                                                                        <input class="form-check-input" type="checkbox" name="intoksikasi3" id="intoksikasi3" value="Gas">
-                                                                        <label class="form-check-label">Gas </label>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-check">
-                                                                        @if($assesper[0]->introksikasi_4 == 'Obat')
-                                                                        <input class="form-check-input" type="checkbox" name="intoksikasi4" id="intoksikasi4" value="Obat" checked>
-                                                                        <label class="form-check-label">Obat </label>
-                                                                        @else
-                                                                        <input class="form-check-input" type="checkbox" name="intoksikasi4" id="intoksikasi4" value="Obat">
-                                                                        <label class="form-check-label">Obat </label>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-check">
-                                                                        @if($assesper[0]->introksikasi_5 == 'Tidak Ada')
-                                                                        <input class="form-check-input" type="checkbox" name="intoksikasi5" id="intoksikasi5" value="Tidak Ada" checked>
-                                                                        <label class="form-check-label">Tidak Ada </label>
-                                                                        @else
-                                                                        <input class="form-check-input" type="checkbox" name="intoksikasi5" id="intoksikasi5" value="Tidak Ada">
-                                                                        <label class="form-check-label">Tidak Ada </label>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </td>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                @if($assesper[0]->introksikasi_2 == 'Zat Kimia')
+                                                <input class="form-check-input" type="checkbox" name="intoksikasi2" id="intoksikasi2" value="Zat Kimia" checked>
+                                                <label class="form-check-label">Zat Kimia </label>
+                                                @else
+                                                <input class="form-check-input" type="checkbox" name="intoksikasi2" id="intoksikasi2" value="Zat Kimia">
+                                                <label class="form-check-label">Zat Kimia </label>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                @if($assesper[0]->introksikasi_3 == 'Gas')
+                                                <input class="form-check-input" type="checkbox" name="intoksikasi3" id="intoksikasi3" value="Gas" checked>
+                                                <label class="form-check-label">Gas </label>
+                                                @else
+                                                <input class="form-check-input" type="checkbox" name="intoksikasi3" id="intoksikasi3" value="Gas">
+                                                <label class="form-check-label">Gas </label>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                @if($assesper[0]->introksikasi_4 == 'Obat')
+                                                <input class="form-check-input" type="checkbox" name="intoksikasi4" id="intoksikasi4" value="Obat" checked>
+                                                <label class="form-check-label">Obat </label>
+                                                @else
+                                                <input class="form-check-input" type="checkbox" name="intoksikasi4" id="intoksikasi4" value="Obat">
+                                                <label class="form-check-label">Obat </label>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                @if($assesper[0]->introksikasi_5 == 'Tidak Ada')
+                                                <input class="form-check-input" type="checkbox" name="intoksikasi5" id="intoksikasi5" value="Tidak Ada" checked>
+                                                <label class="form-check-label">Tidak Ada </label>
+                                                @else
+                                                <input class="form-check-input" type="checkbox" name="intoksikasi5" id="intoksikasi5" value="Tidak Ada">
+                                                <label class="form-check-label">Tidak Ada </label>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
 
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-bold font-italic">Eliminasi</td>
-                                                        <td>
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic">Eliminasi</td>
+                                <td>
 
-                                                        </td>
+                                </td>
 
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-bold font-italic">BAB</td>
-                                                        <td>
-                                                            <div class="row">
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic">BAB</td>
+                                <td>
+                                    <div class="row">
 
-                                                                <div class="col-md-3">
-                                                                    <div class="form-group">
-                                                                        <label class="form-check-label float-center">FREKUENSI</label>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-check-label float-center">FREKUENSI</label>
 
-                                                                        <input class="form-control" placeholder="" type="input" name="BABF" id="BABF" value="{{$assesper[0]->bab_frekuensi}}">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-group">
-                                                                        <label class="form-check-label float-center">KONSISTENSI</label>
+                                                <input class="form-control" placeholder="" type="input" name="BABF" id="BABF" value="{{$assesper[0]->bab_frekuensi}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-check-label float-center">KONSISTENSI</label>
 
-                                                                        <input class="form-control" placeholder="" type="input" name="BABK" id="BABK" value="{{$assesper[0]->bab_konsistensi}}">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-group">
-                                                                        <label class="form-check-label float-center">WARNA</label>
+                                                <input class="form-control" placeholder="" type="input" name="BABK" id="BABK" value="{{$assesper[0]->bab_konsistensi}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-check-label float-center">WARNA</label>
 
-                                                                        <input class="form-control" placeholder="" type="input" name="BABKW" id="BABKW" value="{{$assesper[0]->bab_warna}}">
-                                                                    </div>
-                                                                </div>
+                                                <input class="form-control" placeholder="" type="input" name="BABKW" id="BABKW" value="{{$assesper[0]->bab_warna}}">
+                                            </div>
+                                        </div>
 
-                                                            </div>
-                                                        </td>
+                                    </div>
+                                </td>
 
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-bold font-italic">BAK</td>
-                                                        <td>
-                                                            <div class="row">
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic">BAK</td>
+                                <td>
+                                    <div class="row">
 
-                                                                <div class="col-md-3">
-                                                                    <div class="form-group">
-                                                                        <label class="form-check-label float-center">FREKUENSI</label>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-check-label float-center">FREKUENSI</label>
 
-                                                                        <input class="form-control" placeholder="" type="input" name="BAKF" id="BAKF" value="{{$assesper[0]->bak_frekuensi}}">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-group">
-                                                                        <label class="form-check-label float-center">KONSISTENSI</label>
+                                                <input class="form-control" placeholder="" type="input" name="BAKF" id="BAKF" value="{{$assesper[0]->bak_frekuensi}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-check-label float-center">KONSISTENSI</label>
 
-                                                                        <input class="form-control" placeholder="" type="input" name="BAKK" id="BAKK" value="{{$assesper[0]->bak_konsistensi}}">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-group">
-                                                                        <label class="form-check-label float-center">WARNA</label>
+                                                <input class="form-control" placeholder="" type="input" name="BAKK" id="BAKK" value="{{$assesper[0]->bak_konsistensi}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-check-label float-center">WARNA</label>
 
-                                                                        <input class="form-control" placeholder="" type="input" name="BAKKW" id="BAKKW" value="{{$assesper[0]->bak_warna}}">
-                                                                    </div>
-                                                                </div>
+                                                <input class="form-control" placeholder="" type="input" name="BAKKW" id="BAKKW" value="{{$assesper[0]->bak_warna}}">
+                                            </div>
+                                        </div>
 
-                                                            </div>
-                                                        </td>
+                                    </div>
+                                </td>
 
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                            </tr>
+                        </tbody>
+                    </table>
 
                     <div class="card-header bg-secondary">
                         <i class="bi bi-book mr-1 ml-1"></i>PSIKOSOSIAL, EKONOMI DAN SPIRTUAL
@@ -5941,7 +5947,6 @@
                                 <tr>
                                     <td class="text-bold font-italic">Tanggal Kunjungan Skrining</td>
                                     <td>
-                                        <input class="form-control" type="datetime-local" value="{{$tgl_msk_skrining}}" name="tgl_msk_skrining" id="tgl_msk_skrining">
 
 
                                     </td>
@@ -7261,7 +7266,14 @@
 <div id="printableArea">
     <div class="card-header">
         <button type="submit" class="btn btn-info cetakresumedokterkebidanan"> <i class="fa fa-print"></i> Cetak Resume </button>
+        <button type="submit" class="btn btn-primary cetakresumecpptdokter"> <i class="fa fa-print"></i> Cetak Resume </button>
+        <button type="submit" class="btn btn-warning cetakassesperawat"> <i class="fa fa-print"></i> Cetak assesmen perawat </button>
+        <button type="submit" class="btn btn-success cetakassesdokter"> <i class="fa fa-print"></i> Cetak assesmen dokter </button>
+        <button type="submit" class="btn btn-info cetakobsperawat"> <i class="fa fa-print"></i> Cetak observasi </button>
+        <button type="submit" class="btn btn-info mt-2 cetakrencplg"> <i class="fa fa-print"></i> Cetak rencana pulang </button>
+
         <input type="text" class="form-check-input" id="kj" name="kj" value="{{$kj}}" hidden>
+
 
     </div>
     <div class="card-body">
@@ -12295,6 +12307,265 @@
                 window.open('cetaktresumecppt/' + kj + '/' + norm);
 
             }
+
+
+            $(".cetakassesdokter").click(function() {
+                kj = $('#kj').val()
+                norm = $('#norm').val()
+
+
+
+
+
+                Swal.fire({
+                    title: "Apakah ingin print Assesmen Dokter?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ya',
+                    cancelButtonColor: '#d33',
+                    cancelButtonText: "Batal"
+
+                }).then(result => {
+                    //jika klik ya maka arahkan ke proses.php
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            async: true,
+                            type: 'post',
+                            dataType: 'json',
+                            data: {
+                                _token: "{{ csrf_token() }}",
+
+                                kj,
+                                norm
+
+                            },
+                            url: '<?= route('cetakassesdokter') ?>',
+                            error: function(data) {
+                                spinner.hide()
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Ooops....',
+                                    text: 'Sepertinya ada masalah......',
+                                    footer: ''
+                                })
+                            },
+                            success: function(data) {
+                                spinner.hide()
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'OK',
+                                    text: data.message,
+                                    footer: ''
+                                })
+                                cetakassesmendokter(data.kj, data.norm)
+
+                            }
+                        });
+                    }
+                })
+                return false;
+            });
+
+
+            function cetakassesmendokter(kj, norm) {
+                window.open('cetakassesmendokter/' + kj + '/' + norm);
+
+            }
+
+            $(".cetakassesperawat").click(function() {
+                kj = $('#kj').val()
+                norm = $('#norm').val()
+
+
+
+
+
+                Swal.fire({
+                    title: "Apakah ingin print Assesmen Perawat?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ya',
+                    cancelButtonColor: '#d33',
+                    cancelButtonText: "Batal"
+
+                }).then(result => {
+                    //jika klik ya maka arahkan ke proses.php
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            async: true,
+                            type: 'post',
+                            dataType: 'json',
+                            data: {
+                                _token: "{{ csrf_token() }}",
+
+                                kj,
+                                norm
+
+                            },
+                            url: '<?= route('cetakassesperawat') ?>',
+                            error: function(data) {
+                                spinner.hide()
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Ooops....',
+                                    text: 'Sepertinya ada masalah......',
+                                    footer: ''
+                                })
+                            },
+                            success: function(data) {
+                                spinner.hide()
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'OK',
+                                    text: data.message,
+                                    footer: ''
+                                })
+                                cetakassesmenperawat(data.kj, data.norm)
+
+                            }
+                        });
+                    }
+                })
+                return false;
+            });
+
+
+            function cetakassesmenperawat(kj, norm) {
+                window.open('cetakassesmenperawat/' + kj + '/' + norm);
+
+            }
+
+            $(".cetakobsperawat").click(function() {
+                kj = $('#kj').val()
+                norm = $('#norm').val()
+
+
+
+
+
+                Swal.fire({
+                    title: "Apakah ingin print pemantauan?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ya',
+                    cancelButtonColor: '#d33',
+                    cancelButtonText: "Batal"
+
+                }).then(result => {
+                    //jika klik ya maka arahkan ke proses.php
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            async: true,
+                            type: 'post',
+                            dataType: 'json',
+                            data: {
+                                _token: "{{ csrf_token() }}",
+
+                                kj,
+                                norm
+
+                            },
+                            url: '<?= route('cetakobsperawat') ?>',
+                            error: function(data) {
+                                spinner.hide()
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Ooops....',
+                                    text: 'Sepertinya ada masalah......',
+                                    footer: ''
+                                })
+                            },
+                            success: function(data) {
+                                spinner.hide()
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'OK',
+                                    text: data.message,
+                                    footer: ''
+                                })
+                                cetakobservasiperawat(data.kj, data.norm)
+
+                            }
+                        });
+                    }
+                })
+                return false;
+            });
+
+
+            function cetakobservasiperawat(kj, norm) {
+                window.open('cetakobservasiperawat/' + kj + '/' + norm);
+
+            }
+
+            $(".cetakrencplg").click(function() {
+                kj = $('#kj').val()
+                norm = $('#norm').val()
+
+
+
+
+
+                Swal.fire({
+                    title: "Apakah ingin print rencana pulang?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ya',
+                    cancelButtonColor: '#d33',
+                    cancelButtonText: "Batal"
+
+                }).then(result => {
+                    //jika klik ya maka arahkan ke proses.php
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            async: true,
+                            type: 'post',
+                            dataType: 'json',
+                            data: {
+                                _token: "{{ csrf_token() }}",
+
+                                kj,
+                                norm
+
+                            },
+                            url: '<?= route('cetakrencplg') ?>',
+                            error: function(data) {
+                                spinner.hide()
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Ooops....',
+                                    text: 'Sepertinya ada masalah......',
+                                    footer: ''
+                                })
+                            },
+                            success: function(data) {
+                                spinner.hide()
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'OK',
+                                    text: data.message,
+                                    footer: ''
+                                })
+                                cetakrencanapulang(data.kj, data.norm)
+
+                            }
+                        });
+                    }
+                })
+                return false;
+            });
+
+
+            function cetakrencanapulang(kj, norm) {
+                window.open('cetakrencanapulang/' + kj + '/' + norm);
+
+            }
+
+
 
             $(".cetakresumedokterkebidanan").click(function() {
                 kj = $('#kj').val()
