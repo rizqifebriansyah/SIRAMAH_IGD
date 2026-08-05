@@ -435,7 +435,7 @@ class DokterController extends Controller
                 e.diagnosis AS DIAGX,
                 a.no_rm,
                 "" AS nama_perawat,
-                IFNULL(d.nama_bidan_update, IFNULL(d.nama_bidan,"")) AS nama_perawat1,
+                IFNULL(d.nama_bidan, IFNULL(d.nama_bidan,"")) AS nama_perawat1,
                 IFNULL(e.nama_paramedis2, IFNULL(e.nama_paramedis,"")) AS nama_paramedis,
                 fc_nama_px(a.no_rm) AS nama_px,
                 a.tgl_masuk,

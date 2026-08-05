@@ -39,7 +39,15 @@
                         </p>
                     </a>
                 </li>
-            
+                <li class="nav-item">
+                    <a href="{{ route('monitoringigdk') }}" class="nav-link @if($menu == 'monitoringigdk' ) active @endif">
+                        <i class="nav-icon fas fa-archive"></i>
+                        <p>
+                            Assesment IGDK
+                        </p>
+                    </a>
+                </li>
+                
 
 
                 <li class="nav-item">

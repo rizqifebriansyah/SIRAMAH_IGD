@@ -103,6 +103,83 @@ class MonitoringController extends Controller
             ]
         );
     }
+     public function monitoringigdk()
+    {
+        $menu = 'monitoringigdk';
+        $user = auth()->user()->nama;
+        $unit = '1023';
+        // dd($unit);
+
+
+        $now = Carbon::now()->format('Y-m-d');
+        // $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','$unit','$now')");
+        // $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','$unit','$now')");
+        $tgl_masuk_1 = date('Ymd', strtotime('-2 days', strtotime($now)));
+
+        $pasienigd = DB::select('SELECT 
+                e.diagnosis AS DIAGX,
+                a.no_rm,
+                "" AS nama_perawat,
+                IFNULL(d.nama_bidan, IFNULL(d.nama_bidan,"")) AS nama_perawat1,
+                IFNULL(e.nama_paramedis2, IFNULL(e.nama_paramedis,"")) AS nama_paramedis,
+                fc_nama_px(a.no_rm) AS nama_px,
+                a.tgl_masuk,
+                  d.status,
+                e.status as status_dokter,
+                fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,
+                a.kode_penjamin,
+                a.kode_kunjungan,
+                a.kelas,
+                a.kelas AS KELAS_UNIT,
+                a.counter,
+                b.jenis_kelamin
+
+            FROM ts_kunjungan a
+            INNER JOIN mt_pasien b ON b.no_rm = a.no_rm
+
+            -- FIX PERAWAT (optional tapi disarankan)
+            LEFT JOIN (
+                SELECT d1.*
+                FROM erm_cppt_kebidanan d1
+                INNER JOIN (
+                    SELECT kode_kunjungan, MAX(id) AS max_id
+                    FROM erm_cppt_kebidanan
+                    WHERE STATUS NOT IN (2,3)
+                    GROUP BY kode_kunjungan
+                ) d2 
+                ON d1.kode_kunjungan = d2.kode_kunjungan 
+                AND d1.id = d2.max_id
+            ) d ON d.kode_kunjungan = a.kode_kunjungan
+
+            -- FIX DOKTER (INI KUNCI)
+            LEFT JOIN (
+                SELECT e1.*
+                FROM erm_cppt_dokter_kebidanan e1
+                INNER JOIN (
+                    SELECT kode_kunjungan, MAX(id) AS max_id
+                    FROM erm_cppt_dokter_kebidanan
+                    GROUP BY kode_kunjungan
+                ) e2 
+                ON e1.kode_kunjungan = e2.kode_kunjungan 
+                AND e1.id = e2.max_id
+            ) e ON e.kode_kunjungan = a.kode_kunjungan
+
+            WHERE a.tgl_masuk >= ?
+            AND a.tgl_masuk < ?
+            AND a.status_kunjungan NOT IN (8,11)
+            AND a.kode_unit = "1023"', [$tgl_masuk_1, $now]);
+
+        return view(
+            'monitoring.assesigdk',
+            [
+                'title' => 'MONITORING RME',
+                'menu' => $menu,
+                'pasienigd' => $pasienigd,
+                'user' => $user,
+                'unit' => $unit
+            ]
+        );
+    }
     public function carimonitoringpasien(Request $request)
     {
         $tgl = $request->tglkunjungan;

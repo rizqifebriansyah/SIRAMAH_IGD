@@ -7,7 +7,7 @@
 
         <span class="brand-text font-weight-light">SIRAMAH IGD</span>
         @else
-        <span class="brand-text font-weight-light">SIRAMAH IGD KEBIDANAN</span>
+        <span class="brand-text font-weight-light">SIRAMAH IGDK</span>
 
         @endif
     </a>
@@ -57,9 +57,9 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <!-- <a href="{{ route('assesigk') }}" class="nav-link @if($menu == 'assesigk' ) active @endif"> -->
-                    
-                <a href="" class="nav-link @if($menu == 'assesigk' ) active @endif">
+                    <a href="{{ route('assesigk') }}" class="nav-link @if($menu == 'assesigk' ) active @endif">
+
+                        <!-- <a href="" class="nav-link @if($menu == 'assesigk' ) active @endif"> -->
                         <i class="nav-icon fas fa-archive"></i>
                         <p>
                             IGDK Perbaikan

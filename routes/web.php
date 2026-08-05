@@ -46,6 +46,9 @@ Route::group(['middleware' => ['hak_akses:18', 'auth']], function () {
 
 
     Route::get('monitoring', [MonitoringController::class, 'monitoring'])->name('monitoring');
+    Route::get('monitoringigdk', [MonitoringController::class, 'monitoringigdk'])->name('monitoringigdk');
+    
+    
     Route::post('ermpreview', [MonitoringController::class, 'ermpreview'])->name('ermpreview');
 
     //cari
