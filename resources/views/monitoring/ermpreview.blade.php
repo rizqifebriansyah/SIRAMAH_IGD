@@ -6011,6 +6011,9 @@
                                     <td></td>
 
                                 </tr>
+                                @if ($assesper == null)
+
+                                @else
                                 <tr>
                                     <td class="text-bold font-italic">Sumber Data</td>
                                     <td>
@@ -6043,7 +6046,7 @@
 
                                     </td>
                                 </tr>
-
+                                @endif
                                 <tr>
                                     <td class="text-bold font-italic">Macam Kasus</td>
                                     <td>
@@ -6681,18 +6684,7 @@
                                         <form id="dynamic-form" class="formtindakandpjp">
                                             <div class="field_wrapperrrr">
                                                 <div class="row">
-                                                    <!-- <div class="col-md-5"><label for="">PILIH DPJP</label>
-                                                        <select class="form-control  select2" name="kode_dpjp" id="kode_dpjp" placeholder="Cari opsi...">
-                                                            @foreach ($dpjp as $i => $p) <option value="{{ $p->kode_paramedis }}">{{ $p->nama_paramedis }} </option> @endforeach
-                                                        </select>
 
-                                                    </div>
-                                                    <div class="col-md-5">
-                                                        <label for="">Tata Laksana DPJP</label> -->
-                                                    <!-- <input class="form-control" placeholder="Tata Laksana DPJP" type="text-area" row="3" name="talaksanadpjp[]" value="" /> -->
-                                                    <!-- <textarea class="form-control" id="talaksanadpjp" name="talaksanadpjp" placeholder=""></textarea>
-
-                                                    </div> -->
 
                                                     <div class="col-md-12">
                                                         <a class="btn btn-success float-right" href="javascript:void(0);" id="add_button" title="Add field">TAMBAH</a>
@@ -6703,25 +6695,6 @@
                                         </form>
                                     </td>
                                 </tr>
-                                <!-- <tr>
-                                    <td class="text-bold font-italic">PILIH DPJP</td>
-                                    <td colspan="">
-                                        <div class="form-group detaildpjp">
-                                            <input type="text " id="nama_paramedis" value="{{$assesdok[0]->nama_dpjp}}" class="form-control">
-                                        </div>
-                                        <button class="btn btn-primary caridpjp mb-2"> <i class="bi bi-search-heart"></i></button>
-
-                                    </td>
-                                </tr> -->
-                                <!-- <tr>
-                                    <td class="text-bold font-italic">TATA LAKSANA DPJP</td>
-                                    <td>
-                                        <div class="input-group">
-                                            <textarea class="form-control" id="talaksanadpjp" name="talaksanadpjp" placeholder="">{{$assesdok[0]->tata_laksana_dpjp}}</textarea>
-
-                                        </div>
-                                    </td>
-                                </tr> -->
                                 <tr>
                                     <td class="text-bold font-italic">Evaluasi (30 menit pertama)</td>
                                     <td>
