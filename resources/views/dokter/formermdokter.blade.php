@@ -1468,9 +1468,11 @@
                                                     <div class="input-group">
                                                         <select class="form-control select2" name="tinjut_triase" id="tinjut_triase">
                                                             <option value=""> -- Pilih Tindak Lanjut --</option>
-                                                            <option value="Rawat">Rawat </option>
-                                                            <option value="Rujuk">Rujuk </option>
-                                                            <option value="Berobat Jalan">Berobat Jalan </option>
+                                                            <option value="Resustusi">Resustusi </option>
+                                                            <option value="Isolasi">Isolasi </option>
+                                                            <option value="Tindakan Bedah">Tindakan Bedah </option>
+                                                            <option value="Tindakan non bedah">Tindakan non bedah </option>
+                                                            <option value="Tindakan anak">Tindakan anak </option>
 
 
 
@@ -2999,14 +3001,16 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="text-bold font-italic">Tindak Lanjut</td>
+                                    <td class="text-bold font-italic">Tindak Lanjut (kirim ke ruang tindakan)</td>
                                     <td>
                                         <div class="input-group">
                                             <select class="form-control select2" name="tinjut_triase" id="tinjut_triase">
                                                 <option value="{{$triase[0]->tindak_lanjut}}">{{$triase[0]->tindak_lanjut}}</option>
-                                                <option value="Rawat">Rawat </option>
-                                                <option value="Rujuk">Rujuk </option>
-                                                <option value="Berobat Jalan">Berobat Jalan </option>
+                                                <option value="Resustusi">Resustusi </option>
+                                                <option value="Isolasi">Isolasi </option>
+                                                <option value="Tindakan Bedah">Tindakan Bedah </option>
+                                                <option value="Tindakan non bedah">Tindakan non bedah </option>
+                                                <option value="Tindakan anak">Tindakan anak </option>
 
 
 
@@ -8578,9 +8582,11 @@
                                         <div class="input-group">
                                             <select class="form-control select2" name="tinjut_triase" id="tinjut_triase">
                                                 <option value="{{$triase[0]->tindak_lanjut}}">{{$triase[0]->tindak_lanjut}}</option>
-                                                <option value="Rawat">Rawat </option>
-                                                <option value="Rujuk">Rujuk </option>
-                                                <option value="Berobat Jalan">Berobat Jalan </option>
+                                                <option value="Resustusi">Resustusi </option>
+                                                <option value="Isolasi">Isolasi </option>
+                                                <option value="Tindakan Bedah">Tindakan Bedah </option>
+                                                <option value="Tindakan non bedah">Tindakan non bedah </option>
+                                                <option value="Tindakan anak">Tindakan anak </option>
 
 
 
