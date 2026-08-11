@@ -1394,17 +1394,17 @@
                                                         </td>
                                                         <td>
                                                             <div class="form-check form-check-inline">
-                                                                <input class="form-check-input" type="checkbox" name="spsi7" id="spsi7" value="Kecendrungan Bunuh Diri">
-                                                                <label class="form-check-label" for="inlineRadio2">Kecendrungan Bunuh Diri</label>
+                                                                <input class="form-check-input" type="checkbox" name="spsi7" id="spsi7" value="Tidak Ada Masalah">
+                                                                <label class="form-check-label" for="inlineRadio2">Tidak Ada Masalah</label>
                                                             </div>
                                                         </td>
-                                                        <td>
+                                                        <!-- <td>
                                                             <div class="form-check form-check-inline">
                                                                 <input class="form-check-input" type="checkbox" name="spsi8" id="spsi8" value="Tidak Ada Masalah">
                                                                 <label class="form-check-label" for="inlineRadio2">Tidak Ada Masalah</label>
                                                             </div>
 
-                                                        </td>
+                                                        </td> -->
                                                     </tr>
                                                     <tr>
                                                         <td class="text-bold font-italic"></td>
@@ -1467,7 +1467,7 @@
                                                 <td>
                                                     <div class="input-group">
                                                         <select class="form-control select2" name="tinjut_triase" id="tinjut_triase">
-                                                            <option value=""> -- Pilih Tindak Lanjut --</option>
+                                                            <option value="Tidak ada">Tidak ada </option>
                                                             <option value="Resustusi">Resustusi </option>
                                                             <option value="Isolasi">Isolasi </option>
                                                             <option value="Tindakan Bedah">Tindakan Bedah </option>
@@ -2117,6 +2117,15 @@
                                     <td>
                                         <div class="input-group">
                                             <textarea class="form-control" id="tigak" name="tigak" placeholder=""></textarea>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold font-italic">Edukasi</td>
+                                    <td>
+                                        <div class="input-group">
+                                            <textarea class="form-control" id="edukasi" name="edukasi" placeholder=""></textarea>
 
                                         </div>
                                     </td>
@@ -2914,13 +2923,13 @@
                                     <td>
                                         @if($triase[0]->status_psikologis6 == NULL)
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" name="spsi6" id="spsi6" value="Gelisah">
-                                            <label class="form-check-label" for="inlineRadio1">Gelisah</label>
+                                            <input class="form-check-input" type="checkbox" name="spsi6" id="spsi6" value="Kecenderungan Bunuh Diri">
+                                            <label class="form-check-label" for="inlineRadio1">Kecenderungan Bunuh Diri</label>
                                         </div>
                                         @else
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" checked name="spsi6" id="spsi6" value="Gelisah">
-                                            <label class="form-check-label" for="inlineRadio1">Gelisah</label>
+                                            <input class="form-check-input" type="checkbox" checked name="spsi6" id="spsi6" value="Kecenderungan Bunuh Diri">
+                                            <label class="form-check-label" for="inlineRadio1">Kecenderungan Bunuh Diri</label>
                                         </div>
                                         @endif
 
@@ -2930,8 +2939,8 @@
                                     <td>
                                         @if($triase[0]->status_psikologis7 == NULL)
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" name="spsi7" id="spsi7" value="Kecendrungan Bunuh Diri">
-                                            <label class="form-check-label" for="inlineRadio2">Kecendrungan Bunuh Diri</label>
+                                            <input class="form-check-input" type="checkbox" name="spsi7" id="spsi7" value="Tidak ada masalah">
+                                            <label class="form-check-label" for="inlineRadio2">Tidak ada masalah</label>
                                         </div>
                                         @else
                                         <div class="form-check form-check-inline">
@@ -3006,6 +3015,8 @@
                                         <div class="input-group">
                                             <select class="form-control select2" name="tinjut_triase" id="tinjut_triase">
                                                 <option value="{{$triase[0]->tindak_lanjut}}">{{$triase[0]->tindak_lanjut}}</option>
+                                                <option value="Tidak ada">Tidak ada </option>
+
                                                 <option value="Resustusi">Resustusi </option>
                                                 <option value="Isolasi">Isolasi </option>
                                                 <option value="Tindakan Bedah">Tindakan Bedah </option>
@@ -7518,6 +7529,15 @@
                             <td>
                                 <div class="input-group">
                                     <textarea class="form-control" id="tigak" name="tigak" placeholder="">{{$assesdok[0]->tiga_kedua}}</textarea>
+
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-bold font-italic">Edukasi</td>
+                            <td>
+                                <div class="input-group">
+                                    <textarea class="form-control" id="edukasi" name="edukasi" placeholder="">{{$assesdok[0]->edukasi}}</textarea>
 
                                 </div>
                             </td>
@@ -8490,13 +8510,13 @@
                                     <td>
                                         @if($triase[0]->status_psikologis6 == NULL)
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" name="spsi6" id="spsi6" value="Gelisah">
-                                            <label class="form-check-label" for="inlineRadio1">Gelisah</label>
+                                            <input class="form-check-input" type="checkbox" name="spsi6" id="spsi6" value="Kecenderungan bunuh diri">
+                                            <label class="form-check-label" for="inlineRadio1">Kecenderungan bunuh diri</label>
                                         </div>
                                         @else
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" checked name="spsi6" id="spsi6" value="Gelisah">
-                                            <label class="form-check-label" for="inlineRadio1">Gelisah</label>
+                                            <input class="form-check-input" type="checkbox" checked name="spsi6" id="spsi6" value="Kecenderungan bunuh diri">
+                                            <label class="form-check-label" for="inlineRadio1">Kecenderungan bunuh diri</label>
                                         </div>
                                         @endif
 
@@ -8506,8 +8526,8 @@
                                     <td>
                                         @if($triase[0]->status_psikologis7 == NULL)
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" name="spsi7" id="spsi7" value="Kecendrungan Bunuh Diri">
-                                            <label class="form-check-label" for="inlineRadio2">Kecendrungan Bunuh Diri</label>
+                                            <input class="form-check-input" type="checkbox" name="spsi7" id="spsi7" value="Tidak ada masalah">
+                                            <label class="form-check-label" for="inlineRadio2">Tidak ada masalah</label>
                                         </div>
                                         @else
                                         <div class="form-check form-check-inline">
@@ -8582,6 +8602,8 @@
                                         <div class="input-group">
                                             <select class="form-control select2" name="tinjut_triase" id="tinjut_triase">
                                                 <option value="{{$triase[0]->tindak_lanjut}}">{{$triase[0]->tindak_lanjut}}</option>
+                                                <option value="Tidak ada">Tidak ada </option>
+
                                                 <option value="Resustusi">Resustusi </option>
                                                 <option value="Isolasi">Isolasi </option>
                                                 <option value="Tindakan Bedah">Tindakan Bedah </option>
@@ -13098,6 +13120,16 @@
                                 </div>
                             </td>
                         </tr>
+                        <tr>
+                            <td class="text-bold font-italic">Edukasi</td>
+                            <td>
+                                <div class="input-group">
+                                    <textarea class="form-control" id="edukasi" name="edukasi" placeholder="">{{$assesdok[0]->edukasi}}</textarea>
+
+                                </div>
+                            </td>
+                        </tr>
+
 
                     </tbody>
                 </table>
@@ -14748,6 +14780,8 @@
 
         var tigap = $('#tigap').val()
         var tigak = $('#tigak').val()
+        var edukasi = $('#edukasi').val()
+
         var norm = $('#norm').val()
         var kj = $('#kj').val()
         var kp = $('#kp').val()
@@ -14940,6 +14974,8 @@
 
                         tigap: $('#tigap').val(),
                         tigak: $('#tigak').val(),
+                        edukasi: $('#edukasi').val(),
+
                         norm: $('#norm').val(),
                         counter: $('#counter').val(),
                         kj: $('#kj').val(),
@@ -15157,6 +15193,8 @@
 
         var tigap = $('#tigap').val()
         var tigak = $('#tigak').val()
+        var edukasi = $('#edukasi').val()
+
         var norm = $('#norm').val()
         var kj = $('#kj').val()
         var kp = $('#kp').val()
@@ -15354,6 +15392,8 @@
 
                         tigap: $('#tigap').val(),
                         tigak: $('#tigak').val(),
+                        edukasi: $('#edukasi').val(),
+
                         norm: $('#norm').val(),
                         counter: $('#counter').val(),
                         kj: $('#kj').val(),

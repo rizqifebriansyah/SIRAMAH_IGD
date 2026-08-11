@@ -160,6 +160,8 @@ class DokterController extends Controller
                 INNER JOIN (
                     SELECT kode_kunjungan, MAX(id) AS max_id
                     FROM erm_cppt_dokter
+                    WHERE STATUS NOT IN (2,3)
+
                     GROUP BY kode_kunjungan
                 ) e2 
                 ON e1.kode_kunjungan = e2.kode_kunjungan 
@@ -213,6 +215,8 @@ class DokterController extends Controller
                 INNER JOIN (
                     SELECT kode_kunjungan, MAX(id) AS max_id
                     FROM erm_cppt_dokter
+                    WHERE STATUS NOT IN (2,3)
+
                     GROUP BY kode_kunjungan
                 ) e2 
                 ON e1.kode_kunjungan = e2.kode_kunjungan 
@@ -368,6 +372,8 @@ class DokterController extends Controller
                 INNER JOIN (
                     SELECT kode_kunjungan, MAX(id) AS max_id
                     FROM erm_cppt_dokter
+                    WHERE STATUS NOT IN (2,3)
+
                     GROUP BY kode_kunjungan
                 ) e2 
                 ON e1.kode_kunjungan = e2.kode_kunjungan 
@@ -473,6 +479,8 @@ class DokterController extends Controller
                 INNER JOIN (
                     SELECT kode_kunjungan, MAX(id) AS max_id
                     FROM erm_cppt_dokter_kebidanan
+                    WHERE STATUS NOT IN (2,3)
+
                     GROUP BY kode_kunjungan
                 ) e2 
                 ON e1.kode_kunjungan = e2.kode_kunjungan 
@@ -1068,10 +1076,22 @@ AND b.kelas_tarif = 1');
          ', ['3002', $request->kj]);
         //  AND b.satus_order = "1"
         // $layananlab = DB::select("CALL SP_PANGGIL_TARIF_LAB('$kelas','')");
-        $layananlab = DB::select("CALL SP_PANGGIL_TARIF_LAB('1','')");
+        // $layananlab = DB::select("CALL SP_PANGGIL_TARIF_LAB('1','')");
+        $layananlab = DB::select('SELECT b.kode_tarif_detail AS kode, a.nama_tarif AS Tindakan, b.tarif_penunjang AS tarif FROM mt_tarif_header a INNER JOIN mt_tarif_detail b ON b.kode_tarif_header = a.kode_tarif_header WHERE a.USER_INPUT_ID ="1" AND  a.kelompok_tarif_id IN (13) AND b.tarif_penunjang <> 0 AND b.act = 1 AND b.kelas_tarif = 1');
+
+         
         // $layanan = DB::select("CALL SP_CARI_TARIF_PELAYANAN_RAD('$ku','','$kelas')");
 
-        $layanan = DB::select("CALL SP_CARI_TARIF_PELAYANAN_RAD('1','','1')");
+        // $layanan = DB::select("CALL SP_CARI_TARIF_PELAYANAN_RAD('1','','1')");
+        $layanan = DB::select('SELECT b.kode_tarif_detail AS kode, a.nama_tarif AS Tindakan, b.tarif_penunjang AS tarif 
+            FROM mt_tarif_header a 
+            INNER JOIN mt_tarif_detail b ON b.kode_tarif_header = a.kode_tarif_header 
+            WHERE a.USER_INPUT_ID ="1" 
+            AND  a.kelompok_tarif_id IN (19) AND b.tarif_penunjang <> 0 
+            AND b.act = 1 
+            AND b.kelas_tarif = 1');
+
+
         $diagnosa = DB::select('SELECT * FROM mt_jenis_diagnosa_medis');
         $alasanplg  = DB::select('SELECT * FROM mt_alasan_pulang');
         $ttv = DB::select('SELECT tekanan_darah, sumber_data, frekuensi_nafas, keadaan_umum, kesadaran, frekuensi_nadi, suhu, berat_badan, umur, GCS, SPO2 FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
@@ -1819,6 +1839,8 @@ AND b.kelas_tarif = 1');
                 'riwayat_penyakit' => $request->riwayatpenyakit,
                 'tiga_pertama' => $request->tigap,
                 'tiga_kedua' => $request->tigak,
+                'edukasi' => $request->edukasi,
+
                 'diagnosa_kerja' => $request->diagnosa,
                 'keputusan_ruang' => $request->tinjutt,
                 'jam_ruang' => $request->jammasukk,
@@ -3985,6 +4007,8 @@ AND b.kelas_tarif = 1');
                     'riwayat_penyakit' => $request->riwayatpenyakit,
                     'tiga_pertama' => $request->tigap,
                     'tiga_kedua' => $request->tigak,
+                    'edukasi' => $request->edukasi,
+
                     'diagnosa_kerja' => $request->diagnosa,
                     'keputusan_ruang' => $request->tinjutt,
                     'jam_ruang' => $request->jammasukk,
@@ -8546,7 +8570,7 @@ AND b.kelas_tarif = 1');
             $pdf::Cell(40, 5, 'Petugas Skrining ');
             $pdf::ln();
             $pdf::Cell(125, 5);
-            $pdf::Cell(60, 30, '(' . $kunjungan[0]->dokter . ')', 0, 0, 'C', true);
+            $pdf::Cell(60, 30, '(' . $assesdok[0]->nama_paramedis.$assesdok[0]->nama_paramedis2 . ')', 0, 0, 'C', true);
         }
         $pdf::Rect(8, 10, 198, 260);
 
@@ -11897,7 +11921,7 @@ AND b.kelas_tarif = 1');
             $pdf::ln();
 
             $pdf::Cell(135, 5);
-            $pdf::Cell(60, 30, '(' . $kunjungan[0]->dokter . ')', 0, 0, 'C', true);
+            $pdf::Cell(60, 30, '(' . $assesdok[0]->nama_paramedis.$assesdok[0]->nama_paramedis2 . ')', 0, 0, 'C', true);
         }
 
 
@@ -12275,9 +12299,19 @@ AND b.kelas_tarif = 1');
             $pdf::MultiCell(198, 5, $text, 1, "L", true);
 
 
-
+            //belum selesai
             $pdf::SetX(8);
             $pdf::MultiCell(198, 5, 'Tindak Lanjut :', 1, "L", true);
+            $pdf::SetX(8);
+            
+            $pdf::Cell(198, 5, 'Keputusan Ke ruang  ' . $assesdok[0]->keputusan_ruang. ' Jam '. $assesdok[0]->jam_ruang. ' WIB '.'                                                                                  Dikirim Ke ruang perawatan jam '. $assesdok[0]->kirim_ruang. ' WIB ' , 0, "L");
+            $pdf::Cell(198, 5, 'Keputusan Operasi                       '.'                                                                                 Dikirim Ke ruang perawatan jam '. $assesdok[0]->jam_ro. ' WIB ' , 0, "L");
+            $pdf::Cell(198, 5, 'Keputusan ke kamar jenazah       '.'                                                                                  Dikirim Ke ruang perawatan jam '. $assesdok[0]->jam_km. ' WIB ' , 0, "L");
+
+
+            $pdf::SetX(116);
+            
+
             //Cara keluar
 
 
@@ -12314,7 +12348,7 @@ AND b.kelas_tarif = 1');
             $pdf::SetFont('Times', '', 10);
 
             $pdf::Cell(66, 20,  'Tanggal : ' . $tglasssls . '   Jam : ' . $jamasssls, 1, 0, "C", true);
-            $pdf::Cell(66, 20, $kunjungan[0]->dokter, 1, 0, "C", true);
+            $pdf::Cell(66, 20, $assesdok[0]->nama_paramedis.$assesdok[0]->nama_paramedis2, 1, 0, "C", true);
             $pdf::Cell(66, 20, '', 1, 0, "C", true);
             $pdf::Rect(8, 9, 198, 260);
             $pdf::Output();
@@ -16791,7 +16825,7 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
         $noww = Carbon::now();
 
 
-
+        // dd($kj);
         // $unit = auth()->user()->unit;
         $unit = '1002';
 
@@ -16838,7 +16872,7 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
         $assesbidbay = DB::select('SELECT * FROM erm_cppt_kebidanan_bayi WHERE no_rm = ? AND kode_kunjungan = ? AND status IN (1,2)', [$norm, $kj]);
 
         $riwayatorderrad = DB::select('SELECT
-        a.no_rm,
+        -- a.no_rm,
         a.kode_layanan_header,
         a.id,
         b.total_tarif,
@@ -16848,9 +16882,10 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
         INNER JOIN ts_layanan_detail b ON b.row_id_header = a.id
         WHERE a.kode_unit = ?
         AND a.kode_kunjungan = ?
-        AND a.status_order ="1"', ['3003', $kj]);
+        ', ['3003', $kj]);
+        
         $riwayatorderlab = DB::select('SELECT
-         a.no_rm,
+        --  a.no_rm,
          a.kode_layanan_header,
          a.id,
          b.total_tarif,
@@ -16860,7 +16895,9 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
          INNER JOIN ts_layanan_detail b ON b.row_id_header = a.id
          WHERE a.kode_unit = ?
          AND a.kode_kunjungan = ?
-         AND a.status_order ="1"', ['3002', $kj]);
+         ', ['3002', $kj]);
+        // dd($riwayatorderlab);
+
         $riwayatobat = DB::select('SELECT
         a.kode_layanan_header,
         a.id,
@@ -17772,7 +17809,23 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
         $pdf::SetX(8);
         $pdf::MultiCell(198, 5, 'Riwayat Penyakit dahulu / alergi : ' . $riwayatpenyakit, 1);
         $pdf::SetX(8);
-        $pdf::MultiCell(198, 5, 'Pemeriksaan Penunjang : ', 1);
+        $pdf::MultiCell(198, 5, 'Pemeriksaan Penunjang : ');
+         foreach ($riwayatorderrad as $d) {
+                $pdf::SetFont('Times', '', 8);
+
+                $pdf::SetX(10);
+                $pdf::MultiCell(188, 5,'- '. $d->nama_tindakan  );
+
+              
+            }
+         foreach ($riwayatorderlab as $d) {
+                $pdf::SetFont('Times', '', 8);
+
+                $pdf::SetX(10);
+                $pdf::MultiCell(188, 5,'- '. $d->nama_tindakan  );
+
+              
+            }
         $pdf::SetFont('Times', 'B', 11);
         // $y = $pdf::GetY(); 
         
@@ -17900,7 +17953,7 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
                 $pdf::SetFont('Times', '', 8);
 
                 $pdf::SetX(10);
-                $pdf::MultiCell(188, 5, $d->nama_barang  .  $d->aturan_pakai);
+                $pdf::MultiCell(188, 5, '- '. $d->nama_barang  .  $d->aturan_pakai);
 
               
             }
@@ -17910,8 +17963,36 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
 
         ///Keadaan Keluar Fari IGD triase
         $pdf::Cell(99, 5, 'Keadaan pada saat keluar  : ' . $assesdok[0]->keadaan_pulang, 1);
+        $pdf::ln();
+        $pdf::SetX(8);
+
+        $pdf::MultiCell(198, 5, 'Instruksi / dan Edukasi  : '. $assesdok[0]->edukasi , 1);
+
         // $pdf::ln();
-        $pdf::Output();
+         //kotak TTD
+
+            $pdf::SetFont('Times', '', 10);
+            $pdf::SetX(8);
+
+            $pdf::Cell(66, 20, 'Pasien / Keluarga', 0, 0, "C");
+            $pdf::Cell(66, 20, '', 0, 0, "C");
+            $pdf::Cell(66, 20, 'Dokter yang merawat', 0, 0, "C");
+            $pdf::ln();
+            $pdf::SetX(8);
+            $pdf::SetFont('Times', '', 10);
+
+            $pdf::Cell(66, 5,  '(.........................................................)' , 0, 0, "C");
+            $pdf::Cell(66, 5, '', 0, 0, "C");
+            $pdf::Cell(66, 5, '', 0, 0, "C");
+            $pdf::ln();
+            $pdf::SetX(8);
+            $pdf::SetFont('Times', '', 10);
+
+            $pdf::Cell(66, 3,  'Tanda tangan dan Nama Jelas' , 0, 0, "C");
+            $pdf::Cell(66, 3, '', 0, 0, "C");
+            $pdf::Cell(66, 3, $assesdok[0]->nama_paramedis.$assesdok[0]->nama_paramedis2, 0, 0, "C");
+            $pdf::Rect(8, 10, 198, 260);
+            $pdf::Output();
 
 
         //skrining
@@ -18189,7 +18270,7 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
             $pdf::Cell(40, 5, 'Petugas Skrining ');
             $pdf::ln();
             $pdf::Cell(125, 5);
-            $pdf::Cell(60, 30, '(' . $kunjungan[0]->dokter . ')', 0, 0, 'C', true);
+            $pdf::Cell(60, 30, '(' . $assesdok[0]->nama_paramedis.$assesdok[0]->nama_paramedis2 . ')', 0, 0, 'C', true);
         }
         $pdf::Rect(8, 10, 198, 260);
 
@@ -21540,7 +21621,7 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
             $pdf::ln();
 
             $pdf::Cell(135, 5);
-            $pdf::Cell(60, 30, '(' . $kunjungan[0]->dokter . ')', 0, 0, 'C', true);
+            $pdf::Cell(60, 30, '(' . $assesdok[0]->nama_paramedis.$assesdok[0]->nama_paramedis2 . ')', 0, 0, 'C', true);
         }
 
 
@@ -21957,7 +22038,7 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
             $pdf::SetFont('Times', '', 10);
 
             $pdf::Cell(66, 20,  'Tanggal : ' . $tglasssls . '   Jam : ' . $jamasssls, 1, 0, "C", true);
-            $pdf::Cell(66, 20, $kunjungan[0]->dokter, 1, 0, "C", true);
+            $pdf::Cell(66, 20, $assesdok[0]->nama_paramedis.$assesdok[0]->nama_paramedis2, 1, 0, "C", true);
             $pdf::Cell(66, 20, '', 1, 0, "C", true);
             $pdf::Rect(8, 9, 198, 260);
         }
@@ -33143,7 +33224,7 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
         $pdf::SetXY(163, 163);
         $pdf::Cell(40, 10, 'Dokter Triage');
         $pdf::SetXY(157, 185);
-        $pdf::Cell(40, 10, '(' . $kunjungan[0]->dokter . ')');
+        $pdf::Cell(40, 10, '(' . $assesdok[0]->nama_paramedis.$assesdok[0]->nama_paramedis2 . ')');
 
 
         //assesmen awal medis
@@ -33625,7 +33706,7 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
 
         $pdf::Cell(40, 10, 'Tanggal : ' . $tglass . '   Jam : ' . $jamass);
         $pdf::SetXY(85, 208);
-        $pdf::Cell(40, 10, $kunjungan[0]->dokter);
+        $pdf::Cell(40, 10, $assesdok[0]->nama_paramedis.$assesdok[0]->nama_paramedis2);
 
 
 
@@ -36644,7 +36725,7 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
         $pdf::Cell(40, 10, ':');
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(141, 51);
-        $pdf::MultiCell(70, 10, $kunjungan[0]->dokter);
+        $pdf::MultiCell(70, 10, $assesdok[0]->nama_paramedis.$assesdok[0]->nama_paramedis2);
 
 
         $pdf::SetFont('Times', '', 11);
@@ -36664,7 +36745,7 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
         // $pdf::Cell(40, 10, ':');
         // $pdf::SetFont('Times', '', 10);
         // $pdf::SetXY(141, 57);
-        // $pdf::MultiCell(70, 10, $kunjungan[0]->dokter);
+        // $pdf::MultiCell(70, 10, $assesdok[0]->nama_paramedis.$assesdok[0]->nama_paramedis2);
 
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(120, 57);
@@ -36875,7 +36956,7 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
         $pdf::Cell(40, 10, ':');
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(141, 51);
-        $pdf::MultiCell(70, 10, $kunjungan[0]->dokter);
+        $pdf::MultiCell(70, 10, $assesdok[0]->nama_paramedis.$assesdok[0]->nama_paramedis2);
 
 
         $pdf::SetFont('Times', '', 11);
@@ -36895,7 +36976,7 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
         // $pdf::Cell(40, 10, ':');
         // $pdf::SetFont('Times', '', 10);
         // $pdf::SetXY(141, 57);
-        // $pdf::MultiCell(70, 10, $kunjungan[0]->dokter);
+        // $pdf::MultiCell(70, 10, $assesdok[0]->nama_paramedis.$assesdok[0]->nama_paramedis2);
 
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(120, 57);

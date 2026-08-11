@@ -307,6 +307,10 @@
 
         </tr>
     </tbody>
+
+    <div type="button" class="btn float-right btn-success simpanassesbunuhdiri mt-3 mb-3 mr-3">
+        SIMPAN
+    </div>
 </table>
 
 
@@ -341,5 +345,71 @@
 
             $('#totalbunuhdiri').val(kuk_value_1 + kuk_value_2 + kuk_value_3 + rbd_value_1 + rbd_value_2 + rbd_value_3 + rym_value_1 + rym_value_2 + rym_value_3 + rpbd_value_1 + rpbd_value_2 + rpbd_value_3 + ibd_value_1 + ibd_value_2 + ibd_value_3 + gjl_value_1 + gjl_value_2 + gjl_value_3 + pksi_value_1 + pksi_value_2 + pksi_value_3 + pptv_value_1 + pptv_value_2 + pptv_value_3);
         });
+    });
+
+    $(".simpanasses").click(function() {
+        var jenistriase = $('#jenistriase').val();
+
+
+
+
+        // var sumberdata = $("#sumberdata:checked").val();
+        Swal.fire({
+            title: "Yakin Simpan Assesmen Bunuh?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Ya',
+            cancelButtonColor: '#d33',
+            cancelButtonText: "Batal"
+
+        }).then(result => {
+            //jika klik ya maka arahkan ke proses.php
+            if (result.isConfirmed) {
+                $.ajax({
+                    async: true,
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+
+
+                        gambar1: $('#gambarcoret1').val(),
+                    },
+                    url: '<?= route('simpanassesmen') ?>',
+
+                    error: function(data) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Sepertinya ada masalah ...',
+                            footer: ''
+                        })
+                    },
+                    success: function(data) {
+                        console.log(data)
+                        if (data.kode == 500) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: data.message,
+                                footer: ''
+                            })
+                        } else {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'OK',
+                                text: 'data berhasil disimpan',
+                                footer: ''
+                            })
+
+                            // cpptdokter();
+
+                        }
+                    }
+                });
+            }
+        })
+        return false;
     });
 </script>

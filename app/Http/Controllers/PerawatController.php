@@ -119,6 +119,8 @@ class PerawatController extends Controller
                 INNER JOIN (
                     SELECT kode_kunjungan, MAX(id) AS max_id
                     FROM erm_cppt_dokter
+                    WHERE STATUS NOT IN (2,3)
+
                     GROUP BY kode_kunjungan
                 ) e2 
                 ON e1.kode_kunjungan = e2.kode_kunjungan 
@@ -174,6 +176,8 @@ class PerawatController extends Controller
                 INNER JOIN (
                     SELECT kode_kunjungan, MAX(id) AS max_id
                     FROM erm_cppt_dokter
+                    WHERE STATUS NOT IN (2,3)
+
                     GROUP BY kode_kunjungan
                 ) e2 
                 ON e1.kode_kunjungan = e2.kode_kunjungan 
@@ -1158,6 +1162,8 @@ class PerawatController extends Controller
                 INNER JOIN (
                     SELECT kode_kunjungan, MAX(id) AS max_id
                     FROM erm_cppt_dokter
+                    WHERE STATUS NOT IN (2,3)
+
                     GROUP BY kode_kunjungan
                 ) e2 
                 ON e1.kode_kunjungan = e2.kode_kunjungan 
@@ -1211,6 +1217,8 @@ class PerawatController extends Controller
                 INNER JOIN (
                     SELECT kode_kunjungan, MAX(id) AS max_id
                     FROM erm_cppt_dokter
+                    WHERE STATUS NOT IN (2,3)
+
                     GROUP BY kode_kunjungan
                 ) e2 
                 ON e1.kode_kunjungan = e2.kode_kunjungan 

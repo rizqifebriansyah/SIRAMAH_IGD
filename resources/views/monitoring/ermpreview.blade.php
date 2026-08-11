@@ -10,6 +10,11 @@
 
 
 @if ($unit == '1002')
+<div class=" col-md-11" style="margin-bottom:10px ;">
+
+    <a style="margin-left: 32px;" rel="noopener" href="{{ route('monitoring')}}" class="btn btn-danger"><i class="fas fa-arrow-left"></i> Home
+    </a>
+</div>
 <div id="printableArea">
     <div class="card-header">
         <button type="submit" class="btn btn-info cetakresumecpptdokter"> <i class="fa fa-print"></i> Cetak Resume </button>
