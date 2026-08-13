@@ -9129,42 +9129,346 @@ AND b.kelas_tarif = 1');
         $pdf::Cell(180, 5, 'Total Skor',1,"","C");
         $pdf::Cell(18, 5, $assesbnh[0]->totalbunuhdiri ,1,"","C");
         $pdf::ln();
+
+        $pdf::SetFont('Times', '', 10);
+
+        /*
+        |--------------------------------------------------------------------------
+        | POSISI AWAL
+        |--------------------------------------------------------------------------
+        */
+
+        $x = 8;
+        $y = $pdf::GetY();
+
+        $wKunci     = 95;
+        $wInterval  = 65;
+        $wRuang     = 38;
+
+        $wTotal = $wKunci + $wInterval + $wRuang; // 198
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | BARIS HEADER
+        |--------------------------------------------------------------------------
+        |
+        | Total Skor | Interval Pengawasan | Ruang Perawatan
+        |
+        */
+
+        $pdf::SetXY($x, $y);
+
         $pdf::SetFont('Times', 'B', 10);
-        $pdf::SetX(8);
-        $pdf::Cell(95, 5, '',1,"","C");
-        $y = $pdf::GetY();
+
+        $pdf::Cell(
+            $wKunci,
+            5,
+            'Total Skor',
+            1,
+            0,
+            'C'
+        );
+
         $pdf::SetFont('Times', '', 10);
 
-        $pdf::SetXY(103, $y);
-        $pdf::Cell(65, 5, 'Interval Pengawasan',1,"","C");
-        
-        $y = $pdf::GetY();
-        $pdf::SetFont('Times', '', 10);
+        $pdf::SetXY($x + $wKunci, $y);
 
-        $pdf::SetXY(168, $y);
-        $pdf::Cell(38, 5, 'Ruang Perawatan',1,"","C");
-        
-        
-        $pdf::ln();
+        $pdf::Cell(
+            $wInterval,
+            5,
+            'Interval Pengawasan',
+            1,
+            0,
+            'C'
+        );
+
+        $pdf::SetXY(
+            $x + $wKunci + $wInterval,
+            $y
+        );
+
+        $pdf::Cell(
+            $wRuang,
+            5,
+            'Ruang Perawatan',
+            1,
+            0,
+            'C'
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | PINDAH KE BARIS BERIKUTNYA
+        |--------------------------------------------------------------------------
+        */
+
+        $y += 5;
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | AREA KUNCI SKORING
+        |--------------------------------------------------------------------------
+        |
+        | Kolom:
+        |
+        | 30  = II. Kunci skoring
+        | 65  = Keterangan skor
+        | 65  = Interval pengawasan
+        | 38  = Ruang perawatan
+        |
+        */
+
+        $wJudul = 30;
+        $wDesc  = 65;
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | TINGGI TOTAL BLOK
+        |--------------------------------------------------------------------------
+        |
+        | Kita buat 3 baris x 5 mm = 15 mm
+        |
+        */
+
+        $blockHeight = 15;
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | II. KUNCI SKORING
+        |--------------------------------------------------------------------------
+        */
+
         $pdf::SetFont('Times', 'B', 10);
-        $pdf::SetX(8);
-        $pdf::Cell(30, 15, 'II. Kunci skoring',1,"","C");
+
+        $pdf::SetXY($x, $y);
+
+        $pdf::Cell(
+            $wJudul,
+            $blockHeight,
+            'II. Kunci skoring',
+            1,
+            0,
+            'C'
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | BARIS 1 - RESIKO TINGGI
+        |--------------------------------------------------------------------------
+        */
+
+        $pdf::SetFont('Times', '', 10);
+
+        $pdf::SetXY(
+            $x + $wJudul,
+            $y
+        );
+
+        $pdf::Cell(
+            $wDesc,
+            5,
+            'Resiko tinggi jika skor 10+',
+            1,
+            0,
+            'C'
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | INTERVAL BARIS 1
+        |--------------------------------------------------------------------------
+        */
+
+        $pdf::SetXY(
+            $x + $wJudul + $wDesc,
+            $y
+        );
+
+        $pdf::Cell(
+            $wInterval,
+            5,
+            'Tiap 1 (satu) jam',
+            1,
+            0,
+            'C'
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | BARIS 2 - RESIKO SEDANG
+        |--------------------------------------------------------------------------
+        */
+
+        $pdf::SetXY(
+            $x + $wJudul,
+            $y + 5
+        );
+
+        $pdf::Cell(
+            $wDesc,
+            5,
+            'Resiko sedang skor 4-9',
+            1,
+            0,
+            'C'
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | INTERVAL BARIS 2
+        |--------------------------------------------------------------------------
+        */
+
+        $pdf::SetXY(
+            $x + $wJudul + $wDesc,
+            $y + 5
+        );
+
+        $pdf::Cell(
+            $wInterval,
+            5,
+            'Tiap 2 - 7 jam',
+            1,
+            0,
+            'C'
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | BARIS 3 - RESIKO RENDAH
+        |--------------------------------------------------------------------------
+        */
+
+        $pdf::SetXY(
+            $x + $wJudul,
+            $y + 10
+        );
+
+        $pdf::Cell(
+            $wDesc,
+            5,
+            'Resiko rendah jika skor 0 - 3',
+            1,
+            0,
+            'C'
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | INTERVAL BARIS 3
+        |--------------------------------------------------------------------------
+        */
+
+        $pdf::SetXY(
+            $x + $wJudul + $wDesc,
+            $y + 10
+        );
+
+        $pdf::Cell(
+            $wInterval,
+            5,
+            'Tiap 8 jam',
+            1,
+            0,
+            'C'
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | RUANG PERAWATAN
+        |--------------------------------------------------------------------------
+        |
+        | Kolom ini mencakup 3 baris sekaligus.
+        |
+        */
+
+        $pdf::SetXY(
+            $x + $wJudul + $wDesc + $wInterval,
+            $y
+        );
+
+        $pdf::MultiCell(
+            $wRuang,
+            7.5,
+            'Ruang perawatan intensif psikiatri',
+            1,
+            'C'
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | SET Y KE BAWAH BLOK
+        |--------------------------------------------------------------------------
+        */
+
+        $y += $blockHeight;
+
+        $pdf::SetY($y);
         $y = $pdf::GetY();
         $pdf::SetFont('Times', '', 10);
 
-        $pdf::SetXY(38, $y);
-        $pdf::Cell(65, 5, 'Resiko tinggi ika skor 10+',1,"","C");
+        $pdf::SetXY(8, $y);
+        $pdf::Cell(160, 15, 'Nama & Tabda tangan dokter',1,"","C");
+            $pdf::SetXY(168, $y);
+        $pdf::Cell(38, 15, '',1,"","C");
+        // $pdf::SetFont('Times', 'B', 10);
+        // $pdf::SetX(8);
+        // $pdf::Cell(95, 5, '',1,"","C");
+        // $y = $pdf::GetY();
+        // $pdf::SetFont('Times', '', 10);
 
-        $y = $pdf::GetY();
-        $pdf::SetFont('Times', '', 10);
+        // $pdf::SetXY(103, $y);
+        // $pdf::Cell(65, 5, 'Interval Pengawasan',1,"","C");
+        
+        // $y = $pdf::GetY();
+        // $pdf::SetFont('Times', '', 10);
 
-        $pdf::SetXY(103, $y);
-        $pdf::Cell(65, 5, 'Tiap 1 (satu) jam',1,"","C");
-         $y = $pdf::GetY();
-        $pdf::SetFont('Times', '', 10);
+        // $pdf::SetXY(168, $y);
+        // $pdf::Cell(38, 5, 'Ruang Perawatan',1,"","C");
+        
+        
+        // $pdf::ln();
+        // $pdf::SetFont('Times', 'B', 10);
+        // $pdf::SetX(8);
+        // $pdf::Cell(30, 15, 'II. Kunci skoring',1,"","C");
+        // $y = $pdf::GetY();
+        // $pdf::SetFont('Times', '', 10);
 
-        $pdf::SetXY(168, $y);
-        $pdf::Cell(38, 15, 'Tiap 1 (satu) jam',1,"","C");
+        // $pdf::SetXY(38, $y);
+        // $pdf::Cell(65, 5, 'Resiko tinggi ika skor 10+',1,"","C");
+        // $y = $pdf::GetY();
+        // $y = $pdf::GetY();
+        // $pdf::SetFont('Times', '', 10);
+
+        // $pdf::SetXY(103, $y);
+        // $pdf::Cell(65, 5, 'Tiap 1 (satu) jam',1,"","C");
+        //  $y = $pdf::GetY();
+        // $pdf::SetFont('Times', '', 10);
+
+        // $pdf::SetXY(168, $y);
+        // $pdf::MultiCell(38, 15, 'Ruang perawatan intensif psikiatri',1,"","C");
+        // $pdf::SetXY(38, $y + 5);
+        // $pdf::Cell(65, 5, 'Resiko sedang skor 4-9',1,"","C"); 
+        // $pdf::SetXY(103, $y + 5);
+        // $pdf::Cell(65, 5, 'Tiap 2 - 7 jam',1,"","C");
+        // $pdf::SetXY(38, $y + 10);
+        // $pdf::Cell(65, 5, 'Resiko rendah jika skor 0 - 3',1,"","C"); 
+        // $pdf::SetXY(103, $y + 10);
+        // $pdf::Cell(65, 5, 'Tiap 8 jam',1,"","C");
+        
 
         $pdf::Rect(8, 10, 198, 260);
        
