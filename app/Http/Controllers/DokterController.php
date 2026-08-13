@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\di_pasien_diagnosa_frunit;
 use App\Models\erm_cppt_dokter;
+use App\Models\assesmen_bunuh_diri_igd;
 use App\Models\erm_cppt_dokter_kebidanan;
 use App\Models\ts_antrian_igd;
 use App\Models\mt_kode_igd_header;
@@ -1223,14 +1224,21 @@ AND b.kelas_tarif = 1');
     public function assemenbunuhdiri(Request $request)
     {
         $kj =  $request->kj;
-        $norm =  $request->kj;
+        $norm =  $request->norm;
         $unit = $request->unit;
 
         $now = Carbon::now()->format('Y-m-d H:i:s');
+        $assesbnh = DB::select('SELECT * FROM assesmen_bunuh_diri_igd WHERE norm = ? AND kj = ? AND status = 1' ,[$norm,$kj]);
+        // dd($assesbnh);
         return view(
             'dokter.formbunuhdiri',
             [
                 'title' => 'ERM DOKTER',
+                'kj' => $kj,
+                'assesbnh' => $assesbnh,
+
+                'norm' => $norm
+
             ]
         );
 
@@ -1623,6 +1631,76 @@ AND b.kelas_tarif = 1');
         ];
         echo json_encode($back);
         die;
+    }
+    public function simpanassesbunuhdiri(Request $request)
+    {
+        $a = $request->all();
+        // dd($a);
+        $kj = $request->kj;
+        $kop = $request->kp;
+        $norm = $request->norm;
+        $unit = auth()->user()->unit;
+        $name = auth()->user()->nama;
+        $now = Carbon::now();
+
+
+        $dt = Carbon::now()->timezone('Asia/Jakarta');
+        $date = $dt->toDateString();
+         try {
+
+            $bunuhdiri = assesmen_bunuh_diri_igd::create([
+                'norm' => $request->norm,
+                'kj' => $request->kj,
+                'nama_paramedis' => $name,
+                'kuk_value_1' => $request->kuk_value_1,
+                'kuk_value_2' => $request->kuk_value_2,
+                'kuk_value_3' => $request->kuk_value_3,
+                'rbd_value_1' => $request->rbd_value_1,
+                'rbd_value_2' => $request->rbd_value_2,
+                'rbd_value_3' => $request->rbd_value_3,
+                'rym_value_1' => $request->rym_value_1,
+                'rym_value_2' => $request->rym_value_2,
+                'rym_value_3' => $request->rym_value_3,
+                'rpbd_value_1' => $request->rpbd_value_1,
+                'rpbd_value_2' => $request->rpbd_value_2,
+                'rpbd_value_3' => $request->rpbd_value_3,
+                'ibd_value_1' => $request->ibd_value_1,
+                'ibd_value_2' => $request->ibd_value_2,
+                'ibd_value_3' => $request->ibd_value_3,
+                'gjl_value_1' => $request->gjl_value_1,
+                'gjl_value_2' => $request->gjl_value_2,
+                'gjl_value_3' => $request->gjl_value_3,
+                'pksi_value_1' => $request->pksi_value_1,
+                'pksi_value_2' => $request->pksi_value_2,
+                'pksi_value_3' => $request->pksi_value_3,
+                'pptv_value_1' => $request->pptv_value_1,
+                'pptv_value_2' => $request->pptv_value_2,
+                'pptv_value_3' => $request->pptv_value_3,
+                'totalbunuhdiri' => $request->totalbunuhdiri,
+
+                'create_at' => $now
+            ]);
+
+            //     $update = DB::select('UPDATE tp_karcis_igd
+            //   SET status_triase = 1
+            //   WHERE no_antri = ?', [$antrian]);
+        } catch (\Exception $e) {
+            $back = [
+                'kode' => 200,
+                // 'message' => 'gagal assesmen'
+                'message' => $e->getMessage()
+
+            ];
+            echo json_encode($back);
+            die;
+        }
+         $back = [
+            'kode' => 200,
+            'message' => 'Berhasil'
+        ];
+        echo json_encode($back);
+        die;
+
     }
     public function simpanassesmen(Request $request)
     {
@@ -6027,6 +6105,79 @@ AND b.kelas_tarif = 1');
         echo json_encode($back);
         die;
     }
+    public function updateassesbunuhdiri(Request $request)
+    {
+        $a = $request->all();
+        // dd($a);
+        $kj = $request->kj;
+        $kop = $request->kp;
+        $norm = $request->norm;
+        $unit = auth()->user()->unit;
+        $name = auth()->user()->nama;
+        $now = Carbon::now();
+
+
+        $dt = Carbon::now()->timezone('Asia/Jakarta');
+        $date = $dt->toDateString();
+         try {
+        $cekcpp = DB::select('SELECT status FROM assesmen_bunuh_diri_igd WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
+           if ($cekcpp[0]->status == 1) {
+                $cekcpp = DB::select('UPDATE assesmen_bunuh_diri_igd SET status = "3"  WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
+            $bunuhdiri = assesmen_bunuh_diri_igd::create([
+                'norm' => $request->norm,
+                'kj' => $request->kj,
+                'nama_paramedis' => $name,
+                'kuk_value_1' => $request->kuk_value_1,
+                'kuk_value_2' => $request->kuk_value_2,
+                'kuk_value_3' => $request->kuk_value_3,
+                'rbd_value_1' => $request->rbd_value_1,
+                'rbd_value_2' => $request->rbd_value_2,
+                'rbd_value_3' => $request->rbd_value_3,
+                'rym_value_1' => $request->rym_value_1,
+                'rym_value_2' => $request->rym_value_2,
+                'rym_value_3' => $request->rym_value_3,
+                'rpbd_value_1' => $request->rpbd_value_1,
+                'rpbd_value_2' => $request->rpbd_value_2,
+                'rpbd_value_3' => $request->rpbd_value_3,
+                'ibd_value_1' => $request->ibd_value_1,
+                'ibd_value_2' => $request->ibd_value_2,
+                'ibd_value_3' => $request->ibd_value_3,
+                'gjl_value_1' => $request->gjl_value_1,
+                'gjl_value_2' => $request->gjl_value_2,
+                'gjl_value_3' => $request->gjl_value_3,
+                'pksi_value_1' => $request->pksi_value_1,
+                'pksi_value_2' => $request->pksi_value_2,
+                'pksi_value_3' => $request->pksi_value_3,
+                'pptv_value_1' => $request->pptv_value_1,
+                'pptv_value_2' => $request->pptv_value_2,
+                'pptv_value_3' => $request->pptv_value_3,
+                'totalbunuhdiri' => $request->totalbunuhdiri,
+
+                'create_at' => $now
+            ]);
+           }
+
+            //     $update = DB::select('UPDATE tp_karcis_igd
+            //   SET status_triase = 1
+            //   WHERE no_antri = ?', [$antrian]);
+        } catch (\Exception $e) {
+            $back = [
+                'kode' => 200,
+                // 'message' => 'gagal assesmen'
+                'message' => $e->getMessage()
+
+            ];
+            echo json_encode($back);
+            die;
+        }
+         $back = [
+            'kode' => 200,
+            'message' => 'Berhasil'
+        ];
+        echo json_encode($back);
+        die;
+
+    }
     public function createOrderHeader()
     {
         $q = DB::select('SELECT id,kode_header,RIGHT(kode_header,6) AS kd_max  FROM mt_kode_order_header
@@ -8155,6 +8306,1247 @@ AND b.kelas_tarif = 1');
             //     $y = $pdf::GetY();
             // }
         }
+    }
+     public function cetakresikobunuhdiri(Request $request)
+    {
+
+        $kj = $request->kj;
+        $norm = $request->norm;
+
+
+
+
+        // $receive_items = $this->cetakpdf($kode_header, $idhed);
+        $back = [
+            'kode' => 200,
+            'kj' => $kj,
+            'norm' => $norm,
+
+
+
+        ];
+        echo json_encode($back);
+        die;
+    }
+
+    public function cetakformbunuhdiri($kj, $norm)
+    {
+
+        $nowwww = Carbon::now()->format('d M Y');
+        $noww = Carbon::now();
+        $pasien = DB::select('SELECT 
+        a.nama_px,
+        a.no_rm,
+        fc_alamat(a.no_rm) AS alamat,
+        a.jenis_kelamin AS jk,
+        fc_umur(a.no_rm) AS umur,
+        a.tgl_lahir
+        FROM mt_pasien  a
+        WHERE no_rm = ?', [$norm]);
+        // dd($pasien);
+        $tgllahir = Carbon::parse($pasien[0]->tgl_lahir)->format('d-m-Y');
+        $kunjungan = DB::select('SELECT 
+
+        fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS dokter,
+        fc_NAMA_PENJAMIN(a.no_rm) AS penjamin,
+        b.diag_00 AS diagnosa,
+        a.tgl_masuk,
+        a.tgl_keluar
+
+        FROM ts_kunjungan a
+
+        INNER JOIN di_pasien_diagnosa_frunit b ON b.kode_kunjungan = a.kode_kunjungan
+        WHERE a.no_rm = ?
+        AND a.kode_kunjungan  = ?', [$norm, $kj]);
+        $tglmasuk = Carbon::parse($kunjungan[0]->tgl_masuk)->format('d-m-Y');
+        $jammasuk = Carbon::parse($kunjungan[0]->tgl_masuk)->format('H:i:s');
+        $tglklr = Carbon::parse($kunjungan[0]->tgl_keluar)->format('d-M-Y');
+        $jamklr = Carbon::parse($kunjungan[0]->tgl_keluar)->format('H:i:s');
+        $assesbnh = DB::select('SELECT * FROM assesmen_bunuh_diri_igd WHERE norm = ? AND kj = ? AND status = 1' ,[$norm,$kj]);
+        $pdf = new FPDF('P', 'mm', 'F4');
+        $pdf::AddPage('P', 'letter');
+        //Awal Header kertas
+        $pdf::Rect(8, 10, 198, 260);
+
+        $pdf::Rect(8, 10, 101, 25);
+
+        $pdf::Image('public/img/rsss.png', 10, 11, 15, 20);
+        $pdf::SetFont('Times', 'B', 10);
+        $pdf::SetXY(150, 3);
+        $pdf::Cell(40, 10, 'RM.03.04-IGD/26');
+        $pdf::SetFont('Times', 'B', 12);
+
+        $pdf::SetXY(27, 11);
+        $pdf::Cell(40, 5, 'PEMERINTAH KABUPATEN CIREBON');
+        $pdf::SetFont('Times', 'B', 12);
+        $pdf::SetXY(25, 16);
+        $pdf::Cell(40, 5, 'RUMAH SAKIT UMUM DAERAH WALED');
+        $pdf::SetFont('Times', '', 10);
+        $pdf::SetXY(40.5, 19);
+        $pdf::Cell(40, 5, 'Jl. Prabu Kiansantang No. 4 ');
+        $pdf::SetXY(25.5, 22);
+        $pdf::Cell(40, 5, 'Telp. 0231 - 661126 Fax. 0231 - 664091 Cirebon ');
+
+        $pdf::Rect(109, 10, 97, 35);
+        $pdf::SetFont('Times', '', 10);
+        $pdf::SetXY(110, 11);
+        $pdf::Cell(40, 10, 'NO. RM');
+        $pdf::SetXY(131, 11);
+        $pdf::Cell(45, 10, ':');
+        $pdf::SetFont('Times', '', 10);
+        $pdf::SetXY(133, 11);
+        $pdf::MultiCell(70, 10, $pasien[0]->no_rm);
+        $pdf::SetFont('Times', '', 10);
+        $pdf::SetXY(110, 16);
+        $pdf::MultiCell(40, 10, 'Nama ');
+        $pdf::SetXY(131, 16);
+        $pdf::Cell(40, 10, ':');
+        $pdf::SetFont('Times', '', 10);
+        $pdf::SetXY(133, 16);
+        $pdf::Cell(50, 10, $pasien[0]->nama_px);
+
+        $pdf::SetFont('Times', '', 10);
+        $pdf::SetXY(110, 20);
+        $pdf::Cell(40, 10, 'Tgl. Lahir');
+        $pdf::SetXY(131, 20);
+        $pdf::Cell(40, 10, ':');
+        $pdf::SetFont('Times', '', 10);
+        $pdf::SetXY(133, 20);
+        $pdf::MultiCell(70, 10, $tgllahir);
+
+
+        $pdf::SetFont('Times', '', 10);
+        $pdf::SetXY(110, 25);
+        $pdf::Cell(40, 10, 'Jenis Kelamin');
+        $pdf::SetXY(131, 25);
+        $pdf::Cell(40, 10, ':');
+        $pdf::SetFont('Times', '', 10);
+        $pdf::SetXY(133, 25);
+        $pdf::MultiCell(70, 10, $pasien[0]->jk);
+        //form bunuh diri 
+        $pdf::Rect(8, 35, 101, 10);
+        $pdf::SetFont('Times', 'B', 12);
+        $pdf::SetXY(15, 35);
+        $pdf::Cell(240, 5, 'ASESMEN KHUSUS RESIKO BUNUH DIRI');
+        $pdf::SetFont('Times', 'B', 10);
+
+        $pdf::SetXY(15, 40);
+        $pdf::Cell(240, 5, '(INPATIENT SUICIDE/SELF-HARM ASSESSMENT)');
+        $pdf::ln();
+        $y = $pdf::GetY();
+        $pdf::SetFont('Times', '', 10);
+
+        $pdf::SetXY(8, $y);
+        $pdf::MultiCell(240, 3.5, 'Petunjuk',0);
+        $pdf::MultiCell(240, 3.5, '1. Jawaban Pertanyaan Faktor Kunci');
+        $pdf::MultiCell(240, 3.5, '2. Lengkapi Bagian II');
+        $pdf::MultiCell(240, 3.5, 'Tambahkan Skor pada masing-masing bagian I, dan II untuk mengetahui total skor');
+        $pdf::SetX(8);
+
+        $pdf::MultiCell(198, 3.5, 'Apakah pengobatan yang sekarang diakibatkan karena percobaan bunuh diri?',1);
+       
+        if ($assesbnh != NULL){
+        /*
+        |--------------------------------------------------------------------------
+        | FUNGSI UNTUK BARIS TABEL DINAMIS
+        |--------------------------------------------------------------------------
+        |
+        | Kolom:
+        | 30 = Risiko
+        | 15 = Skor
+        | 135 = Indikator
+        | 18 = Skore
+        |
+        | Total = 198
+        |
+        */
+
+        function drawDynamicRow($pdf, $x, $y, $risk, $score, $indicator, $result, $lineHeight = 5)
+        {
+            $wRisk      = 30;
+            $wScore     = 15;
+            $wIndicator = 135;
+            $wResult    = 18;
+
+            /*
+            * ---------------------------------------------------------------
+            * 1. Hitung tinggi MultiCell indikator
+            * ---------------------------------------------------------------
+            */
+
+            $pdf::SetXY(
+                $x + $wRisk + $wScore,
+                $y
+            );
+
+            // Jangan gambar border dulu, hanya untuk mengetahui tinggi
+            $pdf::MultiCell(
+                $wIndicator,
+                $lineHeight,
+                $indicator,
+                0,
+                'L'
+            );
+
+            $height = $pdf::GetY() - $y;
+
+            // Minimal tinggi satu baris
+            if ($height < $lineHeight) {
+                $height = $lineHeight;
+            }
+
+            /*
+            * ---------------------------------------------------------------
+            * 2. Kolom Risiko
+            * ---------------------------------------------------------------
+            */
+
+            $pdf::SetXY($x, $y);
+
+            $pdf::Cell(
+                $wRisk,
+                $height,
+                $risk,
+                1,
+                0,
+                'C'
+            );
+
+            /*
+            * ---------------------------------------------------------------
+            * 3. Kolom Skor
+            * ---------------------------------------------------------------
+            */
+
+            $pdf::SetXY(
+                $x + $wRisk,
+                $y
+            );
+
+            $pdf::Cell(
+                $wScore,
+                $height,
+                $score,
+                1,
+                0,
+                'C'
+            );
+
+            /*
+            * ---------------------------------------------------------------
+            * 4. Kolom Indikator
+            * ---------------------------------------------------------------
+            */
+
+            $pdf::SetXY(
+                $x + $wRisk + $wScore,
+                $y
+            );
+
+            $pdf::MultiCell(
+                $wIndicator,
+                $lineHeight,
+                $indicator,
+                1,
+                'L'
+            );
+
+            /*
+            * ---------------------------------------------------------------
+            * 5. Kolom Skore / hasil
+            * ---------------------------------------------------------------
+            */
+
+            $pdf::SetXY(
+                $x + $wRisk + $wScore + $wIndicator,
+                $y
+            );
+
+            $pdf::Cell(
+                $wResult,
+                $height,
+                $result,
+                1,
+                0,
+                'C'
+            );
+
+            /*
+            * ---------------------------------------------------------------
+            * 6. Kembalikan Y ke bawah baris
+            * ---------------------------------------------------------------
+            */
+
+            $newY = $y + $height;
+
+            $pdf::SetXY($x, $newY);
+
+            return $newY;
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | FUNGSI JUDUL SECTION DINAMIS
+        |--------------------------------------------------------------------------
+        */
+
+        function drawSectionHeader($pdf, $x, $y, $title, $width = 198, $lineHeight = 5)
+        {
+            $pdf::SetFont('Times', 'B', 10);
+
+            /*
+            * Hitung tinggi judul terlebih dahulu
+            */
+            $pdf::SetXY($x, $y);
+
+            $pdf::MultiCell(
+                $width,
+                $lineHeight,
+                $title,
+                0,
+                'C'
+            );
+
+            $height = $pdf::GetY() - $y;
+
+            if ($height < $lineHeight) {
+                $height = $lineHeight;
+            }
+
+            /*
+            * Gambar ulang dengan border
+            */
+            $pdf::SetXY($x, $y);
+
+            $pdf::MultiCell(
+                $width,
+                $lineHeight,
+                $title,
+                1,
+                'C'
+            );
+
+            $newY = $y + $height;
+
+            $pdf::SetXY($x, $newY);
+
+            return $newY;
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | MULAI TABEL
+        |--------------------------------------------------------------------------
+        */
+
+        $pdf::SetFont('Times', 'B', 10);
+
+        $y = $pdf::GetY();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | HEADER TABEL
+        |--------------------------------------------------------------------------
+        */
+
+        $pdf::SetXY(8, $y);
+
+        $pdf::Cell(
+            30,
+            5,
+            'I. Faktor Kunci',
+            1,
+            0,
+            'C'
+        );
+
+        $pdf::SetXY(38, $y);
+
+        $pdf::Cell(
+            15,
+            5,
+            'Skor',
+            1,
+            0,
+            'C'
+        );
+
+        $pdf::SetXY(53, $y);
+
+        $pdf::Cell(
+            135,
+            5,
+            'INDIKATOR',
+            1,
+            0,
+            'C'
+        );
+
+        $pdf::SetXY(188, $y);
+
+        $pdf::Cell(
+            18,
+            5,
+            'Skore',
+            1,
+            0,
+            'C'
+        );
+
+        $y += 5;
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | 1. KOMITMEN UNTUK KESELAMATAN
+        |--------------------------------------------------------------------------
+        */
+
+        $y = drawSectionHeader(
+            $pdf,
+            8,
+            $y,
+            '1. KOMITMEN UNTUK KESELAMATAN'
+        );
+
+        $pdf::SetFont('Times', '', 10);
+
+
+        /* Risiko Tinggi */
+        $y = drawDynamicRow(
+            $pdf,
+            8,
+            $y,
+            'Resiko Tinggi',
+            '2',
+            'Menolak membuat komitmen/tidak mampu membuat komitmen karena ketidakmampuan menilai (Halusinasi, Delusi, demensia, delirium, disosiasi)',
+            $assesbnh[0]->kuk_value_1
+        );
+
+
+        /* Risiko Sedang */
+        $y = drawDynamicRow(
+            $pdf,
+            8,
+            $y,
+            'Resiko Sedang',
+            '1',
+            'Mampu membuat komitmen tapi ragu-ragu dalam membuatnya',
+            $assesbnh[0]->kuk_value_2
+        );
+
+
+        /* Risiko Kecil */
+        $y = drawDynamicRow(
+            $pdf,
+            8,
+            $y,
+            'Resiko Kecil',
+            '0',
+            'Mampu membuat komitmen untuk keselamatan dengan jelas',
+            $assesbnh[0]->kuk_value_3
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | 2. RENCANA BUNUH DIRI
+        |--------------------------------------------------------------------------
+        */
+
+        $y = drawSectionHeader(
+            $pdf,
+            8,
+            $y,
+            '2. RENCANA BUNUH DIRI'
+        );
+
+        $pdf::SetFont('Times', '', 10);
+
+
+        /* Risiko Tinggi */
+        $y = drawDynamicRow(
+            $pdf,
+            8,
+            $y,
+            'Resiko Tinggi',
+            '2',
+            'Merencanakan secara aktual ide bunuh diri dan sudah mengungkapkan metode/cara bunuh diri',
+            $assesbnh[0]->rbd_value_1
+        );
+
+
+        /* Risiko Sedang */
+        $y = drawDynamicRow(
+            $pdf,
+            8,
+            $y,
+            'Resiko Sedang',
+            '1',
+            'Merencanakan secara aktual ide bunuh diri tapi belum ada cara bunuh diri',
+            $assesbnh[0]->rbd_value_2
+        );
+
+
+        /* Risiko Kecil */
+        $y = drawDynamicRow(
+            $pdf,
+            8,
+            $y,
+            'Resiko Kecil',
+            '0',
+            'Tidak ada Rencana',
+            $assesbnh[0]->rbd_value_3
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | 3. RENCANAKAN YANG MEMATIKAN
+        |--------------------------------------------------------------------------
+        */
+
+        $y = drawSectionHeader(
+            $pdf,
+            8,
+            $y,
+            '3. RENCANAKAN YANG MEMATIKAN (TOTALITAS RENCANA)'
+        );
+
+        $pdf::SetFont('Times', '', 10);
+
+
+        /* Risiko Tinggi */
+        $y = drawDynamicRow(
+            $pdf,
+            8,
+            $y,
+            'Resiko Tinggi',
+            '2',
+            'Letalitas rencana yang tinggi (dengan senapan, gantung diri, melompat tebing, dan karbon dioksida)',
+            $assesbnh[0]->rym_value_1
+        );
+
+
+        /* Risiko Sedang */
+        $y = drawDynamicRow(
+            $pdf,
+            8,
+            $y,
+            'Resiko Sedang',
+            '1',
+            'Letalitas rencana yang sedang (dengan pil tidur, overdosis, aspirin, dan barbiturat)',
+            $assesbnh[0]->rym_value_2
+        );
+
+
+        /* Risiko Kecil */
+        $y = drawDynamicRow(
+            $pdf,
+            8,
+            $y,
+            'Resiko Kecil',
+            '0',
+            'Letalitas rencana yang rendah (menggarukan kuku ke kulit, membenturkan kepala ke pintu, mengancam dengan benda tajam, menutup kepala dengan bantal)',
+            $assesbnh[0]->rym_value_3
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | 4. RIWAYAT PERCOBAAN BUNUH DIRI
+        |--------------------------------------------------------------------------
+        */
+
+        $y = drawSectionHeader(
+            $pdf,
+            8,
+            $y,
+            '4. RIWAYAT PERCOBAAN BUNUH DIRI (TIDAK DIBATASI WAKTU)'
+        );
+
+        $pdf::SetFont('Times', '', 10);
+
+
+        /* Risiko Tinggi */
+        $y = drawDynamicRow(
+            $pdf,
+            8,
+            $y,
+            'Resiko Tinggi',
+            '2',
+            'Riwayat percobaan dengan letalitas tinggi',
+            $assesbnh[0]->rpbd_value_1
+        );
+
+
+        /* Risiko Sedang */
+        $y = drawDynamicRow(
+            $pdf,
+            8,
+            $y,
+            'Resiko Sedang',
+            '1',
+            'Riwayat percobaan dengan letalitas sedang',
+            $assesbnh[0]->rpbd_value_2
+        );
+
+
+        /* Risiko Kecil */
+        $y = drawDynamicRow(
+            $pdf,
+            8,
+            $y,
+            'Resiko Kecil',
+            '0',
+            'Tidak ada riwayat percobaan',
+            $assesbnh[0]->rpbd_value_3
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | 5. IDE BUNUH DIRI
+        |--------------------------------------------------------------------------
+        */
+
+        $y = drawSectionHeader(
+            $pdf,
+            8,
+            $y,
+            '5. IDE BUNUH DIRI'
+        );
+
+        $pdf::SetFont('Times', '', 10);
+
+
+        /* Risiko Tinggi */
+        $y = drawDynamicRow(
+            $pdf,
+            8,
+            $y,
+            'Resiko Tinggi',
+            '2',
+            'Pikiran bunuh diri terus-menerus',
+            $assesbnh[0]->ibd_value_1
+        );
+
+
+        /* Risiko Sedang */
+        $y = drawDynamicRow(
+            $pdf,
+            8,
+            $y,
+            'Resiko Sedang',
+            '1',
+            'Pikiran bunuh diri sesekali atau singkat',
+            $assesbnh[0]->ibd_value_2
+        );
+
+
+        /* Risiko Kecil */
+        $y = drawDynamicRow(
+            $pdf,
+            8,
+            $y,
+            'Resiko Kecil',
+            '0',
+            'Tidak ada pikiran bunuh diri',
+            $assesbnh[0]->ibd_value_3
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | 6. GEJALA
+        |--------------------------------------------------------------------------
+        */
+
+        $y = drawSectionHeader(
+            $pdf,
+            8,
+            $y,
+            '6. GEJALA (a. Putus Asa; b. Tidak Berdaya; c. Anhedonia; d. Rasa Bersalah/Malu; e. Kemarahan; f. Impulsivitas)'
+        );
+
+        $pdf::SetFont('Times', '', 10);
+
+
+        /* Risiko Tinggi */
+        $y = drawDynamicRow(
+            $pdf,
+            8,
+            $y,
+            'Resiko Tinggi',
+            '2',
+            'Terdapat 5-6 gejala',
+            $assesbnh[0]->gjl_value_1
+        );
+
+
+        /* Risiko Sedang */
+        $y = drawDynamicRow(
+            $pdf,
+            8,
+            $y,
+            'Resiko Sedang',
+            '1',
+            'Terdapat 3-4 gejala',
+            $assesbnh[0]->gjl_value_2
+        );
+
+
+        /* Risiko Kecil */
+        $y = drawDynamicRow(
+            $pdf,
+            8,
+            $y,
+            'Resiko Kecil',
+            '0',
+            'Terdapat 0-2 gejala',
+            $assesbnh[0]->gjl_value_3
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | 7. PIKIRAN KEMATIAN SAAT INI
+        |--------------------------------------------------------------------------
+        */
+
+        $y = drawSectionHeader(
+            $pdf,
+            8,
+            $y,
+            '7. PIKIRAN KEMATIAN SAAT INI (Berfantasi yang berlebihan, Selalu berbicara tentang kematian)'
+        );
+
+        $pdf::SetFont('Times', '', 10);
+
+
+        /* Risiko Tinggi */
+        $y = drawDynamicRow(
+            $pdf,
+            8,
+            $y,
+            'Resiko Tinggi',
+            '2',
+            'Terus Menerus',
+            $assesbnh[0]->pksi_value_1
+        );
+
+
+        /* Risiko Sedang */
+        $y = drawDynamicRow(
+            $pdf,
+            8,
+            $y,
+            'Resiko Sedang',
+            '1',
+            'Sering',
+            $assesbnh[0]->pksi_value_2
+        );
+
+
+        /* Risiko Kecil */
+        $y = drawDynamicRow(
+            $pdf,
+            8,
+            $y,
+            'Resiko Kecil',
+            '0',
+            'Jarang',
+            $assesbnh[0]->pksi_value_3
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | 8. PENILAIAN PEMERIKSAAN TERHADAP VALIDASI JAWABAN PASIEN
+        |--------------------------------------------------------------------------
+        */
+
+        $y = drawSectionHeader(
+            $pdf,
+            8,
+            $y,
+            '8. PENILAIAN PEMERIKSAAN TERHADAP VALIDASI JAWABAN PASIEN'
+        );
+
+        $pdf::SetFont('Times', '', 10);
+
+
+        /* Risiko Tinggi */
+        $y = drawDynamicRow(
+            $pdf,
+            8,
+            $y,
+            'Resiko Tinggi',
+            '2',
+            'Jawaban tidak dapat dipercaya tetapi beberapa syarat menunjukan perilaku risiko bunuh diri ditemukan',
+            $assesbnh[0]->pptv_value_1
+        );
+
+
+        /* Risiko Sedang */
+        $y = drawDynamicRow(
+            $pdf,
+            8,
+            $y,
+            'Resiko Sedang',
+            '1',
+            'Jawaban atas pertanyaan pasien bisa dipercaya, terdapat sedikitnya isyarat risiko bunuh diri',
+            $assesbnh[0]->pptv_value_2
+        );
+
+
+        /* Risiko Kecil */
+        $y = drawDynamicRow(
+            $pdf,
+            8,
+            $y,
+            'Resiko Kecil',
+            '0',
+            'Jawaban pasien dapat dipercaya',
+            $assesbnh[0]->pptv_value_3
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Y TERAKHIR
+        |--------------------------------------------------------------------------
+        */
+
+        $pdf::SetY($y);
+
+        $pdf::ln();
+        $pdf::SetFont('Times', 'B', 10);
+        $pdf::SetX(8);
+        $pdf::Cell(180, 5, 'Total Skor',1,"","C");
+        $pdf::Cell(18, 5, $assesbnh[0]->totalbunuhdiri ,1,"","C");
+        $pdf::ln();
+        $pdf::SetFont('Times', 'B', 10);
+        $pdf::SetX(8);
+        $pdf::Cell(95, 5, '',1,"","C");
+        $y = $pdf::GetY();
+        $pdf::SetFont('Times', '', 10);
+
+        $pdf::SetXY(103, $y);
+        $pdf::Cell(65, 5, 'Interval Pengawasan',1,"","C");
+        
+        $y = $pdf::GetY();
+        $pdf::SetFont('Times', '', 10);
+
+        $pdf::SetXY(168, $y);
+        $pdf::Cell(38, 5, 'Ruang Perawatan',1,"","C");
+        
+        
+        $pdf::ln();
+        $pdf::SetFont('Times', 'B', 10);
+        $pdf::SetX(8);
+        $pdf::Cell(30, 15, 'II. Kunci skoring',1,"","C");
+        $y = $pdf::GetY();
+        $pdf::SetFont('Times', '', 10);
+
+        $pdf::SetXY(38, $y);
+        $pdf::Cell(65, 5, 'Resiko tinggi ika skor 10+',1,"","C");
+
+        $y = $pdf::GetY();
+        $pdf::SetFont('Times', '', 10);
+
+        $pdf::SetXY(103, $y);
+        $pdf::Cell(65, 5, 'Tiap 1 (satu) jam',1,"","C");
+         $y = $pdf::GetY();
+        $pdf::SetFont('Times', '', 10);
+
+        $pdf::SetXY(168, $y);
+        $pdf::Cell(38, 15, 'Tiap 1 (satu) jam',1,"","C");
+
+        $pdf::Rect(8, 10, 198, 260);
+       
+        // $y = $pdf::GetY();
+        // $pdf::SetFont('Times', 'B', 10);
+        // $pdf::SetXY(8, $y);
+
+        // $pdf::Cell(30, 5, 'I. Faktor Kunci',1,"","C");
+        // $pdf::SetXY(38, $y);
+
+        // $pdf::Cell(15, 5, 'Skor',1,"","C");
+        // $pdf::SetXY(53, $y);
+        // $pdf::Cell(135, 5, 'INDIKATOR',1,"","C");
+        // $pdf::SetXY(188, $y);
+        // $pdf::Cell(18, 5, 'Skore',1,"","C");
+        // $pdf::ln();
+        // $pdf::SetFont('Times', 'B', 10);
+        // $pdf::SetX(8);
+        // $pdf::Cell(198, 5, '1. KOMITMEN UNTUK KESELAMATAN',1,"","C");
+        // $pdf::ln();
+        // $y = $pdf::GetY();
+        // $pdf::SetFont('Times', '', 10);
+        // $pdf::SetXY(8, $y);
+
+        // $pdf::Cell(30, 5, 'Resiko Tinggi',1,"","C");
+        // $pdf::SetXY(38, $y);
+
+        // $pdf::Cell(15, 5, '2',1,"","C");
+        // $pdf::SetXY(53, $y);
+        // $pdf::MultiCell(135, 5, 'Menolak membuat komitmen/tidak mampu membuat komitmen karena ketidakmampuan menilai (Halusinasi, Delusi , demensia, delirium, disosiasi)',1);
+        // $pdf::SetXY(188, $y);
+        // $pdf::Cell(18, 5, $assesbnh[0]->kuk_value_1 ,1,"","C");
+
+        // $pdf::ln();
+        // $y = $pdf::GetY();
+        // $pdf::SetFont('Times', '', 10);
+        // $pdf::SetXY(8, $y);
+
+        // $pdf::Cell(30, 5, 'Resiko Sedang',1,"","C");
+        // $pdf::SetXY(38, $y);
+
+        // $pdf::Cell(15, 5, '1',1,"","C");
+        // $pdf::SetXY(53, $y);
+        // $pdf::MultiCell(135, 5, 'Mampu membuat komitmen tapi ragu-ragu dalam membuatnya',1);
+        // $pdf::SetXY(188, $y);
+        // $pdf::Cell(18, 5, $assesbnh[0]->kuk_value_2 ,1,"","C");
+        // $pdf::ln();
+        // $y = $pdf::GetY();
+        // $pdf::SetFont('Times', '', 10);
+        // $pdf::SetXY(8, $y);
+
+        // $pdf::Cell(30, 5, 'Resiko Kecil',1,"","C");
+        // $pdf::SetXY(38, $y);
+
+        // $pdf::Cell(15, 5, '0',1,"","C");
+        // $pdf::SetXY(53, $y);
+        // $pdf::MultiCell(135, 5, 'Mampu membuat komitmen untuk keselamatan dengan jelas',1);
+        // $pdf::SetXY(188, $y);
+        // $pdf::Cell(18, 5, $assesbnh[0]->kuk_value_3 ,1,"","C");
+        
+        // $pdf::ln();
+        // $pdf::SetFont('Times', 'B', 10);
+        // $pdf::SetX(8);
+        // $pdf::Cell(198, 5, '2. RENCANA BUNUH DIRI',1,"","C");
+        // $pdf::ln();
+        // $y = $pdf::GetY();
+        // $pdf::SetFont('Times', '', 10);
+        // $pdf::SetXY(8, $y);
+
+        // $pdf::Cell(30, 5, 'Resiko Tinggi',1,"","C");
+        // $pdf::SetXY(38, $y);
+
+        // $pdf::Cell(15, 5, '2',1,"","C");
+        // $pdf::SetXY(53, $y);
+        // $pdf::MultiCell(135, 5, 'Merencanakan secara aktual ide bunuh diri dan sudah mengungkapkan metode/cara bunuh diri',1);
+        // $pdf::SetXY(188, $y);
+        // $pdf::Cell(18, 5, $assesbnh[0]->rbd_value_1 ,1,"","C");
+
+        // $pdf::ln();
+        // $y = $pdf::GetY();
+        // $pdf::SetFont('Times', '', 10);
+        // $pdf::SetXY(8, $y);
+
+        // $pdf::Cell(30, 5, 'Resiko Sedang',1,"","C");
+        // $pdf::SetXY(38, $y);
+
+        // $pdf::Cell(15, 5, '1',1,"","C");
+        // $pdf::SetXY(53, $y);
+        // $pdf::MultiCell(135, 5, 'merencanakan secara aktual ide bunuh diri tapi belum ada cara bunuh diri',1);
+        // $pdf::SetXY(188, $y);
+        // $pdf::Cell(18, 5, $assesbnh[0]->rbd_value_2 ,1,"","C");
+        // $pdf::ln();
+        // $y = $pdf::GetY();
+        // $pdf::SetFont('Times', '', 10);
+        // $pdf::SetXY(8, $y);
+
+        // $pdf::Cell(30, 5, 'Resiko Kecil',1,"","C");
+        // $pdf::SetXY(38, $y);
+
+        // $pdf::Cell(15, 5, '0',1,"","C");
+        // $pdf::SetXY(53, $y);
+        // $pdf::MultiCell(135, 5, 'Tidak ada Rencana',1);
+        // $pdf::SetXY(188, $y);
+        // $pdf::Cell(18, 5, $assesbnh[0]->rbd_value_3 ,1,"","C");
+
+        // $pdf::ln();
+        // $pdf::SetFont('Times', 'B', 10);
+        // $pdf::SetX(8);
+        // $pdf::Cell(198, 5, '3. RENCANAKAN YANG MEMATIKAN (TOTALITAS RENCANA) ',1,"","C");
+        // $pdf::ln();
+        // $y = $pdf::GetY();
+        // $pdf::SetFont('Times', '', 10);
+        // $pdf::SetXY(8, $y);
+
+        // $pdf::Cell(30, 5, 'Resiko Tinggi',1,"","C");
+        // $pdf::SetXY(38, $y);
+
+        // $pdf::Cell(15, 5, '2',1,"","C");
+        // $pdf::SetXY(53, $y);
+        // $pdf::MultiCell(135, 5, 'Letalitas rencan yang tinggi ( dengan senapan, gantung diri, melompat tebing, dan korban dioksida )',1);
+        // $pdf::SetXY(188, $y);
+        // $pdf::Cell(18, 5, $assesbnh[0]->rym_value_1 ,1,"","C");
+
+        // $pdf::ln();
+        // $y = $pdf::GetY();
+        // $pdf::SetFont('Times', '', 10);
+        // $pdf::SetXY(8, $y);
+
+        // $pdf::Cell(30, 5, 'Resiko Sedang',1,"","C");
+        // $pdf::SetXY(38, $y);
+
+        // $pdf::Cell(15, 5, '1',1,"","C");
+        // $pdf::SetXY(53, $y);
+        // $pdf::MultiCell(135, 5, 'Letalitas rencana yang sedang (dengan pil tidur, overdosis, aspirin, dan barbiturat )',1);
+        // $pdf::SetXY(188, $y);
+        // $pdf::Cell(18, 5, $assesbnh[0]->rym_value_2 ,1,"","C");
+        // $pdf::ln();
+        // $y = $pdf::GetY();
+        // $pdf::SetFont('Times', '', 10);
+        // $pdf::SetXY(8, $y);
+
+        // $pdf::Cell(30, 5, 'Resiko Kecil',1,"","C");
+        // $pdf::SetXY(38, $y);
+
+        // $pdf::Cell(15, 5, '0',1,"","C");
+        // $pdf::SetXY(53, $y);
+        // $pdf::MultiCell(135, 5, 'Letalitas rencana yang rendah (menggarukan kuku ke kulit membenturkan kepala ke pintu, mengancam dengan benda tajam, menutup kepala dengan bantal)',1);
+        // $pdf::SetXY(188, $y);
+        // $pdf::Cell(18, 5, $assesbnh[0]->rym_value_3 ,1,"","C");
+      
+        // $pdf::ln();
+        // $pdf::SetFont('Times', 'B', 10);
+        // $pdf::SetX(8);
+        // $pdf::Cell(198, 5, '4. RIWAYAT PERCOBAAN BUNUH DIRI (TIDAK DIBATASI WAKTU) ',1,"","C");
+        // $pdf::ln();
+        // $y = $pdf::GetY();
+        // $pdf::SetFont('Times', '', 10);
+        // $pdf::SetXY(8, $y);
+
+        // $pdf::Cell(30, 5, 'Resiko Tinggi',1,"","C");
+        // $pdf::SetXY(38, $y);
+
+        // $pdf::Cell(15, 5, '2',1,"","C");
+        // $pdf::SetXY(53, $y);
+        // $pdf::MultiCell(135, 5, 'Riwayat percoban dengan letalitas tinggi',1);
+        // $pdf::SetXY(188, $y);
+        // $pdf::Cell(18, 5, $assesbnh[0]->rpbd_value_1 ,1,"","C");
+
+        // $pdf::ln();
+        // $y = $pdf::GetY();
+        // $pdf::SetFont('Times', '', 10);
+        // $pdf::SetXY(8, $y);
+
+        // $pdf::Cell(30, 5, 'Resiko Sedang',1,"","C");
+        // $pdf::SetXY(38, $y);
+
+        // $pdf::Cell(15, 5, '1',1,"","C");
+        // $pdf::SetXY(53, $y);
+        // $pdf::MultiCell(135, 5, 'Riwayat percobaan dengan letalitas sedang',1);
+        // $pdf::SetXY(188, $y);
+        // $pdf::Cell(18, 5, $assesbnh[0]->rpbd_value_2 ,1,"","C");
+        // $pdf::ln();
+        // $y = $pdf::GetY();
+        // $pdf::SetFont('Times', '', 10);
+        // $pdf::SetXY(8, $y);
+
+        // $pdf::Cell(30, 5, 'Resiko Kecil',1,"","C");
+        // $pdf::SetXY(38, $y);
+
+        // $pdf::Cell(15, 5, '0',1,"","C");
+        // $pdf::SetXY(53, $y);
+        // $pdf::MultiCell(135, 5, 'Tidak ada riwayat percobaan',1);
+        // $pdf::SetXY(188, $y);
+        // $pdf::Cell(18, 5, $assesbnh[0]->rpbd_value_3 ,1,"","C");
+      
+        
+        // $pdf::ln();
+        // $pdf::SetFont('Times', 'B', 10);
+        // $pdf::SetX(8);
+        // $pdf::Cell(198, 5, '5. IDE BUNUH DIRI ',1,"","C");
+        // $pdf::ln();
+        // $y = $pdf::GetY();
+        // $pdf::SetFont('Times', '', 10);
+        // $pdf::SetXY(8, $y);
+
+        // $pdf::Cell(30, 5, 'Resiko Tinggi',1,"","C");
+        // $pdf::SetXY(38, $y);
+
+        // $pdf::Cell(15, 5, '2',1,"","C");
+        // $pdf::SetXY(53, $y);
+        // $pdf::MultiCell(135, 5, 'pikiran bunuh diri terus - menerus',1);
+        // $pdf::SetXY(188, $y);
+        // $pdf::Cell(18, 5, $assesbnh[0]->ibd_value_1 ,1,"","C");
+
+        // $pdf::ln();
+        // $y = $pdf::GetY();
+        // $pdf::SetFont('Times', '', 10);
+        // $pdf::SetXY(8, $y);
+
+        // $pdf::Cell(30, 5, 'Resiko Sedang',1,"","C");
+        // $pdf::SetXY(38, $y);
+
+        // $pdf::Cell(15, 5, '1',1,"","C");
+        // $pdf::SetXY(53, $y);
+        // $pdf::MultiCell(135, 5, 'Pikiran bunuh diri sesekali atau singkat',1);
+        // $pdf::SetXY(188, $y);
+        // $pdf::Cell(18, 5, $assesbnh[0]->ibd_value_2 ,1,"","C");
+        // $pdf::ln();
+        // $y = $pdf::GetY();
+        // $pdf::SetFont('Times', '', 10);
+        // $pdf::SetXY(8, $y);
+
+        // $pdf::Cell(30, 5, 'Resiko Kecil',1,"","C");
+        // $pdf::SetXY(38, $y);
+
+        // $pdf::Cell(15, 5, '0',1,"","C");
+        // $pdf::SetXY(53, $y);
+        // $pdf::MultiCell(135, 5, 'Tidak pikiran bunuh diri',1);
+        // $pdf::SetXY(188, $y);
+        // $pdf::Cell(18, 5, $assesbnh[0]->ibd_value_3 ,1,"","C");
+
+        // $pdf::ln();
+        // $pdf::SetFont('Times', 'B', 10);
+        // $pdf::SetX(8);
+        // $pdf::Cell(198, 5, '6. GEJALA (a. Putus Asa; b. Tidak Berdaya; c. Anchedonia; d. Rasa bersalah/Malu; e. Kemarahan; f. Implusivitas ',1,"","C");
+        // $pdf::ln();
+        // $y = $pdf::GetY();
+        // $pdf::SetFont('Times', '', 10);
+        // $pdf::SetXY(8, $y);
+
+        // $pdf::Cell(30, 5, 'Resiko Tinggi',1,"","C");
+        // $pdf::SetXY(38, $y);
+
+        // $pdf::Cell(15, 5, '2',1,"","C");
+        // $pdf::SetXY(53, $y);
+        // $pdf::MultiCell(135, 5, 'terdapat 5-6 gejala',1);
+        // $pdf::SetXY(188, $y);
+        // $pdf::Cell(18, 5, $assesbnh[0]->gjl_value_1 ,1,"","C");
+
+        // $pdf::ln();
+        // $y = $pdf::GetY();
+        // $pdf::SetFont('Times', '', 10);
+        // $pdf::SetXY(8, $y);
+
+        // $pdf::Cell(30, 5, 'Resiko Sedang',1,"","C");
+        // $pdf::SetXY(38, $y);
+
+        // $pdf::Cell(15, 5, '1',1,"","C");
+        // $pdf::SetXY(53, $y);
+        // $pdf::MultiCell(135, 5, 'Terdapat 3-4 gejala',1);
+        // $pdf::SetXY(188, $y);
+        // $pdf::Cell(18, 5, $assesbnh[0]->gjl_value_2 ,1,"","C");
+        // $pdf::ln();
+        // $y = $pdf::GetY();
+        // $pdf::SetFont('Times', '', 10);
+        // $pdf::SetXY(8, $y);
+
+        // $pdf::Cell(30, 5, 'Resiko Kecil',1,"","C");
+        // $pdf::SetXY(38, $y);
+
+        // $pdf::Cell(15, 5, '0',1,"","C");
+        // $pdf::SetXY(53, $y);
+        // $pdf::MultiCell(135, 5, 'Terdapat 0-2 gejala',1);
+        // $pdf::SetXY(188, $y);
+        // $pdf::Cell(18, 5, $assesbnh[0]->gjl_value_3 ,1,"","C");
+
+        // $pdf::ln();
+        // $pdf::SetFont('Times', 'B', 10);
+        // $pdf::SetX(8);
+        // $pdf::Cell(198, 5, '7. PIKIRAN KEMATIAN SAAT INI (Berfantasi yang berlebihan, Selalu berbicara tentang kematian) ',1,"","C");
+        // $pdf::ln();
+        // $y = $pdf::GetY();
+        // $pdf::SetFont('Times', '', 10);
+        // $pdf::SetXY(8, $y);
+
+        // $pdf::Cell(30, 5, 'Resiko Tinggi',1,"","C");
+        // $pdf::SetXY(38, $y);
+
+        // $pdf::Cell(15, 5, '2',1,"","C");
+        // $pdf::SetXY(53, $y);
+        // $pdf::MultiCell(135, 5, 'Terus Menerus',1);
+        // $pdf::SetXY(188, $y);
+        // $pdf::Cell(18, 5, $assesbnh[0]->pksi_value_1 ,1,"","C");
+
+        // $pdf::ln();
+        // $y = $pdf::GetY();
+        // $pdf::SetFont('Times', '', 10);
+        // $pdf::SetXY(8, $y);
+
+        // $pdf::Cell(30, 5, 'Resiko Sedang',1,"","C");
+        // $pdf::SetXY(38, $y);
+
+        // $pdf::Cell(15, 5, '1',1,"","C");
+        // $pdf::SetXY(53, $y);
+        // $pdf::MultiCell(135, 5, 'Sering',1);
+        // $pdf::SetXY(188, $y);
+        // $pdf::Cell(18, 5, $assesbnh[0]->pksi_value_2 ,1,"","C");
+        // $pdf::ln();
+        // $y = $pdf::GetY();
+        // $pdf::SetFont('Times', '', 10);
+        // $pdf::SetXY(8, $y);
+
+        // $pdf::Cell(30, 5, 'Resiko Kecil',1,"","C");
+        // $pdf::SetXY(38, $y);
+
+        // $pdf::Cell(15, 5, '0',1,"","C");
+        // $pdf::SetXY(53, $y);
+        // $pdf::MultiCell(135, 5, 'Jarang',1);
+        // $pdf::SetXY(188, $y);
+        // $pdf::Cell(18, 5, $assesbnh[0]->pksi_value_3 ,1,"","C");
+
+        //         $pdf::ln();
+        // $pdf::SetFont('Times', 'B', 10);
+        // $pdf::SetX(8);
+        // $pdf::Cell(198, 5, '8. PENILAIAN PEMERIKSAAN TERHADAP VALIDASI JAWABAN PASIEN',1,"","C");
+        // $pdf::ln();
+        // $y = $pdf::GetY();
+        // $pdf::SetFont('Times', '', 10);
+        // $pdf::SetXY(8, $y);
+
+        // $pdf::Cell(30, 5, 'Resiko Tinggi',1,"","C");
+        // $pdf::SetXY(38, $y);
+
+        // $pdf::Cell(15, 5, '2',1,"","C");
+        // $pdf::SetXY(53, $y);
+        // $pdf::MultiCell(135, 5, 'Terus MenerusJawaban tidak dapat dipercaya tetapi beberapa syarat menunjukan perilaku risiko bunuh diri ditemukan',1);
+        // $pdf::SetXY(188, $y);
+        // $pdf::Cell(18, 5, $assesbnh[0]->pptv_value_1 ,1,"","C");
+
+        // $pdf::ln();
+        // $y = $pdf::GetY();
+        // $pdf::SetFont('Times', '', 10);
+        // $pdf::SetXY(8, $y);
+
+        // $pdf::Cell(30, 5, 'Resiko Sedang',1,"","C");
+        // $pdf::SetXY(38, $y);
+
+        // $pdf::Cell(15, 5, '1',1,"","C");
+        // $pdf::SetXY(53, $y);
+        // $pdf::MultiCell(135, 5, 'jawaban atas pertanyaan pasien bisa di percaya, terdapat sedikitnya isyarat resiko bunuh diri',1);
+        // $pdf::SetXY(188, $y);
+        // $pdf::Cell(18, 5, $assesbnh[0]->pptv_value_2 ,1,"","C");
+        // $pdf::ln();
+        // $y = $pdf::GetY();
+        // $pdf::SetFont('Times', '', 10);
+        // $pdf::SetXY(8, $y);
+
+        // $pdf::Cell(30, 5, 'Resiko Kecil',1,"","C");
+        // $pdf::SetXY(38, $y);
+
+        // $pdf::Cell(15, 5, '0',1,"","C");
+        // $pdf::SetXY(53, $y);
+        // $pdf::MultiCell(135, 5, 'Jawaban Pasien dapat dipercaya',1);
+        // $pdf::SetXY(188, $y);
+        // $pdf::Cell(18, 5, $assesbnh[0]->pptv_value_3 ,1,"","C");
+        }else{
+
+        }
+
+        $pdf::Output();
+
+
     }
     public function cetakassesdokter(Request $request)
     {

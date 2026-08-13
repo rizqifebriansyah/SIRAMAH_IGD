@@ -119,6 +119,9 @@ Route::group(['middleware' => ['hak_akses:5', 'auth']], function () {
     Route::post('simpanpemeriksaantriase', [DokterController::class, 'simpanpemeriksaantriase'])->name('simpanpemeriksaantriase');
     Route::post('simpanpemeriksaantriaseanak', [DokterController::class, 'simpanpemeriksaantriaseanak'])->name('simpanpemeriksaantriaseanak');
 
+    
+    Route::post('simpanassesbunuhdiri', [DokterController::class, 'simpanassesbunuhdiri'])->name('simpanassesbunuhdiri');
+   
     Route::post('simpanassesmen', [DokterController::class, 'simpanassesmen'])->name('simpanassesmen');
     Route::post('simpanassesdokkebid', [DokterController::class, 'simpanassesdokkebid'])->name('simpanassesdokkebid');
     Route::post('simpanassesdokbay', [DokterController::class, 'simpanassesdokbay'])->name('simpanassesdokbay');
@@ -126,7 +129,9 @@ Route::group(['middleware' => ['hak_akses:5', 'auth']], function () {
     Route::post('updateassemen', [DokterController::class, 'updateassemen'])->name('updateassemen');
     Route::post('updateassesdokbid', [DokterController::class, 'updateassesdokbid'])->name('updateassesdokbid');
     Route::post('updateassesdokbidbay', [DokterController::class, 'updateassesdokbidbay'])->name('updateassesdokbidbay');
+    Route::post('updateassesbunuhdiri', [DokterController::class, 'updateassesbunuhdiri'])->name('updateassesbunuhdiri');
 
+    
 
 
 
@@ -165,6 +170,9 @@ Route::post('cetakassesperawat', [DokterController::class, 'cetakassesperawat'])
 Route::get('cetakassesmenperawat/{kj}/{norm}', [DokterController::class, 'cetakassesmenperawat']);
 Route::post('cetakassesdokter', [DokterController::class, 'cetakassesdokter'])->name('cetakassesdokter');
 Route::get('cetakassesmendokter/{kj}/{norm}', [DokterController::class, 'cetakassesmendokter']);
+Route::post('cetakresikobunuhdiri', [DokterController::class, 'cetakresikobunuhdiri'])->name('cetakresikobunuhdiri');
+Route::get('cetakformbunuhdiri/{kj}/{norm}', [DokterController::class, 'cetakformbunuhdiri']);
+
 
 Route::post('cetakobsperawat', [DokterController::class, 'cetakobsperawat'])->name('cetakobsperawat');
 Route::get('cetakobservasiperawat/{kj}/{norm}', [DokterController::class, 'cetakobservasiperawat']);
@@ -238,6 +246,8 @@ Route::group(['middleware' => ['hak_akses:4', 'auth']], function () {
     Route::post('/simpantindakankebidanan', [PerawatController::class, 'simpantindakankebidanan'])->name('simpantindakankebidanan');
 
     Route::post('returtinper', [PerawatController::class, 'returtinper'])->name('returtinper');
+    Route::post('returttv', [PerawatController::class, 'returttv'])->name('returttv');
+
     Route::post('returobatplg', [PerawatController::class, 'returobatplg'])->name('returobatplg');
 });
 

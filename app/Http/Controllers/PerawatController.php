@@ -53,7 +53,7 @@ class PerawatController extends Controller
         $norm = $request->norm;
         $unit = auth()->user()->unit;
 
-        $hasilp = DB::select('SELECT * FROM pemantauan_ttv WHERE kj = ? AND norm = ?', [$kj, $norm]);
+        $hasilp = DB::select('SELECT * FROM pemantauan_ttv WHERE kj = ? AND norm = ? AND status = 1', [$kj, $norm]);
         // dd($hasilp);
 
         return view('perawat.pemantauanview', [
@@ -1678,6 +1678,7 @@ class PerawatController extends Controller
 
 
             ]);
+            // dd($rencanaplg);
         } catch (\Exception $e) {
             $back = [
                 'kode' => 200,
@@ -1689,32 +1690,35 @@ class PerawatController extends Controller
 
         try {
             $obatpllg = json_decode($_POST['obatplg'], true);
-            foreach ($obatpllg as $nama) {
-                $index = $nama['name'];
-                $value = $nama['value'];
-                $dataSet[$index] = $value;
-                if ($index == 'intruksi') {
-                    $arrayindex[] = $dataSet;
+            if ($obatpllg == null) {
+            } else {
+                foreach ($obatpllg as $nama) {
+                    $index = $nama['name'];
+                    $value = $nama['value'];
+                    $dataSet[$index] = $value;
+                    if ($index == 'intruksi') {
+                        $arrayindex[] = $dataSet;
+                    }
                 }
-            }
-            // $id_detail = $this->createLayanandetail();
-            foreach ($arrayindex as $arr) {
-                $savedetailobatplg = [
-                    // 'kode_detail_obat' => $id_detail,
-                    'no_rm' => $norm,
-                    'kode_kunjungan' => $kj,
-                    'kode_unit' => '1002',
-                    'nama_obat' => $arr['namaobat'],
-                    'dosis' => $arr['dosis'],
-                    'jam_pemberian' => $arr['jampemberian'],
-                    'instruksi_khusus' => $arr['intruksi'],
+                // $id_detail = $this->createLayanandetail();
+                foreach ($arrayindex as $arr) {
+                    $savedetailobatplg = [
+                        // 'kode_detail_obat' => $id_detail,
+                        'no_rm' => $norm,
+                        'kode_kunjungan' => $kj,
+                        'kode_unit' => '1002',
+                        'nama_obat' => $arr['namaobat'],
+                        'dosis' => $arr['dosis'],
+                        'jam_pemberian' => $arr['jampemberian'],
+                        'instruksi_khusus' => $arr['intruksi'],
 
 
-                    'tgl_input' => $now,
-                    'status' => 1
+                        'tgl_input' => $now,
+                        'status' => 1
 
-                ];
-                $obatpulang = erm_obat_pulang_igd::create($savedetailobatplg);
+                    ];
+                    $obatpulang = erm_obat_pulang_igd::create($savedetailobatplg);
+                }
             }
         } catch (\Exception $e) {
             $back = [
@@ -4508,7 +4512,22 @@ class PerawatController extends Controller
         die;
     }
 
+    public function returttv(Request $request)
+    {
+        $idttv = $request->idttv;
+        $returttv = DB::select('UPDATE pemantauan_ttv SET status = "3"  WHERE id = ? ', [$idttv]);
 
+
+
+
+
+        $back = [
+            'kode' => 200,
+            'message' => 'Berhasil'
+        ];
+        echo json_encode($back);
+        die;
+    }
     public function returtinper(Request $request)
     {
         $kj = $request->kj;

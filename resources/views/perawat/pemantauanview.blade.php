@@ -3,7 +3,7 @@
 <table id="datapemantauan" class="table ml-2 datapemantauan table-sm text-sm table-bordered table-hover">
     <thead class="bg-success">
 
-
+        <th>id</th>
         <th>tgl/waktu</th>
         <th>Dokter </th>
         <th>Waktu Jaga</th>
@@ -31,6 +31,8 @@
     <tbody>
         @foreach($hasilp as $lap => $l)
         <tr>
+            <td class="idttv">{{$l->id}}</td>
+
             <td>{{$l->tgl_input}}</td>
             <td>{{$l->dokter_jaga}}</td>
             <td>{{$l->waktu_jaga_dokter_pagi}}{{$l->waktu_jaga_dokter_siang}}{{$l->waktu_jaga_dokter_malam}}</td>
@@ -42,14 +44,16 @@
             <td>{{$l->td}}</td>
             <td>{{$l->nadi}}</td>
             <td>{{$l->rr}}</td>
+
             <td>{{$l->suhu}}</td>
             <td>{{$l->gcs}}</td>
             <td>{{$l->pupil}}</td>
             <td>{{$l->nyeri}}</td>
-            <td><a class="btn btn-warning btn-sm " href="#">
-                    <i class="fas fa-sync-alt fa-spin"></i>
-                    RETUR
-                </a></td>
+            <td>
+                <a class=" btn btn-danger btn-sm returttv" href="#">
+                    batal
+                </a>
+            </td>
         </tr>
         @endforeach
 
@@ -59,7 +63,7 @@
 <table id="datapemantauan" class="table ml-2 datapemantauan table-sm text-sm table-bordered table-hover">
     <thead class="bg-success">
 
-
+        <th>id</th>
         <th>tgl/waktu</th>
 
         <th>Diagnosa Kerja</th>
@@ -86,6 +90,7 @@
     <tbody>
         @foreach($hasilp as $lap => $l)
         <tr>
+            <td class="idttv">{{$l->id}}</td>
             <td>{{$l->tgl_input}}</td>
             <td>{{$l->diagnosa_kerja}}</td>
 
@@ -99,9 +104,8 @@
             <td>{{$l->obatcairan}}</td>
             <td>{{$l->tetesan}}</td>
 
-            <td><a class="btn btn-warning btn-sm " href="#">
-                    <i class="fas fa-sync-alt fa-spin"></i>
-                    RETUR
+            <td><a class="btn btn-danger btn-sm returttv" href="#">
+                    batal
                 </a></td>
         </tr>
         @endforeach
@@ -123,23 +127,117 @@
         var bel = new Audio('notif.mp3');
         bel.play();
     }
-    $(function() {
-        $("#datapemantauan").DataTable({
-            "sortable": true,
-            "responsive": true,
-            "lengthChange": false,
-            "pageLength": 15,
-            "autoWidth": false,
-            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-        }).buttons().container().appendTo('#datapemantauan_wrapper .col-md-6:eq(0)');
-        $('#tablelist').DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": false,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false,
-            "responsive": true,
-        });
+    // $(function() {
+    //     $("#datapemantauan").DataTable({
+    //         "sortable": true,
+    //         "responsive": true,
+    //         "lengthChange": false,
+    //         "pageLength": 15,
+    //         "autoWidth": false,
+    //         "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    //     }).buttons().container().appendTo('#datapemantauan_wrapper .col-md-6:eq(0)');
+    //     $('#tablelist').DataTable({
+    //         "paging": true,
+    //         "lengthChange": false,
+    //         "searching": false,
+    //         "ordering": true,
+    //         "info": true,
+    //         "autoWidth": false,
+    //         "responsive": true,
+    //     });
+    // });
+
+
+    $(".returttv").click(function() {
+        var $row = $(this).closest("tr");
+        var idttv = $row.find(".idttv").text();
+
+
+
+
+        Swal.fire({
+            title: "Yakin Retur TTV?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Ya',
+            cancelButtonColor: '#d33',
+            cancelButtonText: "Batal"
+
+        }).then(result => {
+            //jika klik ya maka arahkan ke proses.php
+            if (result.isConfirmed) {
+                $.ajax({
+                    async: true,
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        idttv
+
+
+
+                    },
+                    url: '<?= route('returttv') ?>',
+
+                    error: function(data) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Sepertinya ada masalah ...',
+                            footer: ''
+                        })
+                    },
+                    success: function(data) {
+                        console.log(data)
+                        if (data.kode == 500) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: data.message,
+                                footer: ''
+                            })
+                        } else {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'OK',
+                                text: 'data berhasil diretur',
+                                footer: ''
+                            })
+                            pemantauanview()
+
+
+
+
+                        }
+                    }
+                });
+            }
+        })
+        return false;
     });
+
+    function pemantauanview() {
+        var kj = $("#kj").val();
+        var norm = $("#norm").val();
+        $.ajax({
+            data: {
+                _token: "{{ csrf_token() }}",
+                kj: $("#kj").val(),
+                norm: $("#norm").val(),
+            },
+            type: "post",
+            url: " {{ route('pemantauanview') }}",
+            error: function(data) {
+                spinner.hide();
+                alert('oke!!')
+            },
+            success: function(response) {
+                spinner.hide();
+                $('.hasilinput').html(response);
+
+
+            }
+        });
+    }
 </script>
