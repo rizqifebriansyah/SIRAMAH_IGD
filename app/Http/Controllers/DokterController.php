@@ -9421,7 +9421,7 @@ AND b.kelas_tarif = 1');
         $pdf::SetFont('Times', '', 10);
 
         $pdf::SetXY(8, $y);
-        $pdf::Cell(160, 15, 'Nama & Tabda tangan dokter',1,"","C");
+        $pdf::Cell(160, 15, 'Nama & Tanda tangan dokter',1,"","C");
             $pdf::SetXY(168, $y);
         $pdf::Cell(38, 15, '',1,"","C");
         // $pdf::SetFont('Times', 'B', 10);
