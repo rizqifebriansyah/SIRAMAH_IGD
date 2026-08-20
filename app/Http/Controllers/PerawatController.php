@@ -4548,6 +4548,108 @@ class PerawatController extends Controller
         echo json_encode($back);
         die;
     }
+     public function simpanhasilusg(Request $request)
+    {
+
+        $dt = Carbon::now()->timezone('Asia/Jakarta');
+        $date = $dt->toDateString();
+        $time = $dt->toTimeString();
+        $now = $date . ' ' . $time;
+        $norm = $request->norm;
+        $data = json_decode($_POST['data'], true);
+        foreach ($data as $nama) {
+            $index =  $nama['name'];
+            $value =  $nama['value'];
+            $dataSet[$index] = $value;
+            if ($index == 'usg') {
+                $arrayindex[] = $dataSet;
+            }
+        }
+        $kj = $dataSet['kj'];
+        $norm = $dataSet['norm'];
+
+        //upload foto
+        $file = $request->file('file');
+        $filename = $norm . '_' . $kj . '_' . 'USG' . '_' . $file->getClientOriginalName();
+
+        $location = '../files';
+
+        // Upload file
+        $file->move($location, $filename);
+
+        // File path
+        $filepath = url('../../files/' . $filename);
+
+
+        // $update = DB::table(' UPDATE erm_cppt_perawat
+        // SET hasil_ekg = ? WHERE kode_kunjungan = ?', [$filepath,$kj]);
+        $update = DB::table('erm_cppt_perawat')
+            ->where('kode_kunjungan', $kj)
+            ->update(['hasil_ekg' => $filename]);
+
+
+        // $request->file('$bukti')->store('public/images');
+        // $foto = new mt_pasien();
+        // $foto->save();
+
+        $back = [
+            'kode' => 200,
+            'message' => ''
+        ];
+        echo json_encode($back);
+        die;
+    }
+    public function simpanhasilctg(Request $request)
+    {
+
+        $dt = Carbon::now()->timezone('Asia/Jakarta');
+        $date = $dt->toDateString();
+        $time = $dt->toTimeString();
+        $now = $date . ' ' . $time;
+        $norm = $request->norm;
+        $data = json_decode($_POST['data'], true);
+        foreach ($data as $nama) {
+            $index =  $nama['name'];
+            $value =  $nama['value'];
+            $dataSet[$index] = $value;
+            if ($index == 'ctg') {
+                $arrayindex[] = $dataSet;
+            }
+        }
+        $kj = $dataSet['kj'];
+        $norm = $dataSet['norm'];
+
+        //upload foto
+        $file = $request->file('file');
+        $filename = $norm . '_' . $kj . '_' . 'CTG' . '_' . $file->getClientOriginalName();
+
+        $location = '../files';
+
+        // Upload file
+        $file->move($location, $filename);
+
+        // File path
+        $filepath = url('../../files/' . $filename);
+
+
+        // $update = DB::table(' UPDATE erm_cppt_perawat
+        // SET hasil_ekg = ? WHERE kode_kunjungan = ?', [$filepath,$kj]);
+        $update = DB::table('erm_cppt_perawat')
+            ->where('kode_kunjungan', $kj)
+            ->update(['hasil_ekg' => $filename]);
+
+
+        // $request->file('$bukti')->store('public/images');
+        // $foto = new mt_pasien();
+        // $foto->save();
+
+        $back = [
+            'kode' => 200,
+            'message' => ''
+        ];
+        echo json_encode($back);
+        die;
+    }
     public function simpanhasilekg(Request $request)
     {
 

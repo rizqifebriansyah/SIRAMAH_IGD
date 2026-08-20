@@ -8,6 +8,34 @@
                     <i class="bi bi-journal-text"></i>
                     Hasil EKG
                 </a></div>
+            <div class="col-md-2"><a class=" btn btn-info btn-block " id="uploadctg">
+                    <i class="bi bi-journal-text"></i>
+                    CTG
+                </a></div>
+            <div class="col-md-2"><a class=" btn btn-info btn-block " id="uploadusg">
+                    <i class="bi bi-journal-text"></i>
+                    USG
+                </a></div>
+            <div class="col-md-2"><a class=" btn btn-info btn-block " id="uploadpartograp">
+                    <i class="bi bi-journal-text"></i>
+                    Partograp
+                </a></div>
+            <div class="col-md-2"><a class=" btn btn-info btn-block " id="uploadkuret">
+                    <i class="bi bi-journal-text"></i>
+                    persetujuan kuret
+                </a></div>
+            <div class="col-md-2"><a class=" btn btn-info btn-block " id="uploadbiopsi">
+                    <i class="bi bi-journal-text"></i>
+                    Biopsi
+                </a></div>
+            <div class="col-md-2"><a class=" btn btn-info btn-block " id="uploadlaminaria">
+                    <i class="bi bi-journal-text"></i>
+                    Laminaria
+                </a></div>
+            <div class="col-md-2"><a class=" btn btn-info btn-block " id="uploadskl">
+                    <i class="bi bi-journal-text"></i>
+                    Surat Keterangan Lahir
+                </a></div>
             <div class="col-md-2"><a class=" btn btn-info btn-block " id="uploadspp">
                     <i class="bi bi-journal-text"></i>
                     Surat Penolakan Perawatan
@@ -15,7 +43,7 @@
             <div class="col-md-2"><a class=" btn btn-info btn-block " id="uploadtindakandokter">
                     <i class="bi bi-journal-text"></i>
                     Informasi Tindakan Dokter
-                </a></div>
+                </a></div> 
             <div class="col-md-2"><a class=" btn btn-info btn-block " id="uploadtransfer">
                     <i class="bi bi-journal-text"></i>
                     Catatan Transfer Pasien
@@ -24,7 +52,7 @@
                     <i class="bi bi-journal-text"></i>
                     Observasi
                 </a></div>
-                <div class="col-md-2"><a class=" btn btn-info btn-block " id="uploadconcern">
+             <div class="col-md-2"><a class=" btn btn-info btn-block " id="uploadconcern">
                     <i class="bi bi-journal-text"></i>
                     Inform Concern
                 </a></div>
@@ -69,6 +97,7 @@
             </div>
 
         </div>
+
 
         <!-- formspp -->
         <div id="formspp" class="modall">
@@ -182,6 +211,300 @@
 
                         <div class="card-footer">
                             <button type="button" class="btn btn-warning mb-2 simpanhasiltf" id="simpanhasiltf">Simpan Berkas</button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        <!-- formctg -->
+        <div id="formctg" class="modalctg">
+
+            <!-- Modal content -->
+            <div class="modal-content" style="margin-bottom: 30px">
+                <span class="closectg float-right">&times;</span>
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Upload Hasil CTG</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+
+                    <form class="formuploadctg">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Nomor Rekamedis</label>
+                                <input type="email" class="form-control" id="norm" name="norm" value="{{$norm}}">
+                                <input type="email" class="form-control" id="kj" name="kj" value="{{$kj}}">
+
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="exampleInputFile">Upload Hasil CTG</label>
+                                <input class="form-control" type="file" name="ctg" id="ctg" value="">
+                            </div>
+
+                        </div>
+                        <!-- /.card-body -->
+
+                        <div class="card-footer">
+                            <button type="button" class="btn btn-warning mb-2 simpanhasilctg" id="simpanhasilctg">Simpan Berkas</button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- formusg -->
+        <div id="formusg" class="modalusg">
+
+            <!-- Modal content -->
+            <div class="modal-content" style="margin-bottom: 30px">
+                <span class="closeusg float-right">&times;</span>
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Upload Hasil USG</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+
+                    <form class="formuploadusg">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Nomor Rekamedis</label>
+                                <input type="email" class="form-control" id="norm" name="norm" value="{{$norm}}">
+                                <input type="email" class="form-control" id="kj" name="kj" value="{{$kj}}">
+
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="exampleInputFile">Upload Hasil USG</label>
+                                <input class="form-control" type="file" name="usg" id="usg" value="">
+                            </div>
+
+                        </div>
+                        <!-- /.card-body -->
+
+                        <div class="card-footer">
+                            <button type="button" class="btn btn-warning mb-2 simpanhasilusg" id="simpanhasilusg">Simpan Berkas</button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- formpartograp -->
+        <div id="formpartograp" class="modalpartograp">
+
+            <!-- Modal content -->
+            <div class="modal-content" style="margin-bottom: 30px">
+                <span class="closepartograp float-right">&times;</span>
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Upload Hasil Partograp</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+
+                    <form class="formuploadpartograp">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Nomor Rekamedis</label>
+                                <input type="email" class="form-control" id="norm" name="norm" value="{{$norm}}">
+                                <input type="email" class="form-control" id="kj" name="kj" value="{{$kj}}">
+
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="exampleInputFile">Upload Hasil Partograp</label>
+                                <input class="form-control" type="file" name="partograp" id="partograp" value="">
+                            </div>
+
+                        </div>
+                        <!-- /.card-body -->
+
+                        <div class="card-footer">
+                            <button type="button" class="btn btn-warning mb-2 simpanhasilpartograp" id="simpanhasilpartograp">Simpan Berkas</button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- formkuret -->
+        <div id="formkuret" class="modalkuret">
+
+            <!-- Modal content -->
+            <div class="modal-content" style="margin-bottom: 30px">
+                <span class="closekuret float-right">&times;</span>
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Upload Hasil Kuret</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+
+                    <form class="formuploadkuret">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Nomor Rekamedis</label>
+                                <input type="email" class="form-control" id="norm" name="norm" value="{{$norm}}">
+                                <input type="email" class="form-control" id="kj" name="kj" value="{{$kj}}">
+
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="exampleInputFile">Upload Hasil Kuret</label>
+                                <input class="form-control" type="file" name="kuret" id="kuret" value="">
+                            </div>
+
+                        </div>
+                        <!-- /.card-body -->
+
+                        <div class="card-footer">
+                            <button type="button" class="btn btn-warning mb-2 simpanhasilkuret" id="simpanhasilkuret">Simpan Berkas</button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <!-- formbiopsi -->
+        <div id="formbiopsi" class="modalbiopsi">
+
+            <!-- Modal content -->
+            <div class="modal-content" style="margin-bottom: 30px">
+                <span class="closebiopsi float-right">&times;</span>
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Upload Hasil Biopsi</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+
+                    <form class="formuploadbiopsi">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Nomor Rekamedis</label>
+                                <input type="email" class="form-control" id="norm" name="norm" value="{{$norm}}">
+                                <input type="email" class="form-control" id="kj" name="kj" value="{{$kj}}">
+
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="exampleInputFile">Upload Hasil Biopsi</label>
+                                <input class="form-control" type="file" name="biopsi" id="biopsi" value="">
+                            </div>
+
+                        </div>
+                        <!-- /.card-body -->
+
+                        <div class="card-footer">
+                            <button type="button" class="btn btn-warning mb-2 simpanhasilbiopsi" id="simpanhasilbiopsi">Simpan Berkas</button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+        <!-- formlaminaria -->
+        <div id="formlaminaria" class="modallaminaria">
+
+            <!-- Modal content -->
+            <div class="modal-content" style="margin-bottom: 30px">
+                <span class="closelaminaria float-right">&times;</span>
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Upload Hasil Laminaria</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+
+                    <form class="formuploadlaminaria">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Nomor Rekamedis</label>
+                                <input type="email" class="form-control" id="norm" name="norm" value="{{$norm}}">
+                                <input type="email" class="form-control" id="kj" name="kj" value="{{$kj}}">
+
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="exampleInputFile">Upload Hasil Laminaria</label>
+                                <input class="form-control" type="file" name="laminaria" id="laminaria" value="">
+                            </div>
+
+                        </div>
+                        <!-- /.card-body -->
+
+                        <div class="card-footer">
+                            <button type="button" class="btn btn-warning mb-2 simpanhasillaminaria" id="simpanhasillaminaria">Simpan Berkas</button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+
+           <!-- formskl -->
+        <div id="formskl" class="modalskl">
+
+            <!-- Modal content -->
+            <div class="modal-content" style="margin-bottom: 30px">
+                <span class="closeskl float-right">&times;</span>
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Upload Hasil Surat Keterangan Lahir</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+
+                    <form class="formuploadskl">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Nomor Rekamedis</label>
+                                <input type="email" class="form-control" id="norm" name="norm" value="{{$norm}}">
+                                <input type="email" class="form-control" id="kj" name="kj" value="{{$kj}}">
+
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="exampleInputFile">Upload Hasil Surat Keterangan Lahir</label>
+                                <input class="form-control" type="file" name="skl" id="skl" value="">
+                            </div>
+
+                        </div>
+                        <!-- /.card-body -->
+
+                        <div class="card-footer">
+                            <button type="button" class="btn btn-warning mb-2 simpanhasilskl" id="simpanhasilskl">Simpan Berkas</button>
 
                         </div>
                     </form>
@@ -443,6 +766,99 @@
             }
         });
     });
+    $(".simpanhasilctg").click(function() {
+        kj = $('#kj').val()
+        norm = $('#norm').val()
+        var data = $('.formuploadctg').serializeArray();
+
+        // bukti = $('#bukti').val()
+        // alert(bukti)
+        var files = $('#ctg')[0].files;
+        var fd = new FormData();
+
+        fd.append('file', files[0]);
+        fd.append('_token', "{{ csrf_token() }}");
+        fd.append('data', JSON.stringify(data));
+
+        $.ajax({
+            async: true,
+            type: 'post',
+            dataType: 'json',
+            contentType: false,
+            processData: false,
+            data: fd,
+            url: '<?= route('simpanhasilctg') ?>',
+
+            error: function(data) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Sepertinya ada masalah ...',
+                    footer: ''
+                })
+            },
+            success: function(response) {
+
+                console.log(data)
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'OK',
+                    text: 'Data berhasil disimpan!',
+                    footer: ''
+                })
+
+
+            }
+        });
+    });
+    $(".simpanhasilusg").click(function() {
+        kj = $('#kj').val()
+        norm = $('#norm').val()
+        var data = $('.formuploadusg').serializeArray();
+
+        // bukti = $('#bukti').val()
+        // alert(bukti)
+        var files = $('#usg')[0].files;
+        var fd = new FormData();
+
+        fd.append('file', files[0]);
+        fd.append('_token', "{{ csrf_token() }}");
+        fd.append('data', JSON.stringify(data));
+
+        $.ajax({
+            async: true,
+            type: 'post',
+            dataType: 'json',
+            contentType: false,
+            processData: false,
+            data: fd,
+            url: '<?= route('simpanhasilusg') ?>',
+
+            error: function(data) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Sepertinya ada masalah ...',
+                    footer: ''
+                })
+            },
+            success: function(response) {
+
+                console.log(data)
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'OK',
+                    text: 'Data berhasil disimpan!',
+                    footer: ''
+                })
+
+
+            }
+        });
+    });
+    
 
 
     //form ekg
@@ -472,6 +888,229 @@
         }
     }
 
+
+    //form ctg
+    // Get the modal
+    var modalctg = document.getElementById("formctg");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("uploadctg");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("closectg")[0];
+
+    // When the user clicks the button, open the modal
+    btn.onclick = function() {
+        modalctg.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modalctg.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modalctg) {
+            modalctg.style.display = "none";
+        }
+    }
+
+    //form usg
+    // Get the modal
+    var modalusg = document.getElementById("formusg");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("uploadusg");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("closeusg")[0];
+
+    // When the user clicks the button, open the modal
+    btn.onclick = function() {
+        modalusg.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modalusg.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modalusg) {
+            modalusg.style.display = "none";
+        }
+    }
+
+
+    //form partograp
+    // Get the modal
+    var modalpartograp = document.getElementById("formpartograp");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("uploadpartograp");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("closepartograp")[0];
+
+    // When the user clicks the button, open the modal
+    btn.onclick = function() {
+        modalpartograp.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modalpartograp.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modalpartograp) {
+            modalpartograp.style.display = "none";
+        }
+    }
+
+    //form partograp
+    // Get the modal
+    var modalpartograp = document.getElementById("formpartograp");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("uploadpartograp");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("closepartograp")[0];
+
+    // When the user clicks the button, open the modal
+    btn.onclick = function() {
+        modalpartograp.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modalpartograp.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modalpartograp) {
+            modalpartograp.style.display = "none";
+        }
+    }
+
+    //form kuret
+    // Get the modal
+    var modalkuret = document.getElementById("formkuret");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("uploadkuret");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("closekuret")[0];
+
+    // When the user clicks the button, open the modal
+    btn.onclick = function() {
+        modalkuret.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modalkuret.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modalkuret) {
+            modalkuret.style.display = "none";
+        }
+    }
+
+
+
+    //form biopsi
+    // Get the modal
+    var modalbiopsi = document.getElementById("formbiopsi");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("uploadbiopsi");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("closebiopsi")[0];
+
+    // When the user clicks the button, open the modal
+    btn.onclick = function() {
+        modalbiopsi.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modalbiopsi.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modalbiopsi) {
+            modalbiopsi.style.display = "none";
+        }
+    }
+
+
+
+
+
+    //form laminaria
+    // Get the modal
+    var modallaminaria = document.getElementById("formlaminaria");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("uploadlaminaria");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("closelaminaria")[0];
+
+    // When the user clicks the button, open the modal
+    btn.onclick = function() {
+        modallaminaria.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modallaminaria.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modallaminaria) {
+            modallaminaria.style.display = "none";
+        }
+    }
+
+    //form skl
+    // Get the modal
+    var modalskl = document.getElementById("formskl");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("uploadskl");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("closeskl")[0];
+
+    // When the user clicks the button, open the modal
+    btn.onclick = function() {
+        modalskl.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modalskl.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modalskl) {
+            modalskl.style.display = "none";
+        }
+    }
     //form spp
     // Get the modal
     var modall = document.getElementById("formspp");

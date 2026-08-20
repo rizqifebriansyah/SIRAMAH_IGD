@@ -44,7 +44,7 @@
                     <a href="{{ route('riwayatretur') }}" class="nav-link @if($menu == 'riwayatretur' ) active @endif">
                         <i class="nav-icon fas fa-file-invoice"></i>
                         <p>
-                            Riwayat Retur (Progress)
+                            Riwayat Retur
                         </p>
                     </a>
                 </li>

@@ -30,7 +30,7 @@
             <table id="datapasienorder" class="table  table-sm text-sm table-bordered table-hover">
                 <thead class="bg-success">
                     <th hidden>no</th>
-                    <th>Kode Layanan Order</th>
+                    <th>Kode Layanan Order </th>
                     <th hidden>Id</th>
                     <th hidden>Id</th>
                     <th hidden>Id</th>

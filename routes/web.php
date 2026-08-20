@@ -243,6 +243,10 @@ Route::group(['middleware' => ['hak_akses:4', 'auth']], function () {
     Route::post('/simpanhasilspp', [PerawatController::class, 'simpanhasilspp'])->name('simpanhasilspp');
     Route::post('/simpanhasiltdkn', [PerawatController::class, 'simpanhasiltdkn'])->name('simpanhasiltdkn');
     Route::post('/simpanhasiltf', [PerawatController::class, 'simpanhasiltf'])->name('simpanhasiltf');
+    Route::post('/simpanhasilctg', [PerawatController::class, 'simpanhasilctg'])->name('simpanhasilctg');
+    Route::post('/simpanhasilusg', [PerawatController::class, 'simpanhasilusg'])->name('simpanhasilusg');
+
+    
     Route::post('/simpantindakankebidanan', [PerawatController::class, 'simpantindakankebidanan'])->name('simpantindakankebidanan');
 
     Route::post('returtinper', [PerawatController::class, 'returtinper'])->name('returtinper');
@@ -289,6 +293,7 @@ Route::group(['middleware' => ['hak_akses:3', 'auth']], function () {
     Route::post('caridokterradiologi', [RadiologiController::class, 'caridokterradiologi'])->name('caridokterradiologi');
     Route::post('caritanggalorderrad', [RadiologiController::class, 'caritanggalorderrad'])->name('caritanggalorderrad');
     Route::post('caririwayatbridging', [RadiologiController::class, 'caririwayatbridging'])->name('caririwayatbridging');
+    Route::post('caririwayatretur', [RadiologiController::class, 'caririwayatretur'])->name('caririwayatretur');
 
 
 

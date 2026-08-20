@@ -162,6 +162,7 @@ class RadiologiController extends Controller
         $tgl_masuk_x = date('Y-m-d', strtotime('-2 days', strtotime($now)));
 
         $pasienorder = DB::select("CALL SP_RIWAYAT_LAYANAN_RADIOLOGI('$unit','$now','$now','')");
+        // dd($pasienorder);
         $menu = 'riwayatorder';
 
         return view('radiologi.riwayatorder', [
@@ -181,24 +182,36 @@ class RadiologiController extends Controller
         $user = auth()->user()->username;
 
         $now = Carbon::now()->format('Y-m-d');
-        $noww = date('Y-m-d', strtotime('-3 days', strtotime($now)));
+        $noww = date('Y-m-d', strtotime(' -10 days', strtotime($now)));
 
         $hasil = DB::select('SELECT
-            a.kode_layanan_header
-            , a.status_retur
-            , fc_nama_px(c.no_rm) AS nama_pasien
-            , a.total_retur
-            , g.NAMA_TARIF
-            FROM ts_retur_header a 
-            INNER JOIN ts_retur_detail b ON b.row_id_header = a.id
-            INNER JOIN ts_layanan_header e ON e.kode_layanan_header = a.kode_layanan_header
-            INNER JOIN ts_layanan_detail f ON f.row_id_header = e.id
-            INNER JOIN mt_tarif_detail d ON d.KODE_TARIF_DETAIL = f.kode_tarif_detail
-            INNER JOIN mt_tarif_header g ON g.KODE_TARIF_HEADER = d.KODE_TARIF_HEADER
+                a.kode_layanan_header,
+                a.status_retur,
+                fc_nama_px(c.no_rm) AS nama_pasien,
+                a.total_retur,
+                a.tgl_retur,
 
-            INNER JOIN ts_kunjungan c ON c.kode_kunjungan = a.kode_kunjungan
+                g.NAMA_TARIF AS nama_tindakan
+            FROM ts_retur_header a
+
+            INNER JOIN ts_kunjungan c
+                ON c.kode_kunjungan = a.kode_kunjungan
+
+            LEFT JOIN ts_layanan_header e
+                ON e.kode_layanan_header = a.kode_layanan_header
+
+            LEFT JOIN ts_layanan_detail f
+                ON f.row_id_header = e.id
+
+            LEFT JOIN mt_tarif_detail d
+                ON d.KODE_TARIF_DETAIL = f.kode_tarif_detail
+
+            LEFT JOIN mt_tarif_header g
+                ON g.KODE_TARIF_HEADER = d.KODE_TARIF_HEADER
+
             WHERE a.kode_layanan_header LIKE "%RAD%"
-            AND DATE(a.tgl_retur) BETWEEN ? AND ?',  [$now, $noww]);
+            AND a.tgl_retur >= ?
+            AND a.tgl_retur < ?',  [$noww, $now]);
         $menu = 'riwayatretur';
 
         return view('radiologi.tableretur', [
@@ -247,7 +260,7 @@ class RadiologiController extends Controller
         // $unit = auth()->user()->unit;
         // $user = auth()->user()->username;
         $now = Carbon::now()->format('Y-m-d');
-        $tgl_masuk_x = date('Y-m-d', strtotime('-2 days', strtotime($now)));
+        $tgl_masuk_x = date('Y-m-d', strtotime('-7 days', strtotime($now)));
 
         $pasienbridging = DB::connection('mysql3')->select('SELECT * FROM order_table a
         WHERE DATE(a.ADMITDATE) = ?', [$now]);
@@ -283,6 +296,7 @@ class RadiologiController extends Controller
 
         $pasienbridging = DB::connection('mysql3')->select('SELECT * FROM order_table a
         WHERE DATE(a.ADMITDATE) = ?', [$now]);
+
 
         $menu = 'riwayatbridging';
 
@@ -336,7 +350,7 @@ class RadiologiController extends Controller
 
 
         $pasienkunjunganorder = DB::select("CALL SP_PANGGIL_PASIEN_ORDER_PENUNJANG('$request->kode_kunjungan','$request->norm','$request->nama','','','$unit')");
-
+        // dd($pasienkunjunganorder);
         $pasienpoli = DB::select('SELECT * FROM ts_layanan_header_order WHERE id = ?;', [$request->idheader]);
         $layanan = DB::select('SELECT b.kode_tarif_detail AS kode, a.nama_tarif AS Tindakan, b.tarif_penunjang AS tarif 
             FROM mt_tarif_header a 
@@ -375,12 +389,11 @@ class RadiologiController extends Controller
       
         WHERE ACCESSIONNUMBER  = ?
         ', [$acc]);
-       
+
         return view('radiologi.expertisi_view_baru', [
             'expertisi' => $expertisi
 
         ]);
-        
     }
     public function detailbarang(Request $request)
     {
@@ -454,6 +467,50 @@ class RadiologiController extends Controller
             'title' => 'SIRAMAH | RADIOLOGI',
 
             'pasienbridging' => $pasienbridging,
+
+        ]);
+    }
+    public function caririwayatretur(Request $request)
+    {
+        $unit = auth()->user()->unit;
+
+        $hasil = DB::select('SELECT
+                a.kode_layanan_header,
+                a.status_retur,
+                fc_nama_px(c.no_rm) AS nama_pasien,
+                a.total_retur,
+                a.tgl_retur,
+                g.NAMA_TARIF AS nama_tindakan
+            FROM ts_retur_header a
+
+            INNER JOIN ts_kunjungan c
+                ON c.kode_kunjungan = a.kode_kunjungan
+
+            LEFT JOIN ts_layanan_header e
+                ON e.kode_layanan_header = a.kode_layanan_header
+
+            LEFT JOIN ts_layanan_detail f
+                ON f.row_id_header = e.id
+
+            LEFT JOIN mt_tarif_detail d
+                ON d.KODE_TARIF_DETAIL = f.kode_tarif_detail
+
+            LEFT JOIN mt_tarif_header g
+                ON g.KODE_TARIF_HEADER = d.KODE_TARIF_HEADER
+
+            WHERE a.kode_layanan_header LIKE "%RAD%"
+            AND a.tgl_retur >= ?
+            AND a.tgl_retur < ?',  [$request->tanggal_kunjungann, $request->tanggal_kunjungan]);
+        // dd($hasil);
+
+
+        // dd($pasienbridging);
+        $menu = 'riwayatretur';
+
+        return view('radiologi.table_retur_order', [
+            'title' => 'SIRAMAH | RADIOLOGI',
+            
+            'hasil' => $hasil,
 
         ]);
     }
@@ -859,60 +916,78 @@ class RadiologiController extends Controller
         $sisatotal = $total - $gt;
         $sisaqty = $request->qty - 1;
         $total_retur = $request->gt - $sisaqty;
+        // dd($kodekunjungan);
+        $cek = DB::select('SELECT status_kunjungan FROM ts_kunjungan WHERE kode_kunjungan = ?', [$kodekunjungan]);
 
-        $kode_header = $this->createReturHeader('RETRAD');
-        $header = mt_kode_header::create([
-            'kode_header' => $kode_header,
-            'tgl_header' => date('Y-m-d')
-        ]);
-        $data_layanan_header = [
-            'kode_kunjungan' => $request->kodekunjungan,
-            'kode_retur_header' => $kode_header,
-            'kode_layanan_header' => $request->kodeheader,
-            'tgl_retur' => $now,
-            'total_retur' => $request->gt,
-            'alasan_retur' => 'RETUR',
-            'status_retur' => 'CLS',
-            'pic' => 10,
-        ];
-        $head = ts_retur_header::create($data_layanan_header);
-        // $get = DB::select("CALL GET_NOMOR_LAYANAN_HEADER_RETUR('3003')");
-        $cekidret = DB::select('Select ID from TS_RETUR_HEADER
-        WHERE kode_kunjungan = ?
-            AND kode_retur_header =  ?
-            AND kode_layanan_header =  ?', [$head['kode_kunjungan'], $head['kode_retur_header'], $head['kode_layanan_header']]);
+        if ($cek[0]->status_kunjungan == 1) {
 
-        $id_detail = $this->createReturdetail('DET');
+            try {
 
-        $savedetail = [
-            'kode_retur_detail' => $id_detail,
-            'tgl_retur_detail' => $now,
-            'kode_retur_header' => $head['kode_retur_header'],
-            'id_layanan_detail' => $request->idlayanandetail,
-            'qty_Awal' => $request->qty,
-            'qty_retur' => 1,
-            'qty_sisa' => $sisaqty,
-            'tarif_layanan' => $request->gt,
-            'total_retur_detail' => $request->gt, //tarif layanan * qty sisa
-            'status_retur_detail' => 'CLS',
-            'row_id_header' => $request->idhed
+                $kode_header = $this->createReturHeader('RETRAD');
+                $header = mt_kode_header::create([
+                    'kode_header' => $kode_header,
+                    'tgl_header' => date('Y-m-d')
+                ]);
+                $data_layanan_header = [
+                    'kode_kunjungan' => $request->kodekunjungan,
+                    'kode_retur_header' => $kode_header,
+                    'kode_layanan_header' => $request->kodeheader,
+                    'tgl_retur' => $now,
+                    'total_retur' => $request->gt,
+                    'alasan_retur' => 'RETUR',
+                    'status_retur' => 'CLS',
+                    'pic' => 10,
+                ];
+                $head = ts_retur_header::create($data_layanan_header);
+                // $get = DB::select("CALL GET_NOMOR_LAYANAN_HEADER_RETUR('3003')");
+                $cekidret = DB::select('Select ID from TS_RETUR_HEADER WHERE kode_kunjungan = ? AND kode_retur_header =  ? AND kode_layanan_header =  ?', [$head['kode_kunjungan'], $head['kode_retur_header'], $head['kode_layanan_header']]);
 
-        ];
-        $ts_retur_detail = ts_retur_detail::create($savedetail);
-        $statuslayanan = 'CCL';
-        $updatedet = DB::select('UPDATE ts_layanan_detail SET status_layanan_detail = "CCL", tagihan_pribadi = 0,tagihan_penjamin = 0 WHERE id = ?', array($request->iddet));
+                $id_detail = $this->createReturdetail('DET');
 
-        $hitung = DB::select('SELECT IFNULL (SUM(tagihan_pribadi),0) AS TAGPRI,IFNULL(SUM(tagihan_penjamin),0) AS TAGPEN FROM ts_layanan_detail WHERE row_id_header = ? AND status_layanan_detail = ?', [$request->idhed, 'OPN']);
-        $tagpri = $hitung[0]->TAGPRI;
-        $tagpen = $hitung[0]->TAGPEN;
-        $updatehed = DB::select('UPDATE ts_layanan_header	SET total_layanan =?, tagihan_pribadi = ? ,tagihan_penjamin = ?	WHERE ID = ?', [$sisatotal, $tagpri, $tagpen, $request->idhed]);
-        $cek = DB::connection('mysql3')->select('SELECT ACCESSIONNUMBER FROM order_table WHERE KODE_KUNJUNGAN = ? AND PROCEDURENAME = ?', [$kodekunjungan, $namatarif]);
-        // dd($cek);
-        $acc = $cek[0]->ACCESSIONNUMBER;
-        $url = "https://ris-api.radsaas.co.id/order/cancel?accessionNumber=$acc";
+                $savedetail = [
+                    'kode_retur_detail' => $id_detail,
+                    'tgl_retur_detail' => $now,
+                    'kode_retur_header' => $head['kode_retur_header'],
+                    'id_layanan_detail' => $request->idlayanandetail,
+                    'qty_Awal' => $request->qty,
+                    'qty_retur' => 1,
+                    'qty_sisa' => $sisaqty,
+                    'tarif_layanan' => $request->gt,
+                    'total_retur_detail' => $request->gt, //tarif layanan * qty sisa
+                    'status_retur_detail' => 'CLS',
+                    'row_id_header' => $request->idhed
+
+                ];
+                $ts_retur_detail = ts_retur_detail::create($savedetail);
+                $statuslayanan = 'CCL';
+                $updatedet = DB::select('UPDATE ts_layanan_detail SET status_layanan_detail = "CCL", tagihan_pribadi = 0,tagihan_penjamin = 0 WHERE id = ?', array($request->iddet));
+
+                $hitung = DB::select('SELECT IFNULL (SUM(tagihan_pribadi),0) AS TAGPRI,IFNULL(SUM(tagihan_penjamin),0) AS TAGPEN FROM ts_layanan_detail WHERE row_id_header = ? AND status_layanan_detail = ?', [$request->idhed, 'OPN']);
+                $tagpri = $hitung[0]->TAGPRI;
+                $tagpen = $hitung[0]->TAGPEN;
+                $updatehed = DB::select('UPDATE ts_layanan_header	SET total_layanan =?, tagihan_pribadi = ? ,tagihan_penjamin = ?	WHERE ID = ?', [$sisatotal, $tagpri, $tagpen, $request->idhed]);
+                // $cek = DB::connection('mysql3')->select('SELECT ACCESSIONNUMBER FROM order_table WHERE KODE_KUNJUNGAN = ? AND PROCEDURENAME = ?', [$kodekunjungan, $namatarif]);
+                // dd($cek);
+                // $acc = $cek[0]->ACCESSIONNUMBER;
+                // $url = "https://ris-api.radsaas.co.id/order/cancel?accessionNumber=$acc";
+            } catch (\Exception $e) {
+                $back = [
+                    'kode' => 200,
+                    'message' => $e->getMessage()
+                ];
+                echo json_encode($back);
+                die;
+            }
+        } else {
+            $back = [
+                'kode' => 404,
+                'message' => 'pasien sudah pulang'
+            ];
+            echo json_encode($back);
+        }
         $back = [
             'kode' => 200,
-            'message' => 'Retur Berhasil'
+            'message' => 'retur berhasil'
         ];
         echo json_encode($back);
         die;
