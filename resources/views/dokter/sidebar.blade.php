@@ -62,7 +62,7 @@
                         <!-- <a href="" class="nav-link @if($menu == 'assesigk' ) active @endif"> -->
                         <i class="nav-icon fas fa-archive"></i>
                         <p>
-                            IGDK Perbaikan
+                            IGDKp
                         </p>
                     </a>
                 </li>

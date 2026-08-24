@@ -1,4 +1,12 @@
 <!-- igd umum tanpa isi  -->
+ <input type="text" name="ku" id="ku" value="{{ $ku }}" hidden>
+<input type="text" name="kp" id="kp" value="{{ $kp }}" hidden>
+<input type="text" name="counter" id="counter" value="{{ $counter }}" hidden>
+<input type="text" name="kelas" id="kelas" value="{{ $kelas }}" hidden>
+<input type="text" name="kj" id="kj" value="{{ $kj }}" hidden>
+<input type="text" name="norm" id="norm" value="{{ $norm }}" hidden>
+<input type="text" name="unit" id="unit" value="{{ $unit }}" hidden>
+
 @if ($unit == '1002')
 <div class="card-header">
     <h3 class="card-title">ASESMEN AWAL MEDIS INSTALASI GAWAT DARURAT (IGD)</h3>
@@ -15673,6 +15681,8 @@
         norm = $('#norm').val()
         kelas = $('#kelas').val()
         kp = $('#kp').val()
+        unit = $('#unit').val()
+
         ku = $('#ku').val()
         counter = $('#counter').val()
         $.ajax({
@@ -15683,7 +15693,8 @@
                 kp,
                 ku,
                 counter,
-                kelas
+                kelas,
+                unit
             },
             type: "post",
             url: " {{ route('formermdokter') }}",

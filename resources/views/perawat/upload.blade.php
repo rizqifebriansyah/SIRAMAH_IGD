@@ -28,34 +28,44 @@
                     <i class="bi bi-journal-text"></i>
                     Biopsi
                 </a></div>
-            <div class="col-md-2"><a class=" btn btn-info btn-block " id="uploadlaminaria">
+            <div class="col-md-2"><a class=" btn btn-info btn-block mt-2" id="uploadlaminaria">
                     <i class="bi bi-journal-text"></i>
                     Laminaria
                 </a></div>
-            <div class="col-md-2"><a class=" btn btn-info btn-block " id="uploadskl">
+            <div class="col-md-2"><a class=" btn btn-info btn-block mt-2" id="uploadskl">
                     <i class="bi bi-journal-text"></i>
                     Surat Keterangan Lahir
                 </a></div>
-            <div class="col-md-2"><a class=" btn btn-info btn-block " id="uploadspp">
+            <div class="col-md-2"><a class=" btn btn-info btn-block mt-2" id="uploadspp">
                     <i class="bi bi-journal-text"></i>
                     Surat Penolakan Perawatan
                 </a></div>
-            <div class="col-md-2"><a class=" btn btn-info btn-block " id="uploadtindakandokter">
+
+            <div class="col-md-2"><a class=" btn btn-info btn-block mt-2" id="uploadtransfusi">
+                    <i class="bi bi-journal-text"></i>
+                    Surat Persetujuan Transfusi Darah
+                </a></div>
+
+            <div class="col-md-2"><a class=" btn btn-info btn-block mt-2" id="uploadpathway">
+                    <i class="bi bi-journal-text"></i>
+                    Clinical Pathway
+                </a></div>
+            <!-- <div class="col-md-2"><a class=" btn btn-info btn-block " id="uploadtindakandokter">
                     <i class="bi bi-journal-text"></i>
                     Informasi Tindakan Dokter
-                </a></div> 
-            <div class="col-md-2"><a class=" btn btn-info btn-block " id="uploadtransfer">
+                </a></div>  -->
+            <!-- <div class="col-md-2"><a class=" btn btn-info btn-block " id="uploadtransfer">
                     <i class="bi bi-journal-text"></i>
                     Catatan Transfer Pasien
-                </a></div>
-            <div class="col-md-2"><a class=" btn btn-info btn-block " id="uploadobservasi">
+                </a></div> -->
+            <!-- <div class="col-md-2"><a class=" btn btn-info btn-block " id="uploadobservasi">
                     <i class="bi bi-journal-text"></i>
                     Observasi
                 </a></div>
              <div class="col-md-2"><a class=" btn btn-info btn-block " id="uploadconcern">
                     <i class="bi bi-journal-text"></i>
                     Inform Concern
-                </a></div>
+                </a></div> -->
         </div>
         <!-- formekg -->
         <div id="formekg" class="modal">
@@ -472,7 +482,7 @@
         </div>
 
 
-           <!-- formskl -->
+        <!-- formskl -->
         <div id="formskl" class="modalskl">
 
             <!-- Modal content -->
@@ -505,6 +515,86 @@
 
                         <div class="card-footer">
                             <button type="button" class="btn btn-warning mb-2 simpanhasilskl" id="simpanhasilskl">Simpan Berkas</button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        <!-- formtransfusi -->
+        <div id="formtransfusi" class="modaltransfusi">
+
+            <!-- Modal content -->
+            <div class="modal-content" style="margin-bottom: 30px">
+                <span class="closetransfusi float-right">&times;</span>
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Upload Hasil Persetujan Transfusi Darah</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+
+                    <form class="formuploadtransfusi">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Nomor Rekamedis</label>
+                                <input type="email" class="form-control" id="norm" name="norm" value="{{$norm}}">
+                                <input type="email" class="form-control" id="kj" name="kj" value="{{$kj}}">
+
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="exampleInputFile">Upload Hasil Persetujan Transfusi Darah</label>
+                                <input class="form-control" type="file" name="transfusi" id="transfusi" value="">
+                            </div>
+
+                        </div>
+                        <!-- /.card-body -->
+
+                        <div class="card-footer">
+                            <button type="button" class="btn btn-warning mb-2 simpanhasiltransfusi" id="simpanhasiltransfusi">Simpan Berkas</button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        <!-- formpathway -->
+        <div id="formpathway" class="modalpathway">
+
+            <!-- Modal content -->
+            <div class="modal-content" style="margin-bottom: 30px">
+                <span class="closepathway float-right">&times;</span>
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Upload Hasil Persetujan Transfusi Darah</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+
+                    <form class="formuploadpathway">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Nomor Rekamedis</label>
+                                <input type="email" class="form-control" id="norm" name="norm" value="{{$norm}}">
+                                <input type="email" class="form-control" id="kj" name="kj" value="{{$kj}}">
+
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="exampleInputFile">Upload Hasil Persetujan Transfusi Darah</label>
+                                <input class="form-control" type="file" name="pathway" id="pathway" value="">
+                            </div>
+
+                        </div>
+                        <!-- /.card-body -->
+
+                        <div class="card-footer">
+                            <button type="button" class="btn btn-warning mb-2 simpanhasilpathway" id="simpanhasilpathway">Simpan Berkas</button>
 
                         </div>
                     </form>
@@ -858,7 +948,7 @@
             }
         });
     });
-    
+
 
 
     //form ekg
@@ -887,6 +977,60 @@
             modal.style.display = "none";
         }
     }
+
+    //form transfusi
+    // Get the modal
+    var modaltransfusi = document.getElementById("formtransfusi");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("uploadtransfusi");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("closetransfusi")[0];
+
+    // When the user clicks the button, open the modal
+    btn.onclick = function() {
+        modaltransfusi.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modaltransfusi.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modaltransfusi) {
+            modaltransfusi.style.display = "none";
+        }
+    }
+    //form pathway
+    // Get the modal
+    var modalpathway = document.getElementById("formpathway");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("uploadpathway");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("closepathway")[0];
+
+    // When the user clicks the button, open the modal
+    btn.onclick = function() {
+        modalpathway.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modalpathway.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modalpathway) {
+            modalpathway.style.display = "none";
+        }
+    }
+
 
 
     //form ctg

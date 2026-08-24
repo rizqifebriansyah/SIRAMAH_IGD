@@ -160,13 +160,13 @@
 
                             <!-- data igd kebidanan 1023 -->
                             @else
-                            @if ($a->nama_perawat == null)
+                            @if ($a->nama_perawat == null || $a->nama_perawat1 == null )
                             <button class="badge badge-danger ermperawat"> belum diisi </button>
-                            @elseif ($a->status == 2)
+                            @elseif ($a->status == 2 || $a->status_bayi == 2 )
                             <button class="badge badge-success ermperawat"> Sudah validasi </button> | {{ $a->nama_perawat }}
 
                             @else
-                            <button class="badge badge-warning ermperawat"> belum validasi </button> | {{ $a->nama_perawat }}
+                            <button class="badge badge-warning ermperawat"> belum validasi </button> | {{ $a->nama_perawat }} {{ $a->nama_perawat1 }}
 
                             @endif
 
