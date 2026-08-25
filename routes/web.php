@@ -50,6 +50,7 @@ Route::group(['middleware' => ['hak_akses:18', 'auth']], function () {
     
     
     Route::post('ermpreview', [MonitoringController::class, 'ermpreview'])->name('ermpreview');
+    Route::post('ermpreviewigdk', [MonitoringController::class, 'ermpreviewigdk'])->name('ermpreviewigdk');
 
     //cari
     Route::post('carimonitoringpasien', [MonitoringController::class, 'carimonitoringpasien'])->name('carimonitoringpasien');
@@ -245,6 +246,16 @@ Route::group(['middleware' => ['hak_akses:4', 'auth']], function () {
     Route::post('/simpanhasiltf', [PerawatController::class, 'simpanhasiltf'])->name('simpanhasiltf');
     Route::post('/simpanhasilctg', [PerawatController::class, 'simpanhasilctg'])->name('simpanhasilctg');
     Route::post('/simpanhasilusg', [PerawatController::class, 'simpanhasilusg'])->name('simpanhasilusg');
+    Route::post('/simpanhasilpartograp', [PerawatController::class, 'simpanhasilpartograp'])->name('simpanhasilpartograp');
+    Route::post('/simpanhasilkuret', [PerawatController::class, 'simpanhasilkuret'])->name('simpanhasilkuret');
+    Route::post('/simpanhasilbiopsi', [PerawatController::class, 'simpanhasilbiopsi'])->name('simpanhasilbiopsi');
+    Route::post('/simpanhasillaminaria', [PerawatController::class, 'simpanhasillaminaria'])->name('simpanhasillaminaria');
+    Route::post('/simpanhasilskl', [PerawatController::class, 'simpanhasilskl'])->name('simpanhasilskl');
+    Route::post('/simpanhasiltransfusi', [PerawatController::class, 'simpanhasiltransfusi'])->name('simpanhasiltransfusi');
+    Route::post('/simpanhasilpathway', [PerawatController::class, 'simpanhasilpathway'])->name('simpanhasilpathway');
+
+
+
 
     
     Route::post('/simpantindakankebidanan', [PerawatController::class, 'simpantindakankebidanan'])->name('simpantindakankebidanan');

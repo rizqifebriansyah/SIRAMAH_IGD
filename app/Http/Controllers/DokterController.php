@@ -187,7 +187,7 @@ class DokterController extends Controller
                             SELECT 
                                 kode_kunjungan, 
                                 MAX(id) AS max_id
-                            FROM erm_cppt_dokter
+                            FROM erm_cppt_dokter_kebidanan
                             WHERE STATUS NOT IN (2, 3)
                             GROUP BY kode_kunjungan
                         ) e2 
@@ -585,7 +585,7 @@ class DokterController extends Controller
                             SELECT 
                                 kode_kunjungan, 
                                 MAX(id) AS max_id
-                            FROM erm_cppt_dokter
+                            FROM erm_cppt_dokter_kebidanan
                             WHERE STATUS NOT IN (2, 3)
                             GROUP BY kode_kunjungan
                         ) e2 
@@ -598,6 +598,7 @@ class DokterController extends Controller
                     AND a.tgl_masuk < ?
                     AND a.kode_unit = "1023"
                     AND a.status_kunjungan NOT IN (8, 11)', [$tgl_masuk_1, $now]);
+                    // dd($pasienigd);
         // $pasienigd = DB::select('SELECT 
         //         e.diagnosis AS DIAGX,
         //         a.no_rm,
@@ -2860,8 +2861,8 @@ AND b.kelas_tarif = 1');
                 'Arkus' => $request->Arkus,
                 'Kesan' => $request->Kesan,
                 'imbang' => $request->imbang,
-                'namadpjp' => $request->namadpjp,
-                'kodedpjp' => $request->kodedpjp,
+                // 'namadpjp' => $request->namadpjp,
+                // 'kodedpjp' => $request->kodedpjp,
                 'diagnosis' => $request->diagnosis,
                 'planning' => $request->planning,
                 'norm' => $request->norm,
@@ -3419,8 +3420,8 @@ AND b.kelas_tarif = 1');
                 'keluhan_utama' => $request->subject,
                 'pemfis' => $request->pemfis,
 
-                'namadpjp' => $request->namadpjp,
-                'kodedpjp' => $request->kodedpjp,
+                // 'namadpjp' => $request->namadpjp,
+                // 'kodedpjp' => $request->kodedpjp,
                 'diagnosis' => $request->diagnosa,
                 'planning' => $request->planning,
                 'norm' => $request->norm,
@@ -5192,8 +5193,8 @@ AND b.kelas_tarif = 1');
                     'Arkus' => $request->Arkus,
                     'Kesan' => $request->Kesan,
                     'imbang' => $request->imbang,
-                    'namadpjp' => $request->namadpjp,
-                    'kodedpjp' => $request->kodedpjp,
+                    // 'namadpjp' => $request->namadpjp,
+                    // 'kodedpjp' => $request->kodedpjp,
                     'diagnosis' => $request->diagnosis,
                     'planning' => $request->planning,
                     'norm' => $request->norm,
@@ -5213,8 +5214,8 @@ AND b.kelas_tarif = 1');
                     'keluhan_utama' => $request->subject,
                     'trauma' => $request->trauma,
                     'id_cppt_dokter' => $user,
-                    'kode_paramedis_2' => $kp,
-                    'nama_paramedis2' => $name,
+                    'kode_paramedis' => $kp,
+                    'nama_paramedis' => $name,
                     'is_ranap' => $kondisi,
                     'status' => '1'
 
@@ -5757,8 +5758,8 @@ AND b.kelas_tarif = 1');
                     'keluhan_utama' => $request->subject,
                     'pemfis' => $request->pemfis,
 
-                    'namadpjp' => $request->namadpjp,
-                    'kodedpjp' => $request->kodedpjp,
+                    // 'namadpjp' => $request->namadpjp,
+                    // 'kodedpjp' => $request->kodedpjp,
                     'diagnosis' => $request->diagnosa,
                     'planning' => $request->planning,
                     'norm' => $request->norm,

@@ -948,8 +948,329 @@
             }
         });
     });
+    $(".simpanhasilpartograp").click(function() {
+        kj = $('#kj').val()
+        norm = $('#norm').val()
+        var data = $('.formuploadpartograp').serializeArray();
+
+        // bukti = $('#bukti').val()
+        // alert(bukti)
+        var files = $('#partograp')[0].files;
+        var fd = new FormData();
+
+        fd.append('file', files[0]);
+        fd.append('_token', "{{ csrf_token() }}");
+        fd.append('data', JSON.stringify(data));
+
+        $.ajax({
+            async: true,
+            type: 'post',
+            dataType: 'json',
+            contentType: false,
+            processData: false,
+            data: fd,
+            url: '<?= route('simpanhasilpartograp') ?>',
+
+            error: function(data) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Sepertinya ada masalah ...',
+                    footer: ''
+                })
+            },
+            success: function(response) {
+
+                console.log(data)
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'OK',
+                    text: 'Data berhasil disimpan!',
+                    footer: ''
+                })
 
 
+            }
+        });
+    });
+    $(".simpanhasilkuret").click(function() {
+        kj = $('#kj').val()
+        norm = $('#norm').val()
+        var data = $('.formuploadkuret').serializeArray();
+
+        // bukti = $('#bukti').val()
+        // alert(bukti)
+        var files = $('#kuret')[0].files;
+        var fd = new FormData();
+
+        fd.append('file', files[0]);
+        fd.append('_token', "{{ csrf_token() }}");
+        fd.append('data', JSON.stringify(data));
+
+        $.ajax({
+            async: true,
+            type: 'post',
+            dataType: 'json',
+            contentType: false,
+            processData: false,
+            data: fd,
+            url: '<?= route('simpanhasilkuret') ?>',
+
+            error: function(data) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Sepertinya ada masalah ...',
+                    footer: ''
+                })
+            },
+            success: function(response) {
+
+                console.log(data)
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'OK',
+                    text: 'Data berhasil disimpan!',
+                    footer: ''
+                })
+
+
+            }
+        });
+    });
+    $(".simpanhasilbiopsi").click(function() {
+        kj = $('#kj').val()
+        norm = $('#norm').val()
+        var data = $('.formuploadbiopsi').serializeArray();
+
+        // bukti = $('#bukti').val()
+        // alert(bukti)
+        var files = $('#biopsi')[0].files;
+        var fd = new FormData();
+
+        fd.append('file', files[0]);
+        fd.append('_token', "{{ csrf_token() }}");
+        fd.append('data', JSON.stringify(data));
+
+        $.ajax({
+            async: true,
+            type: 'post',
+            dataType: 'json',
+            contentType: false,
+            processData: false,
+            data: fd,
+            url: '<?= route('simpanhasilbiopsi') ?>',
+
+            error: function(data) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Sepertinya ada masalah ...',
+                    footer: ''
+                })
+            },
+            success: function(response) {
+
+                console.log(data)
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'OK',
+                    text: 'Data berhasil disimpan!',
+                    footer: ''
+                })
+
+
+            }
+        });
+    });
+    $(".simpanhasillaminaria").click(function() {
+        kj = $('#kj').val()
+        norm = $('#norm').val()
+        var data = $('.formuploadlaminaria').serializeArray();
+
+        // bukti = $('#bukti').val()
+        // alert(bukti)
+        var files = $('#laminaria')[0].files;
+        var fd = new FormData();
+
+        fd.append('file', files[0]);
+        fd.append('_token', "{{ csrf_token() }}");
+        fd.append('data', JSON.stringify(data));
+
+        $.ajax({
+            async: true,
+            type: 'post',
+            dataType: 'json',
+            contentType: false,
+            processData: false,
+            data: fd,
+            url: '<?= route('simpanhasillaminaria') ?>',
+
+            error: function(data) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Sepertinya ada masalah ...',
+                    footer: ''
+                })
+            },
+            success: function(response) {
+
+                console.log(data)
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'OK',
+                    text: 'Data berhasil disimpan!',
+                    footer: ''
+                })
+
+
+            }
+        });
+    });
+    $(".simpanhasilskl").click(function() {
+        kj = $('#kj').val()
+        norm = $('#norm').val()
+        var data = $('.formuploadskl').serializeArray();
+
+        // bukti = $('#bukti').val()
+        // alert(bukti)
+        var files = $('#skl')[0].files;
+        var fd = new FormData();
+
+        fd.append('file', files[0]);
+        fd.append('_token', "{{ csrf_token() }}");
+        fd.append('data', JSON.stringify(data));
+
+        $.ajax({
+            async: true,
+            type: 'post',
+            dataType: 'json',
+            contentType: false,
+            processData: false,
+            data: fd,
+            url: '<?= route('simpanhasilskl') ?>',
+
+            error: function(data) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Sepertinya ada masalah ...',
+                    footer: ''
+                })
+            },
+            success: function(response) {
+
+                console.log(data)
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'OK',
+                    text: 'Data berhasil disimpan!',
+                    footer: ''
+                })
+
+
+            }
+        });
+    });
+
+    $(".simpanhasiltransfusi").click(function() {
+        kj = $('#kj').val()
+        norm = $('#norm').val()
+        var data = $('.formuploadtransfusi').serializeArray();
+
+        // bukti = $('#bukti').val()
+        // alert(bukti)
+        var files = $('#transfusi')[0].files;
+        var fd = new FormData();
+
+        fd.append('file', files[0]);
+        fd.append('_token', "{{ csrf_token() }}");
+        fd.append('data', JSON.stringify(data));
+
+        $.ajax({
+            async: true,
+            type: 'post',
+            dataType: 'json',
+            contentType: false,
+            processData: false,
+            data: fd,
+            url: '<?= route('simpanhasiltransfusi') ?>',
+
+            error: function(data) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Sepertinya ada masalah ...',
+                    footer: ''
+                })
+            },
+            success: function(response) {
+
+                console.log(data)
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'OK',
+                    text: 'Data berhasil disimpan!',
+                    footer: ''
+                })
+
+
+            }
+        });
+    });
+    $(".simpanhasilpathway").click(function() {
+        kj = $('#kj').val()
+        norm = $('#norm').val()
+        var data = $('.formuploadpathway').serializeArray();
+
+        // bukti = $('#bukti').val()
+        // alert(bukti)
+        var files = $('#pathway')[0].files;
+        var fd = new FormData();
+
+        fd.append('file', files[0]);
+        fd.append('_token', "{{ csrf_token() }}");
+        fd.append('data', JSON.stringify(data));
+
+        $.ajax({
+            async: true,
+            type: 'post',
+            dataType: 'json',
+            contentType: false,
+            processData: false,
+            data: fd,
+            url: '<?= route('simpanhasilpathway') ?>',
+
+            error: function(data) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Sepertinya ada masalah ...',
+                    footer: ''
+                })
+            },
+            success: function(response) {
+
+                console.log(data)
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'OK',
+                    text: 'Data berhasil disimpan!',
+                    footer: ''
+                })
+
+
+            }
+        });
+    });
 
     //form ekg
     // Get the modal

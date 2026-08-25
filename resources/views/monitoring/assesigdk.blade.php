@@ -149,24 +149,24 @@
                    
                         <td class="status1" style="text-align: center;">
                               @if ($a->nama_perawat == null && $a->nama_perawat1 == null)
-                            <button class="badge badge-danger ermpreview"> belum diisi </button>
+                            <button class="badge badge-danger ermpreviewigdk"> belum diisi </button>
                             @elseif($a->status == 2)
-                            <button class="badge badge-success ermpreview"> Sudah Validasi </button> | {{ $a->nama_perawat }} {{ $a->nama_perawat1 }}
+                            <button class="badge badge-success ermpreviewigdk"> Sudah Validasi </button> | {{ $a->nama_perawat }} {{ $a->nama_perawat1 }}
 
                             @else
-                            <button class="badge badge-warning ermpreview"> Belum Validasi </button> | {{ $a->nama_perawat }} {{ $a->nama_perawat1 }}
+                            <button class="badge badge-warning ermpreviewigdk"> Belum Validasi </button> | {{ $a->nama_perawat }} {{ $a->nama_perawat1 }}
                             @endif
                         
                         </td>
                         <td class="status2" style="text-align: center;">
 
                            @if ($a->nama_paramedis == null)
-                            <button class="badge badge-danger ermpreview"> belum diisi </button>
+                            <button class="badge badge-danger ermpreviewigdk"> belum diisi </button>
                             @elseif($a->status_dokter == 2)
-                            <button class="badge badge-success ermpreview"> Sudah Validasi </button> | {{ $a->nama_paramedis }}
+                            <button class="badge badge-success ermpreviewigdk"> Sudah Validasi </button> | {{ $a->nama_paramedis }}
 
                             @else
-                            <button class="badge badge-warning ermpreview"> Belum Validasi </button> | {{ $a->nama_paramedis }}
+                            <button class="badge badge-warning ermpreviewigdk"> Belum Validasi </button> | {{ $a->nama_paramedis }}
                             @endif
                         </td>
 
@@ -223,7 +223,7 @@
         })
 
     }
-    $(".ermpreview").click(function() {
+    $(".ermpreviewigdk").click(function() {
         spinner = $('#loader2');
         spinner.show();
         var $row = $(this).closest("tr");
@@ -247,7 +247,7 @@
                 tglmasuk
 
             },
-            url: '<?= route('ermpreview') ?>',
+            url: '<?= route('ermpreviewigdk') ?>',
             error: function(data) {
                 spinner.hide();
                 alert('oke!!')

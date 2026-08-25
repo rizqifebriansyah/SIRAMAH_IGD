@@ -1547,6 +1547,9 @@ class RadiologiController extends Controller
             a.PID,
             a.NAME,
             a.ADMITDATE,
+            a.APPROVETIME,
+            a.APPROVEDATE,
+
             a.BIRTHDATE,
             a.PROCEDURENAME,
             a.ENTERINGOGANIZATION,
@@ -1730,8 +1733,11 @@ class RadiologiController extends Controller
         $pdf::Cell(40, 10, 'HASIL PEMERIKSAAN : ');
         $pdf::SetFont('Times', 'UI', 14);
         $pdf::SetXY(70, 90);
-        $tgl_baca = Carbon::parse($ex->data->approveTime)->translatedFormat('d-F-Y H:i:s');
-        $pdf::Cell(40, 10, 'Tanggal ' . $tgl_baca . ' WIB');
+        // $tgl_baca = Carbon::parse($ex->data->approveTime)->translatedFormat('d-F-Y H:i:s');
+        $jam_baca = Carbon::parse($pemeriksaan[0]->APPROVETIME)->translatedFormat('H:i:s');
+        $tgl_baca = Carbon::parse($pemeriksaan[0]->APPROVEDATE)->translatedFormat('d-F-Y');
+
+        $pdf::Cell(40, 10, 'Tanggal ' . $tgl_baca. '   '. $jam_baca . ' WIB');
         $pdf::SetFont('Times', 'B', 12);
         $pdf::SetXY(10, 96);
         $pdf::Cell(40, 10, 'Jenis Pemeriksaan : ');
@@ -1783,7 +1789,8 @@ class RadiologiController extends Controller
 
         $pdf::SetFont('Times', '', 12);
         $pdf::SetXY(145, 200);
-        $tgl_bacaa = Carbon::parse($ex->data->approveTime)->translatedFormat('d-F-Y');
+        // $tgl_bacaa = Carbon::parse($ex->data->approveTime)->translatedFormat('d-F-Y');
+        $tgl_bacaa = Carbon::parse($pemeriksaan[0]->APPROVEDATE)->translatedFormat('d-F-Y');
 
         $pdf::Cell(40, 10, 'Waled, ' . $tgl_bacaa);
         $pdf::SetXY(158, 205);

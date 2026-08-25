@@ -480,18 +480,7 @@
                                         <form id="dynamic-form" class="formtindakandp">
                                             <div class="field_wrapper">
                                                 <div class="row">
-                                                    <div class="col-md-5"><label for="">PILIH DPJP</label>
-                                                        <select class="form-control  select2" name="kode_dpjp" id="kode_dpjp" placeholder="Cari opsi...">
-                                                            @foreach ($dpjp as $i => $p) <option value="{{ $p->kode_paramedis }}">{{ $p->nama_paramedis }} </option> @endforeach
-                                                        </select>
 
-                                                    </div>
-                                                    <div class="col-md-5">
-                                                        <label for="">Tata Laksana DPJP</label>
-                                                        <input class="form-control" placeholder="Tata Laksana DPJP" type="text-area" row="3" id="talaksanadpjp" name="talaksanadpjp" value="" />
-                                                        <!-- <textarea class="form-control" id="talaksanadpjp" name="talaksanadpjp" placeholder=""></textarea> -->
-
-                                                    </div>
 
                                                     <div class="col-md-2">
                                                         <a class="btn btn-success" href="javascript:void(0);" id="add_button" title="Add field">TAMBAH</a>
@@ -1277,18 +1266,6 @@
                                                     @endforeach
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-md-5"><label for="">PILIH DPJP</label>
-                                                        <select class="form-control  select2" name="kode_dpjp" id="kode_dpjp" placeholder="Cari opsi...">
-                                                            @foreach ($dpjp as $i => $p) <option value="{{ $p->kode_paramedis }}">{{ $p->nama_paramedis }} </option> @endforeach
-                                                        </select>
-
-                                                    </div>
-                                                    <div class="col-md-5">
-                                                        <label for="">Tata Laksana DPJP</label>
-                                                        <input class="form-control" placeholder="Tata Laksana DPJP" type="text-area" row="3" id="talaksanadpjp" name="talaksanadpjp" value="" />
-                                                        <!-- <textarea class="form-control" id="talaksanadpjp" name="talaksanadpjp" placeholder=""></textarea> -->
-
-                                                    </div>
 
                                                     <div class="col-md-2">
                                                         <a class="btn btn-success" href="javascript:void(0);" id="add_button" title="Add field">TAMBAH</a>
@@ -1724,16 +1701,32 @@
 
         @endif
 
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
+
+
+
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
         <script>
             document.getElementById('tanggalperiksapenunjang').valueAsDate = new Date()
             document.getElementById('tanggalperiksapenunjang1').valueAsDate = new Date()
+            $(document).ready(function() {
+
+                $('.selectdpjp').select2({
+                    width: '100%'
+                });
+
+            });
+
 
             $(document).ready(function() {
                 var maxField = 10; //Input fields increment limitation
                 var addButton = $('#add_button'); //Add button selector
                 var wrapper = $('.field_wrapper'); //Input field wrapper
                 var fieldHTML = '<div class="form-group add"><div class="row">';
-                fieldHTML = fieldHTML + '<div class="col-md-5"><label for="">PILIH DPJP</label><select class="form-control  select2" name="kode_dpjp" id="kode_dpjp" placeholder="Cari opsi...">@foreach ($dpjp as $i => $p) <option value="{{ $p->kode_paramedis }}">{{ $p->nama_paramedis }} </option> @endforeach</select></div>';
+                fieldHTML = fieldHTML + '<div class="col-md-5"><label>PILIH DPJP</label><select class="form-control selectdpjp" name="kode_dpjp[]">@foreach ($dpjp as $i => $p) <option value="{{ $p->kode_paramedis }}">{{ $p->nama_paramedis }}</option> @endforeach</select></div>';
+
+                // fieldHTML = fieldHTML + '<div class="col-md-5"><label for="">PILIH DPJP</label><select class="form-control  select2" name="kode_dpjp" id="kode_dpjp" placeholder="Cari opsi...">@foreach ($dpjp as $i => $p) <option value="{{ $p->kode_paramedis }}">{{ $p->nama_paramedis }} </option> @endforeach</select></div>';
                 fieldHTML = fieldHTML + '<div class="col-md-5"><label for="">Tata Laksana DPJP</label><textarea class="form-control" id="talaksanadpjp" name="talaksanadpjp" placeholder=""></textarea></div>';
                 fieldHTML = fieldHTML + '<div class="col-md-2"><a href="javascript:void(0);" class="remove_button btn btn-danger">HAPUS</a></div>';
                 fieldHTML = fieldHTML + '</div></div>';
@@ -1745,6 +1738,9 @@
                     if (x < maxField) {
                         x++; //Increment field counter
                         $(wrapper).append(fieldHTML); //Add field html
+                        $('.selectdpjp').select2({
+                            width: '100%'
+                        });
                     }
                 });
 
