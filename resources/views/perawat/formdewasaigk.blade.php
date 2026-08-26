@@ -8461,6 +8461,8 @@
 
         var anamnesis_triase_bidan = $('#anamnesis_triase_bidan').val()
         var diagnosa_triase_bidan = $('#diagnosa_triase_bidan').val()
+        var rekomendasi = $('#rekomendasi').val()
+
 
         var kj = $('#kj').val()
 
@@ -8771,6 +8773,9 @@
 
                         anamnesis_triase_bidan: $('#anamnesis_triase_bidan').val(),
                         diagnosa_triase_bidan: $('#diagnosa_triase_bidan').val(),
+                        rekomendasi: $('#rekomendasi').val(),
+
+                        
 
                         kj: $('#kj').val(),
                         tgl_pengkajian: $('#tgl_pengkajian').val(),
@@ -9102,6 +9107,8 @@
         var tindakankebidanan = $('.formtindakankebidanan').serializeArray();
         var anamnesis_triase_bidan = $('#anamnesis_triase_bidan').val()
         var diagnosa_triase_bidan = $('#diagnosa_triase_bidan').val()
+        var rekomendasi = $('#rekomendasi').val()
+
 
         var asal_rujukan = $('#asal_rujukan').val()
 
@@ -9423,6 +9430,8 @@
                         asalmasuk: $('#asalmasuk:checked').val(),
                         anamnesis_triase_bidan: $('#anamnesis_triase_bidan').val(),
                         diagnosa_triase_bidan: $('#diagnosa_triase_bidan').val(),
+                        rekomendasi: $('#rekomendasi').val(),
+
 
                         caramasuk: $('#caramasuk:checked').val(),
                         subyek: $('#anamnesis').val(),

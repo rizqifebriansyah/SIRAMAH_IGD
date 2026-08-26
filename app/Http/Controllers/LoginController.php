@@ -55,6 +55,8 @@ class LoginController extends Controller
                 return redirect()->intended('gizi');
             } elseif ($hak == 18) {
                 return redirect()->intended('monitoring');
+            }elseif ($hak == 19) {
+                return redirect()->intended('vk');
             }
         }
         return back()->with('loginError', 'Login gagal !');

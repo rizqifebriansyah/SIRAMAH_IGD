@@ -705,7 +705,7 @@ class PerawatController extends Controller
         $tglmasuk = $request->tglmasuk;
         $ttv = DB::select('SELECT tekanan_darah, frekuensi_nafas, frekuensi_nadi, suhu, berat_badan, umur, keadaan_umum, kesadaran, gcs, spo2 FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
         $ttvb = DB::select('SELECT tekanan_darah, frekuensi_nafas, frekuensi_nadi, suhu, berat_badan, umur, keadaan_umum, kesadaran, gcs, spo2 FROM erm_cppt_kebidanan WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
-        $ttvc = DB::select('SELECT tekanan_darah, frekuensi_nafas, frekuensi_nadi, suhu, berat_badan, umur, keadaan_umum, kesadaran, gcs, spo2 FROM erm_cppt_kebidanan_bayi WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
+        $ttvc = DB::select('SELECT tekanan_darah, skor_afgar_1, frekuensi_nafas, frekuensi_nadi, suhu, berat_badan, umur, keadaan_umum, kesadaran, gcs, spo2 FROM erm_cppt_kebidanan_bayi WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
         // dd($ttvc);
         $cek = DB::select('SELECT
       fc_nama_unit1(kode_unit) AS nama_unit
@@ -852,7 +852,7 @@ class PerawatController extends Controller
         // dd($assesper);
         $tindakan = DB::select('SELECT * FROM erm_tindakan_keperawatan WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
         // dd($tindakan);
-        $trp = DB::select('SELECT anamnesa_triase, diagnosa_triase FROM erm_cppt_kebidanan_lanjutan WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
+        $trp = DB::select('SELECT anamnesa_triase, diagnosa_triase, rekomendasi FROM erm_cppt_kebidanan_lanjutan WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
         $trb = DB::select('SELECT anamnesa_triase, diagnosa_triase FROM erm_cppt_kebidanan_bayi WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
 
         return view(
@@ -931,6 +931,7 @@ class PerawatController extends Controller
         $assesper = DB::select('SELECT * FROM erm_cppt_kebidanan_bayi WHERE no_rm = ? AND kode_kunjungan = ? AND status IN (1,2)', [$norm, $kj]);
         // dd($assesper);
         $tindakan = DB::select('SELECT * FROM erm_tindakan_keperawatan WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
+        // dd($tindakan);
 
         return view(
             'perawat.formbayikigk',
@@ -1108,11 +1109,17 @@ class PerawatController extends Controller
         FROM erm_cppt_perawat a
         WHERE a.no_rm = ?', [$norm]);
 
+        $hasill = DB::select('SELECT *
+        FROM upload_berkas_igd a
+        WHERE a.no_rm = ? AND a.kode_kunjungan = ?', [$norm, $kj]);
 
+        // dd($hasill);
         return view(
             'perawat.upload',
             [
                 'hasil' => $hasil,
+                'hasill' => $hasill,
+
                 'norm' => $norm,
                 'kj' => $kj
 
@@ -2284,7 +2291,7 @@ class PerawatController extends Controller
                 'diagnosa_triase' => $request->diagnosa_triase_bidan,
                 'tgl_input' => $now,
                 'tgl_kunjungan' => $request->tglmasuk,
-                'tekanan_darah' => $request->tekanandarah,
+                'skor_afgar_1' => $request->skor_afgar_1,
                 'frekuensi_nadi' => $request->frekuensinadi,
                 'frekuensi_nafas' => $request->frekuensinafas,
                 'suhu' => $request->suhutubuh,
@@ -2396,6 +2403,20 @@ class PerawatController extends Controller
 
                 'status' => '1',
                 'nama_bidan' => $name
+            ]);
+            $assesmenlanjutan = erm_cppt_kebidanan_lanjutan::create([
+                'tgl_input' => $now,
+                'tgl_kunjungan' => $request->tglmasuk,
+                'tgl_pengkajian' => $request->tgl_pengkajian,
+
+                'kode_unit' => '1023',
+                'no_rm' => $request->norm,
+                'kode_kunjungan' => $request->kj,
+                'kode_paramedis' => $kp,
+
+                'rekomendasi' => $request->rekomendasi
+
+
             ]);
         } catch (\Exception $e) {
             $back = [
@@ -3010,7 +3031,9 @@ class PerawatController extends Controller
                 'rasanyeri9' => $request->rasanyeri9,
                 'seringnyeri' => $request->seringnyeri,
                 'serringnyeri' => $request->serringnyeri,
-                'berkurangnyeri' => $request->berkurangnyeri
+                'berkurangnyeri' => $request->berkurangnyeri,
+                'rekomendasi' => $request->rekomendasi
+
 
             ]);
         } catch (\Exception $e) {
@@ -3962,7 +3985,9 @@ class PerawatController extends Controller
                     'rasanyeri9' => $request->rasanyeri9,
                     'seringnyeri' => $request->seringnyeri,
                     'serringnyeri' => $request->serringnyeri,
-                    'berkurangnyeri' => $request->berkurangnyeri
+                    'berkurangnyeri' => $request->berkurangnyeri,
+                    'rekomendasi' => $request->rekomendasi
+
 
                 ]);
             }
@@ -4352,8 +4377,11 @@ class PerawatController extends Controller
 
         try {
             $cekcpp = DB::select('SELECT status FROM erm_cppt_kebidanan_bayi WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
+            $cekcppl = DB::select('SELECT status FROM erm_cppt_kebidanan_lanjutan WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
+
+
             //ada
-            if ($cekcpp[0]->status == 1) {
+            if ($cekcpp[0]->status == 1 && $cekcppl[0]->status == 1) {
                 $cekcpp = DB::select('UPDATE erm_cppt_kebidanan_bayi SET status = "3"  WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
                 $assesmen = erm_cppt_kebidanan_bayi::create([
                     'sumber_data' =>  $request->sumberdata,
@@ -4368,7 +4396,7 @@ class PerawatController extends Controller
                     'tgl_pengkajian' => $request->tgl_pengkajian,
 
                     'tgl_kunjungan' => $request->tglmasuk,
-                    'tekanan_darah' => $request->tekanandarah,
+                    'skor_afgar_1' => $request->skor_afgar_1,
                     'frekuensi_nadi' => $request->frekuensinadi,
                     'frekuensi_nafas' => $request->frekuensinafas,
                     'suhu' => $request->suhutubuh,
@@ -4480,6 +4508,22 @@ class PerawatController extends Controller
 
                     'status' => '1',
                     'nama_bidan' => $name
+                ]);
+                $cekcppl = DB::select('UPDATE erm_cppt_kebidanan_lanjutan SET status = "3"  WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
+
+                $assesmenlanjutan = erm_cppt_kebidanan_lanjutan::create([
+                    'tgl_input' => $now,
+                    'tgl_kunjungan' => $request->tglmasuk,
+                    'tgl_pengkajian' => $request->tgl_pengkajian,
+
+                    'kode_unit' => '1023',
+                    'no_rm' => $request->norm,
+                    'kode_kunjungan' => $request->kj,
+                    'kode_paramedis' => $kp,
+
+                    'rekomendasi' => $request->rekomendasi
+
+
                 ]);
             }
         } catch (\Exception $e) {
@@ -5258,11 +5302,17 @@ class PerawatController extends Controller
         $filepath = url('../../files/' . $filename);
 
 
+        $create = upload_berkas_igd::create([
+            'kode_kunjungan' => $kj,
+            'no_rm' => $norm,
+
+            'hasil_ekg' => $filename
+        ]);
         // $update = DB::table(' UPDATE erm_cppt_perawat
         // SET hasil_ekg = ? WHERE kode_kunjungan = ?', [$filepath,$kj]);
-        $update = DB::table('erm_cppt_perawat')
-            ->where('kode_kunjungan', $kj)
-            ->update(['hasil_ekg' => $filename]);
+        // $update = DB::table('erm_cppt_perawat')
+        //     ->where('kode_kunjungan', $kj)
+        //     ->update(['hasil_ekg' => $filename]);
 
 
         // $request->file('$bukti')->store('public/images');
@@ -5308,12 +5358,18 @@ class PerawatController extends Controller
         // File path
         $filepath = url('../../files/' . $filename);
 
+        $create = upload_berkas_igd::create([
+            'kode_kunjungan' => $kj,
+            'no_rm' => $norm,
+
+            'surat_penolakan' => $filename
+        ]);
 
         // $update = DB::table(' UPDATE erm_cppt_perawat
         // SET hasil_ekg = ? WHERE kode_kunjungan = ?', [$filepath,$kj]);
-        $update = DB::table('erm_cppt_perawat')
-            ->where('kode_kunjungan', $kj)
-            ->update(['surat_penolakan' => $filename]);
+        // $update = DB::table('erm_cppt_perawat')
+        //     ->where('kode_kunjungan', $kj)
+        //     ->update(['surat_penolakan' => $filename]);
 
 
         // $request->file('$bukti')->store('public/images');
@@ -5359,12 +5415,17 @@ class PerawatController extends Controller
         // File path
         $filepath = url('../../files/' . $filename);
 
+        $create = upload_berkas_igd::create([
+            'kode_kunjungan' => $kj,
+            'no_rm' => $norm,
 
+            'informasi_tindakan' => $filename
+        ]);
         // $update = DB::table(' UPDATE erm_cppt_perawat
         // SET hasil_ekg = ? WHERE kode_kunjungan = ?', [$filepath,$kj]);
-        $update = DB::table('erm_cppt_perawat')
-            ->where('kode_kunjungan', $kj)
-            ->update(['informasi_tindakan' => $filename]);
+        // $update = DB::table('erm_cppt_perawat')
+        //     ->where('kode_kunjungan', $kj)
+        //     ->update(['informasi_tindakan' => $filename]);
 
 
         // $request->file('$bukti')->store('public/images');
@@ -5409,13 +5470,18 @@ class PerawatController extends Controller
 
         // File path
         $filepath = url('../../files/' . $filename);
+        $create = upload_berkas_igd::create([
+            'kode_kunjungan' => $kj,
+            'no_rm' => $norm,
 
+            'transfer_pasien' => $filename
+        ]);
 
         // $update = DB::table(' UPDATE erm_cppt_perawat
         // SET hasil_ekg = ? WHERE kode_kunjungan = ?', [$filepath,$kj]);
-        $update = DB::table('erm_cppt_perawat')
-            ->where('kode_kunjungan', $kj)
-            ->update(['transfer_pasien' => $filename]);
+        // $update = DB::table('erm_cppt_perawat')
+        //     ->where('kode_kunjungan', $kj)
+        //     ->update(['transfer_pasien' => $filename]);
 
 
         // $request->file('$bukti')->store('public/images');

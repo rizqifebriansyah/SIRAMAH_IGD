@@ -14,7 +14,10 @@ use App\Http\Controllers\LabController;
 use App\Http\Controllers\MonitoringController;
 use App\Http\Controllers\RadiologiController;
 use App\Http\Controllers\ReportingController;
+use App\Http\Controllers\VKController;
+
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +57,15 @@ Route::group(['middleware' => ['hak_akses:18', 'auth']], function () {
 
     //cari
     Route::post('carimonitoringpasien', [MonitoringController::class, 'carimonitoringpasien'])->name('carimonitoringpasien');
+});
+
+
+//route VK
+Route::group(['middleware' => ['hak_akses:19', 'auth']], function () {
+
+
+    Route::get('vk', [VKController::class, 'vk'])->name('vk');
+  
 });
 //route farmasi
 Route::group(['middleware' => ['hak_akses:6', 'auth']], function () {

@@ -184,7 +184,19 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td class="text-bold font-italic">Tekanan Darah</td>
+                                            <td class="text-bold font-italic">SKOR AFGAR</td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control"
+                                                        placeholder="Tekanan darah pasien ..."
+                                                        aria-label="Recipient's username" id="skor_afgar_1"
+                                                        name="skor_afgar_1" aria-describedby="basic-addon2" value="">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text" id="basic-addon2"></span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <!-- <td class="text-bold font-italic">Tekanan Darah</td>
                                             <td>
                                                 <div class="input-group">
                                                     <input type="text" class="form-control"
@@ -195,7 +207,7 @@
                                                         <span class="input-group-text" id="basic-addon2">mmHg</span>
                                                     </div>
                                                 </div>
-                                            </td>
+                                            </td> -->
                                             <td class="text-bold font-italic">Frekuensi Nadi</td>
                                             <td>
                                                 <div class="input-group">
@@ -1738,7 +1750,19 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td class="text-bold font-italic">Tekanan Darah</td>
+                                             <td class="text-bold font-italic">SKOR AFGAR</td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control"
+                                                        placeholder="Tekanan darah pasien ..."
+                                                        aria-label="Recipient's username" id="skor_afgar_1"
+                                                        name="skor_afgar_1" aria-describedby="basic-addon2" value="{{$assesper[0]->skor_afgar_1}}">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text" id="basic-addon2"></span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <!-- <td class="text-bold font-italic">Tekanan Darah</td>
                                             <td>
                                                 <div class="input-group">
                                                     <input type="text" class="form-control"
@@ -1750,7 +1774,7 @@
                                                         <span class="input-group-text" id="basic-addon2">mmHg</span>
                                                     </div>
                                                 </div>
-                                            </td>
+                                            </td> -->
                                             <td class="text-bold font-italic">Frekuensi Nadi</td>
                                             <td>
                                                 <div class="input-group">
@@ -3511,6 +3535,27 @@
 
                                     </div>
                                 </form>
+                                 <table class="table">
+                                    <thead>
+                                        <th>WAKTU</th>
+                                        <th>TINDAKAN</th>
+                                        <th>Action</th>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($tindakan as $ti => $t)
+                                        <tr>
+                                            <td class="wtt">{{$t->waktu_tindakan}} </td>
+                                            <td class="tindakan"> {{$t->tindakan_keperawatan}} </td>
+                                            <td class="idtindakan" hidden> {{$t->id}}</td>
+                                            <td> <a class=" btn btn-danger btn-sm returtinper" href="#">
+                                                    <i class="fas fa-sync-alt fa-spin"></i>
+                                                    RETUR
+                                                </a></td>
+
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             </td>
 
                         </tr>
@@ -3604,7 +3649,8 @@
         var subyek = $('#anamnesis').val()
         var keadaanumum = $('#keadaanumum:checked').val()
         var kesadaran = $('#kesadaran:checked').val()
-        var tekanandarah = $('#tekanandarah').val()
+        var skor_afgar_1 = $('#skor_afgar_1').val()
+        
         var frekuensinadi = $('#frekuensinadi').val()
         var frekuensinafas = $('#frekuensinafas').val()
         var suhutubuh = $('#suhutubuh').val()
@@ -3732,6 +3778,8 @@
                         tindakankebidanan: JSON.stringify(tindakankebidanan),
                         anamnesis_triase_bidan: $('#anamnesis_triase_bidan').val(),
                         diagnosa_triase_bidan: $('#diagnosa_triase_bidan').val(),
+                        rekomendasi: $('#rekomendasi').val(),
+
                         asal_rujukan: $('#asal_rujukan').val(),
 
                         norm: $('#norm').val(),
@@ -3744,7 +3792,7 @@
                         subyek: $('#anamnesis').val(),
                         keadaanumum: $('#keadaanumum:checked').val(),
                         kesadaran: $('#kesadaran:checked').val(),
-                        tekanandarah: $('#tekanandarah').val(),
+                        skor_afgar_1: $('#skor_afgar_1').val(),
                         frekuensinadi: $('#frekuensinadi').val(),
                         frekuensinafas: $('#frekuensinafas').val(),
                         suhutubuh: $('#suhutubuh').val(),
@@ -3891,6 +3939,9 @@
         var tindakankebidanan = $('.formtindakankebidanan').serializeArray();
         var anamnesis_triase_bidan = $('#anamnesis_triase_bidan').val()
         var diagnosa_triase_bidan = $('#diagnosa_triase_bidan').val()
+        var rekomendasi = $('#rekomendasi').val()
+
+        
         var asal_rujukan = $('#asal_rujukan').val()
 
         var norm = $('#norm').val()
@@ -3902,7 +3953,7 @@
         var subyek = $('#anamnesis').val()
         var keadaanumum = $('#keadaanumum:checked').val()
         var kesadaran = $('#kesadaran:checked').val()
-        var tekanandarah = $('#tekanandarah').val()
+        var skor_afgar_1 = $('#skor_afgar_1').val()
         var frekuensinadi = $('#frekuensinadi').val()
         var frekuensinafas = $('#frekuensinafas').val()
         var suhutubuh = $('#suhutubuh').val()
@@ -4030,6 +4081,9 @@
                         tindakankebidanan: JSON.stringify(tindakankebidanan),
                         anamnesis_triase_bidan: $('#anamnesis_triase_bidan').val(),
                         diagnosa_triase_bidan: $('#diagnosa_triase_bidan').val(),
+                        rekomendasi: $('#rekomendasi').val(),
+
+                        
                         asal_rujukan: $('#asal_rujukan').val(),
 
                         norm: $('#norm').val(),
@@ -4042,7 +4096,7 @@
                         subyek: $('#anamnesis').val(),
                         keadaanumum: $('#keadaanumum:checked').val(),
                         kesadaran: $('#kesadaran:checked').val(),
-                        tekanandarah: $('#tekanandarah').val(),
+                        skor_afgar_1: $('#skor_afgar_1').val(),
                         frekuensinadi: $('#frekuensinadi').val(),
                         frekuensinafas: $('#frekuensinafas').val(),
                         suhutubuh: $('#suhutubuh').val(),

@@ -50,22 +50,22 @@
                     <i class="bi bi-journal-text"></i>
                     Clinical Pathway
                 </a></div>
-            <!-- <div class="col-md-2"><a class=" btn btn-info btn-block " id="uploadtindakandokter">
+            <div class="col-md-2"><a class=" btn btn-info btn-block " id="uploadtindakandokter">
                     <i class="bi bi-journal-text"></i>
                     Informasi Tindakan Dokter
-                </a></div>  -->
-            <!-- <div class="col-md-2"><a class=" btn btn-info btn-block " id="uploadtransfer">
+                </a></div> 
+            <div class="col-md-2"><a class=" btn btn-info btn-block " id="uploadtransfer">
                     <i class="bi bi-journal-text"></i>
                     Catatan Transfer Pasien
-                </a></div> -->
-            <!-- <div class="col-md-2"><a class=" btn btn-info btn-block " id="uploadobservasi">
+                </a></div>
+            <div class="col-md-2"><a class=" btn btn-info btn-block " id="uploadobservasi">
                     <i class="bi bi-journal-text"></i>
                     Observasi
                 </a></div>
-             <div class="col-md-2"><a class=" btn btn-info btn-block " id="uploadconcern">
+             <div class="col-md-2"><a class=" btn btn-info btn-block mt-2" id="uploadconcern">
                     <i class="bi bi-journal-text"></i>
                     Inform Concern
-                </a></div> -->
+                </a></div>
         </div>
         <!-- formekg -->
         <div id="formekg" class="modal">
@@ -602,7 +602,7 @@
             </div>
 
         </div>
-        @if ($hasil == null)
+        <!-- @if ($hasil == null)
 
         <h5>Belum ada file di upload</h5>
         @else
@@ -663,10 +663,146 @@
                 </div>
             </div>
         </div>
+        @endforeach -->
+
+        <!-- @endif -->
+        @if ($hasill == null)
+
+        <h5>Belum ada file di upload</h5>
+        @else
+        @foreach ($hasil as $key => $h)
+        <div class="accordion" id="accordionExample3" style="margin-top: 30px;">
+            <div class="card">
+                <div class="card-header bg-secondary" id="headingOne">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link btn-block text-left text-light font-weight" type="button" data-toggle="collapse" data-target="#collapseOne3" aria-expanded="true" aria-controls="collapseOne3">
+                            <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Hasil Upload <h5 class="float-right">{{$h->tgl_kunjungan}}</h5>
+                        </button>
+                    </h2>
+                </div>
+
+                <div id="collapseOne3" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample3">
+                    <div style="margin-top: 20px;" class="card-body">
+                        <div class="row">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+
+                                        <td> <label for="exampleInputFile"> Hasil EKG</label></td>
+                                        <td>
+                                            <img width="1000px" src="{{ url('../../files/' . $h->hasil_ekg) }}" alt="" class="mr-3">
+
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+
+                                        <td> <label for="exampleInputFile"> Surat Penolakan Perawatan</label></td>
+                                        <td>
+                                            <img width="1000px" src="{{ url('../../files/' . $h->surat_penolakan) }}" alt="" class="mr-3">
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+
+                                        <td> <label for="exampleInputFile"> Informasi Tindakan Dokter</label></td>
+                                        <td>
+                                            <img width="1000px" src="{{ url('../../files/' . $h->informasi_tindakan) }}" alt="" class="mr-3">
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+
+                                        <td> <label for="exampleInputFile"> Transfer Pasien</label></td>
+                                        <td>
+                                            <img width="1000px" src="{{ url('../../files/' . $h->transfer_pasien) }}" alt="" class="mr-3">
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+
+                                        <td> <label for="exampleInputFile"> CTG</label></td>
+                                        <td>
+                                            <img width="1000px" src="{{ url('../../files/' . $h->ctg) }}" alt="" class="mr-3">
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+
+                                        <td> <label for="exampleInputFile"> USG</label></td>
+                                        <td>
+                                            <img width="1000px" src="{{ url('../../files/' . $h->usg) }}" alt="" class="mr-3">
+
+                                        </td>
+                                    </tr>
+                                                              <tr>
+
+                                        <td> <label for="exampleInputFile"> Partograp</label></td>
+                                        <td>
+                                            <img width="1000px" src="{{ url('../../files/' . $h->partograp) }}" alt="" class="mr-3">
+
+                                        </td>
+                                    </tr>
+                                                              <tr>
+
+                                        <td> <label for="exampleInputFile"> Kuret</label></td>
+                                        <td>
+                                            <img width="1000px" src="{{ url('../../files/' . $h->kuret) }}" alt="" class="mr-3">
+
+                                        </td>
+                                    </tr>
+                                                              <tr>
+
+                                        <td> <label for="exampleInputFile"> Biopsi</label></td>
+                                        <td>
+                                            <img width="1000px" src="{{ url('../../files/' . $h->biopsi) }}" alt="" class="mr-3">
+
+                                        </td>
+                                    </tr>
+                                                              <tr>
+
+                                        <td> <label for="exampleInputFile"> Laminaria</label></td>
+                                        <td>
+                                            <img width="1000px" src="{{ url('../../files/' . $h->laminaria) }}" alt="" class="mr-3">
+
+                                        </td>
+                                    </tr>
+                                                              <tr>
+
+                                        <td> <label for="exampleInputFile"> Surat Keterangan Lahir</label></td>
+                                        <td>
+                                            <img width="1000px" src="{{ url('../../files/' . $h->skl) }}" alt="" class="mr-3">
+
+                                        </td>
+                                    </tr>
+
+                                                              <tr>
+
+                                        <td> <label for="exampleInputFile">Persetujan Transfusi Darah</label></td>
+                                        <td>
+                                            <img width="1000px" src="{{ url('../../files/' . $h->transfusi) }}" alt="" class="mr-3">
+
+                                        </td>
+                                    </tr>
+                                                              <tr>
+
+                                        <td> <label for="exampleInputFile"> Pathway</label></td>
+                                        <td>
+                                            <img width="1000px" src="{{ url('../../files/' . $h->pathway) }}" alt="" class="mr-3">
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         @endforeach
 
         @endif
-
     </div>
 </div>
 

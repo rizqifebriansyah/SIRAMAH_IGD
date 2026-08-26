@@ -164,8 +164,11 @@
                         @else
                         <p class="text-muted text-center">PASIEN INSTALASI GAWAT DARURAT</p>
                         <ul class="list-group list-group-unbordered mb-3">
-                            <li class="list-group-item">
+                            <!-- <li class="list-group-item">
                                 <b>TD</b> <a class="float-right">{{ $ttvc[0]->tekanan_darah }} mmhg</a>
+                            </li> -->
+                             <li class="list-group-item">
+                                <b>TD</b> <a class="float-right">{{ $ttvc[0]->skor_afgar_1 }} mmhg</a>
                             </li>
                             <li class="list-group-item">
                                 <b>Nadi</b> <a class="float-right">{{ $ttvc[0]->frekuensi_nadi }} x/menit</a>
@@ -178,10 +181,10 @@
                                 <b>Suhu</b> <a class="float-right">{{ $ttvc[0]->suhu }} °C</a>
                             </li>
                             <li class="list-group-item">
-                                <b>Berat badan</b> <a class="float-right">{{ $ttvc[0]->berat_badan }} Kg</a>
+                                <b>Berat badan</b> <a class="float-right">{{ $ttvc[0]->berat_badan }} Gram</a>
                             </li>
                             <li class="list-group-item">
-                                <b>Usia</b> <a class="float-right">{{ $ttvc[0]->umur }} Th</a>
+                                <b>Usia</b> <a class="float-right">{{ $ttvc[0]->umur }} Hari</a>
                             </li>
                             <li class="list-group-item">
                                 <b>Keadaan Umum</b> <a class="float-right"> {{ $ttvc[0]->keadaan_umum }}</a>
