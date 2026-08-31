@@ -22,7 +22,7 @@
             <td style="text-align: center;" class="tglmasuk">{{ $a->tgl_masuk }}</td>
 
             <td style="text-align: center;" class="norm">{{ $a->no_rm }}</td>
-            <td style="text-align: center;" class="namapx">{{ $a->nama_unit }}</td>
+            <td style="text-align: center;" class="namaunit">{{ $a->nama_unit }}</td>
 
             <td style="text-align: center;" class="namapx">{{ $a->nama_px }}</td>
             <td style="text-align: center;" class="jk">{{ $a->jenis_kelamin }}</td>
@@ -33,7 +33,7 @@
                 {{ $a->DIAGX }}
             </td>
             <td style="text-align: center;">
-                <button class="badge badge-info " > CPPT </button>
+                <button class="badge badge-info ermvk"> CPPT </button>
             </td>
 
 
@@ -48,13 +48,50 @@
 </table>
 
 <script>
-      $(function() {
+    $(function() {
         $("#datapasienvk").DataTable({
             "responsive": false,
             "lengthChange": false,
             "pageLength": 10,
             "autoWidth": false,
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        });
+    });
+    $(".ermvk").click(function() {
+        spinner = $('#loader2');
+        spinner.show();
+        var $row = $(this).closest("tr");
+        var norm = $row.find(".norm").text();
+        var namapx = $row.find(".namapx").text();
+        var namaunit = $row.find(".namaunit").text();
+
+        var jk = $row.find(".jk").text();
+        var kj = $row.find(".kj").text();
+        var tglmasuk = $row.find(".tglmasuk").text();
+        $.ajax({
+            type: "post",
+            data: {
+                _token: "{{ csrf_token() }}",
+                norm,
+                namapx,
+                namaunit,
+
+                jk,
+                kj,
+
+                tglmasuk
+
+            },
+            url: '<?= route('ermvk') ?>',
+            error: function(data) {
+                spinner.hide();
+                alert('oke!!')
+            },
+            success: function(response) {
+                spinner.hide();
+                $('.ermperawatview').html(response);
+
+            }
         });
     });
 </script>
