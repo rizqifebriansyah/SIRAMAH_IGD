@@ -7743,36 +7743,37 @@
                         </div>
                     </td>
                 </tr>
-                @if ( $trp != NULL)
-                <tr>
-                    <td>
-                        <label for="">REKOMENDASI </label>
 
-                    </td>
-                    <td>
-                        <div class="input-group">
-                            <textarea class="form-control" id="rekomendasi" name="rekomendasi" placeholder="">{{$trp[0]->rekomendasi}}</textarea>
-
-                        </div>
-                    </td>
-                </tr>
-                @else
-                <tr>
-                    <td>
-                        <label for="">REKOMENDASI </label>
-
-                    </td>
-                    <td>
-                        <div class="input-group">
-                            <textarea class="form-control" id="rekomendasi" name="rekomendasi" placeholder=""></textarea>
-
-                        </div>
-                    </td>
-                </tr>
-                @endif
             </tbody>
         </table>
 
+        @endif
+        @if ( $trp != NULL)
+        <tr>
+            <td>
+                <label for="">REKOMENDASI </label>
+
+            </td>
+            <td>
+                <div class="input-group">
+                    <textarea class="form-control" id="rekomendasi" name="rekomendasi" placeholder="">{{$trp[0]->rekomendasi}}</textarea>
+
+                </div>
+            </td>
+        </tr>
+        @else
+        <tr>
+            <td>
+                <label for="">REKOMENDASI </label>
+
+            </td>
+            <td>
+                <div class="input-group">
+                    <textarea class="form-control" id="rekomendasi" name="rekomendasi" placeholder=""></textarea>
+
+                </div>
+            </td>
+        </tr>
         @endif
 
 

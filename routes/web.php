@@ -65,6 +65,9 @@ Route::group(['middleware' => ['hak_akses:19', 'auth']], function () {
 
 
     Route::get('vk', [VKController::class, 'vk'])->name('vk');
+    Route::post('caripasienvk', [VKController::class, 'caripasienvk'])->name('caripasienvk');
+
+    
   
 });
 //route farmasi

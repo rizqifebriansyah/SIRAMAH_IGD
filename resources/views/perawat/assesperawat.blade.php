@@ -160,15 +160,23 @@
 
                             <!-- data igd kebidanan 1023 -->
                             @else
-                            @if ($a->nama_perawat == null || $a->nama_perawat1 == null )
+                            @if ($a->nama_perawat == null && $a->nama_perawat1 == null)
                             <button class="badge badge-danger ermperawat"> belum diisi </button>
                             @elseif ($a->status == 2 || $a->status_bayi == 2 )
-                            <button class="badge badge-success ermperawat"> Sudah validasi </button> | {{ $a->nama_perawat }}
-
+                            <button class="badge badge-success ermperawat"> Sudah validasi </button> | {{ $a->nama_perawat }} {{ $a->nama_perawat1 }}
                             @else
                             <button class="badge badge-warning ermperawat"> belum validasi </button> | {{ $a->nama_perawat }} {{ $a->nama_perawat1 }}
 
                             @endif
+                            <!-- @if ($a->nama_perawat == null || $a->nama_perawat1 == null )
+                            <button class="badge badge-danger ermperawat"> belum diisi </button>
+                            @elseif ($a->status == 2 || $a->status_bayi == 2 )
+                            <button class="badge badge-success ermperawat"> Sudah validasi </button> | {{ $a->nama_perawat }}
+
+                            @elseif ($a->status == 1 || $a->status_bayi == 1 )
+                            <button class="badge badge-warning ermperawat"> belum validasi </button> | {{ $a->nama_perawat }} {{ $a->nama_perawat1 }}
+
+                            @endif -->
 
                             @endif
                         </td>
@@ -179,7 +187,7 @@
                             <button class="badge badge-success"> Sudah validasi </button> | {{ $a->nama_perawat }}
 
                             @else
-                            <button class="badge badge-warning ">  Belum Validasi </button> | {{ $a->nama_paramedis }}
+                            <button class="badge badge-warning "> Belum Validasi </button> | {{ $a->nama_paramedis }}
                             @endif
                         </td>
 
