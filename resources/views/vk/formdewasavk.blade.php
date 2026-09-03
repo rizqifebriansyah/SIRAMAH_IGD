@@ -1,3 +1,213 @@
+@if ($bidanpoli != null)
+<div class="card-header bg-primary">
+    <h3 class="card-title ">Riwayat Pemeriksaan Pasien</h3>
+</div>
+<div class="row mt-2">
+    <div class="col-md-6">
+        <div class="card-header bg-warning">
+            <h3 class="card-title ">ASESMEN BIDAN</h3>
+        </div>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td class="text-bold font-italic">Nama Bidan</td>
+                    <td>
+                        <h5 class="text-bold">{{$bidanpoli[0]->namapemeriksa}}</h5>
+
+                    </td>
+
+                </tr>
+                <tr>
+                    <td class="text-bold font-italic">Keluhan Utama</td>
+                    <td>
+                        <h5>{{$bidanpoli[0]->keluhanutama}}</h5>
+
+                    </td>
+
+                </tr>
+                <tr>
+                    <td class="text-bold font-italic">Diagnosa Kebidanan</td>
+                    <td>
+                        <h5>{{$bidanpoli[0]->diagnosakeperawatan}}</h5>
+
+                    </td>
+
+                </tr>
+                <tr>
+                    <td class="text-bold font-italic">Rencana Kebidanan</td>
+                    <td>
+                        <h5>{{$bidanpoli[0]->rencanakeperawatan}}</h5>
+
+                    </td>
+
+                </tr>
+                <tr>
+                    <td class="text-bold font-italic">Tindakan Kebidanan</td>
+                    <td>
+                        <h5>{{$bidanpoli[0]->tindakankeperawatan}}</h5>
+
+                    </td>
+
+                </tr>
+                <tr>
+                    <td class="text-bold font-italic">Tanggal Assesmen</td>
+                    <td>
+                        <h5>{{$bidanpoli[0]->tanggalassemen}} WIB</h5>
+
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-6">
+        <div class="card-header bg-success">
+            <h3 class="card-title ">ASESMEN DOKTER</h3>
+        </div>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td class="text-bold font-italic">Nama Dokter</td>
+                    <td>
+                        <h5 class="text-bold">{{$dokpoli[0]->nama_dokter}}</h5>
+
+                    </td>
+
+                </tr>
+                <tr>
+                    <td class="text-bold font-italic">Keluhan Utama</td>
+                    <td>
+                        <h5>{{$dokpoli[0]->keluhan_pasien}}</h5>
+
+                    </td>
+
+                </tr>
+                <tr>
+                    <td class="text-bold font-italic">Diagnosa Dokter</td>
+                    <td>
+                        <h5>{{$dokpoli[0]->diagnosakerja}}</h5>
+
+                    </td>
+
+                </tr>
+                <tr>
+                    <td class="text-bold font-italic">Rencana Dokter</td>
+                    <td>
+                        <h5>{{$dokpoli[0]->rencanakerja}}</h5>
+
+                    </td>
+
+                </tr>
+                <tr>
+                    <td class="text-bold font-italic"> Pemeriksaan Fisik</td>
+                    <td>
+                        <h5>{{$dokpoli[0]->pemeriksaan_fisik}}</h5>
+
+                    </td>
+
+                </tr>
+                <tr>
+                    <td class="text-bold font-italic"> Tanggal Assesmen</td>
+                    <td>
+                        <h5>{{$dokpoli[0]->tgl_entry}}</h5>
+
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-12">
+        <table class="table">
+            <tbody>
+
+                <tr>
+                    <td class="text-bold font-italic">Tekanan Darah</td>
+                    <td>
+                        <div class="input-group">
+                            <input type="text" class="form-control"
+                                placeholder="Tekanan darah pasien ..."
+                                aria-label="Recipient's username" id=""
+                                name="" aria-describedby="basic-addon2" value="{{ $bidanpoli[0]->tekanandarah}}">
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="basic-addon2">mmHg</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="text-bold font-italic">Frekuensi Nadi</td>
+                    <td>
+                        <div class="input-group">
+                            <input type="text" class="form-control"
+                                placeholder="Frekuensi nadi pasien ..." id=""
+                                name="" aria-label="Recipient's username"
+                                aria-describedby="basic-addon2" value="{{ $bidanpoli[0]->frekuensinadi}}">
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="basic-addon2">x/menit</span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-bold font-italic">Frekuensi Nafas</td>
+                    <td>
+                        <div class="input-group">
+                            <input type="text" class="form-control"
+                                placeholder="Frekuensi Nafas Pasien ..." name=""
+                                id="" aria-label="Recipient's username"
+                                aria-describedby="basic-addon2" value="{{ $bidanpoli[0]->frekuensinapas}}">
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="basic-addon2">x/menit</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="text-bold font-italic">Suhu</td>
+                    <td>
+                        <div class="input-group">
+                            <input type="text" class="form-control"
+                                placeholder="Suhu tubuh pasien ..."
+                                aria-label="Suhu tubuh pasien" name="" id=""
+                                aria-describedby="basic-addon2" value="{{ $bidanpoli[0]->suhutubuh}}">
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="basic-addon2">°C</span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-bold font-italic">Berat Badan </td>
+                    <td>
+                        <div class="input-group">
+                            <input type="text" class="form-control"
+                                placeholder="Berat badan Pasien ..." name=""
+                                id="" aria-label="Recipient's username"
+                                aria-describedby="basic-addon2" value="{{ $bidanpoli[0]->beratbadan}}">
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="basic-addon2">Kg</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="text-bold font-italic">Tinggi Badan</td>
+                    <td>
+                        <div class="input-group">
+                            <input type="text" class="form-control"
+                                placeholder="Tinggi Badan pasien ..."
+                                aria-label="Suhu tubuh pasien" name="" id=""
+                                aria-describedby="basic-addon2" value="{{ $bidanpoli[0]->tinggibadan}}">
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="basic-addon2">CM</span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+@else
+
+@endif
+
 @if ($assesper == null)
 
 <div class="card-header bg-info">
@@ -3221,8 +3431,9 @@
 <h1>Data Sudah Tidak Bisa Diubah Karena sudah di Validasi</h1>
 @else
 <div class="card-header bg-info">
-    <h3 class="card-title ">ASSESMENT IBU KEBIDANAN INSTALASI GAWAT DARURAT KEBIDANAN (IGDK) </h3>
+    <h3 class="card-title ">ASSESMENT IBU KEBIDANAN VK </h3>
 </div>
+
 <table class="table">
     <tbody>
         <tr>
@@ -8775,7 +8986,7 @@
                         diagnosa_triase_bidan: $('#diagnosa_triase_bidan').val(),
                         rekomendasi: $('#rekomendasi').val(),
 
-                        
+
 
                         kj: $('#kj').val(),
                         tgl_pengkajian: $('#tgl_pengkajian').val(),

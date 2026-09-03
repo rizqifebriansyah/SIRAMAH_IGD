@@ -242,7 +242,7 @@
                         Swal.fire({
                             icon: 'error',
                             title: 'Ooops....',
-                            text: 'Sepertinya ada masalah......',
+                            text: 'Kunjungan Pasien Sudah Selesai',
                             footer: ''
                         })
                     },
