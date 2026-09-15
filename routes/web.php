@@ -68,6 +68,8 @@ Route::group(['middleware' => ['hak_akses:19', 'auth']], function () {
     Route::post('ermvk', [VKController::class, 'ermvk'])->name('ermvk');
     Route::post('riwayatcpptlain', [VKController::class, 'riwayatcpptlain'])->name('riwayatcpptlain');
     Route::post('formermvk', [VKController::class, 'formermvk'])->name('formermvk');
+    Route::post('pemantauanvk', [VKController::class, 'pemantauanvk'])->name('pemantauanvk');
+    Route::post('uploadvk', [VKController::class, 'uploadvk'])->name('uploadvk');
 
     
     
@@ -75,6 +77,9 @@ Route::group(['middleware' => ['hak_akses:19', 'auth']], function () {
     Route::post('caripasienvk', [VKController::class, 'caripasienvk'])->name('caripasienvk');
     
     Route::post('simpanassesvk', [VKController::class, 'simpanassesvk'])->name('simpanassesvk');
+    Route::post('simpanpemantauanvk', [VKController::class, 'simpanpemantauanvk'])->name('simpanpemantauanvk');
+    
+    
     Route::post('updateassesvk', [VKController::class, 'updateassesvk'])->name('updateassesvk');
     
     Route::post('validasiassesvk', [VKController::class, 'validasiassesvk'])->name('validasiassesvk');
@@ -191,6 +196,8 @@ Route::group(['middleware' => ['hak_akses:5', 'auth']], function () {
 Route::post('resumecpptdokter', [DokterController::class, 'resumecpptdokter'])->name('resumecpptdokter');
 
 //cetak resume
+Route::post('cetakresumecpptdokterkebidanan', [DokterController::class, 'cetakresumecpptdokterkebidanan'])->name('cetakresumecpptdokterkebidanan');
+Route::get('cetaktresumecpptkebidanan/{kj}/{norm}', [DokterController::class, 'cetaktresumecpptkebidanan']);
 Route::post('cetakresumecpptdokter', [DokterController::class, 'cetakresumecpptdokter'])->name('cetakresumecpptdokter');
 Route::get('cetaktresumecppt/{kj}/{norm}', [DokterController::class, 'cetaktresumecppt']);
 Route::post('cetakassesperawat', [DokterController::class, 'cetakassesperawat'])->name('cetakassesperawat');

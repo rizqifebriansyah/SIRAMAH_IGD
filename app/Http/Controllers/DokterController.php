@@ -3324,6 +3324,8 @@ AND b.kelas_tarif = 1');
         // tindakan dpjp
         try {
             $tindakandjp = json_decode($_POST['tindakandjp'], true);
+             if ($tindakandjp == null) {
+            } else {
             foreach ($tindakandjp as $nama) {
                 $index = $nama['name'];
                 $value = $nama['value'];
@@ -3346,7 +3348,7 @@ AND b.kelas_tarif = 1');
 
                 ];
                 $tindakandpjpdetail = erm_tindakan_kedokteran::create($savedetail);
-            }
+            }}
         } catch (\Exception $e) {
             $back = [
                 'kode' => 200,
@@ -18653,6 +18655,128 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
         $pdf::Rect(8, 10, 198, 260);
         $pdf::Output();
     }
+      public function cetakresumecpptdokterkebidanan(Request $request)
+    {
+
+        $kj = $request->kj;
+        $norm = $request->norm;
+
+
+
+
+        // $receive_items = $this->cetakpdf($kode_header, $idhed);
+        $back = [
+            'kode' => 200,
+            'kj' => $kj,
+            'norm' => $norm,
+
+
+
+        ];
+        echo json_encode($back);
+        die;
+    }
+
+    public function cetaktresumecpptkebidanan($kj, $norm)
+    {
+
+        $nowwww = Carbon::now()->format('d M Y');
+        $noww = Carbon::now();
+
+
+        // dd($kj);
+        // $unit = auth()->user()->unit;
+        $unit = '1023';
+
+        $now = Carbon::now()->format('Y-m-d H:i:s');
+        $pasien = DB::select('SELECT 
+        a.nama_px,
+        a.no_rm,
+        fc_alamat(a.no_rm) AS alamat,
+        a.jenis_kelamin AS jk,
+        fc_umur(a.no_rm) AS umur,
+        a.tgl_lahir
+        FROM mt_pasien  a
+        WHERE no_rm = ?', [$norm]);
+        // dd($pasien);
+        $dpjp = DB::select('SELECT fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,a.kode_paramedis,a.tindakan_kedokteran FROM erm_tindakan_kedokteran a WHERE kode_kunjungan = ?', [$kj]);
+        // dd($pasien);
+        $tgllahir = Carbon::parse($pasien[0]->tgl_lahir)->format('d-m-Y');
+        $kunjungan = DB::select('SELECT 
+
+        fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS dokter,
+        fc_NAMA_PENJAMIN(a.no_rm) AS penjamin,
+        b.diag_00 AS diagnosa,
+        a.tgl_masuk,
+        a.tgl_keluar
+
+        FROM ts_kunjungan a
+
+        INNER JOIN di_pasien_diagnosa_frunit b ON b.kode_kunjungan = a.kode_kunjungan
+        WHERE a.no_rm = ?
+        AND a.kode_kunjungan  = ?', [$norm, $kj]);
+       dd($kunjungan);
+        $tglmasuk = Carbon::parse($kunjungan[0]->tgl_masuk)->format('d-M-Y');
+        $jammasuk = Carbon::parse($kunjungan[0]->tgl_masuk)->format('H:i:s');
+        $tglklr = Carbon::parse($kunjungan[0]->tgl_keluar)->format('d-M-Y');
+        $jamklr = Carbon::parse($kunjungan[0]->tgl_keluar)->format('H:i:s');
+        // dd($tglmasuk, $tglklr, $kunjungan[0]);
+        $assesbid = DB::select('SELECT * FROM erm_cppt_kebidanan WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
+        $assesbidbay = DB::select('SELECT * FROM erm_cppt_kebidanan_bayi WHERE no_rm = ? AND kode_kunjungan = ? AND status IN (1,2)', [$norm, $kj]);
+
+        $riwayatorderrad = DB::select('SELECT
+        -- a.no_rm,
+        a.kode_layanan_header,
+        a.id,
+        b.total_tarif,
+        fc_nama_tindakan(LEFT(b.kode_tarif_detail,6)) as nama_tindakan
+        FROM
+        ts_layanan_header a
+        INNER JOIN ts_layanan_detail b ON b.row_id_header = a.id
+        WHERE a.kode_unit = ?
+        AND a.kode_kunjungan = ?
+        ', ['3003', $kj]);
+        
+        $riwayatorderlab = DB::select('SELECT
+        --  a.no_rm,
+         a.kode_layanan_header,
+         a.id,
+         b.total_tarif,
+         fc_nama_tindakan(LEFT(b.kode_tarif_detail,6)) as nama_tindakan
+         FROM
+         ts_layanan_header a
+         INNER JOIN ts_layanan_detail b ON b.row_id_header = a.id
+         WHERE a.kode_unit = ?
+         AND a.kode_kunjungan = ?
+         ', ['3002', $kj]);
+        // dd($riwayatorderlab);
+
+        $riwayatobat = DB::select('SELECT
+        a.kode_layanan_header,
+        a.id,
+        a.kode_kunjungan,
+        b.total_tarif,
+        b.kode_barang,
+        b.aturan_pakai,
+        b.jumlah_layanan,
+        c.nama_barang
+         FROM
+         ts_layanan_header a
+         INNER JOIN ts_layanan_detail b ON b.row_id_header = a.id
+         INNER JOIN mt_barang c ON c.kode_barang = b.kode_barang
+         WHERE a.kode_layanan_header LIKE "%DP%"
+         AND b.kode_tarif_detail NOT LIKE "%tx%"
+        --  AND a.kode_unit = "1002"
+         AND a.kode_kunjungan = ?', [$kj]);
+        //  dd($riwayatobat);
+        $riwayatrekonobat = DB::select('SELECT * FROM rekonsiliasi_obat
+        WHERE kode_kunjungan = ?', [$kj]);
+        $tindakan = DB::select('SELECT * FROM erm_tindakan_kedokteran WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
+        $tindakanp = DB::select('SELECT * FROM erm_tindakan_keperawatan WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
+        $assesdokbid = DB::select('SELECT * FROM erm_cppt_dokter_kebidanan WHERE no_rm = ? AND kode_kunjungan = ? AND status IN (1,2)', [$request->norm, $kj]);
+        dd($assesdokbid);
+    
+        }
     public function cetakresumecpptdokter(Request $request)
     {
 

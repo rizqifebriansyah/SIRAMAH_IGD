@@ -8456,12 +8456,19 @@
     </div>
 </div>
 
+@if ($assesper[0]->kode_unit == '1023')
+
+<div type="button" class="btn float-right btn-success simpanassesvk" style="margin-top: 20px;">
+    SIMPAN
+</div>
+@else
 <div type="button" class="btn float-right btn-success updateassesvk" style="margin-top: 20px;">
     Update
 </div>
 <div type="button" class="btn float-right btn-info mr-2 validasiassesvk" style="margin-top: 20px;">
     Validasi
 </div>
+@endif
 @endif
 <script src="{{ asset('public/marker/markerjs2.js') }}"></script>
 <script>

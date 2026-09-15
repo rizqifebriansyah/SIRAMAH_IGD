@@ -48,60 +48,56 @@ class VKController extends Controller
         $now = Carbon::now()->format('Y-m-d');
         $tgl_masuk_1 = date('Ymd', strtotime('+1 days', strtotime($now)));
         $pasienigd = DB::select('SELECT 
-                    e.diagnosis AS DIAGX,
-                    a.no_rm,
-                    "" AS nama_perawat,
-                    IFNULL(d.nama_bidan, IFNULL(d.nama_bidan,"")) AS nama_perawat,
-                    d.status,
-                    e.status as status_dokter,
+            e.diagnosis AS DIAGX,
+            d.no_rm,
+            d.tgl_kunjungan as tgl_masuk,
+            "" AS nama_perawat,
+            IFNULL(d.nama_bidan, "") AS nama_perawat,
+            d.status,
+            e.status AS status_dokter,
 
-                    IFNULL(e.nama_paramedis2, IFNULL(e.nama_paramedis,"")) AS nama_paramedis,
-                    fc_nama_px(a.no_rm) AS nama_px,
-                    a.tgl_masuk,
-                    fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,
-                    a.kode_penjamin,
-                    a.kode_kunjungan,
-                    a.kelas,
-                    a.kelas AS KELAS_UNIT,
-                    a.counter,
-                    b.jenis_kelamin
+            IFNULL(e.nama_paramedis2, IFNULL(e.nama_paramedis, "")) AS nama_paramedis,
+            fc_nama_px(d.no_rm) AS nama_px,
+            d.tgl_input,
+            fc_NAMA_PARAMEDIS1(d.kode_paramedis) AS nama_dpjp,
+            
+            d.kode_kunjungan
+            
+        
 
-                FROM ts_kunjungan a
-                INNER JOIN mt_pasien b ON b.no_rm = a.no_rm
+        FROM (
+            SELECT d1.*
+            FROM erm_cppt_kebidanan d1
+            INNER JOIN (
+                SELECT kode_kunjungan, MAX(id) AS max_id
+                FROM erm_cppt_kebidanan
+                WHERE STATUS NOT IN (2,3)
+                GROUP BY kode_kunjungan
+            ) d2 
+                ON d1.kode_kunjungan = d2.kode_kunjungan 
+                AND d1.id = d2.max_id
+        ) d
 
-                -- FIX PERAWAT (optional tapi disarankan)
-                LEFT JOIN (
-                    SELECT d1.*
-                    FROM erm_cppt_kebidanan d1
-                    INNER JOIN (
-                        SELECT kode_kunjungan, MAX(id) AS max_id
-                        FROM erm_cppt_kebidanan
-                        WHERE STATUS NOT IN (2,3)
-                        GROUP BY kode_kunjungan
-                    ) d2 
-                    ON d1.kode_kunjungan = d2.kode_kunjungan 
-                    AND d1.id = d2.max_id
-                ) d ON d.kode_kunjungan = a.kode_kunjungan
+        LEFT JOIN (
+            SELECT e1.*
+            FROM erm_cppt_dokter_kebidanan e1
+            INNER JOIN (
+                SELECT kode_kunjungan, MAX(id) AS max_id
+                FROM erm_cppt_dokter_kebidanan
+                WHERE STATUS NOT IN (2,3)
+                GROUP BY kode_kunjungan
+            ) e2 
+                ON e1.kode_kunjungan = e2.kode_kunjungan 
+                AND e1.id = e2.max_id
+        ) e 
+            ON e.kode_kunjungan = d.kode_kunjungan
 
-                -- FIX DOKTER (INI KUNCI)
-                LEFT JOIN (
-                    SELECT e1.*
-                    FROM erm_cppt_dokter_kebidanan e1
-                    INNER JOIN (
-                        SELECT kode_kunjungan, MAX(id) AS max_id
-                        FROM erm_cppt_dokter_kebidanan
-                        WHERE STATUS NOT IN (2,3)
+        WHERE d.tgl_input >= "2026-09-01"
+        AND d.tgl_input < "2026-09-07"
+        AND d.kode_unit = ?', [$unit]);
 
-                        GROUP BY kode_kunjungan
-                    ) e2 
-                    ON e1.kode_kunjungan = e2.kode_kunjungan 
-                    AND e1.id = e2.max_id
-                ) e ON e.kode_kunjungan = a.kode_kunjungan
+        //  [$now, $tgl_masuk_1, $unit]);
 
-                WHERE a.tgl_masuk >= ?
-                AND a.tgl_masuk < ?
-                AND a.status_kunjungan NOT IN (8,11)
-                AND a.kode_unit = ?', [$now, $tgl_masuk_1, $unit]);
         // dd($pasienigd);
         return view(
             'vk.assesvk',
@@ -281,8 +277,21 @@ class VKController extends Controller
         $norm = $request->norm;
 
         $alasanplg  = DB::select('SELECT * FROM mt_alasan_pulang');
-        $assesper = DB::select('SELECT * FROM erm_cppt_kebidanan WHERE no_rm = ? AND kode_kunjungan = ? AND status IN (1,2)', [$norm, $kj]);
-        $lanjutan = DB::select('SELECT * FROM erm_cppt_kebidanan_lanjutan WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
+
+        $assesper = DB::select('SELECT * FROM erm_cppt_kebidanan WHERE no_rm = ? AND kode_kunjungan = ? AND kode_unit = "3005" AND status IN (1,2)', [$norm, $kj]);
+        $lanjutan = DB::select('SELECT * FROM erm_cppt_kebidanan_lanjutan WHERE no_rm = ? AND kode_kunjungan = ? AND kode_unit = "3005" AND status = 1', [$norm, $kj]);
+        // dd($assesper);
+
+        if ($assesper != NULL) {
+            $assesper = DB::select('SELECT * FROM erm_cppt_kebidanan WHERE no_rm = ? AND kode_kunjungan = ? AND kode_unit = "3005" AND status IN (1,2)', [$norm, $kj]);
+            $lanjutan = DB::select('SELECT * FROM erm_cppt_kebidanan_lanjutan WHERE no_rm = ? AND kode_kunjungan = ? AND kode_unit = "3005" AND status = 1', [$norm, $kj]);
+            // dd($assesper);
+        } else {
+            $assesper = DB::select('SELECT * FROM erm_cppt_kebidanan WHERE no_rm = ? AND kode_kunjungan = ? AND kode_unit = "1023" AND status IN (1,2)', [$norm, $kj]);
+            $lanjutan = DB::select('SELECT * FROM erm_cppt_kebidanan_lanjutan WHERE no_rm = ? AND kode_kunjungan = ? AND kode_unit = "1023" AND status = 1', [$norm, $kj]);
+            // dd($assesper);
+        }
+
         // dd($lanjutan);
         $tindakan = DB::select('SELECT * FROM erm_tindakan_keperawatan WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
         $obatplg = DB::select('SELECT * FROM erm_obat_pulang_igd WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
@@ -337,6 +346,31 @@ class VKController extends Controller
         );
     }
 
+    public function pemantauanvk(Request $request)
+    {
+        $unit = auth()->user()->unit;
+
+        $kj = $request->kj;
+        $norm = $request->norm;
+        $now = Carbon::now()->format('Y-m-d H:i:s');
+
+        return view(
+            'vk.pemantauanvk',
+            [
+                'title' => 'SiRAMAH PERAWAT',
+                'unit' => $unit,
+
+                'now' => $now,
+                'norm' => $norm,
+
+                'kj' => $kj
+
+
+
+
+            ]
+        );
+    }
     public function simpanassesvk(Request $request)
     {
         $a = $request->all();
@@ -815,12 +849,12 @@ class VKController extends Controller
 
 
         try {
-            $cekcpp = DB::select('SELECT status FROM erm_cppt_kebidanan WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
-            $cekcppl = DB::select('SELECT status FROM erm_cppt_kebidanan_lanjutan WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
+            $cekcpp = DB::select('SELECT status FROM erm_cppt_kebidanan WHERE no_rm = ? AND kode_kunjungan = ? AND kode_unit = "3005" AND status = 1', [$norm, $kj]);
+            $cekcppl = DB::select('SELECT status FROM erm_cppt_kebidanan_lanjutan WHERE no_rm = ? AND kode_kunjungan = ? AND kode_unit = "3005" AND status = 1', [$norm, $kj]);
 
             //ada
             //ada
-            if ($cekcpp[0]->status == 1 && $cekcppl[0]->status == 1 && $cekcpp[0]->kode_unit == '3005' && $cekcppl[0]->kode_unit == '3005') {
+            if ($cekcpp[0]->status == 1 && $cekcppl[0]->status == 1) {
                 $cekcpp = DB::select('UPDATE erm_cppt_kebidanan SET status = "3"  WHERE no_rm = ? AND kode_kunjungan = ? AND kode_unit = "3005"', [$norm, $kj]);
                 $assesmen = erm_cppt_kebidanan::create([
                     'sumber_data' => $request->sumberdata,
@@ -1111,295 +1145,6 @@ class VKController extends Controller
 
 
                 ]);
-            } else {
-                $assesmen = erm_cppt_kebidanan::create([
-                    'sumber_data' => $request->sumberdata,
-                    'asal_masuk' => $request->asalmasuk,
-                    'cara_masuk' => $request->caramasuk,
-                    'subyek' => $request->subyek,
-                    'tgl_pengkajian' => $request->tgl_pengkajian,
-                    'asal_rujukan' => $request->asal_rujukan,
-
-                    'tgl_input' => $now,
-                    'tgl_kunjungan' => $request->tglmasuk,
-                    'tekanan_darah' => $request->tekanandarah,
-                    'frekuensi_nadi' => $request->frekuensinadi,
-                    'frekuensi_nafas' => $request->frekuensinafas,
-                    'suhu' => $request->suhutubuh,
-                    'berat_badan' => $request->beratbadan,
-                    'umur' => $request->usia,
-                    'keadaan_umum' => $request->keadaanumum,
-                    'kesadaran' => $request->kesadaran,
-                    'GCS' => $request->gcs,
-                    'SPO2' => $request->spo2,
-                    'tb' => $request->tb,
-                    'kode_unit' => '3005',
-                    'no_rm' => $request->norm,
-                    'kode_kunjungan' => $request->kj,
-                    'kode_paramedis' => $kp,
-                    'subyektif' => $request->subyek,
-                    'imunisasi' => $request->imunisasi,
-                    'imunisasi1' => $request->imunisasi1,
-                    'imunisasi2' => $request->imunisasi2,
-                    'imunisasi3' => $request->imunisasi3,
-                    'imunisasi4' => $request->imunisasi4,
-                    'imunisasi5' => $request->imunisasi5,
-                    'imunisasi6' => $request->imunisasi6,
-                    'imunisasi7' => $request->imunisasi7,
-                    'imunisasi8' => $request->imunisasi8,
-                    'imunisasi9' => $request->imunisasi9,
-                    'imunisasi10' => $request->imunisasi10,
-                    'imunisasi11' => $request->imunisasi11,
-                    'imunisasi12' => $request->imunisasi12,
-                    'imunisasi13' => $request->imunisasi13,
-                    'imunisasi14' => $request->imunisasi14,
-                    'imunisasi15' => $request->imunisasi15,
-                    'imunisasi16' => $request->imunisasi16,
-                    'imunisasi17' => $request->imunisasi17,
-                    'imunisasi18' => $request->imunisasi18,
-                    'kberencana' => $request->kberencana,
-                    'kberencana1' => $request->kberencana1,
-                    'kberencana2' => $request->kberencana2,
-                    'kberencana3' => $request->kberencana3,
-                    'kberencana4' => $request->kberencana4,
-                    'kberencana5' => $request->kberencana5,
-                    'komplikasikb' => $request->komplikasikb,
-                    'komplikasikb1' => $request->komplikasikb1,
-                    'komplikasikb2' => $request->komplikasikb2,
-                    'rpenyakit' => $request->rpenyakit,
-                    'rpenyakit1' => $request->rpenyakit1,
-                    'rpenyakit2' => $request->rpenyakit2,
-                    'rpenyakit3' => $request->rpenyakit3,
-                    'rpenyakit4' => $request->rpenyakit4,
-                    'rpenyakit5' => $request->rpenyakit5,
-                    'rpenyakit6' => $request->rpenyakit6,
-                    'rpenyakit7' => $request->rpenyakit7,
-                    'operasi' => $request->operasi,
-                    'operasi1' => $request->operasi1,
-                    'operasi2' => $request->operasi2,
-                    'ginekologi' => $request->ginekologi,
-                    'ginekologi1' => $request->ginekologi1,
-                    'ginekologi2' => $request->ginekologi2,
-                    'ginekologi3' => $request->ginekologi3,
-                    'ginekologi4' => $request->ginekologi4,
-                    'ginekologi5' => $request->ginekologi5,
-                    'ginekologi6' => $request->ginekologi6,
-                    'ginekologi7' => $request->ginekologi7,
-                    'ginekologi8' => $request->ginekologi8,
-                    'ginekologi9' => $request->ginekologi9,
-                    'ginekologi10' => $request->ginekologi10,
-                    'ginekologi11' => $request->ginekologi11,
-                    'rpk' => $request->rpk,
-                    'rpk1' => $request->rpk1,
-                    'rpk2' => $request->rpk2,
-                    'rpk3' => $request->rpk3,
-                    'rpk4' => $request->rpk4,
-                    'rpk5' => $request->rpk5,
-                    'rpk6' => $request->rpk6,
-                    'rpk7' => $request->rpk7,
-                    'rpk8' => $request->rpk8,
-                    'rpk9' => $request->rpk9,
-                    'terapi' => $request->terapi,
-                    'terapi1' => $request->terapi1,
-                    'terapi2' => $request->terapi2,
-                    'terapi3' => $request->terapi3,
-                    'aler' => $request->aler,
-                    'aler1' => $request->aler1,
-                    'aler2' => $request->aler2,
-                    'kebiasaan' => $request->kebiasaan,
-                    'kebiasaan1' => $request->kebiasaan1,
-                    'otidur' => $request->otidur,
-                    'otidur1' => $request->otidur1,
-                    'alkohol' => $request->alkohol,
-                    'alkohol1' => $request->alkohol1,
-                    'olahraga' => $request->olahraga,
-                    'olahraga1' => $request->olahraga1,
-                    'umurmenarche' => $request->umurmenarche,
-                    'lamanyahaid' => $request->lamanyahaid,
-                    'pembalut' => $request->pembalut,
-                    'haidterakhir' => $request->haidterakhir,
-                    'TP' => $request->TP,
-                    'Dismonore' => $request->Dismonore,
-                    'Dismonore1' => $request->Dismonore1,
-                    'Dismonore2' => $request->Dismonore2,
-                    'Dismonore3' => $request->Dismonore3,
-                    'menikah' => $request->menikah,
-                    'menikah1' => $request->menikah1,
-                    'menikah2' => $request->menikah2,
-                    'menikah3' => $request->menikah3,
-                    'menikah4' => $request->menikah4,
-                    'G' => $request->G,
-                    'P' => $request->P,
-                    'A' => $request->A,
-                    'hamud1' => $request->hamud1,
-                    'hamud2' => $request->hamud2,
-                    'hamud' => $request->hamud,
-                    'hatu' => $request->hatu,
-                    'hatu1' => $request->hatu1,
-                    'hatu2' => $request->hatu2,
-                    'anc' => $request->anc,
-                    'anc1' => $request->anc1,
-                    'imunisasii' => $request->imunisasii,
-                    'imunisasii1' => $request->imunisasii1,
-                    'imunisasii2' => $request->imunisasii2,
-                    'mata' => $request->mata,
-                    'mata1' => $request->mata1,
-                    'mata2' => $request->mata2,
-                    'mata3' => $request->mata3,
-                    'dadak' => $request->dadak,
-                    'dadak1' => $request->dadak1,
-                    'dadak2' => $request->dadak2,
-                    'dadak3' => $request->dadak3,
-                    'dadak4' => $request->dadak4,
-                    'dadak5' => $request->dadak5,
-                    'Ektremitas' => $request->Ektremitas,
-                    'Ektremitas1' => $request->Ektremitas1,
-                    'Ektremitas2' => $request->Ektremitas2,
-                    'Ektremitas3' => $request->Ektremitas3,
-                    'sistemnafas' => $request->sistemnafas,
-                    'sistemnafas1' => $request->sistemnafas1,
-                    'sistemnafas2' => $request->sistemnafas2,
-                    'sistemnafas3' => $request->sistemnafas3,
-                    'sistemnafas4' => $request->sistemnafas4,
-                    'sistemnafas5' => $request->sistemnafas5,
-                    'sistemnafas6' => $request->sistemnafas6,
-                    'sistemnafas7' => $request->sistemnafas7,
-                    'sistemnafas8' => $request->sistemnafas8,
-                    'sosup' => $request->sosup,
-                    'sosup1' => $request->sosup1,
-                    'sosup2' => $request->sosup2,
-                    'sosup3' => $request->sosup3,
-                    'sosup4' => $request->sosup4,
-                    'data_psikologi' => $request->dapsi,
-
-                    'data_psikologi_1' => $request->dapsi1,
-                    'data_psikologi_2' => $request->dapsi2,
-                    'data_psikologi_3' => $request->dapsi3,
-                    'data_psikologi_4' => $request->dapsi4,
-                    'data_psikologi_5' => $request->dapsi5,
-                    'data_psikologi_6' => $request->dapsi6,
-                    'data_psikologi_7' => $request->dapsi7,
-                    'data_psikologi_8' => $request->dapsi8,
-                    'data_psikologi_9' => $request->dapsi9,
-                    'data_psikologi_10' => $request->dapsi10,
-                    'data_psikologi_11' => $request->dapsi11,
-                    'data_psikologi_12' => $request->dapsi12,
-                    'nilai_budaya_1' => $request->nilbud1,
-                    'nilai_budaya_2' => $request->nilbud2,
-                    'nilai_budaya_3' => $request->nilbud3,
-                    'nilai_budaya_4' => $request->nilbud4,
-                    'nilai_budaya_5' => $request->nilbud5,
-                    'nilai_budaya' => $request->nilbud,
-                    'kebiasaan_pasien' => $request->polaak,
-                    'pola_komunikasi_1' => $request->polkom,
-                    'pola_komunikasi_2' => $request->polkom1,
-                    'pola_komunikasi_3' => $request->polkom2,
-                    'pola_komunikasi_4' => $request->polkom5,
-                    'pola_makan' => $request->polmak,
-                    'pola_makan_1' => $request->polmak1,
-                    'pola_makan_2' => $request->polmak2,
-                    'pola_makan_3' => $request->polmak3,
-                    'pantangan_makan' => $request->panmak,
-                    'pantangan_makan_1' => $request->panmak1,
-                    'pantangan_makan_2' => $request->panmak2,
-                    'kepercayaan_anut' => $request->penmak2,
-                    'kepercayaan_anut_1' => $request->penmak21,
-                    'kepercayaan_anut_2' => $request->penmak22,
-
-                    'diagnosakebidanan' => $request->diagnosakebidanan,
-                    'rencanaasuhan' => $request->rencanaasuhan,
-                    'status' => '1',
-                    'nama_bidan' => $name,
-                    'kolaborasi1' => $request->kolaborasi1,
-                    'kolaborasi2' => $request->kolaborasi2,
-                    'kolaborasi3' => $request->kolaborasi3,
-                    'kolaborasi4' => $request->kolaborasi4,
-                    'kolaborasi5' => $request->kolaborasi5,
-                    'kolaborasi6' => $request->kolaborasi6,
-                    'kolaborasi7' => $request->kolaborasi7,
-                    'kolaborasi8' => $request->kolaborasi8,
-                    'kolaborasi9' => $request->kolaborasi9,
-                    'kolaborasi10' => $request->kolaborasi10,
-                    'kolaborasi11' => $request->kolaborasi11,
-                    'kolaborasi12' => $request->kolaborasi12,
-                    'kolaborasi13' => $request->kolaborasi13,
-                    'kolaborasi14' => $request->kolaborasi14,
-                    'kolaborasi15' => $request->kolaborasi15,
-                    'nama_bidan' =>  $name,
-                    'id_user' => $user
-                ]);
-                $assesmenlanjutan = erm_cppt_kebidanan_lanjutan::create([
-                    'tgl_input' => $now,
-                    'tgl_kunjungan' => $request->tglmasuk,
-                    'tgl_pengkajian' => $request->tgl_pengkajian,
-                    'anamnesa_triase' => $request->anamnesis_triase_bidan,
-                    'diagnosa_triase' => $request->diagnosa_triase_bidan,
-
-
-                    'kode_unit' => '3005',
-                    'no_rm' => $request->norm,
-                    'kode_kunjungan' => $request->kj,
-                    'kode_paramedis' => $kp,
-                    'edukasi' => $request->kebel,
-
-                    'edukasi_1' => $request->kebel1,
-                    'edukasi_2' => $request->kebel2,
-                    'edukasi_3' => $request->kebel3,
-                    'edukasi_4' => $request->kebel4,
-                    'edukasi_5' => $request->kebel5,
-                    'edukasi_6' => $request->kebel6,
-                    'edukasi_7' => $request->kebel7,
-                    'edukasi_8' => $request->kebel8,
-                    'edukasi_9' => $request->kebel9,
-                    'edukasi_10' => $request->kebel10,
-                    'edukasi_11' => $request->kebel11,
-                    'pemahaman_penyakit' => $request->penyak,
-                    'pemahaman_perawatan' => $request->penper,
-                    'pemahaman_pengobatan' => $request->pengob,
-                    'pemahaman_nutrisi' => $request->pennut,
-                    'hambatan_8' => $request->hambatan,
-                    'hambatan_1' => $request->hambatan1,
-                    'hambatan_2' => $request->hambatan2,
-                    'hambatan_3' => $request->hambatan3,
-                    'hambatan_4' => $request->hambatan4,
-                    'hambatan_5' => $request->hambatan5,
-                    'hambatan_6' => $request->hambatan6,
-                    'hambatan_7' => $request->hambatan7,
-                    'keterbatasan_budaya' => $request->spiritual,
-                    'jatuh_rj' => $request->rjvalue,
-                    'jatuh_ds' => $request->dsvalue,
-                    'jatuh_ab' => $request->abvalue,
-                    'jatuh_ti' => $request->tivalue,
-                    'jatuh_gn' => $request->gjvalue,
-                    'jatuh_sm' => $request->smvalue,
-                    'total_jatuh' => $request->totalnyeri,
-                    'nutrisi_bb' => $request->bbvalue,
-                    'nutrisi_bbb' => $request->bbbvalue,
-                    'nutrisi_asupan' => $request->pbvalue,
-                    'nutrisi_sakit_berat' => $request->sakit_berat,
-                    'total_skor' => $request->total_nutrisi,
-                    'penandaan_gambar' => $request->gambar1,
-                    'nyeri' => $request->nyeri,
-
-                    'nyeri_pindah' => $request->nyeri_pindah,
-                    'lamanyeri' => $request->lamanyeri,
-                    'rasanyeri' => $request->rasanyeri,
-                    'rasanyeri1' => $request->rasanyeri1,
-                    'rasanyeri2' => $request->rasanyeri2,
-                    'rasanyeri3' => $request->rasanyeri3,
-                    'rasanyeri4' => $request->rasanyeri4,
-                    'rasanyeri5' => $request->rasanyeri5,
-                    'rasanyeri6' => $request->rasanyeri6,
-                    'rasanyeri7' => $request->rasanyeri7,
-                    'rasanyeri8' => $request->rasanyeri8,
-                    'rasanyeri9' => $request->rasanyeri9,
-                    'seringnyeri' => $request->seringnyeri,
-                    'serringnyeri' => $request->serringnyeri,
-                    'berkurangnyeri' => $request->berkurangnyeri,
-                    'rekomendasi' => $request->rekomendasi
-
-
-                ]);
             }
         } catch (\Exception $e) {
             $back = [
@@ -1584,6 +1329,839 @@ class VKController extends Controller
         $back = [
             'kode' => 200,
             'message' => 'Berhasil'
+        ];
+        echo json_encode($back);
+        die;
+    }
+    public function simpanpemantauanvk(Request $request)
+    {
+        $now = Carbon::now();
+        $user = auth()->user()->id_simrs;
+        $kp = auth()->user()->kode_paramedis;
+        $name = auth()->user()->nama;
+        $unit = auth()->user()->unit;
+
+
+        $norm = $request->norm;
+        $kj = $request->kj;
+
+        $input = pemantauan_ttv::create([
+            'td' => $request->ttd,
+            'nadi' => $request->nadi,
+            'rr' => $request->rr,
+            'suhu' => $request->suhu,
+            'gcs' => $request->gcs,
+            'pupil' => $request->pupil,
+            'urine' => $request->urine,
+            'spo2' => $request->spo2,
+
+            'his' => $request->his,
+            'djj' => $request->djj,
+            'obatcairan' => $request->obatcairan,
+            'tetesan' => $request->tetesan,
+            'lama' => $request->lama,
+
+
+            'nyeri' => $request->nyeri,
+            'keterangan' => $request->keterangan,
+
+            'norm' => $request->norm,
+            'kj' => $request->kj,
+            'tgl_input' => $request->waktu_pantau,
+            'create_at' => $now,
+
+            'user' => $user
+        ]);
+
+
+
+
+        $back = [
+            'kode' => 200,
+            'message' => 'Berhasil'
+        ];
+        echo json_encode($back);
+        die;
+    }
+      public function uploadvk(Request $request)
+    {
+        $norm = $request->norm;
+        $kj = $request->kj;
+        // $pasien = DB::select('SELECT a.no_rm, a.kode_kunjungan,
+        // fc_NAMA_PARAMEDIS(a.no_rm) AS nama_dokter,
+        // b.nama_px,
+        // b.alamat,
+        // fc_umur(a.no_rm) AS umur,
+        // c.diag_00
+        // FROM ts_kunjungan a
+        // INNER JOIN mt_pasien b ON b.no_rm = a.no_rm
+        // INNER JOIN di_pasien_diagnosa_frunit c ON c.kode_kunjungan = a.kode_kunjungan
+        // WHERE a.no_rm = ? AND a.kode_kunjungan = ?', [$norm, $kj]);
+
+        $hasil = DB::select('SELECT 
+        a.tgl_kunjungan,
+        a.hasil_ekg,
+        a.surat_penolakan,
+        a.informasi_tindakan,
+        a.transfer_pasien
+        FROM erm_cppt_perawat a
+        WHERE a.no_rm = ?', [$norm]);
+
+        $hasill = DB::select('SELECT *
+        FROM upload_berkas_igd a
+        WHERE a.no_rm = ? AND a.kode_kunjungan = ?', [$norm, $kj]);
+
+        // dd($hasill);
+        return view(
+            'vk.upload',
+            [
+                'hasil' => $hasil,
+                'hasill' => $hasill,
+
+                'norm' => $norm,
+                'kj' => $kj
+
+            ]
+        );
+
+    }
+
+      public function simpanhasillaminaria(Request $request)
+    {
+
+        $dt = Carbon::now()->timezone('Asia/Jakarta');
+        $date = $dt->toDateString();
+        $time = $dt->toTimeString();
+        $now = $date . ' ' . $time;
+        $norm = $request->norm;
+        $data = json_decode($_POST['data'], true);
+        foreach ($data as $nama) {
+            $index =  $nama['name'];
+            $value =  $nama['value'];
+            $dataSet[$index] = $value;
+            if ($index == 'laminaria') {
+                $arrayindex[] = $dataSet;
+            }
+        }
+        $kj = $dataSet['kj'];
+        $norm = $dataSet['norm'];
+
+        //upload foto
+        $file = $request->file('file');
+        $filename = $norm . '_' . $kj . '_' . 'laminaria' . '_' . $file->getClientOriginalName();
+
+        $location = '../files';
+
+        // Upload file
+        $file->move($location, $filename);
+
+        // File path
+        $filepath = url('../../files/' . $filename);
+
+
+        // $update = DB::table(' UPDATE erm_cppt_perawat
+        // SET hasil_ekg = ? WHERE kode_kunjungan = ?', [$filepath,$kj]);
+
+        // $update = DB::table('erm_cppt_perawat')
+        //     ->where('kode_kunjungan', $kj)
+        //     ->update(['hasil_ekg' => $filename]);
+
+
+        // $request->file('$bukti')->store('public/images');
+        // $foto = new mt_pasien();
+        // $foto->save();
+
+        $back = [
+            'kode' => 200,
+            'message' => ''
+        ];
+        echo json_encode($back);
+        die;
+    }
+    public function simpanhasilpathway(Request $request)
+    {
+
+        $dt = Carbon::now()->timezone('Asia/Jakarta');
+        $date = $dt->toDateString();
+        $time = $dt->toTimeString();
+        $now = $date . ' ' . $time;
+        $norm = $request->norm;
+        $data = json_decode($_POST['data'], true);
+        foreach ($data as $nama) {
+            $index =  $nama['name'];
+            $value =  $nama['value'];
+            $dataSet[$index] = $value;
+            if ($index == 'pathway') {
+                $arrayindex[] = $dataSet;
+            }
+        }
+        $kj = $dataSet['kj'];
+        $norm = $dataSet['norm'];
+
+        //upload foto
+        $file = $request->file('file');
+        $filename = $norm . '_' . $kj . '_' . 'pathway' . '_' . $file->getClientOriginalName();
+
+        $location = '../files';
+
+        // Upload file
+        $file->move($location, $filename);
+
+        // File path
+        $filepath = url('../../files/' . $filename);
+
+        $create = upload_berkas_igd::create([
+            'kode_kunjungan' => $kj,
+            'no_rm' => $norm,
+
+            'pathway' => $filename
+        ]);
+
+        // $update = DB::table(' UPDATE erm_cppt_perawat
+        // SET hasil_ekg = ? WHERE kode_kunjungan = ?', [$filepath,$kj]);
+
+        // $update = DB::table('erm_cppt_perawat')
+        //     ->where('kode_kunjungan', $kj)
+        //     ->update(['hasil_ekg' => $filename]);
+
+
+        // $request->file('$bukti')->store('public/images');
+        // $foto = new mt_pasien();
+        // $foto->save();
+
+        $back = [
+            'kode' => 200,
+            'message' => ''
+        ];
+        echo json_encode($back);
+        die;
+    }
+    public function simpanhasiltransfusi(Request $request)
+    {
+
+        $dt = Carbon::now()->timezone('Asia/Jakarta');
+        $date = $dt->toDateString();
+        $time = $dt->toTimeString();
+        $now = $date . ' ' . $time;
+        $norm = $request->norm;
+        $data = json_decode($_POST['data'], true);
+        foreach ($data as $nama) {
+            $index =  $nama['name'];
+            $value =  $nama['value'];
+            $dataSet[$index] = $value;
+            if ($index == 'transfusi') {
+                $arrayindex[] = $dataSet;
+            }
+        }
+        $kj = $dataSet['kj'];
+        $norm = $dataSet['norm'];
+
+        //upload foto
+        $file = $request->file('file');
+        $filename = $norm . '_' . $kj . '_' . 'transfusi' . '_' . $file->getClientOriginalName();
+
+        $location = '../files';
+
+        // Upload file
+        $file->move($location, $filename);
+
+        // File path
+        $filepath = url('../../files/' . $filename);
+
+        $create = upload_berkas_igd::create([
+            'kode_kunjungan' => $kj,
+            'no_rm' => $norm,
+
+            'transfusi' => $filename
+        ]);
+        // $update = DB::table(' UPDATE erm_cppt_perawat
+        // SET hasil_ekg = ? WHERE kode_kunjungan = ?', [$filepath,$kj]);
+
+        // $update = DB::table('erm_cppt_perawat')
+        //     ->where('kode_kunjungan', $kj)
+        //     ->update(['hasil_ekg' => $filename]);
+
+
+        // $request->file('$bukti')->store('public/images');
+        // $foto = new mt_pasien();
+        // $foto->save();
+
+        $back = [
+            'kode' => 200,
+            'message' => ''
+        ];
+        echo json_encode($back);
+        die;
+    }
+    public function simpanhasilskl(Request $request)
+    {
+
+        $dt = Carbon::now()->timezone('Asia/Jakarta');
+        $date = $dt->toDateString();
+        $time = $dt->toTimeString();
+        $now = $date . ' ' . $time;
+        $norm = $request->norm;
+        $data = json_decode($_POST['data'], true);
+        foreach ($data as $nama) {
+            $index =  $nama['name'];
+            $value =  $nama['value'];
+            $dataSet[$index] = $value;
+            if ($index == 'skl') {
+                $arrayindex[] = $dataSet;
+            }
+        }
+        $kj = $dataSet['kj'];
+        $norm = $dataSet['norm'];
+
+        //upload foto
+        $file = $request->file('file');
+        $filename = $norm . '_' . $kj . '_' . 'skl' . '_' . $file->getClientOriginalName();
+
+        $location = '../files';
+
+        // Upload file
+        $file->move($location, $filename);
+
+        // File path
+        $filepath = url('../../files/' . $filename);
+
+        $create = upload_berkas_igd::create([
+            'kode_kunjungan' => $kj,
+            'no_rm' => $norm,
+
+            'skl' => $filename
+        ]);
+
+        // $update = DB::table(' UPDATE erm_cppt_perawat
+        // SET hasil_ekg = ? WHERE kode_kunjungan = ?', [$filepath,$kj]);
+
+        // $update = DB::table('erm_cppt_perawat')
+        //     ->where('kode_kunjungan', $kj)
+        //     ->update(['hasil_ekg' => $filename]);
+
+
+        // $request->file('$bukti')->store('public/images');
+        // $foto = new mt_pasien();
+        // $foto->save();
+
+        $back = [
+            'kode' => 200,
+            'message' => ''
+        ];
+        echo json_encode($back);
+        die;
+    }
+    public function simpanhasilbiopsi(Request $request)
+    {
+
+        $dt = Carbon::now()->timezone('Asia/Jakarta');
+        $date = $dt->toDateString();
+        $time = $dt->toTimeString();
+        $now = $date . ' ' . $time;
+        $norm = $request->norm;
+        $data = json_decode($_POST['data'], true);
+        foreach ($data as $nama) {
+            $index =  $nama['name'];
+            $value =  $nama['value'];
+            $dataSet[$index] = $value;
+            if ($index == 'biopsi') {
+                $arrayindex[] = $dataSet;
+            }
+        }
+        $kj = $dataSet['kj'];
+        $norm = $dataSet['norm'];
+
+        //upload foto
+        $file = $request->file('file');
+        $filename = $norm . '_' . $kj . '_' . 'biopsi' . '_' . $file->getClientOriginalName();
+
+        $location = '../files';
+
+        // Upload file
+        $file->move($location, $filename);
+
+        // File path
+        $filepath = url('../../files/' . $filename);
+
+        $create = upload_berkas_igd::create([
+            'kode_kunjungan' => $kj,
+            'no_rm' => $norm,
+
+            'biopsi' => $filename
+        ]);
+
+        // $update = DB::table(' UPDATE erm_cppt_perawat
+        // SET hasil_ekg = ? WHERE kode_kunjungan = ?', [$filepath,$kj]);
+
+        // $update = DB::table('erm_cppt_perawat')
+        //     ->where('kode_kunjungan', $kj)
+        //     ->update(['hasil_ekg' => $filename]);
+
+
+        // $request->file('$bukti')->store('public/images');
+        // $foto = new mt_pasien();
+        // $foto->save();
+
+        $back = [
+            'kode' => 200,
+            'message' => ''
+        ];
+        echo json_encode($back);
+        die;
+    }
+    public function simpanhasilkuret(Request $request)
+    {
+
+        $dt = Carbon::now()->timezone('Asia/Jakarta');
+        $date = $dt->toDateString();
+        $time = $dt->toTimeString();
+        $now = $date . ' ' . $time;
+        $norm = $request->norm;
+        $data = json_decode($_POST['data'], true);
+        foreach ($data as $nama) {
+            $index =  $nama['name'];
+            $value =  $nama['value'];
+            $dataSet[$index] = $value;
+            if ($index == 'kuret') {
+                $arrayindex[] = $dataSet;
+            }
+        }
+        $kj = $dataSet['kj'];
+        $norm = $dataSet['norm'];
+
+        //upload foto
+        $file = $request->file('file');
+        $filename = $norm . '_' . $kj . '_' . 'kuret' . '_' . $file->getClientOriginalName();
+
+        $location = '../files';
+
+        // Upload file
+        $file->move($location, $filename);
+
+        // File path
+        $filepath = url('../../files/' . $filename);
+
+        $create = upload_berkas_igd::create([
+            'kode_kunjungan' => $kj,
+            'no_rm' => $norm,
+
+            'kuret' => $filename
+        ]);
+
+        // $update = DB::table(' UPDATE erm_cppt_perawat
+        // SET hasil_ekg = ? WHERE kode_kunjungan = ?', [$filepath,$kj]);
+
+        // $update = DB::table('erm_cppt_perawat')
+        //     ->where('kode_kunjungan', $kj)
+        //     ->update(['hasil_ekg' => $filename]);
+
+
+        // $request->file('$bukti')->store('public/images');
+        // $foto = new mt_pasien();
+        // $foto->save();
+
+        $back = [
+            'kode' => 200,
+            'message' => ''
+        ];
+        echo json_encode($back);
+        die;
+    }
+    public function simpanhasilusg(Request $request)
+    {
+
+        $dt = Carbon::now()->timezone('Asia/Jakarta');
+        $date = $dt->toDateString();
+        $time = $dt->toTimeString();
+        $now = $date . ' ' . $time;
+        $norm = $request->norm;
+        $data = json_decode($_POST['data'], true);
+        foreach ($data as $nama) {
+            $index =  $nama['name'];
+            $value =  $nama['value'];
+            $dataSet[$index] = $value;
+            if ($index == 'usg') {
+                $arrayindex[] = $dataSet;
+            }
+        }
+        $kj = $dataSet['kj'];
+        $norm = $dataSet['norm'];
+
+        //upload foto
+        $file = $request->file('file');
+        $filename = $norm . '_' . $kj . '_' . 'USG' . '_' . $file->getClientOriginalName();
+
+        $location = '../files';
+
+        // Upload file
+        $file->move($location, $filename);
+
+
+        // File path
+        $filepath = url('../../files/' . $filename);
+
+        $create = upload_berkas_igd::create([
+            'kode_kunjungan' => $kj,
+            'no_rm' => $norm,
+
+            'usg' => $filename
+        ]);
+        // $update = DB::table(' UPDATE erm_cppt_perawat
+        // SET hasil_ekg = ? WHERE kode_kunjungan = ?', [$filepath,$kj]);
+
+        // $update = DB::table('erm_cppt_perawat')
+        //     ->where('kode_kunjungan', $kj)
+        //     ->update(['hasil_ekg' => $filename]);
+
+
+        // $request->file('$bukti')->store('public/images');
+        // $foto = new mt_pasien();
+        // $foto->save();
+
+        $back = [
+            'kode' => 200,
+            'message' => ''
+        ];
+        echo json_encode($back);
+        die;
+    }
+    public function simpanhasilpartograp(Request $request)
+    {
+
+        $dt = Carbon::now()->timezone('Asia/Jakarta');
+        $date = $dt->toDateString();
+        $time = $dt->toTimeString();
+        $now = $date . ' ' . $time;
+        $norm = $request->norm;
+        $data = json_decode($_POST['data'], true);
+        foreach ($data as $nama) {
+            $index =  $nama['name'];
+            $value =  $nama['value'];
+            $dataSet[$index] = $value;
+            if ($index == 'partograp') {
+                $arrayindex[] = $dataSet;
+            }
+        }
+        $kj = $dataSet['kj'];
+        $norm = $dataSet['norm'];
+
+        //upload foto
+        $file = $request->file('file');
+        $filename = $norm . '_' . $kj . '_' . 'Partograp' . '_' . $file->getClientOriginalName();
+
+        $location = '../files';
+
+        // Upload file
+        $file->move($location, $filename);
+
+        // File path
+        $filepath = url('../../files/' . $filename);
+        $create = upload_berkas_igd::create([
+            'kode_kunjungan' => $kj,
+            'no_rm' => $norm,
+
+            'partograp' => $filename
+        ]);
+
+        // $update = DB::table(' UPDATE erm_cppt_perawat
+        // SET hasil_ekg = ? WHERE kode_kunjungan = ?', [$filepath,$kj]);
+
+        // $update = DB::table('erm_cppt_perawat')
+        //     ->where('kode_kunjungan', $kj)
+        //     ->update(['hasil_ekg' => $filename]);
+
+
+        // $request->file('$bukti')->store('public/images');
+        // $foto = new mt_pasien();
+        // $foto->save();
+
+        $back = [
+            'kode' => 200,
+            'message' => ''
+        ];
+        echo json_encode($back);
+        die;
+    }
+    public function simpanhasilctg(Request $request)
+    {
+
+        $dt = Carbon::now()->timezone('Asia/Jakarta');
+        $date = $dt->toDateString();
+        $time = $dt->toTimeString();
+        $now = $date . ' ' . $time;
+        $norm = $request->norm;
+        $data = json_decode($_POST['data'], true);
+        foreach ($data as $nama) {
+            $index =  $nama['name'];
+            $value =  $nama['value'];
+            $dataSet[$index] = $value;
+            if ($index == 'ctg') {
+                $arrayindex[] = $dataSet;
+            }
+        }
+        $kj = $dataSet['kj'];
+        $norm = $dataSet['norm'];
+
+        //upload foto
+        $file = $request->file('file');
+        $filename = $norm . '_' . $kj . '_' . 'CTG' . '_' . $file->getClientOriginalName();
+
+        $location = '../files';
+
+        // Upload file
+        $file->move($location, $filename);
+
+        // File path
+        $filepath = url('../../files/' . $filename);
+
+        $create = upload_berkas_igd::create([
+            'kode_kunjungan' => $kj,
+            'no_rm' => $norm,
+
+            'ctg' => $filename
+        ]);
+
+        // $update = DB::table(' UPDATE erm_cppt_perawat
+        // SET hasil_ekg = ? WHERE kode_kunjungan = ?', [$filepath,$kj]);
+
+        // $update = DB::table('erm_cppt_perawat')
+        //     ->where('kode_kunjungan', $kj)
+        //     ->update(['hasil_ekg' => $filename]);
+
+
+        // $request->file('$bukti')->store('public/images');
+        // $foto = new mt_pasien();
+        // $foto->save();
+
+        $back = [
+            'kode' => 200,
+            'message' => ''
+        ];
+        echo json_encode($back);
+        die;
+    }
+    public function simpanhasilekg(Request $request)
+    {
+
+        $dt = Carbon::now()->timezone('Asia/Jakarta');
+        $date = $dt->toDateString();
+        $time = $dt->toTimeString();
+        $now = $date . ' ' . $time;
+        $norm = $request->norm;
+        $data = json_decode($_POST['data'], true);
+        foreach ($data as $nama) {
+            $index =  $nama['name'];
+            $value =  $nama['value'];
+            $dataSet[$index] = $value;
+            if ($index == 'ekg') {
+                $arrayindex[] = $dataSet;
+            }
+        }
+        $kj = $dataSet['kj'];
+        $norm = $dataSet['norm'];
+
+        //upload foto
+        $file = $request->file('file');
+        $filename = $norm . '_' . $kj . '_' . 'EKG' . '_' . $file->getClientOriginalName();
+
+        $location = '../files';
+
+        // Upload file
+        $file->move($location, $filename);
+
+        // File path
+        $filepath = url('../../files/' . $filename);
+
+
+        $create = upload_berkas_igd::create([
+            'kode_kunjungan' => $kj,
+            'no_rm' => $norm,
+
+            'hasil_ekg' => $filename
+        ]);
+        // $update = DB::table(' UPDATE erm_cppt_perawat
+        // SET hasil_ekg = ? WHERE kode_kunjungan = ?', [$filepath,$kj]);
+        // $update = DB::table('erm_cppt_perawat')
+        //     ->where('kode_kunjungan', $kj)
+        //     ->update(['hasil_ekg' => $filename]);
+
+
+        // $request->file('$bukti')->store('public/images');
+        // $foto = new mt_pasien();
+        // $foto->save();
+
+        $back = [
+            'kode' => 200,
+            'message' => ''
+        ];
+        echo json_encode($back);
+        die;
+    }
+    public function simpanhasilspp(Request $request)
+    {
+
+        $dt = Carbon::now()->timezone('Asia/Jakarta');
+        $date = $dt->toDateString();
+        $time = $dt->toTimeString();
+        $now = $date . ' ' . $time;
+        $norm = $request->norm;
+        $data = json_decode($_POST['data'], true);
+        foreach ($data as $nama) {
+            $index =  $nama['name'];
+            $value =  $nama['value'];
+            $dataSet[$index] = $value;
+            if ($index == 'spp') {
+                $arrayindex[] = $dataSet;
+            }
+        }
+        $kj = $dataSet['kj'];
+        $norm = $dataSet['norm'];
+
+        //upload foto
+        $file = $request->file('file');
+        $filename = $norm . '_' . $kj . '_' . 'spp' . '_' . $file->getClientOriginalName();
+
+        $location = '../files';
+
+        // Upload file
+        $file->move($location, $filename);
+
+        // File path
+        $filepath = url('../../files/' . $filename);
+
+        $create = upload_berkas_igd::create([
+            'kode_kunjungan' => $kj,
+            'no_rm' => $norm,
+
+            'surat_penolakan' => $filename
+        ]);
+
+        // $update = DB::table(' UPDATE erm_cppt_perawat
+        // SET hasil_ekg = ? WHERE kode_kunjungan = ?', [$filepath,$kj]);
+        // $update = DB::table('erm_cppt_perawat')
+        //     ->where('kode_kunjungan', $kj)
+        //     ->update(['surat_penolakan' => $filename]);
+
+
+        // $request->file('$bukti')->store('public/images');
+        // $foto = new mt_pasien();
+        // $foto->save();
+
+        $back = [
+            'kode' => 200,
+            'message' => ''
+        ];
+        echo json_encode($back);
+        die;
+    }
+    public function simpanhasiltdkn(Request $request)
+    {
+
+        $dt = Carbon::now()->timezone('Asia/Jakarta');
+        $date = $dt->toDateString();
+        $time = $dt->toTimeString();
+        $now = $date . ' ' . $time;
+        $norm = $request->norm;
+        $data = json_decode($_POST['data'], true);
+        foreach ($data as $nama) {
+            $index =  $nama['name'];
+            $value =  $nama['value'];
+            $dataSet[$index] = $value;
+            if ($index == 'tdkn') {
+                $arrayindex[] = $dataSet;
+            }
+        }
+        $kj = $dataSet['kj'];
+        $norm = $dataSet['norm'];
+
+        //upload foto
+        $file = $request->file('file');
+        $filename = $norm . '_' . $kj . '_' . 'tdkn' . '_' . $file->getClientOriginalName();
+
+        $location = '../files';
+
+        // Upload file
+        $file->move($location, $filename);
+
+        // File path
+        $filepath = url('../../files/' . $filename);
+
+        $create = upload_berkas_igd::create([
+            'kode_kunjungan' => $kj,
+            'no_rm' => $norm,
+
+            'informasi_tindakan' => $filename
+        ]);
+        // $update = DB::table(' UPDATE erm_cppt_perawat
+        // SET hasil_ekg = ? WHERE kode_kunjungan = ?', [$filepath,$kj]);
+        // $update = DB::table('erm_cppt_perawat')
+        //     ->where('kode_kunjungan', $kj)
+        //     ->update(['informasi_tindakan' => $filename]);
+
+
+        // $request->file('$bukti')->store('public/images');
+        // $foto = new mt_pasien();
+        // $foto->save();
+
+        $back = [
+            'kode' => 200,
+            'message' => ''
+        ];
+        echo json_encode($back);
+        die;
+    }
+    public function simpanhasiltf(Request $request)
+    {
+
+        $dt = Carbon::now()->timezone('Asia/Jakarta');
+        $date = $dt->toDateString();
+        $time = $dt->toTimeString();
+        $now = $date . ' ' . $time;
+        $norm = $request->norm;
+        $data = json_decode($_POST['data'], true);
+        foreach ($data as $nama) {
+            $index =  $nama['name'];
+            $value =  $nama['value'];
+            $dataSet[$index] = $value;
+            if ($index == 'tf') {
+                $arrayindex[] = $dataSet;
+            }
+        }
+        $kj = $dataSet['kj'];
+        $norm = $dataSet['norm'];
+
+        //upload foto
+        $file = $request->file('file');
+        $filename = $norm . '_' . $kj . '_' . 'tf' . '_' . $file->getClientOriginalName();
+
+        $location = '../files';
+
+        // Upload file
+        $file->move($location, $filename);
+
+        // File path
+        $filepath = url('../../files/' . $filename);
+        $create = upload_berkas_igd::create([
+            'kode_kunjungan' => $kj,
+            'no_rm' => $norm,
+
+            'transfer_pasien' => $filename
+        ]);
+
+        // $update = DB::table(' UPDATE erm_cppt_perawat
+        // SET hasil_ekg = ? WHERE kode_kunjungan = ?', [$filepath,$kj]);
+        // $update = DB::table('erm_cppt_perawat')
+        //     ->where('kode_kunjungan', $kj)
+        //     ->update(['transfer_pasien' => $filename]);
+
+
+        // $request->file('$bukti')->store('public/images');
+        // $foto = new mt_pasien();
+        // $foto->save();
+
+        $back = [
+            'kode' => 200,
+            'message' => ''
         ];
         echo json_encode($back);
         die;

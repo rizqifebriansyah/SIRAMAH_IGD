@@ -1,3 +1,8 @@
+<div class=" col-md-11" style="margin-bottom:10px ;">
+
+    <a style="margin-left: 32px;" rel="noopener" href="{{ route('vk')}}" class="btn btn-danger"><i class="fas fa-arrow-left"></i> Home
+    </a>
+</div>
 <section class="content">
     <div class="container-fluid">
         <div class="row ermperawatview1">
@@ -111,11 +116,11 @@
                                 </a>
                             </li>
                             <li class="nav-item" id="pemeriksaan">
-                                <a href="#" class="nav-link pemantauan">
+                                <a href="#" class="nav-link pemantauanvk">
                                     <i class="fas fa-male mr-2"></i>Pemantauan Tanda Vital Pasien
                                 </a>
                             </li>
-                             <li class="nav-item" id="pemeriksaan">
+                             <!-- <li class="nav-item" id="pemeriksaan">
                                 <a href="#" class="nav-link transferpasien">
                                     <i class="fas fa-book mr-2"></i>Catatan Transfer Pasien (progress)
                                 </a>
@@ -129,9 +134,9 @@
                                 <a href="#" class="nav-link sri">
                                     <i class="fas fa-filter mr-2"></i>Surat Rujukan Intern
                                 </a>
-                            </li>
+                            </li> -->
                             <li class="nav-item" id="pemeriksaan">
-                                <a href="#" class="nav-link upload">
+                                <a href="#" class="nav-link uploadvk">
                                     <i class="fas fa-filter mr-2"></i>Upload Dokumen
                                 </a>
                             </li>
@@ -652,7 +657,7 @@
         }
     });
 
-    $(".pemantauan").click(function() {
+    $(".pemantauanvk").click(function() {
         spinner = $('#loader2');
         spinner.show();
         kj = $('#kj').val()
@@ -667,7 +672,7 @@
                 kj
 
             },
-            url: '<?= route('pemantauan') ?>',
+            url: '<?= route('pemantauanvk') ?>',
             error: function(data) {
                 spinner.hide();
                 alert('oke!!')
@@ -812,7 +817,7 @@
             }
         });
     });
-    $(".upload").click(function() {
+    $(".uploadvk").click(function() {
         spinner = $('#loader2');
         spinner.show();
         kj = $('#kj').val()
@@ -827,7 +832,7 @@
                 kj
 
             },
-            url: '<?= route('upload') ?>',
+            url: '<?= route('uploadvk') ?>',
             error: function(data) {
                 spinner.hide();
                 alert('oke!!')
