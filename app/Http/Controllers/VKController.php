@@ -371,6 +371,23 @@ class VKController extends Controller
             ]
         );
     }
+      public function pemantauanviewvk(Request $request)
+    {
+        $kj  = $request->kj;
+        $norm = $request->norm;
+        $unit = auth()->user()->unit;
+
+        $hasilp = DB::select('SELECT * FROM pemantauan_ttv WHERE kj = ? AND norm = ? AND status = 1', [$kj, $norm]);
+        // dd($hasilp);
+
+        return view('vk.pemantauanviewvk', [
+            'hasilp' => $hasilp,
+            'unit' => $unit
+
+
+
+        ]);
+    }
     public function simpanassesvk(Request $request)
     {
         $a = $request->all();
@@ -2162,6 +2179,22 @@ class VKController extends Controller
         $back = [
             'kode' => 200,
             'message' => ''
+        ];
+        echo json_encode($back);
+        die;
+    }
+    public function returttvvk(Request $request)
+    {
+        $idttv = $request->idttv;
+        $returttv = DB::select('UPDATE pemantauan_ttv SET status = "3"  WHERE id = ? ', [$idttv]);
+
+
+
+
+
+        $back = [
+            'kode' => 200,
+            'message' => 'Berhasil'
         ];
         echo json_encode($back);
         die;

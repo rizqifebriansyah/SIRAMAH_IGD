@@ -18702,24 +18702,24 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
         $dpjp = DB::select('SELECT fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,a.kode_paramedis,a.tindakan_kedokteran FROM erm_tindakan_kedokteran a WHERE kode_kunjungan = ?', [$kj]);
         // dd($pasien);
         $tgllahir = Carbon::parse($pasien[0]->tgl_lahir)->format('d-m-Y');
-        $kunjungan = DB::select('SELECT 
+    //     $kunjungan = DB::select('SELECT 
 
-        fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS dokter,
-        fc_NAMA_PENJAMIN(a.no_rm) AS penjamin,
-        b.diag_00 AS diagnosa,
-        a.tgl_masuk,
-        a.tgl_keluar
+    //     fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS dokter,
+    //     fc_NAMA_PENJAMIN(a.no_rm) AS penjamin,
+    //     b.diag_00 AS diagnosa,
+    //     a.tgl_masuk,
+    //     a.tgl_keluar
 
-        FROM ts_kunjungan a
+    //     FROM ts_kunjungan a
 
-        INNER JOIN di_pasien_diagnosa_frunit b ON b.kode_kunjungan = a.kode_kunjungan
-        WHERE a.no_rm = ?
-        AND a.kode_kunjungan  = ?', [$norm, $kj]);
-       dd($kunjungan);
-        $tglmasuk = Carbon::parse($kunjungan[0]->tgl_masuk)->format('d-M-Y');
-        $jammasuk = Carbon::parse($kunjungan[0]->tgl_masuk)->format('H:i:s');
-        $tglklr = Carbon::parse($kunjungan[0]->tgl_keluar)->format('d-M-Y');
-        $jamklr = Carbon::parse($kunjungan[0]->tgl_keluar)->format('H:i:s');
+    //     INNER JOIN di_pasien_diagnosa_frunit b ON b.kode_kunjungan = a.kode_kunjungan
+    //     WHERE a.no_rm = ?
+    //     AND a.kode_kunjungan  = ?', [$norm, $kj]);
+    //    dd($kunjungan);
+    //     $tglmasuk = Carbon::parse($kunjungan[0]->tgl_masuk)->format('d-M-Y');
+    //     $jammasuk = Carbon::parse($kunjungan[0]->tgl_masuk)->format('H:i:s');
+    //     $tglklr = Carbon::parse($kunjungan[0]->tgl_keluar)->format('d-M-Y');
+    //     $jamklr = Carbon::parse($kunjungan[0]->tgl_keluar)->format('H:i:s');
         // dd($tglmasuk, $tglklr, $kunjungan[0]);
         $assesbid = DB::select('SELECT * FROM erm_cppt_kebidanan WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
         $assesbidbay = DB::select('SELECT * FROM erm_cppt_kebidanan_bayi WHERE no_rm = ? AND kode_kunjungan = ? AND status IN (1,2)', [$norm, $kj]);
@@ -18773,8 +18773,299 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
         WHERE kode_kunjungan = ?', [$kj]);
         $tindakan = DB::select('SELECT * FROM erm_tindakan_kedokteran WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
         $tindakanp = DB::select('SELECT * FROM erm_tindakan_keperawatan WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
-        $assesdokbid = DB::select('SELECT * FROM erm_cppt_dokter_kebidanan WHERE no_rm = ? AND kode_kunjungan = ? AND status IN (1,2)', [$request->norm, $kj]);
-        dd($assesdokbid);
+        $assesdokbid = DB::select('SELECT * FROM erm_cppt_dokter_kebidanan WHERE no_rm = ? AND kode_kunjungan = ? AND status IN (1,2)', [$norm, $kj]);
+        // dd($assesdokbid);
+        // $imageURL = $triase[0]->penandaan_gambar;
+        // $image_content = base64_decode(str_replace("data:image/png;base64,", "", $imageURL)); // remove "data:image/png;base64,"
+        // $tempfile = tmpfile(); // create temporary file
+        // fwrite($tempfile, $image_content); // fill data to temporary file
+        // $metaDatas = stream_get_meta_data($tempfile);
+        // $tmpFilename = $metaDatas['uri'];
+
+
+
+        $pdf = new FPDF('P', 'mm', 'F4');
+        $pdf::AddPage('P', 'letter');
+        //Awal Header kertas
+        $pdf::Rect(8, 10, 198, 260);
+
+        $pdf::Rect(8, 10, 101, 25);
+
+        $pdf::Image('public/img/rsss.png', 10, 11, 15, 20);
+        $pdf::SetFont('Times', 'B', 10);
+        $pdf::SetXY(150, 3);
+        $pdf::Cell(40, 10, 'RM.03.02-IGD/REV.02/19');
+        $pdf::SetFont('Times', 'B', 12);
+
+        $pdf::SetXY(27, 11);
+        $pdf::Cell(40, 5, 'PEMERINTAH KABUPATEN CIREBON');
+        $pdf::SetFont('Times', 'B', 12);
+        $pdf::SetXY(25, 16);
+        $pdf::Cell(40, 5, 'RUMAH SAKIT UMUM DAERAH WALED');
+        $pdf::SetFont('Times', '', 10);
+        $pdf::SetXY(40.5, 19);
+        $pdf::Cell(40, 5, 'Jl. Prabu Kiansantang No. 4 ');
+        $pdf::SetXY(25.5, 22);
+        $pdf::Cell(40, 5, 'Telp. 0231 - 661126 Fax. 0231 - 664091 Cirebon ');
+
+        $pdf::Rect(109, 10, 97, 30);
+        $pdf::SetFont('Times', '', 10);
+        $pdf::SetXY(110, 11);
+        $pdf::Cell(40, 10, 'NO. RM');
+        $pdf::SetXY(131, 11);
+        $pdf::Cell(45, 10, ':');
+        $pdf::SetFont('Times', '', 10);
+        $pdf::SetXY(133, 11);
+        $pdf::MultiCell(70, 10, $pasien[0]->no_rm);
+        $pdf::SetFont('Times', '', 10);
+        $pdf::SetXY(110, 16);
+        $pdf::MultiCell(40, 10, 'Nama ');
+        $pdf::SetXY(131, 16);
+        $pdf::Cell(40, 10, ':');
+        $pdf::SetFont('Times', '', 10);
+        $pdf::SetXY(133, 16);
+        $pdf::Cell(50, 10, $pasien[0]->nama_px);
+
+        $pdf::SetFont('Times', '', 10);
+        $pdf::SetXY(110, 20);
+        $pdf::Cell(40, 10, 'Tgl. Lahir');
+        $pdf::SetXY(131, 20);
+        $pdf::Cell(40, 10, ':');
+        $pdf::SetFont('Times', '', 10);
+        $pdf::SetXY(133, 20);
+        $pdf::MultiCell(70, 10, $tgllahir);
+
+
+        $pdf::SetFont('Times', '', 10);
+        $pdf::SetXY(110, 25);
+        $pdf::Cell(40, 10, 'Jenis Kelamin');
+        $pdf::SetXY(131, 25);
+        $pdf::Cell(40, 10, ':');
+        $pdf::SetFont('Times', '', 10);
+        $pdf::SetXY(133, 25);
+        $pdf::MultiCell(70, 10, $pasien[0]->jk);
+        $pdf::Rect(8, 35, 101, 5);
+        $pdf::SetFont('Times', 'B', 10);
+        $pdf::SetXY(10, 35);
+        $pdf::Cell(90, 5, 'ASESMEN MEDIS INSTALASI GAWAT DARURAT (IGD)');
+        //isi sumber data
+        $pdf::SetFont('Times', '', 11);
+        $pdf::SetXY(10, 40);
+        $pdf::MultiCell(40, 5, 'Tangaal Kunjungan');
+        $pdf::SetXY(41, 40);
+        $pdf::Cell(40, 5, ':');
+        $pdf::SetXY(65, 40);
+        $pdf::Cell(40, 5, 'jam :');
+        $pdf::SetFont('Times', '', 11);
+        $pdf::SetXY(43, 40);
+        // $pdf::Cell(43, 5, $tglmasuk);
+        $pdf::SetXY(74, 40);
+        // $pdf::Cell(43, 5, $jammasuk . ' WIB');
+        $pdf::SetFont('Times', '', 10);
+        $pdf::SetXY(120, 40);
+        $pdf::Cell(40, 5, 'Tanggal Assesmen');
+        $pdf::SetXY(147, 40);
+        $pdf::Cell(45, 5, ':');
+        $pdf::SetFont('Times', '', 10);
+        $pdf::SetXY(169, 40);
+        $pdf::Cell(40, 5, 'jam :');
+        $pdf::SetXY(149, 40);
+        // $pdf::MultiCell(70, 5, $tglass);
+        $pdf::SetXY(177, 40);
+        // $pdf::MultiCell(70, 5, $jamass . ' WIB');
+
+        $pdf::ln();
+        $pdf::SetFont('Times', '', 11);
+        $pdf::SetX(8);
+        $pdf::MultiCell(198, 5, '  Sumber Data : ',1);
+
+        $pdf::ln();
+        $pdf::SetFont('Times', 'B', 11);
+        $pdf::SetX(8);
+        $pdf::MultiCell(198, 5, ' A. ANAMNESIS ',1);
+    
+        // $pdf::ln();
+        $pdf::SetFont('Times', '', 10);
+        $pdf::SetX(8);
+        $pdf::MultiCell(198, 5, '  Keluhan Utama :  ',1);
+
+        $pdf::SetFont('Times', '', 10);
+        $pdf::SetX(8);
+        $pdf::MultiCell(198, 5, '  Riwayat Penyakit Sekarang :  ',1);
+        // $pdf::ln();
+        $pdf::SetFont('Times', 'B', 11);
+        $pdf::SetX(8);
+        $pdf::MultiCell(198, 5, ' B. PEMERIKSAAN FISIK ',1);
+    
+                    //kotak ttv
+        $pdf::Rect(8, 75, 198, 23);
+        //isi ttv
+
+        $pdf::SetFont('Times', '', 11);
+        $pdf::SetXY(10, 73);
+        $pdf::MultiCell(40, 10, 'Keadaan Umum');
+        $pdf::SetXY(41, 73);
+        $pdf::Cell(40, 10, ':');
+        $pdf::SetFont('Times', '', 11);
+        // $pdf::SetXY(43, 73);
+        //     // $pdf::Cell(43, 10, $ttv[0]->keadaan_umum);
+
+
+        $pdf::SetFont('Times', '', 10);
+        $pdf::SetXY(120, 73);
+        $pdf::Cell(40, 10, 'Kesadaran');
+        $pdf::SetXY(147, 73);
+        $pdf::Cell(45, 10, ':');
+        $pdf::SetFont('Times', '', 10);
+        // $pdf::SetXY(149, 73);
+        //     // $pdf::MultiCell(70, 10, $ttv[0]->kesadaran);
+
+
+        $pdf::SetFont('Times', '', 11);
+        $pdf::SetXY(10, 78);
+        $pdf::MultiCell(40, 10, 'Berat Badan');
+        $pdf::SetXY(41, 78);
+        $pdf::Cell(40, 10, ':');
+        $pdf::SetFont('Times', '', 11);
+        // $pdf::SetXY(43, 78);
+            // $pdf::Cell(43, 10, $ttv[0]->berat_badan . ' KG');
+
+
+        $pdf::SetFont('Times', '', 10);
+        $pdf::SetXY(120, 78);
+        $pdf::Cell(40, 10, 'Tinggi Badan');
+        $pdf::SetXY(147, 78);
+        $pdf::Cell(45, 10, ':');
+        $pdf::SetFont('Times', '', 10);
+        // $pdf::SetXY(149, 78);
+            // $pdf::MultiCell(70, 10, $ttv[0]->berat_badan . ' cm');
+
+
+        $pdf::SetFont('Times', '', 11);
+        $pdf::SetXY(10, 83);
+        $pdf::MultiCell(40, 10, 'Tekanan Darah');
+        $pdf::SetXY(41, 83);
+        $pdf::Cell(40, 10, ':');
+        $pdf::SetFont('Times', '', 11);
+        // $pdf::SetXY(43, 83);
+            // $pdf::Cell(43, 10, $ttv[0]->tekanan_darah . ' mm Hg');
+
+
+        $pdf::SetFont('Times', '', 10);
+        $pdf::SetXY(120, 83);
+        $pdf::Cell(40, 10, 'Frekuensi Nadi');
+        $pdf::SetXY(147, 83);
+        $pdf::Cell(45, 10, ':');
+        $pdf::SetFont('Times', '', 10);
+        $pdf::SetXY(149, 83);
+            // $pdf::MultiCell(70, 10, $ttv[0]->frekuensi_nadi . ' x / menit');
+
+
+        $pdf::SetFont('Times', '', 11);
+        $pdf::SetXY(10, 88);
+        $pdf::MultiCell(40, 10, 'Frekuensi Nafas');
+        $pdf::SetXY(41, 88);
+        $pdf::Cell(40, 10, ':');
+        $pdf::SetFont('Times', '', 11);
+        $pdf::SetXY(43, 88);
+            // $pdf::Cell(43, 10, $ttv[0]->frekuensi_nafas . ' x / menit');
+
+
+        $pdf::SetFont('Times', '', 10);
+        $pdf::SetXY(120, 88);
+        $pdf::Cell(40, 10, 'Suhu');
+        $pdf::SetXY(147, 88);
+        $pdf::Cell(45, 10, ':');
+        $pdf::SetFont('Times', '', 10);
+        $cel = iconv('UTF-8', 'ISO-8859-1//TRANSLIT', '°C');
+
+        // $pdf::SetXY(149, 65.5);
+            // $pdf::Cell(30, 5, $ttv[0]->suhu . $cel);
+
+        $pdf::ln();
+        $pdf::SetFont('Times', '', 11);
+        $pdf::SetX(8);
+        $pdf::MultiCell(198, 5, 'Pemeriksaan fisik : ',1);
+    
+        $pdf::SetFont('Times', 'BI', 11);
+        $pdf::SetX(8);
+        $pdf::Cell(198, 5, 'Status Obstetri / Ginekologi',1);
+        $pdf::ln();
+        $y = $pdf::GetY();
+
+        $pdf::SetFont('Times', '', 10);
+        $pdf::Rect(8, $y, 49.5, 10);
+
+        $pdf::SetXY(10, $y);
+        $pdf::Cell(40, 5, 'TFU : '. 'Cm');
+        $pdf::Rect(57.5, $y, 49.5, 10);
+
+        $pdf::SetXY(58, $y);
+        $pdf::Cell(40, 5, 'HIS : '. 'x/ 10 Menit');
+        $pdf::Rect(107, $y, 49.5, 10);
+       
+        $pdf::SetXY(108, $y);
+
+        $pdf::Cell(40, 5, 'Kontrasi : ');
+        $pdf::Rect(156.5, $y, 49.5, 10);
+
+         $pdf::SetXY(158, $y);
+
+        $pdf::Cell(40, 5, 'DJJ : '. 'dpm');
+        $pdf::Rect(8, 75, 198, 23);
+        
+        $pdf::ln();
+        $pdf::SetX(10);
+
+        $pdf::Cell(40, 5, 'TBJ : '. 'Gram');
+        $pdf::ln();
+        $y = $pdf::GetY();
+
+        $pdf::SetXY(8, $y);
+
+        $pdf::Cell(25, 5, 'INSPEKSI', 1);
+        $x = $pdf::GetX();
+
+        $pdf::SetXY($x, $y);
+
+        $pdf::Cell(173, 5, '', 1);
+
+        $pdf::ln();
+        $y = $pdf::GetY();
+
+        $pdf::SetXY(8, $y);
+
+        $pdf::Cell(25, 5, 'MUSKOLO', 1);
+        $x = $pdf::GetX();
+
+        $pdf::SetXY($x, $y);
+
+        $pdf::Cell(173, 5, '', 1);
+        $pdf::ln();
+        $y = $pdf::GetY();
+
+        $pdf::SetXY(8, $y);
+
+        $pdf::Cell(25, 5, 'VT', 1);
+        $x = $pdf::GetX();
+
+        $pdf::SetXY($x, $y);
+
+        $pdf::Cell(173, 5, '', 1);
+        $pdf::ln();
+        $y = $pdf::GetY();
+
+        $pdf::SetXY(8, $y);
+
+        $pdf::Cell(25, 5, 'RT', 1);
+        $x = $pdf::GetX();
+
+        $pdf::SetXY($x, $y);
+
+        $pdf::Cell(173, 5, '', 1);
+
+        //sampai sini yaa
+        $pdf::Output();
     
         }
     public function cetakresumecpptdokter(Request $request)

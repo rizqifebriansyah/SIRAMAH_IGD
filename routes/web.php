@@ -69,6 +69,8 @@ Route::group(['middleware' => ['hak_akses:19', 'auth']], function () {
     Route::post('riwayatcpptlain', [VKController::class, 'riwayatcpptlain'])->name('riwayatcpptlain');
     Route::post('formermvk', [VKController::class, 'formermvk'])->name('formermvk');
     Route::post('pemantauanvk', [VKController::class, 'pemantauanvk'])->name('pemantauanvk');
+    Route::post('pemantauanviewvk', [VKController::class, 'pemantauanviewvk'])->name('pemantauanviewvk');
+
     Route::post('uploadvk', [VKController::class, 'uploadvk'])->name('uploadvk');
 
     
@@ -79,6 +81,7 @@ Route::group(['middleware' => ['hak_akses:19', 'auth']], function () {
     Route::post('simpanassesvk', [VKController::class, 'simpanassesvk'])->name('simpanassesvk');
     Route::post('simpanpemantauanvk', [VKController::class, 'simpanpemantauanvk'])->name('simpanpemantauanvk');
     
+    Route::post('returttvvk', [VKController::class, 'returttvvk'])->name('returttvvk');
     
     Route::post('updateassesvk', [VKController::class, 'updateassesvk'])->name('updateassesvk');
     

@@ -86,13 +86,13 @@
                     </div>
                 </div>
                 <div class="col-3">
-                    <div type="button" class="btn float-left btn-success simpanpemantauan" style="margin-top: 20px;">
+                    <div type="button" class="btn float-left btn-success simpanpemantauanvk" style="margin-top: 20px;">
                         SIMPAN
                     </div>
-                    <div type="button" class="btn float-left btn-success cekkpemantauan ml-2" style="margin-top: 20px;">
+                    <div type="button" class="btn float-left btn-success cekkpemantauanvk ml-2" style="margin-top: 20px;">
                         check
                     </div>
-                    <div type="button" class="btn float-left btn-primary cetakpemantauan ml-2 fas fa-print" style="margin-top: 20px;">
+                    <div type="button" class="btn float-left btn-primary cetakpemantauanvk ml-2 fas fa-print" style="margin-top: 20px;">
                         Print
                     </div>
                 </div>
@@ -220,7 +220,7 @@
         })
         return false;
     });
-    $(".cekkpemantauan").click(function() {
+    $(".cekkpemantauanvk").click(function() {
         spinner = $('#loader2');
         spinner.show();
         var kj = $("#kj").val();
@@ -233,7 +233,7 @@
                 norm: $("#norm").val(),
 
             },
-            url: " {{ route('pemantauanview') }}",
+            url: " {{ route('pemantauanviewvk') }}",
             error: function(data) {
                 spinner.hide();
                 alert('error!!')
