@@ -1,687 +1,1498 @@
-
-
 <div class="formcatatantf">
 
     <div class="card-header ">
         <h3 class="card-title">CATATAN TRANSFER PASIEN GAWAT DARURAT</h3>
     </div>
+    @if ($tf != NULL)
+    <h1>masuk</h1>
     <div class="ml-2">
-        <form id="dynamic-form" class="formtransferpasien">
-            <div id="form-container">
-                {{-- form isi transfer --}}
-                <div class="row mt-2">
+        <div id="form-container" class="formtransferpasien">
+            {{-- form isi transfer --}}
+            <div class="row mt-2">
 
-                    <div class="col-md-12">
-                        <table class="table">
-                            <tbody>
-                                <tr>
-                                    <td class="text-bold font-italic">Tanggal Pengkajian Transfer</td>
-                                    <td>
-                                        <input class="form-control" type="datetime-local" value="" name="tgl_input_transfer" id="tgl_input_transfer">
-                                        <input hidden type="text" class="form-control" placeholder="Tekanan darah pasien ..." aria-label="Recipient's username" id="norm" name="norm" aria-describedby="basic-addon2" value="{{$norm}}">
-                                        <input hidden type="text" class="form-control" placeholder="Tekanan darah pasien ..." aria-label="Recipient's username" id="kj" name="kj" aria-describedby="basic-addon2" value="{{$kj}}">
-
-
-                                    </td>
-                                    <td class="text-bold font-italic">Tanggal Selesai Transfer</td>
-                                    <td>
-                                        <input class="form-control" type="datetime-local" value="" name="tgl_selesai_transfer" id="tgl_selesai_transfer">
+                <div class="col-md-12">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td class="text-bold font-italic">Tanggal Pengkajian Transfer</td>
+                                <td>
+                                    <input class="form-control" type="datetime-local" value="{{$tf[0]->tgl_pengkajian_transfer}}" name="tgl_input_transfer" id="tgl_input_transfer">
+                                    <input hidden type="text" class="form-control" placeholder="Tekanan darah pasien ..." aria-label="Recipient's username" id="norm" name="norm" aria-describedby="basic-addon2" value="{{$norm}}">
+                                    <input hidden type="text" class="form-control" placeholder="Tekanan darah pasien ..." aria-label="Recipient's username" id="kj" name="kj" aria-describedby="basic-addon2" value="{{$kj}}">
 
 
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-bold font-italic">Keputusan Ke Ruang</td>
-
-                                    <td>
-                                        <div class="row">
-
-                                            <select class="form-control select2" name="tinjutt" id="tinjutt">
-
-                                                @foreach ($poli as $i => $p)
-                                                <option value="{{ $p->nama_unit }}">{{ $p->nama_unit }}
-                                                </option>
-                                                @endforeach
+                                </td>
+                                <td class="text-bold font-italic">Tanggal Selesai Transfer</td>
+                                <td>
+                                    <input class="form-control" type="datetime-local" value="{{$tf[0]->tgl_selesai_transfer}}" name="tgl_selesai_transfer" id="tgl_selesai_transfer">
 
 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic">Keputusan Ke Ruang</td>
 
-                                            </select>
+                                <td>
+                                    <div class="row">
+
+                                        <select class="form-control select2" name="tinjutt" id="tinjutt">
+                                            <option value="{{$tf[0]->pindah_ke}}">{{$tf[0]->pindah_ke}}
+                                            </option>
+                                            @foreach ($poli as $i => $p)
+                                            <option value="{{ $p->nama_unit }}">{{ $p->nama_unit }}
+                                            </option>
+                                            @endforeach
 
 
+
+                                        </select>
+
+
+                                    </div>
+                                </td>
+                                <td class="text-bold font-italic">Tanggal dan Jam Transfer</td>
+                                <td>
+                                    <input class="form-control" type="datetime-local" value="{{$tf[0]->tgl_pindah}}" name="tgl_pindah" id="tgl_pindah">
+
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic">Dokter yang merawat</td>
+
+                                <td>
+                                    <input class="form-control" type="text" value="{{$tf[0]->dokter_yang_merawat}}" name="doktergp" id="doktergp">
+
+                                </td>
+                                <td>
+                                    <label for="">Alasan di Rawat</label>
+                                    <input class="form-control" type="text" value="{{$tf[0]->alasan_dirawat}}" name="alasan_rawat" id="alasan_rawat">
+
+                                </td>
+                                <td>
+                                    <label for="">Alasan Pindah</label>
+
+                                    <input class="form-control" type="text" value="{{$tf[0]->alasan_pindah}}" name="alasan_pindah" id="alasan_pindah">
+
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic">S (Situation)</td>
+
+                                <td>
+                                    <input class="form-control" type="text" value="{{$tf[0]->keluhan_pasien_terkini}}" name="situation" id="situation">
+
+                                </td>
+                                <td class="text-bold font-italic">B (Backgorund)</td>
+
+                                <td>
+
+                                    <input class="form-control" type="text" value="{{$tf[0]->keterangan_background
+                                    }}" name="background" id="background">
+
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    <label for="">Kondisi Pasien saat Pindah : Kesadaran :</label>
+                                </td>
+                            </tr>
+
+                            <tr>
+
+
+                                <td>
+                                    <div class="form-check form-check-inline">
+                                        @if($tf[0]->kondisi_kesadaran == 'Compos Mentis')
+                                        <input class="form-check-input" type="checkbox" name="kesadaran" id="kesadaran" checked value="Compos Mentis">
+                                        <label class="form-check-label" for="inlineRadio1">Compos Mentis</label>
+                                        @else
+                                        <input class="form-check-input" type="checkbox" name="kesadaran" id="kesadaran" value="Compos Mentis">
+                                        <label class="form-check-label" for="inlineRadio1">Compos Mentis</label>
+
+                                        @endif
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-check form-check-inline">
+                                        @if($tf[0]->kondisi_kesadaran == 'Apatis')
+                                        <input class="form-check-input" type="checkbox" name="kesadaran" id="kesadaran" checked value="Apatis">
+                                        <label class="form-check-label" for="inlineRadio1">Apatis</label>
+                                        @else
+                                        <input class="form-check-input" type="checkbox" name="kesadaran" id="kesadaran" value="Apatis">
+                                        <label class="form-check-label" for="inlineRadio1">Apatis</label>
+                                        @endif
+
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div class="form-check form-check-inline">
+                                        @if($tf[0]->kondisi_kesadaran == 'Delirium')
+                                        <input class="form-check-input" type="checkbox" name="kesadaran" id="kesadaran" checked value="Delirium">
+                                        <label class="form-check-label" for="inlineRadio1">Delirium</label>
+                                        @else
+                                        <input class="form-check-input" type="checkbox" name="kesadaran" id="kesadaran" value="Delirium">
+                                        <label class="form-check-label" for="inlineRadio1">Delirium</label>
+                                        @endif
+
+                                    </div>
+
+                                </td>
+                                <td>
+                                    <div class="form-check form-check-inline">
+                                        @if($tf[0]->kondisi_kesadaran == 'Sopor')
+                                        <input class="form-check-input" type="checkbox" name="kesadaran" checked id="kesadaran" value="Sopor">
+                                        <label class="form-check-label" for="inlineRadio1">Sopor</label>
+                                        @else
+                                        <input class="form-check-input" type="checkbox" name="kesadaran" id="kesadaran" value="Sopor">
+                                        <label class="form-check-label" for="inlineRadio1">Sopor</label>
+                                        @endif
+
+                                    </div>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="">GCS</label>
+                                    <input class="form-control" type="text" value="{{$tf[0]->gcs_e}}" name="gcs" id="gcs">
+
+                                </td>
+                                <td>
+                                    <label for="">E</label>
+                                    <input class="form-control" type="text" value="{{$tf[0]->gcs_e}}" name="E" id="E">
+
+                                </td>
+                                <td>
+                                    <label for="">M</label>
+                                    <input class="form-control" type="text" value="{{$tf[0]->gcs_m}}" name="M" id="M">
+
+                                </td>
+                                <td>
+                                    <label for="">V</label>
+                                    <input class="form-control" type="text" value="{{$tf[0]->gcs_v}}" name="V" id="V">
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td class="text-bold font-italic">Tekanan Darah</td>
+                                <td>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Tekanan darah pasien ..." aria-label="Recipient's username" id="tekanandarah" name="tekanandarah" aria-describedby="basic-addon2" value="{{$tf[0]->tekanan_darah}}">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="basic-addon2">mmHg</span>
                                         </div>
-                                    </td>
-                                    <td class="text-bold font-italic">Tanggal dan Jam Transfer</td>
-                                    <td>
-                                        <input class="form-control" type="datetime-local" value="" name="tgl_pindah" id="tgl_pindah">
-
-
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-bold font-italic">Dokter yang merawat</td>
-
-                                    <td>
-                                        <input class="form-control" type="text" value="" name="doktergp" id="doktergp">
-
-                                    </td>
-                                    <td>
-                                        <label for="">Alasan di Rawat</label>
-                                        <input class="form-control" type="text" value="" name="alasan_rawat" id="alasan_rawat">
-
-                                    </td>
-                                    <td>
-                                        <label for="">Alasan Pindah</label>
-
-                                        <input class="form-control" type="text" value="" name="alasan_pindah" id="alasan_pindah">
-
-
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-bold font-italic">S (Situation)</td>
-
-                                    <td>
-                                        <input class="form-control" type="text" value="" name="situation" id="situation">
-
-                                    </td>
-                                    <td class="text-bold font-italic">B (Backgorund)</td>
-
-                                    <td>
-
-                                        <input class="form-control" type="text" value="" name="background" id="background">
-
-
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="3">
-                                        <label for="">Kondisi Pasien saat Pindah : Kesadaran :</label>
-                                    </td>
-                                </tr>
-
-                                <tr>
-
-
-                                    <td>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" name="kesadaran" id="kesadaran" value="Compos Mentis">
-                                            <label class="form-check-label" for="inlineRadio1">Compos Mentis</label>
+                                    </div>
+                                </td>
+                                <td class="text-bold font-italic">Frekuensi Nadi</td>
+                                <td>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Frekuensi nadi pasien ..." id="frekuensinadi" name="frekuensinadi" aria-label="Recipient's username" aria-describedby="basic-addon2" value="{{$tf[0]->nadi}}">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="basic-addon2">x/menit</span>
                                         </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" name="kesadaran" id="kesadaran" value="Apatis">
-                                            <label class="form-check-label" for="inlineRadio1">Apatis</label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic">Frekuensi Nafas</td>
+                                <td>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Frekuensi Nafas Pasien ..." name="frekuensinafas" id="frekuensinafas" aria-label="Recipient's username" aria-describedby="basic-addon2" value="{{$tf[0]->pernafasan}}">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="basic-addon2">x/menit</span>
                                         </div>
-                                    </td>
-
-                                    <td>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" name="kesadaran" id="kesadaran" value="Delirium">
-                                            <label class="form-check-label" for="inlineRadio1">Delirium</label>
+                                    </div>
+                                </td>
+                                <td class="text-bold font-italic">Suhu</td>
+                                <td>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Suhu tubuh pasien ..." aria-label="Suhu tubuh pasien" name="suhutubuh" id="suhutubuh" aria-describedby="basic-addon2" value="{{$tf[0]->suhu}}">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="basic-addon2">°C</span>
                                         </div>
-
-                                    </td>
-                                    <td>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" name="kesadaran" id="kesadaran" value="Sopor">
-                                            <label class="form-check-label" for="inlineRadio1">Sopor</label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic">Penggunaan Oksigen</td>
+                                <td>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Penggunaan oksigen ..." name="oksigen" id="oksigen" aria-label="Recipient's username" aria-describedby="basic-addon2" value="{{$tf[0]->penggunaan_oksigen}}">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="basic-addon2">L/menit</span>
                                         </div>
-                                    </td>
-
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <label for="">GCS</label>
-                                        <input class="form-control" type="text" value="" name="gcs" id="gcs">
-
-                                    </td>
-                                    <td>
-                                        <label for="">E</label>
-                                        <input class="form-control" type="text" value="" name="E" id="E">
-
-                                    </td>
-                                    <td>
-                                        <label for="">M</label>
-                                        <input class="form-control" type="text" value="" name="M" id="M">
-
-                                    </td>
-                                    <td>
-                                        <label for="">V</label>
-                                        <input class="form-control" type="text" value="" name="V" id="V">
-
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <table class="table">
-                            <tbody>
-                                <tr>
-                                    <td class="text-bold font-italic">Tekanan Darah</td>
-                                    <td>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Tekanan darah pasien ..." aria-label="Recipient's username" id="tekanandarah" name="tekanandarah" aria-describedby="basic-addon2" value="">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text" id="basic-addon2">mmHg</span>
-                                            </div>
+                                    </div>
+                                </td>
+                                <td class="text-bold font-italic">Cairan Parental</td>
+                                <td>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Cairan Parental ..." aria-label="Cairan Parental" name="parental" id="parental" aria-describedby="basic-addon2" value="{{$tf[0]->cairan_perenteral}}">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="basic-addon2">ml/24 jam</span>
                                         </div>
-                                    </td>
-                                    <td class="text-bold font-italic">Frekuensi Nadi</td>
-                                    <td>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Frekuensi nadi pasien ..." id="frekuensinadi" name="frekuensinadi" aria-label="Recipient's username" aria-describedby="basic-addon2" value="">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text" id="basic-addon2">x/menit</span>
-                                            </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic">Transfusi </td>
+                                <td>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="transfusi pasien ..." aria-label="Transfusi" name="transfusi" id="transfusi" aria-describedby="basic-addon2" value="{{$tf[0]->transfusi}}">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="basic-addon2">ml</span>
                                         </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-bold font-italic">Frekuensi Nafas</td>
-                                    <td>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Frekuensi Nafas Pasien ..." name="frekuensinafas" id="frekuensinafas" aria-label="Recipient's username" aria-describedby="basic-addon2" value="">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text" id="basic-addon2">x/menit</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="text-bold font-italic">Suhu</td>
-                                    <td>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Suhu tubuh pasien ..." aria-label="Suhu tubuh pasien" name="suhutubuh" id="suhutubuh" aria-describedby="basic-addon2" value="">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text" id="basic-addon2">°C</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-bold font-italic">Penggunaan Oksigen</td>
-                                    <td>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Penggunaan oksigen ..." name="oksigen" id="oksigen" aria-label="Recipient's username" aria-describedby="basic-addon2" value="">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text" id="basic-addon2">L/menit</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="text-bold font-italic">Cairan Parental</td>
-                                    <td>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Cairan Parental ..." aria-label="Cairan Parental" name="parental" id="parental" aria-describedby="basic-addon2" value="">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text" id="basic-addon2">ml/24 jam</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-bold font-italic">Transfusi </td>
-                                    <td>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="transfusi pasien ..." aria-label="Transfusi" name="transfusi" id="transfusi" aria-describedby="basic-addon2" value="">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text" id="basic-addon2">ml</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <label for="">
-                                            Penggunaan Cateter
-                                        </label>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="cateter" id="cateter" value="Ada">
-                                            <label class="form-check-label">Ada</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="cateter" id="cateter" value="Tidak">
-                                            <label class="form-check-label">Tidak</label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <label for="">
-                                            Tanggal dan Jam Pemakaian
-                                        </label>
-                                        <input class="form-control" type="datetime-local" value="" name="tgl_cateter" id="tgl_cateter">
+                                    </div>
+                                </td>
+                                <td>
+                                    <label for="">
+                                        Penggunaan Cateter
+                                    </label>
+                                    <div class="form-check">
+                                        @if($tf[0]->penggunaan_cateter == 'Compos Mentis')
+                                        <input class="form-check-input" type="radio" name="cateter" checked id="cateter" value="Ada">
+                                        <label class="form-check-label">Ada</label>
+                                        @else
+                                        <input class="form-check-input" type="radio" name="cateter" id="cateter" value="Ada">
+                                        <label class="form-check-label">Ada</label>
+                                        @endif
 
-                                    </td>
-                                </tr>
+                                    </div>
+                                    <div class="form-check">
+                                        @if($tf[0]->penggunaan_cateter == 'Compos Mentis')
+                                        <input class="form-check-input" type="radio" name="cateter" checked id="cateter" value="Tidak">
+                                        <label class="form-check-label">Tidak</label>
+                                        @else
+                                        <input class="form-check-input" type="radio" name="cateter" id="cateter" value="Tidak">
+                                        <label class="form-check-label">Tidak</label>
+                                        @endif
 
-                            </tbody>
-                        </table>
-                        <table class="table">
-                            <tbody>
+                                    </div>
+                                </td>
+                                <td>
+                                    <label for="">
+                                        Tanggal dan Jam Pemakaian
+                                    </label>
+                                    <input class="form-control" type="datetime-local" value="{{$tf[0]->tgl_pemakaian}}" name="tgl_cateter" id="tgl_cateter">
 
-                                <tr>
-                                    <td class="text-bold font-italic">Hasil Pemeriksaan selama Dirawat (Pemeriksaan Fisik dan penunjang yang mendukung diagnosis)
+                                </td>
+                            </tr>
 
-                                    </td>
-                                    <td colspan="3">
-                                        <div class="form-group">
-                                            <input class="form-control" placeholder="" type="input" name="hasil_pemeriksaan" id="hasil_pemeriksaan" value="">
-                                        </div>
-                                    </td>
+                        </tbody>
+                    </table>
+                    <table class="table">
+                        <tbody>
 
-                                </tr>
-                                <tr>
-                                    <td class="text-bold font-italic">Prosedur / Tindakan yang sudah dilakukan :
+                            <tr>
+                                <td class="text-bold font-italic">Hasil Pemeriksaan selama Dirawat (Pemeriksaan Fisik dan penunjang yang mendukung diagnosis)
 
-                                    </td>
-                                    <td colspan="3">
-                                        <div class="form-group">
-                                            <input class="form-control" placeholder="" type="input" name="prosedur" id="prosedur" value="">
-                                        </div>
-                                    </td>
+                                </td>
+                                <td colspan="3">
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="" type="input" name="hasil_pemeriksaan" id="hasil_pemeriksaan" value="{{$tf[0]->hasil_pemeriksaan_selama_dirawat}}">
+                                    </div>
+                                </td>
 
-                                </tr>
-                                <tr>
-                                    <td class="text-bold font-italic">Diagnosa medis :
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic">Prosedur / Tindakan yang sudah dilakukan :
 
-                                    </td>
-                                    <td colspan="3">
-                                        <div class="form-group">
-                                            <input class="form-control" placeholder="" type="input" name="diagd" id="diagd" value="">
-                                        </div>
-                                    </td>
+                                </td>
+                                <td colspan="3">
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="" type="input" name="prosedur" id="prosedur" value="{{$tf[0]->tindakan_yang_sudah_dilakukan}}">
+                                    </div>
+                                </td>
 
-                                </tr>
-                                <tr>
-                                    <td class="text-bold font-italic">Diagnosa Keperawatan :
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic">Diagnosa medis :
 
-                                    </td>
-                                    <td colspan="3">
-                                        <div class="form-group">
-                                            <input class="form-control" placeholder="" type="input" name="diagp" id="diagp" value="">
-                                        </div>
-                                    </td>
+                                </td>
+                                <td colspan="3">
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="" type="input" name="diagd" id="diagd" value="{{$tf[0]->diagnosa_medis}}">
+                                    </div>
+                                </td>
 
-                                </tr>
-                                <tr>
-                                    <td class="text-bold font-italic">Prosedur / Tindakan yang belum dilakukan / saran untuk mengatasi masalah pasien :
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic">Diagnosa Keperawatan :
 
-                                    </td>
-                                    <td colspan="3">
-                                        <div class="form-group">
-                                            <input class="form-control" placeholder="" type="input" name="prosedur_tindakan" id="prosedur_tindakan" value="">
-                                        </div>
-                                    </td>
+                                </td>
+                                <td colspan="3">
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="" type="input" name="diagp" id="diagp" value="{{$tf[0]->diagnosa_keperawatan}}">
+                                    </div>
+                                </td>
 
-                                </tr>
-                                <tr>
-                                    <td class="text-bold font-italic">Diet :
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic">Prosedur / Tindakan yang belum dilakukan / saran untuk mengatasi masalah pasien :
 
-                                    </td>
-                                    <td colspan="3">
-                                        <div class="form-group">
-                                            <input class="form-control" placeholder="" type="input" name="diet" id="diet" value="">
-                                        </div>
-                                    </td>
+                                </td>
+                                <td colspan="3">
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="" type="input" name="prosedur_tindakan" id="prosedur_tindakan" value="{{$tf[0]->tindakan_belum_dilakukan}}">
+                                    </div>
+                                </td>
 
-                                </tr>
-                                <tr>
-                                    <td class="text-bold font-italic">Mobilisasi :
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic">Diet :
 
-                                    </td>
-                                    <td colspan="3">
-                                        <div class="form-group">
-                                            <input class="form-control" placeholder="" type="input" name="Mobilisasi" id="Mobilisasi" value="">
-                                        </div>
-                                    </td>
+                                </td>
+                                <td colspan="3">
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="" type="input" name="diet" id="diet" value="{{$tf[0]->diet}}">
+                                    </div>
+                                </td>
 
-                                </tr>
-                                <tr>
-                                    <td class="text-bold font-italic">Edukasi :
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic">Mobilisasi :
 
-                                    </td>
-                                    <td colspan="3">
-                                        <div class="form-group">
-                                            <input class="form-control" placeholder="" type="input" name="Edukasi" id="Edukasi" value="">
-                                        </div>
-                                    </td>
+                                </td>
+                                <td colspan="3">
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="" type="input" name="Mobilisasi" id="Mobilisasi" value="{{$tf[0]->mobilisasi}}">
+                                    </div>
+                                </td>
 
-                                </tr>
-                            </tbody>
-                        </table>
-                        <table class="table">
-                            <tbody>
-                                <tr>
-                                    <td class="text-bold font-italic">Pengobatan yang di lanjutkan di rumah : </td>
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic">Edukasi :
 
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <form id="dynamic-form" class="formobatplg">
-                                            <h5>Klik Tombol Tambah untuk menambahkan obat pulang</h5>
+                                </td>
+                                <td colspan="3">
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="" type="input" name="Edukasi" id="Edukasi" value="{{$tf[0]->edukasi}}">
+                                    </div>
+                                </td>
 
-                                            <div class="field_wrapperrr">
-                                                <div class="row mt-2">
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td class="text-bold font-italic">Pengobatan yang di lanjutkan di rumah : </td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    <form id="dynamic-form" class="formobatplg">
+                                        <h5>Klik Tombol Tambah untuk menambahkan obat pulang</h5>
+
+                                        <div class="field_wrapperrr">
+                                            <div class="row mt-2">
 
 
-                                                    <div class="col-md-2">
-                                                        <a class="btn btn-success" href="javascript:void(0);" id="add_button" title="Add field">TAMBAH</a>
-                                                    </div>
+                                                <div class="col-md-2">
+                                                    <a class="btn btn-success" href="javascript:void(0);" id="add_button" title="Add field">TAMBAH</a>
                                                 </div>
-
                                             </div>
-                                        </form>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
 
-                        <table class="table">
-                            <tbody>
-                                <tr>
-                                    <td class="text-bold font-italic">Riwayat Alergi :
+                                        </div>
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
 
-                                    </td>
-                                    <td colspan="3">
-                                        <div class="form-group">
-                                            <input class="form-control" placeholder="" type="input" name="ria" id="ria" value="">
-                                        </div>
-                                    </td>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td class="text-bold font-italic">Riwayat Alergi :
 
-                                </tr>
-                                <tr>
-                                    <td class="text-bold font-italic">Riwayat Nyeri :
+                                </td>
+                                <td colspan="3">
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="" type="input" name="ria" id="ria" value="{{$tf[0]->riwayat_alergi}}">
+                                    </div>
+                                </td>
 
-                                    </td>
-                                    <td colspan="3">
-                                        <div class="form-group">
-                                            <input class="form-control" placeholder="" type="input" name="rinye" id="rinye" value="">
-                                        </div>
-                                    </td>
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic">Riwayat Nyeri :
 
-                                </tr>
-                            </tbody>
-                        </table>
-                        <table class="table" border="1">
-                            <thead class="bg-secondary">
-                                <th colspan="3"> Riwayat Hambatan</th>
-                                <th colspan="4">Tingkat Kemampuan Fungsi</th>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Penglihatan</td>
-                                    <td>Pendengaran</td>
-                                    <td>Komunikasi</td>
-                                    <td></td>
-                                    <td>M</td>
-                                    <td>PP</td>
-                                    <td>TM</td>
+                                </td>
+                                <td colspan="3">
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="" type="input" name="rinye" id="rinye" value="{{$tf[0]->program_nyeri}}">
+                                    </div>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table" border="1">
+                        <thead class="bg-secondary">
+                            <th colspan="3"> Riwayat Hambatan</th>
+                            <th colspan="4">Tingkat Kemampuan Fungsi</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Penglihatan</td>
+                                <td>Pendengaran</td>
+                                <td>Komunikasi</td>
+                                <td></td>
+                                <td>M</td>
+                                <td>PP</td>
+                                <td>TM</td>
 
 
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="peng" id="peng" value="Adekuat">
-                                            <label class="form-check-label">Adekuat</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="peng" id="peng" value="Kacamata">
-                                            <label class="form-check-label">Kacamata</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="peng" id="peng" value="Buta">
-                                            <label class="form-check-label">Buta</label>
-                                        </div>
-                                    </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="form-check">
+                                        @if($tf[0]->penglihatan == 'Adekuat')
+                                        <input class="form-check-input" type="checkbox" name="peng" checked id="peng" value="Adekuat">
+                                        <label class="form-check-label">Adekuat</label>
+                                        @else
+                                        <input class="form-check-input" type="checkbox" name="peng" id="peng" value="Adekuat">
+                                        <label class="form-check-label">Adekuat</label>
+                                        @endif
 
-                                    <td>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="pend" id="pend" value="Earing Aid S/D">
-                                            <label class="form-check-label">Earing Aid S/D</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="pend" id="pend" value="Tuli Sebagian">
-                                            <label class="form-check-label">Tuli Sebagian</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="pend" id="pend" value="Tuli Total">
-                                            <label class="form-check-label">Tuli Total</label>
-                                        </div>
-                                    </td>
+                                    </div>
+                                    <div class="form-check">
+                                        @if($tf[0]->penglihatan == 'Kacamata')
+                                        <input class="form-check-input" type="checkbox" name="peng" checked id="peng" value="Kacamata">
+                                        <label class="form-check-label">Kacamata</label>
+                                        @else
+                                        <input class="form-check-input" type="checkbox" name="peng" id="peng" value="Kacamata">
+                                        <label class="form-check-label">Kacamata</label>
+                                        @endif
 
-                                    <td>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="kom" id="kom" value="Bicara Normal">
-                                            <label class="form-check-label">Bicara Normal</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="kom" id="kom" value="Non Verbal">
-                                            <label class="form-check-label">Non Verbal</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="kom" id="kom" value="Afasia">
-                                            <label class="form-check-label">Afasia</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="kom" id="kom" value="Tidak bisa baca Tulis">
-                                            <label class="form-check-label">Tidak bisa baca Tulis</label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="kf" id="kf" value="Bed Activity">
-                                            <label class="form-check-label">Bed Activity</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="kf" id="kf" value="Personal Hygiene">
-                                            <label class="form-check-label">Personal Hygiene</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="kf" id="kf" value="Dressing">
-                                            <label class="form-check-label">Dressing</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="kf" id="kf" value="Eating">
-                                            <label class="form-check-label">Eating</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="kf" id="kf" value="Transfer">
-                                            <label class="form-check-label">Transfer</label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="M_B" id="M_B" value="1">
-                                        </div><br>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="M_P" id="M_P" value="1">
-                                        </div><br>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="M_D" id="M_D" value="1">
-                                        </div><br>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="M_E" id="M_E" value="1">
-                                        </div><br>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="M_T" id="M_T" value="1">
-                                        </div><br>
-                                    </td>
-                                    <td>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="PPB" id="PPB" value="1">
-                                        </div><br>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="PPP" id="PPP" value="1">
-                                        </div><br>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="PPD" id="PPD" value="1">
-                                        </div><br>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="PPE" id="PPE" value="1">
-                                        </div><br>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="PPT" id="PPT" value="1">
-                                        </div><br>
-                                    </td>
-                                    <td>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="TMB" id="TMB" value="1">
-                                        </div><br>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="TMP" id="TMP" value="1">
-                                        </div><br>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="TMD" id="TMD" value="1">
-                                        </div><br>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="TME" id="TME" value="1">
-                                        </div><br>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="TMT" id="TMT" value="1">
-                                        </div><br>
-                                    </td>
-                                </tr>
+                                    </div>
+                                    <div class="form-check">
+                                        @if($tf[0]->penglihatan == 'Buta')
+                                        <input class="form-check-input" type="checkbox" checked name="peng" id="peng" value="Buta">
+                                        <label class="form-check-label">Buta</label>
+                                        @else
+                                        <input class="form-check-input" type="checkbox" name="peng" id="peng" value="Buta">
+                                        <label class="form-check-label">Buta</label>
+                                        @endif
 
-                            </tbody>
-                        </table>
-                        <table class="table">
-                            <tbody>
-                                <tr>
-                                    <td class="text-bold font-italic">Barang - barang yang diserahkan :
+                                    </div>
+                                </td>
 
-                                    </td>
-                                    <td>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="brg" id="brg" value="Rekam Medis Lengkap">
-                                            <label class="form-check-label">Rekam Medis Lengkap</label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="brg1" id="brg1" value="Thorax Foto">
-                                            <label class="form-check-label">Thorax Foto</label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="brg2" id="brg2" value="USG">
-                                            <label class="form-check-label">USG</label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="brg3" id="brg3" value="CT Scan">
-                                            <label class="form-check-label">CT Scan</label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="brg4" id="brg4" value="Echo">
-                                            <label class="form-check-label">Echo</label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="brg5" id="brg5" value="EKG">
-                                            <label class="form-check-label">EKG</label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="brg6" id="brg6" value="LAB">
-                                            <label class="form-check-label">LAB</label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-input">
-                                            <input class="form-input" type="input" name="brgl" id="brgl" value="">
-                                        </div>
+                                <td>
+                                    <div class="form-check">
+                                        @if($tf[0]->pendengaran == 'Earing Aid S/D')
+                                        <input class="form-check-input" type="checkbox" name="pend" checked id="pend" value="Earing Aid S/D">
+                                        <label class="form-check-label">Earing Aid S/D</label>
+                                        @else
+                                        <input class="form-check-input" type="checkbox" name="pend" id="pend" value="Earing Aid S/D">
+                                        <label class="form-check-label">Earing Aid S/D</label>
+                                        @endif
 
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-bold font-italic">Catatan Khusus :
+                                    </div>
+                                    <div class="form-check">
+                                        @if($tf[0]->pendengaran == 'Tuli Sebagian')
+                                        <input class="form-check-input" type="checkbox" name="pend" checked id="pend" value="Tuli Sebagian">
+                                        <label class="form-check-label">Tuli Sebagian</label>
+                                        @else
+                                        <input class="form-check-input" type="checkbox" name="pend" id="pend" value="Tuli Sebagian">
+                                        <label class="form-check-label">Tuli Sebagian</label>
+                                        @endif
 
-                                    </td>
-                                    <td colspan="8">
-                                        <div class="form-group">
-                                            <input class="form-control" type="input" name="ck" id="ck" value="">
-                                        </div>
-                                    </td>
-                                </tr>
+                                    </div>
+                                    <div class="form-check">
+                                        @if($tf[0]->pendengaran == 'Tuli Total')
+                                        <input class="form-check-input" type="checkbox" name="pend" id="pend" value="Tuli Total">
+                                        <label class="form-check-label">Tuli Total</label>
+                                        @else
+                                        <input class="form-check-input" type="checkbox" name="pend" id="pend" value="Tuli Total">
+                                        <label class="form-check-label">Tuli Total</label>
+                                        @endif
 
-                            </tbody>
-                        </table>
-                        <div type="button" class="btn btn-secondary catatantficu ml-3 mb-3" style="margin-top: 20px;">
-                            Kriteria Masuk ICU
-                        </div>
-                        <div class="tficu">
+                                    </div>
+                                </td>
 
-                        </div>
-                        <table class="table">
-                            <tbody>
-                                <tr>
-                                    <td class="text-bold font-italic">Kriteria Transfer :
+                                <td>
+                                    <div class="form-check">
+                                        @if($tf[0]->komunikasi == 'Bicara Normal')
+                                        <input class="form-check-input" type="checkbox" name="kom" checked id="kom" value="Bicara Normal">
+                                        <label class="form-check-label">Bicara Normal</label>
+                                        @else
+                                        <input class="form-check-input" type="checkbox" name="kom" id="kom" value="Bicara Normal">
+                                        <label class="form-check-label">Bicara Normal</label>
+                                        @endif
 
-                                    </td>
-                                    <td>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="kri" id="kri" value="Derajat 0,">
-                                            <label class="form-check-label">Derajat 0,</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="kri" id="kri" value="Derajat 1">
-                                            <label class="form-check-label">Derajat 1</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="kri" id="kri" value="Derajat 2">
-                                            <label class="form-check-label">Derajat 2</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="kri" id="kri" value="Derajat 3">
-                                            <label class="form-check-label">Derajat 3</label>
-                                        </div>
+                                    </div>
+                                    <div class="form-check">
+                                        @if($tf[0]->komunikasi == 'Non Verbal')
+                                        <input class="form-check-input" type="checkbox" checked name="kom" id="kom" value="Non Verbal">
+                                        <label class="form-check-label">Non Verbal</label>
+                                        @else
+                                        <input class="form-check-input" type="checkbox" name="kom" id="kom" value="Non Verbal">
+                                        <label class="form-check-label">Non Verbal</label>
+                                        @endif
 
-                                    </td>
+                                    </div>
+                                    <div class="form-check">
+                                        @if($tf[0]->komunikasi == 'Afasia')
+                                        <input class="form-check-input" type="checkbox" name="kom" checked id="kom" value="Afasia">
+                                        <label class="form-check-label">Afasia</label>
+                                        @else
+                                        <input class="form-check-input" type="checkbox" name="kom" id="kom" value="Afasia">
+                                        <label class="form-check-label">Afasia</label>
+                                        @endif
 
-                                    <td>
-                                        <div class="form-check">
-                                            <label class="form-check-label">pendamping : Portir</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <label class="form-check-label">pendamping : Portir dan Perawat</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <label class="form-check-label">pendamping : Portir dan Perawat</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <label class="form-check-label">pendamping : Portir, Perawat, dan Dokter</label>
-                                        </div>
+                                    </div>
+                                    <div class="form-check">
+                                        @if($tf[0]->komunikasi == 'Tidak bisa baca Tulis')
+                                        <input class="form-check-input" type="checkbox" name="kom" id="kom" checked value="Tidak bisa baca Tulis">
+                                        <label class="form-check-label">Tidak bisa baca Tulis</label>
+                                        @else
+                                        <input class="form-check-input" type="checkbox" name="kom" id="kom" value="Tidak bisa baca Tulis">
+                                        <label class="form-check-label">Tidak bisa baca Tulis</label>
+                                        @endif
 
-                                    </td>
-                                </tr>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-check">
+                                        @if($tf[0]->kf == 'Bed Activity')
+                                        <input class="form-check-input" type="checkbox" name="kf" id="kf" checked value="Bed Activity">
+                                        <label class="form-check-label">Bed Activity</label>
+                                        @else
+                                        <input class="form-check-input" type="checkbox" name="kf" id="kf" value="Bed Activity">
+                                        <label class="form-check-label">Bed Activity</label>
+                                        @endif
 
-                            </tbody>
-                        </table>
+                                    </div>
+                                    <div class="form-check">
+                                        @if($tf[0]->kf == 'Personal Hygiene')
+                                        <input class="form-check-input" type="checkbox" name="kf" checked id="kf" value="Personal Hygiene">
+                                        <label class="form-check-label">Personal Hygiene</label>
+                                        @else
+                                        <input class="form-check-input" type="checkbox" name="kf" id="kf" value="Personal Hygiene">
+                                        <label class="form-check-label">Personal Hygiene</label>
+                                        @endif
+
+                                    </div>
+                                    <div class="form-check">
+                                        @if($tf[0]->kf == 'Dressing')
+                                        <input class="form-check-input" type="checkbox" checked name="kf" id="kf" value="Dressing">
+                                        <label class="form-check-label">Dressing</label>
+                                        @else
+                                        <input class="form-check-input" type="checkbox" name="kf" id="kf" value="Dressing">
+                                        <label class="form-check-label">Dressing</label>
+                                        @endif
+
+                                    </div>
+                                    <div class="form-check">
+                                        @if($tf[0]->kf == 'Eating')
+                                        <input class="form-check-input" type="checkbox" name="kf" id="kf" value="Eating">
+                                        <label class="form-check-label">Eating</label>
+                                        @else
+                                        <input class="form-check-input" type="checkbox" name="kf" id="kf" value="Eating">
+                                        <label class="form-check-label">Eating</label>
+                                        @endif
+
+                                    </div>
+                                    <div class="form-check">
+                                        @if($tf[0]->kf == 'Transfer')
+                                        <input class="form-check-input" type="checkbox" name="kf" id="kf" value="Transfer">
+                                        <label class="form-check-label">Transfer</label>
+                                        @else
+                                        <input class="form-check-input" type="checkbox" name="kf" id="kf" value="Transfer">
+                                        <label class="form-check-label">Transfer</label>
+                                        @endif
+
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-check">
+                                        @if($tf[0]->m_bed_activity != NULL)
+                                        <input class="form-check-input" type="checkbox" name="M_B" checked id="M_B" value="1">
+                                        @else
+                                        <input class="form-check-input" type="checkbox" name="M_B" id="M_B" value="1">
+                                        @endif
+                                    </div><br>
+                                    <div class="form-check">
+                                        @if($tf[0]->pp_bed_activity != NULL)
+                                        <input class="form-check-input" type="checkbox" name="M_P" checked id="M_P" value="1">
+                                        @else
+                                        <input class="form-check-input" type="checkbox" name="M_P" id="M_P" value="1">
+                                        @endif
+                                    </div><br>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="M_D" id="M_D" value="1">
+                                    </div><br>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="M_E" id="M_E" value="1">
+                                    </div><br>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="M_T" id="M_T" value="1">
+                                    </div><br>
+                                </td>
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="PPB" id="PPB" value="1">
+                                    </div><br>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="PPP" id="PPP" value="1">
+                                    </div><br>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="PPD" id="PPD" value="1">
+                                    </div><br>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="PPE" id="PPE" value="1">
+                                    </div><br>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="PPT" id="PPT" value="1">
+                                    </div><br>
+                                </td>
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="TMB" id="TMB" value="1">
+                                    </div><br>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="TMP" id="TMP" value="1">
+                                    </div><br>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="TMD" id="TMD" value="1">
+                                    </div><br>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="TME" id="TME" value="1">
+                                    </div><br>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="TMT" id="TMT" value="1">
+                                    </div><br>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td class="text-bold font-italic">Barang - barang yang diserahkan :
+
+                                </td>
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="brg" id="brg" value="Rekam Medis Lengkap">
+                                        <label class="form-check-label">Rekam Medis Lengkap</label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="brg1" id="brg1" value="Thorax Foto">
+                                        <label class="form-check-label">Thorax Foto</label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="brg2" id="brg2" value="USG">
+                                        <label class="form-check-label">USG</label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="brg3" id="brg3" value="CT Scan">
+                                        <label class="form-check-label">CT Scan</label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="brg4" id="brg4" value="Echo">
+                                        <label class="form-check-label">Echo</label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="brg5" id="brg5" value="EKG">
+                                        <label class="form-check-label">EKG</label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="brg6" id="brg6" value="LAB">
+                                        <label class="form-check-label">LAB</label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-input">
+                                        <input class="form-input" type="input" name="brgl" id="brgl" value="">
+                                    </div>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic">Catatan Khusus :
+
+                                </td>
+                                <td colspan="8">
+                                    <div class="form-group">
+                                        <input class="form-control" type="input" name="ck" id="ck" value="">
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <div type="button" class="btn btn-secondary catatantficu ml-3 mb-3" style="margin-top: 20px;">
+                        Kriteria Masuk ICU
+                    </div>
+                    <div class="tficu">
 
                     </div>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td class="text-bold font-italic">Kriteria Transfer :
+
+                                </td>
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="kri" id="kri" value="Derajat 0,">
+                                        <label class="form-check-label">Derajat 0,</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="kri" id="kri" value="Derajat 1">
+                                        <label class="form-check-label">Derajat 1</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="kri" id="kri" value="Derajat 2">
+                                        <label class="form-check-label">Derajat 2</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="kri" id="kri" value="Derajat 3">
+                                        <label class="form-check-label">Derajat 3</label>
+                                    </div>
+
+                                </td>
+
+                                <td>
+                                    <div class="form-check">
+                                        <label class="form-check-label">pendamping : Portir</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <label class="form-check-label">pendamping : Portir dan Perawat</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <label class="form-check-label">pendamping : Portir dan Perawat</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <label class="form-check-label">pendamping : Portir, Perawat, dan Dokter</label>
+                                    </div>
+
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                </div>
 
 
 
-                    <div class="col-3">
-                        <div type="button" class="btn float-left btn-success simpanctttransfer" style="margin-top: 20px;">
-                            SIMPAN
-                        </div>
-                        <div type="button" class="btn float-left btn-success cekkpemantauan ml-2" style="margin-top: 20px;">
+                <div class="col-3">
+                    <div type="button" class="btn float-left btn-success simpanctttransfer" style="margin-top: 20px;">
+                        SIMPAN
+                    </div>
+                    <!-- <div type="button" class="btn float-left btn-success cekkpemantauan ml-2" style="margin-top: 20px;">
                             check
                         </div>
                         <div type="button" class="btn float-left btn-primary cetakpemantauan ml-2 fas fa-print" style="margin-top: 20px;">
                             Print
-                        </div>
-                    </div>
+                        </div> -->
+                </div>
 
+
+            </div>
+
+        </div>
+    </div>
+    @else
+
+    <div class="ml-2">
+        <div id="form-container" class="formtransferpasien">
+            {{-- form isi transfer --}}
+            <div class="row mt-2">
+
+                <div class="col-md-12">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td class="text-bold font-italic">Tanggal Pengkajian Transfer</td>
+                                <td>
+                                    <input class="form-control" type="datetime-local" value="" name="tgl_input_transfer" id="tgl_input_transfer">
+                                    <input hidden type="text" class="form-control" placeholder="Tekanan darah pasien ..." aria-label="Recipient's username" id="norm" name="norm" aria-describedby="basic-addon2" value="{{$norm}}">
+                                    <input hidden type="text" class="form-control" placeholder="Tekanan darah pasien ..." aria-label="Recipient's username" id="kj" name="kj" aria-describedby="basic-addon2" value="{{$kj}}">
+
+
+                                </td>
+                                <td class="text-bold font-italic">Tanggal Selesai Transfer</td>
+                                <td>
+                                    <input class="form-control" type="datetime-local" value="" name="tgl_selesai_transfer" id="tgl_selesai_transfer">
+
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic">Keputusan Ke Ruang</td>
+
+                                <td>
+                                    <div class="row">
+
+                                        <select class="form-control select2" name="tinjutt" id="tinjutt">
+
+                                            @foreach ($poli as $i => $p)
+                                            <option value="{{ $p->nama_unit }}">{{ $p->nama_unit }}
+                                            </option>
+                                            @endforeach
+
+
+
+                                        </select>
+
+
+                                    </div>
+                                </td>
+                                <td class="text-bold font-italic">Tanggal dan Jam Transfer</td>
+                                <td>
+                                    <input class="form-control" type="datetime-local" value="" name="tgl_pindah" id="tgl_pindah">
+
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic">Dokter yang merawat</td>
+
+                                <td>
+                                    <input class="form-control" type="text" value="" name="doktergp" id="doktergp">
+
+                                </td>
+                                <td>
+                                    <label for="">Alasan di Rawat</label>
+                                    <input class="form-control" type="text" value="" name="alasan_rawat" id="alasan_rawat">
+
+                                </td>
+                                <td>
+                                    <label for="">Alasan Pindah</label>
+
+                                    <input class="form-control" type="text" value="" name="alasan_pindah" id="alasan_pindah">
+
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic">S (Situation)</td>
+
+                                <td>
+                                    <input class="form-control" type="text" value="" name="situation" id="situation">
+
+                                </td>
+                                <td class="text-bold font-italic">B (Backgorund)</td>
+
+                                <td>
+
+                                    <input class="form-control" type="text" value="" name="background" id="background">
+
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    <label for="">Kondisi Pasien saat Pindah : Kesadaran :</label>
+                                </td>
+                            </tr>
+
+                            <tr>
+
+
+                                <td>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" name="kesadaran" id="kesadaran" value="Compos Mentis">
+                                        <label class="form-check-label" for="inlineRadio1">Compos Mentis</label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" name="kesadaran" id="kesadaran" value="Apatis">
+                                        <label class="form-check-label" for="inlineRadio1">Apatis</label>
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" name="kesadaran" id="kesadaran" value="Delirium">
+                                        <label class="form-check-label" for="inlineRadio1">Delirium</label>
+                                    </div>
+
+                                </td>
+                                <td>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" name="kesadaran" id="kesadaran" value="Sopor">
+                                        <label class="form-check-label" for="inlineRadio1">Sopor</label>
+                                    </div>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="">GCS</label>
+                                    <input class="form-control" type="text" value="" name="gcs" id="gcs">
+
+                                </td>
+                                <td>
+                                    <label for="">E</label>
+                                    <input class="form-control" type="text" value="" name="E" id="E">
+
+                                </td>
+                                <td>
+                                    <label for="">M</label>
+                                    <input class="form-control" type="text" value="" name="M" id="M">
+
+                                </td>
+                                <td>
+                                    <label for="">V</label>
+                                    <input class="form-control" type="text" value="" name="V" id="V">
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td class="text-bold font-italic">Tekanan Darah</td>
+                                <td>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Tekanan darah pasien ..." aria-label="Recipient's username" id="tekanandarah" name="tekanandarah" aria-describedby="basic-addon2" value="">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="basic-addon2">mmHg</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-bold font-italic">Frekuensi Nadi</td>
+                                <td>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Frekuensi nadi pasien ..." id="frekuensinadi" name="frekuensinadi" aria-label="Recipient's username" aria-describedby="basic-addon2" value="">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="basic-addon2">x/menit</span>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic">Frekuensi Nafas</td>
+                                <td>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Frekuensi Nafas Pasien ..." name="frekuensinafas" id="frekuensinafas" aria-label="Recipient's username" aria-describedby="basic-addon2" value="">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="basic-addon2">x/menit</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-bold font-italic">Suhu</td>
+                                <td>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Suhu tubuh pasien ..." aria-label="Suhu tubuh pasien" name="suhutubuh" id="suhutubuh" aria-describedby="basic-addon2" value="">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="basic-addon2">°C</span>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic">Penggunaan Oksigen</td>
+                                <td>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Penggunaan oksigen ..." name="oksigen" id="oksigen" aria-label="Recipient's username" aria-describedby="basic-addon2" value="">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="basic-addon2">L/menit</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-bold font-italic">Cairan Parental</td>
+                                <td>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Cairan Parental ..." aria-label="Cairan Parental" name="parental" id="parental" aria-describedby="basic-addon2" value="">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="basic-addon2">ml/24 jam</span>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic">Transfusi </td>
+                                <td>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="transfusi pasien ..." aria-label="Transfusi" name="transfusi" id="transfusi" aria-describedby="basic-addon2" value="">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="basic-addon2">ml</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <label for="">
+                                        Penggunaan Cateter
+                                    </label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="cateter" id="cateter" value="Ada">
+                                        <label class="form-check-label">Ada</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="cateter" id="cateter" value="Tidak">
+                                        <label class="form-check-label">Tidak</label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <label for="">
+                                        Tanggal dan Jam Pemakaian
+                                    </label>
+                                    <input class="form-control" type="datetime-local" value="" name="tgl_cateter" id="tgl_cateter">
+
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <table class="table">
+                        <tbody>
+
+                            <tr>
+                                <td class="text-bold font-italic">Hasil Pemeriksaan selama Dirawat (Pemeriksaan Fisik dan penunjang yang mendukung diagnosis)
+
+                                </td>
+                                <td colspan="3">
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="" type="input" name="hasil_pemeriksaan" id="hasil_pemeriksaan" value="">
+                                    </div>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic">Prosedur / Tindakan yang sudah dilakukan :
+
+                                </td>
+                                <td colspan="3">
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="" type="input" name="prosedur" id="prosedur" value="">
+                                    </div>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic">Diagnosa medis :
+
+                                </td>
+                                <td colspan="3">
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="" type="input" name="diagd" id="diagd" value="">
+                                    </div>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic">Diagnosa Keperawatan :
+
+                                </td>
+                                <td colspan="3">
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="" type="input" name="diagp" id="diagp" value="">
+                                    </div>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic">Prosedur / Tindakan yang belum dilakukan / saran untuk mengatasi masalah pasien :
+
+                                </td>
+                                <td colspan="3">
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="" type="input" name="prosedur_tindakan" id="prosedur_tindakan" value="">
+                                    </div>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic">Diet :
+
+                                </td>
+                                <td colspan="3">
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="" type="input" name="diet" id="diet" value="">
+                                    </div>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic">Mobilisasi :
+
+                                </td>
+                                <td colspan="3">
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="" type="input" name="Mobilisasi" id="Mobilisasi" value="">
+                                    </div>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic">Edukasi :
+
+                                </td>
+                                <td colspan="3">
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="" type="input" name="Edukasi" id="Edukasi" value="">
+                                    </div>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td class="text-bold font-italic">Pengobatan yang di lanjutkan di rumah : </td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    <form id="dynamic-form" class="formobatplg">
+                                        <h5>Klik Tombol Tambah untuk menambahkan obat pulang</h5>
+
+                                        <div class="field_wrapperrr">
+                                            <div class="row mt-2">
+
+
+                                                <div class="col-md-2">
+                                                    <a class="btn btn-success" href="javascript:void(0);" id="add_button" title="Add field">TAMBAH</a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td class="text-bold font-italic">Riwayat Alergi :
+
+                                </td>
+                                <td colspan="3">
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="" type="input" name="ria" id="ria" value="">
+                                    </div>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic">Riwayat Nyeri :
+
+                                </td>
+                                <td colspan="3">
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="" type="input" name="rinye" id="rinye" value="">
+                                    </div>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table" border="1">
+                        <thead class="bg-secondary">
+                            <th colspan="3"> Riwayat Hambatan</th>
+                            <th colspan="4">Tingkat Kemampuan Fungsi</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Penglihatan</td>
+                                <td>Pendengaran</td>
+                                <td>Komunikasi</td>
+                                <td></td>
+                                <td>M</td>
+                                <td>PP</td>
+                                <td>TM</td>
+
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="peng" id="peng" value="Adekuat">
+                                        <label class="form-check-label">Adekuat</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="peng" id="peng" value="Kacamata">
+                                        <label class="form-check-label">Kacamata</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="peng" id="peng" value="Buta">
+                                        <label class="form-check-label">Buta</label>
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="pend" id="pend" value="Earing Aid S/D">
+                                        <label class="form-check-label">Earing Aid S/D</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="pend" id="pend" value="Tuli Sebagian">
+                                        <label class="form-check-label">Tuli Sebagian</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="pend" id="pend" value="Tuli Total">
+                                        <label class="form-check-label">Tuli Total</label>
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="kom" id="kom" value="Bicara Normal">
+                                        <label class="form-check-label">Bicara Normal</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="kom" id="kom" value="Non Verbal">
+                                        <label class="form-check-label">Non Verbal</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="kom" id="kom" value="Afasia">
+                                        <label class="form-check-label">Afasia</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="kom" id="kom" value="Tidak bisa baca Tulis">
+                                        <label class="form-check-label">Tidak bisa baca Tulis</label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="kf" id="kf" value="Bed Activity">
+                                        <label class="form-check-label">Bed Activity</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="kf" id="kf" value="Personal Hygiene">
+                                        <label class="form-check-label">Personal Hygiene</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="kf" id="kf" value="Dressing">
+                                        <label class="form-check-label">Dressing</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="kf" id="kf" value="Eating">
+                                        <label class="form-check-label">Eating</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="kf" id="kf" value="Transfer">
+                                        <label class="form-check-label">Transfer</label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="M_B" id="M_B" value="1">
+                                    </div><br>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="M_P" id="M_P" value="1">
+                                    </div><br>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="M_D" id="M_D" value="1">
+                                    </div><br>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="M_E" id="M_E" value="1">
+                                    </div><br>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="M_T" id="M_T" value="1">
+                                    </div><br>
+                                </td>
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="PPB" id="PPB" value="1">
+                                    </div><br>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="PPP" id="PPP" value="1">
+                                    </div><br>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="PPD" id="PPD" value="1">
+                                    </div><br>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="PPE" id="PPE" value="1">
+                                    </div><br>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="PPT" id="PPT" value="1">
+                                    </div><br>
+                                </td>
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="TMB" id="TMB" value="1">
+                                    </div><br>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="TMP" id="TMP" value="1">
+                                    </div><br>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="TMD" id="TMD" value="1">
+                                    </div><br>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="TME" id="TME" value="1">
+                                    </div><br>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="TMT" id="TMT" value="1">
+                                    </div><br>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td class="text-bold font-italic">Barang - barang yang diserahkan :
+
+                                </td>
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="brg" id="brg" value="Rekam Medis Lengkap">
+                                        <label class="form-check-label">Rekam Medis Lengkap</label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="brg1" id="brg1" value="Thorax Foto">
+                                        <label class="form-check-label">Thorax Foto</label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="brg2" id="brg2" value="USG">
+                                        <label class="form-check-label">USG</label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="brg3" id="brg3" value="CT Scan">
+                                        <label class="form-check-label">CT Scan</label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="brg4" id="brg4" value="Echo">
+                                        <label class="form-check-label">Echo</label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="brg5" id="brg5" value="EKG">
+                                        <label class="form-check-label">EKG</label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="brg6" id="brg6" value="LAB">
+                                        <label class="form-check-label">LAB</label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-input">
+                                        <input class="form-input" type="input" name="brgl" id="brgl" value="">
+                                    </div>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-bold font-italic">Catatan Khusus :
+
+                                </td>
+                                <td colspan="8">
+                                    <div class="form-group">
+                                        <input class="form-control" type="input" name="ck" id="ck" value="">
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <div type="button" class="btn btn-secondary catatantficu ml-3 mb-3" style="margin-top: 20px;">
+                        Kriteria Masuk ICU
+                    </div>
+                    <div class="tficu">
+
+                    </div>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td class="text-bold font-italic">Kriteria Transfer :
+
+                                </td>
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="kri" id="kri" value="Derajat 0,">
+                                        <label class="form-check-label">Derajat 0,</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="kri" id="kri" value="Derajat 1">
+                                        <label class="form-check-label">Derajat 1</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="kri" id="kri" value="Derajat 2">
+                                        <label class="form-check-label">Derajat 2</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="kri" id="kri" value="Derajat 3">
+                                        <label class="form-check-label">Derajat 3</label>
+                                    </div>
+
+                                </td>
+
+                                <td>
+                                    <div class="form-check">
+                                        <label class="form-check-label">pendamping : Portir</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <label class="form-check-label">pendamping : Portir dan Perawat</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <label class="form-check-label">pendamping : Portir dan Perawat</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <label class="form-check-label">pendamping : Portir, Perawat, dan Dokter</label>
+                                    </div>
+
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
 
                 </div>
 
+
+
+                <div class="col-3">
+                    <div type="button" class="btn float-left btn-success simpanctttransfer" style="margin-top: 20px;">
+                        SIMPAN
+                    </div>
+                    <!-- <div type="button" class="btn float-left btn-success cekkpemantauan ml-2" style="margin-top: 20px;">
+                            check
+                        </div>
+                        <div type="button" class="btn float-left btn-primary cetakpemantauan ml-2 fas fa-print" style="margin-top: 20px;">
+                            Print
+                        </div> -->
+                </div>
+
+
             </div>
-        </form>
+
+        </div>
     </div>
 
+    @endif
     <div class="hasilinput ml-2 mt-2 mr-2"></div>
 
 </div>

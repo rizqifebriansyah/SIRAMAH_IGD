@@ -769,12 +769,14 @@ class PerawatController extends Controller
         $ttv = DB::select('SELECT tekanan_darah, frekuensi_nafas, frekuensi_nadi, suhu, berat_badan, umur, keadaan_umum, kesadaran, gcs, spo2 FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
         $riwayatrekonobat = DB::select('SELECT * FROM rekonsiliasi_obat WHERE kode_kunjungan = ?', [$kj]);
         $poli = DB::select('SELECT kode_unit,nama_unit FROM mt_unit WHERE kelas_unit = 2');
-
+        $tf = DB::connection('mysql4')->select('SELECT * FROM catatan_transfer_pasien WHERE kode_kunjungan = ?', [$kj]);
+        dd($tf);
         return view(
             'perawat.transferpasien',
             [
                 'title' => 'SiRAMAH PERAWAT',
                 'unit' => $unit,
+                'tf' => $tf,
 
                 'now' => $now,
                 'norm' => $norm,
@@ -1668,7 +1670,7 @@ class PerawatController extends Controller
         try {
             $catatan = catatan_transfer_pasien::create([
                 'kode_kunjungan' => $kj,
-                'no_rm' => $norm,
+                'rm' => $norm,
                 'ruangan_asal' => 'IGD',
                 'kode_unit' => '1002',
                 'pindah_ke' => $request->tinjutt,
@@ -1685,12 +1687,12 @@ class PerawatController extends Controller
                 'gcs_e' => $request->E,
                 'gcs_m' => $request->M,
                 'gcs_v' => $request->V,
-                'tekanandarah' => $request->tekanandarah,
+                'tekanan_darah' => $request->tekanandarah,
                 'nadi' => $request->frekuensinado,
                 'pernafasan' => $request->frekuensinafas,
                 'suhu' => $request->suhutubuh,
                 'penggunaan_oksigen' => $request->oksigen,
-                'cairan_parental' => $request->parental,
+                'cairan_perenteral' => $request->parental,
                 'transfusi' => $request->transfusi,
                 'penggunaan_cateter' => $request->cateter,
                 'tgl_pemakaian'  => $request->tgl_cateter,
@@ -1699,7 +1701,7 @@ class PerawatController extends Controller
                 'diagnosa_medis' => $request->diagd,
                 'diagnosa_keperawatan' => $request->diagp,
                 'tindakan_belum_dilakukan' => $request->prosedur_tindakan,
-                'die' => $request->diet,
+                'diet' => $request->diet,
                 'mobilisasi' => $request->Mobilisasi,
                 'edukasi' => $request->Edukasi,
                 'riwayat_alergi' => $request->ria,
@@ -1707,6 +1709,8 @@ class PerawatController extends Controller
                 'pengelihatan' => $request->peng,
                 'pendengaran' => $request->pend,
                 'komunikasi' => $request->kom,
+                'kf' => $request->kf,
+
                 'm_bed_activity' => $request->M_B,
                 'pp_bed_activity' => $request->PPB,
                 'tm_bed_activity' => $request->TMB,
@@ -1742,6 +1746,9 @@ class PerawatController extends Controller
 
         try {
             $obatpllg = json_decode($_POST['obatplg'], true);
+            // dd($obatpllg);
+             if ($obatpllg == null) {
+            } else {
             foreach ($obatpllg as $nama) {
                 $index = $nama['name'];
                 $value = $nama['value'];
@@ -1768,11 +1775,13 @@ class PerawatController extends Controller
 
                 ];
                 $obatpulang = erm_obat_pulang_igd::create($savedetailobatplg);
-            }
+            }}
         } catch (\Exception $e) {
             $back = [
                 'kode' => 200,
-                'message' => 'error input obat pulang'
+                // 'message' => 'error input obat pulang'
+                'message' => $e->getMessage()
+                
             ];
             echo json_encode($back);
             die;
@@ -1853,7 +1862,9 @@ class PerawatController extends Controller
         } catch (\Exception $e) {
             $back = [
                 'kode' => 200,
-                'message' => 'error input asses'
+                // 'message' => 'error input asses'
+                'message' => $e->getMessage()
+
             ];
             echo json_encode($back);
             die;
