@@ -620,54 +620,107 @@
                                         @endif
                                     </div><br>
                                     <div class="form-check">
-                                        @if($tf[0]->pp_bed_activity != NULL)
+                                        @if($tf[0]->m_personal_hygiene != NULL)
                                         <input class="form-check-input" type="checkbox" name="M_P" checked id="M_P" value="1">
                                         @else
                                         <input class="form-check-input" type="checkbox" name="M_P" id="M_P" value="1">
                                         @endif
                                     </div><br>
                                     <div class="form-check">
+                                        @if($tf[0]->m_dressing != NULL)
+                                        <input class="form-check-input" type="checkbox" name="M_D" checked id="M_D" value="1">
+                                        @else
                                         <input class="form-check-input" type="checkbox" name="M_D" id="M_D" value="1">
+
+                                        @endif
                                     </div><br>
                                     <div class="form-check">
+                                        @if($tf[0]->m_eating != NULL)
+                                        <input class="form-check-input" type="checkbox" checked name="M_E" id="M_E" value="1">
+                                        @else
                                         <input class="form-check-input" type="checkbox" name="M_E" id="M_E" value="1">
+                                        @endif
                                     </div><br>
                                     <div class="form-check">
+                                        @if($tf[0]->m_transfer != NULL)
+                                        <input class="form-check-input" type="checkbox" checked name="M_T" id="M_T" value="1">
+                                        @else
                                         <input class="form-check-input" type="checkbox" name="M_T" id="M_T" value="1">
+                                        @endif
                                     </div><br>
                                 </td>
                                 <td>
                                     <div class="form-check">
+                                        @if($tf[0]->pp_bed_activity != NULL)
+                                        <input class="form-check-input" type="checkbox" checked name="PPB" id="PPB" value="1">
+                                        @else
                                         <input class="form-check-input" type="checkbox" name="PPB" id="PPB" value="1">
+                                        @endif
                                     </div><br>
                                     <div class="form-check">
+                                        @if($tf[0]->pp_personal_hygiene != NULL)
+                                        <input class="form-check-input" type="checkbox" checked name="PPP" id="PPP" value="1">
+                                        @else
                                         <input class="form-check-input" type="checkbox" name="PPP" id="PPP" value="1">
+                                        @endif
                                     </div><br>
                                     <div class="form-check">
+                                        @if($tf[0]->pp_dressing != NULL)
+                                        <input class="form-check-input" type="checkbox" checked name="PPD" id="PPD" value="1">
+                                        @else
                                         <input class="form-check-input" type="checkbox" name="PPD" id="PPD" value="1">
+                                        @endif
                                     </div><br>
                                     <div class="form-check">
+                                        @if($tf[0]->pp_eating != NULL)
+                                        <input class="form-check-input" type="checkbox" name="PPE" checked id="PPE" value="1">
+                                        @else
                                         <input class="form-check-input" type="checkbox" name="PPE" id="PPE" value="1">
+                                        @endif
                                     </div><br>
                                     <div class="form-check">
+                                        @if($tf[0]->pp_transfer != NULL)
+                                        <input class="form-check-input" type="checkbox" checked name="PPT" id="PPT" value="1">
+                                        @else
                                         <input class="form-check-input" type="checkbox" name="PPT" id="PPT" value="1">
+                                        @endif
                                     </div><br>
                                 </td>
                                 <td>
                                     <div class="form-check">
+                                        @if($tf[0]->tm_bed_activity != NULL)
+                                        <input class="form-check-input" type="checkbox" checked name="TMB" id="TMB" value="1">
+                                        @else
                                         <input class="form-check-input" type="checkbox" name="TMB" id="TMB" value="1">
+                                        @endif
                                     </div><br>
                                     <div class="form-check">
+                                        @if($tf[0]->tm_personal_hygiene != NULL)
+                                        <input class="form-check-input" type="checkbox" checked name="TMP" id="TMP" value="1">
+                                        @else
                                         <input class="form-check-input" type="checkbox" name="TMP" id="TMP" value="1">
+                                        @endif
                                     </div><br>
                                     <div class="form-check">
+                                        @if($tf[0]->tm_dressing != NULL)
+                                        <input class="form-check-input" type="checkbox" checked name="TMD" id="TMD" value="1">
+                                        @else
                                         <input class="form-check-input" type="checkbox" name="TMD" id="TMD" value="1">
+                                        @endif
                                     </div><br>
                                     <div class="form-check">
+                                        @if($tf[0]->tm_eating != NULL)
+                                        <input class="form-check-input" type="checkbox" checked name="TME" id="TME" value="1">
+                                        @else
                                         <input class="form-check-input" type="checkbox" name="TME" id="TME" value="1">
+                                        @endif
                                     </div><br>
                                     <div class="form-check">
+                                        @if($tf[0]->tm_transfer != NULL)
+                                        <input class="form-check-input" checked type="checkbox" name="TMT" id="TMT" value="1">
+                                        @else
                                         <input class="form-check-input" type="checkbox" name="TMT" id="TMT" value="1">
+                                        @endif
                                     </div><br>
                                 </td>
                             </tr>
@@ -682,6 +735,7 @@
                                 </td>
                                 <td>
                                     <div class="form-check">
+
                                         <input class="form-check-input" type="checkbox" name="brg" id="brg" value="Rekam Medis Lengkap">
                                         <label class="form-check-label">Rekam Medis Lengkap</label>
                                     </div>
@@ -735,7 +789,7 @@
                                 </td>
                                 <td colspan="8">
                                     <div class="form-group">
-                                        <input class="form-control" type="input" name="ck" id="ck" value="">
+                                        <input class="form-control" type="input" name="ck" id="ck" value="{{$tf[0]->catatan_khusus}}">
                                     </div>
                                 </td>
                             </tr>
@@ -756,20 +810,44 @@
                                 </td>
                                 <td>
                                     <div class="form-check">
+                                        @if($tf[0]->kriteria_transfer == 'Derajat 0,')
+                                        <input class="form-check-input" type="checkbox" checked name="kri" id="kri" value="Derajat 0,">
+                                        <label class="form-check-label">Derajat 0,</label>
+                                        @else
                                         <input class="form-check-input" type="checkbox" name="kri" id="kri" value="Derajat 0,">
                                         <label class="form-check-label">Derajat 0,</label>
+                                        @endif
+
                                     </div>
                                     <div class="form-check">
+                                        @if($tf[0]->kriteria_transfer == 'Derajat 1')
+                                        <input class="form-check-input" type="checkbox" name="kri" checked id="kri" value="Derajat 1">
+                                        <label class="form-check-label">Derajat 1</label>
+                                        @else
                                         <input class="form-check-input" type="checkbox" name="kri" id="kri" value="Derajat 1">
                                         <label class="form-check-label">Derajat 1</label>
+                                        @endif
+
                                     </div>
                                     <div class="form-check">
+                                        @if($tf[0]->kriteria_transfer == 'Derajat 2')
+                                        <input class="form-check-input" type="checkbox" checked name="kri" id="kri" value="Derajat 2">
+                                        <label class="form-check-label">Derajat 2</label>
+                                        @else
                                         <input class="form-check-input" type="checkbox" name="kri" id="kri" value="Derajat 2">
                                         <label class="form-check-label">Derajat 2</label>
+                                        @endif
+
                                     </div>
                                     <div class="form-check">
+                                        @if($tf[0]->kriteria_transfer == 'Derajat 3')
+                                        <input class="form-check-input" type="checkbox" checked name="kri" id="kri" value="Derajat 3">
+                                        <label class="form-check-label">Derajat 3</label>
+                                        @else
                                         <input class="form-check-input" type="checkbox" name="kri" id="kri" value="Derajat 3">
                                         <label class="form-check-label">Derajat 3</label>
+                                        @endif
+
                                     </div>
 
                                 </td>
@@ -1543,7 +1621,8 @@
     $(".catatantficu").click(function() {
         spinner = $('#loader2');
         spinner.show();
-
+        var kj = $('#kj').val()
+        var norm = $('#norm').val()
 
 
 
@@ -1552,6 +1631,8 @@
             data: {
                 _token: "{{ csrf_token() }}",
 
+                        kj: $('#kj').val(),
+                        norm: $('#norm').val()
 
             },
             url: '<?= route('catatantficu') ?>',
@@ -1633,10 +1714,12 @@
         var brgl = $('#brgl:checked').val()
         var ck = $('#ck').val()
         var kri = $('#kri:checked').val()
-
-
-
-
+        var kricu = $('#kricu:checked').val()
+        var kkicu = $('#kkicu:checked').val()
+        var krpicu = $('#krpicu:checked').val()
+        var kkpicu = $('#kkpicu:checked').val()
+        var krnicu = $('#krnicu:checked').val()
+        var kknicu = $('#kknicu:checked').val()
 
         var kj = $('#kj').val()
         var norm = $('#norm').val()
@@ -1724,6 +1807,13 @@
                         brgl: $('#brgl:checked').val(),
                         ck: $('#ck').val(),
                         kri: $('#kri:checked').val(),
+                        kricu: $('#kricu:checked').val(),
+                        kkicu: $('#kkicu:checked').val(),
+                        krpicu: $('#krpicu:checked').val(),
+                        kkpicu: $('#kkpicu:checked').val(),
+                        krnicu: $('#krnicu:checked').val(),
+                        kknicu: $('#kknicu:checked').val(),
+
                         kj: $('#kj').val(),
                         norm: $('#norm').val()
 

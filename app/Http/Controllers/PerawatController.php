@@ -770,7 +770,7 @@ class PerawatController extends Controller
         $riwayatrekonobat = DB::select('SELECT * FROM rekonsiliasi_obat WHERE kode_kunjungan = ?', [$kj]);
         $poli = DB::select('SELECT kode_unit,nama_unit FROM mt_unit WHERE kelas_unit = 2');
         $tf = DB::connection('mysql4')->select('SELECT * FROM catatan_transfer_pasien WHERE kode_kunjungan = ?', [$kj]);
-        dd($tf);
+        // dd($tf);
         return view(
             'perawat.transferpasien',
             [
@@ -795,6 +795,10 @@ class PerawatController extends Controller
     }
     public function catatantficu(Request $request)
     {
+        $kj = $request->kj;
+        $norm = $request->norm;
+
+        $tf = DB::connection('mysql4')->select('SELECT * FROM catatan_transfer_pasien WHERE kode_kunjungan = ?', [$kj]);
 
 
 
@@ -803,7 +807,7 @@ class PerawatController extends Controller
             [
                 'title' => 'SiRAMAH PERAWAT',
 
-
+                'tf' => $tf 
 
             ]
         );
@@ -1716,7 +1720,7 @@ class PerawatController extends Controller
                 'tm_bed_activity' => $request->TMB,
                 'm_personal_hygiene' => $request->M_P,
                 'pp_personal_hygiene' => $request->PPP,
-                'tm_personal_hygiene' => $request->TMP,
+                'tm_personal_hygiene' => $request->TMP, 
                 'm_dressing' => $request->M_D,
                 'pp_dressing' => $request->PPD,
                 'tm_dressing' => $request->TMD,
@@ -1730,6 +1734,14 @@ class PerawatController extends Controller
                 //banyak yang belum
                 'catatan_khusus' => $request->ck,
                 'kriteria_transfer' => $request->kri,
+                'kriteria_masuk_icu' => $request->kricu,
+                'kriteria_keluar_icu' => $request->kkicu,
+                'kriteria_masuk_picu' => $request->krpicu,
+                'kriteria_keluar_picu' => $request->kkpicu,
+                'kriteria_masuk_nicu' => $request->krnicu,
+                'kriteria_keluar_nicu' => $request->kknicu,
+
+
                 'created_at' => $now
 
 
