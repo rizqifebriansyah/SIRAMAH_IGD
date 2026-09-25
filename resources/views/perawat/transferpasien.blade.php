@@ -877,7 +877,7 @@
 
 
                 <div class="col-3">
-                    <div type="button" class="btn float-left btn-success simpanctttransfer" style="margin-top: 20px;">
+                    <div type="button" class="btn float-left btn-success updatectttransfer" style="margin-top: 20px;">
                         SIMPAN
                     </div>
                     <!-- <div type="button" class="btn float-left btn-success cekkpemantauan ml-2" style="margin-top: 20px;">
@@ -1855,6 +1855,213 @@
         return false;
     });
 
+    
+     $(".updatectttransfer").click(function() {
+        var obatplg = $('.formobatplg').serializeArray();
+        var tgl_input_transfer = $('#tgl_input_transfer').val()
+        var tgl_selesai_transfer = $('#tgl_selesai_transfer').val()
+        var tinjutt = $('#tinjutt').val()
+        var tgl_pindah = $('#tgl_pindah').val()
+        var doktergp = $('#doktergp').val()
+        var alasan_rawat = $('#alasan_rawat').val()
+        var alasan_pindah = $('#alasan_pindah').val()
+        var situation = $('#situation').val()
+        var background = $('#background').val()
+        var kesadaran = $('#kesadaran:checked').val()
+        var gcs = $('#gcs').val()
+        var E = $('#E').val()
+        var M = $('#M').val()
+        var V = $('#V').val()
+        var tekanandarah = $('#tekanandarah').val()
+        var frekuensinadi = $('#frekuensinadi').val()
+        var frekuensinafas = $('#frekuensinafas').val()
+        var suhutubuh = $('#suhutubuh').val()
+        var oksigen = $('#oksigen').val()
+        var parental = $('#parental').val()
+        var transfusi = $('#transfusi').val()
+        var cateter = $('#cateter:checked').val()
+        var tgl_cateter = $('#tgl_cateter').val()
+        var hasil_pemeriksaan = $('#hasil_pemeriksaan').val()
+        var prosedur = $('#prosedur').val()
+        var diagd = $('#diagd').val()
+        var diagp = $('#diagp').val()
+        var prosedur_tindakan = $('#prosedur_tindakan').val()
+        var diet = $('#diet').val()
+        var Mobilisasi = $('#Mobilisasi').val()
+        var Edukasi = $('#Edukasi').val()
+        var ria = $('#ria').val()
+        var rinye = $('#rinye').val()
+        var peng = $('#peng:checked').val()
+        var pend = $('#cateter:checked').val()
+        var kom = $('#kom:checked').val()
+        var kf = $('#kf:checked').val()
+        var M_B = $('#M_B:checked').val()
+        var M_P = $('#M_P:checked').val()
+        var M_D = $('#M_D:checked').val()
+        var M_E = $('#M_E:checked').val()
+        var M_T = $('#M_T:checked').val()
+
+        var PPB = $('#PPB:checked').val()
+        var PPP = $('#PPP:checked').val()
+        var PPD = $('#PPD:checked').val()
+        var PPE = $('#PPE:checked').val()
+        var PPT = $('#PPT:checked').val()
+
+        var TMB = $('#TMB:checked').val()
+        var TMP = $('#TMP:checked').val()
+        var TMD = $('#TMD:checked').val()
+        var TME = $('#TME:checked').val()
+
+        var TMT = $('#TMT:checked').val()
+        var brg1 = $('#brg1:checked').val()
+        var brg2 = $('#brg2:checked').val()
+        var brg3 = $('#brg3:checked').val()
+        var brg4 = $('#brg4:checked').val()
+        var brg5 = $('#brg5:checked').val()
+        var brg6 = $('#brg6:checked').val()
+        var brgl = $('#brgl:checked').val()
+        var ck = $('#ck').val()
+        var kri = $('#kri:checked').val()
+        var kricu = $('#kricu:checked').val()
+        var kkicu = $('#kkicu:checked').val()
+        var krpicu = $('#krpicu:checked').val()
+        var kkpicu = $('#kkpicu:checked').val()
+        var krnicu = $('#krnicu:checked').val()
+        var kknicu = $('#kknicu:checked').val()
+
+        var kj = $('#kj').val()
+        var norm = $('#norm').val()
+
+        Swal.fire({
+            title: "Yakin Simpan Catatan Transfer?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Ya',
+            cancelButtonColor: '#d33',
+            cancelButtonText: "Batal"
+
+        }).then(result => {
+            //jika klik ya maka arahkan ke proses.php
+            if (result.isConfirmed) {
+                $.ajax({
+                    async: true,
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        obatplg: JSON.stringify(obatplg),
+                        tgl_input_transfer: $('#tgl_input_transfer').val(),
+                        tgl_pindah: $('#tgl_pindah').val(),
+                        tinjutt: $('#tinjutt').val(),
+                        tgl_selesai_transfer: $('#tgl_selesai_transfer').val(),
+                        doktergp: $('#doktergp').val(),
+                        alasan_rawat: $('#alasan_rawat').val(),
+                        alasan_pindah: $('#alasan_pindah').val(),
+                        situation: $('#situation').val(),
+                        background: $('#background').val(),
+                        kesadaran: $('#kesadaran:checked').val(),
+                        gcs: $('#gcs').val(),
+                        E: $('#E').val(),
+                        M: $('#M').val(),
+                        V: $('#V').val(),
+                        tekanandarah: $('#tekanandarah').val(),
+                        frekuensinadi: $('#frekuensinadi').val(),
+                        frekuensinafas: $('#frekuensinafas').val(),
+                        suhutubuh: $('#suhutubuh').val(),
+                        oksigen: $('#oksigen').val(),
+                        parental: $('#parental').val(),
+                        transfusi: $('#transfusi').val(),
+                        cateter: $('#cateter:checked').val(),
+                        tgl_cateter: $('#tgl_cateter').val(),
+                        hasil_pemeriksaan: $('#hasil_pemeriksaan').val(),
+                        prosedur: $('#prosedur').val(),
+                        diagd: $('#diagd').val(),
+                        diagp: $('#diagp').val(),
+                        prosedur_tindakan: $('#prosedur_tindakan').val(),
+                        diet: $('#diet').val(),
+                        Mobilisasi: $('#Mobilisasi').val(),
+                        Edukasi: $('#Edukasi').val(),
+                        ria: $('#ria').val(),
+                        rinye: $('#rinye').val(),
+                        peng: $('#peng:checked').val(),
+                        pend: $('#cateter:checked').val(),
+                        kom: $('#kom:checked').val(),
+                        kf: $('#kf:checked').val(),
+                        M_B: $('#M_B:checked').val(),
+                        M_P: $('#M_P:checked').val(),
+                        M_D: $('#M_D:checked').val(),
+                        M_E: $('#M_E:checked').val(),
+                        M_T: $('#M_T:checked').val(),
+
+                        PPB: $('#PPB:checked').val(),
+                        PPP: $('#PPP:checked').val(),
+                        PPD: $('#PPD:checked').val(),
+                        PPE: $('#PPE:checked').val(),
+                        PPT: $('#PPT:checked').val(),
+
+                        TMB: $('#TMB:checked').val(),
+                        TMP: $('#TMP:checked').val(),
+                        TMD: $('#TMD:checked').val(),
+                        TME: $('#TME:checked').val(),
+                        TMT: $('#TMT:checked').val(),
+
+                        brg1: $('#brg1:checked').val(),
+                        brg2: $('#brg2:checked').val(),
+                        brg3: $('#brg3:checked').val(),
+                        brg4: $('#brg4:checked').val(),
+                        brg5: $('#brg5:checked').val(),
+                        brg6: $('#brg6:checked').val(),
+                        brgl: $('#brgl:checked').val(),
+                        ck: $('#ck').val(),
+                        kri: $('#kri:checked').val(),
+                        kricu: $('#kricu:checked').val(),
+                        kkicu: $('#kkicu:checked').val(),
+                        krpicu: $('#krpicu:checked').val(),
+                        kkpicu: $('#kkpicu:checked').val(),
+                        krnicu: $('#krnicu:checked').val(),
+                        kknicu: $('#kknicu:checked').val(),
+
+                        kj: $('#kj').val(),
+                        norm: $('#norm').val()
+
+                    },
+                    url: '<?= route('updatectttransfer') ?>',
+
+                    error: function(data) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Sepertinya ada masalah ...',
+                            footer: ''
+                        })
+                    },
+                    success: function(data) {
+                        console.log(data)
+                        if (data.kode == 500) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: data.message,
+                                footer: ''
+                            })
+                        } else {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'OK',
+                                text: 'data berhasil disimpan',
+                                footer: ''
+                            })
+                            // cttntf()
+                        }
+
+                    }
+                });
+
+            }
+        })
+        return false;
+    });
 
     function cttntf() {
         spinner = $('#loader2');

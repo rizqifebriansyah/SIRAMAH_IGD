@@ -230,7 +230,7 @@
                             </li>
                              <li class="nav-item" id="pemeriksaan">
                                 <a href="#" class="nav-link transferpasien">
-                                    <i class="fas fa-book mr-2"></i>Catatan Transfer Pasien (progress)
+                                    <i class="fas fa-book mr-2"></i>Catatan Transfer Pasien
                                 </a>
                             </li>
                             <li class="nav-item" id="pemeriksaan">
