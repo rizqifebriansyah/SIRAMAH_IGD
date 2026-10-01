@@ -106,21 +106,15 @@
         </div>
     </div>
     <div class="row center" style="align-content:center; margin-top: 10px">
-        <div class="col-sm-3">
-            <input type="text" class="form-control" placeholder="Nama pasien">
-        </div>
-        <div class="col-sm-3">
-            <input type="text" class="form-control" placeholder="No RM">
-        </div>
-        <div class="col-sm-3">
-            <input type="text" class="form-control" placeholder="Alamat">
-        </div>
+
         <div class="col-sm-2">
             <input type="date" class="form-control" id="tanggal_kunjungan" autocomplete="off" data-language="en" data-date-format="yyyy-mm-dd" placeholder="Tanggal">
         </div>
-
+        <div class="col-sm-2">
+            <input type="date" class="form-control" id="tanggal_kunjungan1" autocomplete="off" data-language="en" data-date-format="yyyy-mm-dd" placeholder="Tanggal">
+        </div>
         <div>
-            <button type="submit" class="btn btn-primary" onclick="caripasienigdperawat()"> <i class="bi bi-search-heart"></i>
+            <button type="submit" class="btn btn-primary" onclick="cariassesmenpasienvk()"> <i class="bi bi-search-heart"></i>
             </button>
         </div>
     </div>
@@ -158,24 +152,24 @@
 
 
                         <td class="status1" style="text-align: center;">
-                         
+
                             @if ($a->nama_perawat == null && $a->nama_perawat1 == null)
-                            <button class="badge badge-danger "> belum diisi </button>
-                            @elseif ($a->status == 2  )
-                            <button class="badge badge-success "> Sudah validasi </button> | {{ $a->nama_perawat }}
+                            <button class="badge badge-danger ermvk"> belum diisi </button>
+                            @elseif ($a->status == 2 )
+                            <button class="badge badge-success ermvk"> Sudah validasi </button> | {{ $a->nama_perawat }}
                             @else
-                            <button class="badge badge-warning "> belum validasi </button> | {{ $a->nama_perawat }}
+                            <button class="badge badge-warning ermvk"> belum validasi </button> | {{ $a->nama_perawat }}
 
                             @endif
-                                                  </td>
+                        </td>
                         <td class="status2" style="text-align: center;">
                             @if ($a->nama_paramedis == null)
-                            <button class="badge badge-danger "> belum diisi </button>
+                            <button class="badge badge-danger ermvk"> belum diisi </button>
                             @elseif ($a->status_dokter == 2)
-                            <button class="badge badge-success"> Sudah validasi </button> | {{ $a->nama_perawat }}
+                            <button class="badge badge-successermvk"> Sudah validasi </button> | {{ $a->nama_perawat }}
 
                             @else
-                            <button class="badge badge-warning "> Belum Validasi </button> | {{ $a->nama_paramedis }}
+                            <button class="badge badge-warning ermvk"> Belum Validasi </button> | {{ $a->nama_paramedis }}
                             @endif
                         </td>
 
@@ -195,6 +189,8 @@
     spinner.hide();
 
     document.getElementById('tanggal_kunjungan').valueAsDate = new Date()
+    document.getElementById('tanggal_kunjungan1').valueAsDate = new Date()
+
     $(function() {
         $("#datapasienigd").DataTable({
             "responsive": false,
@@ -205,7 +201,7 @@
         });
     });
 
-    
+
 
     function caripasienvk() {
         spinner = $('#loader2');
@@ -235,19 +231,22 @@
 
     }
 
-    function caripasienigdperawat() {
+    function cariassesmenpasienvk() {
         spinner = $('#loader2');
         spinner.show();
         tglkunjungan = $('#tanggal_kunjungan').val()
+        tglkunjungan1 = $('#tanggal_kunjungan1').val()
+
 
         $.ajax({
             type: "post",
             data: {
                 _token: " {{ csrf_token() }}",
-                tglkunjungan
+                tglkunjungan,
+                tglkunjungan1
 
             },
-            url: " {{ route('caripasienigdperawat') }}",
+            url: " {{ route('cariassesmenpasienvk') }}",
             error: function(data) {
                 spinner.hide();
 
@@ -261,41 +260,42 @@
         })
 
     }
-    $(".ermperawat").click(function() {
-        spinner = $('#loader2');
-        spinner.show();
-        var $row = $(this).closest("tr");
-        var norm = $row.find(".norm").text();
-        var namapx = $row.find(".namapx").text();
-        var jk = $row.find(".jk").text();
-        var status1 = $row.find(".status1").text();
-        var kj = $row.find(".kj").text();
-        var tglmasuk = $row.find(".tglmasuk").text();
-        var status2 = $row.find(".status2").text();
-        $.ajax({
-            type: "post",
-            data: {
-                _token: "{{ csrf_token() }}",
-                norm,
-                namapx,
-                jk,
-                kj,
-                status1,
-                status2,
-                tglmasuk
+     $(".ermvk").click(function() {
+         spinner = $('#loader2');
+         spinner.show();
+         var $row = $(this).closest("tr");
+         var norm = $row.find(".norm").text();
+         var namapx = $row.find(".namapx").text();
+         var namaunit = $row.find(".namaunit").text();
 
-            },
-            url: '<?= route('ermperawat') ?>',
-            error: function(data) {
-                spinner.hide();
-                alert('oke!!')
-            },
-            success: function(response) {
-                spinner.hide();
-                $('.ermperawatview').html(response);
+         var jk = $row.find(".jk").text();
+         var kj = $row.find(".kj").text();
+         var tglmasuk = $row.find(".tglmasuk").text();
+         $.ajax({
+             type: "post",
+             data: {
+                 _token: "{{ csrf_token() }}",
+                 norm,
+                 namapx,
+                 namaunit,
 
-            }
-        });
-    });
+                 jk,
+                 kj,
+
+                 tglmasuk
+
+             },
+             url: '<?= route('ermvk') ?>',
+             error: function(data) {
+                 spinner.hide();
+                 alert('oke!!')
+             },
+             success: function(response) {
+                 spinner.hide();
+                 $('.ermperawatview').html(response);
+
+             }
+         });
+     });
 </script>
 @endsection

@@ -45,7 +45,7 @@
                     <a href="{{ route('vk') }}" class="nav-link @if($menu == 'vk' ) active @endif">
                         <i class="nav-icon fas fa-archive"></i>
                         <p>
-                            Assesment Kebidanan
+                            Assesment Kebidanan VK
                         </p>
                     </a>
                 </li>

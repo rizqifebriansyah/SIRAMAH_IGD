@@ -24,7 +24,7 @@
                         <input type="text" name="tglmasuk" id="tglmasuk" value="{{ $tglmasuk }}" hidden>
 
                         @if ($ttv == null)
-                        <p class="text-muted text-center">PASIEN INSTALASI GAWAT DARURAT</p>
+                        <p class="text-muted text-center">PASIEN VK</p>
                         <ul class="list-group list-group-unbordered mb-3">
                             <li class="list-group-item">
                                 <b>TD</b> <a class="float-right"> mmhg</a>
@@ -58,7 +58,7 @@
                             </li>
                         </ul>
                         @else
-                        <p class="text-muted text-center">PASIEN INSTALASI GAWAT DARURAT</p>
+                        <p class="text-muted text-center">PASIEN VK</p>
                         <ul class="list-group list-group-unbordered mb-3">
                             <li class="list-group-item">
                                 <b>TD</b> <a class="float-right">{{ $ttv[0]->tekanan_darah }} mmhg</a>
@@ -120,11 +120,12 @@
                                     <i class="fas fa-male mr-2"></i>Pemantauan Tanda Vital Pasien
                                 </a>
                             </li>
-                             <!-- <li class="nav-item" id="pemeriksaan">
-                                <a href="#" class="nav-link transferpasien">
-                                    <i class="fas fa-book mr-2"></i>Catatan Transfer Pasien (progress)
+                            <li class="nav-item" id="pemeriksaan">
+                                <a href="#" class="nav-link transferpasienvk">
+                                    <i class="fas fa-book mr-2"></i>Catatan Transfer Pasien
                                 </a>
                             </li>
+                            <!-- 
                             <li class="nav-item" id="pemeriksaan">
                                 <a href="#" class="nav-link rencanaplg">
                                     <i class="fas fa-filter mr-2"></i>Rencana Pemulangan Pasien
@@ -684,7 +685,7 @@
             }
         });
     });
-    $(".transferpasien").click(function() {
+    $(".transferpasienvk").click(function() {
         spinner = $('#loader2');
         spinner.show();
         kj = $('#kj').val()
@@ -699,7 +700,7 @@
                 kj
 
             },
-            url: '<?= route('transferpasien') ?>',
+            url: '<?= route('transferpasienvk') ?>',
             error: function(data) {
                 spinner.hide();
                 alert('oke!!')

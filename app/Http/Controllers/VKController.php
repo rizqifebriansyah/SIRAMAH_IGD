@@ -93,7 +93,7 @@ class VKController extends Controller
             ON e.kode_kunjungan = d.kode_kunjungan
 
         WHERE d.tgl_input >= "2026-09-01"
-        AND d.tgl_input < "2026-09-07"
+        AND d.tgl_input < "2026-09-31"
         AND d.kode_unit = ?', [$unit]);
 
         //  [$now, $tgl_masuk_1, $unit]);
@@ -107,6 +107,77 @@ class VKController extends Controller
                 'pasienigd' => $pasienigd,
                 'user' => $user,
                 'unit' => $unit
+            ]
+        );
+    }
+
+    public function cariassesmenpasienvk(Request $request)
+    {
+        $menu = 'vk';
+        $user = auth()->user()->nama;
+        $unit = auth()->user()->unit;
+        // dd($unit);
+
+
+        $tgl = $request->tglkunjungan;
+        $tgl1 = $request->tglkunjungan1;
+
+        $pasienigd = DB::select('SELECT 
+            e.diagnosis AS DIAGX,
+            d.no_rm,
+            d.tgl_kunjungan as tgl_masuk,
+            "" AS nama_perawat,
+            IFNULL(d.nama_bidan, "") AS nama_perawat,
+            d.status,
+            e.status AS status_dokter,
+
+            IFNULL(e.nama_paramedis2, IFNULL(e.nama_paramedis, "")) AS nama_paramedis,
+            fc_nama_px(d.no_rm) AS nama_px,
+            d.tgl_input,
+            fc_NAMA_PARAMEDIS1(d.kode_paramedis) AS nama_dpjp,
+            
+            d.kode_kunjungan
+            
+        
+
+        FROM (
+            SELECT d1.*
+            FROM erm_cppt_kebidanan d1
+            INNER JOIN (
+                SELECT kode_kunjungan, MAX(id) AS max_id
+                FROM erm_cppt_kebidanan
+                WHERE STATUS NOT IN (2,3)
+                GROUP BY kode_kunjungan
+            ) d2 
+                ON d1.kode_kunjungan = d2.kode_kunjungan 
+                AND d1.id = d2.max_id
+        ) d
+
+        LEFT JOIN (
+            SELECT e1.*
+            FROM erm_cppt_dokter_kebidanan e1
+            INNER JOIN (
+                SELECT kode_kunjungan, MAX(id) AS max_id
+                FROM erm_cppt_dokter_kebidanan
+                WHERE STATUS NOT IN (2,3)
+                GROUP BY kode_kunjungan
+            ) e2 
+                ON e1.kode_kunjungan = e2.kode_kunjungan 
+                AND e1.id = e2.max_id
+        ) e 
+            ON e.kode_kunjungan = d.kode_kunjungan
+
+        WHERE d.tgl_input >= ?
+        AND d.tgl_input < ?
+        AND d.kode_unit = ?', [$tgl, $tgl1, $unit]);
+        // dd($pasienigd);
+        return view(
+            'vk.tableassespasienvk',
+            [
+                'pasienigd' => $pasienigd,
+
+
+
             ]
         );
     }
@@ -371,7 +442,7 @@ class VKController extends Controller
             ]
         );
     }
-      public function pemantauanviewvk(Request $request)
+    public function pemantauanviewvk(Request $request)
     {
         $kj  = $request->kj;
         $norm = $request->norm;
@@ -387,6 +458,60 @@ class VKController extends Controller
 
 
         ]);
+    }
+    public function transferpasienvk(Request $request)
+    {
+        $unit = auth()->user()->unit;
+
+        $kj = $request->kj;
+        $norm = $request->norm;
+        $now = Carbon::now()->format('Y-m-d H:i:s');
+        $ranap = DB::select('SELECT kode_unit,nama_unit FROM mt_unit WHERE kelas_unit = 2');
+        $ttv = DB::select('SELECT tekanan_darah, frekuensi_nafas, frekuensi_nadi, suhu, berat_badan, umur, keadaan_umum, kesadaran, gcs, spo2 FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
+        $riwayatrekonobat = DB::select('SELECT * FROM rekonsiliasi_obat WHERE kode_kunjungan = ?', [$kj]);
+        $poli = DB::select('SELECT kode_unit,nama_unit FROM mt_unit WHERE kelas_unit = 2');
+        $tf = DB::connection('mysql4')->select('SELECT * FROM catatan_transfer_pasien WHERE kode_kunjungan = ?', [$kj]);
+        // dd($tf);
+        return view(
+            'vk.transferpasienvk',
+            [
+                'title' => 'SiRAMAH VK',
+                'unit' => $unit,
+                'tf' => $tf,
+
+                'now' => $now,
+                'norm' => $norm,
+                'ranap' => $ranap,
+                'poli' => $poli,
+
+                'ttv' => $ttv,
+                'riwayatrekonobat' => $riwayatrekonobat,
+                'kj' => $kj
+
+
+
+
+            ]
+        );
+    }
+    public function catatantficuvk(Request $request)
+    {
+        $kj = $request->kj;
+        $norm = $request->norm;
+
+        $tf = DB::connection('mysql4')->select('SELECT * FROM catatan_transfer_pasien WHERE kode_kunjungan = ?', [$kj]);
+
+
+
+        return view(
+            'vk.catatantficuvk',
+            [
+                'title' => 'SiRAMAH VK',
+
+                'tf' => $tf
+
+            ]
+        );
     }
     public function simpanassesvk(Request $request)
     {
@@ -1400,7 +1525,7 @@ class VKController extends Controller
         echo json_encode($back);
         die;
     }
-      public function uploadvk(Request $request)
+    public function uploadvk(Request $request)
     {
         $norm = $request->norm;
         $kj = $request->kj;
@@ -1440,10 +1565,323 @@ class VKController extends Controller
 
             ]
         );
-
     }
+    public function simpanctttransfervk(Request $request)
+    {
+        $a = $request->all();
+        $now = Carbon::now();
+        $user = auth()->user()->id_simrs;
+        $name = auth()->user()->nama;
+        $kp = auth()->user()->kode_paramedis;
+        $kj = $request->kj;
+        $norm = $request->norm;
+        $unit = auth()->user()->unit;
+        if ($unit == '1002') {
+            $nama_unit = 'IGD';
+        } else {
+            $nama_unit = 'IGDK';
+        }
 
-      public function simpanhasillaminaria(Request $request)
+
+        //simpan catatan transfer pasien
+        try {
+            $catatan = catatan_transfer_pasien::create([
+                'kode_kunjungan' => $kj,
+                'rm' => $norm,
+                'ruangan_asal' => $nama_unit,
+                'kode_unit' => $unit,
+                'pindah_ke' => $request->tinjutt,
+                'tgl_pindah' => $request->tgl_pindah,
+                'tgl_pengkajian_transfer' => $request->tgl_input_transfer,
+                'tgl_selesai_transfer' => $request->tgl_selesai_transfer,
+
+                'dokter_yang_merawat' => $request->doktergp,
+                'alasan_dirawat' => $request->alasan_rawat,
+                'alasan_pindah' => $request->alasan_pindah,
+                'keluhan_pasien_terkini' => $request->situation,
+                'keterangan_backgroung' => $request->backgroung,
+                'kondisi_kesadaran' => $request->kesadaran,
+                'gcs_e' => $request->E,
+                'gcs_m' => $request->M,
+                'gcs_v' => $request->V,
+                'tekanan_darah' => $request->tekanandarah,
+                'nadi' => $request->frekuensinado,
+                'pernafasan' => $request->frekuensinafas,
+                'suhu' => $request->suhutubuh,
+                'penggunaan_oksigen' => $request->oksigen,
+                'cairan_perenteral' => $request->parental,
+                'transfusi' => $request->transfusi,
+                'penggunaan_cateter' => $request->cateter,
+                'tgl_pemakaian'  => $request->tgl_cateter,
+                'hasil_pemeriksaan_selama_dirawat' => $request->hasil_pemmeriksaan,
+                'tindakan_yang_sudah_dilakukan' => $request->prosedur,
+                'diagnosa_medis' => $request->diagd,
+                'diagnosa_keperawatan' => $request->diagp,
+                'tindakan_belum_dilakukan' => $request->prosedur_tindakan,
+                'diet' => $request->diet,
+                'mobilisasi' => $request->Mobilisasi,
+                'edukasi' => $request->Edukasi,
+                'riwayat_alergi' => $request->ria,
+                'program_nyeri' =>  $request->rinye,
+                'pengelihatan' => $request->peng,
+                'pendengaran' => $request->pend,
+                'komunikasi' => $request->kom,
+                'kf' => $request->kf,
+
+                'm_bed_activity' => $request->M_B,
+                'pp_bed_activity' => $request->PPB,
+                'tm_bed_activity' => $request->TMB,
+                'm_personal_hygiene' => $request->M_P,
+                'pp_personal_hygiene' => $request->PPP,
+                'tm_personal_hygiene' => $request->TMP,
+                'm_dressing' => $request->M_D,
+                'pp_dressing' => $request->PPD,
+                'tm_dressing' => $request->TMD,
+                'm_eating' => $request->M_E,
+                'pp_eating' => $request->PPE,
+                'tm_eating' => $request->TME,
+                'm_transfer' => $request->M_T,
+                'pp_transfer' => $request->PPT,
+                'tm_transfer' => $request->TMT,
+
+                //banyak yang belum
+                'catatan_khusus' => $request->ck,
+                'kriteria_transfer' => $request->kri,
+                'kriteria_masuk_icu' => $request->kricu,
+                'kriteria_keluar_icu' => $request->kkicu,
+                'kriteria_masuk_picu' => $request->krpicu,
+                'kriteria_keluar_picu' => $request->kkpicu,
+                'kriteria_masuk_nicu' => $request->krnicu,
+                'kriteria_keluar_nicu' => $request->kknicu,
+                'status' => '1',
+
+                'created_at' => $now
+
+
+            ]);
+        } catch (\Exception $e) {
+            $back = [
+                'kode' => 200,
+                'message' => 'error input catatan transfer'
+            ];
+            echo json_encode($back);
+            die;
+        }
+
+
+        try {
+            $obatpllg = json_decode($_POST['obatplg'], true);
+            // dd($obatpllg);
+            if ($obatpllg == null) {
+            } else {
+                foreach ($obatpllg as $nama) {
+                    $index = $nama['name'];
+                    $value = $nama['value'];
+                    $dataSet[$index] = $value;
+                    if ($index == 'intruksi') {
+                        $arrayindex[] = $dataSet;
+                    }
+                }
+                // $id_detail = $this->createLayanandetail();
+                foreach ($arrayindex as $arr) {
+                    $savedetailobatplg = [
+                        // 'kode_detail_obat' => $id_detail,
+                        'rm' => $norm,
+                        'kode_kunjungan' => $kj,
+                        'kode_unit' => '1002',
+                        'nama_obat' => $arr['namaobat'],
+                        'dosis' => $arr['dosis'],
+                        'jam_pemberian' => $arr['jampemberian'],
+                        'instrusi_khusus' => $arr['intruksi'],
+
+
+                        'tgl_input' => $now,
+                        'status' => 4
+
+                    ];
+                    $obatpulang = erm_obat_pulang_igd::create($savedetailobatplg);
+                }
+            }
+        } catch (\Exception $e) {
+            $back = [
+                'kode' => 200,
+                // 'message' => 'error input obat pulang'
+                'message' => $e->getMessage()
+
+            ];
+            echo json_encode($back);
+            die;
+        }
+
+        $back = [
+            'kode' => 200,
+            'message' => 'Berhasil'
+        ];
+        echo json_encode($back);
+        die;
+    }
+    public function updatectttransfervk(Request $request)
+    {
+        $a = $request->all();
+        $now = Carbon::now();
+        $user = auth()->user()->id_simrs;
+        $name = auth()->user()->nama;
+        $kp = auth()->user()->kode_paramedis;
+        $kj = $request->kj;
+        $norm = $request->norm;
+        $unit = auth()->user()->unit;
+        if ($unit == '1002') {
+            $nama_unit = 'IGD';
+        } else {
+            $nama_unit = 'IGDK';
+        }
+
+
+
+
+        //simpan catatan transfer pasien
+        try {
+            $tf = DB::connection('mysql4')->select('SELECT * FROM catatan_transfer_pasien WHERE kode_kunjungan = ? AND status ="1"', [$kj]);
+            if ($tf[0]->status == 1) {
+                $tf = DB::connection('mysql4')->select('UPDATE catatan_transfer_pasien SET status = "3"  WHERE kode_kunjungan = ?', [$kj]);
+
+                $catatan = catatan_transfer_pasien::create([
+                    'kode_kunjungan' => $kj,
+                    'rm' => $norm,
+                    'ruangan_asal' => $nama_unit,
+                    'kode_unit' => $unit,
+                    'pindah_ke' => $request->tinjutt,
+                    'tgl_pindah' => $request->tgl_pindah,
+                    'tgl_pengkajian_transfer' => $request->tgl_input_transfer,
+                    'tgl_selesai_transfer' => $request->tgl_selesai_transfer,
+
+                    'dokter_yang_merawat' => $request->doktergp,
+                    'alasan_dirawat' => $request->alasan_rawat,
+                    'alasan_pindah' => $request->alasan_pindah,
+                    'keluhan_pasien_terkini' => $request->situation,
+                    'keterangan_backgroung' => $request->backgroung,
+                    'kondisi_kesadaran' => $request->kesadaran,
+                    'gcs_e' => $request->E,
+                    'gcs_m' => $request->M,
+                    'gcs_v' => $request->V,
+                    'tekanan_darah' => $request->tekanandarah,
+                    'nadi' => $request->frekuensinado,
+                    'pernafasan' => $request->frekuensinafas,
+                    'suhu' => $request->suhutubuh,
+                    'penggunaan_oksigen' => $request->oksigen,
+                    'cairan_perenteral' => $request->parental,
+                    'transfusi' => $request->transfusi,
+                    'penggunaan_cateter' => $request->cateter,
+                    'tgl_pemakaian'  => $request->tgl_cateter,
+                    'hasil_pemeriksaan_selama_dirawat' => $request->hasil_pemmeriksaan,
+                    'tindakan_yang_sudah_dilakukan' => $request->prosedur,
+                    'diagnosa_medis' => $request->diagd,
+                    'diagnosa_keperawatan' => $request->diagp,
+                    'tindakan_belum_dilakukan' => $request->prosedur_tindakan,
+                    'diet' => $request->diet,
+                    'mobilisasi' => $request->Mobilisasi,
+                    'edukasi' => $request->Edukasi,
+                    'riwayat_alergi' => $request->ria,
+                    'program_nyeri' =>  $request->rinye,
+                    'pengelihatan' => $request->peng,
+                    'pendengaran' => $request->pend,
+                    'komunikasi' => $request->kom,
+                    'kf' => $request->kf,
+
+                    'm_bed_activity' => $request->M_B,
+                    'pp_bed_activity' => $request->PPB,
+                    'tm_bed_activity' => $request->TMB,
+                    'm_personal_hygiene' => $request->M_P,
+                    'pp_personal_hygiene' => $request->PPP,
+                    'tm_personal_hygiene' => $request->TMP,
+                    'm_dressing' => $request->M_D,
+                    'pp_dressing' => $request->PPD,
+                    'tm_dressing' => $request->TMD,
+                    'm_eating' => $request->M_E,
+                    'pp_eating' => $request->PPE,
+                    'tm_eating' => $request->TME,
+                    'm_transfer' => $request->M_T,
+                    'pp_transfer' => $request->PPT,
+                    'tm_transfer' => $request->TMT,
+
+                    //banyak yang belum
+                    'catatan_khusus' => $request->ck,
+                    'kriteria_transfer' => $request->kri,
+                    'kriteria_masuk_icu' => $request->kricu,
+                    'kriteria_keluar_icu' => $request->kkicu,
+                    'kriteria_masuk_picu' => $request->krpicu,
+                    'kriteria_keluar_picu' => $request->kkpicu,
+                    'kriteria_masuk_nicu' => $request->krnicu,
+                    'kriteria_keluar_nicu' => $request->kknicu,
+                    'status' => '1',
+
+                    'created_at' => $now
+
+
+                ]);
+            }
+        } catch (\Exception $e) {
+            $back = [
+                'kode' => 200,
+                'message' => 'error input catatan transfer'
+            ];
+            echo json_encode($back);
+            die;
+        }
+
+
+        try {
+            $obatpllg = json_decode($_POST['obatplg'], true);
+            // dd($obatpllg);
+            if ($obatpllg == null) {
+            } else {
+                foreach ($obatpllg as $nama) {
+                    $index = $nama['name'];
+                    $value = $nama['value'];
+                    $dataSet[$index] = $value;
+                    if ($index == 'intruksi') {
+                        $arrayindex[] = $dataSet;
+                    }
+                }
+                // $id_detail = $this->createLayanandetail();
+                foreach ($arrayindex as $arr) {
+                    $savedetailobatplg = [
+                        // 'kode_detail_obat' => $id_detail,
+                        'rm' => $norm,
+                        'kode_kunjungan' => $kj,
+                        'kode_unit' => '1002',
+                        'nama_obat' => $arr['namaobat'],
+                        'dosis' => $arr['dosis'],
+                        'jam_pemberian' => $arr['jampemberian'],
+                        'instrusi_khusus' => $arr['intruksi'],
+
+
+                        'tgl_input' => $now,
+                        'status' => 4
+
+                    ];
+                    $obatpulang = erm_obat_pulang_igd::create($savedetailobatplg);
+                }
+            }
+        } catch (\Exception $e) {
+            $back = [
+                'kode' => 200,
+                // 'message' => 'error input obat pulang'
+                'message' => $e->getMessage()
+
+            ];
+            echo json_encode($back);
+            die;
+        }
+
+        $back = [
+            'kode' => 200,
+            'message' => 'Berhasil'
+        ];
+        echo json_encode($back);
+        die;
+    }
+    public function simpanhasillaminariavk(Request $request)
     {
 
         $dt = Carbon::now()->timezone('Asia/Jakarta');
@@ -1475,6 +1913,12 @@ class VKController extends Controller
         // File path
         $filepath = url('../../files/' . $filename);
 
+            $create = upload_berkas_igd::create([
+            'kode_kunjungan' => $kj,
+            'no_rm' => $norm,
+
+            'laminaria' => $filename
+        ]);
 
         // $update = DB::table(' UPDATE erm_cppt_perawat
         // SET hasil_ekg = ? WHERE kode_kunjungan = ?', [$filepath,$kj]);
@@ -1495,7 +1939,7 @@ class VKController extends Controller
         echo json_encode($back);
         die;
     }
-    public function simpanhasilpathway(Request $request)
+    public function simpanhasilpathwayvk(Request $request)
     {
 
         $dt = Carbon::now()->timezone('Asia/Jakarta');
@@ -1553,7 +1997,7 @@ class VKController extends Controller
         echo json_encode($back);
         die;
     }
-    public function simpanhasiltransfusi(Request $request)
+    public function simpanhasiltransfusivk(Request $request)
     {
 
         $dt = Carbon::now()->timezone('Asia/Jakarta');
@@ -1610,7 +2054,7 @@ class VKController extends Controller
         echo json_encode($back);
         die;
     }
-    public function simpanhasilskl(Request $request)
+    public function simpanhasilsklvk(Request $request)
     {
 
         $dt = Carbon::now()->timezone('Asia/Jakarta');
@@ -1668,7 +2112,7 @@ class VKController extends Controller
         echo json_encode($back);
         die;
     }
-    public function simpanhasilbiopsi(Request $request)
+    public function simpanhasilbiopsivk(Request $request)
     {
 
         $dt = Carbon::now()->timezone('Asia/Jakarta');
@@ -1726,7 +2170,7 @@ class VKController extends Controller
         echo json_encode($back);
         die;
     }
-    public function simpanhasilkuret(Request $request)
+    public function simpanhasilkuretvk(Request $request)
     {
 
         $dt = Carbon::now()->timezone('Asia/Jakarta');
@@ -1784,7 +2228,7 @@ class VKController extends Controller
         echo json_encode($back);
         die;
     }
-    public function simpanhasilusg(Request $request)
+    public function simpanhasilusgvk(Request $request)
     {
 
         $dt = Carbon::now()->timezone('Asia/Jakarta');
@@ -1842,7 +2286,7 @@ class VKController extends Controller
         echo json_encode($back);
         die;
     }
-    public function simpanhasilpartograp(Request $request)
+    public function simpanhasilpartograpvk(Request $request)
     {
 
         $dt = Carbon::now()->timezone('Asia/Jakarta');
@@ -1899,7 +2343,7 @@ class VKController extends Controller
         echo json_encode($back);
         die;
     }
-    public function simpanhasilctg(Request $request)
+    public function simpanhasilctgvk(Request $request)
     {
 
         $dt = Carbon::now()->timezone('Asia/Jakarta');
@@ -1957,7 +2401,7 @@ class VKController extends Controller
         echo json_encode($back);
         die;
     }
-    public function simpanhasilekg(Request $request)
+    public function simpanhasilekgvk(Request $request)
     {
 
         $dt = Carbon::now()->timezone('Asia/Jakarta');
@@ -2014,7 +2458,7 @@ class VKController extends Controller
         echo json_encode($back);
         die;
     }
-    public function simpanhasilspp(Request $request)
+    public function simpanhasilsppvk(Request $request)
     {
 
         $dt = Carbon::now()->timezone('Asia/Jakarta');
@@ -2071,7 +2515,7 @@ class VKController extends Controller
         echo json_encode($back);
         die;
     }
-    public function simpanhasiltdkn(Request $request)
+    public function simpanhasiltdknvk(Request $request)
     {
 
         $dt = Carbon::now()->timezone('Asia/Jakarta');
@@ -2127,7 +2571,7 @@ class VKController extends Controller
         echo json_encode($back);
         die;
     }
-    public function simpanhasiltf(Request $request)
+    public function simpanhasiltfvk(Request $request)
     {
 
         $dt = Carbon::now()->timezone('Asia/Jakarta');

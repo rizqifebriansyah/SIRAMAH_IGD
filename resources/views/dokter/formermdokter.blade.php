@@ -1,5 +1,5 @@
 <!-- igd umum tanpa isi  -->
- <input type="text" name="ku" id="ku" value="{{ $ku }}" hidden>
+<input type="text" name="ku" id="ku" value="{{ $ku }}" hidden>
 <input type="text" name="kp" id="kp" value="{{ $kp }}" hidden>
 <input type="text" name="counter" id="counter" value="{{ $counter }}" hidden>
 <input type="text" name="kelas" id="kelas" value="{{ $kelas }}" hidden>
@@ -2114,19 +2114,47 @@
                                 <tr>
                                     <td class="text-bold font-italic">Evaluasi (30 menit pertama)</td>
                                     <td>
-                                        <div class="input-group">
+                                        <form id="dynamic-form" class="form30pdpjp">
+
+                                            <div class="field_wrapper30p">
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <H5>KLIK TOMBOL TAMBAH UNTUK MENAMBAHKAN 30 Menit pertama DPJP</H5>
+
+                                                        <div class="col-md-2">
+                                                            <a class="btn btn-success" href="javascript:void(0);" id="add_button_30p" title="Add field">TAMBAH</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <!-- <div class="input-group">
                                             <textarea class="form-control" id="tigap" name="tigap" placeholder=""></textarea>
 
-                                        </div>
+                                        </div> -->
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="text-bold font-italic">Evaluasi (30 menit kedua)</td>
                                     <td>
-                                        <div class="input-group">
+                                        <form id="dynamic-form" class="form30kdpjp">
+
+                                            <div class="field_wrapper30k">
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <H5>KLIK TOMBOL TAMBAH UNTUK MENAMBAHKAN 30 Menit kedua DPJP</H5>
+
+                                                        <div class="col-md-2">
+                                                            <a class="btn btn-success" href="javascript:void(0);" id="add_button_30k" title="Add field">TAMBAH</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <!-- <div class="input-group">
                                             <textarea class="form-control" id="tigak" name="tigak" placeholder=""></textarea>
 
-                                        </div>
+                                        </div> -->
                                     </td>
                                 </tr>
                                 <tr>
@@ -7475,12 +7503,14 @@
                                                 <td hidden class="idtdp">{{$td->id}}</td>
 
                                                 <td>{{$td->nama_dpjp}}</td>
-                                                <td>{{$td->tindakan_kedokteran}}</td>
+                                                <td>
+                                                    {{$td->tindakan_kedokteran}}
+                                                </td>
 
                                                 <td> <a class=" btn btn-danger btn-sm returordertdp" href="#">
                                                         <!-- <i class="fas fa-sync-alt fa-spin"></i> -->
                                                         RETUR
-                                                    </a></td>
+                                                    </a> </td>
                                             </tr>
                                             @endforeach
 
@@ -7526,6 +7556,108 @@
                         <tr>
                             <td class="text-bold font-italic">Evaluasi (30 menit pertama)</td>
                             <td>
+                                <div class="row">
+                                    <table id="tablet30pdpjp" class="table tablet30pdpjp table-bordered">
+                                        <thead>
+
+                                            <th hidden>id</th>
+                                            <th>Nama Dokter Penanggung Jawab</th>
+
+
+                                            <th>Evaluasi</th>
+                                            <th style="width: 40px">Action</th>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($riwayattindakandpjp30p as $rtd => $td)
+
+                                            <tr>
+                                                <td hidden class="idtigap">{{$td->id}}</td>
+
+                                                <td>{{$td->nama_dpjp}}</td>
+                                                <td>{{$td->tiga_pertama}}</td>
+
+                                                <td> </td>
+                                            </tr>
+                                            @endforeach
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                                <form id="dynamic-form" class="form30pdpjp">
+
+                                    <div class="field_wrapper30p">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <H5>KLIK TOMBOL TAMBAH UNTUK MENAMBAHKAN 30 Menit pertama DPJP</H5>
+
+                                                <div class="col-md-2">
+                                                    <a class="btn btn-success" href="javascript:void(0);" id="add_button_30p" title="Add field">TAMBAH</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <!-- <div class="input-group">
+                                            <textarea class="form-control" id="tigap" name="tigap" placeholder=""></textarea>
+
+                                        </div> -->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-bold font-italic">Evaluasi (30 menit kedua)</td>
+                            <td>
+                                <div class="row">
+                                    <table id="tablet30kdpjp" class="table tablet30kdpjp table-bordered">
+                                        <thead>
+
+                                            <th hidden>id</th>
+                                            <th>Nama Dokter Penanggung Jawab</th>
+
+
+                                            <th>Evaluasi</th>
+                                            <th style="width: 40px">Action</th>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($riwayattindakandpjp30k as $rtd => $td)
+
+                                            <tr>
+                                                <td hidden class="idtigak">{{$td->id}}</td>
+
+                                                <td>{{$td->nama_dpjp}}</td>
+                                                <td>{{$td->tiga_kedua}}</td>
+
+                                                <td> </td>
+                                            </tr>
+                                            @endforeach
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                                <form id="dynamic-form" class="form30kdpjp">
+
+                                    <div class="field_wrapper30k">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <H5>KLIK TOMBOL TAMBAH UNTUK MENAMBAHKAN 30 Menit kedua DPJP</H5>
+
+                                                <div class="col-md-2">
+                                                    <a class="btn btn-success" href="javascript:void(0);" id="add_button_30k" title="Add field">TAMBAH</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <!-- <div class="input-group">
+                                            <textarea class="form-control" id="tigak" name="tigak" placeholder=""></textarea>
+
+                                        </div> -->
+                            </td>
+                        </tr>
+                        <!-- <tr>
+                            <td class="text-bold font-italic">Evaluasi (30 menit pertama)</td>
+                            <td>
                                 <div class="input-group">
                                     <textarea class="form-control" id="tigap" name="tigap" placeholder="">{{$assesdok[0]->tiga_pertama}}</textarea>
 
@@ -7540,7 +7672,7 @@
 
                                 </div>
                             </td>
-                        </tr>
+                        </tr> -->
                         <tr>
                             <td class="text-bold font-italic">Edukasi</td>
                             <td>
@@ -13062,11 +13194,16 @@
                                                 <td hidden class="idtdp">{{$td->id}}</td>
 
                                                 <td>{{$td->nama_dpjp}}</td>
-                                                <td>{{$td->tindakan_kedokteran}}</td>
+                                                <td>
+                                                    <textarea class="form-control" id="tindakan_dpjp_update" name="tindakan_dpjp_update" placeholder="">{{$td->tindakan_kedokteran}}</textarea>
+                                                </td>
 
                                                 <td> <a class=" btn btn-danger btn-sm returordertdp" href="#">
                                                         <!-- <i class="fas fa-sync-alt fa-spin"></i> -->
                                                         RETUR
+                                                    </a> || <a class=" btn btn-warning mt-2 btn-sm editordertdp" href="#">
+                                                        <!-- <i class="fas fa-sync-alt fa-spin"></i> -->
+                                                        EDIT
                                                     </a></td>
                                             </tr>
                                             @endforeach
@@ -13113,6 +13250,128 @@
                         <tr>
                             <td class="text-bold font-italic">Evaluasi (30 menit pertama)</td>
                             <td>
+                                <div class="row">
+                                    <table id="tablet30pdpjp" class="table tablet30pdpjp table-bordered">
+                                        <thead>
+
+                                            <th hidden>id</th>
+                                            <th>Nama Dokter Penanggung Jawab</th>
+
+
+                                            <th>Evaluasi</th>
+                                            <th style="width: 40px">Action</th>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($riwayattindakandpjp30p as $rtd => $td)
+
+                                            <tr>
+                                                <td hidden class="idtigap">{{$td->id}}</td>
+
+                                                <td>{{$td->nama_dpjp}}</td>
+                                                <td>
+                                                    <textarea class="form-control" id="tindakan_30p_update" name="tindakan_30p_update" placeholder="">{{$td->tiga_pertama}}</textarea>
+                                                </td>
+
+                                                <td> <a class=" btn btn-danger btn-sm returordertigap" href="#">
+                                                        <!-- <i class="fas fa-sync-alt fa-spin"></i> -->
+                                                        RETUR
+                                                    </a> || <a class=" btn btn-warning mt-2 btn-sm editordertigap" href="#">
+                                                        <!-- <i class="fas fa-sync-alt fa-spin"></i> -->
+                                                        EDIT
+                                                    </a></td>
+
+
+                                            </tr>
+                                            @endforeach
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                                <form id="dynamic-form" class="form30pdpjp">
+
+                                    <div class="field_wrapper30p">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <H5>KLIK TOMBOL TAMBAH UNTUK MENAMBAHKAN 30 Menit pertama DPJP</H5>
+
+                                                <div class="col-md-2">
+                                                    <a class="btn btn-success" href="javascript:void(0);" id="add_button_30p" title="Add field">TAMBAH</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <!-- <div class="input-group">
+                                            <textarea class="form-control" id="tigap" name="tigap" placeholder=""></textarea>
+
+                                        </div> -->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-bold font-italic">Evaluasi (30 menit kedua)</td>
+                            <td>
+                                <div class="row">
+                                    <table id="tablet30kdpjp" class="table tablet30kdpjp table-bordered">
+                                        <thead>
+
+                                            <th hidden>id</th>
+                                            <th>Nama Dokter Penanggung Jawab</th>
+
+
+                                            <th>Evaluasi</th>
+                                            <th style="width: 40px">Action</th>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($riwayattindakandpjp30k as $rtd => $td)
+
+                                            <tr>
+                                                <td hidden class="idtigak">{{$td->id}}</td>
+
+                                                <td>{{$td->nama_dpjp}}</td>
+                                                                   <td>
+                                                    <textarea class="form-control" id="tindakan_30k_update" name="tindakan_30k_update" placeholder="">{{$td->tiga_kedua}}</textarea>
+                                                </td>
+
+                                                <td> <a class=" btn btn-danger btn-sm returordertigak" href="#">
+                                                        <!-- <i class="fas fa-sync-alt fa-spin"></i> -->
+                                                        RETUR
+                                                    </a> || <a class=" btn btn-warning mt-2 btn-sm editordertigak" href="#">
+                                                        <!-- <i class="fas fa-sync-alt fa-spin"></i> -->
+                                                        EDIT
+                                                    </a></td>
+                  
+                                            </tr>
+                                            @endforeach
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                                <form id="dynamic-form" class="form30kdpjp">
+
+                                    <div class="field_wrapper30k">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <H5>KLIK TOMBOL TAMBAH UNTUK MENAMBAHKAN 30 Menit kedua DPJP</H5>
+
+                                                <div class="col-md-2">
+                                                    <a class="btn btn-success" href="javascript:void(0);" id="add_button_30k" title="Add field">TAMBAH</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <!-- <div class="input-group">
+                                            <textarea class="form-control" id="tigak" name="tigak" placeholder=""></textarea>
+
+                                        </div> -->
+                            </td>
+                        </tr>
+
+                        <!-- <tr>
+                            <td class="text-bold font-italic">Evaluasi (30 menit pertama)</td>
+                            <td>
                                 <div class="input-group">
                                     <textarea class="form-control" id="tigap" name="tigap" placeholder="">{{$assesdok[0]->tiga_pertama}}</textarea>
 
@@ -13127,7 +13386,7 @@
 
                                 </div>
                             </td>
-                        </tr>
+                        </tr> -->
                         <tr>
                             <td class="text-bold font-italic">Edukasi</td>
                             <td>
@@ -14035,7 +14294,20 @@
         });
 
     });
+    $(document).ready(function() {
 
+        $('.selectdpjp30p').select2({
+            width: '100%'
+        });
+
+    });
+    $(document).ready(function() {
+
+        $('.selectdpjp30k').select2({
+            width: '100%'
+        });
+
+    });
 
     $(function() {
         $("#tablelab").DataTable({
@@ -14242,6 +14514,68 @@
                 x++; //Increment field counter
                 $(wrapper).append(fieldHTML); //Add field html
                 $('.selectdpjp').select2({
+                    width: '100%'
+                });
+            }
+        });
+
+        //Once remove button is clicked
+        $(wrapper).on('click', '.remove_button', function(e) {
+            e.preventDefault();
+            $(this).parent('').parent('').remove(); //Remove field html
+            x--; //Decrement field counter
+        });
+    });
+    $(document).ready(function() {
+        var maxField = 10; //Input fields increment limitation
+        var addButton = $('#add_button_30p'); //Add button selector
+        var wrapper = $('.field_wrapper30p'); //Input field wrapper
+        var fieldHTML = '<div class="form-group add"><div class="row">';
+
+        fieldHTML = fieldHTML + '<div class="col-md-5"><label>PILIH DPJP</label><select class="form-control selectdpjp30p" name="kode_dpjp_30p[]">@foreach ($dpjp as $i => $p) <option value="{{ $p->kode_paramedis }}">{{ $p->nama_paramedis }}</option> @endforeach</select></div>';
+        fieldHTML = fieldHTML + '<div class="col-md-5"><label for="">Tata Laksana DPJP</label><textarea class="form-control" id="talaksanadpjp30p" name="talaksanadpjp30p" placeholder=""></textarea></div>';
+        fieldHTML = fieldHTML + '<div class="col-md-2"><a href="javascript:void(0);" class="remove_button btn btn-danger">HAPUS</a></div>';
+        fieldHTML = fieldHTML + '</div></div>';
+        var x = 1; //Initial field counter is 1
+
+        //Once add button is clicked
+        $(addButton).click(function() {
+            //Check maximum number of input fields
+            if (x < maxField) {
+                x++; //Increment field counter
+                $(wrapper).append(fieldHTML); //Add field html
+                $('.selectdpjp30p').select2({
+                    width: '100%'
+                });
+            }
+        });
+
+        //Once remove button is clicked
+        $(wrapper).on('click', '.remove_button', function(e) {
+            e.preventDefault();
+            $(this).parent('').parent('').remove(); //Remove field html
+            x--; //Decrement field counter
+        });
+    });
+    $(document).ready(function() {
+        var maxField = 10; //Input fields increment limitation
+        var addButton = $('#add_button_30k'); //Add button selector
+        var wrapper = $('.field_wrapper30k'); //Input field wrapper
+        var fieldHTML = '<div class="form-group add"><div class="row">';
+
+        fieldHTML = fieldHTML + '<div class="col-md-5"><label>PILIH DPJP</label><select class="form-control selectdpjp30k" name="kode_dpjp_30k[]">@foreach ($dpjp as $i => $p) <option value="{{ $p->kode_paramedis }}">{{ $p->nama_paramedis }}</option> @endforeach</select></div>';
+        fieldHTML = fieldHTML + '<div class="col-md-5"><label for="">Tata Laksana DPJP</label><textarea class="form-control" id="talaksanadpjp30k" name="talaksanadpjp30k" placeholder=""></textarea></div>';
+        fieldHTML = fieldHTML + '<div class="col-md-2"><a href="javascript:void(0);" class="remove_button btn btn-danger">HAPUS</a></div>';
+        fieldHTML = fieldHTML + '</div></div>';
+        var x = 1; //Initial field counter is 1
+
+        //Once add button is clicked
+        $(addButton).click(function() {
+            //Check maximum number of input fields
+            if (x < maxField) {
+                x++; //Increment field counter
+                $(wrapper).append(fieldHTML); //Add field html
+                $('.selectdpjp30k').select2({
                     width: '100%'
                 });
             }
@@ -14493,6 +14827,219 @@
         })
         return false;
     });
+    $(".editordertdp").click(function() {
+        var $row = $(this).closest("tr");
+        var idtdp = $row.find(".idtdp").text();
+        var tindakan_dpjp_update = $('#tindakan_dpjp_update').val()
+
+
+
+
+        // var sumberdata = $("#sumberdata:checked").val();
+        Swal.fire({
+            title: "Yakin Edit Tindakan?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Ya',
+            cancelButtonColor: '#d33',
+            cancelButtonText: "Batal"
+
+        }).then(result => {
+            //jika klik ya maka arahkan ke proses.php
+            if (result.isConfirmed) {
+                $.ajax({
+                    async: true,
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        idtdp,
+                        tindakan_dpjp_update: $('#tindakan_dpjp_update').val(),
+
+
+
+
+                    },
+                    url: '<?= route('editordertdp') ?>',
+
+                    error: function(data) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Sepertinya ada masalah ...',
+                            footer: ''
+                        })
+                    },
+                    success: function(data) {
+                        console.log(data)
+                        if (data.kode == 500) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: data.message,
+                                footer: ''
+                            })
+                        } else {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'OK',
+                                text: 'data berhasil EDIT',
+                                footer: ''
+                            })
+                            // cpptdokter()
+
+
+
+                        }
+                    }
+                });
+            }
+        })
+        return false;
+    });
+    $(".editordertigap").click(function() {
+        var $row = $(this).closest("tr");
+        var idtigap = $row.find(".idtigap").text();
+        var tindakan_30p_update = $('#tindakan_30p_update').val()
+
+
+
+
+        // var sumberdata = $("#sumberdata:checked").val();
+        Swal.fire({
+            title: "Yakin Edit Tindakan?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Ya',
+            cancelButtonColor: '#d33',
+            cancelButtonText: "Batal"
+
+        }).then(result => {
+            //jika klik ya maka arahkan ke proses.php
+            if (result.isConfirmed) {
+                $.ajax({
+                    async: true,
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        idtigap,
+                        tindakan_30p_update: $('#tindakan_30p_update').val(),
+
+
+
+
+                    },
+                    url: '<?= route('editordertigap') ?>',
+
+                    error: function(data) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Sepertinya ada masalah ...',
+                            footer: ''
+                        })
+                    },
+                    success: function(data) {
+                        console.log(data)
+                        if (data.kode == 500) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: data.message,
+                                footer: ''
+                            })
+                        } else {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'OK',
+                                text: 'data berhasil EDIT',
+                                footer: ''
+                            })
+                            // cpptdokter()
+
+
+
+                        }
+                    }
+                });
+            }
+        })
+        return false;
+    });
+    $(".editordertigak").click(function() {
+        var $row = $(this).closest("tr");
+        var idtigak = $row.find(".idtigak").text();
+        var tindakan_30k_update = $('#tindakan_30k_update').val()
+
+
+
+
+        // var sumberdata = $("#sumberdata:checked").val();
+        Swal.fire({
+            title: "Yakin Edit Tindakan?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Ya',
+            cancelButtonColor: '#d33',
+            cancelButtonText: "Batal"
+
+        }).then(result => {
+            //jika klik ya maka arahkan ke proses.php
+            if (result.isConfirmed) {
+                $.ajax({
+                    async: true,
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        idtigak,
+                        tindakan_30k_update: $('#tindakan_30k_update').val(),
+
+
+
+
+                    },
+                    url: '<?= route('editordertigak') ?>',
+
+                    error: function(data) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Sepertinya ada masalah ...',
+                            footer: ''
+                        })
+                    },
+                    success: function(data) {
+                        console.log(data)
+                        if (data.kode == 500) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: data.message,
+                                footer: ''
+                            })
+                        } else {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'OK',
+                                text: 'data berhasil EDIT',
+                                footer: ''
+                            })
+                            // cpptdokter()
+
+
+
+                        }
+                    }
+                });
+            }
+        })
+        return false;
+    });
     $(".returordertdp").click(function() {
         var $row = $(this).closest("tr");
         var idtdp = $row.find(".idtdp").text();
@@ -14525,6 +15072,142 @@
 
                     },
                     url: '<?= route('returordertdp') ?>',
+
+                    error: function(data) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Sepertinya ada masalah ...',
+                            footer: ''
+                        })
+                    },
+                    success: function(data) {
+                        console.log(data)
+                        if (data.kode == 500) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: data.message,
+                                footer: ''
+                            })
+                        } else {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'OK',
+                                text: 'data berhasil diretur',
+                                footer: ''
+                            })
+                            // cpptdokter()
+
+
+
+                        }
+                    }
+                });
+            }
+        })
+        return false;
+    });
+    $(".returordertigap").click(function() {
+        var $row = $(this).closest("tr");
+        var idtigap = $row.find(".idtigap").text();
+
+
+
+
+        // var sumberdata = $("#sumberdata:checked").val();
+        Swal.fire({
+            title: "Yakin Retur Tindakan?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Ya',
+            cancelButtonColor: '#d33',
+            cancelButtonText: "Batal"
+
+        }).then(result => {
+            //jika klik ya maka arahkan ke proses.php
+            if (result.isConfirmed) {
+                $.ajax({
+                    async: true,
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        idtigap
+
+
+
+                    },
+                    url: '<?= route('returordertigap') ?>',
+
+                    error: function(data) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Sepertinya ada masalah ...',
+                            footer: ''
+                        })
+                    },
+                    success: function(data) {
+                        console.log(data)
+                        if (data.kode == 500) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: data.message,
+                                footer: ''
+                            })
+                        } else {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'OK',
+                                text: 'data berhasil diretur',
+                                footer: ''
+                            })
+                            // cpptdokter()
+
+
+
+                        }
+                    }
+                });
+            }
+        })
+        return false;
+    });
+    $(".returordertigak").click(function() {
+        var $row = $(this).closest("tr");
+        var idtigak = $row.find(".idtigak").text();
+
+
+
+
+        // var sumberdata = $("#sumberdata:checked").val();
+        Swal.fire({
+            title: "Yakin Retur Tindakan?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Ya',
+            cancelButtonColor: '#d33',
+            cancelButtonText: "Batal"
+
+        }).then(result => {
+            //jika klik ya maka arahkan ke proses.php
+            if (result.isConfirmed) {
+                $.ajax({
+                    async: true,
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        idtigak
+
+
+
+                    },
+                    url: '<?= route('returordertigak') ?>',
 
                     error: function(data) {
                         Swal.fire({
@@ -14648,6 +15331,8 @@
         var datarad = $('.formradio').serializeArray()
         var rekobat = $('.formtinjutobat').serializeArray()
         var tindakandpjp = $('.formtindakandpjp').serializeArray()
+        var tindakandpjptigap = $('.form30pdpjp').serializeArray();
+        var tindakandpjptigak = $('.form30kdpjp').serializeArray();
 
         // var tindakangp = $('.formtindakangp').serializeArray();
         //triase
@@ -14832,6 +15517,9 @@
                         datarad: JSON.stringify(datarad),
                         rekobat: JSON.stringify(rekobat),
                         tindakandpjp: JSON.stringify(tindakandpjp),
+                        tindakandpjptigap: JSON.stringify(tindakandpjptigap),
+                        tindakandpjptigak: JSON.stringify(tindakandpjptigak),
+
                         // tindakangp: JSON.stringify(tindakangp),
 
                         //triase
@@ -15054,6 +15742,9 @@
         gambar1 = $('#gambarcoret1').val()
         // var data = $('.formtindakandokter').serializeArray();
         var tindakandpjp = $('.formtindakandpjp').serializeArray();
+        var tindakandpjptigap = $('.form30pdpjp').serializeArray();
+        var tindakandpjptigak = $('.form30kdpjp').serializeArray();
+
 
         // var tindakangp = $('.formtindakangp').serializeArray();
         var datalab = $('.formlab').serializeArray();
@@ -15246,6 +15937,9 @@
                         _token: "{{ csrf_token() }}",
                         // data: JSON.stringify(data),
                         tindakandpjp: JSON.stringify(tindakandpjp),
+                        tindakandpjptigap: JSON.stringify(tindakandpjptigap),
+                        tindakandpjptigak: JSON.stringify(tindakandpjptigak),
+
 
                         // tindakangp: JSON.stringify(tindakangp),
                         datalab: JSON.stringify(datalab),

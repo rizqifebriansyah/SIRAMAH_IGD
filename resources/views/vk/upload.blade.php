@@ -99,7 +99,7 @@
                         <!-- /.card-body -->
 
                         <div class="card-footer">
-                            <button type="button" class="btn btn-warning mb-2 simpanhasilekg" id="simpanhasilekg">Simpan Berkas</button>
+                            <button type="button" class="btn btn-warning mb-2 simpanhasilekgvk" id="simpanhasilekgvk">Simpan Berkas</button>
 
                         </div>
                     </form>
@@ -141,7 +141,7 @@
                         <!-- /.card-body -->
 
                         <div class="card-footer">
-                            <button type="button" class="btn btn-warning mb-2 simpanhasilspp" id="simpanhasilspp">Simpan Berkas</button>
+                            <button type="button" class="btn btn-warning mb-2 simpanhasilsppvk" id="simpanhasilsppvk">Simpan Berkas</button>
 
                         </div>
                     </form>
@@ -181,7 +181,7 @@
                         <!-- /.card-body -->
 
                         <div class="card-footer">
-                            <button type="button" class="btn btn-warning mb-2 simpanhasiltdkn" id="simpanhasiltdkn">Simpan Berkas</button>
+                            <button type="button" class="btn btn-warning mb-2 simpanhasiltdknvk" id="simpanhasiltdknvk">Simpan Berkas</button>
 
                         </div>
                     </form>
@@ -220,7 +220,7 @@
                         <!-- /.card-body -->
 
                         <div class="card-footer">
-                            <button type="button" class="btn btn-warning mb-2 simpanhasiltf" id="simpanhasiltf">Simpan Berkas</button>
+                            <button type="button" class="btn btn-warning mb-2 simpanhasiltfvk" id="simpanhasiltfvk">Simpan Berkas</button>
 
                         </div>
                     </form>
@@ -260,7 +260,7 @@
                         <!-- /.card-body -->
 
                         <div class="card-footer">
-                            <button type="button" class="btn btn-warning mb-2 simpanhasilctg" id="simpanhasilctg">Simpan Berkas</button>
+                            <button type="button" class="btn btn-warning mb-2 simpanhasilctgvk" id="simpanhasilctgvk">Simpan Berkas</button>
 
                         </div>
                     </form>
@@ -301,7 +301,7 @@
                         <!-- /.card-body -->
 
                         <div class="card-footer">
-                            <button type="button" class="btn btn-warning mb-2 simpanhasilusg" id="simpanhasilusg">Simpan Berkas</button>
+                            <button type="button" class="btn btn-warning mb-2 simpanhasilusgvk" id="simpanhasilusgvk">Simpan Berkas</button>
 
                         </div>
                     </form>
@@ -343,7 +343,7 @@
                         <!-- /.card-body -->
 
                         <div class="card-footer">
-                            <button type="button" class="btn btn-warning mb-2 simpanhasilpartograp" id="simpanhasilpartograp">Simpan Berkas</button>
+                            <button type="button" class="btn btn-warning mb-2 simpanhasilpartograpvk" id="simpanhasilpartograpvk">Simpan Berkas</button>
 
                         </div>
                     </form>
@@ -385,7 +385,7 @@
                         <!-- /.card-body -->
 
                         <div class="card-footer">
-                            <button type="button" class="btn btn-warning mb-2 simpanhasilkuret" id="simpanhasilkuret">Simpan Berkas</button>
+                            <button type="button" class="btn btn-warning mb-2 simpanhasilkuretvk" id="simpanhasilkuretvk">Simpan Berkas</button>
 
                         </div>
                     </form>
@@ -428,7 +428,7 @@
                         <!-- /.card-body -->
 
                         <div class="card-footer">
-                            <button type="button" class="btn btn-warning mb-2 simpanhasilbiopsi" id="simpanhasilbiopsi">Simpan Berkas</button>
+                            <button type="button" class="btn btn-warning mb-2 simpanhasilbiopsivk" id="simpanhasilbiopsivk">Simpan Berkas</button>
 
                         </div>
                     </form>
@@ -472,7 +472,7 @@
                         <!-- /.card-body -->
 
                         <div class="card-footer">
-                            <button type="button" class="btn btn-warning mb-2 simpanhasillaminaria" id="simpanhasillaminaria">Simpan Berkas</button>
+                            <button type="button" class="btn btn-warning mb-2 simpanhasillaminariavk" id="simpanhasillaminariavk">Simpan Berkas</button>
 
                         </div>
                     </form>
@@ -514,7 +514,7 @@
                         <!-- /.card-body -->
 
                         <div class="card-footer">
-                            <button type="button" class="btn btn-warning mb-2 simpanhasilskl" id="simpanhasilskl">Simpan Berkas</button>
+                            <button type="button" class="btn btn-warning mb-2 simpanhasilsklvk" id="simpanhasilsklvk">Simpan Berkas</button>
 
                         </div>
                     </form>
@@ -554,7 +554,7 @@
                         <!-- /.card-body -->
 
                         <div class="card-footer">
-                            <button type="button" class="btn btn-warning mb-2 simpanhasiltransfusi" id="simpanhasiltransfusi">Simpan Berkas</button>
+                            <button type="button" class="btn btn-warning mb-2 simpanhasiltransfusivk" id="simpanhasiltransfusivk">Simpan Berkas</button>
 
                         </div>
                     </form>
@@ -594,7 +594,7 @@
                         <!-- /.card-body -->
 
                         <div class="card-footer">
-                            <button type="button" class="btn btn-warning mb-2 simpanhasilpathway" id="simpanhasilpathway">Simpan Berkas</button>
+                            <button type="button" class="btn btn-warning mb-2 simpanhasilpathwayvk" id="simpanhasilpathwayvk">Simpan Berkas</button>
 
                         </div>
                     </form>
@@ -809,7 +809,7 @@
 
 
 <script>
-    $(".simpanhasilekg").click(function() {
+    $(".simpanhasilekgvk").click(function() {
         kj = $('#kj').val()
         norm = $('#norm').val()
         var data = $('.formuploadekg').serializeArray();
@@ -830,7 +830,7 @@
             contentType: false,
             processData: false,
             data: fd,
-            url: '<?= route('simpanhasilekg') ?>',
+            url: '<?= route('simpanhasilekgvk') ?>',
 
             error: function(data) {
                 Swal.fire({
@@ -855,7 +855,7 @@
             }
         });
     });
-    $(".simpanhasilspp").click(function() {
+    $(".simpanhasilsppvk").click(function() {
         kj = $('#kj').val()
         norm = $('#norm').val()
         var data = $('.formuploadspp').serializeArray();
@@ -876,7 +876,7 @@
             contentType: false,
             processData: false,
             data: fd,
-            url: '<?= route('simpanhasilspp') ?>',
+            url: '<?= route('simpanhasilsppvk') ?>',
 
             error: function(data) {
                 Swal.fire({
@@ -901,7 +901,7 @@
             }
         });
     });
-    $(".simpanhasiltdkn").click(function() {
+    $(".simpanhasiltdknvk").click(function() {
         kj = $('#kj').val()
         norm = $('#norm').val()
         var data = $('.formuploadtindakan').serializeArray();
@@ -922,7 +922,7 @@
             contentType: false,
             processData: false,
             data: fd,
-            url: '<?= route('simpanhasiltdkn') ?>',
+            url: '<?= route('simpanhasiltdknvk') ?>',
 
             error: function(data) {
                 Swal.fire({
@@ -947,7 +947,7 @@
             }
         });
     });
-    $(".simpanhasiltf").click(function() {
+    $(".simpanhasiltfvk").click(function() {
         kj = $('#kj').val()
         norm = $('#norm').val()
         var data = $('.formuploadtindakan').serializeArray();
@@ -967,7 +967,7 @@
             contentType: false,
             processData: false,
             data: fd,
-            url: '<?= route('simpanhasiltf') ?>',
+            url: '<?= route('simpanhasiltfvk') ?>',
 
             error: function(data) {
                 Swal.fire({
@@ -992,7 +992,7 @@
             }
         });
     });
-    $(".simpanhasilctg").click(function() {
+    $(".simpanhasilctgvk").click(function() {
         kj = $('#kj').val()
         norm = $('#norm').val()
         var data = $('.formuploadctg').serializeArray();
@@ -1013,7 +1013,7 @@
             contentType: false,
             processData: false,
             data: fd,
-            url: '<?= route('simpanhasilctg') ?>',
+            url: '<?= route('simpanhasilctgvk') ?>',
 
             error: function(data) {
                 Swal.fire({
@@ -1038,7 +1038,7 @@
             }
         });
     });
-    $(".simpanhasilusg").click(function() {
+    $(".simpanhasilusgvk").click(function() {
         kj = $('#kj').val()
         norm = $('#norm').val()
         var data = $('.formuploadusg').serializeArray();
@@ -1059,7 +1059,7 @@
             contentType: false,
             processData: false,
             data: fd,
-            url: '<?= route('simpanhasilusg') ?>',
+            url: '<?= route('simpanhasilusgvk') ?>',
 
             error: function(data) {
                 Swal.fire({
@@ -1084,7 +1084,7 @@
             }
         });
     });
-    $(".simpanhasilpartograp").click(function() {
+    $(".simpanhasilpartograpvk").click(function() {
         kj = $('#kj').val()
         norm = $('#norm').val()
         var data = $('.formuploadpartograp').serializeArray();
@@ -1105,7 +1105,7 @@
             contentType: false,
             processData: false,
             data: fd,
-            url: '<?= route('simpanhasilpartograp') ?>',
+            url: '<?= route('simpanhasilpartograpvk') ?>',
 
             error: function(data) {
                 Swal.fire({
@@ -1130,7 +1130,7 @@
             }
         });
     });
-    $(".simpanhasilkuret").click(function() {
+    $(".simpanhasilkuretvk").click(function() {
         kj = $('#kj').val()
         norm = $('#norm').val()
         var data = $('.formuploadkuret').serializeArray();
@@ -1151,7 +1151,7 @@
             contentType: false,
             processData: false,
             data: fd,
-            url: '<?= route('simpanhasilkuret') ?>',
+            url: '<?= route('simpanhasilkuretvk') ?>',
 
             error: function(data) {
                 Swal.fire({
@@ -1176,7 +1176,7 @@
             }
         });
     });
-    $(".simpanhasilbiopsi").click(function() {
+    $(".simpanhasilbiopsivk").click(function() {
         kj = $('#kj').val()
         norm = $('#norm').val()
         var data = $('.formuploadbiopsi').serializeArray();
@@ -1197,7 +1197,7 @@
             contentType: false,
             processData: false,
             data: fd,
-            url: '<?= route('simpanhasilbiopsi') ?>',
+            url: '<?= route('simpanhasilbiopsivk') ?>',
 
             error: function(data) {
                 Swal.fire({
@@ -1222,7 +1222,7 @@
             }
         });
     });
-    $(".simpanhasillaminaria").click(function() {
+    $(".simpanhasillaminariavk").click(function() {
         kj = $('#kj').val()
         norm = $('#norm').val()
         var data = $('.formuploadlaminaria').serializeArray();
@@ -1243,7 +1243,7 @@
             contentType: false,
             processData: false,
             data: fd,
-            url: '<?= route('simpanhasillaminaria') ?>',
+            url: '<?= route('simpanhasillaminariavk') ?>',
 
             error: function(data) {
                 Swal.fire({
@@ -1268,7 +1268,7 @@
             }
         });
     });
-    $(".simpanhasilskl").click(function() {
+    $(".simpanhasilsklvk").click(function() {
         kj = $('#kj').val()
         norm = $('#norm').val()
         var data = $('.formuploadskl').serializeArray();
@@ -1289,7 +1289,7 @@
             contentType: false,
             processData: false,
             data: fd,
-            url: '<?= route('simpanhasilskl') ?>',
+            url: '<?= route('simpanhasilsklvk') ?>',
 
             error: function(data) {
                 Swal.fire({
@@ -1315,7 +1315,7 @@
         });
     });
 
-    $(".simpanhasiltransfusi").click(function() {
+    $(".simpanhasiltransfusivk").click(function() {
         kj = $('#kj').val()
         norm = $('#norm').val()
         var data = $('.formuploadtransfusi').serializeArray();
@@ -1336,7 +1336,7 @@
             contentType: false,
             processData: false,
             data: fd,
-            url: '<?= route('simpanhasiltransfusi') ?>',
+            url: '<?= route('simpanhasiltransfusivk') ?>',
 
             error: function(data) {
                 Swal.fire({
@@ -1361,7 +1361,7 @@
             }
         });
     });
-    $(".simpanhasilpathway").click(function() {
+    $(".simpanhasilpathwayvk").click(function() {
         kj = $('#kj').val()
         norm = $('#norm').val()
         var data = $('.formuploadpathway').serializeArray();
@@ -1382,7 +1382,7 @@
             contentType: false,
             processData: false,
             data: fd,
-            url: '<?= route('simpanhasilpathway') ?>',
+            url: '<?= route('simpanhasilpathwayvk') ?>',
 
             error: function(data) {
                 Swal.fire({

@@ -1,0 +1,110 @@
+ <table id="datapasienigd" class="table  table-sm text-sm table-bordered table-hover">
+     <thead class="bg-light">
+         <th style="text-align: center;">Tanggal Masuk</th>
+         <th style="text-align: center;">NoRM</th>
+         <th style="text-align: center;">Nama Pasien</th>
+
+         <th style="text-align: center;">Diagnosa</th>
+         <th style="text-align: center;">Assesment Perawat</th>
+         <th hidden style="text-align: center;">kodekunjungan</th>
+
+
+
+         <th style="text-align: center;">Assesment Dokter</th>
+
+
+     </thead>
+     <tbody>
+         @foreach ($pasienigd as $key => $a)
+         <tr>
+             <td style="text-align: center;" class="tglmasuk">{{ $a->tgl_masuk }}</td>
+
+             <td style="text-align: center;" class="norm">{{ $a->no_rm }}</td>
+             <td style="text-align: center;" class="namapx">{{ $a->nama_px }}</td>
+             <td hidden style="text-align: center;" class="kj">{{ $a->kode_kunjungan }}</td>
+
+
+             <td class="diag2" style="text-align: center;">
+                 {{ $a->DIAGX }}
+             </td>
+
+
+             <td class="status1" style="text-align: center;">
+
+                 @if ($a->nama_perawat == null && $a->nama_perawat1 == null)
+                 <button class="badge badge-danger ermvk"> belum diisi </button>
+                 @elseif ($a->status == 2 )
+                 <button class="badge badge-success ermvk"> Sudah validasi </button> | {{ $a->nama_perawat }}
+                 @else
+                 <button class="badge badge-warning ermvk"> belum validasi </button> | {{ $a->nama_perawat }}
+
+                 @endif
+             </td>
+             <td class="status2" style="text-align: center;">
+                 @if ($a->nama_paramedis == null)
+                 <button class="badge badge-danger ermvk"> belum diisi </button>
+                 @elseif ($a->status_dokter == 2)
+                 <button class="badge badge-success ermvk"> Sudah validasi </button> | {{ $a->nama_perawat }}
+
+                 @else
+                 <button class="badge badge-warning ermvk"> Belum Validasi </button> | {{ $a->nama_paramedis }}
+                 @endif
+             </td>
+
+
+         </tr>
+         @endforeach
+
+
+     </tbody>
+ </table>
+
+ <script>
+     $(function() {
+         $("#datapasienigd").DataTable({
+             "responsive": false,
+             "lengthChange": false,
+             "pageLength": 10,
+             "autoWidth": false,
+             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+         });
+     });
+
+     $(".ermvk").click(function() {
+         spinner = $('#loader2');
+         spinner.show();
+         var $row = $(this).closest("tr");
+         var norm = $row.find(".norm").text();
+         var namapx = $row.find(".namapx").text();
+         var namaunit = $row.find(".namaunit").text();
+
+         var jk = $row.find(".jk").text();
+         var kj = $row.find(".kj").text();
+         var tglmasuk = $row.find(".tglmasuk").text();
+         $.ajax({
+             type: "post",
+             data: {
+                 _token: "{{ csrf_token() }}",
+                 norm,
+                 namapx,
+                 namaunit,
+
+                 jk,
+                 kj,
+
+                 tglmasuk
+
+             },
+             url: '<?= route('ermvk') ?>',
+             error: function(data) {
+                 spinner.hide();
+                 alert('oke!!')
+             },
+             success: function(response) {
+                 spinner.hide();
+                 $('.ermperawatview').html(response);
+
+             }
+         });
+     });
+ </script>

@@ -133,13 +133,6 @@
 
         var keterangan = $("#keterangan").val();
         var waktu_pantau = $("#waktu_pantau").val();
-
-
-
-
-
-
-
         Swal.fire({
             title: "Yakin Simpan Pemantauan?",
             icon: 'warning',
@@ -388,7 +381,7 @@
                 norm: $("#norm").val(),
             },
             type: "post",
-            url: " {{ route('pemantauanview') }}",
+            url: " {{ route('pemantauanviewvk') }}",
             error: function(data) {
                 spinner.hide();
                 alert('oke!!')

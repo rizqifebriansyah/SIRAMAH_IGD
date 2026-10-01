@@ -1274,7 +1274,31 @@ AND b.kelas_tarif = 1');
                     FROM mt_paramedis a
                     WHERE a.spesialis LIKE "%spesialis%"
                     AND a.act = 1');
-        $riwayattindakandpjp = DB::select('SELECT id,fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,a.kode_paramedis,a.tindakan_kedokteran FROM erm_tindakan_kedokteran a WHERE kode_kunjungan = ? AND status = 1', [$kj]);
+
+        $riwayattindakandpjp = DB::select('SELECT 
+        fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,
+        a.id,
+        a.tindakan_kedokteran
+     FROM erm_tindakan_kedokteran a
+     WHERE a.kode_kunjungan = ?
+       AND a.status = 1
+       AND a.tindakan_kedokteran IS NOT NULL', [$kj]);
+        $riwayattindakandpjp30p = DB::select('SELECT 
+        fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,
+        a.id,
+        a.tiga_pertama
+        FROM erm_tindakan_kedokteran a
+        WHERE a.kode_kunjungan = ?
+       AND a.status = 1
+       AND a.tiga_pertama IS NOT NULL ', [$kj]);
+         $riwayattindakandpjp30k = DB::select('SELECT 
+        fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,
+        a.id,
+        a.tiga_kedua
+        FROM erm_tindakan_kedokteran a
+        WHERE a.kode_kunjungan = ?
+       AND a.status = 1
+       AND a.tiga_kedua IS NOT NULL ', [$kj]);
         // dd($riwayattindakandpjp);
         $tindakanigd = DB::select("CALL SP_PANGGIL_TARIF_TINDAKAN_RS_2024_IGD('1','','')");
         $riwayatordergp = DB::select('SELECT
@@ -1301,6 +1325,10 @@ AND b.kelas_tarif = 1');
                 'title' => 'SiRAMAH DOKTER',
                 'layananlab' => $layananlab,
                 'riwayattindakandpjp' => $riwayattindakandpjp,
+                
+                'riwayattindakandpjp30p' => $riwayattindakandpjp30p,
+                'riwayattindakandpjp30k' => $riwayattindakandpjp30k,
+
                 'kunjungan' => $kunjungan,
                 'tgl_msk_skrining' => $tgl_msk_skrining,
 
@@ -2578,7 +2606,82 @@ AND b.kelas_tarif = 1');
             die;
         }
 
+        // tindakan dpjp 30 menit pertama
+        try {
+            $tindakandpjptigap = json_decode($_POST['tindakandpjptigap'], true);
+            if ($tindakandpjptigap == null) {
+            } else {
+                foreach ($tindakandpjptigap as $nama) {
+                    $index = $nama['name'];
+                    $value = $nama['value'];
+                    $dataSet[$index] = $value;
+                    if ($index == 'talaksanadpjp30p') {
+                        $tindakan30p[] = $dataSet;
+                    }
+                }
+                // $id_detail = $this->createLayanandetail();
+                foreach ($tindakan30p as $arrr) {
+                    $savedetail = [
+                        // 'kode_detail_obat' => $id_detail,
+                        'no_rm' => $norm,
+                        'kode_kunjungan' => $kj,
+                        'kode_unit' => '1002',
+                        'kode_paramedis' => $arrr['kode_dpjp_30p[]'],
+                        'tiga_pertama' => $arrr['talaksanadpjp30p'],
+                        'tgl_input' => $now,
+                        'status' => 1
 
+                    ];
+            // dd($savedetail);
+
+                    $tindakandpjpdetail = erm_tindakan_kedokteran::create($savedetail);
+                }
+            }
+        } catch (\Exception $e) {
+            $back = [
+                'kode' => 200,
+                'message' => $e->getMessage()
+            ];
+            echo json_encode($back);
+            die;
+        }
+        // tindakan dpjp 30 menit kedua
+        try {
+            $tindakandpjptigak = json_decode($_POST['tindakandpjptigak'], true);
+            if ($tindakandpjptigak == null) {
+            } else {
+                foreach ($tindakandpjptigak as $nama) {
+                    $index = $nama['name'];
+                    $value = $nama['value'];
+                    $dataSet[$index] = $value;
+                    if ($index == 'talaksanadpjp30k') {
+                        $tindakan30k[] = $dataSet;
+                    }
+                }
+                // $id_detail = $this->createLayanandetail();
+                foreach ($tindakan30k as $arrr) {
+                    $savedetail = [
+                        // 'kode_detail_obat' => $id_detail,
+                        'no_rm' => $norm,
+                        'kode_kunjungan' => $kj,
+                        'kode_unit' => '1002',
+                        'kode_paramedis' => $arrr['kode_dpjp_30k[]'],
+                        'tiga_kedua' => $arrr['talaksanadpjp30k'],
+                        'tgl_input' => $now,
+                        'status' => 1
+
+                    ];
+                    $tindakandpjpdetail = erm_tindakan_kedokteran::create($savedetail);
+                }
+            }
+        } catch (\Exception $e) {
+            $back = [
+                'kode' => 200,
+                'message' => $e->getMessage()
+            ];
+            echo json_encode($back);
+            die;
+        }
         //tindakan GP
         // try {
         //     $tindakangp = json_decode($_POST['tindakangp'], true);
@@ -3976,6 +4079,40 @@ AND b.kelas_tarif = 1');
         echo json_encode($back);
         die;
     }
+    public function returordertigap(Request $request)
+    {
+        $id = $request->idtigap;
+        $retin = DB::select('UPDATE erm_tindakan_kedokteran SET status = "3"  WHERE id = ? ', [$id]);
+
+
+
+
+
+
+        $back = [
+            'kode' => 200,
+            'message' => 'Berhasil'
+        ];
+        echo json_encode($back);
+        die;
+    }
+    public function returordertigak(Request $request)
+    {
+        $id = $request->idtigak;
+        $retin = DB::select('UPDATE erm_tindakan_kedokteran SET status = "3"  WHERE id = ? ', [$id]);
+
+
+
+
+
+
+        $back = [
+            'kode' => 200,
+            'message' => 'Berhasil'
+        ];
+        echo json_encode($back);
+        die;
+    }
     public function returordergp(Request $request)
     {
         $kj = $request->kj;
@@ -4705,7 +4842,84 @@ AND b.kelas_tarif = 1');
             echo json_encode($back);
             die;
         }
+        // tindakan dpjp 30 menit pertama
+        try {
+            $tindakandpjptigap = json_decode($_POST['tindakandpjptigap'], true);
+            // dd($tindakandpjptigap);
+            if ($tindakandpjptigap == null) {
+            } else {
+                foreach ($tindakandpjptigap as $nama) {
+                    $index = $nama['name'];
+                    $value = $nama['value'];
+                    $dataSet[$index] = $value;
+                    if ($index == 'talaksanadpjp30p') {
+                        $tindakan30p[] = $dataSet;
+                    }
+                }
+                // $id_detail = $this->createLayanandetail();
+                foreach ($tindakan30p as $arrr) {
+                    $savedetail = [
+                        // 'kode_detail_obat' => $id_detail,
+                        'no_rm' => $norm,
+                        'kode_kunjungan' => $kj,
+                        'kode_unit' => '1002',
+                        'kode_paramedis' => $arrr['kode_dpjp_30p[]'],
+                        'tiga_pertama' => $arrr['talaksanadpjp30p'],
+                        'tgl_input' => $now,
+                        'status' => 1
 
+                    ];
+                    
+                    $tindakandpjpdetail = erm_tindakan_kedokteran::create($savedetail);
+            // dd($tindakandpjpdetail);
+
+                }
+            }
+        } catch (\Exception $e) {
+            $back = [
+                'kode' => 200,
+                'message' => $e->getMessage()
+            ];
+            echo json_encode($back);
+            die;
+        }
+        // tindakan dpjp 30 menit kedua
+        try {
+            $tindakandpjptigak = json_decode($_POST['tindakandpjptigak'], true);
+            if ($tindakandpjptigak == null) {
+            } else {
+                foreach ($tindakandpjptigak as $nama) {
+                    $index = $nama['name'];
+                    $value = $nama['value'];
+                    $dataSet[$index] = $value;
+                    if ($index == 'talaksanadpjp30k') {
+                        $tindakan30k[] = $dataSet;
+                    }
+                }
+                // $id_detail = $this->createLayanandetail();
+                foreach ($tindakan30k as $arrr) {
+                    $savedetail = [
+                        // 'kode_detail_obat' => $id_detail,
+                        'no_rm' => $norm,
+                        'kode_kunjungan' => $kj,
+                        'kode_unit' => '1002',
+                        'kode_paramedis' => $arrr['kode_dpjp_30k[]'],
+                        'tiga_kedua' => $arrr['talaksanadpjp30k'],
+                        'tgl_input' => $now,
+                        'status' => 1
+
+                    ];
+                    $tindakandpjpdetail = erm_tindakan_kedokteran::create($savedetail);
+                }
+            }
+        } catch (\Exception $e) {
+            $back = [
+                'kode' => 200,
+                'message' => $e->getMessage()
+            ];
+            echo json_encode($back);
+            die;
+        }
 
 
         // rekonobat
@@ -6340,6 +6554,63 @@ AND b.kelas_tarif = 1');
         echo json_encode($back);
         die;
 
+    }
+    public function editordertdp(Request $request)
+    {
+        $id = $request->idtdp;
+        $tindakan_kedokteran = $request->tindakan_dpjp_update;
+
+        $edittin = DB::select('UPDATE erm_tindakan_kedokteran SET tindakan_kedokteran = ?  WHERE id = ?', [$tindakan_kedokteran,$id]);
+
+
+
+
+
+
+        $back = [
+            'kode' => 200,
+            'message' => 'Berhasil'
+        ];
+        echo json_encode($back);
+        die;
+    }
+    public function editordertigap(Request $request)
+    {
+        $id = $request->idtigap;
+        $tindakan_kedokteran = $request->tindakan_30p_update;
+
+        $edittin = DB::select('UPDATE erm_tindakan_kedokteran SET tiga_pertama = ?  WHERE id = ?', [$tindakan_kedokteran,$id]);
+
+
+
+
+
+
+        $back = [
+            'kode' => 200,
+            'message' => 'Berhasil'
+        ];
+        echo json_encode($back);
+        die;
+    }
+    public function editordertigak(Request $request)
+    {
+        $id = $request->idtigak;
+        $tindakan_kedokteran = $request->tindakan_30k_update;
+
+        $edittin = DB::select('UPDATE erm_tindakan_kedokteran SET tiga_kedua = ?  WHERE id = ?', [$tindakan_kedokteran,$id]);
+
+
+
+
+
+
+        $back = [
+            'kode' => 200,
+            'message' => 'Berhasil'
+        ];
+        echo json_encode($back);
+        die;
     }
     public function createOrderHeader()
     {
@@ -10057,7 +10328,31 @@ AND b.kelas_tarif = 1');
         FROM mt_pasien  a
         WHERE no_rm = ?', [$norm]);
         // dd($pasien);
-        $dpjp = DB::select('SELECT fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,a.kode_paramedis,a.tindakan_kedokteran FROM erm_tindakan_kedokteran a WHERE kode_kunjungan = ?', [$kj]);
+        $dpjp = DB::select('SELECT 
+        fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,
+        a.id,
+        a.tindakan_kedokteran
+     FROM erm_tindakan_kedokteran a
+     WHERE a.kode_kunjungan = ?
+       AND a.status = 1
+       AND a.tindakan_kedokteran IS NOT NULL', [$kj]);
+        $dpjp30p = DB::select('SELECT 
+        fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,
+        a.id,
+        a.tiga_pertama
+        FROM erm_tindakan_kedokteran a
+        WHERE a.kode_kunjungan = ?
+       AND a.status = 1
+       AND a.tiga_pertama IS NOT NULL ', [$kj]);
+         $dpjp30k = DB::select('SELECT 
+        fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,
+        a.id,
+        a.tiga_kedua
+        FROM erm_tindakan_kedokteran a
+        WHERE a.kode_kunjungan = ?
+       AND a.status = 1
+       AND a.tiga_kedua IS NOT NULL ', [$kj]);
+       
         // dd($pasien);
         $tgllahir = Carbon::parse($pasien[0]->tgl_lahir)->format('d-m-Y');
         $kunjungan = DB::select('SELECT 
@@ -10080,7 +10375,7 @@ AND b.kelas_tarif = 1');
         // dd($tglmasuk, $tglklr, $kunjungan[0]);
         $triase = DB::select('SELECT * FROM ts_triase
            WHERE no_rm = ? AND kode_kunjungan = ? AND STATUS IN (1,2) ', [$norm, $kj]);
-
+       
         $riwayatorderrad = DB::select('SELECT
         a.no_rm,
         a.kode_layanan_header,
@@ -10124,6 +10419,7 @@ AND b.kelas_tarif = 1');
         $ttv = DB::select('SELECT tekanan_darah, sumber_data, SPO2, frekuensi_nafas, keadaan_umum, kesadaran, frekuensi_nadi, suhu, berat_badan, umur FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
         $riwayatrekonobat = DB::select('SELECT * FROM rekonsiliasi_obat
         WHERE kode_kunjungan = ?', [$kj]);
+        // dd($riwayatrekonobat);
         $tindakan = DB::select('SELECT * FROM erm_tindakan_kedokteran WHERE no_rm = ? AND kode_kunjungan = ? and status IN (1,2)', [$norm, $kj]);
         // $assesper = DB::select('SELECT * FROM erm_cppt_perawat
         //   WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
@@ -14073,10 +14369,16 @@ AND b.kelas_tarif = 1');
                 $pdf::ln();
                 $pdf::SetX(8);
 
-                $pdf::Cell(90, 5, '', 1);
-                $pdf::Cell(66, 5, '', 1);
-                $pdf::Cell(42, 5, '', 1);
-                $pdf::ln();
+             foreach ($riwayatrekonobat as $d) {
+                $pdf::SetX(8);
+
+                $pdf::Cell(90, 5, $d->nama_obat, 1);
+                $pdf::Cell(66, 5, $d->aturan_pakai, 1);
+                $pdf::Cell(42, 5, $d->lanjut, 1);
+
+                $pdf::Ln();
+                
+            }
                 $pdf::SetX(8);
 
                 $pdf::Cell(90, 5, '', 1);
@@ -14119,43 +14421,126 @@ AND b.kelas_tarif = 1');
 
             $pdf::SetFont('Times', '', 10);
             $pdf::SetX(8);
-            $pdf::Cell(35, 5, 'Tata Laksana DPJP  : ');
-
-            // $pdf::MultiCell(163, 5, $assesdok[0]->tata_laksana);
+            $pdf::Cell(35, 5, 'Tata Laksana DPJP :');
             $pdf::Ln();
 
             foreach ($dpjp as $d) {
-                $pdf::SetX(9);
-                $pdf::MultiCell(190, 5, $d->nama_dpjp . ' : ' .  $d->tindakan_kedokteran, 0, "", "L");
-
-                $pdf::Ln();
-                // $pdf::SetXY(10, 164.5);
-                // $pdf::Cell(40, 10, ':');
-                // $pdf::SetXY(60, 167);
-
-                // $pdf::MultiCell(160, 5, $d->tindakan_kedokteran);
+                $pdf::SetX(43);
+                $pdf::MultiCell(
+                    155,
+                    5,
+                    $d->nama_dpjp . ' : ' . $d->tindakan_kedokteran,
+                    0,
+                    'L'
+                );
             }
+
             $pdf::Ln();
 
-            //evluasi 30 pertama
-            $pdf::SetFont('Times', 'B', 10);
-            $pdf::SetX(8);
-            $text = "Evaluasi (30 Menit Pertama) : ";
+
+            // Evaluasi 30 Menit Pertama
             $pdf::SetFont('Times', '', 10);
-
-            $text .= $assesdok[0]->tiga_pertama;
-            $pdf::MultiCell(198, 5, $text, 1, "L", true);
-
-
-
-            //evluasi 30 kedua
-            $pdf::SetFont('Times', 'B', 10);
             $pdf::SetX(8);
-            $text = "Evaluasi (30 Menit Kedua) :";
+            $pdf::Cell(50, 5, 'Evaluasi (30 Menit Pertama) :');
             $pdf::SetFont('Times', '', 10);
+            $pdf::Ln();
 
-            $text .= $assesdok[0]->tiga_kedua;
-            $pdf::MultiCell(198, 5, $text, 1, "L", true);
+            foreach ($dpjp30p as $d) {
+                $pdf::SetX(43);
+                $pdf::MultiCell(
+                    155,
+                    5,
+                    $d->nama_dpjp . ' : ' . $d->tiga_pertama,
+                    0,
+                    'L'
+                );
+            }
+
+            $pdf::Ln();
+
+
+            // Evaluasi 30 Menit Kedua
+            $pdf::SetFont('Times', '', 10);
+            $pdf::SetX(8);
+            $pdf::Cell(50, 5, 'Evaluasi (30 Menit Kedua) :');
+            $pdf::SetFont('Times', '', 10);
+            $pdf::Ln();
+
+            foreach ($dpjp30k as $d) {
+                $pdf::SetX(43);
+                $pdf::MultiCell(
+                    155,
+                    5,
+                    $d->nama_dpjp . ' : ' . $d->tiga_kedua,
+                    0,
+                    'L'
+                );
+            }
+
+            $pdf::Ln();
+
+            // $pdf::SetFont('Times', '', 10);
+            // $pdf::SetX(8);
+            // $pdf::Cell(35, 5, 'Tata Laksana DPJP  : ');
+
+            // // $pdf::MultiCell(163, 5, $assesdok[0]->tata_laksana);
+            // $pdf::Ln();
+
+            // foreach ($dpjp as $d) {
+            //     $pdf::SetX(9);
+            //     $pdf::MultiCell(190, 5, $d->nama_dpjp . ' : ' .  $d->tindakan_kedokteran, 0, "", "L");
+
+            //     $pdf::Ln();
+            //     // $pdf::SetXY(10, 164.5);
+            //     // $pdf::Cell(40, 10, ':');
+            //     // $pdf::SetXY(60, 167);
+
+            //     // $pdf::MultiCell(160, 5, $d->tindakan_kedokteran);
+            // }
+            // $pdf::Ln();
+
+            // //evluasi 30 pertama
+            // $pdf::SetFont('Times', 'B', 10);
+            // $pdf::SetX(8);
+            // $text = "Evaluasi (30 Menit Pertama) : ";
+            // $pdf::SetFont('Times', '', 10);
+
+            // // $text .= $assesdok[0]->tiga_pertama;
+            // // $pdf::MultiCell(198, 5, $text, 1, "L", true);
+
+            // foreach ($dpjp as $d) {
+            //     $pdf::SetX(60);
+            //     $pdf::MultiCell(160, 5, $d->nama_dpjp . ' : ' .  $d->tiga_pertama, 0, "", "L");
+
+            //     $pdf::Ln();
+            //     // $pdf::SetXY(10, 164.5);
+            //     // $pdf::Cell(40, 10, ':');
+            //     // $pdf::SetXY(60, 167);
+
+            //     // $pdf::MultiCell(160, 5, $d->tindakan_kedokteran);
+            // }
+
+
+            // //evluasi 30 kedua
+            // $pdf::SetFont('Times', 'B', 10);
+            // $pdf::SetX(8);
+            // $text = "Evaluasi (30 Menit Kedua) :";
+            // $pdf::SetFont('Times', '', 10);
+
+            
+            // foreach ($dpjp as $d) {
+            //     $pdf::SetX(60);
+            //     $pdf::MultiCell(160, 5, $d->nama_dpjp . ' : ' .  $d->tiga_kedua, 0, "", "L");
+
+            //     $pdf::Ln();
+            //     // $pdf::SetXY(10, 164.5);
+            //     // $pdf::Cell(40, 10, ':');
+            //     // $pdf::SetXY(60, 167);
+
+            //     // $pdf::MultiCell(160, 5, $d->tindakan_kedokteran);
+            // }
+            // // $text .= $assesdok[0]->tiga_kedua;
+            // // $pdf::MultiCell(198, 5, $text, 1, "L", true);
 
 
             //belum selesai

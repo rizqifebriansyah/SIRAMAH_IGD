@@ -4979,7 +4979,12 @@ class PerawatController extends Controller
 
         // File path
         $filepath = url('../../files/' . $filename);
+            $create = upload_berkas_igd::create([
+            'kode_kunjungan' => $kj,
+            'no_rm' => $norm,
 
+            'laminaria' => $filename
+        ]);
 
         // $update = DB::table(' UPDATE erm_cppt_perawat
         // SET hasil_ekg = ? WHERE kode_kunjungan = ?', [$filepath,$kj]);

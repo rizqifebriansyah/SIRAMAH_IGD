@@ -50,8 +50,8 @@ Route::group(['middleware' => ['hak_akses:18', 'auth']], function () {
 
     Route::get('monitoring', [MonitoringController::class, 'monitoring'])->name('monitoring');
     Route::get('monitoringigdk', [MonitoringController::class, 'monitoringigdk'])->name('monitoringigdk');
-    
-    
+
+
     Route::post('ermpreview', [MonitoringController::class, 'ermpreview'])->name('ermpreview');
     Route::post('ermpreviewigdk', [MonitoringController::class, 'ermpreviewigdk'])->name('ermpreviewigdk');
 
@@ -70,24 +70,44 @@ Route::group(['middleware' => ['hak_akses:19', 'auth']], function () {
     Route::post('formermvk', [VKController::class, 'formermvk'])->name('formermvk');
     Route::post('pemantauanvk', [VKController::class, 'pemantauanvk'])->name('pemantauanvk');
     Route::post('pemantauanviewvk', [VKController::class, 'pemantauanviewvk'])->name('pemantauanviewvk');
+    Route::post('transferpasienvk', [VKController::class, 'transferpasienvk'])->name('transferpasienvk');
+    Route::post('catatantficuvk', [VKController::class, 'catatantficuvk'])->name('catatantficuvk');
 
     Route::post('uploadvk', [VKController::class, 'uploadvk'])->name('uploadvk');
 
-    
-    
-    
+
+
+
     Route::post('caripasienvk', [VKController::class, 'caripasienvk'])->name('caripasienvk');
-    
+    Route::post('cariassesmenpasienvk', [VKController::class, 'cariassesmenpasienvk'])->name('cariassesmenpasienvk');
+
+    Route::post('simpanctttransfervk', [VKController::class, 'simpanctttransfervk'])->name('simpanctttransfervk');
+
+    Route::post('updatectttransfervk', [VKController::class, 'updatectttransfervk'])->name('updatectttransfervk');
+
     Route::post('simpanassesvk', [VKController::class, 'simpanassesvk'])->name('simpanassesvk');
     Route::post('simpanpemantauanvk', [VKController::class, 'simpanpemantauanvk'])->name('simpanpemantauanvk');
-    
-    Route::post('returttvvk', [VKController::class, 'returttvvk'])->name('returttvvk');
-    
-    Route::post('updateassesvk', [VKController::class, 'updateassesvk'])->name('updateassesvk');
-    
-    Route::post('validasiassesvk', [VKController::class, 'validasiassesvk'])->name('validasiassesvk');
 
-  
+    Route::post('/simpanhasilekgvk', [VKController::class, 'simpanhasilekgvk'])->name('simpanhasilekgvk');
+    Route::post('/simpanhasilsppvk', [VKController::class, 'simpanhasilsppvk'])->name('simpanhasilsppvk');
+    Route::post('/simpanhasiltdknvk', [VKController::class, 'simpanhasiltdknvk'])->name('simpanhasiltdknvk');
+    Route::post('/simpanhasiltfvk', [VKController::class, 'simpanhasiltfvk'])->name('simpanhasiltfvk');
+    Route::post('/simpanhasilctgvk', [VKController::class, 'simpanhasilctgvk'])->name('simpanhasilctgvk');
+    Route::post('/simpanhasilusgvk', [VKController::class, 'simpanhasilusgvk'])->name('simpanhasilusgvk');
+    Route::post('/simpanhasilpartograpvk', [VKController::class, 'simpanhasilpartograpvk'])->name('simpanhasilpartograpvk');
+    Route::post('/simpanhasilkuretvk', [VKController::class, 'simpanhasilkuretvk'])->name('simpanhasilkuretvk');
+    Route::post('/simpanhasilbiopsivk', [VKController::class, 'simpanhasilbiopsivk'])->name('simpanhasilbiopsivk');
+    Route::post('/simpanhasillaminariavk', [VKController::class, 'simpanhasillaminariavk'])->name('simpanhasillaminariavk');
+    Route::post('/simpanhasilsklvk', [VKController::class, 'simpanhasilsklvk'])->name('simpanhasilsklvk');
+    Route::post('/simpanhasiltransfusivk', [VKController::class, 'simpanhasiltransfusivk'])->name('simpanhasiltransfusivk');
+    Route::post('/simpanhasilpathwayvk', [VKController::class, 'simpanhasilpathwayvk'])->name('simpanhasilpathwayvk');
+
+
+    Route::post('returttvvk', [VKController::class, 'returttvvk'])->name('returttvvk');
+
+    Route::post('updateassesvk', [VKController::class, 'updateassesvk'])->name('updateassesvk');
+
+    Route::post('validasiassesvk', [VKController::class, 'validasiassesvk'])->name('validasiassesvk');
 });
 //route farmasi
 Route::group(['middleware' => ['hak_akses:6', 'auth']], function () {
@@ -127,7 +147,7 @@ Route::group(['middleware' => ['hak_akses:5', 'auth']], function () {
     Route::post('ermdokter', [DokterController::class, 'ermdokter'])->name('ermdokter');
     Route::post('riwayatcppt', [DokterController::class, 'riwayatcppt'])->name('riwayatcppt');
     Route::post('assemenbunuhdiri', [DokterController::class, 'assemenbunuhdiri'])->name('assemenbunuhdiri');
-    
+
     Route::post('icare', [DokterController::class, 'icare'])->name('icare');
 
 
@@ -154,9 +174,9 @@ Route::group(['middleware' => ['hak_akses:5', 'auth']], function () {
     Route::post('simpanpemeriksaantriase', [DokterController::class, 'simpanpemeriksaantriase'])->name('simpanpemeriksaantriase');
     Route::post('simpanpemeriksaantriaseanak', [DokterController::class, 'simpanpemeriksaantriaseanak'])->name('simpanpemeriksaantriaseanak');
 
-    
+
     Route::post('simpanassesbunuhdiri', [DokterController::class, 'simpanassesbunuhdiri'])->name('simpanassesbunuhdiri');
-   
+
     Route::post('simpanassesmen', [DokterController::class, 'simpanassesmen'])->name('simpanassesmen');
     Route::post('simpanassesdokkebid', [DokterController::class, 'simpanassesdokkebid'])->name('simpanassesdokkebid');
     Route::post('simpanassesdokbay', [DokterController::class, 'simpanassesdokbay'])->name('simpanassesdokbay');
@@ -166,7 +186,11 @@ Route::group(['middleware' => ['hak_akses:5', 'auth']], function () {
     Route::post('updateassesdokbidbay', [DokterController::class, 'updateassesdokbidbay'])->name('updateassesdokbidbay');
     Route::post('updateassesbunuhdiri', [DokterController::class, 'updateassesbunuhdiri'])->name('updateassesbunuhdiri');
 
+    Route::post('editordertdp', [DokterController::class, 'editordertdp'])->name('editordertdp');
+    Route::post('editordertigap', [DokterController::class, 'editordertigap'])->name('editordertigap');
+    Route::post('editordertigak', [DokterController::class, 'editordertigak'])->name('editordertigak');
     
+
 
 
 
@@ -191,6 +215,9 @@ Route::group(['middleware' => ['hak_akses:5', 'auth']], function () {
     Route::post('returorderlaboratorium', [DokterController::class, 'returorderlaboratorium'])->name('returorderlaboratorium');
     Route::post('returordergp', [DokterController::class, 'returordergp'])->name('returordergp');
     Route::post('returordertdp', [DokterController::class, 'returordertdp'])->name('returordertdp');
+    Route::post('returordertigap', [DokterController::class, 'returordertigap'])->name('returordertigap');
+    Route::post('returordertigak', [DokterController::class, 'returordertigak'])->name('returordertigak');
+
 });
 //Akhir route dokter
 
@@ -295,7 +322,7 @@ Route::group(['middleware' => ['hak_akses:4', 'auth']], function () {
 
 
 
-    
+
     Route::post('/simpantindakankebidanan', [PerawatController::class, 'simpantindakankebidanan'])->name('simpantindakankebidanan');
 
     Route::post('returtinper', [PerawatController::class, 'returtinper'])->name('returtinper');
