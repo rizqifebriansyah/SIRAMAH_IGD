@@ -15,6 +15,7 @@
     <button type="submit" class="btn btn-info cetakobsperawat"> <i class="fa fa-print"></i> Cetak observasi </button>
     <button type="submit" class="btn btn-info mt-2 cetakrencplg"> <i class="fa fa-print"></i> Cetak rencana pulang </button>
     <button type="submit" class="btn btn-info mt-2 cetakresikobunuhdiri"> <i class="fa fa-print"></i> Cetak bunuh diri </button>
+    <button type="submit" class="btn btn-info mt-2 cetakcttntransfer"> <i class="fa fa-print"></i> Cetak catatan transfer </button>
 
 
 
@@ -5793,7 +5794,7 @@
                         <div class="card-body bg-light">
                             <select class="form-control select2" name="kopul" id="kopul">
                                 <option value="{{$assesdokbid[0]->keadaan_pulang}}"> {{$assesdokbid[0]->keadaan_pulang}}</option>
-                                
+
 
                             </select>
                             <label>Lain-lain</label>
@@ -5822,6 +5823,7 @@
         <button type="submit" class="btn btn-info cetakobsperawat"> <i class="fa fa-print"></i> Cetak observasi </button>
         <button type="submit" class="btn btn-info mt-2 cetakrencplg"> <i class="fa fa-print"></i> Cetak rencana pulang </button>
         <button type="submit" class="btn btn-info mt-2 cetakresikobunuhdiri"> <i class="fa fa-print"></i> Cetak bunuh diri </button>
+        <button type="submit" class="btn btn-info mt-2 cetakcttntransfer"> <i class="fa fa-print"></i> Cetak catatan transfer </button>
 
 
 
@@ -11785,7 +11787,7 @@
             });
         });
 
- $(".cetakresumecpptdokterkebidanan").click(function() {
+        $(".cetakresumecpptdokterkebidanan").click(function() {
             kj = $('#kj').val()
             norm = $('#norm').val()
 
@@ -12105,7 +12107,69 @@
             window.open('cetakobservasiperawat/' + kj + '/' + norm);
 
         }
+        $(".cetakcttntransfer").click(function() {
+            kj = $('#kj').val()
+            norm = $('#norm').val()
 
+
+
+
+
+            Swal.fire({
+                title: "Apakah ingin print rencana pulang?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Ya',
+                cancelButtonColor: '#d33',
+                cancelButtonText: "Batal"
+
+            }).then(result => {
+                //jika klik ya maka arahkan ke proses.php
+                if (result.isConfirmed) {
+                    $.ajax({
+                        async: true,
+                        type: 'post',
+                        dataType: 'json',
+                        data: {
+                            _token: "{{ csrf_token() }}",
+
+                            kj,
+                            norm
+
+                        },
+                        url: '<?= route('cetakcttntransfer') ?>',
+                        error: function(data) {
+                            spinner.hide()
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Ooops....',
+                                text: 'Sepertinya ada masalah......',
+                                footer: ''
+                            })
+                        },
+                        success: function(data) {
+                            spinner.hide()
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'OK',
+                                text: data.message,
+                                footer: ''
+                            })
+                            cetakcatatantransfer(data.kj, data.norm)
+
+                        }
+                    });
+                }
+            })
+            return false;
+        });
+
+
+        function cetakcatatantransfer(kj, norm) {
+            window.open('cetakcatatantransfer/' + kj + '/' + norm);
+
+        }
         $(".cetakrencplg").click(function() {
             kj = $('#kj').val()
             norm = $('#norm').val()

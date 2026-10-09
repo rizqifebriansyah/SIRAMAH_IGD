@@ -24,18 +24,35 @@
                     </a></div>
             </div>
         </div>
+
+        @if ($assesdok == null)
         <table class="table">
             <tbody>
                 <tr>
-                    <td class="text-bold font-italic">Tanggal Kunjungan</td>
+
+                    <td class="text-bold font-italic">Tanggal Kunjungan </td>
                     <td>
-                        <h5 class="text-bold">{{$now}}</h5>
+                        <input class="form-control" type="datetime-local" value="{{$kunjungan[0]->tgl_masuk}}" name="tgl_kunjungan" id="tgl_kunjungan">
+
 
                     </td>
-                    <td class="text-bold font-italic">Tanggal Pengkajian</td>
+                    <td class="text-bold font-italic">Tanggal Pulang</td>
                     <td>
-                        <h5 class="text-bold">{{$now}}</h5>
+                        <input class="form-control" type="datetime-local" value="" name="tgl_plg" id="tgl_plg">
+                    </td>
 
+                </tr>
+
+                <tr>
+                    <td class="text-bold font-italic">Tanggal Awal Asesmen</td>
+                    <td>
+                        <input class="form-control" type="datetime-local" value="" name="tgl_asses" id="tgl_asses">
+
+
+                    </td>
+                    <td class="text-bold font-italic">Tanggal Selesai Asesmen</td>
+                    <td>
+                        <input class="form-control ml-2 mb-2" type="datetime-local" value="" name="tgl_selesai_asses" id="tgl_selesai_asses">
                     </td>
                 </tr>
                 <tr>
@@ -94,8 +111,6 @@
                 </tr>
             </tbody>
         </table>
-        @if ($assesdok == null)
-
         <div class="accordion" id="accordionExample92">
             <div class="card">
                 <div class="card-header " style="background-color: rgba(110, 245, 137, 0.745)" id="headingOne">
@@ -473,30 +488,20 @@
                     <div class="card-body bg-light">
                         <table class="table">
                             <tbody>
-                                <tr>
-                                    <td colspan="2">
 
-
-                                        <form id="dynamic-form" class="formtindakandp">
-                                            <div class="field_wrapper">
-                                                <div class="row">
-
-
-                                                    <div class="col-md-2">
-                                                        <a class="btn btn-success" href="javascript:void(0);" id="add_button" title="Add field">TAMBAH</a>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </form>
-                                    </td>
-                                </tr>
 
                                 <tr>
                                     <td class="text-bold font-italic">DIAGNOSA </td>
                                     <td>
                                         <div class="input-group">
-                                            <textarea class="form-control" id="diagnosa" name="diagnosa" placeholder=""></textarea>
+                                            <div class="input-group">
+                                                <input value="" class="form-control form-control-sm @error('diagnosa') is-invalid @enderror" name="diagnosa" id="diagnosa" required />
+                                                @error('unit')
+                                                <small id="emailHelp" class="form-text text-danger">
+                                                    {{ $message }}</small>
+                                                @enderror
+                                            </div>
+                                            <!-- <textarea class="form-control" id="diagnosa" name="diagnosa" placeholder=""></textarea> -->
 
                                         </div>
                                     </td>
@@ -522,12 +527,32 @@
                         <table class="table">
                             <tbody>
                                 <tr>
-                                    <td class="text-bold font-italic">TATA LAKSANA</td>
+                                    <td class="text-bold font-italic">TATA LAKSANA GP</td>
                                     <td>
                                         <div class="input-group">
                                             <textarea class="form-control" id="planning" name="planning" placeholder=""></textarea>
 
                                         </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold font-italic">TATA LAKSANA DPJP</td>
+
+                                    <td>
+
+
+                                        <form id="dynamic-form" class="formtindakandp">
+                                            <div class="field_wrapper">
+                                                <div class="row">
+
+
+                                                    <div class="col-md-2">
+                                                        <a class="btn btn-success" href="javascript:void(0);" id="add_button" title="Add field">TAMBAH</a>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </form>
                                     </td>
                                 </tr>
                             </tbody>
@@ -865,7 +890,111 @@
 
         <!-- igd kebidanan dengan isi  -->
         @else
+        <table class="table">
+            <tbody>
+                <tr>
 
+                    <td class="text-bold font-italic">Tanggal Kunjungan </td>
+                    <td>
+                        <input class="form-control" type="datetime-local" value="{{$kunjungan[0]->tgl_masuk}}" name="tgl_kunjungan" id="tgl_kunjungan">
+
+
+                    </td>
+                    <td class="text-bold font-italic">Tanggal Pulang</td>
+                    <td>
+                        <input class="form-control" type="datetime-local" value="{{$assesdok[0]->tgl_plg}}" name="tgl_plg" id="tgl_plg">
+                    </td>
+
+                </tr>
+
+                <tr>
+                    <td class="text-bold font-italic">Tanggal Awal Asesmen</td>
+                    <td>
+                        <input class="form-control" type="datetime-local" value="{{$assesdok[0]->tgl_asses}}" name="tgl_asses" id="tgl_asses">
+
+
+                    </td>
+                    <td class="text-bold font-italic">Tanggal Selesai Asesmen</td>
+                    <td>
+                        <input class="form-control ml-2 mb-2" type="datetime-local" value="{[$assesdok[0]->tgl_selesai_asses}}" name="tgl_selesai_asses" id="tgl_selesai_asses">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-bold font-italic">Sumber Data</td>
+                    <td>
+                        <div class="form-check form-check-inline">
+                            @if($assesdok[0]->sumber_data == 'Pasien Sendiri')
+                            <input class="form-check-input" type="radio" name="sumberdata" id="sumberdata" value="Pasien Sendiri" checked>
+                            <label class="form-check-label" for="inlineRadio1">Pasien Sendiri / Autoanamase</label>
+                            @else
+                            <input class="form-check-input" type="radio" name="sumberdata" id="sumberdata" value="Pasien Sendiri">
+                            <label class="form-check-label" for="inlineRadio1">Pasien Sendiri / Autoanamase</label>
+                            @endif
+                        </div>
+
+                    </td>
+                    <td>
+                        <div class="form-check form-check-inline">
+                            @if($assesdok[0]->sumber_data == 'Keluarga')
+                            <input class="form-check-input" type="radio" name="sumberdata" id="sumberdata" value="Keluarga" checked>
+                            <label class="form-check-label" for="inlineRadio2">Keluarga / Alloanamnesa</label>
+                            @else
+                            <input class="form-check-input" type="radio" name="sumberdata" id="sumberdata" value="Keluarga">
+                            <label class="form-check-label" for="inlineRadio2">Keluarga / Alloanamnesa</label>
+                            @endif
+                        </div>
+                    </td>
+                    <td>
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="text-bold font-italic">Macam Kasus</td>
+                    <td>
+                        <div class="form-check form-check-inline">
+                            @if($assesdok[0]->macam_kasus == 'Non Trauma')
+                            <input class="form-check-input" type="radio" name="macamkasus" id="macamkasus" value="Non Trauma" checked>
+                            <label class="form-check-label" for="inlineRadio1">Non Trauma</label>
+                            @else
+                            <input class="form-check-input" type="radio" name="macamkasus" id="macamkasus" value="Non Trauma">
+                            <label class="form-check-label" for="inlineRadio1">Non Trauma</label>
+                            @endif
+                        </div>
+
+                    </td>
+                    <td>
+                        <div class="form-check form-check-inline">
+                            @if($assesdok[0]->macam_kasus == 'Trauma')
+                            <input class="form-check-input" type="radio" name="macamkasus" id="macamkasus" value="Trauma" checked>
+                            <label class="form-check-label" for="inlineRadio2">Trauma </label>
+                            @else
+                            <input class="form-check-input" type="radio" name="macamkasus" id="macamkasus" value="Trauma">
+                            <label class="form-check-label" for="inlineRadio2">Trauma </label>
+                            @endif
+
+                        </div>
+                    </td>
+                    <td>
+                        <select class="form-control select2" name="trauma" id="trauma">
+                            <option value=""> {{$assesdok[0]->trauma}}</option>
+                            <option value="Keecelakaan Lalu Lintas">Keecelakaan Lalu Lintas
+                            </option>
+                            <option value="Kekerasan Dalam Rumah Tangga">Kekerasan Dalam Rumah Tangga
+                            </option>
+                            <option value="Pasien Non Bedah">Pasien Non Bedah
+                            </option>
+                            <option value="Kecelakaan Kerja">Kecelakaan Kerja
+                            </option>
+                            <option value="Child Abuse (Kekerasan Anak)">Child Abuse (Kekerasan Anak)
+                            </option>
+
+
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
         <div class="accordion" id="accordionExample92">
             <div class="card">
                 <div class="card-header " style="background-color: rgba(110, 245, 137, 0.745)" id="headingOne">
@@ -1243,8 +1372,59 @@
                     <div class="card-body bg-light">
                         <table class="table">
                             <tbody>
+
+
                                 <tr>
-                                    <td colspan="2">
+                                    <td class="text-bold font-italic">DIAGNOSA </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group">
+                                                <input value="{{$assesdok[0]->diagnosis}}" class="form-control form-control-sm @error('diagnosa') is-invalid @enderror" name="diagnosa" id="diagnosa" required />
+                                                @error('unit')
+                                                <small id="emailHelp" class="form-text text-danger">
+                                                    {{ $message }}</small>
+                                                @enderror
+                                            </div>
+                                            <!-- <textarea class="form-control" id="diagnosa" name="diagnosa" placeholder=""></textarea> -->
+
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion" id="accordionExample95">
+            <div class="card">
+                <div class="card-header " style="background-color: rgba(110, 245, 137, 0.745)" id="headingOne">
+                    <h2 class="mb-0">
+                        <button class="btn  btn-block text-left text-bold  font-weight" type="button" data-toggle="collapse" data-target="#collapseOne95" aria-expanded="true" aria-controls="collapseOne95">
+                            <i class="bi bi-book mr-1 ml-1"></i>(P) PLANNING
+                        </button>
+                    </h2>
+                </div>
+
+                <div id="collapseOne95" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample95">
+                    <div class="card-body bg-light">
+                        <table class="table">
+                            <tbody>
+
+
+                                <tr>
+                                    <td class="text-bold font-italic">TATA LAKSANA GP</td>
+                                    <td>
+                                        <div class="input-group">
+                                            <textarea class="form-control" id="planning" name="planning" placeholder="">{{$assesdok[0]->planning}}</textarea>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold font-italic">TATA LAKSANA DPJP</td>
+
+                                    <td>
 
 
                                         <form id="dynamic-form" class="formtindakandp">
@@ -1274,45 +1454,6 @@
 
                                             </div>
                                         </form>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td class="text-bold font-italic">DIAGNOSA </td>
-                                    <td>
-                                        <div class="input-group">
-                                            <textarea class="form-control" id="diagnosa" name="diagnosa" placeholder="">{{$assesdok[0]->diagnosis}}</textarea>
-
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="accordion" id="accordionExample95">
-            <div class="card">
-                <div class="card-header " style="background-color: rgba(110, 245, 137, 0.745)" id="headingOne">
-                    <h2 class="mb-0">
-                        <button class="btn  btn-block text-left text-bold  font-weight" type="button" data-toggle="collapse" data-target="#collapseOne95" aria-expanded="true" aria-controls="collapseOne95">
-                            <i class="bi bi-book mr-1 ml-1"></i>(P) PLANNING
-                        </button>
-                    </h2>
-                </div>
-
-                <div id="collapseOne95" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample95">
-                    <div class="card-body bg-light">
-                        <table class="table">
-                            <tbody>
-                                <tr>
-                                    <td class="text-bold font-italic">TATA LAKSANA</td>
-                                    <td>
-                                        <div class="input-group">
-                                            <textarea class="form-control" id="planning" name="planning" placeholder="">{{$assesdok[0]->planning}}</textarea>
-
-                                        </div>
                                     </td>
                                 </tr>
                             </tbody>
@@ -2012,6 +2153,9 @@
                 var rekobat = $('.formtinjutobat').serializeArray();
 
                 var ku = $('#ku').val()
+                var sumberdata = $('#sumberdata:checked').val()
+                var macamkasus = $('#macamkasus:checked').val()
+                var trauma = $('#trauma').val()
                 var subject = $('#subyek').val()
                 var pemfis = $('#pemfis').val()
                 var planning = $('#planning').val()
@@ -2024,7 +2168,9 @@
                 var alpul1 = $('#alpul1').val()
                 var kopul = $('#kopul').val()
                 var kopul1 = $('#kopul1').val()
-
+                var tgl_asses = $('#tgl_asses').val()
+                var tgl_selesai_asses = $('#tgl_selesai_asses').val()
+                var tgl_plg = $('#tgl_plg').val()
 
                 // var sumberdata = $("#sumberdata:checked").val();
                 Swal.fire({
@@ -2052,6 +2198,9 @@
                                 datarad: JSON.stringify(datarad),
 
                                 ku: $('#ku').val(),
+                                sumberdata: $('#sumberdata:checked').val(),
+                                macamkasus: $('#macamkasus:checked').val(),
+                                trauma: $('#trauma').val(),
                                 subject: $('#subyek').val(),
                                 pemfis: $('#pemfis').val(),
                                 planning: $('#planning').val(),
@@ -2064,7 +2213,9 @@
                                 alpul1: $('#alpul1').val(),
                                 kopul: $('#kopul').val(),
                                 kopul1: $('#kopul1').val(),
-
+                                tgl_asses: $('#tgl_asses').val(),
+                                tgl_selesai_asses: $('#tgl_selesai_asses').val(),
+                                tgl_plg: $('#tgl_plg').val()
                             },
                             url: '<?= route('updateassesdokbidbay') ?>',
 
@@ -2108,6 +2259,9 @@
                 var rekobat = $('.formtinjutobat').serializeArray();
 
                 var ku = $('#ku').val()
+                var sumberdata = $('#sumberdata:checked').val()
+                var macamkasus = $('#macamkasus:checked').val()
+                var trauma = $('#trauma').val()
                 var subject = $('#subyek').val()
                 var pemfis = $('#pemfis').val()
                 var planning = $('#planning').val()
@@ -2120,7 +2274,9 @@
                 var alpul1 = $('#alpul1').val()
                 var kopul = $('#kopul').val()
                 var kopul1 = $('#kopul1').val()
-
+                var tgl_asses = $('#tgl_asses').val()
+                var tgl_selesai_asses = $('#tgl_selesai_asses').val()
+                var tgl_plg = $('#tgl_plg').val()
 
                 // var sumberdata = $("#sumberdata:checked").val();
                 Swal.fire({
@@ -2146,7 +2302,9 @@
 
                                 datalab: JSON.stringify(datalab),
                                 datarad: JSON.stringify(datarad),
-
+                                sumberdata: $('#sumberdata:checked').val(),
+                                macamkasus: $('#macamkasus:checked').val(),
+                                trauma: $('#trauma').val(),
                                 ku: $('#ku').val(),
                                 subject: $('#subyek').val(),
                                 pemfis: $('#pemfis').val(),
@@ -2160,7 +2318,9 @@
                                 alpul1: $('#alpul1').val(),
                                 kopul: $('#kopul').val(),
                                 kopul1: $('#kopul1').val(),
-
+                                tgl_asses: $('#tgl_asses').val(),
+                                tgl_selesai_asses: $('#tgl_selesai_asses').val(),
+                                tgl_plg: $('#tgl_plg').val()
                             },
                             url: '<?= route('simpanassesdokbay') ?>',
 

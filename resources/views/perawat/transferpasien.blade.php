@@ -158,7 +158,7 @@
                             <tr>
                                 <td>
                                     <label for="">GCS</label>
-                                    <input class="form-control" type="text" value="{{$tf[0]->gcs_e}}" name="gcs" id="gcs">
+                                    <input class="form-control" type="text" value="" name="gcs" id="gcs">
 
                                 </td>
                                 <td>
@@ -256,7 +256,7 @@
                                         Penggunaan Cateter
                                     </label>
                                     <div class="form-check">
-                                        @if($tf[0]->penggunaan_cateter == 'Compos Mentis')
+                                        @if($tf[0]->penggunaan_cateter == 'Ada')
                                         <input class="form-check-input" type="radio" name="cateter" checked id="cateter" value="Ada">
                                         <label class="form-check-label">Ada</label>
                                         @else
@@ -266,7 +266,7 @@
 
                                     </div>
                                     <div class="form-check">
-                                        @if($tf[0]->penggunaan_cateter == 'Compos Mentis')
+                                        @if($tf[0]->penggunaan_cateter == 'Tidak')
                                         <input class="form-check-input" type="radio" name="cateter" checked id="cateter" value="Tidak">
                                         <label class="form-check-label">Tidak</label>
                                         @else
@@ -388,6 +388,36 @@
                             </tr>
                             <tr>
                                 <td>
+                                    <table id="tableobatrekon" class="table">
+                                        <thead>
+                                            <th hidden>ID</th>
+                                            <th>Nama Obat</th>
+                                            <th>Dosis</th>
+                                            <th>Jam Pemberian</th>
+                                            <th>Instruksi Khusus</th>
+
+                                            <th>Action</th>
+
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($obatplg as $ri => $r)
+                                            <tr>
+                                                <td class="id" hidden>{{$r->id}}</td>
+                                                <td class="nama_obat">{{$r->nama_obat}}</td>
+                                                <td class="dosis">{{$r->dosis}}</td>
+
+                                                <td class="jam_pemberian">{{$r->jam_pemberian}}</td>
+                                                <td class="instruksi_khusus">{{$r->instruksi_khusus}}</td>
+
+                                                <td>
+                                                    <button class="badge badge-danger returobatplg" id="returobatplg"> Hapus </button>
+
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+
+                                    </table>
                                     <form id="dynamic-form" class="formobatplg">
                                         <h5>Klik Tombol Tambah untuk menambahkan obat pulang</h5>
 
@@ -1631,8 +1661,8 @@
             data: {
                 _token: "{{ csrf_token() }}",
 
-                        kj: $('#kj').val(),
-                        norm: $('#norm').val()
+                kj: $('#kj').val(),
+                norm: $('#norm').val()
 
             },
             url: '<?= route('catatantficu') ?>',
@@ -1855,8 +1885,8 @@
         return false;
     });
 
-    
-     $(".updatectttransfer").click(function() {
+
+    $(".updatectttransfer").click(function() {
         var obatplg = $('.formobatplg').serializeArray();
         var tgl_input_transfer = $('#tgl_input_transfer').val()
         var tgl_selesai_transfer = $('#tgl_selesai_transfer').val()

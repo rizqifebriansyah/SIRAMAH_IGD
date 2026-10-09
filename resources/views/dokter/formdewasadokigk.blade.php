@@ -25,19 +25,33 @@
             </div>
         </div>
         @if ($assesdok == null)
-
         <table class="table">
             <tbody>
                 <tr>
-                    <td class="text-bold font-italic">Tanggal Kunjungan</td>
+
+                    <td class="text-bold font-italic">Tanggal Kunjungan </td>
                     <td>
-                        <h5 class="text-bold">{{$now}}</h5>
+                        <input class="form-control" type="datetime-local" value="{{$kunjungan[0]->tgl_masuk}}" name="tgl_kunjungan" id="tgl_kunjungan">
+
 
                     </td>
-                    <td class="text-bold font-italic">Tanggal Pengkajian</td>
+                    <td class="text-bold font-italic">Tanggal Pulang</td>
                     <td>
-                        <h5 class="text-bold">{{$now}}</h5>
+                        <input class="form-control" type="datetime-local" value="" name="tgl_plg" id="tgl_plg">
+                    </td>
 
+                </tr>
+
+                <tr>
+                    <td class="text-bold font-italic">Tanggal Awal Asesmen</td>
+                    <td>
+                        <input class="form-control" type="datetime-local" value="" name="tgl_asses" id="tgl_asses">
+
+
+                    </td>
+                    <td class="text-bold font-italic">Tanggal Selesai Asesmen</td>
+                    <td>
+                        <input class="form-control ml-2 mb-2" type="datetime-local" value="" name="tgl_selesai_asses" id="tgl_selesai_asses">
                     </td>
                 </tr>
                 <tr>
@@ -94,8 +108,11 @@
                         </select>
                     </td>
                 </tr>
+
+
             </tbody>
         </table>
+
         <!-- assesmen dokter -->
         <div class="accordion" id="accordionExample92">
             <div class="card">
@@ -664,28 +681,19 @@
                     <div class="card-body bg-light">
                         <table class="table">
                             <tbody>
-                                <tr>
-                                    <td colspan="2">
 
-
-                                        <form id="dynamic-form" class="formtindakandjp">
-                                            <div class="field_wrapperr">
-                                                <div class="row">
-
-                                                    <div class="col-md-2">
-                                                        <a class="btn btn-success" href="javascript:void(0);" id="add_button" title="Add field">TAMBAH</a>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </form>
-                                    </td>
-                                </tr>
                                 <tr>
                                     <td class="text-bold font-italic">DIAGNOSIS</td>
                                     <td>
                                         <div class="input-group">
-                                            <textarea class="form-control" id="diagnosis" name="diagnosis" placeholder=""></textarea>
+                                            <div class="input-group">
+                                                <input class="form-control form-control-sm @error('diagnosa') is-invalid @enderror" name="diagnosa" id="diagnosa" required />
+                                                @error('unit')
+                                                <small id="emailHelp" class="form-text text-danger">
+                                                    {{ $message }}</small>
+                                                @enderror
+                                            </div>
+                                            <!-- <textarea class="form-control" id="diagnosis" name="diagnosis" placeholder=""></textarea> -->
 
                                         </div>
                                     </td>
@@ -711,12 +719,31 @@
                         <table class="table">
                             <tbody>
                                 <tr>
-                                    <td class="text-bold font-italic">TATA LAKSANA</td>
+                                    <td class="text-bold font-italic">TATA LAKSANA GP</td>
                                     <td>
                                         <div class="input-group">
                                             <textarea class="form-control" id="planning" name="planning" placeholder=""></textarea>
 
                                         </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold font-italic">TATA LAKSANA DPJP</td>
+
+                                    <td>
+
+
+                                        <form id="dynamic-form" class="formtindakandjp">
+                                            <div class="field_wrapperr">
+                                                <div class="row">
+
+                                                    <div class="col-md-2">
+                                                        <a class="btn btn-success" href="javascript:void(0);" id="add_button" title="Add field">TAMBAH</a>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </form>
                                     </td>
                                 </tr>
                             </tbody>
@@ -1061,15 +1088,30 @@
         <table class="table">
             <tbody>
                 <tr>
-                    <td class="text-bold font-italic">Tanggal Kunjungan</td>
+
+                    <td class="text-bold font-italic">Tanggal Kunjungan </td>
                     <td>
-                        <h5 class="text-bold">{{$now}}</h5>
+                        <input class="form-control" type="datetime-local" value="{{$kunjungan[0]->tgl_masuk}}" name="tgl_kunjungan" id="tgl_kunjungan">
+
 
                     </td>
-                    <td class="text-bold font-italic">Tanggal Pengkajian</td>
+                    <td class="text-bold font-italic">Tanggal Pulang</td>
                     <td>
-                        <h5 class="text-bold">{{$now}}</h5>
+                        <input class="form-control" type="datetime-local" value="{{$assesdok[0]->tgl_plg}}" name="tgl_plg" id="tgl_plg">
+                    </td>
 
+                </tr>
+
+                <tr>
+                    <td class="text-bold font-italic">Tanggal Awal Asesmen</td>
+                    <td>
+                        <input class="form-control" type="datetime-local" value="{{$assesdok[0]->tgl_asses}}" name="tgl_asses" id="tgl_asses">
+
+
+                    </td>
+                    <td class="text-bold font-italic">Tanggal Selesai Asesmen</td>
+                    <td>
+                        <input class="form-control ml-2 mb-2" type="datetime-local" value="{[$assesdok[0]->tgl_selesai_asses}}" name="tgl_selesai_asses" id="tgl_selesai_asses">
                     </td>
                 </tr>
                 <tr>
@@ -1762,11 +1804,19 @@
                                     <td class="text-bold font-italic">DIAGNOSIS</td>
                                     <td>
                                         <div class="input-group">
-                                            <textarea class="form-control" id="diagnosis" name="diagnosis" placeholder="">{{$assesdok[0]->diagnosis}}</textarea>
+                                            <div class="input-group">
+                                                <input value="{{$assesdok[0]->diagnosis}}" class="form-control form-control-sm @error('diagnosa') is-invalid @enderror" name="diagnosa" id="diagnosa" required />
+                                                @error('unit')
+                                                <small id="emailHelp" class="form-text text-danger">
+                                                    {{ $message }}</small>
+                                                @enderror
+                                            </div>
+                                            <!-- <textarea class="form-control" id="diagnosis" name="diagnosis" placeholder=""></textarea> -->
 
                                         </div>
                                     </td>
                                 </tr>
+
                             </tbody>
                         </table>
                     </div>
@@ -2203,6 +2253,14 @@
 
             });
             $(document).ready(function() {
+                $('#diagnosa').autocomplete({
+                    source: "<?= route('caridiagnosa') ?>",
+                    select: function(event, ui) {
+                        $('[id="diagnosa"]').val(ui.item.label);
+                    }
+                });
+            });
+            $(document).ready(function() {
                 var maxField = 10; //Input fields increment limitation
                 var addButton = $('#add_button'); //Add button selector
                 var wrapper = $('.field_wrapperr'); //Input field wrapper
@@ -2553,7 +2611,7 @@
                 var imbang = $('#imbang').val()
                 var namadpjp = $('#namadpjp').val()
                 var kodedpjp = $('#kodedpjp').val()
-                var diagnosis = $('#diagnosis').val()
+                var diagnosis = $('#diagnosa').val()
                 var planning = $('#planning').val()
                 var norm = $('#norm').val()
                 var kj = $('#kj').val()
@@ -2563,7 +2621,9 @@
                 var alpul1 = $('#alpul1').val()
                 var kopul = $('#kopul').val()
                 var kopul1 = $('#kopul1').val()
-
+                var tgl_asses = $('#tgl_asses').val()
+                var tgl_selesai_asses = $('#tgl_selesai_asses').val()
+                var tgl_plg = $('#tgl_plg').val()
 
 
                 // var sumberdata = $("#sumberdata:checked").val();
@@ -2617,7 +2677,7 @@
                                 imbang: $('#imbang').val(),
                                 namadpjp: $('#namadpjp').val(),
                                 kodedpjp: $('#kodedpjp').val(),
-                                diagnosis: $('#diagnosis').val(),
+                                diagnosis: $('#diagnosa').val(),
                                 planning: $('#planning').val(),
                                 norm: $('#norm').val(),
                                 kj: $('#kj').val(),
@@ -2627,7 +2687,9 @@
                                 alpul1: $('#alpul1').val(),
                                 kopul: $('#kopul').val(),
                                 kopul1: $('#kopul1').val(),
-
+                                tgl_asses : $('#tgl_asses').val(),
+                                tgl_selesai_asses : $('#tgl_selesai_asses').val(),
+                                tgl_plg : $('#tgl_plg').val()
 
                             },
                             url: '<?= route('updateassesdokbid') ?>',
@@ -2698,7 +2760,7 @@
                 var imbang = $('#imbang').val()
                 var namadpjp = $('#namadpjp').val()
                 var kodedpjp = $('#kodedpjp').val()
-                var diagnosis = $('#diagnosis').val()
+                var diagnosis = $('#diagnosa').val()
                 var planning = $('#planning').val()
                 var norm = $('#norm').val()
                 var kj = $('#kj').val()
@@ -2708,6 +2770,10 @@
                 var alpul1 = $('#alpul1').val()
                 var kopul = $('#kopul').val()
                 var kopul1 = $('#kopul1').val()
+                var tgl_asses = $('#tgl_asses').val()
+                var tgl_selesai_asses = $('#tgl_selesai_asses').val()
+                var tgl_plg = $('#tgl_plg').val()
+
 
 
                 // var sumberdata = $("#sumberdata:checked").val();
@@ -2761,7 +2827,7 @@
                                 imbang: $('#imbang').val(),
                                 namadpjp: $('#namadpjp').val(),
                                 kodedpjp: $('#kodedpjp').val(),
-                                diagnosis: $('#diagnosis').val(),
+                                diagnosis: $('#diagnosa').val(),
                                 planning: $('#planning').val(),
                                 norm: $('#norm').val(),
                                 kj: $('#kj').val(),
@@ -2771,6 +2837,9 @@
                                 alpul1: $('#alpul1').val(),
                                 kopul: $('#kopul').val(),
                                 kopul1: $('#kopul1').val(),
+                                tgl_asses: $('#tgl_asses').val(),
+                                tgl_selesai_asses: $('#tgl_selesai_asses').val(),
+                                tgl_plg: $('#tgl_plg').val()
                             },
                             url: '<?= route('simpanassesdokkebid') ?>',
 

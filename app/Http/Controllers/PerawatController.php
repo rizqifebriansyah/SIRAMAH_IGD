@@ -770,6 +770,8 @@ class PerawatController extends Controller
         $riwayatrekonobat = DB::select('SELECT * FROM rekonsiliasi_obat WHERE kode_kunjungan = ?', [$kj]);
         $poli = DB::select('SELECT kode_unit,nama_unit FROM mt_unit WHERE kelas_unit = 2');
         $tf = DB::connection('mysql4')->select('SELECT * FROM catatan_transfer_pasien WHERE kode_kunjungan = ?', [$kj]);
+        $obatplg = DB::select('SELECT * FROM erm_obat_pulang_igd WHERE no_rm = ? AND kode_kunjungan = ? AND status = 4', [$norm, $kj]);
+      
         // dd($tf);
         return view(
             'perawat.transferpasien',
@@ -777,7 +779,7 @@ class PerawatController extends Controller
                 'title' => 'SiRAMAH PERAWAT',
                 'unit' => $unit,
                 'tf' => $tf,
-
+                'obatplg' => $obatplg,
                 'now' => $now,
                 'norm' => $norm,
                 'ranap' => $ranap,
@@ -1699,7 +1701,7 @@ class PerawatController extends Controller
                 'gcs_m' => $request->M,
                 'gcs_v' => $request->V,
                 'tekanan_darah' => $request->tekanandarah,
-                'nadi' => $request->frekuensinado,
+                'nadi' => $request->frekuensinadi,
                 'pernafasan' => $request->frekuensinafas,
                 'suhu' => $request->suhutubuh,
                 'penggunaan_oksigen' => $request->oksigen,
@@ -1780,13 +1782,13 @@ class PerawatController extends Controller
                 foreach ($arrayindex as $arr) {
                     $savedetailobatplg = [
                         // 'kode_detail_obat' => $id_detail,
-                        'rm' => $norm,
+                        'no_rm' => $norm,
                         'kode_kunjungan' => $kj,
-                        'kode_unit' => '1002',
+                        'kode_unit' => $unit,
                         'nama_obat' => $arr['namaobat'],
                         'dosis' => $arr['dosis'],
                         'jam_pemberian' => $arr['jampemberian'],
-                        'instrusi_khusus' => $arr['intruksi'],
+                        'instruksi_khusus' => $arr['intruksi'],
 
 
                         'tgl_input' => $now,
@@ -1794,6 +1796,7 @@ class PerawatController extends Controller
 
                     ];
                     $obatpulang = erm_obat_pulang_igd::create($savedetailobatplg);
+                    // dd($obatpulang);
                 }
             }
         } catch (\Exception $e) {
@@ -1941,13 +1944,13 @@ class PerawatController extends Controller
                 foreach ($arrayindex as $arr) {
                     $savedetailobatplg = [
                         // 'kode_detail_obat' => $id_detail,
-                        'rm' => $norm,
+                        'no_rm' => $norm,
                         'kode_kunjungan' => $kj,
                         'kode_unit' => '1002',
                         'nama_obat' => $arr['namaobat'],
                         'dosis' => $arr['dosis'],
                         'jam_pemberian' => $arr['jampemberian'],
-                        'instrusi_khusus' => $arr['intruksi'],
+                        'instruksi_khusus' => $arr['intruksi'],
 
 
                         'tgl_input' => $now,
