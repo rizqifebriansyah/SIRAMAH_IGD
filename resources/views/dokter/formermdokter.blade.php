@@ -2036,6 +2036,61 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <td class="text-bold font-italic">Evaluasi (30 menit pertama)</td>
+                                    <td>
+                                        <!-- <form id="dynamic-form" class="form30pdpjp">
+
+                                            <div class="field_wrapper30p">
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <H5>KLIK TOMBOL TAMBAH UNTUK MENAMBAHKAN 30 Menit pertama DPJP</H5>
+
+                                                        <div class="col-md-2">
+                                                            <a class="btn btn-success" href="javascript:void(0);" id="add_button_30p" title="Add field">TAMBAH</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form> -->
+                                        <div class="input-group">
+                                            <textarea class="form-control" id="tigap" name="tigap" placeholder=""></textarea>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold font-italic">Evaluasi (30 menit kedua)</td>
+                                    <td>
+                                        <!-- <form id="dynamic-form" class="form30kdpjp">
+
+                                            <div class="field_wrapper30k">
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <H5>KLIK TOMBOL TAMBAH UNTUK MENAMBAHKAN 30 Menit kedua DPJP</H5>
+
+                                                        <div class="col-md-2">
+                                                            <a class="btn btn-success" href="javascript:void(0);" id="add_button_30k" title="Add field">TAMBAH</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form> -->
+                                        <div class="input-group">
+                                            <textarea class="form-control" id="tigak" name="tigak" placeholder=""></textarea>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold font-italic">Edukasi</td>
+                                    <td>
+                                        <div class="input-group">
+                                            <textarea class="form-control" id="edukasi" name="edukasi" placeholder=""></textarea>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
                                     <td colspan="2">
                                         <form id="dynamic-form" class="formtindakandpjp">
 
@@ -2111,61 +2166,7 @@
                                         </div>
                                     </td>
                                 </tr> -->
-                                <tr>
-                                    <td class="text-bold font-italic">Evaluasi (30 menit pertama)</td>
-                                    <td>
-                                        <form id="dynamic-form" class="form30pdpjp">
 
-                                            <div class="field_wrapper30p">
-                                                <div class="form-group">
-                                                    <div class="row">
-                                                        <H5>KLIK TOMBOL TAMBAH UNTUK MENAMBAHKAN 30 Menit pertama DPJP</H5>
-
-                                                        <div class="col-md-2">
-                                                            <a class="btn btn-success" href="javascript:void(0);" id="add_button_30p" title="Add field">TAMBAH</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                        <!-- <div class="input-group">
-                                            <textarea class="form-control" id="tigap" name="tigap" placeholder=""></textarea>
-
-                                        </div> -->
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-bold font-italic">Evaluasi (30 menit kedua)</td>
-                                    <td>
-                                        <form id="dynamic-form" class="form30kdpjp">
-
-                                            <div class="field_wrapper30k">
-                                                <div class="form-group">
-                                                    <div class="row">
-                                                        <H5>KLIK TOMBOL TAMBAH UNTUK MENAMBAHKAN 30 Menit kedua DPJP</H5>
-
-                                                        <div class="col-md-2">
-                                                            <a class="btn btn-success" href="javascript:void(0);" id="add_button_30k" title="Add field">TAMBAH</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                        <!-- <div class="input-group">
-                                            <textarea class="form-control" id="tigak" name="tigak" placeholder=""></textarea>
-
-                                        </div> -->
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-bold font-italic">Edukasi</td>
-                                    <td>
-                                        <div class="input-group">
-                                            <textarea class="form-control" id="edukasi" name="edukasi" placeholder=""></textarea>
-
-                                        </div>
-                                    </td>
-                                </tr>
 
                             </tbody>
                         </table>
@@ -7483,6 +7484,135 @@
                             </td>
                         </tr>
                         <tr>
+                            <td class="text-bold font-italic">Evaluasi (30 menit pertama)</td>
+                            <td>
+                                <!-- <div class="row">
+                                    <table id="tablet30pdpjp" class="table tablet30pdpjp table-bordered">
+                                        <thead>
+
+                                            <th hidden>id</th>
+                                            <th>Nama Dokter Penanggung Jawab</th>
+
+
+                                            <th>Evaluasi</th>
+                                            <th style="width: 40px">Action</th>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($riwayattindakandpjp30p as $rtd => $td)
+
+                                            <tr>
+                                                <td hidden class="idtigap">{{$td->id}}</td>
+
+                                                <td>{{$td->nama_dpjp}}</td>
+                                                <td>{{$td->tiga_pertama}}</td>
+
+                                                <td> </td>
+                                            </tr>
+                                            @endforeach
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                                <form id="dynamic-form" class="form30pdpjp">
+
+                                    <div class="field_wrapper30p">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <H5>KLIK TOMBOL TAMBAH UNTUK MENAMBAHKAN 30 Menit pertama DPJP</H5>
+
+                                                <div class="col-md-2">
+                                                    <a class="btn btn-success" href="javascript:void(0);" id="add_button_30p" title="Add field">TAMBAH</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form> -->
+                                <div class="input-group">
+                                    <textarea class="form-control" id="tigap" name="tigap" placeholder=""></textarea>
+
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-bold font-italic">Evaluasi (30 menit kedua)</td>
+                            <td>
+                                <!-- <div class="row">
+                                    <table id="tablet30kdpjp" class="table tablet30kdpjp table-bordered">
+                                        <thead>
+
+                                            <th hidden>id</th>
+                                            <th>Nama Dokter Penanggung Jawab</th>
+
+
+                                            <th>Evaluasi</th>
+                                            <th style="width: 40px">Action</th>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($riwayattindakandpjp30k as $rtd => $td)
+
+                                            <tr>
+                                                <td hidden class="idtigak">{{$td->id}}</td>
+
+                                                <td>{{$td->nama_dpjp}}</td>
+                                                <td>{{$td->tiga_kedua}}</td>
+
+                                                <td> </td>
+                                            </tr>
+                                            @endforeach
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                                <form id="dynamic-form" class="form30kdpjp">
+
+                                    <div class="field_wrapper30k">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <H5>KLIK TOMBOL TAMBAH UNTUK MENAMBAHKAN 30 Menit kedua DPJP</H5>
+
+                                                <div class="col-md-2">
+                                                    <a class="btn btn-success" href="javascript:void(0);" id="add_button_30k" title="Add field">TAMBAH</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form> -->
+                                <div class="input-group">
+                                    <textarea class="form-control" id="tigak" name="tigak" placeholder=""></textarea>
+
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- <tr>
+                            <td class="text-bold font-italic">Evaluasi (30 menit pertama)</td>
+                            <td>
+                                <div class="input-group">
+                                    <textarea class="form-control" id="tigap" name="tigap" placeholder="">{{$assesdok[0]->tiga_pertama}}</textarea>
+
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-bold font-italic">Evaluasi (30 menit kedua)</td>
+                            <td>
+                                <div class="input-group">
+                                    <textarea class="form-control" id="tigak" name="tigak" placeholder="">{{$assesdok[0]->tiga_kedua}}</textarea>
+
+                                </div>
+                            </td>
+                        </tr> -->
+                        <tr>
+                            <td class="text-bold font-italic">Edukasi</td>
+                            <td>
+                                <div class="input-group">
+                                    <textarea class="form-control" id="edukasi" name="edukasi" placeholder="">{{$assesdok[0]->edukasi}}</textarea>
+
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
                             <td colspan="2">
 
                                 <div class="row">
@@ -7553,135 +7683,7 @@
                                         </div>
                                     </td>
                                 </tr> -->
-                        <tr>
-                            <td class="text-bold font-italic">Evaluasi (30 menit pertama)</td>
-                            <td>
-                                <div class="row">
-                                    <table id="tablet30pdpjp" class="table tablet30pdpjp table-bordered">
-                                        <thead>
 
-                                            <th hidden>id</th>
-                                            <th>Nama Dokter Penanggung Jawab</th>
-
-
-                                            <th>Evaluasi</th>
-                                            <th style="width: 40px">Action</th>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($riwayattindakandpjp30p as $rtd => $td)
-
-                                            <tr>
-                                                <td hidden class="idtigap">{{$td->id}}</td>
-
-                                                <td>{{$td->nama_dpjp}}</td>
-                                                <td>{{$td->tiga_pertama}}</td>
-
-                                                <td> </td>
-                                            </tr>
-                                            @endforeach
-
-                                        </tbody>
-                                    </table>
-
-                                </div>
-                                <form id="dynamic-form" class="form30pdpjp">
-
-                                    <div class="field_wrapper30p">
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <H5>KLIK TOMBOL TAMBAH UNTUK MENAMBAHKAN 30 Menit pertama DPJP</H5>
-
-                                                <div class="col-md-2">
-                                                    <a class="btn btn-success" href="javascript:void(0);" id="add_button_30p" title="Add field">TAMBAH</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                                <!-- <div class="input-group">
-                                            <textarea class="form-control" id="tigap" name="tigap" placeholder=""></textarea>
-
-                                        </div> -->
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-bold font-italic">Evaluasi (30 menit kedua)</td>
-                            <td>
-                                <div class="row">
-                                    <table id="tablet30kdpjp" class="table tablet30kdpjp table-bordered">
-                                        <thead>
-
-                                            <th hidden>id</th>
-                                            <th>Nama Dokter Penanggung Jawab</th>
-
-
-                                            <th>Evaluasi</th>
-                                            <th style="width: 40px">Action</th>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($riwayattindakandpjp30k as $rtd => $td)
-
-                                            <tr>
-                                                <td hidden class="idtigak">{{$td->id}}</td>
-
-                                                <td>{{$td->nama_dpjp}}</td>
-                                                <td>{{$td->tiga_kedua}}</td>
-
-                                                <td> </td>
-                                            </tr>
-                                            @endforeach
-
-                                        </tbody>
-                                    </table>
-
-                                </div>
-                                <form id="dynamic-form" class="form30kdpjp">
-
-                                    <div class="field_wrapper30k">
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <H5>KLIK TOMBOL TAMBAH UNTUK MENAMBAHKAN 30 Menit kedua DPJP</H5>
-
-                                                <div class="col-md-2">
-                                                    <a class="btn btn-success" href="javascript:void(0);" id="add_button_30k" title="Add field">TAMBAH</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                                <!-- <div class="input-group">
-                                            <textarea class="form-control" id="tigak" name="tigak" placeholder=""></textarea>
-
-                                        </div> -->
-                            </td>
-                        </tr>
-                        <!-- <tr>
-                            <td class="text-bold font-italic">Evaluasi (30 menit pertama)</td>
-                            <td>
-                                <div class="input-group">
-                                    <textarea class="form-control" id="tigap" name="tigap" placeholder="">{{$assesdok[0]->tiga_pertama}}</textarea>
-
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-bold font-italic">Evaluasi (30 menit kedua)</td>
-                            <td>
-                                <div class="input-group">
-                                    <textarea class="form-control" id="tigak" name="tigak" placeholder="">{{$assesdok[0]->tiga_kedua}}</textarea>
-
-                                </div>
-                            </td>
-                        </tr> -->
-                        <tr>
-                            <td class="text-bold font-italic">Edukasi</td>
-                            <td>
-                                <div class="input-group">
-                                    <textarea class="form-control" id="edukasi" name="edukasi" placeholder="">{{$assesdok[0]->edukasi}}</textarea>
-
-                                </div>
-                            </td>
-                        </tr>
 
                     </tbody>
                 </table>
@@ -13174,6 +13176,157 @@
                             </td>
                         </tr>
                         <tr>
+                            <td class="text-bold font-italic">Evaluasi (30 menit pertama)</td>
+                            <td>
+                                <!-- <div class="row">
+                                    <table id="tablet30pdpjp" class="table tablet30pdpjp table-bordered">
+                                        <thead>
+
+                                            <th hidden>id</th>
+                                            <th>Nama Dokter Penanggung Jawab</th>
+
+
+                                            <th>Evaluasi</th>
+                                            <th style="width: 40px">Action</th>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($riwayattindakandpjp30p as $rtd => $td)
+
+                                            <tr>
+                                                <td hidden class="idtigap">{{$td->id}}</td>
+
+                                                <td>{{$td->nama_dpjp}}</td>
+                                                <td>
+                                                    <textarea class="form-control" id="tindakan_30p_update" name="tindakan_30p_update" placeholder="">{{$td->tiga_pertama}}</textarea>
+                                                </td>
+
+                                                <td> <a class=" btn btn-danger btn-sm returordertigap" href="#">
+                                                         <i class="fas fa-sync-alt fa-spin"></i> 
+                                RETUR
+                                </a> || <a class=" btn btn-warning mt-2 btn-sm editordertigap" href="#">
+                                    <i class="fas fa-sync-alt fa-spin"></i> 
+                                    EDIT
+                                </a>
+                            </td>
+
+
+                        </tr>
+                        @endforeach
+
+                    </tbody>
+                </table>
+
+                 </div>
+                                <form id="dynamic-form" class="form30pdpjp">
+
+                                    <div class="field_wrapper30p">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <H5>KLIK TOMBOL TAMBAH UNTUK MENAMBAHKAN 30 Menit pertama DPJP</H5>
+
+                                                <div class="col-md-2">
+                                                    <a class="btn btn-success" href="javascript:void(0);" id="add_button_30p" title="Add field">TAMBAH</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form> -->
+                                <div class="input-group">
+                                    <textarea class="form-control" id="tigap" name="tigap" placeholder=""></textarea>
+
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-bold font-italic">Evaluasi (30 menit kedua)</td>
+                            <td>
+                                <!-- <div class="row">
+                                    <table id="tablet30kdpjp" class="table tablet30kdpjp table-bordered">
+                                        <thead>
+
+                                            <th hidden>id</th>
+                                            <th>Nama Dokter Penanggung Jawab</th>
+
+
+                                            <th>Evaluasi</th>
+                                            <th style="width: 40px">Action</th>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($riwayattindakandpjp30k as $rtd => $td)
+
+                                            <tr>
+                                                <td hidden class="idtigak">{{$td->id}}</td>
+
+                                                <td>{{$td->nama_dpjp}}</td>
+                                                <td>
+                                                    <textarea class="form-control" id="tindakan_30k_update" name="tindakan_30k_update" placeholder="">{{$td->tiga_kedua}}</textarea>
+                                                </td>
+
+                                                <td> <a class=" btn btn-danger btn-sm returordertigak" href="#">
+                                                         <i class="fas fa-sync-alt fa-spin"></i> 
+                                                        RETUR
+                                                    </a> || <a class=" btn btn-warning mt-2 btn-sm editordertigak" href="#">
+                                                       <i class="fas fa-sync-alt fa-spin"></i> 
+                                                        EDIT
+                                                    </a></td>
+
+                                            </tr>
+                                            @endforeach
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                                <form id="dynamic-form" class="form30kdpjp">
+
+                                    <div class="field_wrapper30k">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <H5>KLIK TOMBOL TAMBAH UNTUK MENAMBAHKAN 30 Menit kedua DPJP</H5>
+
+                                                <div class="col-md-2">
+                                                    <a class="btn btn-success" href="javascript:void(0);" id="add_button_30k" title="Add field">TAMBAH</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form> -->
+                                <div class="input-group">
+                                    <textarea class="form-control" id="tigak" name="tigak" placeholder=""></textarea>
+
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- <tr>
+                            <td class="text-bold font-italic">Evaluasi (30 menit pertama)</td>
+                            <td>
+                                <div class="input-group">
+                                    <textarea class="form-control" id="tigap" name="tigap" placeholder="">{{$assesdok[0]->tiga_pertama}}</textarea>
+
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-bold font-italic">Evaluasi (30 menit kedua)</td>
+                            <td>
+                                <div class="input-group">
+                                    <textarea class="form-control" id="tigak" name="tigak" placeholder="">{{$assesdok[0]->tiga_kedua}}</textarea>
+
+                                </div>
+                            </td>
+                        </tr> -->
+                        <tr>
+                            <td class="text-bold font-italic">Edukasi</td>
+                            <td>
+                                <div class="input-group">
+                                    <textarea class="form-control" id="edukasi" name="edukasi" placeholder="">{{$assesdok[0]->edukasi}}</textarea>
+
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
                             <td colspan="2">
 
                                 <div class="row">
@@ -13247,155 +13400,6 @@
                                         </div>
                                     </td>
                                 </tr> -->
-                        <tr>
-                            <td class="text-bold font-italic">Evaluasi (30 menit pertama)</td>
-                            <td>
-                                <div class="row">
-                                    <table id="tablet30pdpjp" class="table tablet30pdpjp table-bordered">
-                                        <thead>
-
-                                            <th hidden>id</th>
-                                            <th>Nama Dokter Penanggung Jawab</th>
-
-
-                                            <th>Evaluasi</th>
-                                            <th style="width: 40px">Action</th>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($riwayattindakandpjp30p as $rtd => $td)
-
-                                            <tr>
-                                                <td hidden class="idtigap">{{$td->id}}</td>
-
-                                                <td>{{$td->nama_dpjp}}</td>
-                                                <td>
-                                                    <textarea class="form-control" id="tindakan_30p_update" name="tindakan_30p_update" placeholder="">{{$td->tiga_pertama}}</textarea>
-                                                </td>
-
-                                                <td> <a class=" btn btn-danger btn-sm returordertigap" href="#">
-                                                        <!-- <i class="fas fa-sync-alt fa-spin"></i> -->
-                                                        RETUR
-                                                    </a> || <a class=" btn btn-warning mt-2 btn-sm editordertigap" href="#">
-                                                        <!-- <i class="fas fa-sync-alt fa-spin"></i> -->
-                                                        EDIT
-                                                    </a></td>
-
-
-                                            </tr>
-                                            @endforeach
-
-                                        </tbody>
-                                    </table>
-
-                                </div>
-                                <form id="dynamic-form" class="form30pdpjp">
-
-                                    <div class="field_wrapper30p">
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <H5>KLIK TOMBOL TAMBAH UNTUK MENAMBAHKAN 30 Menit pertama DPJP</H5>
-
-                                                <div class="col-md-2">
-                                                    <a class="btn btn-success" href="javascript:void(0);" id="add_button_30p" title="Add field">TAMBAH</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                                <!-- <div class="input-group">
-                                            <textarea class="form-control" id="tigap" name="tigap" placeholder=""></textarea>
-
-                                        </div> -->
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-bold font-italic">Evaluasi (30 menit kedua)</td>
-                            <td>
-                                <div class="row">
-                                    <table id="tablet30kdpjp" class="table tablet30kdpjp table-bordered">
-                                        <thead>
-
-                                            <th hidden>id</th>
-                                            <th>Nama Dokter Penanggung Jawab</th>
-
-
-                                            <th>Evaluasi</th>
-                                            <th style="width: 40px">Action</th>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($riwayattindakandpjp30k as $rtd => $td)
-
-                                            <tr>
-                                                <td hidden class="idtigak">{{$td->id}}</td>
-
-                                                <td>{{$td->nama_dpjp}}</td>
-                                                                   <td>
-                                                    <textarea class="form-control" id="tindakan_30k_update" name="tindakan_30k_update" placeholder="">{{$td->tiga_kedua}}</textarea>
-                                                </td>
-
-                                                <td> <a class=" btn btn-danger btn-sm returordertigak" href="#">
-                                                        <!-- <i class="fas fa-sync-alt fa-spin"></i> -->
-                                                        RETUR
-                                                    </a> || <a class=" btn btn-warning mt-2 btn-sm editordertigak" href="#">
-                                                        <!-- <i class="fas fa-sync-alt fa-spin"></i> -->
-                                                        EDIT
-                                                    </a></td>
-                  
-                                            </tr>
-                                            @endforeach
-
-                                        </tbody>
-                                    </table>
-
-                                </div>
-                                <form id="dynamic-form" class="form30kdpjp">
-
-                                    <div class="field_wrapper30k">
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <H5>KLIK TOMBOL TAMBAH UNTUK MENAMBAHKAN 30 Menit kedua DPJP</H5>
-
-                                                <div class="col-md-2">
-                                                    <a class="btn btn-success" href="javascript:void(0);" id="add_button_30k" title="Add field">TAMBAH</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                                <!-- <div class="input-group">
-                                            <textarea class="form-control" id="tigak" name="tigak" placeholder=""></textarea>
-
-                                        </div> -->
-                            </td>
-                        </tr>
-
-                        <!-- <tr>
-                            <td class="text-bold font-italic">Evaluasi (30 menit pertama)</td>
-                            <td>
-                                <div class="input-group">
-                                    <textarea class="form-control" id="tigap" name="tigap" placeholder="">{{$assesdok[0]->tiga_pertama}}</textarea>
-
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-bold font-italic">Evaluasi (30 menit kedua)</td>
-                            <td>
-                                <div class="input-group">
-                                    <textarea class="form-control" id="tigak" name="tigak" placeholder="">{{$assesdok[0]->tiga_kedua}}</textarea>
-
-                                </div>
-                            </td>
-                        </tr> -->
-                        <tr>
-                            <td class="text-bold font-italic">Edukasi</td>
-                            <td>
-                                <div class="input-group">
-                                    <textarea class="form-control" id="edukasi" name="edukasi" placeholder="">{{$assesdok[0]->edukasi}}</textarea>
-
-                                </div>
-                            </td>
-                        </tr>
 
 
                     </tbody>
@@ -15331,8 +15335,8 @@
         var datarad = $('.formradio').serializeArray()
         var rekobat = $('.formtinjutobat').serializeArray()
         var tindakandpjp = $('.formtindakandpjp').serializeArray()
-        var tindakandpjptigap = $('.form30pdpjp').serializeArray();
-        var tindakandpjptigak = $('.form30kdpjp').serializeArray();
+        // var tindakandpjptigap = $('.form30pdpjp').serializeArray();
+        // var tindakandpjptigak = $('.form30kdpjp').serializeArray();
 
         // var tindakangp = $('.formtindakangp').serializeArray();
         //triase
@@ -15517,8 +15521,8 @@
                         datarad: JSON.stringify(datarad),
                         rekobat: JSON.stringify(rekobat),
                         tindakandpjp: JSON.stringify(tindakandpjp),
-                        tindakandpjptigap: JSON.stringify(tindakandpjptigap),
-                        tindakandpjptigak: JSON.stringify(tindakandpjptigak),
+                        // tindakandpjptigap: JSON.stringify(tindakandpjptigap),
+                        // tindakandpjptigak: JSON.stringify(tindakandpjptigak),
 
                         // tindakangp: JSON.stringify(tindakangp),
 
@@ -15742,8 +15746,8 @@
         gambar1 = $('#gambarcoret1').val()
         // var data = $('.formtindakandokter').serializeArray();
         var tindakandpjp = $('.formtindakandpjp').serializeArray();
-        var tindakandpjptigap = $('.form30pdpjp').serializeArray();
-        var tindakandpjptigak = $('.form30kdpjp').serializeArray();
+        // var tindakandpjptigap = $('.form30pdpjp').serializeArray();
+        // var tindakandpjptigak = $('.form30kdpjp').serializeArray();
 
 
         // var tindakangp = $('.formtindakangp').serializeArray();
@@ -15937,8 +15941,8 @@
                         _token: "{{ csrf_token() }}",
                         // data: JSON.stringify(data),
                         tindakandpjp: JSON.stringify(tindakandpjp),
-                        tindakandpjptigap: JSON.stringify(tindakandpjptigap),
-                        tindakandpjptigak: JSON.stringify(tindakandpjptigak),
+                        // tindakandpjptigap: JSON.stringify(tindakandpjptigap),
+                        // tindakandpjptigak: JSON.stringify(tindakandpjptigak),
 
 
                         // tindakangp: JSON.stringify(tindakangp),
