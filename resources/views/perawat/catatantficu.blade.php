@@ -315,10 +315,10 @@
                 <div class="form-check">
                     @if($tf[0]->kriteria_masuk_picu == 'Pasieen yang membutuhkkan ventilasi mekanik')
                     <input class="form-check-input" checked type="checkbox" name="krpicu" id="krpicu" value="Pasieen yang membutuhkkan ventilasi mekanik">
-                    <label class="form-check-label">Pasieen yang membutuhkkan ventilasi meka
+                    <label class="form-check-label">Pasieen yang membutuhkkan ventilasi mekanik
                         @else
                         <input class="form-check-input" type="checkbox" name="krpicu" id="krpicu" value="Pasieen yang membutuhkkan ventilasi mekanik">
-                        <label class="form-check-label">Pasieen yang membutuhkkan ventilasi meka
+                        <label class="form-check-label">Pasieen yang membutuhkkan ventilasi mekanik
                             @endif
                             nik</label>
                 </div>
@@ -416,7 +416,7 @@
                     <label class="form-check-label">Pasien neonatus dengan BB>1250 gram & tidak memerlukan bantuan support ventilator</label>
                 </div>
                 <div class="form-check">
-                    @if($tf[0]->kriteria_keluar_nicu == 'Hemodinamik stabil, ditandai dengan RR 40-60x/menit, suhu 36-37,5 derajat celsius, frekuensi jantung 120-16x/menit, tekanan darah normal sesuai usia, nilai analisa gas darah norma')
+                    @if($tf[0]->kriteria_keluar_nicu == 'Hemodinamik stabil, ditandai dengan RR 40-60x/menit, suhu 36-37,5 derajat celsius, frekuensi jantung 120-16x/menit, tekanan darah normal sesuai usia, nilai analisa gas darah normal')
                     <input class="form-check-input" checked type="checkbox" name="kknicu" id="kknicu" value="Hemodinamik stabil, ditandai dengan RR 40-60x/menit, suhu 36-37,5 derajat celsius, frekuensi jantung 120-16x/menit, tekanan darah normal sesuai usia, nilai analisa gas darah normal">
                     @else
                     <input class="form-check-input" type="checkbox" name="kknicu" id="kknicu" value="Hemodinamik stabil, ditandai dengan RR 40-60x/menit, suhu 36-37,5 derajat celsius, frekuensi jantung 120-16x/menit, tekanan darah normal sesuai usia, nilai analisa gas darah normal">

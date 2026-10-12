@@ -7530,37 +7530,450 @@ AND b.kelas_tarif = 1');
             $pdf::SetFont('Times', '', 10);
 
             $pdf::SetX(8);
-            $pdf::Cell(198, 5, "Catatan KKhusus :", 1);
+            $pdf::Cell(198, 5, "Catatan Khusus :", 1);
+            //kriteria masuk iCU
             $pdf::ln();
             $pdf::SetFont('Times', '', 10);
 
             $pdf::SetX(8);
-            $pdf::Cell(198, 5, "Kriteria Pasien :", 1);
+            $pdf::Cell(198, 5, "Kriteria Masuk ICU :", 0);
+            $pdf::ln();
+            $pdf::SetX(8);
+            $y = $pdf::GetY();
+            $pdf::Cell(22, 5, "     Prioritas 1 ",0);
+            if($tf[0]->kriteria_masuk_icu == 'Prioritas 1'){  
+            $pdf::SetXY(10,$y +1.5);
 
+            checkbox($pdf, true);
+            }else{
+            $pdf::SetXY(10,$y +1.5);
+
+            checkbox($pdf, False);
+            }
+            $pdf::SetFont('Times', '', 10);
+
+            $pdf::SetXY(30, $y);
+            $pdf::Cell(22, 5, "     Prioritas 2 ",0);
+            if($tf[0]->kriteria_masuk_icu == 'Prioritas 2'){  
+            $pdf::SetXY(32,$y +1.5);
+
+            checkbox($pdf, true);
+            }else{
+            $pdf::SetXY(32,$y +1.5);
+
+            checkbox($pdf, False);
+            }
+            $pdf::SetFont('Times', '', 10);
+
+            $pdf::SetXY(52, $y);
+            $pdf::Cell(22, 5, "     Prioritas 3 ",0);
+            if($tf[0]->kriteria_masuk_icu == 'Prioritas 3'){  
+            $pdf::SetXY(54,$y +1.5);
+
+            checkbox($pdf, true);
+            }else{
+            $pdf::SetXY(54,$y +1.5);
+
+            checkbox($pdf, False);
+            }
+            $pdf::SetFont('Times', '', 10);
+
+            $pdf::SetXY(74, $y);
+            $pdf::Cell(30, 5, "     Pengecualian ",0);
+            if($tf[0]->kriteria_masuk_icu == 'Pengecualian'){  
+            $pdf::SetXY(76,$y +1.5);
+
+            checkbox($pdf, true);
+            }else{
+            $pdf::SetXY(76,$y +1.5);
+
+            checkbox($pdf, False);
+            }
+
+            //kriteria keluar ICU
+            $pdf::ln(3);
+            $pdf::SetFont('Times', '', 10);
+
+            $pdf::SetX(8);
+            $pdf::Cell(198, 5, "Kriteria Keluar ICU :", 0);
+            $pdf::ln();
+            $pdf::SetX(8);
+            $y = $pdf::GetY();
+            $pdf::Cell(22, 5, "     Prioritas 1 ",0);
+            if($tf[0]->kriteria_keluar_icu == 'Prioritas 1'){  
+            $pdf::SetXY(10,$y +1.5);
+
+            checkbox($pdf, true);
+            }else{
+            $pdf::SetXY(10,$y +1.5);
+
+            checkbox($pdf, False);
+            }
+            $pdf::SetFont('Times', '', 10);
+
+            $pdf::SetXY(30, $y);
+            $pdf::Cell(22, 5, "     Prioritas 2 ",0);
+            if($tf[0]->kriteria_keluar_icu == 'Prioritas 2'){  
+            $pdf::SetXY(32,$y +1.5);
+
+            checkbox($pdf, true);
+            }else{
+            $pdf::SetXY(32,$y +1.5);
+
+            checkbox($pdf, False);
+            }
+            $pdf::SetFont('Times', '', 10);
+
+            $pdf::SetXY(52, $y);
+            $pdf::Cell(22, 5, "     Prioritas 3 ",0);
+            if($tf[0]->kriteria_keluar_icu == 'Prioritas 3'){  
+            $pdf::SetXY(54,$y +1.5);
+
+            checkbox($pdf, true);
+            }else{
+            $pdf::SetXY(54,$y +1.5);
+
+            checkbox($pdf, False);
+            }
+            $pdf::SetFont('Times', '', 10);
+
+            $pdf::SetXY(74, $y);
+            $pdf::Cell(30, 5, "     Pengecualian ",0);
+            if($tf[0]->kriteria_keluar_icu == 'Pengecualian'){  
+            $pdf::SetXY(76,$y +1.5);
+
+            checkbox($pdf, true);
+            }else{
+            $pdf::SetXY(76,$y +1.5);
+
+            checkbox($pdf, False);
+            }
+            //kriteria masuk PICU
+            $pdf::ln(3);
+            $y = $pdf::GetY();
+
+            $pdf::SetFont('Times', '', 10);
+
+            $pdf::SetX(8);
+            $pdf::Cell(35, 5, "Kriteria Masuk PICU :", 0);
+            $pdf::SetX(43);
+            $pdf::Cell(22, 5, "     Pasien dengan penyakit akut (life threatening) ",0);
+            if($tf[0]->kriteria_masuk_picu == 'Pasien dengan penyakit akut (life threatening)'){  
+            $pdf::SetXY(45,$y +1.5);
+
+            checkbox($pdf, true);
+            }else{
+            $pdf::SetXY(45,$y +1.5);
+
+            checkbox($pdf, False);
+            }
+            $pdf::ln();
+            $y = $pdf::GetY();
+            $pdf::SetFont('Times', '', 10);
+            $pdf::SetX(43);
+            $pdf::Cell(22, 5, "     Environmental injury. Pasien perlu pemantauan khusus ",0);
+            if($tf[0]->kriteria_masuk_picu == 'Environmental injury. Pasien perlu pemantauan khusus'){  
+            $pdf::SetXY(45,$y +1.5);
+
+            checkbox($pdf, true);
+            }else{
+            $pdf::SetXY(45,$y +1.5);
+
+            checkbox($pdf, False);
+            }
+            $pdf::ln();
+            $y = $pdf::GetY();
+            $pdf::SetFont('Times', '', 10);
+            $pdf::SetX(43);
+            $pdf::Cell(22, 5, "     Pasien perlu pemantauan khusus/penggunaan mesin ",0);
+            if($tf[0]->kriteria_masuk_picu == 'Pasien perlu pemantauan khusus/penggunaan mesin'){  
+            $pdf::SetXY(45,$y +1.5);
+
+            checkbox($pdf, true);
+            }else{
+            $pdf::SetXY(45,$y +1.5);
+
+            checkbox($pdf, False);
+            }
+
+            $pdf::ln();
+            $y = $pdf::GetY();
+            $pdf::SetFont('Times', '', 10);
+            $pdf::SetX(43);
+            $pdf::Cell(22, 5, "     Pasien yang membutuhkkan ventilasi mekanik ",0);
+            if($tf[0]->kriteria_masuk_picu == 'Pasien yang membutuhkkan ventilasi mekanik'){  
+            $pdf::SetXY(45,$y +1.5);
+
+            checkbox($pdf, true);
+            }else{
+            $pdf::SetXY(45,$y +1.5);
+
+            checkbox($pdf, False);
+            }
+            $pdf::ln();
+            $y = $pdf::GetY();
+            $pdf::SetFont('Times', '', 10);
+            $pdf::SetX(43);
+            $pdf::Cell(22, 5, "     Pasien yang berpotensi mengalami gagal nafas ",0);
+            if($tf[0]->kriteria_masuk_picu == 'Pasien yang berpotensi mengalami gagal nafas'){  
+            $pdf::SetXY(45,$y +1.5);
+
+            checkbox($pdf, true);
+            }else{
+            $pdf::SetXY(45,$y +1.5);
+
+            checkbox($pdf, False);
+            }
+
+            // kriteria keluar PICU
+            $pdf::ln();
+            $pdf::SetFont('Times', '', 10);
+
+            $pdf::SetX(8);
+            $pdf::Cell(35, 5, "Kriteria Keluar PICU :", 0);
+            $pdf::ln();
+            $y = $pdf::GetY();
+            $pdf::SetFont('Times', '', 10);
+            $pdf::SetX(8);
+            $pdf::Cell(22, 5, "     Keadaan umum paien sudah stabil (hemodinamik, respirasi, & neurologis) dalam 24 jam ",0);
+            if($tf[0]->kriteria_keluar_picu == 'Keadaan umum paien sudah stabil (hemodinamik, respirasi, & neurologis) dalam 24 jam'){  
+            $pdf::SetXY(10,$y +1.5);
+
+            checkbox($pdf, true);
+            }else{
+            $pdf::SetXY(10,$y +1.5);
+
+            checkbox($pdf, False);
+            }
             
+            $pdf::ln();
+            $y = $pdf::GetY();
+            $pdf::SetFont('Times', '', 10);
+            $pdf::SetX(8);
+            $pdf::Cell(22, 5, "     Tidak memerlukan pemantaun khusus ",0);
+            if($tf[0]->kriteria_keluar_picu == 'Tidak memerlukan pemantaun khusus'){  
+            $pdf::SetXY(10,$y +1.5);
+
+            checkbox($pdf, true);
+            }else{
+            $pdf::SetXY(10,$y +1.5);
+
+            checkbox($pdf, False);
+            }
+            $pdf::ln();
+            $y = $pdf::GetY();
+            $pdf::SetFont('Times', '', 10);
+            $pdf::SetX(8);
+            $pdf::Cell(22, 5, "     Tidak ada manfaat melanjutkan perawatan di PICU (Pertimbangan keluarga pasien dan tim PICU) ",0);
+            if($tf[0]->kriteria_keluar_picu == 'Tidak ada manfaat melanjutkan perawatan di PICU (Pertimbangan keluarga pasien dan tim PICU)'){  
+            $pdf::SetXY(10,$y +1.5);
+
+            checkbox($pdf, true);
+            }else{
+            $pdf::SetXY(10,$y +1.5);
+
+            checkbox($pdf, False);
+            }
+
+            // kriteria Masuk NICU
+            $pdf::ln(3);
+            $pdf::SetFont('Times', '', 10);
+
+            $pdf::SetX(8);
+            $pdf::Cell(35, 5, "Kriteria Masuk NICU :", 0);
+            $pdf::ln();
+            $y = $pdf::GetY();
+            $pdf::SetFont('Times', '', 10);
+            $pdf::SetX(8);
+            $pdf::Cell(22, 5, "     Pasien neonatus dengan usia kehamilan, 32 minggu & / BB lahir, 1250 gram ",0);
+            if($tf[0]->kriteria_masuk_nicu == 'Pasien neonatus dengan usia kehamilan, 32 minggu & / BB lahir, 1250 gram'){  
+            $pdf::SetXY(10,$y +1.5);
+
+            checkbox($pdf, true);
+            }else{
+            $pdf::SetXY(10,$y +1.5);
+
+            checkbox($pdf, False);
+            }
+            $pdf::ln();
+            $y = $pdf::GetY();
+            $pdf::SetFont('Times', '', 10);
+            $pdf::SetX(8);
+            $pdf::Cell(22, 5, "     Pasien neonatus dengan gagal nafas akut & . perluassisted ventilator ",0);
+            if($tf[0]->kriteria_masuk_nicu == 'Pasien neonatus dengan gagal nafas akut & . perluassisted ventilator'){  
+            $pdf::SetXY(10,$y +1.5);
+
+            checkbox($pdf, true);
+            }else{
+            $pdf::SetXY(10,$y +1.5);
+
+            checkbox($pdf, False);
+            }
+            $pdf::ln();
+            $y = $pdf::GetY();
+            $pdf::SetFont('Times', '', 10);
+            $pdf::SetX(8);
+            $pdf::Cell(22, 5, "     Hemodinamik tidak stabil ",0);
+            if($tf[0]->kriteria_masuk_nicu == 'Hemodinamik tidak stabil'){  
+            $pdf::SetXY(10,$y +1.5);
+
+            checkbox($pdf, true);
+            }else{
+            $pdf::SetXY(10,$y +1.5);
+
+            checkbox($pdf, False);
+            }
+            $pdf::ln();
+            $y = $pdf::GetY();
+            $pdf::SetFont('Times', '', 10);
+            $pdf::SetX(8);
+            $pdf::Cell(22, 5, "     Pasien yang menjalani operasi besar ",0);
+            if($tf[0]->kriteria_masuk_nicu == 'Pasien yang menjalani operasi besar'){  
+            $pdf::SetXY(10,$y +1.5);
+
+            checkbox($pdf, true);
+            }else{
+            $pdf::SetXY(10,$y +1.5);
+
+            checkbox($pdf, False);
+            }
+            // kriteria Keluar NICU
+            $pdf::ln(3);
+            $pdf::SetFont('Times', '', 10);
+
+            $pdf::SetX(8);
+            $pdf::Cell(35, 5, "Kriteria Keluar NICU :", 0);
+            $pdf::ln();
+            $y = $pdf::GetY();
+            $pdf::SetFont('Times', '', 10);
+            $pdf::SetX(8);
+            $pdf::Cell(22, 5, "     Pasien neonatus dengan BB>1250 gram & tidak memerlukan bantuan support ventilator ",0);
+            if($tf[0]->kriteria_keluar_nicu == 'Pasien neonatus dengan BB>1250 gram & tidak memerlukan bantuan support ventilator'){  
+            $pdf::SetXY(10,$y +1.5);
+
+            checkbox($pdf, true);
+            }else{
+            $pdf::SetXY(10,$y +1.5);
+
+            checkbox($pdf, False);
+            }
+            $pdf::ln();
+            $y = $pdf::GetY();
+            $pdf::SetFont('Times', '', 10);
+            $pdf::SetX(13);
+            $pdf::MultiCell(193, 5, "Hemodinamik stabil, ditandai dengan RR 40-60x/menit, suhu 36-37,5 derajat celsius, frekuensi jantung 120-16x/menit, tekanan darah normal sesuai usia, nilai analisa gas darah normal ",0);
+            if($tf[0]->kriteria_keluar_nicu == 'Hemodinamik stabil, ditandai dengan RR 40-60x/menit, suhu 36-37,5 derajat celsius, frekuensi jantung 120-16x/menit, tekanan darah normal sesuai usia, nilai analisa gas darah norma'){  
+            $pdf::SetXY(10,$y +1.5);
+
+            checkbox($pdf, true);
+            }else{
+            $pdf::SetXY(10,$y +1.5);
+
+            checkbox($pdf, False);
+            }
+
+            $pdf::ln(10);
+            $y = $pdf::GetY();
+
+            $pdf::Rect(8, $y, 198, 0);
+            //kriteria transfer
+            $pdf::ln();
+           
+            $pdf::SetFont('Times', '', 10);
+
+            $pdf::SetX(8);
+            $pdf::Cell(198, 5, "Kriteria Transfer : ", 0);
+            $pdf::ln();
+            $y = $pdf::GetY();
+            $pdf::SetFont('Times', '', 10);
+            $pdf::SetX(8);
+            $pdf::Cell(22, 5, "     Derajat 0, Pendamping : Portir ",0);
+            if($tf[0]->kriteria_transfer == 'Derajat 0,'){  
+            $pdf::SetXY(10,$y +1.5);
+
+            checkbox($pdf, true);
+            }else{
+            $pdf::SetXY(10,$y +1.5);
+
+            checkbox($pdf, False);
+            }
+            $pdf::ln();
+            $y = $pdf::GetY();
+            $pdf::SetFont('Times', '', 10);
+            $pdf::SetX(8);
+            $pdf::Cell(22, 5, "     Derajat 1, Pendamping : Portir dan Perawat ",0);
+            if($tf[0]->kriteria_transfer == 'Derajat 1'){  
+            $pdf::SetXY(10,$y +1.5);
+
+            checkbox($pdf, true);
+            }else{
+            $pdf::SetXY(10,$y +1.5);
+
+            checkbox($pdf, False);
+            }
+            $pdf::ln();
+            $y = $pdf::GetY();
+            $pdf::SetFont('Times', '', 10);
+            $pdf::SetX(8);
+            $pdf::Cell(22, 5, "     Derajat 2, Pendamping : Portir dan Perawat ",0);
+            if($tf[0]->kriteria_transfer == 'Derajat 2'){  
+            $pdf::SetXY(10,$y +1.5);
+
+            checkbox($pdf, true);
+            }else{
+            $pdf::SetXY(10,$y +1.5);
+
+            checkbox($pdf, False);
+            }
+            $pdf::ln();
+            $y = $pdf::GetY();
+            $pdf::SetFont('Times', '', 10);
+            $pdf::SetX(8);
+            $pdf::Cell(22, 5, "     Derajat 3, Pendamping : Portir, Perawat, dan Dokter ",0);
+            if($tf[0]->kriteria_transfer == 'Derajat 3'){  
+            $pdf::SetXY(10,$y +1.5);
+
+            checkbox($pdf, true);
+            }else{
+            $pdf::SetXY(10,$y +1.5);
+
+            checkbox($pdf, False);
+            }
+             $pdf::ln();
+            $y = $pdf::GetY();
+            $pdf::Rect(8, $y +1, 66, 32);
+            $pdf::Rect(74, $y +1, 66, 32);
+            $pdf::Rect(140, $y +1, 66, 32);
+
+            // $pdf::Rect(8, $y +1, 66, 32);
+            
+            $pdf::ln();
             //kotak TTD
 
             $pdf::SetFont('Times', '', 10);
             $pdf::SetX(8);
 
-            $pdf::Cell(66, 20, 'Pasien / Keluarga', 0, 0, "C");
-            $pdf::Cell(66, 20, '', 0, 0, "C");
-            $pdf::Cell(66, 20, 'Dokter yang merawat', 0, 0, "C");
-            $pdf::ln();
-            $pdf::SetX(8);
-            $pdf::SetFont('Times', '', 10);
-
-            $pdf::Cell(66, 5,  '(.........................................................)' , 0, 0, "C");
             $pdf::Cell(66, 5, '', 0, 0, "C");
-            $pdf::Cell(66, 5,  '(.........................................................)' , 0, 0, "C");
-
+            $pdf::Cell(66, 5, 'Diterima', 0, 0, "C");
+            $pdf::Cell(66, 5, 'Diantar', 0, 0, "C");
+            $pdf::ln();
+            $pdf::SetFont('Times', '', 10);
+            $pdf::SetX(8);
+            $pdf::Cell(66, 5, 'Yang membuat,', 0, 0, "C");
+            $pdf::Cell(66, 5, 'Tanggal............. '.'Jam...........', 0, 0, "C");
+            $pdf::Cell(66, 5, 'Tanggal............. '.'Jam...........', 0, 0, "C");
+            $pdf::ln();
+            $pdf::SetFont('Times', '', 10);
+            $pdf::SetX(8);
+            $pdf::Cell(66, 5, 'DPJP', 0, 0, "C");
+            $pdf::Cell(66, 5, 'Yang Menerima,', 0, 0, "C");
+            $pdf::Cell(66, 5, 'Yang Menyerahkan,', 0, 0, "C");
             $pdf::ln();
             $pdf::SetX(8);
             $pdf::SetFont('Times', '', 10);
-
-            $pdf::Cell(66, 3,  'Tanda tangan dan Nama Jelas' , 0, 0, "C");
-            $pdf::Cell(66, 3, '', 0, 0, "C");
-            $pdf::Cell(66, 3,  'Tanda tangan dan Nama Jelas' , 0, 0, "C");
+            $pdf::Cell(66, 25,  'Tanda tangan dan Nama Jelas' , 0, 0, "C");
+            $pdf::Cell(66, 25, 'Tanda tangan dan Nama Jelas', 0, 0, "C");
+            $pdf::Cell(66, 25,  'Tanda tangan dan Nama Jelas' , 0, 0, "C");
         
 
          $pdf::Rect(8, 9, 198, 260);
@@ -32074,7 +32487,7 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
             $pdf::SetFont('Times', '', 10);
 
             $pdf::SetX(8);
-            $pdf::Cell(198, 5, "Catatan KKhusus :", 1);
+            $pdf::Cell(198, 5, "Catatan Khusus :", 1);
             $pdf::ln();
             $pdf::SetFont('Times', '', 10);
 
@@ -32341,7 +32754,7 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
             $pdf::SetFont('Times', '', 10);
 
             $pdf::SetX(8);
-            $pdf::Cell(198, 5, "Catatan KKhusus :", 1);
+            $pdf::Cell(198, 5, "Catatan Khusus :", 1);
             $pdf::ln();
             $pdf::SetFont('Times', '', 10);
 
