@@ -4,7 +4,6 @@
         <h3 class="card-title">CATATAN TRANSFER PASIEN GAWAT DARURAT</h3>
     </div>
     @if ($tf != NULL)
-    <h1>masuk</h1>
     <div class="ml-2">
         <div id="form-container" class="formtransferpasien">
             {{-- form isi transfer --}}
@@ -35,7 +34,7 @@
                                 <td>
                                     <div class="row">
 
-                                        <select class="form-control select2" name="tinjutt" id="tinjutt">
+                                        <select class="form-control selectpoli" name="tinjutt" id="tinjutt">
                                             <option value="{{$tf[0]->pindah_ke}}">{{$tf[0]->pindah_ke}}
                                             </option>
                                             @foreach ($poli as $i => $p)
@@ -61,7 +60,13 @@
                                 <td class="text-bold font-italic">Dokter yang merawat</td>
 
                                 <td>
-                                    <input class="form-control" type="text" value="{{$tf[0]->dokter_yang_merawat}}" name="doktergp" id="doktergp">
+                                    <!-- <input class="form-control" type="text" value="" name="doktergp" id="doktergp"> -->
+                                    <label>PILIH DOKTER</label><select class="form-control selectjp" id="doktergp" name="doktergp">
+                                        <option value="{{$tf[0]->dokter_yang_merawat}}">{{$tf[0]->dokter_yang_merawat}}</option>
+                                        @foreach ($dpjp as $i => $p)
+                                        <option value="{{ $p->nama_paramedis }}">{{ $p->nama_paramedis }}</option>
+                                        @endforeach
+                                    </select>
 
                                 </td>
                                 <td>
@@ -955,7 +960,7 @@
                                 <td>
                                     <div class="row">
 
-                                        <select class="form-control select2" name="tinjutt" id="tinjutt">
+                                        <select class="form-control selectpoli" name="tinjutt" id="tinjutt">
 
                                             @foreach ($poli as $i => $p)
                                             <option value="{{ $p->nama_unit }}">{{ $p->nama_unit }}
@@ -980,7 +985,8 @@
                                 <td class="text-bold font-italic">Dokter yang merawat</td>
 
                                 <td>
-                                    <input class="form-control" type="text" value="" name="doktergp" id="doktergp">
+                                    <label>PILIH DOKTER</label><select class="form-control selectjp" id="doktergp" name="doktergp">@foreach ($dpjp as $i => $p) <option value="{{ $p->nama_paramedis }}">{{ $p->nama_paramedis }}</option> @endforeach</select>
+                                    <!-- <input class="form-control" type="text" value="" name="doktergp" id="doktergp"> -->
 
                                 </td>
                                 <td>
@@ -1604,9 +1610,30 @@
     <div class="hasilinput ml-2 mt-2 mr-2"></div>
 
 </div>
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
     spinner = $('#loader2');
     spinner.hide();
+
+    $(document).ready(function() {
+
+        $('.selectjp').select2({
+            width: '100%'
+        });
+
+    });
+    $(document).ready(function() {
+
+        $('.selectpoli').select2({
+            width: '100%'
+        });
+
+    });
 
     $(function() {
         $("#tableobatrekon").DataTable({

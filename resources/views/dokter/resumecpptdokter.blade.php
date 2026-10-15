@@ -10,7 +10,7 @@
 @if ($unit == '1023')
 <div class="card-header bg-secondary">
     <button type="submit" class="btn btn-primary cetakresumecpptdokter"> <i class="fa fa-print"></i> Cetak Resume </button>
-    <button type="submit" class="btn btn-warning cetakassesperawat"> <i class="fa fa-print"></i> Cetak assesmen perawat </button>
+    <button type="submit" class="btn btn-warning cetakasseskebidanan"> <i class="fa fa-print"></i> Cetak assesmen kebidanan </button>
     <button type="submit" class="btn btn-success cetakresumecpptdokterkebidanan"> <i class="fa fa-print"></i> Cetak assesmen dokter </button>
     <button type="submit" class="btn btn-info cetakobsperawat"> <i class="fa fa-print"></i> Cetak observasi </button>
     <button type="submit" class="btn btn-info mt-2 cetakrencplg"> <i class="fa fa-print"></i> Cetak rencana pulang </button>
@@ -4972,14 +4972,6 @@
 
                     <div id="collapseOne4" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample4">
                         <div class="card-body bg-light">
-                            <select class="form-control select2" name="kopul" id="kopul">
-                                <option value=""> -- Select One --</option>
-                                @foreach ($alasanpulang as $i => $p)
-                                <option value="{{ $p->alasan_pulang }}">{{ $p->alasan_pulang }}
-                                </option>
-                                @endforeach
-
-                            </select>
                             <label>Lain-lain</label>
                             <textarea class="form-control" id="kopul1" name="kopul1" rows="2" placeholder=""></textarea>
 
@@ -12041,6 +12033,69 @@
 
         function cetakassesmenperawat(kj, norm) {
             window.open('cetakassesmenperawat/' + kj + '/' + norm);
+
+        }
+        $(".cetakasseskebidanan").click(function() {
+            kj = $('#kj').val()
+            norm = $('#norm').val()
+
+
+
+
+
+            Swal.fire({
+                title: "Apakah ingin print Assesmen Kebidanan?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Ya',
+                cancelButtonColor: '#d33',
+                cancelButtonText: "Batal"
+
+            }).then(result => {
+                //jika klik ya maka arahkan ke proses.php
+                if (result.isConfirmed) {
+                    $.ajax({
+                        async: true,
+                        type: 'post',
+                        dataType: 'json',
+                        data: {
+                            _token: "{{ csrf_token() }}",
+
+                            kj,
+                            norm
+
+                        },
+                        url: '<?= route('cetakasseskebidanan') ?>',
+                        error: function(data) {
+                            spinner.hide()
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Ooops....',
+                                text: 'Sepertinya ada masalah......',
+                                footer: ''
+                            })
+                        },
+                        success: function(data) {
+                            spinner.hide()
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'OK',
+                                text: data.message,
+                                footer: ''
+                            })
+                            cetakassesmenkebidanan(data.kj, data.norm)
+
+                        }
+                    });
+                }
+            })
+            return false;
+        });
+
+
+        function cetakassesmenkebidanan(kj, norm) {
+            window.open('cetakassesmenkebidanan/' + kj + '/' + norm);
 
         }
 

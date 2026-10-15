@@ -232,6 +232,9 @@ Route::post('cetakresumecpptdokter', [DokterController::class, 'cetakresumecpptd
 Route::get('cetaktresumecppt/{kj}/{norm}', [DokterController::class, 'cetaktresumecppt']);
 Route::post('cetakassesperawat', [DokterController::class, 'cetakassesperawat'])->name('cetakassesperawat');
 Route::get('cetakassesmenperawat/{kj}/{norm}', [DokterController::class, 'cetakassesmenperawat']);
+Route::post('cetakasseskebidanan', [DokterController::class, 'cetakasseskebidanan'])->name('cetakasseskebidanan');
+Route::get('cetakassesmenkebidanan/{kj}/{norm}', [DokterController::class, 'cetakassesmenkebidanan']);
+
 Route::post('cetakassesdokter', [DokterController::class, 'cetakassesdokter'])->name('cetakassesdokter');
 Route::get('cetakassesmendokter/{kj}/{norm}', [DokterController::class, 'cetakassesmendokter']);
 Route::post('cetakresikobunuhdiri', [DokterController::class, 'cetakresikobunuhdiri'])->name('cetakresikobunuhdiri');

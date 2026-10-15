@@ -2092,16 +2092,26 @@
                                 </tr>
                                 <tr>
                                     <td colspan="2">
+                                        <H5>KLIK TOMBOL TAMBAH UNTUK MENAMBAHKAN TINDAKAN DPJP</H5>
+
+                                        <a class="btn btn-success" href="javascript:void(0);" id="add_button" title="Add field">DPJP</a>
+                                        <a class="btn btn-info" href="javascript:void(0);" id="add_button_raber" title="Add field">RABER</a>
                                         <form id="dynamic-form" class="formtindakandpjp">
 
                                             <div class="field_wrapperrrr">
                                                 <div class="form-group">
                                                     <div class="row">
-                                                        <H5>KLIK TOMBOL TAMBAH UNTUK MENAMBAHKAN TINDAKAN DPJP</H5>
 
-                                                        <div class="col-md-2">
-                                                            <a class="btn btn-success" href="javascript:void(0);" id="add_button" title="Add field">TAMBAH</a>
-                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <form id="dynamic-form" class="formtindakanraber">
+
+                                            <div class="field_wrapperraber">
+                                                <div class="form-group">
+                                                    <div class="row">
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -7620,7 +7630,7 @@
                                         <thead>
 
                                             <th hidden>id</th>
-                                            <th>Nama Dokter Penanggung Jawab</th>
+                                            <th>Nama Dokter</th>
 
 
                                             <th>Tindakan</th>
@@ -7631,7 +7641,7 @@
 
                                             <tr>
                                                 <td hidden class="idtdp">{{$td->id}}</td>
-
+                                                
                                                 <td>{{$td->nama_dpjp}}</td>
                                                 <td>
                                                     {{$td->tindakan_kedokteran}}
@@ -7648,16 +7658,26 @@
                                     </table>
 
                                 </div>
+                                <H5>KLIK TOMBOL TAMBAH UNTUK MENAMBAHKAN TINDAKAN DPJP</H5>
+
+                                <a class="btn btn-success" href="javascript:void(0);" id="add_button" title="Add field">DPJP</a>
+                                <a class="btn btn-info" href="javascript:void(0);" id="add_button_raber" title="Add field">RABER</a>
                                 <form id="dynamic-form" class="formtindakandpjp">
 
                                     <div class="field_wrapperrrr">
                                         <div class="form-group">
                                             <div class="row">
-                                                <H5>KLIK TOMBOL TAMBAH UNTUK MENAMBAHKAN TINDAKAN DPJP</H5>
 
-                                                <div class="col-md-2">
-                                                    <a class="btn btn-success" href="javascript:void(0);" id="add_button" title="Add field">TAMBAH</a>
-                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <form id="dynamic-form" class="formtindakanraber">
+
+                                    <div class="field_wrapperraber">
+                                        <div class="form-group">
+                                            <div class="row">
+
                                             </div>
                                         </div>
                                     </div>
@@ -13334,7 +13354,7 @@
                                         <thead>
 
                                             <th hidden>id</th>
-                                            <th>Nama Dokter Penanggung Jawab</th>
+                                            <th>Nama Dokter</th>
 
 
                                             <th>Tindakan</th>
@@ -13346,7 +13366,19 @@
                                             <tr>
                                                 <td hidden class="idtdp">{{$td->id}}</td>
 
-                                                <td>{{$td->nama_dpjp}}</td>
+                                                 @if($td->status_raber == 1)
+                                                <td>{{$td->nama_dpjp}} <a class=" btn btn-info btn-sm " href="#">
+                                                        <!-- <i class="fas fa-sync-alt fa-spin"></i> -->
+                                                        RABER
+                                                    </a></td>
+                                                @else
+                                                <td>
+                                                    {{$td->nama_dpjp}} <a class=" btn btn-success btn-sm " href="#">
+                                                        <!-- <i class="fas fa-sync-alt fa-spin"></i> -->
+                                                        DPJP
+                                                    </a>
+                                                </td>
+                                                @endif
                                                 <td>
                                                     <textarea class="form-control" id="tindakan_dpjp_update" name="tindakan_dpjp_update" placeholder="">{{$td->tindakan_kedokteran}}</textarea>
                                                 </td>
@@ -13365,16 +13397,26 @@
                                     </table>
 
                                 </div>
+                                <H5>KLIK TOMBOL TAMBAH UNTUK MENAMBAHKAN TINDAKAN DPJP</H5>
+
+                                <a class="btn btn-success" href="javascript:void(0);" id="add_button" title="Add field">DPJP</a>
+                                <a class="btn btn-info" href="javascript:void(0);" id="add_button_raber" title="Add field">RABER</a>
                                 <form id="dynamic-form" class="formtindakandpjp">
 
                                     <div class="field_wrapperrrr">
                                         <div class="form-group">
                                             <div class="row">
-                                                <H5>KLIK TOMBOL TAMBAH UNTUK MENAMBAHKAN TINDAKAN DPJP</H5>
 
-                                                <div class="col-md-2">
-                                                    <a class="btn btn-success" href="javascript:void(0);" id="add_button" title="Add field">TAMBAH</a>
-                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <form id="dynamic-form" class="formtindakanraber">
+
+                                    <div class="field_wrapperraber">
+                                        <div class="form-group">
+                                            <div class="row">
+
                                             </div>
                                         </div>
                                     </div>
@@ -14312,7 +14354,13 @@
         });
 
     });
+    $(document).ready(function() {
 
+        $('.selectraber').select2({
+            width: '100%'
+        });
+
+    });
     $(function() {
         $("#tablelab").DataTable({
             "responsive": false,
@@ -14518,6 +14566,37 @@
                 x++; //Increment field counter
                 $(wrapper).append(fieldHTML); //Add field html
                 $('.selectdpjp').select2({
+                    width: '100%'
+                });
+            }
+        });
+
+        //Once remove button is clicked
+        $(wrapper).on('click', '.remove_button', function(e) {
+            e.preventDefault();
+            $(this).parent('').parent('').remove(); //Remove field html
+            x--; //Decrement field counter
+        });
+    });
+    $(document).ready(function() {
+        var maxField = 10; //Input fields increment limitation
+        var addButton = $('#add_button_raber'); //Add button selector
+        var wrapper = $('.field_wrapperraber'); //Input field wrapper
+        var fieldHTML = '<div class="form-group add"><div class="row">';
+
+        fieldHTML = fieldHTML + '<div class="col-md-5"><label>PILIH DOKTER</label><select class="form-control selectraber" name="kode_raber[]">@foreach ($dpjp as $i => $p) <option value="{{ $p->kode_paramedis }}">{{ $p->nama_paramedis }}</option> @endforeach</select></div>';
+        fieldHTML = fieldHTML + '<div class="col-md-5"><label for="">Tata Laksana Dokter</label><textarea class="form-control" id="talaksanaraber" name="talaksanaraber" placeholder=""></textarea></div>';
+        fieldHTML = fieldHTML + '<div class="col-md-2"><a href="javascript:void(0);" class="remove_button btn btn-danger">HAPUS</a></div>';
+        fieldHTML = fieldHTML + '</div></div>';
+        var x = 1; //Initial field counter is 1
+
+        //Once add button is clicked
+        $(addButton).click(function() {
+            //Check maximum number of input fields
+            if (x < maxField) {
+                x++; //Increment field counter
+                $(wrapper).append(fieldHTML); //Add field html
+                $('.selectraber').select2({
                     width: '100%'
                 });
             }
@@ -15335,6 +15414,8 @@
         var datarad = $('.formradio').serializeArray()
         var rekobat = $('.formtinjutobat').serializeArray()
         var tindakandpjp = $('.formtindakandpjp').serializeArray()
+        var tindakanraber = $('.formtindakanraber').serializeArray();
+        
         // var tindakandpjptigap = $('.form30pdpjp').serializeArray();
         // var tindakandpjptigak = $('.form30kdpjp').serializeArray();
 
@@ -15521,6 +15602,8 @@
                         datarad: JSON.stringify(datarad),
                         rekobat: JSON.stringify(rekobat),
                         tindakandpjp: JSON.stringify(tindakandpjp),
+                        tindakanraber: JSON.stringify(tindakanraber),
+                        
                         // tindakandpjptigap: JSON.stringify(tindakandpjptigap),
                         // tindakandpjptigak: JSON.stringify(tindakandpjptigak),
 
@@ -15746,6 +15829,9 @@
         gambar1 = $('#gambarcoret1').val()
         // var data = $('.formtindakandokter').serializeArray();
         var tindakandpjp = $('.formtindakandpjp').serializeArray();
+        var tindakanraber = $('.formtindakanraber').serializeArray();
+
+        
         // var tindakandpjptigap = $('.form30pdpjp').serializeArray();
         // var tindakandpjptigak = $('.form30kdpjp').serializeArray();
 
@@ -15941,6 +16027,9 @@
                         _token: "{{ csrf_token() }}",
                         // data: JSON.stringify(data),
                         tindakandpjp: JSON.stringify(tindakandpjp),
+                        tindakanraber: JSON.stringify(tindakanraber),
+
+                        
                         // tindakandpjptigap: JSON.stringify(tindakandpjptigap),
                         // tindakandpjptigak: JSON.stringify(tindakandpjptigak),
 

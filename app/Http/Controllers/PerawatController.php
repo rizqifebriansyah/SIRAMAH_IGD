@@ -768,16 +768,23 @@ class PerawatController extends Controller
         $ranap = DB::select('SELECT kode_unit,nama_unit FROM mt_unit WHERE kelas_unit = 2');
         $ttv = DB::select('SELECT tekanan_darah, frekuensi_nafas, frekuensi_nadi, suhu, berat_badan, umur, keadaan_umum, kesadaran, gcs, spo2 FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
         $riwayatrekonobat = DB::select('SELECT * FROM rekonsiliasi_obat WHERE kode_kunjungan = ?', [$kj]);
-        $poli = DB::select('SELECT kode_unit,nama_unit FROM mt_unit WHERE kelas_unit = 2');
+        $poli = DB::select('SELECT kode_unit,nama_unit FROM mt_unit WHERE kelas_unit IN (2,3)');
         $tf = DB::connection('mysql4')->select('SELECT * FROM catatan_transfer_pasien WHERE kode_kunjungan = ?', [$kj]);
         $obatplg = DB::select('SELECT * FROM erm_obat_pulang_igd WHERE no_rm = ? AND kode_kunjungan = ? AND status = 4', [$norm, $kj]);
-      
+        $dpjp = DB::select('SELECT 
+                    a.kode_paramedis,
+                    a.nama_paramedis
+                    FROM mt_paramedis a
+                    WHERE a.spesialis LIKE "%UMUM%"
+                    AND a.act = 1');
         // dd($tf);
         return view(
             'perawat.transferpasien',
             [
                 'title' => 'SiRAMAH PERAWAT',
                 'unit' => $unit,
+                'dpjp' => $dpjp,
+
                 'tf' => $tf,
                 'obatplg' => $obatplg,
                 'now' => $now,
@@ -1749,6 +1756,7 @@ class PerawatController extends Controller
                 'kriteria_keluar_picu' => $request->kkpicu,
                 'kriteria_masuk_nicu' => $request->krnicu,
                 'kriteria_keluar_nicu' => $request->kknicu,
+                'nama_pembuat' => $name,
                 'status' => '1',
 
                 'created_at' => $now
@@ -1910,6 +1918,8 @@ class PerawatController extends Controller
                     'kriteria_keluar_picu' => $request->kkpicu,
                     'kriteria_masuk_nicu' => $request->krnicu,
                     'kriteria_keluar_nicu' => $request->kknicu,
+                    'nama_pembuat' => $name,
+
                     'status' => '1',
 
                     'created_at' => $now
@@ -4982,7 +4992,7 @@ class PerawatController extends Controller
 
         // File path
         $filepath = url('../../files/' . $filename);
-            $create = upload_berkas_igd::create([
+        $create = upload_berkas_igd::create([
             'kode_kunjungan' => $kj,
             'no_rm' => $norm,
 
