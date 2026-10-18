@@ -19,6 +19,9 @@ use Illuminate\Support\Facades\DB;
 use App\Models\erm_cppt_perawat;
 use App\Models\erm_tindakan_keperawatan;
 use App\Models\erm_obat_pulang_igd;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Illuminate\Support\Facades\Http;
+
 
 use App\Models\rencana_plg;
 use App\Models\mt_kode_header;
@@ -3642,7 +3645,12 @@ class PerawatController extends Controller
 
         $kp = auth()->user()->kode_paramedis;
         try {
-            $cekcpp = DB::select('SELECT status FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
+            $cekcpp = DB::select('SELECT status, link_tte, no_berkas FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
+            // dd($cekcpp);
+
+
+
+
             //ada
             if ($cekcpp[0]->status == 1) {
                 $cekcpp = DB::select('UPDATE erm_cppt_perawat SET status = "3"  WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
@@ -3817,6 +3825,11 @@ class PerawatController extends Controller
                     'status' => '1',
                     'nama_perawat1' => $name
                 ]);
+
+
+
+
+
                 // dd($assesmen);
             }
         } catch (\Exception $e) {
@@ -3826,6 +3839,40 @@ class PerawatController extends Controller
             ];
             echo json_encode($back);
             die;
+        }
+        try {
+            $cekcpp = DB::select(
+                'SELECT status, link_tte, no_berkas
+         FROM erm_cppt_perawat
+         WHERE no_rm = ?
+         AND kode_kunjungan = ?
+         AND status = 3',
+                [$norm, $kj]
+            );
+
+            if (!empty($cekcpp)) {
+
+                if (!empty($cekcpp[0]->link_tte)) {
+
+                    $tte = $cekcpp[0]->link_tte;
+                    $iddokumen = $cekcpp[0]->no_berkas;
+
+                    DB::update(
+                        'UPDATE erm_cppt_perawat
+                 SET no_berkas = ?, link_tte = ?
+                 WHERE no_rm = ?
+                 AND kode_kunjungan = ?
+                 AND status = 1',
+                        [$iddokumen, $tte, $norm, $kj]
+                    );
+                } else {
+                    // link_tte kosong atau NULL
+                }
+            } else {
+                // Data CPPT tidak ditemukan
+            }
+        } catch (\Throwable $e) {
+            dd($e->getMessage());
         }
         try {
             $rekon = json_decode($_POST['tindakan'], true);
@@ -3863,6 +3910,8 @@ class PerawatController extends Controller
             echo json_encode($back);
             die;
         }
+
+
         $back = [
             'kode' => 200,
             'message' => 'Berhasil'
@@ -4846,26 +4895,66 @@ class PerawatController extends Controller
     public function validasiassemenperawat(Request $request)
     {
 
+        $now = Carbon::now()->format('Y-m-d H:i:s');
+        // $now = Carbon::parse($assesdok[0]->tgl_asses)->format('d-M-Y');
 
-
+        $user = auth()->user()->nama;
+        $kp = auth()->user()->kode_paramedis;
         $kj = $request->kj;
         $norm = $request->norm;
+        $iddokumen = 'IGDPER-' . $kj . '-' . $norm;
+        // dd($iddokumen);
 
+        $url = 'https://siramah.rsudwaled.com/api/simpanfilette';
 
-        $now = Carbon::now();
-        $user = auth()->user()->id_simrs;
-        $kp = auth()->user()->kode_paramedis;
-        try {
-            $update = DB::select('UPDATE erm_cppt_perawat SET status = 2
-        WHERE no_rm = ? AND kode_kunjungan = ? AND STATUS = 1 ', [$norm, $kj]);
-        } catch (\Exception $e) {
-            $back = [
-                'kode' => 200,
-                'message' => $e->getMessage()
-            ];
-            echo json_encode($back);
-            die;
+        $data = [
+            'id_dokumen'  => $iddokumen,
+            'nama_user' => $user,
+            'tanggal_verifikasi' => $now,
+            'jabatan' => 'PERAWAT',
+
+        ];
+
+        $response = Http::post($url, $data);
+        // dd(json_decode($response->body()));
+        $res = json_decode($response->body());
+        if ($res->metadata->code == 200) {
+            $link = $res->response->link;
+            // dd($link);
+            $update = DB::select('UPDATE erm_cppt_perawat
+        SET no_berkas = ? , link_tte = ? WHERE no_rm = ? AND kode_kunjungan = ? and status = 1', [$iddokumen, $link, $norm, $kj]);
+            return response()->json([
+                'status' => $response->status(),
+                'success' => $response->successful(),
+                'response' => $response->json(),
+            ], $response->successful() ? 200 : 502);
+        } else {
+
+            return response()->json([
+                'status' => $response->status(),
+                'success' => $response->successful(),
+                'response' => $response->json(),
+            ], $response->successful() ? 200 : 502);
         }
+
+        // $kj = $request->kj;
+        // $norm = $request->norm;
+
+
+        // $now = Carbon::now();
+        // $user = auth()->user()->id_simrs;
+        // $kp = auth()->user()->kode_paramedis;
+        // try {
+        //     $update = DB::select('UPDATE erm_cppt_perawat SET status = 2
+        // WHERE no_rm = ? AND kode_kunjungan = ? AND STATUS = 1 ', [$norm, $kj]);
+        // } catch (\Exception $e) {
+        //     $back = [
+        //         'kode' => 200,
+        //         'message' => $e->getMessage()
+        //     ];
+        //     echo json_encode($back);
+        //     die;
+        // }
         // try {
         //     $delete = DB::select('DELETE FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ? AND STATUS = "3" ', [$norm, $kj]);
         // } catch (\Exception $e) {

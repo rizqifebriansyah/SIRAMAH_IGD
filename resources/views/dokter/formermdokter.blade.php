@@ -2416,52 +2416,72 @@
             <div class="card-body bg-light">
                 <div class="row">
 
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Tanggal Pemeriksaan
                                 Penunjang</label>
                             <input type="date" id="tanggalperiksapenunjang" name="tanggalperiksapenunjang" value="" class="form-control">
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <table id="tablelab" class="table table-sm mt-3 table-hover">
-                            <thead>
-                                <th>Nama tindakan</th>
-                            </thead>
-                            <tbody>
-                                @foreach ($layananlab as $t)
-                                <tr class="pilihlayanan" jenis="nonpaket" namatindakan="{{ $t->Tindakan }}" tarif="{{ $t->tarif }}" kode="{{ $t->kode }}">
-                                    <td>{{ $t->Tindakan }}</td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Indikasi Klinis Pemeriksaan</label>
+                            <select class="form-control select2" name="indikasiklinislab" id="indikasiklinislab">
+                                <option value="Skrining / Uji Saring (Preventif)">Skrining / Uji Saring (Preventif)
+                                </option>
+                                <option value="Penegakan Diagnosis (Diagnostik)">Penegakan Diagnosis (Diagnostik)
+                                </option>
+                                <option value="Pemantauan Penyakit(Monitoring)">Pemantauan Penyakit(Monitoring)
+                                </option>
+                                <option value="Evaluasi Pengobatan (Follow-up)">Evaluasi Pengobatan (Follow-up)
+                                </option>
+
+
+
+                            </select>
+                        </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-header bg-secondary">Tindakan / Layanan Pasien</div>
-                            <div class="card-body">
-                                <form action="" method="post" class="formlab">
-                                    <div class="input_fields_wrap_lab">
-                                        <div>
+                </div>
+            </div>
 
-                                        </div>
-
+            <div class="row">
+                <div class="col-md-6">
+                    <table id="tablelab" class="table table-sm mt-3 table-hover">
+                        <thead>
+                            <th>Nama tindakan</th>
+                        </thead>
+                        <tbody>
+                            @foreach ($layananlab as $t)
+                            <tr class="pilihlayanan" jenis="nonpaket" namatindakan="{{ $t->Tindakan }}" tarif="{{ $t->tarif }}" kode="{{ $t->kode }}">
+                                <td>{{ $t->Tindakan }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header bg-secondary">Tindakan / Layanan Pasien</div>
+                        <div class="card-body">
+                            <form action="" method="post" class="formlab">
+                                <div class="input_fields_wrap_lab">
+                                    <div>
 
                                     </div>
-                                </form>
-                            </div>
-                            <div class="card-footer">
-                                <p>pilih layanan untuk pasien</p>
-                            </div>
+
+
+                                </div>
+                            </form>
+                        </div>
+                        <div class="card-footer">
+                            <p>pilih layanan untuk pasien</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 
 
@@ -2480,11 +2500,29 @@
             <div class="card-body bg-light">
                 <div class="row">
 
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Tanggal Pemeriksaan
                                 Penunjang</label>
                             <input type="date" id="tanggalperiksapenunjang1" name="tanggalperiksapenunjang1" value="" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Indikasi Klinis Pemeriksaan</label>
+                            <select class="form-control select2" name="indikasiklinisrad" id="indikasiklinisrad">
+                                <option value="Skrining / Uji Saring (Preventif)">Skrining / Uji Saring (Preventif)
+                                </option>
+                                <option value="Penegakan Diagnosis (Diagnostik)">Penegakan Diagnosis (Diagnostik)
+                                </option>
+                                <option value="Pemantauan Penyakit(Monitoring)">Pemantauan Penyakit(Monitoring)
+                                </option>
+                                <option value="Evaluasi Pengobatan (Follow-up)">Evaluasi Pengobatan (Follow-up)
+                                </option>
+
+
+
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -7641,7 +7679,7 @@
 
                                             <tr>
                                                 <td hidden class="idtdp">{{$td->id}}</td>
-                                                
+
                                                 <td>{{$td->nama_dpjp}}</td>
                                                 <td>
                                                     {{$td->tindakan_kedokteran}}
@@ -8067,11 +8105,29 @@
             <div class="card-body bg-light">
                 <div class="row">
 
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Tanggal Pemeriksaan
                                 Penunjang</label>
                             <input type="date" id="tanggalperiksapenunjang" name="tanggalperiksapenunjang" value="" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Indikasi Klinis Pemeriksaan</label>
+                            <select class="form-control select2" name="indikasiklinislab" id="indikasiklinislab">
+                                <option value="Skrining / Uji Saring (Preventif)">Skrining / Uji Saring (Preventif)
+                                </option>
+                                <option value="Penegakan Diagnosis (Diagnostik)">Penegakan Diagnosis (Diagnostik)
+                                </option>
+                                <option value="Pemantauan Penyakit(Monitoring)">Pemantauan Penyakit(Monitoring)
+                                </option>
+                                <option value="Evaluasi Pengobatan (Follow-up)">Evaluasi Pengobatan (Follow-up)
+                                </option>
+
+
+
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -8163,11 +8219,29 @@
             <div class="card-body bg-light">
                 <div class="row">
 
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Tanggal Pemeriksaan
                                 Penunjang</label>
                             <input type="date" id="tanggalperiksapenunjang1" name="tanggalperiksapenunjang1" value="" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Indikasi Klinis Pemeriksaan</label>
+                            <select class="form-control select2" name="indikasiklinisrad" id="indikasiklinisrad">
+                                <option value="Skrining / Uji Saring (Preventif)">Skrining / Uji Saring (Preventif)
+                                </option>
+                                <option value="Penegakan Diagnosis (Diagnostik)">Penegakan Diagnosis (Diagnostik)
+                                </option>
+                                <option value="Pemantauan Penyakit(Monitoring)">Pemantauan Penyakit(Monitoring)
+                                </option>
+                                <option value="Evaluasi Pengobatan (Follow-up)">Evaluasi Pengobatan (Follow-up)
+                                </option>
+
+
+
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -13195,10 +13269,10 @@
                                         </div> -->
                             </td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                             <td class="text-bold font-italic">Evaluasi (30 menit pertama)</td>
                             <td>
-                                <!-- <div class="row">
+                                <div class="row">
                                     <table id="tablet30pdpjp" class="table tablet30pdpjp table-bordered">
                                         <thead>
 
@@ -13221,22 +13295,22 @@
                                                 </td>
 
                                                 <td> <a class=" btn btn-danger btn-sm returordertigap" href="#">
-                                                         <i class="fas fa-sync-alt fa-spin"></i> 
-                                RETUR
-                                </a> || <a class=" btn btn-warning mt-2 btn-sm editordertigap" href="#">
-                                    <i class="fas fa-sync-alt fa-spin"></i> 
-                                    EDIT
-                                </a>
-                            </td>
+                                                        <i class="fas fa-sync-alt fa-spin"></i>
+                                                        RETUR
+                                                    </a> || <a class=" btn btn-warning mt-2 btn-sm editordertigap" href="#">
+                                                        <i class="fas fa-sync-alt fa-spin"></i>
+                                                        EDIT
+                                                    </a>
+                                                </td>
 
 
-                        </tr>
-                        @endforeach
+                                            </tr>
+                                            @endforeach
 
-                    </tbody>
-                </table>
+                                        </tbody>
+                                    </table>
 
-                 </div>
+                                </div>
                                 <form id="dynamic-form" class="form30pdpjp">
 
                                     <div class="field_wrapper30p">
@@ -13250,7 +13324,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </form> -->
+                                </form>
                                 <div class="input-group">
                                     <textarea class="form-control" id="tigap" name="tigap" placeholder=""></textarea>
 
@@ -13260,7 +13334,7 @@
                         <tr>
                             <td class="text-bold font-italic">Evaluasi (30 menit kedua)</td>
                             <td>
-                                <!-- <div class="row">
+                                <div class="row">
                                     <table id="tablet30kdpjp" class="table tablet30kdpjp table-bordered">
                                         <thead>
 
@@ -13283,10 +13357,10 @@
                                                 </td>
 
                                                 <td> <a class=" btn btn-danger btn-sm returordertigak" href="#">
-                                                         <i class="fas fa-sync-alt fa-spin"></i> 
+                                                        <i class="fas fa-sync-alt fa-spin"></i>
                                                         RETUR
                                                     </a> || <a class=" btn btn-warning mt-2 btn-sm editordertigak" href="#">
-                                                       <i class="fas fa-sync-alt fa-spin"></i> 
+                                                        <i class="fas fa-sync-alt fa-spin"></i>
                                                         EDIT
                                                     </a></td>
 
@@ -13310,15 +13384,15 @@
                                             </div>
                                         </div>
                                     </div>
-                                </form> -->
+                                </form>
                                 <div class="input-group">
                                     <textarea class="form-control" id="tigak" name="tigak" placeholder=""></textarea>
 
                                 </div>
                             </td>
-                        </tr>
+                        </tr> -->
 
-                        <!-- <tr>
+                        <tr>
                             <td class="text-bold font-italic">Evaluasi (30 menit pertama)</td>
                             <td>
                                 <div class="input-group">
@@ -13335,7 +13409,7 @@
 
                                 </div>
                             </td>
-                        </tr> -->
+                        </tr>
                         <tr>
                             <td class="text-bold font-italic">Edukasi</td>
                             <td>
@@ -13366,7 +13440,7 @@
                                             <tr>
                                                 <td hidden class="idtdp">{{$td->id}}</td>
 
-                                                 @if($td->status_raber == 1)
+                                                @if($td->status_raber == 1)
                                                 <td>{{$td->nama_dpjp}} <a class=" btn btn-info btn-sm " href="#">
                                                         <!-- <i class="fas fa-sync-alt fa-spin"></i> -->
                                                         RABER
@@ -13806,11 +13880,34 @@
             <div class="card-body bg-light">
                 <div class="row">
 
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Tanggal Pemeriksaan
                                 Penunjang</label>
                             <input type="date" id="tanggalperiksapenunjang" name="tanggalperiksapenunjang" value="" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Indikasi Klinis Pemeriksaan</label>
+
+                            <select class="form-control select2" name="indikasiklinislab" id="indikasiklinislab">
+                                @if ($riwayatorderlab != NULL)
+                                <option value=""> {{$riwayatorderlab[0]->indikasi_klinis}}</option>
+                                @else
+                                @endif
+                                <option value="Skrining / Uji Saring (Preventif)">Skrining / Uji Saring (Preventif)
+                                </option>
+                                <option value="Penegakan Diagnosis (Diagnostik)">Penegakan Diagnosis (Diagnostik)
+                                </option>
+                                <option value="Pemantauan Penyakit(Monitoring)">Pemantauan Penyakit(Monitoring)
+                                </option>
+                                <option value="Evaluasi Pengobatan (Follow-up)">Evaluasi Pengobatan (Follow-up)
+                                </option>
+
+
+
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -13902,11 +13999,34 @@
             <div class="card-body bg-light">
                 <div class="row">
 
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Tanggal Pemeriksaan
                                 Penunjang</label>
                             <input type="date" id="tanggalperiksapenunjang1" name="tanggalperiksapenunjang1" value="" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Indikasi Klinis Pemeriksaan</label>
+                            <select class="form-control select2" name="indikasiklinisrad" id="indikasiklinisrad">
+                                @if ($riwayatorderlab != NULL)
+                                <option value=""> {{$riwayatorderrad[0]->indikasi_klinis}}</option>
+                                @else
+                                @endif
+
+                                <option value="Skrining / Uji Saring (Preventif)">Skrining / Uji Saring (Preventif)
+                                </option>
+                                <option value="Penegakan Diagnosis (Diagnostik)">Penegakan Diagnosis (Diagnostik)
+                                </option>
+                                <option value="Pemantauan Penyakit(Monitoring)">Pemantauan Penyakit(Monitoring)
+                                </option>
+                                <option value="Evaluasi Pengobatan (Follow-up)">Evaluasi Pengobatan (Follow-up)
+                                </option>
+
+
+
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -15415,7 +15535,7 @@
         var rekobat = $('.formtinjutobat').serializeArray()
         var tindakandpjp = $('.formtindakandpjp').serializeArray()
         var tindakanraber = $('.formtindakanraber').serializeArray();
-        
+
         // var tindakandpjptigap = $('.form30pdpjp').serializeArray();
         // var tindakandpjptigak = $('.form30kdpjp').serializeArray();
 
@@ -15577,7 +15697,8 @@
         var keputusanruangoperasi = $('#keputusanruangoperasi').val()
         var keputusankamarjenazah = $('#keputusankamarjenazah').val()
         var keputusanpulang = $('#keputusanpulang').val()
-
+        var indikasiklinislab = $('#indikasiklinislab').val()
+        var indikasiklinisrad = $('#indikasiklinisrad').val()
         // var sumberdata = $("#sumberdata:checked").val();
         Swal.fire({
             title: "Yakin Edit Assesmen?",
@@ -15603,7 +15724,7 @@
                         rekobat: JSON.stringify(rekobat),
                         tindakandpjp: JSON.stringify(tindakandpjp),
                         tindakanraber: JSON.stringify(tindakanraber),
-                        
+
                         // tindakandpjptigap: JSON.stringify(tindakandpjptigap),
                         // tindakandpjptigak: JSON.stringify(tindakandpjptigak),
 
@@ -15778,8 +15899,9 @@
                         tidakstabil: $('#tidakstabil').val(),
                         keputusanruangoperasi: $('#keputusanruangoperasi').val(),
                         keputusankamarjenazah: $('#keputusankamarjenazah').val(),
-                        keputusanpulang: $('#keputusanpulang').val()
-
+                        keputusanpulang: $('#keputusanpulang').val(),
+                        indikasiklinislab: $('#indikasiklinislab').val(),
+                        indikasiklinisrad: $('#indikasiklinisrad').val()
 
                     },
                     url: '<?= route('updateassemen') ?>',
@@ -15831,7 +15953,7 @@
         var tindakandpjp = $('.formtindakandpjp').serializeArray();
         var tindakanraber = $('.formtindakanraber').serializeArray();
 
-        
+
         // var tindakandpjptigap = $('.form30pdpjp').serializeArray();
         // var tindakandpjptigak = $('.form30kdpjp').serializeArray();
 
@@ -16001,6 +16123,10 @@
         var keputusanruangoperasi = $('#keputusanruangoperasi').val()
         var keputusankamarjenazah = $('#keputusankamarjenazah').val()
         var keputusanpulang = $('#keputusanpulang').val()
+        var indikasiklinislab = $('#indikasiklinislab').val()
+        var indikasiklinisrad = $('#indikasiklinisrad').val()
+
+
 
 
 
@@ -16029,7 +16155,7 @@
                         tindakandpjp: JSON.stringify(tindakandpjp),
                         tindakanraber: JSON.stringify(tindakanraber),
 
-                        
+
                         // tindakandpjptigap: JSON.stringify(tindakandpjptigap),
                         // tindakandpjptigak: JSON.stringify(tindakandpjptigak),
 
@@ -16208,7 +16334,9 @@
                         tidakstabil: $('#tidakstabil').val(),
                         keputusanruangoperasi: $('#keputusanruangoperasi').val(),
                         keputusankamarjenazah: $('#keputusankamarjenazah').val(),
-                        keputusanpulang: $('#keputusanpulang').val()
+                        keputusanpulang: $('#keputusanpulang').val(),
+                        indikasiklinislab: $('#indikasiklinislab').val(),
+                        indikasiklinisrad: $('#indikasiklinisrad').val()
                     },
                     url: '<?= route('simpanassesmen') ?>',
 
