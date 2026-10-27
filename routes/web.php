@@ -218,6 +218,15 @@ Route::group(['middleware' => ['hak_akses:5', 'auth']], function () {
     Route::post('returordertigap', [DokterController::class, 'returordertigap'])->name('returordertigap');
     Route::post('returordertigak', [DokterController::class, 'returordertigak'])->name('returordertigak');
 
+    Route::post('sinkrontte', [DokterController::class, 'sinkrontte'])->name('sinkrontte');
+    Route::post('sinkronttekebidanan', [DokterController::class, 'sinkronttekebidanan'])->name('sinkronttekebidanan');
+    Route::post('sinkronttekebidananbay', [DokterController::class, 'sinkronttekebidananbay'])->name('sinkronttekebidananbay');
+
+
+
+
+    
+
 });
 //Akhir route dokter
 
@@ -247,10 +256,12 @@ Route::post('cetakrencplg', [DokterController::class, 'cetakrencplg'])->name('ce
 Route::get('cetakrencanapulang/{kj}/{norm}', [DokterController::class, 'cetakrencanapulang']);
 Route::post('cetakcttntransfer', [DokterController::class, 'cetakcttntransfer'])->name('cetakcttntransfer');
 Route::get('cetakcatatantransfer/{kj}/{norm}', [DokterController::class, 'cetakcatatantransfer']);
+Route::get('cetakcatatantransfercoba/{kj}/{norm}', [DokterController::class, 'cetakcatatantransfercoba']);
 
 
-Route::post('cetakresumedokterkebidanan', [DokterController::class, 'cetakresumedokterkebidanan'])->name('cetakresumedokterkebidanan');
-Route::get('cetaktresumekebidanan/{kj}/{norm}', [DokterController::class, 'cetaktresumekebidanan']);
+
+Route::post('cetakassesmendokkebidanan', [DokterController::class, 'cetakassesmendokkebidanan'])->name('cetakassesmendokkebidanan');
+Route::get('cetakassesmendokterkebidanan/{kj}/{norm}', [DokterController::class, 'cetakassesmendokterkebidanan']);
 Route::post('cetakpemantauan', [DokterController::class, 'cetakpemantauan'])->name('cetakpemantauan');
 Route::get('cetakpemantauanigd/{kj}/{norm}', [DokterController::class, 'cetakpemantauanigd']);
 Route::get('resumeigd/{kj}/{norm}', [MonitoringController::class, 'resumeigd']);
@@ -335,6 +346,12 @@ Route::group(['middleware' => ['hak_akses:4', 'auth']], function () {
     Route::post('returttv', [PerawatController::class, 'returttv'])->name('returttv');
 
     Route::post('returobatplg', [PerawatController::class, 'returobatplg'])->name('returobatplg');
+    Route::post('singkronisasitteperawat', [PerawatController::class, 'singkronisasitteperawat'])->name('singkronisasitteperawat');
+    Route::post('singkronisasittekebidanan', [PerawatController::class, 'singkronisasittekebidanan'])->name('singkronisasittekebidanan');
+    Route::post('singkronisasittekebidananbayi', [PerawatController::class, 'singkronisasittekebidananbayi'])->name('singkronisasittekebidananbayi');
+
+
+    
 });
 
 

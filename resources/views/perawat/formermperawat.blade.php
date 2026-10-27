@@ -7634,11 +7634,14 @@
             </div>
         </div>
 
-        <div type="button" class="btn float-right btn-info updateassesperawat" style="margin-top: 20px;">
+        <div type="button" class="btn float-right btn-success updateassesperawat" style="margin-top: 20px;">
             Edit
         </div>
-        <div type="button" class="btn float-right btn-success ml-2 validasiassesperawat" style="margin-top: 20px;">
-            Validasi
+        <div type="button" class="btn float-right btn-info ml-2 validasiassesperawat" style="margin-top: 20px;">
+            TTE
+        </div>
+        <div type="button" class="btn float-right btn-info ml-2 singkronisasitteperawat" style="margin-top: 20px;">
+           Sinkronisasi TTE
         </div>
         @endif
 
@@ -8455,6 +8458,73 @@
                     }
                 });
 
+            }
+        })
+        return false;
+    });
+    
+    $(".singkronisasitteperawat").click(function() {
+        var data = $('.formerm').serializeArray();
+
+        var norm = $('#norm').val()
+        var kj = $('#kj').val()
+
+
+        // var sumberdata = $("#sumberdata:checked").val();
+        Swal.fire({
+            title: "Yakin Singkronisasi?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Ya',
+            cancelButtonColor: '#d33',
+            cancelButtonText: "Batal"
+
+        }).then(result => {
+            //jika klik ya maka arahkan ke proses.php
+            if (result.isConfirmed) {
+                $.ajax({
+                    async: true,
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        data: JSON.stringify(data),
+                        norm: $('#norm').val(),
+                        kj: $('#kj').val(),
+
+
+                    },
+                    url: '<?= route('singkronisasitteperawat') ?>',
+
+                    error: function(data) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Sepertinya ada masalah ...',
+                            footer: ''
+                        })
+                    },
+                    success: function(data) {
+                        console.log(data)
+                        if (data.kode == 500) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: data.message,
+                                footer: ''
+                            })
+                        } else {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'OK',
+                                text: 'data berhasil disimpan',
+                                footer: ''
+                            })
+                            cpptperawat()
+                        }
+                    }
+                });
             }
         })
         return false;

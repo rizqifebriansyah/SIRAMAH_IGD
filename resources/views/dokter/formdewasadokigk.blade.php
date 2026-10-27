@@ -35,7 +35,7 @@
 
 
                     </td>
-                    <td class="text-bold font-italic">Tanggal Pulang</td>
+                    <td class="text-bold font-italic">Tanggal Keluar IGDK</td>
                     <td>
                         <input class="form-control" type="datetime-local" value="" name="tgl_plg" id="tgl_plg">
                     </td>
@@ -970,11 +970,29 @@
                     <div class="card-body bg-light">
                         <div class="row">
 
-                            <div class="col-md-6">
+                            <div class="col-md-5">
                                 <div class="form-group">
                                     <label for="exampleFormControlSelect1">Tanggal Pemeriksaan
                                         Penunjang</label>
                                     <input type="date" id="tanggalperiksapenunjang" name="tanggalperiksapenunjang" value="" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label for="exampleFormControlSelect1">Indikasi Klinis Pemeriksaan</label>
+                                    <select class="form-control select2" name="indikasiklinislab" id="indikasiklinislab">
+                                        <option value="Skrining / Uji Saring (Preventif)">Skrining / Uji Saring (Preventif)
+                                        </option>
+                                        <option value="Penegakan Diagnosis (Diagnostik)">Penegakan Diagnosis (Diagnostik)
+                                        </option>
+                                        <option value="Pemantauan Penyakit(Monitoring)">Pemantauan Penyakit(Monitoring)
+                                        </option>
+                                        <option value="Evaluasi Pengobatan (Follow-up)">Evaluasi Pengobatan (Follow-up)
+                                        </option>
+
+
+
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -1034,11 +1052,29 @@
                     <div class="card-body bg-light">
                         <div class="row">
 
-                            <div class="col-md-6">
+                            <div class="col-md-5">
                                 <div class="form-group">
                                     <label for="exampleFormControlSelect1">Tanggal Pemeriksaan
                                         Penunjang</label>
                                     <input type="date" id="tanggalperiksapenunjang1" name="tanggalperiksapenunjang1" value="" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label for="exampleFormControlSelect1">Indikasi Klinis Pemeriksaan</label>
+                                    <select class="form-control select2" name="indikasiklinisrad" id="indikasiklinisrad">
+                                        <option value="Skrining / Uji Saring (Preventif)">Skrining / Uji Saring (Preventif)
+                                        </option>
+                                        <option value="Penegakan Diagnosis (Diagnostik)">Penegakan Diagnosis (Diagnostik)
+                                        </option>
+                                        <option value="Pemantauan Penyakit(Monitoring)">Pemantauan Penyakit(Monitoring)
+                                        </option>
+                                        <option value="Evaluasi Pengobatan (Follow-up)">Evaluasi Pengobatan (Follow-up)
+                                        </option>
+
+
+
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -1105,7 +1141,7 @@
 
 
                     </td>
-                    <td class="text-bold font-italic">Tanggal Pulang</td>
+                    <td class="text-bold font-italic">Tanggal Keluar IGDK</td>
                     <td>
                         <input class="form-control" type="datetime-local" value="{{$assesdok[0]->tgl_plg}}" name="tgl_plg" id="tgl_plg">
                     </td>
@@ -1777,7 +1813,7 @@
                     <div class="card-body bg-light">
                         <table class="table">
                             <tbody>
-                                
+
                                 <tr>
                                     <td class="text-bold font-italic">DIAGNOSIS</td>
                                     <td>
@@ -1856,7 +1892,10 @@
                                                     </td>
                                                     @endif
                                                     <td>
-                                                        <textarea class="form-control" id="tindakan_dpjp_update" name="tindakan_dpjp_update" placeholder="">{{$td->tindakan_kedokteran}}</textarea>
+                                                        <textarea
+                                                            class="form-control tindakan_dpjp_update"
+                                                            name="tindakan_dpjp_update"
+                                                            placeholder="">{{ $td->tindakan_kedokteran }}</textarea>
                                                     </td>
 
                                                     <td> <a class=" btn btn-danger btn-sm returordertdp" href="#">
@@ -2115,11 +2154,34 @@
                     <div class="card-body bg-light">
                         <div class="row">
 
-                            <div class="col-md-6">
+                            <div class="col-md-5">
                                 <div class="form-group">
                                     <label for="exampleFormControlSelect1">Tanggal Pemeriksaan
                                         Penunjang</label>
                                     <input type="date" id="tanggalperiksapenunjang" name="tanggalperiksapenunjang" value="" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label for="exampleFormControlSelect1">Indikasi Klinis Pemeriksaan</label>
+                                    <select class="form-control select2" name="indikasiklinislab" id="indikasiklinislab">
+                                        @if ($riwayatorderlab != NULL)
+                                        <option value="{{$riwayatorderlab[0]->indikasi_klinis}}"> {{$riwayatorderlab[0]->indikasi_klinis}}</option>
+                                        @else
+                                        @endif
+
+                                        <option value="Skrining / Uji Saring (Preventif)">Skrining / Uji Saring (Preventif)
+                                        </option>
+                                        <option value="Penegakan Diagnosis (Diagnostik)">Penegakan Diagnosis (Diagnostik)
+                                        </option>
+                                        <option value="Pemantauan Penyakit(Monitoring)">Pemantauan Penyakit(Monitoring)
+                                        </option>
+                                        <option value="Evaluasi Pengobatan (Follow-up)">Evaluasi Pengobatan (Follow-up)
+                                        </option>
+
+
+
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -2203,11 +2265,33 @@
                     <div class="card-body bg-light">
                         <div class="row">
 
-                            <div class="col-md-6">
+                            <div class="col-md-5">
                                 <div class="form-group">
                                     <label for="exampleFormControlSelect1">Tanggal Pemeriksaan
                                         Penunjang</label>
                                     <input type="date" id="tanggalperiksapenunjang1" name="tanggalperiksapenunjang1" value="" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label for="exampleFormControlSelect1">Indikasi Klinis Pemeriksaan</label>
+                                    <select class="form-control select2" name="indikasiklinisrad" id="indikasiklinisrad">
+                                        @if ($riwayatorderrad != NULL)
+                                        <option value="{{$riwayatorderrad[0]->indikasi_klinis}}"> {{$riwayatorderrad[0]->indikasi_klinis}}</option>
+                                        @else
+                                        @endif
+                                        <option value="Skrining / Uji Saring (Preventif)">Skrining / Uji Saring (Preventif)
+                                        </option>
+                                        <option value="Penegakan Diagnosis (Diagnostik)">Penegakan Diagnosis (Diagnostik)
+                                        </option>
+                                        <option value="Pemantauan Penyakit(Monitoring)">Pemantauan Penyakit(Monitoring)
+                                        </option>
+                                        <option value="Evaluasi Pengobatan (Follow-up)">Evaluasi Pengobatan (Follow-up)
+                                        </option>
+
+
+
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -2281,8 +2365,15 @@
             <div type="button" class="btn  btn-success updateassesdokbid" style="margin-top: 20px;">
                 UPDATE
             </div>
-            <div type="button" class="btn  btn-success ml-2 validasiasssesdokbid" style="margin-top: 20px;">
+            <!-- <div type="button" class="btn  btn-success ml-2 validasiasssesdokbid" style="margin-top: 20px;">
                 Validasi
+            </div> -->
+
+            <div type="button" class="btn  btn-info ml-2 validasiasssesdokbid" style="margin-top: 20px;">
+                TTE
+            </div>
+            <div type="button" class="btn  btn-info ml-2 sinkronttekebidanan" style="margin-top: 20px;">
+                Singkronisasi TTE
             </div>
 
         </div>
@@ -2717,6 +2808,9 @@
                 var tgl_asses = $('#tgl_asses').val()
                 var tgl_selesai_asses = $('#tgl_selesai_asses').val()
                 var tgl_plg = $('#tgl_plg').val()
+                var indikasiklinislab = $('#indikasiklinislab').val()
+                var indikasiklinisrad = $('#indikasiklinisrad').val()
+
 
 
                 // var sumberdata = $("#sumberdata:checked").val();
@@ -2784,7 +2878,10 @@
                                 kopul1: $('#kopul1').val(),
                                 tgl_asses: $('#tgl_asses').val(),
                                 tgl_selesai_asses: $('#tgl_selesai_asses').val(),
-                                tgl_plg: $('#tgl_plg').val()
+                                tgl_plg: $('#tgl_plg').val(),
+                                indikasiklinislab: $('#indikasiklinislab').val(),
+                                indikasiklinisrad: $('#indikasiklinisrad').val()
+
 
                             },
                             url: '<?= route('updateassesdokbid') ?>',
@@ -2870,7 +2967,8 @@
                 var tgl_asses = $('#tgl_asses').val()
                 var tgl_selesai_asses = $('#tgl_selesai_asses').val()
                 var tgl_plg = $('#tgl_plg').val()
-
+                var indikasiklinislab = $('#indikasiklinislab').val()
+                var indikasiklinisrad = $('#indikasiklinisrad').val()
 
 
                 // var sumberdata = $("#sumberdata:checked").val();
@@ -2938,7 +3036,10 @@
                                 kopul1: $('#kopul1').val(),
                                 tgl_asses: $('#tgl_asses').val(),
                                 tgl_selesai_asses: $('#tgl_selesai_asses').val(),
-                                tgl_plg: $('#tgl_plg').val()
+                                tgl_plg: $('#tgl_plg').val(),
+                                indikasiklinislab: $('#indikasiklinislab').val(),
+                                indikasiklinisrad: $('#indikasiklinisrad').val()
+
                             },
                             url: '<?= route('simpanassesdokkebid') ?>',
 
@@ -3048,6 +3149,79 @@
                 })
                 return false;
             });
+            $(".sinkronttekebidanan").click(function() {
+                var data = $('.formerm').serializeArray();
+
+                var norm = $('#norm').val()
+                var kj = $('#kj').val()
+                var kp = $('#kp').val()
+                var counter = $('#counter').val()
+
+
+
+
+
+                // var sumberdata = $("#sumberdata:checked").val();
+                Swal.fire({
+                    title: "Yakin Sinkronisasi TTE?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ya',
+                    cancelButtonColor: '#d33',
+                    cancelButtonText: "Batal"
+
+                }).then(result => {
+                    //jika klik ya maka arahkan ke proses.php
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            async: true,
+                            type: 'post',
+                            dataType: 'json',
+                            data: {
+                                _token: "{{ csrf_token() }}",
+                                data: JSON.stringify(data),
+                                norm: $('#norm').val(),
+                                counter: $('#counter').val(),
+                                kj: $('#kj').val(),
+
+                            },
+                            url: '<?= route('sinkronttekebidanan') ?>',
+
+                            error: function(data) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: 'Sepertinya ada masalah ...',
+                                    footer: ''
+                                })
+                            },
+                            success: function(data) {
+                                console.log(data)
+                                if (data.kode == 500) {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops...',
+                                        text: data.message,
+                                        footer: ''
+                                    })
+                                } else {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'OK',
+                                        text: 'data berhasil disimpan',
+                                        footer: ''
+                                    })
+                                    cpptdokter();
+
+
+                                }
+                            }
+                        });
+                    }
+                })
+                return false;
+            });
 
             $(".returordertdp").click(function() {
                 var $row = $(this).closest("tr");
@@ -3120,7 +3294,8 @@
             $(".editordertdp").click(function() {
                 var $row = $(this).closest("tr");
                 var idtdp = $row.find(".idtdp").text();
-                var tindakan_dpjp_update = $('#tindakan_dpjp_update').val()
+                var tindakan_dpjp_update = $row.find(".tindakan_dpjp_update").val();
+
 
 
 
@@ -3145,7 +3320,7 @@
                             data: {
                                 _token: "{{ csrf_token() }}",
                                 idtdp,
-                                tindakan_dpjp_update: $('#tindakan_dpjp_update').val(),
+                                tindakan_dpjp_update,
 
 
 

@@ -1237,7 +1237,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="text-bold font-italic">Tanggal Pulang</td>
+                    <td class="text-bold font-italic">Tanggal Keluar IGD</td>
                     <td>
                         <input class="form-control" type="datetime-local" value="" name="tgl_plg" id="tgl_plg">
                     </td>
@@ -2573,6 +2573,7 @@
         <div type="button" class="btn float-right btn-success simpanasses mt-3 mb-3 mr-3">
             SIMPAN
         </div>
+
     </div>
 </div>
 @elseif($assesdok[0]->status == 2)
@@ -2621,7 +2622,7 @@
             </td>
         </tr>
         <tr>
-            <td class="text-bold font-italic">Tanggal Pulang</td>
+            <td class="text-bold font-italic">Tanggal Keluar IGD</td>
             <td>
                 <input class="form-control" type="datetime-local" value="{{$assesdok[0]->tgl_plg}}" name="tgl_plg" id="tgl_plg">
             </td>
@@ -4185,10 +4186,19 @@
                             </div>
                         </td>
                         <td>
+                            @if ($triase[0]->sirkulasi26 == 'Dehidrasi')
                             <div class="form-group form-check">
-
+                                <input type="checkbox" class="form-check-input" checked id="sirkulasi26" name="sirkulasi26" value="Dehidrasi">
+                                <label class="form-check-label" for="exampleCheck1">Dehidrasi</label>
                                 </label>
-                            </div>
+                                @else
+                                <div class="form-group form-check">
+                                    <input type="checkbox" class="form-check-input" id="sirkulasi26" name="sirkulasi26" value="Dehidrasi">
+                                    <label class="form-check-label" for="exampleCheck1">Dehidrasi</label>
+                                    </label>
+                                    @endif
+
+                                </div>
                         </td>
                         <td>
                             <div class="form-group form-check">
@@ -4875,7 +4885,7 @@
             </table>
         </div>
 
-        @else
+        @elseif ($triase[0]->jenis_triase == 'anak')
         <div class="accordion  mt-3 mb-2" id="accordionExample">
 
             <div class="card-header bg-secondary" id="headingOne">
@@ -4895,10 +4905,11 @@
                             <td class="text-bold ">KATEGORI TRIASE </td>
 
                             <td>
+                                <input hidden type="text" class="form-control" placeholder="" aria-label="Recipient's username" id="jenistriase" name="jenistriase" aria-describedby="basic-addon2" value="anak">
+
                                 @if ($triase[0]->kategori_triase == 'Medikal')
                                 <div class="form-group form-check">
                                     <input checked type="checkbox" class="form-check-input" id="kategoritriase" name="kategoritriase" value="Medikal">
-                                    <input hidden type="text" class="form-control" placeholder="" aria-label="Recipient's username" id="jenistriase" name="jenistriase" aria-describedby="basic-addon2" value="anak">
 
                                     <label class="form-check-label" for="exampleCheck1">Medikal</label>
                                 </div>
@@ -6088,7 +6099,7 @@
                             </td>
                             <td>
                                 <div class="form-group form-check">
-                                    @if ($triase[0]->kardio3 == 'Takikardia ++')
+                                    @if ($triase[0]->kardio3 != NULL)
                                     <input type="checkbox" class="form-check-input" id="kardio3" name="kardio3" value="Takikardia" checked>
                                     <label class="form-check-label" for="exampleCheck1">Takikardia
                                     </label>
@@ -6981,6 +6992,10 @@
             </div>
 
         </div>
+        @else
+        <h1> belum ada triase</h1>
+
+
         @endif
         @endif
     </div>
@@ -8333,6 +8348,7 @@
 
         </tr>
         <tr>
+            @if ($triase != NULL)
             <td class="text-bold font-italic">Tanggal Awal Triase</td>
             <td>
                 <input class="form-control" type="datetime-local" value="{{$triase[0]->tg_entri_triase}}" name="tgl_input_triase" id="tgl_input_triase">
@@ -8345,6 +8361,20 @@
 
 
             </td>
+            @else
+            <td class="text-bold font-italic">Tanggal Awal Triase</td>
+            <td>
+                <input class="form-control" type="datetime-local" value="" name="tgl_input_triase" id="tgl_input_triase">
+
+
+            </td>
+            <td class="text-bold font-italic">Tanggal Selesai Triase</td>
+            <td>
+                <input class="form-control" type="datetime-local" value="" name="tgl_selesai_triase" id="tgl_selesai_triase">
+
+
+            </td>
+            @endif
         </tr>
         <tr>
             <td class="text-bold font-italic">Tanggal Awal Asesmen</td>
@@ -8359,7 +8389,7 @@
             </td>
         </tr>
         <tr>
-            <td class="text-bold font-italic">Tanggal Pulang</td>
+            <td class="text-bold font-italic">Tanggal Keluar IGD</td>
             <td>
                 <input class="form-control" type="datetime-local" value="{{$assesdok[0]->tgl_plg}}" name="tgl_plg" id="tgl_plg">
             </td>
@@ -9923,10 +9953,21 @@
                             </div>
                         </td>
                         <td>
+                            @if ($triase[0]->sirkulasi26 == 'Dehidrasi')
                             <div class="form-group form-check">
-
+                                <input type="checkbox" class="form-check-input" checked id="sirkulasi26" name="sirkulasi26" value="Dehidrasi">
+                                <label class="form-check-label" for="exampleCheck1">Dehidrasi</label>
                                 </label>
                             </div>
+
+                            @else
+                            <div class="form-group form-check">
+                                <input type="checkbox" class="form-check-input" id="sirkulasi26" name="sirkulasi26" value="Dehidrasi">
+                                <label class="form-check-label" for="exampleCheck1">Dehidrasi</label>
+                                </label>
+                            </div>
+
+                            @endif
                         </td>
                         <td>
                             <div class="form-group form-check">
@@ -10633,10 +10674,11 @@
                             <td class="text-bold ">KATEGORI TRIASE </td>
 
                             <td>
+                                <input hidden type="text" class="form-control" placeholder="" aria-label="Recipient's username" id="jenistriase" name="jenistriase" aria-describedby="basic-addon2" value="anak">
+
                                 @if ($triase[0]->kategori_triase == 'Medikal')
                                 <div class="form-group form-check">
                                     <input checked type="checkbox" class="form-check-input" id="kategoritriase" name="kategoritriase" value="Medikal">
-                                    <input hidden type="text" class="form-control" placeholder="" aria-label="Recipient's username" id="jenistriase" name="jenistriase" aria-describedby="basic-addon2" value="anak">
 
                                     <label class="form-check-label" for="exampleCheck1">Medikal</label>
                                 </div>
@@ -11826,7 +11868,7 @@
                             </td>
                             <td>
                                 <div class="form-group form-check">
-                                    @if ($triase[0]->kardio3 == 'Takikardia ++')
+                                    @if ($triase[0]->kardio3 != NULL)
                                     <input type="checkbox" class="form-check-input" id="kardio3" name="kardio3" value="Takikardia" checked>
                                     <label class="form-check-label" for="exampleCheck1">Takikardia
                                     </label>
@@ -13454,7 +13496,10 @@
                                                 </td>
                                                 @endif
                                                 <td>
-                                                    <textarea class="form-control" id="tindakan_dpjp_update" name="tindakan_dpjp_update" placeholder="">{{$td->tindakan_kedokteran}}</textarea>
+                                                    <textarea
+                                                        class="form-control tindakan_dpjp_update"
+                                                        name="tindakan_dpjp_update"
+                                                        placeholder="">{{ $td->tindakan_kedokteran }}</textarea>
                                                 </td>
 
                                                 <td> <a class=" btn btn-danger btn-sm returordertdp" href="#">
@@ -14011,7 +14056,7 @@
                             <label for="exampleFormControlSelect1">Indikasi Klinis Pemeriksaan</label>
                             <select class="form-control select2" name="indikasiklinisrad" id="indikasiklinisrad">
                                 @if ($riwayatorderlab != NULL)
-                                <option value=""> {{$riwayatorderrad[0]->indikasi_klinis}}</option>
+                                <option value=""> {{$riwayatorderlab[0]->indikasi_klinis}}</option>
                                 @else
                                 @endif
 
@@ -14106,9 +14151,15 @@
         <div type="button" class="btn  btn-success updateasses" style="margin-top: 20px;">
             UPDATE
         </div>
-        <div type="button" class="btn  btn-success ml-2 validasiasssesdok" style="margin-top: 20px;">
-            Validasi
+
+        <div type="button" class="btn  btn-info ml-2 validasiasssesdok" style="margin-top: 20px;">
+            TTE
         </div>
+        <div type="button" class="btn  btn-info ml-2 sinkrontte" style="margin-top: 20px;">
+            Singkronisasi TTE
+        </div>
+
+
     </div>
 
 
@@ -15033,7 +15084,7 @@
     $(".editordertdp").click(function() {
         var $row = $(this).closest("tr");
         var idtdp = $row.find(".idtdp").text();
-        var tindakan_dpjp_update = $('#tindakan_dpjp_update').val()
+        var tindakan_dpjp_update = $row.find(".tindakan_dpjp_update").val();
 
 
 
@@ -15058,7 +15109,7 @@
                     data: {
                         _token: "{{ csrf_token() }}",
                         idtdp,
-                        tindakan_dpjp_update: $('#tindakan_dpjp_update').val(),
+                        tindakan_dpjp_update,
 
 
 
@@ -15447,6 +15498,80 @@
         })
         return false;
     });
+
+    $(".sinkrontte").click(function() {
+        var data = $('.formerm').serializeArray();
+
+        var norm = $('#norm').val()
+        var kj = $('#kj').val()
+        var kp = $('#kp').val()
+        var counter = $('#counter').val()
+
+
+
+
+
+        // var sumberdata = $("#sumberdata:checked").val();
+        Swal.fire({
+            title: "Yakin Sinkronisasi TTE?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Ya',
+            cancelButtonColor: '#d33',
+            cancelButtonText: "Batal"
+
+        }).then(result => {
+            //jika klik ya maka arahkan ke proses.php
+            if (result.isConfirmed) {
+                $.ajax({
+                    async: true,
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        data: JSON.stringify(data),
+                        norm: $('#norm').val(),
+                        counter: $('#counter').val(),
+                        kj: $('#kj').val(),
+
+                    },
+                    url: '<?= route('sinkrontte') ?>',
+
+                    error: function(data) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Sepertinya ada masalah ...',
+                            footer: ''
+                        })
+                    },
+                    success: function(data) {
+                        console.log(data)
+                        if (data.kode == 500) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: data.message,
+                                footer: ''
+                            })
+                        } else {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'OK',
+                                text: 'data berhasil disimpan',
+                                footer: ''
+                            })
+                            cpptdokter();
+
+
+                        }
+                    }
+                });
+            }
+        })
+        return false;
+    });
     $(".validasiasssesdok").click(function() {
         var data = $('.formerm').serializeArray();
 
@@ -15519,7 +15644,7 @@
             }
         })
         return false;
-    });
+    })
     $(".updateasses").click(function() {
         // var data = $('.formtindakandokter').serializeArray();
         var gambar = document.getElementById("myCanvas2");
@@ -15565,89 +15690,129 @@
         var spsi9 = $("#spsi9").val();
         var spsi = $("#spsi:checked").val();
         //kesadaran var kesadaran1=$("#kesadaran1:checked").val() 
-        var kesadaran2 = $("#kesadaran2:checked").val()
-        var kesadaran3 = $("#kesadaran3:checked").val()
-        var kesadaran4 = $("#kesadaran4:checked").val()
-        var kesadaran5 = $("#kesadaran5:checked").val()
-        var kesadaran6 = $("#kesadaran6:checked").val()
-        var kesadaran7 = $("#kesadaran7:checked").val()
-        var kesadaran8 = $("#kesadaran8:checked").val()
-        var kesadaran9 = $("#kesadaran9:checked").val()
-        var kesadaran10 = $("#kesadaran10:checked").val()
-        var kesadaran11 = $("#kesadaran11:checked").val()
-        var kesadaran12 = $("#kesadaran12:checked").val()
-        //jalannafas var jalannafas1=$("#jalannafas1:checked").val()
-        var jalannafas2 = $("#jalannafas2:checked").val()
-        var jalannafas3 = $("#jalannafas3:checked").val()
-        var jalannafas4 = $("#jalannafas4:checked").val()
-        var jalannafas5 = $("#jalannafas5:checked").val()
-        //pernafasan var upaya1=$("#upaya1:checked").val() 
-        var upaya2 = $("#upaya2:checked").val()
-        var upaya3 = $("#upaya3:checked").val()
-        var upaya4 = $("#upaya4:checked").val()
-        var upaya5 = $("#upaya5:checked").val()
-        var upaya6 = $("#upaya6:checked").val()
-        var upaya7 = $("#upaya7:checked").val()
-        var upaya8 = $("#upaya8:checked").val()
-        //sirkulasi var sirkulasi1=$("#sirkulasi1:checked").val() 
-        var sirkulasi2 = $("#sirkulasi2:checked").val()
-        var sirkulasi3 = $("#sirkulasi3:checked").val()
-        var sirkulasi4 = $("#sirkulasi4:checked").val()
-        var sirkulasi5 = $("#sirkulasi5:checked").val()
-        var sirkulasi6 = $("#sirkulasi6:checked").val()
-        var sirkulasi7 = $("#sirkulasi7:checked").val()
-        var sirkulasi8 = $("#sirkulasi8:checked").val()
-        var sirkulasi9 = $("#sirkulasi9:checked").val()
-        var sirkulasi10 = $("#sirkulasi10:checked").val()
-        var sirkulasi11 = $("#sirkulasi11:checked").val()
-        var sirkulasi12 = $("#sirkulasi12:checked").val()
-        var sirkulasi13 = $("#sirkulasi13:checked").val()
-        var sirkulasi14 = $("#sirkulasi14:checked").val()
-        var sirkulasi15 = $("#sirkulasi15:checked").val()
-        var sirkulasi16 = $("#sirkulasi16:checked").val()
-        var sirkulasi17 = $("#sirkulasi17:checked").val()
-        var sirkulasi18 = $("#sirkulasi18:checked").val()
-        var sirkulasi19 = $("#sirkulasi19:checked").val()
-        var sirkulasi20 = $("#sirkulasi20:checked").val()
-        var sirkulasi21 = $("#sirkulasi21:checked").val()
-        var sirkulasi22 = $("#sirkulasi22:checked").val()
-        var sirkulasi23 = $("#sirkulasi23:checked").val()
-        var sirkulasi24 = $("#sirkulasi24:checked").val()
-        var sirkulasi25 = $("#sirkulasi25:checked").val()
-        //gejalaspesifik var gejala1=$("#gejala1:checked").val() 
-        var gejala2 = $("#gejala2:checked").val()
-        var gejala3 = $("#gejala3:checked").val()
-        var gejala4 = $("#gejala4:checked").val()
-        var gejala5 = $("#gejala5:checked").val()
-        var gejala6 = $("#gejala6:checked").val()
-        var gejala7 = $("#gejala7:checked").val()
-        var gejala8 = $("#gejala8:checked").val()
-        var gejala9 = $("#gejala9:checked").val()
-        var gejala10 = $("#gejala10:checked").val()
-        var gejala11 = $("#gejala11:checked").val()
-        var gejala12 = $("#gejala12:checked").val()
-        var gejala13 = $("#gejala13:checked").val()
-        var gejala14 = $("#gejala14:checked").val()
-        var gejala15 = $("#gejala15:checked").val()
-        var gejala15 = $("#gejala15:checked").val()
-        var gejala17 = $("#gejala17:checked").val()
-        var gejala18 = $("#gejala18:checked").val()
-        var gejala19 = $("#gejala19:checked").val()
-        var gejala20 = $("#gejala20:checked").val()
-        var gejala21 = $("#gejala21:checked").val()
-        var gejala22 = $("#gejala22:checked").val()
-        var gejala23 = $("#gejala23:checked").val()
-        var gejala24 = $("#gejala24:checked").val()
-        var gejala25 = $("#gejala25:checked").val()
-        var gejala26 = $("#gejala26:checked").val()
-        var gejala27 = $("#gejala27:checked").val()
-        var gejala28 = $("#gejala28:checked").val()
-        var gejala29 = $("#gejala29:checked").val()
-        var ats1lain = $('#ats1lain').val()
-        var ats2lain = $('#ats2lain').val()
-        var ats3lain = $('#ats3lain').val()
-        var ats4lain = $('#ats4lain').val()
-        var ats5lain = $('#ats5lain').val()
+        var kesadaran2 = $("#kesadaran2:checked").val();
+        var kesadaran3 = $("#kesadaran3:checked").val();
+        var kesadaran4 = $("#kesadaran4:checked").val();
+        var kesadaran5 = $("#kesadaran5:checked").val();
+        var kesadaran6 = $("#kesadaran6:checked").val();
+        var kesadaran7 = $("#kesadaran7:checked").val();
+        var kesadaran8 = $("#kesadaran8:checked").val();
+        var kesadaran9 = $("#kesadaran9:checked").val();
+        var kesadaran10 = $("#kesadaran10:checked").val();
+        var kesadaran11 = $("#kesadaran11:checked").val();
+        var kesadaran12 = $("#kesadaran12:checked").val();
+        //jalannafas var jalannafas1=$("#jalannafas1:checked").val();
+        var jalannafas2 = $("#jalannafas2:checked").val();
+        var jalannafas3 = $("#jalannafas3:checked").val();
+        var jalannafas4 = $("#jalannafas4:checked").val();
+        var jalannafas5 = $("#jalannafas5:checked").val();
+        //pernafasan var upaya1=$("#upaya1:checked").val(); 
+        var upaya2 = $("#upaya2:checked").val();
+        var upaya3 = $("#upaya3:checked").val();
+        var upaya4 = $("#upaya4:checked").val();
+        var upaya5 = $("#upaya5:checked").val();
+        var upaya6 = $("#upaya6:checked").val();
+        var upaya7 = $("#upaya7:checked").val();
+        var upaya8 = $("#upaya8:checked").val();
+        var upaya9 = $("#upaya9:checked").val();
+        var upaya10 = $("#upaya10:checked").val();
+        var upaya11 = $("#upaya11:checked").val();
+        //sirkulasi var sirkulasi1=$("#sirkulasi1:checked").val(); 
+        var sirkulasi2 = $("#sirkulasi2:checked").val();
+        var sirkulasi3 = $("#sirkulasi3:checked").val();
+        var sirkulasi4 = $("#sirkulasi4:checked").val();
+        var sirkulasi5 = $("#sirkulasi5:checked").val();
+        var sirkulasi6 = $("#sirkulasi6:checked").val();
+        var sirkulasi7 = $("#sirkulasi7:checked").val();
+        var sirkulasi8 = $("#sirkulasi8:checked").val();
+        var sirkulasi9 = $("#sirkulasi9:checked").val();
+        var sirkulasi10 = $("#sirkulasi10:checked").val();
+        var sirkulasi11 = $("#sirkulasi11:checked").val();
+        var sirkulasi12 = $("#sirkulasi12:checked").val();
+        var sirkulasi13 = $("#sirkulasi13:checked").val();
+        var sirkulasi14 = $("#sirkulasi14:checked").val();
+        var sirkulasi15 = $("#sirkulasi15:checked").val();
+        var sirkulasi16 = $("#sirkulasi16:checked").val();
+        var sirkulasi17 = $("#sirkulasi17:checked").val();
+        var sirkulasi18 = $("#sirkulasi18:checked").val();
+        var sirkulasi19 = $("#sirkulasi19:checked").val();
+        var sirkulasi20 = $("#sirkulasi20:checked").val();
+        var sirkulasi21 = $("#sirkulasi21:checked").val();
+        var sirkulasi22 = $("#sirkulasi22:checked").val();
+        var sirkulasi23 = $("#sirkulasi23:checked").val();
+        var sirkulasi24 = $("#sirkulasi24:checked").val();
+        var sirkulasi25 = $("#sirkulasi25:checked").val();
+        var sirkulasi26 = $("#sirkulasi26:checked").val();
+
+        //gejalaspesifik var gejala1=$("#gejala1:checked").val(); 
+        var gejala2 = $("#gejala2:checked").val();
+        var gejala3 = $("#gejala3:checked").val();
+        var gejala4 = $("#gejala4:checked").val();
+        var gejala5 = $("#gejala5:checked").val();
+        var gejala6 = $("#gejala6:checked").val();
+        var gejala7 = $("#gejala7:checked").val();
+        var gejala8 = $("#gejala8:checked").val();
+        var gejala9 = $("#gejala9:checked").val();
+        var gejala10 = $("#gejala10:checked").val();
+        var gejala11 = $("#gejala11:checked").val();
+        var gejala12 = $("#gejala12:checked").val();
+        var gejala13 = $("#gejala13:checked").val();
+        var gejala14 = $("#gejala14:checked").val();
+        var gejala15 = $("#gejala15:checked").val();
+        var gejala15 = $("#gejala15:checked").val();
+        var gejala17 = $("#gejala17:checked").val();
+        var gejala18 = $("#gejala18:checked").val();
+        var gejala19 = $("#gejala19:checked").val();
+        var gejala20 = $("#gejala20:checked").val();
+        var gejala21 = $("#gejala21:checked").val();
+        var gejala22 = $("#gejala22:checked").val();
+        var gejala23 = $("#gejala23:checked").val();
+        var gejala24 = $("#gejala24:checked").val();
+        var gejala25 = $("#gejala25:checked").val();
+        var gejala26 = $("#gejala26:checked").val();
+        var gejala27 = $("#gejala27:checked").val();
+        var gejala28 = $("#gejala28:checked").val();
+        var gejala29 = $("#gejala29:checked").val();
+        var ats1lain = $('#ats1lain').val();
+        var ats2lain = $('#ats2lain').val();
+        var ats3lain = $('#ats3lain').val();
+        var ats4lain = $('#ats4lain').val();
+        var ats5lain = $('#ats5lain').val();
+
+          //    kardio
+        var kardio1 = $("#kardio1:checked").val();
+        var kardio2 = $("#kardio2:checked").val();
+        var kardio3 = $("#kardio3:checked").val();
+        var kardio4 = $("#kardio4:checked").val();
+        var kardio5 = $("#kardio5:checked").val();
+        var kardio6 = $("#kardio6:checked").val();
+        var kardio7 = $("#kardio7:checked").val();
+        var kardio8 = $("#kardio8:checked").val();
+        var kardio9 = $("#kardio9:checked").val();
+        var kardio10 = $("#kardio10:checked").val();
+        var kardio11 = $("#kardio11:checked").val();
+
+        //    aaabuse
+        var abuse1 = $("#abuse1:checked").val();
+        var abuse2 = $("#abuse2:checked").val();
+        var abuse3 = $("#abuse3:checked").val();
+        var abuse4 = $("#abuse4:checked").val();
+
+        var lain1 = $("#lain1:checked").val();
+        var lain2 = $("#lain2:checked").val();
+        var lain3 = $("#lain3:checked").val();
+        var lain4 = $("#lain4:checked").val();
+        var lain5 = $("#lain5:checked").val();
+        var lain6 = $("#lain6:checked").val();
+        var lain7 = $("#lain7:checked").val();
+        var lain8 = $("#lain8:checked").val();
+        var lain9 = $("#lain9:checked").val();
+        var lain10 = $("#lain10:checked").val();
+        var lain11 = $("#lain11:checked").val();
+        var lain12 = $("#lain12:checked").val();
+        var lain13 = $("#lain13:checked").val();
+        var lain14 = $("#lain14:checked").val();
+        var lain15 = $("#lain15:checked").val();
         //triase
         var ku = $('#ku').val()
         var sumberdata = $('#sumberdata:checked').val()
@@ -15788,6 +15953,9 @@
                         upaya6: $("#upaya6:checked").val(),
                         upaya7: $("#upaya7:checked").val(),
                         upaya8: $("#upaya8:checked").val(),
+                        upaya9: $("#upaya9:checked").val(),
+                        upaya10: $("#upaya10:checked").val(),
+                        upaya11: $("#upaya11:checked").val(),
 
                         //sirkulasi
                         sirkulasi1: $("#sirkulasi1:checked").val(),
@@ -15815,6 +15983,8 @@
                         sirkulasi23: $("#sirkulasi23:checked").val(),
                         sirkulasi24: $("#sirkulasi24:checked").val(),
                         sirkulasi25: $("#sirkulasi25:checked").val(),
+                        sirkulasi26: $("#sirkulasi26:checked").val(),
+
 
                         //gejalaspesifik
                         gejala1: $("#gejala1:checked").val(),
@@ -15846,6 +16016,40 @@
                         gejala27: $("#gejala27:checked").val(),
                         gejala28: $("#gejala28:checked").val(),
                         gejala29: $("#gejala29:checked").val(),
+                         //    kardio
+                        kardio1: $("#kardio1:checked").val(),
+                        kardio2: $("#kardio2:checked").val(),
+                        kardio3: $("#kardio3:checked").val(),
+                        kardio4: $("#kardio4:checked").val(),
+                        kardio5: $("#kardio5:checked").val(),
+                        kardio6: $("#kardio6:checked").val(),
+                        kardio7: $("#kardio7:checked").val(),
+                        kardio8: $("#kardio8:checked").val(),
+                        kardio9: $("#kardio9:checked").val(),
+                        kardio10: $("#kardio10:checked").val(),
+                        kardio11: $("#kardio11:checked").val(),
+
+                        //    aaabuse
+                        abuse1: $("#abuse1:checked").val(),
+                        abuse2: $("#abuse2:checked").val(),
+                        abuse3: $("#abuse3:checked").val(),
+                        abuse4: $("#abuse4:checked").val(),
+
+                        lain1: $("#lain1:checked").val(),
+                        lain2: $("#lain2:checked").val(),
+                        lain3: $("#lain3:checked").val(),
+                        lain4: $("#lain4:checked").val(),
+                        lain5: $("#lain5:checked").val(),
+                        lain6: $("#lain6:checked").val(),
+                        lain7: $("#lain7:checked").val(),
+                        lain8: $("#lain8:checked").val(),
+                        lain9: $("#lain9:checked").val(),
+                        lain10: $("#lain10:checked").val(),
+                        lain11: $("#lain11:checked").val(),
+                        lain12: $("#lain12:checked").val(),
+                        lain13: $("#lain13:checked").val(),
+                        lain14: $("#lain14:checked").val(),
+                        lain15: $("#lain15:checked").val(),
                         ats1lain: $('#ats1lain').val(),
                         ats2lain: $('#ats2lain').val(),
                         ats3lain: $('#ats3lain').val(),
@@ -15967,10 +16171,12 @@
         var kategoritriase = $("#kategoritriase:checked").val();
         var jenisats = $("#jenisats:checked").val();
         var jenistriase = $('#jenistriase').val();
-
+        //kesadaran
         var kesadaran_1 = $("#kesadaran_1:checked").val();
         var kesadaran_2 = $("#kesadaran_2:checked").val();
         var kesadaran_3 = $("#kesadaran_3").val();
+        
+
         var keluhan_triase = $("#keluhan_triase").val();
         var pemfis_triase = $("#pemfis_triase").val();
         var diagnosa_triase = $("#diagnosa_triase").val();
@@ -16012,6 +16218,9 @@
         var upaya6 = $("#upaya6:checked").val();
         var upaya7 = $("#upaya7:checked").val();
         var upaya8 = $("#upaya8:checked").val();
+        var upaya9 = $("#upaya9:checked").val();
+        var upaya10 = $("#upaya10:checked").val();
+        var upaya11 = $("#upaya11:checked").val();
         //sirkulasi var sirkulasi1=$("#sirkulasi1:checked").val(); 
         var sirkulasi2 = $("#sirkulasi2:checked").val();
         var sirkulasi3 = $("#sirkulasi3:checked").val();
@@ -16037,6 +16246,8 @@
         var sirkulasi23 = $("#sirkulasi23:checked").val();
         var sirkulasi24 = $("#sirkulasi24:checked").val();
         var sirkulasi25 = $("#sirkulasi25:checked").val();
+        var sirkulasi26 = $("#sirkulasi26:checked").val()
+
         //gejalaspesifik var gejala1=$("#gejala1:checked").val(); 
         var gejala1 = $("#gejala1:checked").val();
 
@@ -16073,6 +16284,41 @@
         var ats3lain = $('#ats3lain').val()
         var ats4lain = $('#ats4lain').val()
         var ats5lain = $('#ats5lain').val()
+
+          //    kardio
+        var kardio1 = $("#kardio1:checked").val();
+        var kardio2 = $("#kardio2:checked").val();
+        var kardio3 = $("#kardio3:checked").val();
+        var kardio4 = $("#kardio4:checked").val();
+        var kardio5 = $("#kardio5:checked").val();
+        var kardio6 = $("#kardio6:checked").val();
+        var kardio7 = $("#kardio7:checked").val();
+        var kardio8 = $("#kardio8:checked").val();
+        var kardio9 = $("#kardio9:checked").val();
+        var kardio10 = $("#kardio10:checked").val();
+        var kardio11 = $("#kardio11:checked").val();
+
+        //    aaabuse
+        var abuse1 = $("#abuse1:checked").val();
+        var abuse2 = $("#abuse2:checked").val();
+        var abuse3 = $("#abuse3:checked").val();
+        var abuse4 = $("#abuse4:checked").val();
+
+        var lain1 = $("#lain1:checked").val();
+        var lain2 = $("#lain2:checked").val();
+        var lain3 = $("#lain3:checked").val();
+        var lain4 = $("#lain4:checked").val();
+        var lain5 = $("#lain5:checked").val();
+        var lain6 = $("#lain6:checked").val();
+        var lain7 = $("#lain7:checked").val();
+        var lain8 = $("#lain8:checked").val();
+        var lain9 = $("#lain9:checked").val();
+        var lain10 = $("#lain10:checked").val();
+        var lain11 = $("#lain11:checked").val();
+        var lain12 = $("#lain12:checked").val();
+        var lain13 = $("#lain13:checked").val();
+        var lain14 = $("#lain14:checked").val();
+        var lain15 = $("#lain15:checked").val();
 
         //triase
         var ku = $('#ku').val()
@@ -16174,9 +16420,11 @@
                         jenistriase: $('#jenistriase').val(),
                         gambar1: $('#gambarcoret1').val(),
 
+                        //kesadaran
                         kesadaran_1: $("#kesadaran_1:checked").val(),
                         kesadaran_2: $("#kesadaran_2:checked").val(),
                         kesadaran_3: $("#kesadaran_3").val(),
+
                         keluhan_triase: $("#keluhan_triase").val(),
                         pemfis_triase: $("#pemfis_triase").val(),
                         diagnosa_triase: $("#diagnosa_triase").val(),
@@ -16223,6 +16471,9 @@
                         upaya6: $("#upaya6:checked").val(),
                         upaya7: $("#upaya7:checked").val(),
                         upaya8: $("#upaya8:checked").val(),
+                        upaya9: $("#upaya9:checked").val(),
+                        upaya10: $("#upaya10:checked").val(),
+                        upaya11: $("#upaya11:checked").val(),
 
                         //sirkulasi
                         sirkulasi1: $("#sirkulasi1:checked").val(),
@@ -16250,6 +16501,8 @@
                         sirkulasi23: $("#sirkulasi23:checked").val(),
                         sirkulasi24: $("#sirkulasi24:checked").val(),
                         sirkulasi25: $("#sirkulasi25:checked").val(),
+                        sirkulasi26 : $("#sirkulasi26:checked").val(),
+
 
                         //gejalaspesifik
                         gejala1: $("#gejala1:checked").val(),
@@ -16281,11 +16534,47 @@
                         gejala27: $("#gejala27:checked").val(),
                         gejala28: $("#gejala28:checked").val(),
                         gejala29: $("#gejala29:checked").val(),
+
+                         //    kardio
+                        kardio1: $("#kardio1:checked").val(),
+                        kardio2: $("#kardio2:checked").val(),
+                        kardio3: $("#kardio3:checked").val(),
+                        kardio4: $("#kardio4:checked").val(),
+                        kardio5: $("#kardio5:checked").val(),
+                        kardio6: $("#kardio6:checked").val(),
+                        kardio7: $("#kardio7:checked").val(),
+                        kardio8: $("#kardio8:checked").val(),
+                        kardio9: $("#kardio9:checked").val(),
+                        kardio10: $("#kardio10:checked").val(),
+                        kardio11: $("#kardio11:checked").val(),
+
+                        //    aaabuse
+                        abuse1: $("#abuse1:checked").val(),
+                        abuse2: $("#abuse2:checked").val(),
+                        abuse3: $("#abuse3:checked").val(),
+                        abuse4: $("#abuse4:checked").val(),
+
+                        lain1: $("#lain1:checked").val(),
+                        lain2: $("#lain2:checked").val(),
+                        lain3: $("#lain3:checked").val(),
+                        lain4: $("#lain4:checked").val(),
+                        lain5: $("#lain5:checked").val(),
+                        lain6: $("#lain6:checked").val(),
+                        lain7: $("#lain7:checked").val(),
+                        lain8: $("#lain8:checked").val(),
+                        lain9: $("#lain9:checked").val(),
+                        lain10: $("#lain10:checked").val(),
+                        lain11: $("#lain11:checked").val(),
+                        lain12: $("#lain12:checked").val(),
+                        lain13: $("#lain13:checked").val(),
+                        lain14: $("#lain14:checked").val(),
+                        lain15: $("#lain15:checked").val(),
                         ats1lain: $('#ats1lain').val(),
                         ats2lain: $('#ats2lain').val(),
                         ats3lain: $('#ats3lain').val(),
                         ats4lain: $('#ats4lain').val(),
                         ats5lain: $('#ats5lain').val(),
+
 
 
                         //triase
@@ -16374,6 +16663,833 @@
         })
         return false;
     });
+
+    // $(".simpanassesauto").click(function() {
+    //     var gambar = document.getElementById("myCanvas2");
+
+    //     var ctx1 = gambar.getContext("2d");
+    //     var img1 = document.getElementById("gambarnya2");
+    //     ctx1.drawImage(img1, 10, 10);
+    //     var dataUrl1 = gambar.toDataURL();
+    //     $('#gambarcoret1').val(dataUrl1)
+    //     gambar1 = $('#gambarcoret1').val()
+    //     // var data = $('.formtindakandokter').serializeArray();
+    //     var tindakandpjp = $('.formtindakandpjp').serializeArray();
+    //     var tindakanraber = $('.formtindakanraber').serializeArray();
+
+
+    //     // var tindakandpjptigap = $('.form30pdpjp').serializeArray();
+    //     // var tindakandpjptigak = $('.form30kdpjp').serializeArray();
+
+
+    //     // var tindakangp = $('.formtindakangp').serializeArray();
+    //     var datalab = $('.formlab').serializeArray();
+
+    //     var datarad = $('.formradio').serializeArray();
+    //     var rekobat = $('.formtinjutobat').serializeArray();
+    //     //triase
+    //     var kategoritriase = $("#kategoritriase:checked").val();
+    //     var jenisats = $("#jenisats:checked").val();
+    //     var jenistriase = $('#jenistriase').val();
+
+    //     var kesadaran_1 = $("#kesadaran_1:checked").val();
+    //     var kesadaran_2 = $("#kesadaran_2:checked").val();
+    //     var kesadaran_3 = $("#kesadaran_3").val();
+    //     var keluhan_triase = $("#keluhan_triase").val();
+    //     var pemfis_triase = $("#pemfis_triase").val();
+    //     var diagnosa_triase = $("#diagnosa_triase").val();
+    //     var talak_triase = $("#talak_triase").val();
+    //     var tinjut_triase = $("#tinjut_triase").val();
+    //     var si_triase = $("#si_triase").val();
+    //     var spsi1 = $("#spsi1:checked").val();
+    //     var spsi2 = $("#spsi2:checked").val();
+    //     var spsi3 = $("#spsi3:checked").val();
+    //     var spsi4 = $("#spsi4:checked").val();
+    //     var spsi5 = $("#spsi5:checked").val();
+    //     var spsi6 = $("#spsi6:checked").val();
+    //     var spsi7 = $("#spsi7:checked").val();
+    //     var spsi8 = $("#spsi8:checked").val();
+    //     var spsi9 = $("#spsi9").val();
+    //     var spsi = $("#spsi:checked").val();
+    //     //kesadaran var kesadaran1=$("#kesadaran1:checked").val(); 
+    //     var kesadaran2 = $("#kesadaran2:checked").val();
+    //     var kesadaran3 = $("#kesadaran3:checked").val();
+    //     var kesadaran4 = $("#kesadaran4:checked").val();
+    //     var kesadaran5 = $("#kesadaran5:checked").val();
+    //     var kesadaran6 = $("#kesadaran6:checked").val();
+    //     var kesadaran7 = $("#kesadaran7:checked").val();
+    //     var kesadaran8 = $("#kesadaran8:checked").val();
+    //     var kesadaran9 = $("#kesadaran9:checked").val();
+    //     var kesadaran10 = $("#kesadaran10:checked").val();
+    //     var kesadaran11 = $("#kesadaran11:checked").val();
+    //     var kesadaran12 = $("#kesadaran12:checked").val();
+    //     //jalannafas var jalannafas1=$("#jalannafas1:checked").val();
+    //     var jalannafas2 = $("#jalannafas2:checked").val();
+    //     var jalannafas3 = $("#jalannafas3:checked").val();
+    //     var jalannafas4 = $("#jalannafas4:checked").val();
+    //     var jalannafas5 = $("#jalannafas5:checked").val();
+    //     //pernafasan var upaya1=$("#upaya1:checked").val(); 
+    //     var upaya2 = $("#upaya2:checked").val();
+    //     var upaya3 = $("#upaya3:checked").val();
+    //     var upaya4 = $("#upaya4:checked").val();
+    //     var upaya5 = $("#upaya5:checked").val();
+    //     var upaya6 = $("#upaya6:checked").val();
+    //     var upaya7 = $("#upaya7:checked").val();
+    //     var upaya8 = $("#upaya8:checked").val();
+    //     //sirkulasi var sirkulasi1=$("#sirkulasi1:checked").val(); 
+    //     var sirkulasi2 = $("#sirkulasi2:checked").val();
+    //     var sirkulasi3 = $("#sirkulasi3:checked").val();
+    //     var sirkulasi4 = $("#sirkulasi4:checked").val();
+    //     var sirkulasi5 = $("#sirkulasi5:checked").val();
+    //     var sirkulasi6 = $("#sirkulasi6:checked").val();
+    //     var sirkulasi7 = $("#sirkulasi7:checked").val();
+    //     var sirkulasi8 = $("#sirkulasi8:checked").val();
+    //     var sirkulasi9 = $("#sirkulasi9:checked").val();
+    //     var sirkulasi10 = $("#sirkulasi10:checked").val();
+    //     var sirkulasi11 = $("#sirkulasi11:checked").val();
+    //     var sirkulasi12 = $("#sirkulasi12:checked").val();
+    //     var sirkulasi13 = $("#sirkulasi13:checked").val();
+    //     var sirkulasi14 = $("#sirkulasi14:checked").val();
+    //     var sirkulasi15 = $("#sirkulasi15:checked").val();
+    //     var sirkulasi16 = $("#sirkulasi16:checked").val();
+    //     var sirkulasi17 = $("#sirkulasi17:checked").val();
+    //     var sirkulasi18 = $("#sirkulasi18:checked").val();
+    //     var sirkulasi19 = $("#sirkulasi19:checked").val();
+    //     var sirkulasi20 = $("#sirkulasi20:checked").val();
+    //     var sirkulasi21 = $("#sirkulasi21:checked").val();
+    //     var sirkulasi22 = $("#sirkulasi22:checked").val();
+    //     var sirkulasi23 = $("#sirkulasi23:checked").val();
+    //     var sirkulasi24 = $("#sirkulasi24:checked").val();
+    //     var sirkulasi25 = $("#sirkulasi25:checked").val();
+    //     //gejalaspesifik var gejala1=$("#gejala1:checked").val(); 
+    //     var gejala1 = $("#gejala1:checked").val();
+
+    //     var gejala2 = $("#gejala2:checked").val();
+    //     var gejala3 = $("#gejala3:checked").val();
+    //     var gejala4 = $("#gejala4:checked").val();
+    //     var gejala5 = $("#gejala5:checked").val();
+    //     var gejala6 = $("#gejala6:checked").val();
+    //     var gejala7 = $("#gejala7:checked").val();
+    //     var gejala8 = $("#gejala8:checked").val();
+    //     var gejala9 = $("#gejala9:checked").val();
+    //     var gejala10 = $("#gejala10:checked").val();
+    //     var gejala11 = $("#gejala11:checked").val();
+    //     var gejala12 = $("#gejala12:checked").val();
+    //     var gejala13 = $("#gejala13:checked").val();
+    //     var gejala14 = $("#gejala14:checked").val();
+    //     var gejala15 = $("#gejala15:checked").val();
+    //     var gejala15 = $("#gejala15:checked").val();
+    //     var gejala17 = $("#gejala17:checked").val();
+    //     var gejala18 = $("#gejala18:checked").val();
+    //     var gejala19 = $("#gejala19:checked").val();
+    //     var gejala20 = $("#gejala20:checked").val();
+    //     var gejala21 = $("#gejala21:checked").val();
+    //     var gejala22 = $("#gejala22:checked").val();
+    //     var gejala23 = $("#gejala23:checked").val();
+    //     var gejala24 = $("#gejala24:checked").val();
+    //     var gejala25 = $("#gejala25:checked").val();
+    //     var gejala26 = $("#gejala26:checked").val();
+    //     var gejala27 = $("#gejala27:checked").val();
+    //     var gejala28 = $("#gejala28:checked").val();
+    //     var gejala29 = $("#gejala29:checked").val();
+    //     var ats1lain = $('#ats1lain').val()
+    //     var ats2lain = $('#ats2lain').val()
+    //     var ats3lain = $('#ats3lain').val()
+    //     var ats4lain = $('#ats4lain').val()
+    //     var ats5lain = $('#ats5lain').val()
+
+    //     //triase
+    //     var ku = $('#ku').val()
+    //     var sumberdata = $('#sumberdata:checked').val()
+    //     var macamkasus = $('#macamkasus:checked').val()
+    //     var trauma = $('#trauma').val()
+    //     var tgl_msk_skrining = $('#tgl_msk_skrining').val()
+    //     var tgl_kunjungan = $('#tgl_kunjungan').val()
+    //     var tgl_input_triase = $('#tgl_input_triase').val()
+    //     var tgl_selesai_triase = $('#tgl_selesai_triase').val()
+    //     var tgl_selesai_asses = $('#tgl_selesai_asses').val()
+    //     var tgl_asses = $('#tgl_asses').val()
+    //     var tgl_plg = $('#tgl_plg').val()
+
+
+    //     var subject = $('#subyek').val()
+    //     var objek = $('#objek').val()
+    //     var primary = $('#primary').val()
+    //     var secondary = $('#secondary').val()
+    //     var anamnesa = $('#anamnesa').val()
+    //     var riwayatpenyakit = $('#riwayatpenyakit').val()
+
+    //     var diagnosa = $('#diagnosa').val()
+    //     var namadpjp = $('#namadpjp').val()
+    //     var kodedpjp = $('#kodedpjp').val()
+
+    //     var talaksana = $('#talaksana').val()
+    //     var talaksanadpjp = $('#talaksanadpjp').val()
+
+    //     var tigap = $('#tigap').val()
+    //     var tigak = $('#tigak').val()
+    //     var edukasi = $('#edukasi').val()
+
+    //     var norm = $('#norm').val()
+    //     var kj = $('#kj').val()
+    //     var kp = $('#kp').val()
+    //     var counter = $('#counter').val()
+    //     var tglmasuk = $('#tglmasuk').val()
+    //     var alpul = $('#alpul').val()
+    //     var alpul1 = $('#alpul1').val()
+    //     var kopul = $('#kopul').val()
+    //     var kopul1 = $('#kopul1').val()
+    //     var tinjutt = $('#tinjutt').val()
+    //     var jammasukk = $('#jammasukk').val()
+    //     var jamper = $('#jamper').val()
+    //     var stabil = $('#stabil').val()
+    //     var tidakstabil = $('#tidakstabil').val()
+    //     var keputusanruangoperasi = $('#keputusanruangoperasi').val()
+    //     var keputusankamarjenazah = $('#keputusankamarjenazah').val()
+    //     var keputusanpulang = $('#keputusanpulang').val()
+    //     var indikasiklinislab = $('#indikasiklinislab').val()
+    //     var indikasiklinisrad = $('#indikasiklinisrad').val()
+
+
+    //     $.ajax({
+    //         async: true,
+    //         type: 'post',
+    //         dataType: 'json',
+    //         data: {
+    //             _token: "{{ csrf_token() }}",
+    //             // data: JSON.stringify(data),
+    //             tindakandpjp: JSON.stringify(tindakandpjp),
+    //             tindakanraber: JSON.stringify(tindakanraber),
+
+
+    //             // tindakandpjptigap: JSON.stringify(tindakandpjptigap),
+    //             // tindakandpjptigak: JSON.stringify(tindakandpjptigak),
+
+
+    //             // tindakangp: JSON.stringify(tindakangp),
+    //             datalab: JSON.stringify(datalab),
+
+    //             datarad: JSON.stringify(datarad),
+    //             rekobat: JSON.stringify(rekobat),
+    //             //triase
+    //             kategoritriase: $("#kategoritriase:checked").val(),
+    //             // bedah : $("#bedah:checked").val(),
+    //             // obgyn : $("#obgyn:checked").val(),
+    //             // anak : $("#anak:checked").val(),
+    //             jenisats: $("#jenisats:checked").val(),
+    //             jenistriase: $('#jenistriase').val(),
+    //             gambar1: $('#gambarcoret1').val(),
+
+    //             kesadaran_1: $("#kesadaran_1:checked").val(),
+    //             kesadaran_2: $("#kesadaran_2:checked").val(),
+    //             kesadaran_3: $("#kesadaran_3").val(),
+    //             keluhan_triase: $("#keluhan_triase").val(),
+    //             pemfis_triase: $("#pemfis_triase").val(),
+    //             diagnosa_triase: $("#diagnosa_triase").val(),
+    //             talak_triase: $("#talak_triase").val(),
+    //             tinjut_triase: $("#tinjut_triase").val(),
+    //             si_triase: $("#si_triase").val(),
+    //             spsi1: $("#spsi1:checked").val(),
+    //             spsi2: $("#spsi2:checked").val(),
+    //             spsi3: $("#spsi3:checked").val(),
+    //             spsi4: $("#spsi4:checked").val(),
+    //             spsi5: $("#spsi5:checked").val(),
+    //             spsi6: $("#spsi6:checked").val(),
+    //             spsi7: $("#spsi7:checked").val(),
+    //             spsi8: $("#spsi8:checked").val(),
+    //             spsi9: $("#spsi9").val(),
+    //             spsi: $("#spsi:checked").val(),
+    //             //kesadaran
+    //             kesadaran1: $("#kesadaran1:checked").val(),
+    //             kesadaran2: $("#kesadaran2:checked").val(),
+    //             kesadaran3: $("#kesadaran3:checked").val(),
+    //             kesadaran4: $("#kesadaran4:checked").val(),
+    //             kesadaran5: $("#kesadaran5:checked").val(),
+    //             kesadaran6: $("#kesadaran6:checked").val(),
+    //             kesadaran7: $("#kesadaran7:checked").val(),
+    //             kesadaran8: $("#kesadaran8:checked").val(),
+    //             kesadaran9: $("#kesadaran9:checked").val(),
+    //             kesadaran10: $("#kesadaran10:checked").val(),
+    //             kesadaran11: $("#kesadaran11:checked").val(),
+    //             kesadaran12: $("#kesadaran12:checked").val(),
+
+    //             //jalannafas
+    //             jalannafas1: $("#jalannafas1:checked").val(),
+    //             jalannafas2: $("#jalannafas2:checked").val(),
+    //             jalannafas3: $("#jalannafas3:checked").val(),
+    //             jalannafas4: $("#jalannafas4:checked").val(),
+    //             jalannafas5: $("#jalannafas5:checked").val(),
+
+    //             //pernafasan
+    //             upaya1: $("#upaya1:checked").val(),
+    //             upaya2: $("#upaya2:checked").val(),
+    //             upaya3: $("#upaya3:checked").val(),
+    //             upaya4: $("#upaya4:checked").val(),
+    //             upaya5: $("#upaya5:checked").val(),
+    //             upaya6: $("#upaya6:checked").val(),
+    //             upaya7: $("#upaya7:checked").val(),
+    //             upaya8: $("#upaya8:checked").val(),
+
+    //             //sirkulasi
+    //             sirkulasi1: $("#sirkulasi1:checked").val(),
+    //             sirkulasi2: $("#sirkulasi2:checked").val(),
+    //             sirkulasi3: $("#sirkulasi3:checked").val(),
+    //             sirkulasi4: $("#sirkulasi4:checked").val(),
+    //             sirkulasi5: $("#sirkulasi5:checked").val(),
+    //             sirkulasi6: $("#sirkulasi6:checked").val(),
+    //             sirkulasi7: $("#sirkulasi7:checked").val(),
+    //             sirkulasi8: $("#sirkulasi8:checked").val(),
+    //             sirkulasi9: $("#sirkulasi9:checked").val(),
+    //             sirkulasi10: $("#sirkulasi10:checked").val(),
+    //             sirkulasi11: $("#sirkulasi11:checked").val(),
+    //             sirkulasi12: $("#sirkulasi12:checked").val(),
+    //             sirkulasi13: $("#sirkulasi13:checked").val(),
+    //             sirkulasi14: $("#sirkulasi14:checked").val(),
+    //             sirkulasi15: $("#sirkulasi15:checked").val(),
+    //             sirkulasi16: $("#sirkulasi16:checked").val(),
+    //             sirkulasi17: $("#sirkulasi17:checked").val(),
+    //             sirkulasi18: $("#sirkulasi18:checked").val(),
+    //             sirkulasi19: $("#sirkulasi19:checked").val(),
+    //             sirkulasi20: $("#sirkulasi20:checked").val(),
+    //             sirkulasi21: $("#sirkulasi21:checked").val(),
+    //             sirkulasi22: $("#sirkulasi22:checked").val(),
+    //             sirkulasi23: $("#sirkulasi23:checked").val(),
+    //             sirkulasi24: $("#sirkulasi24:checked").val(),
+    //             sirkulasi25: $("#sirkulasi25:checked").val(),
+
+    //             //gejalaspesifik
+    //             gejala1: $("#gejala1:checked").val(),
+    //             gejala2: $("#gejala2:checked").val(),
+    //             gejala3: $("#gejala3:checked").val(),
+    //             gejala4: $("#gejala4:checked").val(),
+    //             gejala5: $("#gejala5:checked").val(),
+    //             gejala6: $("#gejala6:checked").val(),
+    //             gejala7: $("#gejala7:checked").val(),
+    //             gejala8: $("#gejala8:checked").val(),
+    //             gejala9: $("#gejala9:checked").val(),
+    //             gejala10: $("#gejala10:checked").val(),
+    //             gejala11: $("#gejala11:checked").val(),
+    //             gejala12: $("#gejala12:checked").val(),
+    //             gejala13: $("#gejala13:checked").val(),
+    //             gejala14: $("#gejala14:checked").val(),
+    //             gejala15: $("#gejala15:checked").val(),
+    //             gejala16: $("#gejala16:checked").val(),
+    //             gejala17: $("#gejala17:checked").val(),
+    //             gejala18: $("#gejala18:checked").val(),
+    //             gejala19: $("#gejala19:checked").val(),
+    //             gejala20: $("#gejala20:checked").val(),
+    //             gejala21: $("#gejala21:checked").val(),
+    //             gejala22: $("#gejala22:checked").val(),
+    //             gejala23: $("#gejala23:checked").val(),
+    //             gejala24: $("#gejala24:checked").val(),
+    //             gejala25: $("#gejala25:checked").val(),
+    //             gejala26: $("#gejala26:checked").val(),
+    //             gejala27: $("#gejala27:checked").val(),
+    //             gejala28: $("#gejala28:checked").val(),
+    //             gejala29: $("#gejala29:checked").val(),
+    //             ats1lain: $('#ats1lain').val(),
+    //             ats2lain: $('#ats2lain').val(),
+    //             ats3lain: $('#ats3lain').val(),
+    //             ats4lain: $('#ats4lain').val(),
+    //             ats5lain: $('#ats5lain').val(),
+
+
+    //             //triase
+    //             sumberdata: $('#sumberdata:checked').val(),
+    //             macamkasus: $('#macamkasus:checked').val(),
+    //             trauma: $('#trauma').val(),
+    //             tgl_msk_skrining: $('#tgl_msk_skrining').val(),
+    //             tgl_kunjungan: $('#tgl_kunjungan').val(),
+    //             tgl_input_triase: $('#tgl_input_triase').val(),
+    //             tgl_selesai_triase: $('#tgl_selesai_triase').val(),
+    //             tgl_selesai_asses: $('#tgl_selesai_asses').val(),
+    //             tgl_asses: $('#tgl_asses').val(),
+    //             tgl_plg: $('#tgl_plg').val(),
+
+
+    //             subject: $('#subyek').val(),
+    //             objek: $('#objek').val(),
+    //             anamnesa: $('#anamnesa').val(),
+    //             diagnosa: $('#diagnosa').val(),
+    //             namadpjp: $('#namadpjp').val(),
+    //             kodedpjp: $('#kodedpjp').val(),
+    //             talaksana: $('#talaksana').val(),
+    //             talaksanadpjp: $('#talaksanadpjp').val(),
+    //             riwayatpenyakit: $('#riwayatpenyakit').val(),
+
+    //             tigap: $('#tigap').val(),
+    //             tigak: $('#tigak').val(),
+    //             edukasi: $('#edukasi').val(),
+
+    //             norm: $('#norm').val(),
+    //             counter: $('#counter').val(),
+    //             kj: $('#kj').val(),
+    //             alpul: $('#alpul').val(),
+    //             alpul1: $('#alpul1').val(),
+    //             kopul: $('#kopul').val(),
+    //             kopul1: $('#kopul1').val(),
+    //             ku: $('#ku').val(),
+    //             kp: $('#kp').val(),
+    //             primary: $('#primary').val(),
+    //             secondary: $('#secondary').val(),
+    //             tglmasuk: $('#tglmasuk').val(),
+    //             tinjutt: $('#tinjutt').val(),
+    //             jammasukk: $('#jammasukk').val(),
+    //             jamper: $('#jamper').val(),
+    //             stabil: $('#stabil').val(),
+    //             tidakstabil: $('#tidakstabil').val(),
+    //             keputusanruangoperasi: $('#keputusanruangoperasi').val(),
+    //             keputusankamarjenazah: $('#keputusankamarjenazah').val(),
+    //             keputusanpulang: $('#keputusanpulang').val(),
+    //             indikasiklinislab: $('#indikasiklinislab').val(),
+    //             indikasiklinisrad: $('#indikasiklinisrad').val()
+    //         },
+    //         url: '<?= route('simpanassesmen') ?>',
+
+    //         error: function(data) {
+    //             Swal.fire({
+    //                 icon: 'error',
+    //                 title: 'Oops...',
+    //                 text: 'Sepertinya ada masalah ...',
+    //                 footer: ''
+    //             })
+    //         },
+    //         success: function(data) {
+    //             console.log(data)
+    //             if (data.kode == 500) {
+    //                 Swal.fire({
+    //                     icon: 'error',
+    //                     title: 'Oops...',
+    //                     text: data.message,
+    //                     footer: ''
+    //                 })
+    //             } else {
+    //                 Swal.fire({
+    //                     icon: 'success',
+    //                     title: 'OK',
+    //                     text: 'data berhasil disimpan',
+    //                     footer: ''
+    //                 })
+
+    //                 dashboard();
+
+    //             }
+    //         }
+    //     });
+    // });
+    // $("updateassesauto").click(function() {
+    //     var gambar = document.getElementById("myCanvas2");
+
+    //     var ctx1 = gambar.getContext("2d");
+    //     var img1 = document.getElementById("gambarnya2");
+    //     ctx1.drawImage(img1, 10, 10);
+    //     var dataUrl1 = gambar.toDataURL();
+    //     $('#gambarcoret1').val(dataUrl1)
+    //     gambar1 = $('#gambarcoret1').val()
+    //     // var data = $('.formtindakandokter').serializeArray();
+    //     var tindakandpjp = $('.formtindakandpjp').serializeArray();
+    //     var tindakanraber = $('.formtindakanraber').serializeArray();
+
+
+    //     // var tindakandpjptigap = $('.form30pdpjp').serializeArray();
+    //     // var tindakandpjptigak = $('.form30kdpjp').serializeArray();
+
+
+    //     // var tindakangp = $('.formtindakangp').serializeArray();
+    //     var datalab = $('.formlab').serializeArray();
+
+    //     var datarad = $('.formradio').serializeArray();
+    //     var rekobat = $('.formtinjutobat').serializeArray();
+    //     //triase
+    //     var kategoritriase = $("#kategoritriase:checked").val();
+    //     var jenisats = $("#jenisats:checked").val();
+    //     var jenistriase = $('#jenistriase').val();
+
+    //     var kesadaran_1 = $("#kesadaran_1:checked").val();
+    //     var kesadaran_2 = $("#kesadaran_2:checked").val();
+    //     var kesadaran_3 = $("#kesadaran_3").val();
+    //     var keluhan_triase = $("#keluhan_triase").val();
+    //     var pemfis_triase = $("#pemfis_triase").val();
+    //     var diagnosa_triase = $("#diagnosa_triase").val();
+    //     var talak_triase = $("#talak_triase").val();
+    //     var tinjut_triase = $("#tinjut_triase").val();
+    //     var si_triase = $("#si_triase").val();
+    //     var spsi1 = $("#spsi1:checked").val();
+    //     var spsi2 = $("#spsi2:checked").val();
+    //     var spsi3 = $("#spsi3:checked").val();
+    //     var spsi4 = $("#spsi4:checked").val();
+    //     var spsi5 = $("#spsi5:checked").val();
+    //     var spsi6 = $("#spsi6:checked").val();
+    //     var spsi7 = $("#spsi7:checked").val();
+    //     var spsi8 = $("#spsi8:checked").val();
+    //     var spsi9 = $("#spsi9").val();
+    //     var spsi = $("#spsi:checked").val();
+    //     //kesadaran var kesadaran1=$("#kesadaran1:checked").val(); 
+    //     var kesadaran2 = $("#kesadaran2:checked").val();
+    //     var kesadaran3 = $("#kesadaran3:checked").val();
+    //     var kesadaran4 = $("#kesadaran4:checked").val();
+    //     var kesadaran5 = $("#kesadaran5:checked").val();
+    //     var kesadaran6 = $("#kesadaran6:checked").val();
+    //     var kesadaran7 = $("#kesadaran7:checked").val();
+    //     var kesadaran8 = $("#kesadaran8:checked").val();
+    //     var kesadaran9 = $("#kesadaran9:checked").val();
+    //     var kesadaran10 = $("#kesadaran10:checked").val();
+    //     var kesadaran11 = $("#kesadaran11:checked").val();
+    //     var kesadaran12 = $("#kesadaran12:checked").val();
+    //     //jalannafas var jalannafas1=$("#jalannafas1:checked").val();
+    //     var jalannafas2 = $("#jalannafas2:checked").val();
+    //     var jalannafas3 = $("#jalannafas3:checked").val();
+    //     var jalannafas4 = $("#jalannafas4:checked").val();
+    //     var jalannafas5 = $("#jalannafas5:checked").val();
+    //     //pernafasan var upaya1=$("#upaya1:checked").val(); 
+    //     var upaya2 = $("#upaya2:checked").val();
+    //     var upaya3 = $("#upaya3:checked").val();
+    //     var upaya4 = $("#upaya4:checked").val();
+    //     var upaya5 = $("#upaya5:checked").val();
+    //     var upaya6 = $("#upaya6:checked").val();
+    //     var upaya7 = $("#upaya7:checked").val();
+    //     var upaya8 = $("#upaya8:checked").val();
+    //     //sirkulasi var sirkulasi1=$("#sirkulasi1:checked").val(); 
+    //     var sirkulasi2 = $("#sirkulasi2:checked").val();
+    //     var sirkulasi3 = $("#sirkulasi3:checked").val();
+    //     var sirkulasi4 = $("#sirkulasi4:checked").val();
+    //     var sirkulasi5 = $("#sirkulasi5:checked").val();
+    //     var sirkulasi6 = $("#sirkulasi6:checked").val();
+    //     var sirkulasi7 = $("#sirkulasi7:checked").val();
+    //     var sirkulasi8 = $("#sirkulasi8:checked").val();
+    //     var sirkulasi9 = $("#sirkulasi9:checked").val();
+    //     var sirkulasi10 = $("#sirkulasi10:checked").val();
+    //     var sirkulasi11 = $("#sirkulasi11:checked").val();
+    //     var sirkulasi12 = $("#sirkulasi12:checked").val();
+    //     var sirkulasi13 = $("#sirkulasi13:checked").val();
+    //     var sirkulasi14 = $("#sirkulasi14:checked").val();
+    //     var sirkulasi15 = $("#sirkulasi15:checked").val();
+    //     var sirkulasi16 = $("#sirkulasi16:checked").val();
+    //     var sirkulasi17 = $("#sirkulasi17:checked").val();
+    //     var sirkulasi18 = $("#sirkulasi18:checked").val();
+    //     var sirkulasi19 = $("#sirkulasi19:checked").val();
+    //     var sirkulasi20 = $("#sirkulasi20:checked").val();
+    //     var sirkulasi21 = $("#sirkulasi21:checked").val();
+    //     var sirkulasi22 = $("#sirkulasi22:checked").val();
+    //     var sirkulasi23 = $("#sirkulasi23:checked").val();
+    //     var sirkulasi24 = $("#sirkulasi24:checked").val();
+    //     var sirkulasi25 = $("#sirkulasi25:checked").val();
+    //     //gejalaspesifik var gejala1=$("#gejala1:checked").val(); 
+    //     var gejala1 = $("#gejala1:checked").val();
+
+    //     var gejala2 = $("#gejala2:checked").val();
+    //     var gejala3 = $("#gejala3:checked").val();
+    //     var gejala4 = $("#gejala4:checked").val();
+    //     var gejala5 = $("#gejala5:checked").val();
+    //     var gejala6 = $("#gejala6:checked").val();
+    //     var gejala7 = $("#gejala7:checked").val();
+    //     var gejala8 = $("#gejala8:checked").val();
+    //     var gejala9 = $("#gejala9:checked").val();
+    //     var gejala10 = $("#gejala10:checked").val();
+    //     var gejala11 = $("#gejala11:checked").val();
+    //     var gejala12 = $("#gejala12:checked").val();
+    //     var gejala13 = $("#gejala13:checked").val();
+    //     var gejala14 = $("#gejala14:checked").val();
+    //     var gejala15 = $("#gejala15:checked").val();
+    //     var gejala15 = $("#gejala15:checked").val();
+    //     var gejala17 = $("#gejala17:checked").val();
+    //     var gejala18 = $("#gejala18:checked").val();
+    //     var gejala19 = $("#gejala19:checked").val();
+    //     var gejala20 = $("#gejala20:checked").val();
+    //     var gejala21 = $("#gejala21:checked").val();
+    //     var gejala22 = $("#gejala22:checked").val();
+    //     var gejala23 = $("#gejala23:checked").val();
+    //     var gejala24 = $("#gejala24:checked").val();
+    //     var gejala25 = $("#gejala25:checked").val();
+    //     var gejala26 = $("#gejala26:checked").val();
+    //     var gejala27 = $("#gejala27:checked").val();
+    //     var gejala28 = $("#gejala28:checked").val();
+    //     var gejala29 = $("#gejala29:checked").val();
+    //     var ats1lain = $('#ats1lain').val()
+    //     var ats2lain = $('#ats2lain').val()
+    //     var ats3lain = $('#ats3lain').val()
+    //     var ats4lain = $('#ats4lain').val()
+    //     var ats5lain = $('#ats5lain').val()
+
+    //     //triase
+    //     var ku = $('#ku').val()
+    //     var sumberdata = $('#sumberdata:checked').val()
+    //     var macamkasus = $('#macamkasus:checked').val()
+    //     var trauma = $('#trauma').val()
+    //     var tgl_msk_skrining = $('#tgl_msk_skrining').val()
+    //     var tgl_kunjungan = $('#tgl_kunjungan').val()
+    //     var tgl_input_triase = $('#tgl_input_triase').val()
+    //     var tgl_selesai_triase = $('#tgl_selesai_triase').val()
+    //     var tgl_selesai_asses = $('#tgl_selesai_asses').val()
+    //     var tgl_asses = $('#tgl_asses').val()
+    //     var tgl_plg = $('#tgl_plg').val()
+
+
+    //     var subject = $('#subyek').val()
+    //     var objek = $('#objek').val()
+    //     var primary = $('#primary').val()
+    //     var secondary = $('#secondary').val()
+    //     var anamnesa = $('#anamnesa').val()
+    //     var riwayatpenyakit = $('#riwayatpenyakit').val()
+
+    //     var diagnosa = $('#diagnosa').val()
+    //     var namadpjp = $('#namadpjp').val()
+    //     var kodedpjp = $('#kodedpjp').val()
+
+    //     var talaksana = $('#talaksana').val()
+    //     var talaksanadpjp = $('#talaksanadpjp').val()
+
+    //     var tigap = $('#tigap').val()
+    //     var tigak = $('#tigak').val()
+    //     var edukasi = $('#edukasi').val()
+
+    //     var norm = $('#norm').val()
+    //     var kj = $('#kj').val()
+    //     var kp = $('#kp').val()
+    //     var counter = $('#counter').val()
+    //     var tglmasuk = $('#tglmasuk').val()
+    //     var alpul = $('#alpul').val()
+    //     var alpul1 = $('#alpul1').val()
+    //     var kopul = $('#kopul').val()
+    //     var kopul1 = $('#kopul1').val()
+    //     var tinjutt = $('#tinjutt').val()
+    //     var jammasukk = $('#jammasukk').val()
+    //     var jamper = $('#jamper').val()
+    //     var stabil = $('#stabil').val()
+    //     var tidakstabil = $('#tidakstabil').val()
+    //     var keputusanruangoperasi = $('#keputusanruangoperasi').val()
+    //     var keputusankamarjenazah = $('#keputusankamarjenazah').val()
+    //     var keputusanpulang = $('#keputusanpulang').val()
+    //     var indikasiklinislab = $('#indikasiklinislab').val()
+    //     var indikasiklinisrad = $('#indikasiklinisrad').val()
+
+
+    //     $.ajax({
+    //         async: true,
+    //         type: 'post',
+    //         dataType: 'json',
+    //         data: {
+    //             _token: "{{ csrf_token() }}",
+    //             // data: JSON.stringify(data),
+    //             tindakandpjp: JSON.stringify(tindakandpjp),
+    //             tindakanraber: JSON.stringify(tindakanraber),
+
+
+    //             // tindakandpjptigap: JSON.stringify(tindakandpjptigap),
+    //             // tindakandpjptigak: JSON.stringify(tindakandpjptigak),
+
+
+    //             // tindakangp: JSON.stringify(tindakangp),
+    //             datalab: JSON.stringify(datalab),
+
+    //             datarad: JSON.stringify(datarad),
+    //             rekobat: JSON.stringify(rekobat),
+    //             //triase
+    //             kategoritriase: $("#kategoritriase:checked").val(),
+    //             // bedah : $("#bedah:checked").val(),
+    //             // obgyn : $("#obgyn:checked").val(),
+    //             // anak : $("#anak:checked").val(),
+    //             jenisats: $("#jenisats:checked").val(),
+    //             jenistriase: $('#jenistriase').val(),
+    //             gambar1: $('#gambarcoret1').val(),
+
+    //             kesadaran_1: $("#kesadaran_1:checked").val(),
+    //             kesadaran_2: $("#kesadaran_2:checked").val(),
+    //             kesadaran_3: $("#kesadaran_3").val(),
+    //             keluhan_triase: $("#keluhan_triase").val(),
+    //             pemfis_triase: $("#pemfis_triase").val(),
+    //             diagnosa_triase: $("#diagnosa_triase").val(),
+    //             talak_triase: $("#talak_triase").val(),
+    //             tinjut_triase: $("#tinjut_triase").val(),
+    //             si_triase: $("#si_triase").val(),
+    //             spsi1: $("#spsi1:checked").val(),
+    //             spsi2: $("#spsi2:checked").val(),
+    //             spsi3: $("#spsi3:checked").val(),
+    //             spsi4: $("#spsi4:checked").val(),
+    //             spsi5: $("#spsi5:checked").val(),
+    //             spsi6: $("#spsi6:checked").val(),
+    //             spsi7: $("#spsi7:checked").val(),
+    //             spsi8: $("#spsi8:checked").val(),
+    //             spsi9: $("#spsi9").val(),
+    //             spsi: $("#spsi:checked").val(),
+    //             //kesadaran
+    //             kesadaran1: $("#kesadaran1:checked").val(),
+    //             kesadaran2: $("#kesadaran2:checked").val(),
+    //             kesadaran3: $("#kesadaran3:checked").val(),
+    //             kesadaran4: $("#kesadaran4:checked").val(),
+    //             kesadaran5: $("#kesadaran5:checked").val(),
+    //             kesadaran6: $("#kesadaran6:checked").val(),
+    //             kesadaran7: $("#kesadaran7:checked").val(),
+    //             kesadaran8: $("#kesadaran8:checked").val(),
+    //             kesadaran9: $("#kesadaran9:checked").val(),
+    //             kesadaran10: $("#kesadaran10:checked").val(),
+    //             kesadaran11: $("#kesadaran11:checked").val(),
+    //             kesadaran12: $("#kesadaran12:checked").val(),
+
+    //             //jalannafas
+    //             jalannafas1: $("#jalannafas1:checked").val(),
+    //             jalannafas2: $("#jalannafas2:checked").val(),
+    //             jalannafas3: $("#jalannafas3:checked").val(),
+    //             jalannafas4: $("#jalannafas4:checked").val(),
+    //             jalannafas5: $("#jalannafas5:checked").val(),
+
+    //             //pernafasan
+    //             upaya1: $("#upaya1:checked").val(),
+    //             upaya2: $("#upaya2:checked").val(),
+    //             upaya3: $("#upaya3:checked").val(),
+    //             upaya4: $("#upaya4:checked").val(),
+    //             upaya5: $("#upaya5:checked").val(),
+    //             upaya6: $("#upaya6:checked").val(),
+    //             upaya7: $("#upaya7:checked").val(),
+    //             upaya8: $("#upaya8:checked").val(),
+
+    //             //sirkulasi
+    //             sirkulasi1: $("#sirkulasi1:checked").val(),
+    //             sirkulasi2: $("#sirkulasi2:checked").val(),
+    //             sirkulasi3: $("#sirkulasi3:checked").val(),
+    //             sirkulasi4: $("#sirkulasi4:checked").val(),
+    //             sirkulasi5: $("#sirkulasi5:checked").val(),
+    //             sirkulasi6: $("#sirkulasi6:checked").val(),
+    //             sirkulasi7: $("#sirkulasi7:checked").val(),
+    //             sirkulasi8: $("#sirkulasi8:checked").val(),
+    //             sirkulasi9: $("#sirkulasi9:checked").val(),
+    //             sirkulasi10: $("#sirkulasi10:checked").val(),
+    //             sirkulasi11: $("#sirkulasi11:checked").val(),
+    //             sirkulasi12: $("#sirkulasi12:checked").val(),
+    //             sirkulasi13: $("#sirkulasi13:checked").val(),
+    //             sirkulasi14: $("#sirkulasi14:checked").val(),
+    //             sirkulasi15: $("#sirkulasi15:checked").val(),
+    //             sirkulasi16: $("#sirkulasi16:checked").val(),
+    //             sirkulasi17: $("#sirkulasi17:checked").val(),
+    //             sirkulasi18: $("#sirkulasi18:checked").val(),
+    //             sirkulasi19: $("#sirkulasi19:checked").val(),
+    //             sirkulasi20: $("#sirkulasi20:checked").val(),
+    //             sirkulasi21: $("#sirkulasi21:checked").val(),
+    //             sirkulasi22: $("#sirkulasi22:checked").val(),
+    //             sirkulasi23: $("#sirkulasi23:checked").val(),
+    //             sirkulasi24: $("#sirkulasi24:checked").val(),
+    //             sirkulasi25: $("#sirkulasi25:checked").val(),
+
+    //             //gejalaspesifik
+    //             gejala1: $("#gejala1:checked").val(),
+    //             gejala2: $("#gejala2:checked").val(),
+    //             gejala3: $("#gejala3:checked").val(),
+    //             gejala4: $("#gejala4:checked").val(),
+    //             gejala5: $("#gejala5:checked").val(),
+    //             gejala6: $("#gejala6:checked").val(),
+    //             gejala7: $("#gejala7:checked").val(),
+    //             gejala8: $("#gejala8:checked").val(),
+    //             gejala9: $("#gejala9:checked").val(),
+    //             gejala10: $("#gejala10:checked").val(),
+    //             gejala11: $("#gejala11:checked").val(),
+    //             gejala12: $("#gejala12:checked").val(),
+    //             gejala13: $("#gejala13:checked").val(),
+    //             gejala14: $("#gejala14:checked").val(),
+    //             gejala15: $("#gejala15:checked").val(),
+    //             gejala16: $("#gejala16:checked").val(),
+    //             gejala17: $("#gejala17:checked").val(),
+    //             gejala18: $("#gejala18:checked").val(),
+    //             gejala19: $("#gejala19:checked").val(),
+    //             gejala20: $("#gejala20:checked").val(),
+    //             gejala21: $("#gejala21:checked").val(),
+    //             gejala22: $("#gejala22:checked").val(),
+    //             gejala23: $("#gejala23:checked").val(),
+    //             gejala24: $("#gejala24:checked").val(),
+    //             gejala25: $("#gejala25:checked").val(),
+    //             gejala26: $("#gejala26:checked").val(),
+    //             gejala27: $("#gejala27:checked").val(),
+    //             gejala28: $("#gejala28:checked").val(),
+    //             gejala29: $("#gejala29:checked").val(),
+    //             ats1lain: $('#ats1lain').val(),
+    //             ats2lain: $('#ats2lain').val(),
+    //             ats3lain: $('#ats3lain').val(),
+    //             ats4lain: $('#ats4lain').val(),
+    //             ats5lain: $('#ats5lain').val(),
+
+
+    //             //triase
+    //             sumberdata: $('#sumberdata:checked').val(),
+    //             macamkasus: $('#macamkasus:checked').val(),
+    //             trauma: $('#trauma').val(),
+    //             tgl_msk_skrining: $('#tgl_msk_skrining').val(),
+    //             tgl_kunjungan: $('#tgl_kunjungan').val(),
+    //             tgl_input_triase: $('#tgl_input_triase').val(),
+    //             tgl_selesai_triase: $('#tgl_selesai_triase').val(),
+    //             tgl_selesai_asses: $('#tgl_selesai_asses').val(),
+    //             tgl_asses: $('#tgl_asses').val(),
+    //             tgl_plg: $('#tgl_plg').val(),
+
+
+    //             subject: $('#subyek').val(),
+    //             objek: $('#objek').val(),
+    //             anamnesa: $('#anamnesa').val(),
+    //             diagnosa: $('#diagnosa').val(),
+    //             namadpjp: $('#namadpjp').val(),
+    //             kodedpjp: $('#kodedpjp').val(),
+    //             talaksana: $('#talaksana').val(),
+    //             talaksanadpjp: $('#talaksanadpjp').val(),
+    //             riwayatpenyakit: $('#riwayatpenyakit').val(),
+
+    //             tigap: $('#tigap').val(),
+    //             tigak: $('#tigak').val(),
+    //             edukasi: $('#edukasi').val(),
+
+    //             norm: $('#norm').val(),
+    //             counter: $('#counter').val(),
+    //             kj: $('#kj').val(),
+    //             alpul: $('#alpul').val(),
+    //             alpul1: $('#alpul1').val(),
+    //             kopul: $('#kopul').val(),
+    //             kopul1: $('#kopul1').val(),
+    //             ku: $('#ku').val(),
+    //             kp: $('#kp').val(),
+    //             primary: $('#primary').val(),
+    //             secondary: $('#secondary').val(),
+    //             tglmasuk: $('#tglmasuk').val(),
+    //             tinjutt: $('#tinjutt').val(),
+    //             jammasukk: $('#jammasukk').val(),
+    //             jamper: $('#jamper').val(),
+    //             stabil: $('#stabil').val(),
+    //             tidakstabil: $('#tidakstabil').val(),
+    //             keputusanruangoperasi: $('#keputusanruangoperasi').val(),
+    //             keputusankamarjenazah: $('#keputusankamarjenazah').val(),
+    //             keputusanpulang: $('#keputusanpulang').val(),
+    //             indikasiklinislab: $('#indikasiklinislab').val(),
+    //             indikasiklinisrad: $('#indikasiklinisrad').val()
+    //         },
+    //         url: '<?= route('updateassemen') ?>',
+
+    //         error: function(data) {
+    //             Swal.fire({
+    //                 icon: 'error',
+    //                 title: 'Oops...',
+    //                 text: 'Sepertinya ada masalah ...',
+    //                 footer: ''
+    //             })
+    //         },
+    //         success: function(data) {
+    //             console.log(data)
+    //             if (data.kode == 500) {
+    //                 Swal.fire({
+    //                     icon: 'error',
+    //                     title: 'Oops...',
+    //                     text: data.message,
+    //                     footer: ''
+    //                 })
+    //             } else {
+    //                 Swal.fire({
+    //                     icon: 'success',
+    //                     title: 'OK',
+    //                     text: 'data berhasil disimpan',
+    //                     footer: ''
+    //                 })
+
+    //                 dashboard();
+
+    //             }
+    //         }
+    //     });
+    // });
 
 
 
@@ -16620,6 +17736,29 @@
             success: function(response) {
                 spinner.hide();
                 $('.formermdokter').html(response);
+
+
+            }
+        });
+    }
+
+    function dashboard() {
+        spinner = $('#loader2');
+        spinner.show();
+
+        $.ajax({
+            data: {
+                _token: "{{ csrf_token() }}",
+
+            },
+            type: "post",
+            url: " {{ route('asses') }}",
+            error: function(data) {
+                spinner.hide();
+                alert('oke!!')
+            },
+            success: function(response) {
+                spinner.hide();
 
 
             }

@@ -2562,7 +2562,7 @@
                     </td>
                     <td>
                         <div class="form-group form-check">
-                            @if ($triase[0]->kardio3 == 'Takikardia ++')
+                            @if ($triase[0]->kardio3 != NULL)
                             <input type="checkbox" class="form-check-input" id="kardio3" name="kardio3" value="Takikardia" checked>
                             <label class="form-check-label" for="exampleCheck1">Takikardia
                             </label>

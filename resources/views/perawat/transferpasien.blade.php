@@ -3,6 +3,9 @@
     <div class="card-header ">
         <h3 class="card-title">CATATAN TRANSFER PASIEN GAWAT DARURAT</h3>
     </div>
+    <input hidden type="text" class="form-control" placeholder="Tekanan darah pasien ..." aria-label="Recipient's username" id="norm" name="norm" aria-describedby="basic-addon2" value="{{$norm}}">
+    <input hidden type="text" class="form-control" placeholder="Tekanan darah pasien ..." aria-label="Recipient's username" id="kj" name="kj" aria-describedby="basic-addon2" value="{{$kj}}">
+
     @if ($tf != NULL)
     <div class="ml-2">
         <div id="form-container" class="formtransferpasien">
@@ -398,7 +401,7 @@
                                             <th hidden>ID</th>
                                             <th>Nama Obat</th>
                                             <th>Dosis</th>
-                                            <th>Jam Pemberian</th>
+                                            <th>Aturan Pakai</th>
                                             <th>Instruksi Khusus</th>
 
                                             <th>Action</th>
@@ -913,7 +916,7 @@
 
                 <div class="col-3">
                     <div type="button" class="btn float-left btn-success updatectttransfer" style="margin-top: 20px;">
-                        SIMPAN
+                        UPDATE
                     </div>
                     <!-- <div type="button" class="btn float-left btn-success cekkpemantauan ml-2" style="margin-top: 20px;">
                             check
@@ -1651,7 +1654,7 @@
         var fieldHTML = '<div class="row mt-2">';
         fieldHTML = fieldHTML + '   <div class="col-2"><div class="form-group"><label for="name">Nama Obat:</label><input type="text" name="namaobat" id="namaobat" value="" class="obat form-control"></div></div>';
         fieldHTML = fieldHTML + ' <div class="col-2"><div class="form-group"><label for="name">Jumlah / Dosis :</label><input type="text" name="dosis" id="dosis" value="" class="dss form-control"></div></div>';
-        fieldHTML = fieldHTML + '   <div class="col-2"><div class="form-group"><label for="name">Jam Pemberian :</label><input type="text" name="jampemberian" id="jampemberian" value="" class="jp form-control"></div></div>';
+        fieldHTML = fieldHTML + '   <div class="col-2"><div class="form-group"><label for="name">Aturan Pakai :</label><input type="text" name="jampemberian" id="jampemberian" value="" class="jp form-control"></div></div>';
         fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Instruksi Khusus :</label><input type="text" name="intruksi" id="intruksi" value="" class="ik form-control"></div></div>';
 
         fieldHTML = fieldHTML + '<div class="col-md-2"><a href="javascript:void(0);" class="remove_button btn btn-danger">HAPUS</a></div>';
@@ -1710,7 +1713,10 @@
         var tgl_input_transfer = $('#tgl_input_transfer').val()
         var tgl_selesai_transfer = $('#tgl_selesai_transfer').val()
         var tinjutt = $('#tinjutt').val()
+        var status_intensif = $('#status_intensif').val()
+
         var tgl_pindah = $('#tgl_pindah').val()
+
         var doktergp = $('#doktergp').val()
         var alasan_rawat = $('#alasan_rawat').val()
         var alasan_pindah = $('#alasan_pindah').val()
@@ -1803,6 +1809,9 @@
                         tgl_input_transfer: $('#tgl_input_transfer').val(),
                         tgl_pindah: $('#tgl_pindah').val(),
                         tinjutt: $('#tinjutt').val(),
+                        status_intensif: $('#status_intensif').val(),
+
+
                         tgl_selesai_transfer: $('#tgl_selesai_transfer').val(),
                         doktergp: $('#doktergp').val(),
                         alasan_rawat: $('#alasan_rawat').val(),
@@ -1918,6 +1927,9 @@
         var tgl_input_transfer = $('#tgl_input_transfer').val()
         var tgl_selesai_transfer = $('#tgl_selesai_transfer').val()
         var tinjutt = $('#tinjutt').val()
+        var status_intensif = $('#status_intensif').val()
+
+
         var tgl_pindah = $('#tgl_pindah').val()
         var doktergp = $('#doktergp').val()
         var alasan_rawat = $('#alasan_rawat').val()
@@ -2011,6 +2023,9 @@
                         tgl_input_transfer: $('#tgl_input_transfer').val(),
                         tgl_pindah: $('#tgl_pindah').val(),
                         tinjutt: $('#tinjutt').val(),
+                        status_intensif: $('#status_intensif').val(),
+
+
                         tgl_selesai_transfer: $('#tgl_selesai_transfer').val(),
                         doktergp: $('#doktergp').val(),
                         alasan_rawat: $('#alasan_rawat').val(),
@@ -2120,14 +2135,102 @@
         return false;
     });
 
+
+
+    $(".returobatplg").click(function() {
+        var $row = $(this).closest("tr");
+        var id = $row.find(".id").text();
+        var nama_obat = $row.find(".nama_obat").text();
+        var dosis = $row.find(".dosis").text();
+        var jam_pemberian = $row.find(".jam_pemberian").text();
+        var instruksi_khusus = $row.find(".instruksi_khusus").text();
+        var kj = $('#kj').val()
+        var norm = $('#norm').val()
+
+
+
+
+        // var sumberdata = $("#sumberdata:checked").val();
+        Swal.fire({
+            title: "Yakin Retur Tindakan?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Ya',
+            cancelButtonColor: '#d33',
+            cancelButtonText: "Batal"
+
+        }).then(result => {
+            //jika klik ya maka arahkan ke proses.php
+            if (result.isConfirmed) {
+                $.ajax({
+                    async: true,
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        norm: $('#norm').val(),
+                        kj: $('#kj').val(),
+                        id,
+                        nama_obat,
+                        dosis,
+                        jam_pemberian,
+                        instruksi_khusus,
+
+
+
+
+                    },
+                    url: '<?= route('returobatplg') ?>',
+
+                    error: function(data) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Sepertinya ada masalah ...',
+                            footer: ''
+                        })
+                    },
+                    success: function(data) {
+                        console.log(data)
+                        if (data.kode == 500) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: data.message,
+                                footer: ''
+                            })
+                        } else {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'OK',
+                                text: 'data berhasil diretur',
+                                footer: ''
+                            })
+                            cttntf()
+
+
+
+                        }
+                    }
+                });
+            }
+        })
+        return false;
+    });
+
     function cttntf() {
         spinner = $('#loader2');
         spinner.show();
+          var kj = $('#kj').val()
+        var norm = $('#norm').val()
 
         counter = $('#counter').val()
         $.ajax({
             data: {
                 _token: "{{ csrf_token() }}",
+                norm: $('#norm').val(),
+                kj: $('#kj').val(),
 
             },
             type: "post",

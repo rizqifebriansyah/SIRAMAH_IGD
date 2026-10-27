@@ -9,9 +9,9 @@
 
 @if ($unit == '1023')
 <div class="card-header bg-secondary">
-    <button type="submit" class="btn btn-primary cetakresumecpptdokter"> <i class="fa fa-print"></i> Cetak Resume </button>
+    <button type="submit" class="btn btn-primary cetakresumecpptdokterkebidanan"> <i class="fa fa-print"></i> Cetak Resume </button>
     <button type="submit" class="btn btn-warning cetakasseskebidanan"> <i class="fa fa-print"></i> Cetak assesmen kebidanan </button>
-    <button type="submit" class="btn btn-success cetakresumecpptdokterkebidanan"> <i class="fa fa-print"></i> Cetak assesmen dokter </button>
+    <button type="submit" class="btn btn-success cetakassesmendokkebidanan"> <i class="fa fa-print"></i> Cetak assesmen dokter </button>
     <button type="submit" class="btn btn-info cetakobsperawat"> <i class="fa fa-print"></i> Cetak observasi </button>
     <button type="submit" class="btn btn-info mt-2 cetakrencplg"> <i class="fa fa-print"></i> Cetak rencana pulang </button>
     <button type="submit" class="btn btn-info mt-2 cetakresikobunuhdiri"> <i class="fa fa-print"></i> Cetak bunuh diri </button>
@@ -11546,7 +11546,7 @@
                         <div class="card-header bg-secondary" id="headingOne">
                             <h2 class="mb-0">
                                 <button class="btn btn-link btn-block text-left text-light font-weight" type="button" data-toggle="collapse" data-target="#collapseOne4" aria-expanded="true" aria-controls="collapseOne4">
-                                    <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Rencana Pulang <h5 class="float-right">{{$h->tgl_kunjungan}}</h5>
+                                    <i class="bi bi-ticket-detailed mr-1 ml-1"></i> Rencana Pulang <h5 class="float-right">{{$rencanaplg[0]->tgl_kunjungan}}</h5>
                                 </button>
                             </h2>
                         </div>
@@ -11779,7 +11779,7 @@
             });
         });
 
-        $(".cetakresumecpptdokterkebidanan").click(function() {
+        $(".cetakassesmendokkebidanan").click(function() {
             kj = $('#kj').val()
             norm = $('#norm').val()
 
@@ -11788,7 +11788,7 @@
 
 
             Swal.fire({
-                title: "Apakah ingin print Resume Assesmen?",
+                title: "Apakah ingin print  Assesmen?",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -11810,7 +11810,7 @@
                             norm
 
                         },
-                        url: '<?= route('cetakresumecpptdokterkebidanan') ?>',
+                        url: '<?= route('cetakassesmendokkebidanan') ?>',
                         error: function(data) {
                             spinner.hide()
                             Swal.fire({
@@ -11828,7 +11828,7 @@
                                 text: data.message,
                                 footer: ''
                             })
-                            cetaktresumecpptkebidanan(data.kj, data.norm)
+                            cetakassesmendokterkebidanan(data.kj, data.norm)
 
                         }
                     });
@@ -11838,11 +11838,75 @@
         });
 
 
-        function cetaktresumecpptkebidanan(kj, norm) {
-            window.open('cetaktresumecpptkebidanan/' + kj + '/' + norm);
+        function cetakassesmendokterkebidanan(kj, norm) {
+            window.open('cetakassesmendokterkebidanan/' + kj + '/' + norm);
 
 
         }
+        // $(".cetakresumecpptdokterkebidanan").click(function() {
+        //     kj = $('#kj').val()
+        //     norm = $('#norm').val()
+
+
+
+
+
+        //     Swal.fire({
+        //         title: "Apakah ingin print Resume Assesmen?",
+        //         icon: 'warning',
+        //         showCancelButton: true,
+        //         confirmButtonColor: '#3085d6',
+        //         confirmButtonText: 'Ya',
+        //         cancelButtonColor: '#d33',
+        //         cancelButtonText: "Batal"
+
+        //     }).then(result => {
+        //         //jika klik ya maka arahkan ke proses.php
+        //         if (result.isConfirmed) {
+        //             $.ajax({
+        //                 async: true,
+        //                 type: 'post',
+        //                 dataType: 'json',
+        //                 data: {
+        //                     _token: "{{ csrf_token() }}",
+
+        //                     kj,
+        //                     norm
+
+        //                 },
+        //                 url: '<?= route('cetakresumecpptdokterkebidanan') ?>',
+        //                 error: function(data) {
+        //                     spinner.hide()
+        //                     Swal.fire({
+        //                         icon: 'error',
+        //                         title: 'Ooops....',
+        //                         text: 'Sepertinya ada masalah......',
+        //                         footer: ''
+        //                     })
+        //                 },
+        //                 success: function(data) {
+        //                     spinner.hide()
+        //                     Swal.fire({
+        //                         icon: 'success',
+        //                         title: 'OK',
+        //                         text: data.message,
+        //                         footer: ''
+        //                     })
+        //                     cetaktresumecpptkebidanan(data.kj, data.norm)
+
+        //                 }
+        //             });
+        //         }
+        //     })
+        //     return false;
+        // });
+
+
+        // function cetakassesmendokterkebidanan(kj, norm) {
+        //     window.open('cetakassesmendokterkebidanan/' + kj + '/' + norm);
+
+
+        // }
         $(".cetakresumecpptdokter").click(function() {
             kj = $('#kj').val()
             norm = $('#norm').val()

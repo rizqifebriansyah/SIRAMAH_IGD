@@ -2,7 +2,10 @@
 <table class="table">
     <tbody>
         <tr>
-            <td class="text-bold font-italic">Kriteria Masuk ICU : </td>
+            <td class="text-bold font-italic">Kriteria Masuk ICU :
+                <input class="form-check-input" hidden type="checkbox" name="status_intensif" id="status_intensif" value="1">
+
+            </td>
             <td>
                 <div class="row">
                     <div class="col-md-3">
@@ -158,7 +161,9 @@
 <table class="table">
     <tbody>
         <tr>
-            <td class="text-bold font-italic">Kriteria Masuk ICU : </td>
+            <td class="text-bold font-italic">Kriteria Masuk ICU :
+                <input class="form-check-input" hidden type="checkbox" name="status_intensif" id="status_intensif" value="1">
+                 </td>
             <td>
                 <div class="row">
                     <div class="col-md-3">

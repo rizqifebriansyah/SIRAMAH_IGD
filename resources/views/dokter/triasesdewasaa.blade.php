@@ -1132,6 +1132,8 @@
             <tbody>
                 <tr>
                     <td class="text-bold ">KATEGORI TRIASE </td>
+                    <input hidden type="text" class="form-control" placeholder="" aria-label="Recipient's username" id="jenistriase" name="jenistriase" aria-describedby="basic-addon2" value="dewasa">
+
                     <td>@if ($triase[0]->kategori_triase == 'Medikal')
                         <div class="form-group form-check">
                             <input checked type="checkbox" class="form-check-input" id="kategoritriase" name="kategoritriase" value="Medikal">
@@ -2132,10 +2134,21 @@
                         </div>
                     </td>
                     <td>
+                        @if ($triase[0]->sirkulasi26 == 'Dehidrasi')
                         <div class="form-group form-check">
-
+                            <input type="checkbox" class="form-check-input" checked id="sirkulasi26" name="sirkulasi26" value="Dehidrasi">
+                            <label class="form-check-label" for="exampleCheck1">Dehidrasi</label>
                             </label>
                         </div>
+
+                        @else
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" id="sirkulasi26" name="sirkulasi26" value="Dehidrasi">
+                            <label class="form-check-label" for="exampleCheck1">Dehidrasi</label>
+                            </label>
+                        </div>
+
+                        @endif
                     </td>
                     <td>
                         <div class="form-group form-check">

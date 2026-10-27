@@ -305,7 +305,7 @@
             <td>Total score</td>
             <td>
                 <div class="form-group">
-                    <input readonly type="number" name="totalbunuhdiri" id="totalbunuhdiri" class="form-control" min="0" value="" required />
+                    <input readonly type="number" name="totalbunuhdiri" id="totalbunuhdiri" class="form-control" min="0" value="{{ $assesbnh[0]->totalbunuhdiri }}" required />
                 </div>
             </td>
 

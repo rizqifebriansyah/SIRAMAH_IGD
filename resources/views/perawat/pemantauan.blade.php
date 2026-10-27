@@ -23,7 +23,12 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <input type="text" name="dj" id="dj" placeholder="Nama Dokter" value="" class=" form-control">
+                        <!-- <input type="text" name="dj" id="dj" placeholder="Nama Dokter" value="" class=" form-control"> -->
+                        <label>PILIH DOKTER</label><select class="form-control selectjp" id="dj" name="dj">
+                            @foreach ($dpjp as $i => $p)
+                            <option value="{{ $p->nama_paramedis }}">{{ $p->nama_paramedis }}</option>
+                            @endforeach
+                        </select>
                     </div>
 
                 </div>
@@ -44,7 +49,12 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <input type="text" name="pj" id="pj" value="" placeholder="Nama Perawat" class=" form-control">
+                        <!-- <input type="text" name="pj" id="pj" value="" placeholder="Nama Perawat" class=" form-control"> -->
+                        <label>PILIH Perawat</label><select class="form-control selectjp" id="pj" name="pj">
+                            @foreach ($perawat as $i => $p)
+                            <option value="{{ $p->nama }}">{{ $p->nama }}</option>
+                            @endforeach
+                        </select>
                     </div>
 
                 </div>
@@ -239,8 +249,19 @@
 
 <div class="hasilinput ml-2 mt-2 mr-2"></div>
 
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
 
+
+
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
+     $(document).ready(function() {
+
+        $('.selectjp').select2({
+            width: '100%'
+        });
+
+    });
     $(".simpanpemantauan").click(function() {
 
         var wdj = $("#wdj").val();

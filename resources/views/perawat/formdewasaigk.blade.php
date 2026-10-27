@@ -2512,6 +2512,56 @@
                                             </td>
 
                                         </tr>
+                                        <tr>
+                                              <td colspan="4" class="text-bold">Pasien Dewasa menggunakan numeric rating scale <br> <img src="public/img/numericcc.jpg" /><br>
+                                                        <div class="row mt-4" style="margin-left: 30px;">
+                                                            <div class="form-check" style="margin-left: 35px;">
+                                                                <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="0.0">
+                                                                <label class="form-check-label">0 </label>
+                                                            </div>
+                                                            <div class="form-check" style="margin-left: 50px;">
+                                                                <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="1.0">
+                                                                <label class="form-check-label">1 </label>
+                                                            </div>
+                                                            <div class="form-check" style="margin-left: 50px;">
+                                                                <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="2.0">
+                                                                <label class="form-check-label">2 </label>
+                                                            </div>
+                                                            <div class="form-check" style="margin-left: 50px;">
+                                                                <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="3.0">
+                                                                <label class="form-check-label">3 </label>
+                                                            </div>
+                                                            <div class="form-check" style="margin-left: 50px;">
+                                                                <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="4.0">
+                                                                <label class="form-check-label">4 </label>
+                                                            </div>
+                                                            <div class="form-check" style="margin-left: 50px;">
+                                                                <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="5.0">
+                                                                <label class="form-check-label">5 </label>
+                                                            </div>
+                                                            <div class="form-check" style="margin-left: 50px;">
+                                                                <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="6.0">
+                                                                <label class="form-check-label">6 </label>
+                                                            </div>
+                                                            <div class="form-check" style="margin-left: 50px;">
+                                                                <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="7.0">
+                                                                <label class="form-check-label">7 </label>
+                                                            </div>
+                                                            <div class="form-check" style="margin-left: 50px;">
+                                                                <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="8.0">
+                                                                <label class="form-check-label">8 </label>
+                                                            </div>
+                                                            <div class="form-check" style="margin-left: 50px;">
+                                                                <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="9.0">
+                                                                <label class="form-check-label">9 </label>
+                                                            </div>
+                                                            <div class="form-check" style="margin-left: 45px;">
+                                                                <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="10.0">
+                                                                <label class="form-check-label">10 </label>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -5197,8 +5247,8 @@
                                                             <td>{{$p->kelamin_BB}}</td>
                                                             <td>{{$p->keadaan_anak}}</td>
                                                             <td> <a class=" btn btn-danger btn-sm returtinper" href="#">
-                                                                    <i class="fas fa-sync-alt fa-spin"></i>
-                                                                    RETUR
+                                                                    <!-- <i class="fas fa-sync-alt fa-spin"></i> -->
+                                                                    Batal
                                                                 </a></td>
                                                         </tr>
                                                         @endforeach
@@ -7181,6 +7231,56 @@
                                             </td>
 
                                         </tr>
+                                         <tr>
+                                              <td colspan="4" class="text-bold">Pasien Dewasa menggunakan numeric rating scale <br> <img src="public/img/numericcc.jpg" /><br>
+                                                        <div class="row mt-4" style="margin-left: 30px;">
+                                                            <div class="form-check" style="margin-left: 35px;">
+                                                                <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="0.0">
+                                                                <label class="form-check-label">0 </label>
+                                                            </div>
+                                                            <div class="form-check" style="margin-left: 50px;">
+                                                                <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="1.0">
+                                                                <label class="form-check-label">1 </label>
+                                                            </div>
+                                                            <div class="form-check" style="margin-left: 50px;">
+                                                                <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="2.0">
+                                                                <label class="form-check-label">2 </label>
+                                                            </div>
+                                                            <div class="form-check" style="margin-left: 50px;">
+                                                                <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="3.0">
+                                                                <label class="form-check-label">3 </label>
+                                                            </div>
+                                                            <div class="form-check" style="margin-left: 50px;">
+                                                                <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="4.0">
+                                                                <label class="form-check-label">4 </label>
+                                                            </div>
+                                                            <div class="form-check" style="margin-left: 50px;">
+                                                                <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="5.0">
+                                                                <label class="form-check-label">5 </label>
+                                                            </div>
+                                                            <div class="form-check" style="margin-left: 50px;">
+                                                                <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="6.0">
+                                                                <label class="form-check-label">6 </label>
+                                                            </div>
+                                                            <div class="form-check" style="margin-left: 50px;">
+                                                                <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="7.0">
+                                                                <label class="form-check-label">7 </label>
+                                                            </div>
+                                                            <div class="form-check" style="margin-left: 50px;">
+                                                                <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="8.0">
+                                                                <label class="form-check-label">8 </label>
+                                                            </div>
+                                                            <div class="form-check" style="margin-left: 50px;">
+                                                                <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="9.0">
+                                                                <label class="form-check-label">9 </label>
+                                                            </div>
+                                                            <div class="form-check" style="margin-left: 45px;">
+                                                                <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="10.0">
+                                                                <label class="form-check-label">10 </label>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -8225,8 +8325,8 @@
                                             <td class="tindakan"> {{$t->tindakan_keperawatan}} </td>
                                             <td class="idtindakan" hidden> {{$t->id}}</td>
                                             <td> <a class=" btn btn-danger btn-sm returtinper" href="#">
-                                                    <i class="fas fa-sync-alt fa-spin"></i>
-                                                    RETUR
+                                                    <!-- <i class="fas fa-sync-alt fa-spin"></i> -->
+                                                    batal
                                                 </a></td>
 
                                         </tr>
@@ -8248,8 +8348,12 @@
 <div type="button" class="btn float-right btn-success updateassesbidan" style="margin-top: 20px;">
     Update
 </div>
-<div type="button" class="btn float-right btn-info mr-2 validasiassesbidan" style="margin-top: 20px;">
-    Validasi
+
+<div type="button" class="btn float-right btn-info ml-2 validasiassesbidan" style="margin-top: 20px;">
+    TTE
+</div>
+<div type="button" class="btn float-right btn-info ml-2 singkronisasittekebidanan" style="margin-top: 20px;">
+    Sinkronisasi TTE
 </div>
 @endif
 <script src="{{ asset('public/marker/markerjs2.js') }}"></script>
@@ -8775,7 +8879,7 @@
                         diagnosa_triase_bidan: $('#diagnosa_triase_bidan').val(),
                         rekomendasi: $('#rekomendasi').val(),
 
-                        
+
 
                         kj: $('#kj').val(),
                         tgl_pengkajian: $('#tgl_pengkajian').val(),
@@ -9730,7 +9834,7 @@
                                 text: 'data berhasil disimpan',
                                 footer: ''
                             })
-                            cpptperawat()
+                            // cpptperawat()
 
 
                         }
@@ -9800,6 +9904,72 @@
                                 text: 'data berhasil disimpan',
                                 footer: ''
                             })
+                        }
+                    }
+                });
+            }
+        })
+        return false;
+    });
+    $(".singkronisasittekebidanan").click(function() {
+        var data = $('.formerm').serializeArray();
+
+        var norm = $('#norm').val()
+        var kj = $('#kj').val()
+
+
+        // var sumberdata = $("#sumberdata:checked").val();
+        Swal.fire({
+            title: "Yakin Singkronisasi?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Ya',
+            cancelButtonColor: '#d33',
+            cancelButtonText: "Batal"
+
+        }).then(result => {
+            //jika klik ya maka arahkan ke proses.php
+            if (result.isConfirmed) {
+                $.ajax({
+                    async: true,
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        data: JSON.stringify(data),
+                        norm: $('#norm').val(),
+                        kj: $('#kj').val(),
+
+
+                    },
+                    url: '<?= route('singkronisasittekebidanan') ?>',
+
+                    error: function(data) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Sepertinya ada masalah ...',
+                            footer: ''
+                        })
+                    },
+                    success: function(data) {
+                        console.log(data)
+                        if (data.kode == 500) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: data.message,
+                                footer: ''
+                            })
+                        } else {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'OK',
+                                text: 'data berhasil disimpan',
+                                footer: ''
+                            })
+                            // cpptperawat()
                         }
                     }
                 });

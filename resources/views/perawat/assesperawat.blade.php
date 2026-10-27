@@ -136,7 +136,10 @@
                         <td style="text-align: center;" class="tglmasuk">{{ $a->tgl_masuk }}</td>
 
                         <td style="text-align: center;" class="norm">{{ $a->no_rm }}</td>
-                        <td style="text-align: center;" class="namapx">{{ $a->nama_px }}</td>
+                        <td style="text-align: center;" class="namapx">{{ $a->nama_px }}
+
+
+                        </td>
                         <td style="text-align: center;" class="jk">{{ $a->jenis_kelamin }}</td>
                         <td hidden style="text-align: center;" class="kj">{{ $a->kode_kunjungan }}</td>
 
@@ -151,8 +154,21 @@
 
                             @if ($a->nama_perawat == null && $a->nama_perawat1 == null && $a->status == null)
                             <button class="badge badge-danger ermperawat"> belum diisi </button>
-                            @elseif ($a->status == 2 )
+                            @elseif ($a->link_tte != NULL )
                             <button class="badge badge-success ermperawat"> Sudah validasi </button> | {{ $a->nama_perawat }} {{ $a->nama_perawat1 }}
+                            @else
+                            <button class="badge badge-warning ermperawat"> belum validasi </button> | {{ $a->nama_perawat }} {{ $a->nama_perawat1 }}
+
+                            @endif
+                            @elseif ($unit == '1023')
+
+                            @if ($a->nama_perawat == null && $a->nama_perawat1 == null)
+                            <button class="badge badge-danger ermperawat"> belum diisi </button>
+                            @elseif ($a->tte_bidan != NULL )
+                            <button class="badge badge-success ermperawat"> Sudah validasi </button> | {{ $a->nama_perawat }} {{ $a->nama_perawat1 }}
+                             @elseif ($a->tte_bidan_bayi != NULL )
+                            <button class="badge badge-success ermperawat"> Sudah validasi </button> | {{ $a->nama_perawat }} {{ $a->nama_perawat1 }}
+                           
                             @else
                             <button class="badge badge-warning ermperawat"> belum validasi </button> | {{ $a->nama_perawat }} {{ $a->nama_perawat1 }}
 
@@ -179,15 +195,69 @@
                             @endif -->
 
                             @endif
+                            @if ($unit == '1002')
+                            @if ($a->link_tte == null )
+                            <button class="badge badge-danger "> belum TTE </button>
+
+                            @else
+                            <button class="badge badge-info "> TTE </button>
+
+                            @endif
+                            @elseif ($unit == '1023')
+                            @if ($a->tte_bidan == null )
+                            <!-- <button class="badge badge-danger "> belum TTE </button> -->
+
+                            @elseif($a->tte_bidan != null )
+                            <button class="badge badge-info "> TTE </button>
+
+                            @endif
+                            @if ($a->tte_bidan_bayi == null)
+                            <!-- <button class="badge badge-danger "> belum TTE </button> -->
+
+                            @else($a->tte_bidan_bayi != null )
+                            <button class="badge badge-info "> TTE </button>
+
+                            @endif
+                            @else
+
+                            @endif
                         </td>
                         <td class="status2" style="text-align: center;">
-                            @if ($a->nama_paramedis == null)
+
+
+                            @if ($a->tgl_asses == null)
+                            <button class="badge badge-danger "> belum lengkap </button> {{ $a->nama_paramedis }}
+                            @elseif($a->tgl_selesai_asses == NULL)
+                            <button class="badge badge-warning "> Belum Validasi </button> | {{ $a->nama_paramedis }}
+
+
+                            @elseif($a->tgl_selesai_asses != NULL)
+                            <button class="badge badge-success "> Sudah Diisi </button> | {{ $a->nama_paramedis }}
+                            @endif
+                            <!-- @if ($a->nama_paramedis == null)
                             <button class="badge badge-danger "> belum diisi </button>
                             @elseif ($a->status_dokter == 2)
                             <button class="badge badge-success"> Sudah validasi </button> | {{ $a->nama_perawat }}
 
                             @else
                             <button class="badge badge-warning "> Belum Validasi </button> | {{ $a->nama_paramedis }}
+                            @endif -->
+                            @if ($unit == '1002')
+                            @if ($a->tte_dokter == null )
+                            <button class="badge badge-danger "> belum TTE </button>
+
+                            @else
+                            <button class="badge badge-info "> TTE </button>
+                            @endif
+                            @elseif ($unit == '1023')
+                            @if ($a->tte_dokter == null )
+                            <button class="badge badge-danger "> belum TTE </button>
+
+                            @else
+                            <button class="badge badge-info "> TTE </button>
+                            @endif
+                            @else
+
                             @endif
                         </td>
 
@@ -279,6 +349,38 @@
 
             }
         });
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        let idleTimer;
+        const idleLimit = 300000; // 5 menit // 10 detik
+
+        function resetIdleTimer() {
+            clearTimeout(idleTimer);
+
+            idleTimer = setTimeout(function() {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Sesi Berakhir',
+                    text: 'Anda tidak aktif selama 5 Menit. Anda akan logout.',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    confirmButtonText: 'OK'
+                }).then(function() {
+                    window.location.href = "{{ route('logout') }}";
+                });
+            }, idleLimit);
+        }
+
+        $(document).on(
+            'mousemove keydown mousedown click scroll touchstart',
+            function() {
+                resetIdleTimer();
+            }
+        );
+
+        resetIdleTimer();
     });
 </script>
 @endsection

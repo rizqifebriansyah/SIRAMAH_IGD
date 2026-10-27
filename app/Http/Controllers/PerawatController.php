@@ -89,7 +89,9 @@ class PerawatController extends Controller
                         d.status,
                         db.status AS status_bayi,
                         e.status AS status_dokter,
-
+                        db.link_tte AS tte_bidan_bayi,
+                        IFNULL(el.link_tte, "") AS tte_bidan,
+			
                         IFNULL(e.nama_paramedis2, IFNULL(e.nama_paramedis, "")) AS nama_paramedis,
                         fc_nama_px(a.no_rm) AS nama_px,
                         a.tgl_masuk,
@@ -99,6 +101,9 @@ class PerawatController extends Controller
                         a.kelas,
                         a.kelas AS KELAS_UNIT,
                         a.counter,
+                        e.tgl_asses,
+                        e.tgl_selesai_asses,
+                        IFNULL (e.link_tte, "") AS tte_dokter,
                         b.jenis_kelamin
 
                     FROM ts_kunjungan a
@@ -156,7 +161,23 @@ class PerawatController extends Controller
                             AND e1.id = e2.max_id
                     ) e 
                         ON e.kode_kunjungan = a.kode_kunjungan
-
+                    
+                    -- CPPT KEBIDANAN LANJUTAN
+			LEFT JOIN (
+			    SELECT el1.*
+			    FROM erm_cppt_kebidanan_lanjutan el1
+			    INNER JOIN (
+				SELECT
+				    kode_kunjungan,
+				    MAX(id) AS max_id
+				FROM erm_cppt_kebidanan_lanjutan
+                WHERE status = 1
+				GROUP BY kode_kunjungan
+			    ) el2
+				ON el1.kode_kunjungan = el2.kode_kunjungan
+				AND el1.id = el2.max_id
+			) el
+			    ON el.kode_kunjungan = a.kode_kunjungan 
                     WHERE a.tgl_masuk >= ?
                     AND a.tgl_masuk < ?
                     AND a.kode_unit = ?
@@ -236,6 +257,11 @@ class PerawatController extends Controller
                 a.kelas,
                 a.kelas AS KELAS_UNIT,
                 a.counter,
+                e.tgl_asses,
+                e.tgl_selesai_asses,
+                e.link_tte as tte_dokter,
+                d.link_tte,
+
                 b.jenis_kelamin
 
             FROM ts_kunjungan a
@@ -772,7 +798,8 @@ class PerawatController extends Controller
         $ttv = DB::select('SELECT tekanan_darah, frekuensi_nafas, frekuensi_nadi, suhu, berat_badan, umur, keadaan_umum, kesadaran, gcs, spo2 FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
         $riwayatrekonobat = DB::select('SELECT * FROM rekonsiliasi_obat WHERE kode_kunjungan = ?', [$kj]);
         $poli = DB::select('SELECT kode_unit,nama_unit FROM mt_unit WHERE kelas_unit IN (2,3)');
-        $tf = DB::connection('mysql4')->select('SELECT * FROM catatan_transfer_pasien WHERE kode_kunjungan = ?', [$kj]);
+        $tf = DB::connection('mysql4')->select('SELECT * FROM catatan_transfer_pasien WHERE kode_kunjungan = ? AND status = 1', [$kj]);
+        // dd($tf);
         $obatplg = DB::select('SELECT * FROM erm_obat_pulang_igd WHERE no_rm = ? AND kode_kunjungan = ? AND status = 4', [$norm, $kj]);
         $dpjp = DB::select('SELECT 
                     a.kode_paramedis,
@@ -831,12 +858,23 @@ class PerawatController extends Controller
         $kj = $request->kj;
         $norm = $request->norm;
         $now = Carbon::now()->format('Y-m-d H:i:s');
+        $dpjp = DB::select('SELECT 
+                    a.kode_paramedis,
+                    a.nama_paramedis
+                    FROM mt_paramedis a
+                    WHERE a.spesialis LIKE "%UMUM%"
+                    AND a.act = 1');
+        $perawat = DB::select('SELECT * FROM USER WHERE unit = "1002" AND hak_akses = "4"');
 
         return view(
             'perawat.pemantauan',
             [
                 'title' => 'SiRAMAH PERAWAT',
                 'unit' => $unit,
+                'dpjp' => $dpjp,
+                'perawat' => $perawat,
+
+
 
                 'now' => $now,
                 'norm' => $norm,
@@ -1237,7 +1275,9 @@ class PerawatController extends Controller
                         d.status,
                         db.status AS status_bayi,
                         e.status AS status_dokter,
-
+                        db.link_tte AS tte_bidan_bayi,
+                        IFNULL(el.link_tte, "") AS tte_bidan,
+			
                         IFNULL(e.nama_paramedis2, IFNULL(e.nama_paramedis, "")) AS nama_paramedis,
                         fc_nama_px(a.no_rm) AS nama_px,
                         a.tgl_masuk,
@@ -1247,6 +1287,9 @@ class PerawatController extends Controller
                         a.kelas,
                         a.kelas AS KELAS_UNIT,
                         a.counter,
+                        e.tgl_asses,
+                        e.tgl_selesai_asses,
+                        IFNULL (e.link_tte, "") AS tte_dokter,
                         b.jenis_kelamin
 
                     FROM ts_kunjungan a
@@ -1304,7 +1347,22 @@ class PerawatController extends Controller
                             AND e1.id = e2.max_id
                     ) e 
                         ON e.kode_kunjungan = a.kode_kunjungan
-
+                    
+                    -- CPPT KEBIDANAN LANJUTAN
+			LEFT JOIN (
+			    SELECT el1.*
+			    FROM erm_cppt_kebidanan_lanjutan el1
+			    INNER JOIN (
+				SELECT
+				    kode_kunjungan,
+				    MAX(id) AS max_id
+				FROM erm_cppt_kebidanan_lanjutan
+				GROUP BY kode_kunjungan
+			    ) el2
+				ON el1.kode_kunjungan = el2.kode_kunjungan
+				AND el1.id = el2.max_id
+			) el
+			    ON el.kode_kunjungan = a.kode_kunjungan 
                     WHERE a.tgl_masuk >= ?
                     AND a.tgl_masuk < ?
                     AND a.kode_unit = ?
@@ -1380,6 +1438,12 @@ class PerawatController extends Controller
                 a.kelas,
                 a.kelas AS KELAS_UNIT,
                 a.counter,
+                e.tgl_asses,
+                e.tgl_selesai_asses,
+                e.link_tte as tte_dokter,
+
+                d.link_tte,
+                
                 b.jenis_kelamin
 
             FROM ts_kunjungan a
@@ -1535,6 +1599,8 @@ class PerawatController extends Controller
             [
                 'title' => 'ERM PERAWAT',
                 'pasienigd' => $pasienigd,
+                'unit' => $unit,
+
 
             ]
         );
@@ -1705,7 +1771,7 @@ class PerawatController extends Controller
                 'alasan_dirawat' => $request->alasan_rawat,
                 'alasan_pindah' => $request->alasan_pindah,
                 'keluhan_pasien_terkini' => $request->situation,
-                'keterangan_backgroung' => $request->backgroung,
+                'keterangan_background' => $request->background,
                 'kondisi_kesadaran' => $request->kesadaran,
                 'gcs_e' => $request->E,
                 'gcs_m' => $request->M,
@@ -1729,7 +1795,7 @@ class PerawatController extends Controller
                 'edukasi' => $request->Edukasi,
                 'riwayat_alergi' => $request->ria,
                 'program_nyeri' =>  $request->rinye,
-                'pengelihatan' => $request->peng,
+                'penglihatan' => $request->peng,
                 'pendengaran' => $request->pend,
                 'komunikasi' => $request->kom,
                 'kf' => $request->kf,
@@ -1760,6 +1826,8 @@ class PerawatController extends Controller
                 'kriteria_masuk_nicu' => $request->krnicu,
                 'kriteria_keluar_nicu' => $request->kknicu,
                 'nama_pembuat' => $name,
+                'status_intensif' => $request->status_intensif,
+
                 'status' => '1',
 
                 'created_at' => $now
@@ -1831,6 +1899,7 @@ class PerawatController extends Controller
     public function updatectttransfer(Request $request)
     {
         $a = $request->all();
+        // dd($a);
         $now = Carbon::now();
         $user = auth()->user()->id_simrs;
         $name = auth()->user()->nama;
@@ -1851,7 +1920,7 @@ class PerawatController extends Controller
         try {
             $tf = DB::connection('mysql4')->select('SELECT * FROM catatan_transfer_pasien WHERE kode_kunjungan = ? AND status ="1"', [$kj]);
             if ($tf[0]->status == 1) {
-                $tf = DB::connection('mysql4')->select('UPDATE catatan_transfer_pasien SET status = "3"  WHERE kode_kunjungan = ?', [$kj]);
+                $tf = DB::connection('mysql4')->select('UPDATE catatan_transfer_pasien SET status = "3"  WHERE kode_kunjungan = ? AND status = "1"', [$kj]);
 
                 $catatan = catatan_transfer_pasien::create([
                     'kode_kunjungan' => $kj,
@@ -1867,7 +1936,7 @@ class PerawatController extends Controller
                     'alasan_dirawat' => $request->alasan_rawat,
                     'alasan_pindah' => $request->alasan_pindah,
                     'keluhan_pasien_terkini' => $request->situation,
-                    'keterangan_backgroung' => $request->backgroung,
+                    'keterangan_background' => $request->background,
                     'kondisi_kesadaran' => $request->kesadaran,
                     'gcs_e' => $request->E,
                     'gcs_m' => $request->M,
@@ -1891,7 +1960,7 @@ class PerawatController extends Controller
                     'edukasi' => $request->Edukasi,
                     'riwayat_alergi' => $request->ria,
                     'program_nyeri' =>  $request->rinye,
-                    'pengelihatan' => $request->peng,
+                    'penglihatan' => $request->peng,
                     'pendengaran' => $request->pend,
                     'komunikasi' => $request->kom,
                     'kf' => $request->kf,
@@ -1922,6 +1991,7 @@ class PerawatController extends Controller
                     'kriteria_masuk_nicu' => $request->krnicu,
                     'kriteria_keluar_nicu' => $request->kknicu,
                     'nama_pembuat' => $name,
+                    'status_intensif' => $request->status_intensif,
 
                     'status' => '1',
 
@@ -3843,34 +3913,28 @@ class PerawatController extends Controller
         try {
             $cekcpp = DB::select(
                 'SELECT status, link_tte, no_berkas
-         FROM erm_cppt_perawat
-         WHERE no_rm = ?
-         AND kode_kunjungan = ?
-         AND status = 3',
+            FROM erm_cppt_perawat
+            WHERE no_rm = ?
+            AND kode_kunjungan = ?
+            AND status = 3
+            AND link_tte IS NOT NULL
+            AND link_tte != ""
+            AND no_berkas IS NOT NULL
+            AND no_berkas != ""',
                 [$norm, $kj]
             );
+            // dd($cekcpp);
+            $tte = $cekcpp[0]->link_tte;
+            $iddokumen = $cekcpp[0]->no_berkas;
 
-            if (!empty($cekcpp)) {
-
-                if (!empty($cekcpp[0]->link_tte)) {
-
-                    $tte = $cekcpp[0]->link_tte;
-                    $iddokumen = $cekcpp[0]->no_berkas;
-
-                    DB::update(
-                        'UPDATE erm_cppt_perawat
+            DB::update(
+                'UPDATE erm_cppt_perawat
                  SET no_berkas = ?, link_tte = ?
                  WHERE no_rm = ?
                  AND kode_kunjungan = ?
                  AND status = 1',
-                        [$iddokumen, $tte, $norm, $kj]
-                    );
-                } else {
-                    // link_tte kosong atau NULL
-                }
-            } else {
-                // Data CPPT tidak ditemukan
-            }
+                [$iddokumen, $tte, $norm, $kj]
+            );
         } catch (\Throwable $e) {
             dd($e->getMessage());
         }
@@ -4831,29 +4895,118 @@ class PerawatController extends Controller
         echo json_encode($back);
         die;
     }
+
+    public function singkronisasitteperawat(Request $request)
+    {
+        $now = Carbon::now()->format('Y-m-d H:i:s');
+        // $now = Carbon::parse($assesdok[0]->tgl_asses)->format('d-M-Y');
+
+        $user = auth()->user()->nama;
+        $kp = auth()->user()->kode_paramedis;
+        $kj = $request->kj;
+        $norm = $request->norm;
+
+        try {
+            $cekcpp = DB::select(
+                'SELECT status, link_tte, no_berkas
+            FROM erm_cppt_perawat
+            WHERE no_rm = ?
+            AND kode_kunjungan = ?
+            AND status = 3
+            AND link_tte IS NOT NULL
+            AND link_tte != ""
+            AND no_berkas IS NOT NULL
+            AND no_berkas != ""',
+                [$norm, $kj]
+            );
+            // dd($cekcpp);
+            $tte = $cekcpp[0]->link_tte;
+            $iddokumen = $cekcpp[0]->no_berkas;
+
+            DB::update(
+                'UPDATE erm_cppt_perawat
+                 SET no_berkas = ?, link_tte = ?
+                 WHERE no_rm = ?
+                 AND kode_kunjungan = ?
+                 AND status = 1',
+                [$iddokumen, $tte, $norm, $kj]
+            );
+        } catch (\Throwable $e) {
+            dd($e->getMessage());
+        }
+        $back = [
+            'kode' => 200,
+            'message' => 'Singkronisasi Berhasil'
+        ];
+        echo json_encode($back);
+        die;
+    }
     public function validasiassesbidan(Request $request)
     {
 
 
 
+
+        $now = Carbon::now()->format('Y-m-d H:i:s');
+        // $now = Carbon::parse($assesdok[0]->tgl_asses)->format('d-M-Y');
+
+        $user = auth()->user()->nama;
+        $kp = auth()->user()->kode_paramedis;
         $kj = $request->kj;
         $norm = $request->norm;
+        $iddokumen = 'IGDKEB-' . $kj . '-' . $norm;
+        // dd($iddokumen);
 
+        $url = 'https://siramah.rsudwaled.com/api/simpanfilette';
 
-        $now = Carbon::now();
-        $user = auth()->user()->id_simrs;
-        $kp = auth()->user()->kode_paramedis;
+        $data = [
+            'id_dokumen'  => $iddokumen,
+            'nama_user' => $user,
+            'tanggal_verifikasi' => $now,
+            'jabatan' => 'BIDAN',
 
-        try {
-            $update = DB::select('UPDATE erm_cppt_kebidanan SET status = 2 WHERE no_rm = ? AND kode_kunjungan = ? AND STATUS = 1 ', [$norm, $kj]);
-        } catch (\Exception $e) {
-            $back = [
-                'kode' => 200,
-                'message' => $e->getMessage()
-            ];
-            echo json_encode($back);
-            die;
+        ];
+
+        $response = Http::post($url, $data);
+        // dd(json_decode($response->body()));
+        $res = json_decode($response->body());
+        if ($res->metadata->code == 200) {
+            $link = $res->response->link;
+            // dd($link);
+            $update = DB::select('UPDATE erm_cppt_kebidanan_lanjutan
+        SET no_berkas = ? , link_tte = ? WHERE no_rm = ? AND kode_kunjungan = ? and status = 1', [$iddokumen, $link, $norm, $kj]);
+            return response()->json([
+                'status' => $response->status(),
+                'success' => $response->successful(),
+                'response' => $response->json(),
+            ], $response->successful() ? 200 : 502);
+        } else {
+
+            return response()->json([
+                'status' => $response->status(),
+                'success' => $response->successful(),
+                'response' => $response->json(),
+            ], $response->successful() ? 200 : 502);
         }
+
+        // $kj = $request->kj;
+        // $norm = $request->norm;
+
+
+        // $now = Carbon::now();
+        // $user = auth()->user()->id_simrs;
+        // $kp = auth()->user()->kode_paramedis;
+
+        // try {
+        //     $update = DB::select('UPDATE erm_cppt_kebidanan SET status = 2 WHERE no_rm = ? AND kode_kunjungan = ? AND STATUS = 1 ', [$norm, $kj]);
+        // } catch (\Exception $e) {
+        //     $back = [
+        //         'kode' => 200,
+        //         'message' => $e->getMessage()
+        //     ];
+        //     echo json_encode($back);
+        //     die;
+        // }
         // try {
         //     $delete = DB::select('DELETE FROM erm_cppt_kebidanan WHERE no_rm = ? AND kode_kunjungan = ? AND STATUS = "3" ', [$norm, $kj]);
         // } catch (\Exception $e) {
@@ -4867,6 +5020,51 @@ class PerawatController extends Controller
         $back = [
             'kode' => 200,
             'message' => 'Berhasil'
+        ];
+        echo json_encode($back);
+        die;
+    }
+    public function singkronisasittekebidanan(Request $request)
+    {
+        $now = Carbon::now()->format('Y-m-d H:i:s');
+        // $now = Carbon::parse($assesdok[0]->tgl_asses)->format('d-M-Y');
+
+        $user = auth()->user()->nama;
+        $kp = auth()->user()->kode_paramedis;
+        $kj = $request->kj;
+        $norm = $request->norm;
+
+        try {
+            $cekcpp = DB::select(
+                'SELECT status, link_tte, no_berkas
+            FROM erm_cppt_kebidanan_lanjutan
+            WHERE no_rm = ?
+            AND kode_kunjungan = ?
+            AND status = 3
+            AND link_tte IS NOT NULL
+            AND link_tte != ""
+            AND no_berkas IS NOT NULL
+            AND no_berkas != ""',
+                [$norm, $kj]
+            );
+            // dd($cekcpp);
+            $tte = $cekcpp[0]->link_tte;
+            $iddokumen = $cekcpp[0]->no_berkas;
+
+            DB::update(
+                'UPDATE erm_cppt_kebidanan_lanjutan
+                 SET no_berkas = ?, link_tte = ?
+                 WHERE no_rm = ?
+                 AND kode_kunjungan = ?
+                 AND status = 1',
+                [$iddokumen, $tte, $norm, $kj]
+            );
+        } catch (\Throwable $e) {
+            dd($e->getMessage());
+        }
+        $back = [
+            'kode' => 200,
+            'message' => 'Singkronisasi Berhasil'
         ];
         echo json_encode($back);
         die;
@@ -4978,24 +5176,65 @@ class PerawatController extends Controller
 
 
 
+     $now = Carbon::now()->format('Y-m-d H:i:s');
+        // $now = Carbon::parse($assesdok[0]->tgl_asses)->format('d-M-Y');
+
+        $user = auth()->user()->nama;
+        $kp = auth()->user()->kode_paramedis;
         $kj = $request->kj;
         $norm = $request->norm;
+        $iddokumen = 'IGDKBAY-' . $kj . '-' . $norm;
+        // dd($iddokumen);
 
+        $url = 'https://siramah.rsudwaled.com/api/simpanfilette';
 
-        $now = Carbon::now();
-        $user = auth()->user()->id_simrs;
-        $kp = auth()->user()->kode_paramedis;
+        $data = [
+            'id_dokumen'  => $iddokumen,
+            'nama_user' => $user,
+            'tanggal_verifikasi' => $now,
+            'jabatan' => 'BIDAN',
 
-        try {
-            $update = DB::select('UPDATE erm_cppt_kebidanan_bayi SET status = 2 WHERE no_rm = ? AND kode_kunjungan = ? AND STATUS = 1 ', [$norm, $kj]);
-        } catch (\Exception $e) {
-            $back = [
-                'kode' => 200,
-                'message' => $e->getMessage()
-            ];
-            echo json_encode($back);
-            die;
+        ];
+
+        $response = Http::post($url, $data);
+        // dd(json_decode($response->body()));
+        $res = json_decode($response->body());
+        if ($res->metadata->code == 200) {
+            $link = $res->response->link;
+            // dd($link);
+            $update = DB::select('UPDATE erm_cppt_kebidanan_bayi
+        SET no_berkas = ? , link_tte = ? WHERE no_rm = ? AND kode_kunjungan = ? and status = 1', [$iddokumen, $link, $norm, $kj]);
+            return response()->json([
+                'status' => $response->status(),
+                'success' => $response->successful(),
+                'response' => $response->json(),
+            ], $response->successful() ? 200 : 502);
+        } else {
+
+            return response()->json([
+                'status' => $response->status(),
+                'success' => $response->successful(),
+                'response' => $response->json(),
+            ], $response->successful() ? 200 : 502);
         }
+        // $kj = $request->kj;
+        // $norm = $request->norm;
+
+
+        // $now = Carbon::now();
+        // $user = auth()->user()->id_simrs;
+        // $kp = auth()->user()->kode_paramedis;
+
+        // try {
+        //     $update = DB::select('UPDATE erm_cppt_kebidanan_bayi SET status = 2 WHERE no_rm = ? AND kode_kunjungan = ? AND STATUS = 1 ', [$norm, $kj]);
+        // } catch (\Exception $e) {
+        //     $back = [
+        //         'kode' => 200,
+        //         'message' => $e->getMessage()
+        //     ];
+        //     echo json_encode($back);
+        //     die;
+        // }
         // try {
         //     $delete = DB::select('DELETE FROM erm_cppt_kebidanan_bayi WHERE no_rm = ? AND kode_kunjungan = ? AND STATUS = "3" ', [$norm, $kj]);
         // } catch (\Exception $e) {
@@ -5013,7 +5252,51 @@ class PerawatController extends Controller
         echo json_encode($back);
         die;
     }
+  public function singkronisasittekebidananbayi(Request $request)
+    {
+        $now = Carbon::now()->format('Y-m-d H:i:s');
+        // $now = Carbon::parse($assesdok[0]->tgl_asses)->format('d-M-Y');
 
+        $user = auth()->user()->nama;
+        $kp = auth()->user()->kode_paramedis;
+        $kj = $request->kj;
+        $norm = $request->norm;
+
+        try {
+            $cekcpp = DB::select(
+                'SELECT status, link_tte, no_berkas
+            FROM erm_cppt_kebidanan_bayi
+            WHERE no_rm = ?
+            AND kode_kunjungan = ?
+            AND status = 3
+            AND link_tte IS NOT NULL
+            AND link_tte != ""
+            AND no_berkas IS NOT NULL
+            AND no_berkas != ""',
+                [$norm, $kj]
+            );
+            // dd($cekcpp);
+            $tte = $cekcpp[0]->link_tte;
+            $iddokumen = $cekcpp[0]->no_berkas;
+
+            DB::update(
+                'UPDATE erm_cppt_kebidanan_bayi
+                 SET no_berkas = ?, link_tte = ?
+                 WHERE no_rm = ?
+                 AND kode_kunjungan = ?
+                 AND status = 1',
+                [$iddokumen, $tte, $norm, $kj]
+            );
+        } catch (\Throwable $e) {
+            dd($e->getMessage());
+        }
+        $back = [
+            'kode' => 200,
+            'message' => 'Singkronisasi Berhasil'
+        ];
+        echo json_encode($back);
+        die;
+    }
     public function returttv(Request $request)
     {
         $idttv = $request->idttv;

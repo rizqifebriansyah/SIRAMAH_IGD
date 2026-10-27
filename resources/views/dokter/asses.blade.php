@@ -158,6 +158,86 @@
                             {{ $a->DIAGX }}
                         </td>
                         <td class="status1" style="text-align: center;">
+                            @if ($unit == '1002')
+
+                            @if ($a->nama_perawat == null && $a->nama_perawat1 == null && $a->status == null)
+                            <button class="badge badge-danger ermdokter"> belum diisi </button>
+                            @elseif ($a->link_tte != NULL )
+                            <button class="badge badge-success ermdokter"> Sudah validasi </button> | {{ $a->nama_perawat }} {{ $a->nama_perawat1 }}
+                            @else
+                            <button class="badge badge-warning ermdokter"> belum validasi </button> | {{ $a->nama_perawat }} {{ $a->nama_perawat1 }}
+
+                            @endif
+
+                            <!-- data igd kebidanan 1023 -->
+                            @else
+                            @if ($a->nama_perawat == null && $a->nama_perawat1 == null)
+                            <button class="badge badge-danger ermdokter"> belum diisi </button>
+                            @elseif ($a->status == 2 || $a->status_bayi == 2 )
+                            <button class="badge badge-success ermdokter"> Sudah validasi </button> | {{ $a->nama_perawat }} {{ $a->nama_perawat1 }}
+                            @else
+                            <button class="badge badge-warning ermdokter"> belum validasi </button> | {{ $a->nama_perawat }} {{ $a->nama_perawat1 }}
+
+                            @endif
+                            <!-- @if ($a->nama_perawat == null || $a->nama_perawat1 == null )
+                            <button class="badge badge-danger ermdokter"> belum diisi </button>
+                            @elseif ($a->status == 2 || $a->status_bayi == 2 )
+                            <button class="badge badge-success ermdokter"> Sudah validasi </button> | {{ $a->nama_perawat }}
+
+                            @elseif ($a->status == 1 || $a->status_bayi == 1 )
+                            <button class="badge badge-warning ermdokter"> belum validasi </button> | {{ $a->nama_perawat }} {{ $a->nama_perawat1 }}
+
+                            @endif -->
+
+                            @endif
+                            @if ($unit == '1002')
+                            @if ($a->link_tte == null )
+                            <button class="badge badge-danger "> belum TTE </button>
+
+                            @else
+                            <button class="badge badge-info "> TTE </button>
+
+                            @endif
+                            @else
+
+                            @endif
+                        </td>
+                        <td class="status2" style="text-align: center;">
+
+                            @if ($unit == '1002')
+
+                            @if ($a->tgl_asses == null)
+                            <button class="badge badge-danger ermdokter"> belum lengkap </button> {{ $a->nama_paramedis }}
+                            @elseif($a->tgl_selesai_asses == NULL)
+                            <button class="badge badge-warning ermdokter"> Belum Validasi </button> | {{ $a->nama_paramedis }}
+
+
+                            @elseif($a->tgl_selesai_asses != NULL)
+                            <button class="badge badge-success ermdokter"> Sudah Diisi </button> | {{ $a->nama_paramedis }}
+                            @endif
+                            @else
+
+                            @if ($a->nama_paramedis == null)
+                            <button class="badge badge-danger ermdokter"> belum diisi </button>
+                            @elseif ($a->status_dokter == 2)
+                            <button class="badge badge-success ermdokter"> Sudah validasi </button> | {{ $a->nama_perawat }}
+
+                            @else
+                            <button class="badge badge-warning ermdokter"> Belum Validasi </button> | {{ $a->nama_paramedis }}
+                            @endif
+                            @endif
+                            @if ($unit == '1002')
+                            @if ($a->tte_dokter == null )
+                            <button class="badge badge-danger "> belum TTE </button>
+
+                            @else
+                            <button class="badge badge-info "> TTE </button>
+                            @endif
+                            @else
+
+                            @endif
+                        </td>
+                        <!-- <td class="status1" style="text-align: center;">
                             @if ($a->nama_perawat == null && $a->nama_perawat1 == null)
                            
                             <button class="badge badge-danger ermdokter"> belum diisi </button>
@@ -177,7 +257,7 @@
                             @else
                             <button class="badge badge-warning ermdokter"> Belum Validasi </button> | {{ $a->nama_paramedis }}
                             @endif
-                        </td>
+                        </td> -->
 
 
 
@@ -288,6 +368,38 @@
 
             }
         });
+    });
+</script>
+<script>
+     $(document).ready(function() {
+        let idleTimer;
+       const idleLimit = 300000; // 5 menit // 10 detik
+
+        function resetIdleTimer() {
+            clearTimeout(idleTimer);
+
+            idleTimer = setTimeout(function() {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Sesi Berakhir',
+                    text: 'Anda tidak aktif selama 5 Memit. Anda akan logout.',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    confirmButtonText: 'OK'
+                }).then(function() {
+                    window.location.href = "{{ route('logout') }}";
+                });
+            }, idleLimit);
+        }
+
+        $(document).on(
+            'mousemove keydown mousedown click scroll touchstart',
+            function() {
+                resetIdleTimer();
+            }
+        );
+
+        resetIdleTimer();
     });
 </script>
 @endsection
