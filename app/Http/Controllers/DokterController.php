@@ -8049,6 +8049,8 @@ class DokterController extends Controller
             $y = $pdf::GetY();
             $pdf::SetXY(8, $y);
             $pdf::Cell(33, 5, "    Adekuat ", 1);
+            $y = $pdf::GetY();
+
             // 
             if ($tf[0]->penglihatan == 'Adekuat') {
                 $pdf::SetXY(9, $y + 1.5);
@@ -8062,6 +8064,8 @@ class DokterController extends Controller
 
             $pdf::SetXY(41, $y);
             $pdf::Cell(33, 5, "     Earing Aid S/D ", 1);
+            $y = $pdf::GetY();
+
             if ($tf[0]->pendengaran == 'Earing Aid S/D') {
                 $pdf::SetXY(42, $y + 1.5);
 
@@ -8074,6 +8078,8 @@ class DokterController extends Controller
 
             $pdf::SetXY(74, $y);
             $pdf::Cell(33, 5, "     Bicara normal ", 1);
+                $y = $pdf::GetY();
+
             if ($tf[0]->komunikasi == 'Bicara Normal') {
                 $pdf::SetXY(75, $y + 1.5);
 
@@ -8085,6 +8091,8 @@ class DokterController extends Controller
             }
             $pdf::SetXY(107, $y);
             $pdf::Cell(54, 5, "     Bed Activity ", 1);
+                $y = $pdf::GetY();
+
             if ($tf[0]->kf == 'Bed Activity') {
                 $pdf::SetXY(108, $y + 1.5);
 
@@ -8097,6 +8105,8 @@ class DokterController extends Controller
             //M bed
             $pdf::SetXY(161, $y);
             $pdf::Cell(15, 5, "", 1);
+                $y = $pdf::GetY();
+
             if ($tf[0]->m_bed_activity != NULL) {
                 $pdf::SetXY(162, $y + 1.5);
 
@@ -8109,6 +8119,8 @@ class DokterController extends Controller
             //PP bed
             $pdf::SetXY(176, $y);
             $pdf::Cell(15, 5, "", 1);
+                $y = $pdf::GetY();
+
             if ($tf[0]->pp_bed_activity != NULL) {
                 $pdf::SetXY(177, $y + 1.5);
 
@@ -8122,6 +8134,8 @@ class DokterController extends Controller
             //TM BED
             $pdf::SetXY(191, $y);
             $pdf::Cell(15, 5, " ", 1);
+                $y = $pdf::GetY();
+
             if ($tf[0]->tm_bed_activity != NULL) {
                 $pdf::SetXY(191, $y + 1.5);
 
@@ -8137,6 +8151,8 @@ class DokterController extends Controller
             //kacamata
             $pdf::SetXY(8, $y + 1.5);
             $pdf::Cell(33, 5, "     Kaca Maata ", 1);
+                $y = $pdf::GetY();
+
             $y = $pdf::GetY();
 
             if ($tf[0]->penglihatan == 'Kacamata') {
@@ -8167,6 +8183,8 @@ class DokterController extends Controller
             //non verbal
             $pdf::SetXY(74, $y);
             $pdf::Cell(33, 5, "     Non Verbal ", 1);
+                $y = $pdf::GetY();
+
             if ($tf[0]->komunikasi == 'Non Verbal') {
                 $pdf::SetXY(75, $y + 1);
 
@@ -8179,6 +8197,8 @@ class DokterController extends Controller
             // personal
             $pdf::SetXY(107, $y);
             $pdf::Cell(54, 5, "     Personal Hygiene ", 1);
+                $y = $pdf::GetY();
+
             if ($tf[0]->kf == 'Personal Hygiene') {
                 $pdf::SetXY(108, $y + 1);
 
@@ -8191,6 +8211,8 @@ class DokterController extends Controller
             //M personal
             $pdf::SetXY(161, $y);
             $pdf::Cell(15, 5, "", 1);
+                $y = $pdf::GetY();
+
             if ($tf[0]->m_personal_hygiene != NULL) {
                 $pdf::SetXY(162, $y + 1);
 
@@ -8203,6 +8225,8 @@ class DokterController extends Controller
             //pp personal
             $pdf::SetXY(176, $y);
             $pdf::Cell(15, 5, "", 1);
+                $y = $pdf::GetY();
+
             if ($tf[0]->pp_personal_hygiene != NULL) {
                 $pdf::SetXY(177, $y + 1);
 
@@ -8215,6 +8239,8 @@ class DokterController extends Controller
             //tm personal
             $pdf::SetXY(191, $y);
             $pdf::Cell(15, 5, " ", 1);
+                $y = $pdf::GetY();
+
             if ($tf[0]->tm_personal_hygiene != NULL) {
                 $pdf::SetXY(192, $y + 1);
 
@@ -8229,7 +8255,7 @@ class DokterController extends Controller
             $y = $pdf::GetY();
             $pdf::SetXY(8, $y + 2);
             $pdf::Cell(33, 5, "     Buta", 1);
-            $y = $pdf::GetY();
+                $y = $pdf::GetY();
 
             if ($tf[0]->penglihatan == 'Buta') {
                 $pdf::SetXY(9, $y + 1);
@@ -8243,6 +8269,8 @@ class DokterController extends Controller
             // tuli
             $pdf::SetXY(41, $y);
             $pdf::Cell(33, 5, "     Tuli Total", 1);
+            $y = $pdf::GetY();
+
             if ($tf[0]->pendengaran == 'Tuli Total') {
                 $pdf::SetXY(42, $y + 1);
 
@@ -8255,6 +8283,8 @@ class DokterController extends Controller
             // afasia
             $pdf::SetXY(74, $y);
             $pdf::Cell(33, 5, "     Afasia ", 1);
+            $y = $pdf::GetY();
+
             if ($tf[0]->komunikasi == 'Afasia') {
                 $pdf::SetXY(75, $y + 1);
 
@@ -8268,6 +8298,8 @@ class DokterController extends Controller
             //dressinh
             $pdf::SetXY(107, $y);
             $pdf::Cell(54, 5, "     Dressing ", 1);
+            $y = $pdf::GetY();
+
             if ($tf[0]->kf == 'Dressing') {
                 $pdf::SetXY(108, $y + 1);
 
@@ -8280,6 +8312,8 @@ class DokterController extends Controller
             //m dressing
             $pdf::SetXY(161, $y);
             $pdf::Cell(15, 5, "", 1);
+            $y = $pdf::GetY();
+
             if ($tf[0]->m_dressing != NULL) {
                 $pdf::SetXY(162, $y + 1);
 
@@ -8292,6 +8326,8 @@ class DokterController extends Controller
             //pp dressing
             $pdf::SetXY(176, $y);
             $pdf::Cell(15, 5, "", 1);
+            $y = $pdf::GetY();
+
             if ($tf[0]->pp_dressing != NULL) {
                 $pdf::SetXY(177, $y + 1);
 
@@ -8303,6 +8339,8 @@ class DokterController extends Controller
             }
             $pdf::SetXY(191, $y);
             $pdf::Cell(15, 5, " ", 1);
+            $y = $pdf::GetY();
+
             if ($tf[0]->tm_dressing != NULL) {
                 $pdf::SetXY(192, $y + 1);
 
@@ -8319,15 +8357,24 @@ class DokterController extends Controller
 
             $pdf::SetXY(8, $y + 1.5);
             $pdf::Cell(33, 5, "", 1);
+            $y = $pdf::GetY();
+
             $pdf::SetXY(41, $y + 1.5);
             $pdf::Cell(33, 5, "", 1);
+            $y = $pdf::GetY();
+
             $pdf::SetXY(74, $y + 1.5);
             $pdf::Cell(33, 5, "", 1);
+            $y = $pdf::GetY();
 
             $pdf::SetXY(107, $y + 1.5);
+            $pdf::Cell(33, 5, "", 1);
+
             $y = $pdf::GetY();
 
             $pdf::Cell(54, 5, "     Eating ", 1);
+            $y = $pdf::GetY();
+
             if ($tf[0]->kf == 'Eating') {
                 $pdf::SetXY(108, $y + 1.5);
 
@@ -8340,6 +8387,8 @@ class DokterController extends Controller
             //m eating
             $pdf::SetXY(161, $y);
             $pdf::Cell(15, 5, "", 1);
+            $y = $pdf::GetY();
+
             if ($tf[0]->m_eating != NULL) {
                 $pdf::SetXY(162, $y + 1.5);
 
@@ -8352,6 +8401,8 @@ class DokterController extends Controller
             //pp eating
             $pdf::SetXY(176, $y);
             $pdf::Cell(15, 5, "", 1);
+            $y = $pdf::GetY();
+
             if ($tf[0]->pp_eating != NULL) {
                 $pdf::SetXY(177, $y + 1.5);
 
@@ -8364,6 +8415,8 @@ class DokterController extends Controller
             //tm eating
             $pdf::SetXY(191, $y);
             $pdf::Cell(15, 5, " ", 1);
+            $y = $pdf::GetY();
+
             if ($tf[0]->tm_eating != NULL) {
                 $pdf::SetXY(192, $y + 1.5);
 
@@ -8381,15 +8434,22 @@ class DokterController extends Controller
 
             $pdf::SetXY(8, $y + 1.5);
             $pdf::Cell(33, 5, "", 1);
+            $y = $pdf::GetY();
+
             $pdf::SetXY(41, $y + 1.5);
             $pdf::Cell(33, 5, "", 1);
+            $y = $pdf::GetY();
+
             $pdf::SetXY(74, $y + 1.5);
             $pdf::Cell(33, 5, "", 1);
+            $y = $pdf::GetY();
 
             $pdf::SetXY(107, $y + 1.5);
             $y = $pdf::GetY();
 
             $pdf::Cell(54, 5, "     Transfer ", 1);
+            $y = $pdf::GetY();
+
             if ($tf[0]->kf == 'Transfer') {
                 $pdf::SetXY(108, $y + 1);
 
@@ -8402,6 +8462,8 @@ class DokterController extends Controller
             //m transfer
             $pdf::SetXY(161, $y);
             $pdf::Cell(15, 5, "", 1);
+            $y = $pdf::GetY();
+
             if ($tf[0]->m_transfer != NULL) {
                 $pdf::SetXY(162, $y + 1);
 
@@ -8414,6 +8476,8 @@ class DokterController extends Controller
             //pp transfer
             $pdf::SetXY(176, $y);
             $pdf::Cell(15, 5, "", 1);
+            $y = $pdf::GetY();
+
             if ($tf[0]->pp_transfer != NULL) {
                 $pdf::SetXY(177, $y + 1);
 
@@ -8426,6 +8490,8 @@ class DokterController extends Controller
             //tm transfer
             $pdf::SetXY(191, $y);
             $pdf::Cell(15, 5, " ", 1);
+            $y = $pdf::GetY();
+
             if ($tf[0]->tm_transfer != NULL) {
                 $pdf::SetXY(192, $y + 1);
 
@@ -8808,6 +8874,8 @@ class DokterController extends Controller
                 $pdf::SetFont('Times', '', 10);
                 $pdf::SetX(8);
                 $pdf::Cell(22, 5, "     Derajat 0, Pendamping : Portir ", 0);
+                $y = $pdf::GetY();
+
                 if ($tf[0]->kriteria_transfer == 'Derajat 0,') {
                     $pdf::SetXY(10, $y + 1.5);
 
@@ -8822,6 +8890,8 @@ class DokterController extends Controller
                 $pdf::SetFont('Times', '', 10);
                 $pdf::SetX(8);
                 $pdf::Cell(22, 5, "     Derajat 1, Pendamping : Portir dan Perawat ", 0);
+                $y = $pdf::GetY();
+
                 if ($tf[0]->kriteria_transfer == 'Derajat 1') {
                     $pdf::SetXY(10, $y + 1.5);
 
@@ -8836,6 +8906,8 @@ class DokterController extends Controller
                 $pdf::SetFont('Times', '', 10);
                 $pdf::SetX(8);
                 $pdf::Cell(22, 5, "     Derajat 2, Pendamping : Portir dan Perawat ", 0);
+                $y = $pdf::GetY();
+
                 if ($tf[0]->kriteria_transfer == 'Derajat 2') {
                     $pdf::SetXY(10, $y + 1.5);
 
@@ -8850,6 +8922,8 @@ class DokterController extends Controller
                 $pdf::SetFont('Times', '', 10);
                 $pdf::SetX(8);
                 $pdf::Cell(22, 5, "     Derajat 3, Pendamping : Portir, Perawat, dan Dokter ", 0);
+                $y = $pdf::GetY();
+
                 if ($tf[0]->kriteria_transfer == 'Derajat 3') {
                     $pdf::SetXY(10, $y + 1.5);
 
@@ -8930,6 +9004,8 @@ class DokterController extends Controller
                 $pdf::SetFont('Times', '', 10);
                 $pdf::SetX(8);
                 $pdf::Cell(22, 5, "     Derajat 0, Pendamping : Portir ", 0);
+                $y = $pdf::GetY();
+
                 if ($tf[0]->kriteria_transfer == 'Derajat 0,') {
                     $pdf::SetXY(10, $y + 1.5);
 
@@ -8944,6 +9020,8 @@ class DokterController extends Controller
                 $pdf::SetFont('Times', '', 10);
                 $pdf::SetX(8);
                 $pdf::Cell(22, 5, "     Derajat 1, Pendamping : Portir dan Perawat ", 0);
+                $y = $pdf::GetY();
+
                 if ($tf[0]->kriteria_transfer == 'Derajat 1') {
                     $pdf::SetXY(10, $y + 1.5);
 
@@ -8958,6 +9036,8 @@ class DokterController extends Controller
                 $pdf::SetFont('Times', '', 10);
                 $pdf::SetX(8);
                 $pdf::Cell(22, 5, "     Derajat 2, Pendamping : Portir dan Perawat ", 0);
+                $y = $pdf::GetY();
+
                 if ($tf[0]->kriteria_transfer == 'Derajat 2') {
                     $pdf::SetXY(10, $y + 1.5);
 
@@ -8972,6 +9052,8 @@ class DokterController extends Controller
                 $pdf::SetFont('Times', '', 10);
                 $pdf::SetX(8);
                 $pdf::Cell(22, 5, "     Derajat 3, Pendamping : Portir, Perawat, dan Dokter ", 0);
+                $y = $pdf::GetY();
+
                 if ($tf[0]->kriteria_transfer == 'Derajat 3') {
                     $pdf::SetXY(10, $y + 1.5);
 

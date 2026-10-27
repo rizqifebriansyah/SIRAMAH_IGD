@@ -632,6 +632,8 @@ class RadiologiController extends Controller
                     'keterangan' => 'PENDING',
                     'unit_pengirim' => $ukirim,
                     'diagnosa' => $request->diagnosa,
+                    'dok_rujukan' => $request->indikasi_klinis,
+
                     'dok_kirim' => $request->dokter,
                     'total_layanan' => $gt,
                     'tagihan_pribadi' => $gt,
@@ -686,6 +688,8 @@ class RadiologiController extends Controller
                     'qty_header' => $dataSet['qty'],
                     'unit_pengirim' => $ukirim,
                     'diagnosa' => $request->diagnosa,
+                    'dok_rujukan' => $request->indikasi_klinis,
+
                     'dok_kirim' => $request->dokter,
                     'total_layanan' => $gt,
                     'tagihan_pribadi' => $gt,
@@ -739,6 +743,8 @@ class RadiologiController extends Controller
                 'qty_header' => $dataSet['qty'],
                 'unit_pengirim' => $ukirim,
                 'diagnosa' => $request->diagnosa,
+                'dok_rujukan' => $request->indikasi_klinis,
+
                 'dok_kirim' => $request->dokter,
                 'total_layanan' => $gt,
                 'tagihan_penjamin' => $gt,
@@ -826,12 +832,10 @@ class RadiologiController extends Controller
                     'VIPINDICATOR' => 'N',
                     'ADMITDATE' => $tglmasuk,
                     'EFFECTIVEDATE' => $tglmasuk,
+                    'indikasi_klinis' => $request->indikasi_klinis,
+                    
 
-                    'RELEVANTCLINICALINFO' => $request->diagnosa . "
-
-
-
-|||" . $alamat,
+                    'RELEVANTCLINICALINFO' => $request->diagnosa . "||". $request->indikasi_klinis . "||" . $alamat,
                     // 'PROCEDUREID' => $arr['kodelayanan'],
                     'PROCEDURE' => $arr['kodelayanan'],
                     'SPECIFIEDRADIOLOGISTID' => $request->dorad,

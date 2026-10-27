@@ -616,6 +616,8 @@
         var kodeunit = $('#kodeunit').val()
         var kelasunit = $('#kelas_unit').val()
         var kelas = $('#kelas').val()
+        var indikasi_klinis = $('#indikasi_klinis').val()
+
 
         var gt = $('#gt').val()
         var norm = $('#norm').val()
@@ -650,6 +652,8 @@
                         kodepenunjang: $('#namapenunjang').val(),
                         dokter: $('#dokter').val(),
                         dorad: $('#dorad').val(),
+                        indikasi_klinis: $('#indikasi_klinis').val(),
+
 
                         kodepenjamin: $('#kodepenjamin').val(),
                         diagnosa: $('#diagnosa').val(),
