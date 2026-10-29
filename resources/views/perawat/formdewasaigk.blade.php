@@ -2513,54 +2513,54 @@
 
                                         </tr>
                                         <tr>
-                                              <td colspan="4" class="text-bold">Pasien Dewasa menggunakan numeric rating scale <br> <img src="public/img/numericcc.jpg" /><br>
-                                                        <div class="row mt-4" style="margin-left: 30px;">
-                                                            <div class="form-check" style="margin-left: 35px;">
-                                                                <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="0.0">
-                                                                <label class="form-check-label">0 </label>
-                                                            </div>
-                                                            <div class="form-check" style="margin-left: 50px;">
-                                                                <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="1.0">
-                                                                <label class="form-check-label">1 </label>
-                                                            </div>
-                                                            <div class="form-check" style="margin-left: 50px;">
-                                                                <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="2.0">
-                                                                <label class="form-check-label">2 </label>
-                                                            </div>
-                                                            <div class="form-check" style="margin-left: 50px;">
-                                                                <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="3.0">
-                                                                <label class="form-check-label">3 </label>
-                                                            </div>
-                                                            <div class="form-check" style="margin-left: 50px;">
-                                                                <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="4.0">
-                                                                <label class="form-check-label">4 </label>
-                                                            </div>
-                                                            <div class="form-check" style="margin-left: 50px;">
-                                                                <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="5.0">
-                                                                <label class="form-check-label">5 </label>
-                                                            </div>
-                                                            <div class="form-check" style="margin-left: 50px;">
-                                                                <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="6.0">
-                                                                <label class="form-check-label">6 </label>
-                                                            </div>
-                                                            <div class="form-check" style="margin-left: 50px;">
-                                                                <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="7.0">
-                                                                <label class="form-check-label">7 </label>
-                                                            </div>
-                                                            <div class="form-check" style="margin-left: 50px;">
-                                                                <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="8.0">
-                                                                <label class="form-check-label">8 </label>
-                                                            </div>
-                                                            <div class="form-check" style="margin-left: 50px;">
-                                                                <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="9.0">
-                                                                <label class="form-check-label">9 </label>
-                                                            </div>
-                                                            <div class="form-check" style="margin-left: 45px;">
-                                                                <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="10.0">
-                                                                <label class="form-check-label">10 </label>
-                                                            </div>
-                                                        </div>
-                                                    </td>
+                                            <td colspan="4" class="text-bold">Pasien Dewasa menggunakan numeric rating scale <br> <img src="public/img/numericcc.jpg" /><br>
+                                                <div class="row mt-4" style="margin-left: 30px;">
+                                                    <div class="form-check" style="margin-left: 35px;">
+                                                        <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="0.0">
+                                                        <label class="form-check-label">0 </label>
+                                                    </div>
+                                                    <div class="form-check" style="margin-left: 50px;">
+                                                        <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="1.0">
+                                                        <label class="form-check-label">1 </label>
+                                                    </div>
+                                                    <div class="form-check" style="margin-left: 50px;">
+                                                        <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="2.0">
+                                                        <label class="form-check-label">2 </label>
+                                                    </div>
+                                                    <div class="form-check" style="margin-left: 50px;">
+                                                        <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="3.0">
+                                                        <label class="form-check-label">3 </label>
+                                                    </div>
+                                                    <div class="form-check" style="margin-left: 50px;">
+                                                        <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="4.0">
+                                                        <label class="form-check-label">4 </label>
+                                                    </div>
+                                                    <div class="form-check" style="margin-left: 50px;">
+                                                        <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="5.0">
+                                                        <label class="form-check-label">5 </label>
+                                                    </div>
+                                                    <div class="form-check" style="margin-left: 50px;">
+                                                        <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="6.0">
+                                                        <label class="form-check-label">6 </label>
+                                                    </div>
+                                                    <div class="form-check" style="margin-left: 50px;">
+                                                        <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="7.0">
+                                                        <label class="form-check-label">7 </label>
+                                                    </div>
+                                                    <div class="form-check" style="margin-left: 50px;">
+                                                        <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="8.0">
+                                                        <label class="form-check-label">8 </label>
+                                                    </div>
+                                                    <div class="form-check" style="margin-left: 50px;">
+                                                        <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="9.0">
+                                                        <label class="form-check-label">9 </label>
+                                                    </div>
+                                                    <div class="form-check" style="margin-left: 45px;">
+                                                        <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="10.0">
+                                                        <label class="form-check-label">10 </label>
+                                                    </div>
+                                                </div>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -7231,55 +7231,55 @@
                                             </td>
 
                                         </tr>
-                                         <tr>
-                                              <td colspan="4" class="text-bold">Pasien Dewasa menggunakan numeric rating scale <br> <img src="public/img/numericcc.jpg" /><br>
-                                                        <div class="row mt-4" style="margin-left: 30px;">
-                                                            <div class="form-check" style="margin-left: 35px;">
-                                                                <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="0.0">
-                                                                <label class="form-check-label">0 </label>
-                                                            </div>
-                                                            <div class="form-check" style="margin-left: 50px;">
-                                                                <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="1.0">
-                                                                <label class="form-check-label">1 </label>
-                                                            </div>
-                                                            <div class="form-check" style="margin-left: 50px;">
-                                                                <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="2.0">
-                                                                <label class="form-check-label">2 </label>
-                                                            </div>
-                                                            <div class="form-check" style="margin-left: 50px;">
-                                                                <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="3.0">
-                                                                <label class="form-check-label">3 </label>
-                                                            </div>
-                                                            <div class="form-check" style="margin-left: 50px;">
-                                                                <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="4.0">
-                                                                <label class="form-check-label">4 </label>
-                                                            </div>
-                                                            <div class="form-check" style="margin-left: 50px;">
-                                                                <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="5.0">
-                                                                <label class="form-check-label">5 </label>
-                                                            </div>
-                                                            <div class="form-check" style="margin-left: 50px;">
-                                                                <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="6.0">
-                                                                <label class="form-check-label">6 </label>
-                                                            </div>
-                                                            <div class="form-check" style="margin-left: 50px;">
-                                                                <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="7.0">
-                                                                <label class="form-check-label">7 </label>
-                                                            </div>
-                                                            <div class="form-check" style="margin-left: 50px;">
-                                                                <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="8.0">
-                                                                <label class="form-check-label">8 </label>
-                                                            </div>
-                                                            <div class="form-check" style="margin-left: 50px;">
-                                                                <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="9.0">
-                                                                <label class="form-check-label">9 </label>
-                                                            </div>
-                                                            <div class="form-check" style="margin-left: 45px;">
-                                                                <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="10.0">
-                                                                <label class="form-check-label">10 </label>
-                                                            </div>
-                                                        </div>
-                                                    </td>
+                                        <tr>
+                                            <td colspan="4" class="text-bold">Pasien Dewasa menggunakan numeric rating scale <br> <img src="public/img/numericcc.jpg" /><br>
+                                                <div class="row mt-4" style="margin-left: 30px;">
+                                                    <div class="form-check" style="margin-left: 35px;">
+                                                        <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="0.0">
+                                                        <label class="form-check-label">0 </label>
+                                                    </div>
+                                                    <div class="form-check" style="margin-left: 50px;">
+                                                        <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="1.0">
+                                                        <label class="form-check-label">1 </label>
+                                                    </div>
+                                                    <div class="form-check" style="margin-left: 50px;">
+                                                        <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="2.0">
+                                                        <label class="form-check-label">2 </label>
+                                                    </div>
+                                                    <div class="form-check" style="margin-left: 50px;">
+                                                        <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="3.0">
+                                                        <label class="form-check-label">3 </label>
+                                                    </div>
+                                                    <div class="form-check" style="margin-left: 50px;">
+                                                        <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="4.0">
+                                                        <label class="form-check-label">4 </label>
+                                                    </div>
+                                                    <div class="form-check" style="margin-left: 50px;">
+                                                        <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="5.0">
+                                                        <label class="form-check-label">5 </label>
+                                                    </div>
+                                                    <div class="form-check" style="margin-left: 50px;">
+                                                        <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="6.0">
+                                                        <label class="form-check-label">6 </label>
+                                                    </div>
+                                                    <div class="form-check" style="margin-left: 50px;">
+                                                        <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="7.0">
+                                                        <label class="form-check-label">7 </label>
+                                                    </div>
+                                                    <div class="form-check" style="margin-left: 50px;">
+                                                        <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="8.0">
+                                                        <label class="form-check-label">8 </label>
+                                                    </div>
+                                                    <div class="form-check" style="margin-left: 50px;">
+                                                        <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="9.0">
+                                                        <label class="form-check-label">9 </label>
+                                                    </div>
+                                                    <div class="form-check" style="margin-left: 45px;">
+                                                        <input class="form-check-input" type="radio" name="scalenyeri1" id="scalenyeri1" value="10.0">
+                                                        <label class="form-check-label">10 </label>
+                                                    </div>
+                                                </div>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -8291,6 +8291,27 @@
         <div id="collapseOne12" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample912">
             <div class="card-body bg-light">
                 <table class="table">
+                    <thead>
+                        <th>WAKTU</th>
+                        <th>TINDAKAN</th>
+                        <th>Action</th>
+                    </thead>
+                    <tbody>
+                        @foreach($tindakan as $ti => $t)
+                        <tr>
+                            <td class="wtt">{{$t->waktu_tindakan}} </td>
+                            <td class="tindakan"> {{$t->tindakan_keperawatan}} </td>
+                            <td class="idtindakan" hidden> {{$t->id}}</td>
+                            <td> <a class=" btn btn-danger btn-sm returtinper" href="#">
+                                    <!-- <i class="fas fa-sync-alt fa-spin"></i> -->
+                                    batal
+                                </a></td>
+
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                <table class="table">
                     <tbody>
 
                         <tr>
@@ -8312,27 +8333,7 @@
 
                                     </div>
                                 </form>
-                                <table class="table">
-                                    <thead>
-                                        <th>WAKTU</th>
-                                        <th>TINDAKAN</th>
-                                        <th>Action</th>
-                                    </thead>
-                                    <tbody>
-                                        @foreach($tindakan as $ti => $t)
-                                        <tr>
-                                            <td class="wtt">{{$t->waktu_tindakan}} </td>
-                                            <td class="tindakan"> {{$t->tindakan_keperawatan}} </td>
-                                            <td class="idtindakan" hidden> {{$t->id}}</td>
-                                            <td> <a class=" btn btn-danger btn-sm returtinper" href="#">
-                                                    <!-- <i class="fas fa-sync-alt fa-spin"></i> -->
-                                                    batal
-                                                </a></td>
 
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
                             </td>
 
                         </tr>
@@ -9970,6 +9971,82 @@
                                 footer: ''
                             })
                             // cpptperawat()
+                        }
+                    }
+                });
+            }
+        })
+        return false;
+    });
+    $(".returtinper").click(function() {
+        var data = $('.formerm').serializeArray();
+        var $row = $(this).closest("tr");
+        var wtt = $row.find(".wtt").text();
+        var idtindakan = $row.find(".idtindakan").text();
+        var tindakan = $row.find(".tindakan").text();
+
+
+
+
+        // var sumberdata = $("#sumberdata:checked").val();
+        Swal.fire({
+            title: "Yakin Retur Tindakan?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Ya',
+            cancelButtonColor: '#d33',
+            cancelButtonText: "Batal"
+
+        }).then(result => {
+            //jika klik ya maka arahkan ke proses.php
+            if (result.isConfirmed) {
+                $.ajax({
+                    async: true,
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        data: JSON.stringify(data),
+                        norm: $('#norm').val(),
+                        kj: $('#kj').val(),
+                        wtt,
+                        tindakan,
+                        idtindakan
+
+
+
+                    },
+                    url: '<?= route('returtinper') ?>',
+
+                    error: function(data) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Sepertinya ada masalah ...',
+                            footer: ''
+                        })
+                    },
+                    success: function(data) {
+                        console.log(data)
+                        if (data.kode == 500) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: data.message,
+                                footer: ''
+                            })
+                        } else {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'OK',
+                                text: 'data berhasil diretur',
+                                footer: ''
+                            })
+                            // cpptperawat()
+
+
+
                         }
                     }
                 });

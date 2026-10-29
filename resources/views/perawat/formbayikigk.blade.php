@@ -103,7 +103,7 @@
                             <td>
                                 <div class="input-group">
                                     <textarea class="form-control" id="anamnesis" name="anamnesis"
-                                        placeholder=""></textarea>
+                                        placeholder="">{{$ttv[0]->subyek}}</textarea>
 
                                 </div>
                             </td>
@@ -1750,7 +1750,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                             <td class="text-bold font-italic">SKOR AFGAR</td>
+                                            <td class="text-bold font-italic">SKOR AFGAR</td>
                                             <td>
                                                 <div class="input-group">
                                                     <input type="text" class="form-control"
@@ -3514,11 +3514,33 @@
         <div id="collapseOne12" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample912">
             <div class="card-body bg-light">
                 <table class="table">
+                    <thead>
+                        <th>WAKTU</th>
+                        <th>TINDAKAN</th>
+                        <th>Action</th>
+                    </thead>
+                    <tbody>
+                        @foreach($tindakan as $ti => $t)
+                        <tr>
+                            <td class="wtt">{{$t->waktu_tindakan}} </td>
+                            <td class="tindakan"> {{$t->tindakan_keperawatan}} </td>
+                            <td class="idtindakan" hidden> {{$t->id}}</td>
+                            <td> <a class=" btn btn-danger btn-sm returtinper" href="#">
+                                    <i class="fas fa-sync-alt fa-spin"></i>
+                                    RETUR
+                                </a></td>
+
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                <table class="table">
                     <tbody>
 
                         <tr>
                             <td class="text-bold font-italic">TINDAKAN KEPERAWATAN</td>
                             <td>
+
                                 <form id="dynamic-form" class="formtindakankebidanan">
                                     <h5>Klik Tombol Tambah untuk menambahkan Tindakan
                                     </h5>
@@ -3535,27 +3557,7 @@
 
                                     </div>
                                 </form>
-                                 <table class="table">
-                                    <thead>
-                                        <th>WAKTU</th>
-                                        <th>TINDAKAN</th>
-                                        <th>Action</th>
-                                    </thead>
-                                    <tbody>
-                                        @foreach($tindakan as $ti => $t)
-                                        <tr>
-                                            <td class="wtt">{{$t->waktu_tindakan}} </td>
-                                            <td class="tindakan"> {{$t->tindakan_keperawatan}} </td>
-                                            <td class="idtindakan" hidden> {{$t->id}}</td>
-                                            <td> <a class=" btn btn-danger btn-sm returtinper" href="#">
-                                                    <i class="fas fa-sync-alt fa-spin"></i>
-                                                    RETUR
-                                                </a></td>
 
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
                             </td>
 
                         </tr>
@@ -3654,7 +3656,7 @@
         var keadaanumum = $('#keadaanumum:checked').val()
         var kesadaran = $('#kesadaran:checked').val()
         var skor_afgar_1 = $('#skor_afgar_1').val()
-        
+
         var frekuensinadi = $('#frekuensinadi').val()
         var frekuensinafas = $('#frekuensinafas').val()
         var suhutubuh = $('#suhutubuh').val()
@@ -3945,7 +3947,7 @@
         var diagnosa_triase_bidan = $('#diagnosa_triase_bidan').val()
         var rekomendasi = $('#rekomendasi').val()
 
-        
+
         var asal_rujukan = $('#asal_rujukan').val()
 
         var norm = $('#norm').val()
@@ -4087,7 +4089,7 @@
                         diagnosa_triase_bidan: $('#diagnosa_triase_bidan').val(),
                         rekomendasi: $('#rekomendasi').val(),
 
-                        
+
                         asal_rujukan: $('#asal_rujukan').val(),
 
                         norm: $('#norm').val(),
@@ -4307,7 +4309,7 @@
         })
         return false;
     });
-      $(".singkronisasittekebidananbayi").click(function() {
+    $(".singkronisasittekebidananbayi").click(function() {
         var data = $('.formerm').serializeArray();
 
         var norm = $('#norm').val()
@@ -4366,6 +4368,82 @@
                                 footer: ''
                             })
                             // cpptperawat()
+                        }
+                    }
+                });
+            }
+        })
+        return false;
+    });
+    $(".returtinper").click(function() {
+        var data = $('.formerm').serializeArray();
+        var $row = $(this).closest("tr");
+        var wtt = $row.find(".wtt").text();
+        var idtindakan = $row.find(".idtindakan").text();
+        var tindakan = $row.find(".tindakan").text();
+
+
+
+
+        // var sumberdata = $("#sumberdata:checked").val();
+        Swal.fire({
+            title: "Yakin Retur Tindakan?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Ya',
+            cancelButtonColor: '#d33',
+            cancelButtonText: "Batal"
+
+        }).then(result => {
+            //jika klik ya maka arahkan ke proses.php
+            if (result.isConfirmed) {
+                $.ajax({
+                    async: true,
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        data: JSON.stringify(data),
+                        norm: $('#norm').val(),
+                        kj: $('#kj').val(),
+                        wtt,
+                        tindakan,
+                        idtindakan
+
+
+
+                    },
+                    url: '<?= route('returtinper') ?>',
+
+                    error: function(data) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Sepertinya ada masalah ...',
+                            footer: ''
+                        })
+                    },
+                    success: function(data) {
+                        console.log(data)
+                        if (data.kode == 500) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: data.message,
+                                footer: ''
+                            })
+                        } else {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'OK',
+                                text: 'data berhasil diretur',
+                                footer: ''
+                            })
+                            // cpptperawat()
+
+
+
                         }
                     }
                 });

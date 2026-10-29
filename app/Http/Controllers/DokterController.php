@@ -131,18 +131,20 @@ class DokterController extends Controller
                         d.status,
                         db.status AS status_bayi,
                         e.status AS status_dokter,
-
+                        db.link_tte AS tte_bidan_bayi,
+                        IFNULL(el.link_tte, "") AS tte_bidan,
+			
                         IFNULL(e.nama_paramedis2, IFNULL(e.nama_paramedis, "")) AS nama_paramedis,
                         fc_nama_px(a.no_rm) AS nama_px,
                         a.tgl_masuk,
-                        fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,
                         a.kode_penjamin,
                         a.kode_kunjungan,
                         a.kelas,
                         a.kelas AS KELAS_UNIT,
                         a.counter,
-                        -- e.tgl_asses,
-                        -- e.tgl_selesai_asses,
+                        e.tgl_asses,
+                        e.tgl_selesai_asses,
+                        IFNULL (e.link_tte, "") AS tte_dokter,
                         b.jenis_kelamin
 
                     FROM ts_kunjungan a
@@ -186,21 +188,37 @@ class DokterController extends Controller
 
                     -- CPPT DOKTER
                     LEFT JOIN (
-                        SELECT e1.*
-                        FROM erm_cppt_dokter_kebidanan e1
-                        INNER JOIN (
-                            SELECT 
-                                kode_kunjungan, 
-                                MAX(id) AS max_id
-                            FROM erm_cppt_dokter_kebidanan
-                            WHERE STATUS NOT IN (2, 3)
-                            GROUP BY kode_kunjungan
-                        ) e2 
-                            ON e1.kode_kunjungan = e2.kode_kunjungan 
-                            AND e1.id = e2.max_id
-                    ) e 
-                        ON e.kode_kunjungan = a.kode_kunjungan
-
+                    SELECT e1.*
+                    FROM erm_cppt_dokter_kebidanan e1
+                    INNER JOIN (
+                        SELECT
+                            kode_kunjungan,
+                            MAX(id) AS max_id
+                        FROM erm_cppt_dokter_kebidanan
+                        WHERE STATUS NOT IN (2, 3)
+                        GROUP BY kode_kunjungan
+                    ) e2
+                        ON e1.kode_kunjungan = e2.kode_kunjungan
+                        AND e1.id = e2.max_id
+                ) e
+                    ON e.kode_kunjungan = a.kode_kunjungan
+                    
+                    -- CPPT KEBIDANAN LANJUTAN
+			LEFT JOIN (
+			    SELECT el1.*
+			    FROM erm_cppt_kebidanan_lanjutan el1
+			    INNER JOIN (
+				SELECT
+				    kode_kunjungan,
+				    MAX(id) AS max_id
+				FROM erm_cppt_kebidanan_lanjutan
+                WHERE status = 1
+				GROUP BY kode_kunjungan
+			    ) el2
+				ON el1.kode_kunjungan = el2.kode_kunjungan
+				AND el1.id = el2.max_id
+			) el
+			    ON el.kode_kunjungan = a.kode_kunjungan 
                     WHERE a.tgl_masuk >= ?
                     AND a.tgl_masuk < ?
                     AND a.kode_unit = "1023"
@@ -548,7 +566,6 @@ class DokterController extends Controller
                         IFNULL(e.nama_paramedis2, IFNULL(e.nama_paramedis, "")) AS nama_paramedis,
                         fc_nama_px(a.no_rm) AS nama_px,
                         a.tgl_masuk,
-                        fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,
                         a.kode_penjamin,
                         a.kode_kunjungan,
                         a.kelas,
@@ -600,20 +617,20 @@ class DokterController extends Controller
 
                     -- CPPT DOKTER
                     LEFT JOIN (
-                        SELECT e1.*
-                        FROM erm_cppt_dokter_kebidanan e1
-                        INNER JOIN (
-                            SELECT 
-                                kode_kunjungan, 
-                                MAX(id) AS max_id
-                            FROM erm_cppt_dokter
-                            WHERE STATUS NOT IN (2, 3)
-                            GROUP BY kode_kunjungan
-                        ) e2 
-                            ON e1.kode_kunjungan = e2.kode_kunjungan 
-                            AND e1.id = e2.max_id
-                    ) e 
-                        ON e.kode_kunjungan = a.kode_kunjungan
+                    SELECT e1.*
+                    FROM erm_cppt_dokter_kebidanan e1
+                    INNER JOIN (
+                        SELECT
+                            kode_kunjungan,
+                            MAX(id) AS max_id
+                        FROM erm_cppt_dokter_kebidanan
+                        WHERE STATUS NOT IN (2, 3)
+                        GROUP BY kode_kunjungan
+                    ) e2
+                        ON e1.kode_kunjungan = e2.kode_kunjungan
+                        AND e1.id = e2.max_id
+                ) e
+                    ON e.kode_kunjungan = a.kode_kunjungan
                     
                     -- CPPT KEBIDANAN LANJUTAN
 			LEFT JOIN (
@@ -735,8 +752,8 @@ class DokterController extends Controller
 
 
         $ttv = DB::select('SELECT tekanan_darah, keadaan_umum, kesadaran, frekuensi_nafas, frekuensi_nadi, suhu, berat_badan, umur, GCS, spo2 FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
-        $ttvb = DB::select('SELECT tekanan_darah, keadaan_umum, kesadaran, frekuensi_nafas, frekuensi_nadi, suhu, berat_badan, umur, GCS, SPO2 FROM erm_cppt_kebidanan WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
-        $ttvc = DB::select('SELECT tekanan_darah, frekuensi_nafas, frekuensi_nadi, suhu, berat_badan, umur, keadaan_umum, kesadaran, gcs, spo2 FROM erm_cppt_kebidanan_bayi WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
+        $ttvb = DB::select('SELECT tekanan_darah, keadaan_umum, kesadaran, frekuensi_nafas, frekuensi_nadi, suhu, berat_badan, umur, GCS, SPO2 FROM erm_cppt_kebidanan WHERE no_rm = ? AND kode_kunjungan = ? and status = 1', [$norm, $kj]);
+        $ttvc = DB::select('SELECT tekanan_darah, frekuensi_nafas, frekuensi_nadi, suhu, berat_badan, umur, keadaan_umum, kesadaran, gcs, spo2 FROM erm_cppt_kebidanan_bayi WHERE no_rm = ? AND kode_kunjungan = ? and status = 1', [$norm, $kj]);
 
         $cek = DB::select('SELECT
       fc_nama_unit1(kode_unit) AS nama_unit
@@ -898,7 +915,7 @@ class DokterController extends Controller
 
         $triase = DB::select('SELECT * FROM ts_triase
            WHERE no_rm = ? and status =1', [$norm]);
-           dd($triase);
+           //dd($triase);
         return view(
             'dokter.triaseanakk',
             [
@@ -1017,7 +1034,8 @@ class DokterController extends Controller
             AND b.kelas_tarif = 1');
         $diagnosa = DB::select('SELECT * FROM mt_jenis_diagnosa_medis');
         $alasanplg  = DB::select('SELECT * FROM mt_alasan_pulang');
-        $ttb = DB::select('SELECT tekanan_darah, frekuensi_nafas, keadaan_umum, kesadaran, frekuensi_nadi, suhu, berat_badan, GCS, SPO2, umur FROM erm_cppt_kebidanan WHERE kode_kunjungan = ?', [$kj]);
+        $ttb = DB::select('SELECT subyek, tekanan_darah, frekuensi_nafas, keadaan_umum, kesadaran, frekuensi_nadi, suhu, berat_badan, GCS, SPO2, umur FROM erm_cppt_kebidanan WHERE kode_kunjungan = ? and status = 1', [$kj]);
+        // dd($ttb);
         $assesdok = DB::select('SELECT * FROM erm_cppt_dokter_kebidanan WHERE  kode_kunjungan = ? AND status IN (1,2)', [$kj]);
         $dpjp = DB::select('SELECT 
         a.kode_paramedis,
@@ -1025,7 +1043,7 @@ class DokterController extends Controller
         FROM mt_paramedis a
         WHERE a.spesialis LIKE "%spesialis%"
         AND a.act = 1');
-        $riwayattindakandpjp = DB::select('SELECT fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,a.kode_paramedis,a.status_raber,a.tindakan_kedokteran FROM erm_tindakan_kedokteran a WHERE kode_kunjungan = ?', [$kj]);
+        $riwayattindakandpjp = DB::select('SELECT a.id, fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,a.kode_paramedis,a.status_raber,a.tindakan_kedokteran FROM erm_tindakan_kedokteran a WHERE kode_kunjungan = ? and status = 1', [$kj]);
         $kunjungan = DB::select('SELECT a.`tgl_masuk`FROM ts_kunjungan a WHERE a.kode_kunjungan = ?', [$kj]);
         $tgl_msk_skrining = Carbon::parse($kunjungan[0]->tgl_masuk)->subMinutes(10);
         return view(
@@ -1154,7 +1172,7 @@ class DokterController extends Controller
         AND b.kelas_tarif = 1');
         $diagnosa = DB::select('SELECT * FROM mt_jenis_diagnosa_medis');
         $alasanplg  = DB::select('SELECT * FROM mt_alasan_pulang');
-        $ttv = DB::select('SELECT tekanan_darah, frekuensi_nafas, keadaan_umum, kesadaran, frekuensi_nadi, suhu, GCS, SPO2, berat_badan, umuR FROM erm_cppt_kebidanan_bayi WHERE  kode_kunjungan = ?', [$kj]);
+        $ttv = DB::select('SELECT subyek, tekanan_darah, frekuensi_nafas, keadaan_umum, kesadaran, frekuensi_nadi, suhu, GCS, SPO2, berat_badan, umuR FROM erm_cppt_kebidanan_bayi WHERE  kode_kunjungan = ? and status = 1', [$kj]);
         $assesdok = DB::select('SELECT * FROM erm_cppt_dokter_kebidanan WHERE  kode_kunjungan = ? AND status IN (1,2)', [$kj]);
         $dpjp = DB::select('SELECT 
         a.kode_paramedis,
@@ -1162,8 +1180,9 @@ class DokterController extends Controller
         FROM mt_paramedis a
         WHERE a.spesialis LIKE "%spesialis%"
         AND a.act = 1');
-        $riwayattindakandpjp = DB::select('SELECT fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,a.kode_paramedis,a.status_raber,a.tindakan_kedokteran FROM erm_tindakan_kedokteran a WHERE kode_kunjungan = ?', [$kj]);
+        $riwayattindakandpjp = DB::select('SELECT a.id, fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,a.kode_paramedis,a.status_raber,a.tindakan_kedokteran FROM erm_tindakan_kedokteran a WHERE kode_kunjungan = ? and status = 1', [$kj]);
         $kunjungan = DB::select('SELECT a.`tgl_masuk`FROM ts_kunjungan a WHERE a.kode_kunjungan = ?', [$kj]);
+        
         $tgl_msk_skrining = Carbon::parse($kunjungan[0]->tgl_masuk)->subMinutes(10);
         return view(
             'dokter.formbayikdokigk',
@@ -1292,6 +1311,55 @@ class DokterController extends Controller
          AND a.status_order ="1"
          AND b.satus_order = "1"
          ', ['3002', $request->kj]);
+          $kritisrad = DB::select('SELECT 
+        fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,
+        a.id,
+        a.tgl_input,
+        a.kritis_radiologi,
+        a.pemeriksaan_rad
+     FROM erm_tindakan_kedokteran a
+     WHERE a.kode_kunjungan = ?
+       AND a.status_kritis_radiologi = 1
+
+       AND a.status = 1
+       AND a.kritis_radiologi IS NOT NULL', [$kj]);
+         $riwayatorderlabb = DB::select('SELECT
+        --  a.no_rm,
+         a.kode_layanan_header,
+         a.id,
+         b.total_tarif,
+         fc_nama_tindakan(LEFT(b.kode_tarif_detail,6)) as nama_tindakan
+         FROM
+         ts_layanan_header a
+         INNER JOIN ts_layanan_detail b ON b.row_id_header = a.id
+         WHERE a.kode_unit = ?
+         AND a.kode_kunjungan = ?
+         ', ['3002', $kj]);
+         if($riwayatorderlabb == NULL){
+            $kode_lab = '';}
+            else{
+         $kode_lab = $riwayatorderlabb[0]->kode_layanan_header;
+         if($kode_lab == NULL){
+            $kode_lab = '';
+         }
+            }
+        //  dd($kode_lab);
+         $kritislab =DB::connection('mysql5')->select('SELECT
+        --  a.no_rm,
+        a.`HisNoReg`,
+        b.`LisNama`,
+        b.`LisHasil`,
+        b.`LisSatuan`,
+        a.`DokterValidatorKode`,
+        a.`DokterPenanggungJawab`,
+        a.`Validasi1`,
+        a.`HisTanggalTerima`,
+        a.`LisTanggalKirim`
+         FROM
+         `listohisheader` a
+         INNER JOIN `listohisdetail` b ON b.`LisToHisHeaderID` = a.`RowId`
+         WHERE b.`LabFlagCritical` = "Y"
+         AND a.`HisNoReg` = ?',[$kode_lab]); 
         //  AND b.satus_order = "1"
         // $layananlab = DB::select("CALL SP_PANGGIL_TARIF_LAB('$kelas','')");
         // $layananlab = DB::select("CALL SP_PANGGIL_TARIF_LAB('1','')");
@@ -1409,7 +1477,10 @@ class DokterController extends Controller
                 'diagnosa' => $diagnosa,
                 'alasanpulang' => $alasanplg,
                 'ttv' => $ttv,
+                'kritislab' => $kritislab,
+                'kritisrad' => $kritisrad,
                 'assesdok' => $assesdok,
+
                 'kelas' => $kelas,
                 'kp' => $kp,
                 'ku' => $ku,
@@ -3155,7 +3226,7 @@ class DokterController extends Controller
                 'id_cppt_dokter' => $user,
                 'tgl_kunjungan' => $request->tglmasuk,
                 'tgl_input' => $now,
-                'kode_unit' => $unit,
+                'kode_unit' => '1023',
                 'kode_kunjungan' => $request->kj,
                 'no_rm' => $request->norm,
                 'sumber_data' => $request->sumberdata,
@@ -3638,7 +3709,7 @@ class DokterController extends Controller
                         'no_rm' => $norm,
                         'kode_kunjungan' => $kj,
                         'kode_unit' => '1023',
-                        'kode_paramedis' => $arrr['kode_dpjp'],
+                        'kode_paramedis' => $arrr['kode_dpjp[]'],
                         'tindakan_kedokteran' => $arrr['talaksanadpjp'],
                         'tgl_input' => $now,
                         'status' => 1
@@ -3772,7 +3843,8 @@ class DokterController extends Controller
                 'id_cppt_dokter' => $user,
                 'tgl_kunjungan' => $request->tglmasuk,
                 'tgl_input' => $now,
-                'kode_unit' => $unit,
+                                'kode_unit' => '1023',
+
                 'kode_kunjungan' => $request->kj,
                 'no_rm' => $request->norm,
                 'sumber_data' => $request->sumberdata,
@@ -4252,7 +4324,7 @@ class DokterController extends Controller
                     'no_rm' => $norm,
                     'kode_kunjungan' => $kj,
                     'kode_unit' => '1023',
-                    'kode_paramedis' => $arrr['kode_dpjp'],
+                    'kode_paramedis' => $arrr['kode_dpjp[]'],
                     'tindakan_kedokteran' => $arrr['talaksanadpjp'],
                     'tgl_input' => $now,
                     'status' => 1
@@ -5489,8 +5561,8 @@ class DokterController extends Controller
         } catch (\Exception $e) {
             $back = [
                 'kode' => 200,
-                // 'message' => $e->getMessage()
-                'message' => 'error ORder LAB'
+                'message' => $e->getMessage()
+                // 'message' => 'error ORder LAB'
             ];
             echo json_encode($back);
             die;
@@ -6218,7 +6290,8 @@ class DokterController extends Controller
                     'id_cppt_dokter' => $user,
                     'tgl_kunjungan' => $request->tglmasuk,
                     'tgl_input' => $now,
-                    'kode_unit' => $unit,
+                     'kode_unit' => '1023',
+
                     'kode_kunjungan' => $request->kj,
                     'no_rm' => $request->norm,
                     'sumber_data' => $request->sumberdata,
@@ -6688,7 +6761,7 @@ class DokterController extends Controller
                     'no_rm' => $norm,
                     'kode_kunjungan' => $kj,
                     'kode_unit' => '1023',
-                    'kode_paramedis' => $arrr['kode_dpjp'],
+                    'kode_paramedis' => $arrr['kode_dpjp[]'],
                     'tindakan_kedokteran' => $arrr['talaksanadpjp'],
                     'tgl_input' => $now,
                     'status' => 1
@@ -6825,7 +6898,8 @@ class DokterController extends Controller
                     'id_cppt_dokter' => $user,
                     'tgl_kunjungan' => $request->tglmasuk,
                     'tgl_input' => $now,
-                    'kode_unit' => $unit,
+                                    'kode_unit' => '1023',
+
                     'kode_kunjungan' => $request->kj,
                     'no_rm' => $request->norm,
                     'sumber_data' => $request->sumberdata,
@@ -7308,7 +7382,7 @@ class DokterController extends Controller
                     'no_rm' => $norm,
                     'kode_kunjungan' => $kj,
                     'kode_unit' => '1023',
-                    'kode_paramedis' => $arrr['kode_dpjp'],
+                    'kode_paramedis' => $arrr['kode_dpjp[]'],
                     'tindakan_kedokteran' => $arrr['talaksanadpjp'],
                     'tgl_input' => $now,
                     'status' => 1
@@ -8357,19 +8431,12 @@ class DokterController extends Controller
 
             $pdf::SetXY(8, $y + 1.5);
             $pdf::Cell(33, 5, "", 1);
-            $y = $pdf::GetY();
-
             $pdf::SetXY(41, $y + 1.5);
             $pdf::Cell(33, 5, "", 1);
-            $y = $pdf::GetY();
-
             $pdf::SetXY(74, $y + 1.5);
             $pdf::Cell(33, 5, "", 1);
-            $y = $pdf::GetY();
 
             $pdf::SetXY(107, $y + 1.5);
-            $pdf::Cell(33, 5, "", 1);
-
             $y = $pdf::GetY();
 
             $pdf::Cell(54, 5, "     Eating ", 1);
@@ -8401,8 +8468,6 @@ class DokterController extends Controller
             //pp eating
             $pdf::SetXY(176, $y);
             $pdf::Cell(15, 5, "", 1);
-            $y = $pdf::GetY();
-
             if ($tf[0]->pp_eating != NULL) {
                 $pdf::SetXY(177, $y + 1.5);
 
@@ -8415,8 +8480,6 @@ class DokterController extends Controller
             //tm eating
             $pdf::SetXY(191, $y);
             $pdf::Cell(15, 5, " ", 1);
-            $y = $pdf::GetY();
-
             if ($tf[0]->tm_eating != NULL) {
                 $pdf::SetXY(192, $y + 1.5);
 
@@ -8434,22 +8497,15 @@ class DokterController extends Controller
 
             $pdf::SetXY(8, $y + 1.5);
             $pdf::Cell(33, 5, "", 1);
-            $y = $pdf::GetY();
-
             $pdf::SetXY(41, $y + 1.5);
             $pdf::Cell(33, 5, "", 1);
-            $y = $pdf::GetY();
-
             $pdf::SetXY(74, $y + 1.5);
             $pdf::Cell(33, 5, "", 1);
-            $y = $pdf::GetY();
 
             $pdf::SetXY(107, $y + 1.5);
             $y = $pdf::GetY();
 
             $pdf::Cell(54, 5, "     Transfer ", 1);
-            $y = $pdf::GetY();
-
             if ($tf[0]->kf == 'Transfer') {
                 $pdf::SetXY(108, $y + 1);
 
@@ -8462,8 +8518,6 @@ class DokterController extends Controller
             //m transfer
             $pdf::SetXY(161, $y);
             $pdf::Cell(15, 5, "", 1);
-            $y = $pdf::GetY();
-
             if ($tf[0]->m_transfer != NULL) {
                 $pdf::SetXY(162, $y + 1);
 
@@ -8476,8 +8530,6 @@ class DokterController extends Controller
             //pp transfer
             $pdf::SetXY(176, $y);
             $pdf::Cell(15, 5, "", 1);
-            $y = $pdf::GetY();
-
             if ($tf[0]->pp_transfer != NULL) {
                 $pdf::SetXY(177, $y + 1);
 
@@ -8490,8 +8542,6 @@ class DokterController extends Controller
             //tm transfer
             $pdf::SetXY(191, $y);
             $pdf::Cell(15, 5, " ", 1);
-            $y = $pdf::GetY();
-
             if ($tf[0]->tm_transfer != NULL) {
                 $pdf::SetXY(192, $y + 1);
 
@@ -14823,6 +14873,17 @@ foreach ($hasilp as $k) {
      WHERE a.kode_kunjungan = ?
        AND a.status = 1
        AND a.tindakan_kedokteran IS NOT NULL', [$kj]);
+       $kritisrad = DB::select('SELECT 
+        fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,
+        a.id,
+        a.kritis_radiologi,
+        a.status_raber
+     FROM erm_tindakan_kedokteran a
+     WHERE a.kode_kunjungan = ?
+       AND a.status_kritis_radiologi = 1
+
+       AND a.status = 1
+       AND a.kritis_radiologi IS NOT NULL', [$kj]);
         $dpjp30p = DB::select('SELECT 
         fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,
         a.id,
@@ -14885,6 +14946,43 @@ foreach ($hasilp as $k) {
          WHERE a.kode_unit = ?
          AND a.kode_kunjungan = ?
          AND a.status_order ="1"', ['3002', $kj]);
+          $riwayatorderlabb = DB::select('SELECT
+        --  a.no_rm,
+         a.kode_layanan_header,
+         a.id,
+         b.total_tarif,
+         fc_nama_tindakan(LEFT(b.kode_tarif_detail,6)) as nama_tindakan
+         FROM
+         ts_layanan_header a
+         INNER JOIN ts_layanan_detail b ON b.row_id_header = a.id
+         WHERE a.kode_unit = ?
+         AND a.kode_kunjungan = ?
+         ', ['3002', $kj]);
+         if($riwayatorderlabb == NULL){
+            $kode_lab = '';}
+            else{
+         $kode_lab = $riwayatorderlabb[0]->kode_layanan_header;
+         if($kode_lab == NULL){
+            $kode_lab = '';
+         }
+            }
+        //  dd($kode_lab);
+         $kritislab =DB::connection('mysql5')->select('SELECT
+        --  a.no_rm,
+        a.`HisNoReg`,
+        b.`LisNama`,
+        b.`LisHasil`,
+        b.`LisSatuan`,
+        a.`DokterValidatorKode`,
+        a.`DokterPenanggungJawab`,
+        a.`Validasi1`,
+        a.`HisTanggalTerima`,
+        a.`LisTanggalKirim`
+         FROM
+         `listohisheader` a
+         INNER JOIN `listohisdetail` b ON b.`LisToHisHeaderID` = a.`RowId`
+         WHERE b.`LabFlagCritical` = "Y"
+         AND a.`HisNoReg` = ?',[$kode_lab]); 
         $riwayatobat = DB::select('SELECT
         a.kode_layanan_header,
         a.id,
@@ -15222,7 +15320,7 @@ foreach ($hasilp as $k) {
             $cel = iconv('UTF-8', 'ISO-8859-1//TRANSLIT', '°C');
 
             $text = "Tanda - tanda Vital\n";
-            $text .= "TD : " . $ttv[0]->tekanan_darah . " mmHg" . "   Nadi : " . $ttv[0]->frekuensi_nadi . " x/menit" . "   Frekuensi Pernafasan : " . $ttv[0]->frekuensi_nafas . " x/menit" . "   Suhu : " . $ttv[0]->suhu . $cel;
+            $text .= "TD : " . $ttv[0]->tekanan_darah . " mmHg" . "   Nadi : " . $ttv[0]->frekuensi_nadi . " x/menit" . "   Frekuensi Pernafasan : " . $ttv[0]->frekuensi_nafas . " x/menit" . "   Suhu : " . $ttv[0]->suhu . $cel. " SpO2 : ".  $ttv[0]->SPO2. " %";
 
 
 
@@ -16476,7 +16574,7 @@ foreach ($hasilp as $k) {
 
                 $pdf::SetXY(107, 136.5);
                 $pdf::MultiCell(30, 3, 'Trauma tungkai - deformitas laserasi parah, crush');
-                if ($triase[0]->gejala_respirasi10 == NULL) {
+                if ($triase[0]->gejala_respirasi14 == NULL) {
                     $pdf::SetXY(105, 136.5);
 
                     checkbox($pdf, False);
@@ -18262,8 +18360,43 @@ foreach ($hasilp as $k) {
 
                     checkbox($pdf, True);
                 }
+                  
                 $pdf::Rect(170, 212, 36, 25);
+
+                $pdf::Rect(8, 237, 30, 25);
+                $pdf::SetFont('Times', '', 9);
+                $pdf::SetXY(9, 237.5);
+                $pdf::MultiCell(30, 3, '');
+
+                $pdf::Rect(38, 237, 33, 25);
+                $pdf::SetFont('Times', '', 9);
+                $pdf::SetXY(39, 237.5);
+                $pdf::MultiCell(33, 3, $triase[0]->ats1lain);
+
+                $pdf::Rect(71, 237, 33, 25);
+                $pdf::SetFont('Times', '', 9);
+                $pdf::SetXY(9, 237.5);
+                $pdf::MultiCell(33, 3, $triase[0]->ats2lain);
+
+                 $pdf::Rect(104, 237, 33, 25);
+                $pdf::SetFont('Times', '', 9);
+                $pdf::SetXY(105, 237.5);
+                $pdf::MultiCell(33, 3, $triase[0]->ats3lain);
+
+                
+                 $pdf::Rect(137, 237, 33, 25);
+                $pdf::SetFont('Times', '', 9);
+                $pdf::SetXY(138, 237.5);
+                $pdf::MultiCell(25, 3, $triase[0]->ats4lain);
+                   
+                 $pdf::Rect(170, 237, 36, 25);
+                $pdf::SetFont('Times', '', 9);
+                $pdf::SetXY(170, 237.5);
+                $pdf::MultiCell(25, 3, $triase[0]->ats5lain);
             }
+            
+
+
         }
 
         // $pdf::SetFont('Arial', 'B', 30);
@@ -18365,7 +18498,7 @@ foreach ($hasilp as $k) {
         $pdf::SetXY(150, 31);
         $cel = iconv('UTF-8', 'ISO-8859-1//TRANSLIT', '°C');
 
-        $pdf::Cell(40, 10, 'Suhu : ' . $ttv[0]->suhu . $cel);
+        $pdf::Cell(40, 10, 'Suhu : ' . $ttv[0]->suhu . $cel. '      SPO2 : '. $ttv[0]->SPO2. ' %');
 
         if ($triase == null) {
         } else {
@@ -18624,7 +18757,7 @@ foreach ($hasilp as $k) {
             $pdf::setFillColor(255, 255, 255);
 
             $pdf::SetXY(8, 108);
-            $pdf::Multicell(198, 5, 'Keluhan Utama : ' . $assesdok[0]->keluhan_utama, 1, 0, 'L', true);
+            $pdf::Multicell(198, 5, 'Keluhan Utama : ' . $triase[0]->keluhan_utama, 1, 0, 'L', true);
 
             ///Diagnosa utama triase
             $pdf::SetX(8);
@@ -18808,7 +18941,7 @@ foreach ($hasilp as $k) {
 
             $pdf::SetFont('Times', '', 11);
             $pdf::SetXY(43, 38);
-            $pdf::Cell(43, 10, $assesdok[0]->sumber_data);
+            $pdf::Cell(43, 10, $triase[0]->sumber_informasi);
 
             $pdf::SetFont('Times', '', 11);
             $pdf::SetXY(10, 38);
@@ -18818,7 +18951,7 @@ foreach ($hasilp as $k) {
 
             $pdf::SetFont('Times', '', 11);
             $pdf::SetXY(43, 38);
-            $pdf::Cell(43, 10, $ttv[0]->sumber_data);
+            $pdf::Cell(43, 10, $triase[0]->sumber_informasi);
 
             $pdf::SetFont('Times', '', 11);
             $pdf::SetXY(10, 43);
@@ -19029,6 +19162,123 @@ foreach ($hasilp as $k) {
 
             $pdf::Rect(8, 10, 198, 260);
 
+            if($kritislab != NULL){
+             $pdf::SetFont('Times', '', 10);
+            
+            $pdf::Ln();
+            foreach ($kritislab as $l) {
+                $pdf::SetX(8);
+                $pdf::Cell(35, 5, $l->LisTanggalKirim);
+                $pdf::SetX(43);
+
+              
+
+                $pdf::MultiCell(
+                    155,
+                    5,
+                    $l->LisNama  .$l->LisHasil. $l->LisSatuan. ' Validator : ' . $l->Validasi1 ,
+                    0,
+                    'L'
+                );
+                $pdf::SetX(8);
+                $pdf::Cell(35, 5, $l->HisTanggalTerima);
+                $pdf::SetX(43);
+
+                  $pdf::MultiCell(
+                    155,
+                    5,
+                    'Dokter Penanggung Jawab : '. $l->DokterValidatorKode ,
+                    0,
+                    'L'
+                );
+            $pdf::Ln();
+               
+
+            }
+                        // CAP LABORATORIUM KRITIS
+            $pdf::SetDrawColor(255, 0, 0);
+            $pdf::SetTextColor(255, 0, 0);
+            $pdf::SetLineWidth(0.5);
+
+            // Atur posisi cap
+            $y = $pdf::GetY();
+            $x = $pdf::GetX();
+
+            $w = 25;
+            $h = 8;
+
+            // Border cap
+            $pdf::Rect($x + 160, $y -13, $w, $h);
+
+            // Tulisan cap
+            $pdf::SetFont('Arial', 'B', 12);
+            $pdf::SetXY($x+160, $y -13);
+            $pdf::Cell($w, 7, 'KRITIS Lab', 0, 0, 'C');
+
+            // Kembalikan warna teks ke hitam
+            $pdf::SetTextColor(0, 0, 0);
+            $pdf::SetDrawColor(0, 0, 0);
+            $pdf::SetLineWidth(0.2);
+            $pdf::Ln();
+            $pdf::Ln();
+            }else{
+
+            }
+            if($kritisrad != NULL){
+             $pdf::SetFont('Times', '', 10);
+            
+            $pdf::Ln();
+            foreach ($kritisrad as $r) {
+         
+                $pdf::SetX(43);
+
+              
+
+                $pdf::MultiCell(
+                    155,
+                    5,
+                    $r->nama_dpjp . ' : ' . $r->kritis_radiologi,
+
+                    0,
+                    'L'
+                );
+              
+            $pdf::Ln();
+               
+
+            }
+                        // CAP LABORATORIUM KRITIS
+            $pdf::SetDrawColor(255, 0, 0);
+            $pdf::SetTextColor(255, 0, 0);
+            $pdf::SetLineWidth(0.5);
+
+            // Atur posisi cap
+            $y = $pdf::GetY();
+            $x = $pdf::GetX();
+
+            $w = 25;
+            $h = 8;
+
+            // Border cap
+            $pdf::Rect($x + 160, $y -13, $w, $h);
+
+            // Tulisan cap
+            $pdf::SetFont('Arial', 'B', 12);
+            $pdf::SetXY($x+160, $y -13);
+            $pdf::Cell($w, 7, 'KRITIS RAD', 0, 0, 'C');
+
+            // Kembalikan warna teks ke hitam
+            $pdf::SetTextColor(0, 0, 0);
+            $pdf::SetDrawColor(0, 0, 0);
+            $pdf::SetLineWidth(0.2);
+            $pdf::Ln();
+            $pdf::Ln();
+            }else{
+
+            }
+         
+
+
             //tata laksana DPJP dan JP
             $pdf::SetX(8);
             $pdf::SetFont('Times', '', 10);
@@ -19207,7 +19457,9 @@ foreach ($hasilp as $k) {
             $pdf::SetXY(8, $y);
 
             $pdf::Cell(98, 5, 'Keputusan Ke ruang  ' . $pindahke . ' Jam ' . $jampindah . ' WIB ', 0, "L");
-            $pdf::SetXY(116, $y);
+            $y = $pdf::GetY();
+            
+            $pdf::SetXY(116, $y - 5);
 
             $pdf::Cell(98, 5, 'Dikirim Ke ruang perawatan jam ' . $assesdok[0]->kirim_ruang . ' WIB ', 0, "L");
             $y = $pdf::GetY();
@@ -19249,7 +19501,7 @@ foreach ($hasilp as $k) {
             $pdf::SetFont('Times', '', 10);
             $pdf::SetX(8);
 
-            $pdf::MultiCell(198, 5, 'Pasien Keluar dari Instalasi Gawat Darurat,  ' . 'Tanggal :   ' . $tglplg . '           Jam :   ' . $jamplg . ' WIB', 1, "L", true);
+            $pdf::MultiCell(198, 5, 'Pasien Keluar dari Instalasi Gawat Darurat,  ' . 'Tanggal :   ' . $tglpindah . '           Jam :   ' . $jampindah . ' WIB', 1, "L", true);
             //kotak TTD
 
             $pdf::SetFont('Times', 'B', 10);
@@ -25612,7 +25864,7 @@ Aktivitas dikurangi / bertambah ' . $lanjutan[0]->berkurangnyeri, 1);
             $pdf::SetXY(78, $y - 5);
             $pdf::Cell(43, 10, 'Menarik Diri / Isolasi Sosial');
         }
-        if ($assesper[0]->koping_mekanisme == 'Panik') {
+        if ($assesper[0]->koping_mekanisme == 'Perilaku Kekerasan') {
             $pdf::SetXY(125, $y - 1);
 
             checkbox($pdf, True);
@@ -25627,23 +25879,23 @@ Aktivitas dikurangi / bertambah ' . $lanjutan[0]->berkurangnyeri, 1);
             $pdf::SetFont('Times', '', 10);
 
             $pdf::SetXY(127, $y - 5);
-            $pdf::Cell(43, 10, 'Panik');
+            $pdf::Cell(43, 10, 'Perilaku Kekerasan');
         }
         if ($assesper[0]->koping_mekanisme == 'Tidak Ada') {
-            $pdf::SetXY(142, $y - 1);
+            $pdf::SetXY(160, $y - 1);
 
             checkbox($pdf, True);
             $pdf::SetFont('Times', '', 10);
 
-            $pdf::SetXY(144, $y - 5);
+            $pdf::SetXY(162, $y - 5);
             $pdf::Cell(100, 10, $assesper[0]->koping_mekanisme);
         } else {
-            $pdf::SetXY(142, $y - 1);
+            $pdf::SetXY(160, $y - 1);
 
             checkbox($pdf, False);
             $pdf::SetFont('Times', '', 10);
 
-            $pdf::SetXY(144, $y - 5);
+            $pdf::SetXY(162, $y - 5);
             $pdf::Cell(43, 10, 'Tidak Ada');
         }
 
@@ -26541,7 +26793,7 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
             $pdf::Rect(20, $y, 60, 10);
             $pdf::SetFont('Times', '', 10);
             $pdf::SetXY(21, $y);
-            $pdf::MultiCell(55, 5, 'b. Tidak yakin (tanyakan apakah naju / celana terasa longgar)');
+            $pdf::MultiCell(55, 5, 'b. Tidak yakin (tanyakan apakah baju / celana terasa longgar)');
             $pdf::Rect(80, $y, 12.5, 10);
             $pdf::SetFont('Times', '', 10);
             $pdf::SetXY(82, $y);
@@ -26551,29 +26803,32 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
             $pdf::SetXY(93.5, $y);
             $pdf::MultiCell(20, 5, '');
             $pdf::ln();
+            $y = $pdf::GetY();
+
 
             // bb sebulan
-            $pdf::Rect(110, $y - 15, 10, 35);
+            $pdf::Rect(110, $y - 25, 10, 35);
             $pdf::SetFont('Times', 'B', 10);
-            $pdf::SetXY(112, $y - 15);
+            $pdf::SetXY(112, $y - 25);
             $pdf::MultiCell(20, 5, '2');
 
-            $pdf::Rect(120, $y - 15, 60, 35);
+            $pdf::Rect(120, $y - 25, 60, 35);
             $pdf::SetFont('Times', '', 9);
-            $pdf::SetXY(121, $y - 15);
+            $pdf::SetXY(121, $y - 25);
             $pdf::MultiCell(55, 5, 'Apakah ada penurunan BB selama satu bulan terakhir (berdasarkan penilaian objektif data BB bila ada / penialaian subjektif dari orang tua pasien ATAU untuk bayi < 1 tahun : BB naik selama 3 bulan terakhir');
-            $pdf::Rect(180, $y - 15, 12.5, 35);
+            $pdf::Rect(180, $y - 25, 12.5, 35);
             $pdf::SetFont('Times', '', 10);
-            $pdf::SetXY(182, $y - 15);
+            $pdf::SetXY(182, $y - 25);
             $pdf::MultiCell(20, 5, $assesper[0]->bb_sebulan);
-            $pdf::Rect(192.5, $y - 15, 12.5, 35);
+            $pdf::Rect(192.5, $y - 25, 12.5, 35);
             $pdf::SetFont('Times', '', 10);
-            $pdf::SetXY(192, $y - 15);
+            $pdf::SetXY(192, $y - 25);
             if ($assesper[0]->bb_sebulan == '1') {
                 $pdf::MultiCell(20, 5, 'YA');
             } elseif ($assesper[0]->bb_sebulan == '0') {
                 $pdf::MultiCell(20, 5, 'TIDAK');
             }
+            
             $pdf::ln();
             $y = $pdf::GetY();
             $x = $pdf::GetX();
@@ -27668,7 +27923,7 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
             $pdf::Rect(20, $y, 60, 10);
             $pdf::SetFont('Times', '', 10);
             $pdf::SetXY(21, $y);
-            $pdf::MultiCell(55, 5, 'b. Tidak yakin (tanyakan apakah naju / celana terasa longgar)');
+            $pdf::MultiCell(55, 5, 'b. Tidak yakin (tanyakan apakah baju  / celana terasa longgar)');
             $pdf::Rect(80, $y, 12.5, 10);
             $pdf::SetFont('Times', '', 10);
             $pdf::SetXY(82, $y);
@@ -27677,77 +27932,78 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
             $pdf::SetFont('Times', '', 10);
             $pdf::SetXY(93.5, $y);
             $pdf::MultiCell(20, 5, '');
-            $pdf::ln();
+            // $pdf::ln();
+            $y = $pdf::GetY();
+            $x = $pdf::GetX();
 
             // bb sebulan
-            $pdf::Rect(110, $y - 15, 10, 35);
+            $pdf::Rect(110, $y - 20, 10, 35);
             $pdf::SetFont('Times', 'B', 10);
-            $pdf::SetXY(112, $y - 15);
+            $pdf::SetXY(112, $y - 20);
             $pdf::MultiCell(20, 5, '2');
 
-            $pdf::Rect(120, $y - 15, 60, 35);
+            $pdf::Rect(120, $y - 20, 60, 35);
             $pdf::SetFont('Times', '', 9);
-            $pdf::SetXY(121, $y - 15);
+            $pdf::SetXY(121, $y - 20);
             $pdf::MultiCell(55, 5, 'Apakah ada penurunan BB selama satu bulan terakhir (berdasarkan penilaian objektif data BB bila ada / penialaian subjektif dari orang tua pasien ATAU untuk bayi < 1 tahun : BB naik selama 3 bulan terakhir');
-            $pdf::Rect(180, $y - 15, 12.5, 35);
+            $pdf::Rect(180, $y - 20, 12.5, 35);
+            
             $pdf::SetFont('Times', '', 10);
-            $pdf::SetXY(182, $y - 15);
+            $pdf::SetXY(182, $y - 20);
             $pdf::MultiCell(20, 5, $assesper[0]->bb_sebulan);
-            $pdf::Rect(192.5, $y - 15, 12.5, 35);
+            $pdf::Rect(192.5, $y - 20, 12.5, 35);
             $pdf::SetFont('Times', '', 10);
-            $pdf::SetXY(192, $y - 15);
+            $pdf::SetXY(192, $y - 20);
             if ($assesper[0]->bb_sebulan == '1') {
                 $pdf::MultiCell(20, 5, 'YA');
             } elseif ($assesper[0]->bb_sebulan == '0') {
                 $pdf::MultiCell(20, 5, 'TIDAK');
             }
             $pdf::ln();
-            $y = $pdf::GetY();
-            $x = $pdf::GetX();
+            // $y = $pdf::GetY();
+            // $x = $pdf::GetX();
 
-            $pdf::Rect(20, $y + 15, 60, 10);
+            $pdf::Rect(20, $y + 5, 60, 10);
             $pdf::SetFont('Times', '', 10);
-            $pdf::SetXY(21, $y + 15);
+            $pdf::SetXY(21, $y + 5);
             $pdf::MultiCell(55, 5, 'c. ya, berapakah penurunan berat badan tersebut?');
-            $pdf::Rect(80, $y + 15, 12.5, 10);
+            
+            $pdf::Rect(80, $y + 5, 12.5, 10);
+          
             $pdf::SetFont('Times', '', 10);
-            $pdf::SetXY(82, $y + 15);
+            $pdf::SetXY(82, $y + 5);
             $pdf::MultiCell(20, 5, '');
-            $pdf::Rect(92.5, $y + 15, 12.5, 10);
+            $pdf::Rect(92.5, $y + 5, 12.5, 10);
             $pdf::SetFont('Times', '', 10);
-            $pdf::SetXY(93.5, $y + 15);
+            $pdf::SetXY(93.5, $y + 5);
             $pdf::MultiCell(20, 5, '');
             $pdf::ln();
+            
 
             // terdapat salah satu kondisi
-            $pdf::Rect(110, $y + 25, 10, 30);
+            $pdf::Rect(110, $y + 15, 10, 30);
             $pdf::SetFont('Times', 'B', 10);
-            $pdf::SetXY(112, $y + 25);
+            $pdf::SetXY(112, $y + 15);
             $pdf::MultiCell(20, 5, '3');
-            $pdf::Rect(120, $y + 25, 60, 30);
+            $pdf::Rect(120, $y + 15, 60, 30);
             $pdf::SetFont('Times', '', 9);
-            $pdf::SetXY(121, $y + 25);
+            $pdf::SetXY(121, $y + 15);
             $pdf::MultiCell(55, 5, 'Apakah Terdapat salah dari kondisi berikut ?');
-            $pdf::SetXY(123, $y + 35);
+            $pdf::SetXY(123, $y + 25);
             $pdf::MultiCell(55, 5, '- Diari > kali/hari dan atau muntah > 3 kali/hari dalam seminggu terakhir');
-            $pdf::SetXY(123, $y + 45);
+            $pdf::SetXY(123, $y + 35);
             $pdf::MultiCell(55, 5, '- Asupan makanan berkurang selama 1 minggu terakhir');
 
-            $pdf::Rect(180, $y + 25, 12.5, 30);
+            $pdf::Rect(180, $y + 15, 12.5, 30);
             $pdf::SetFont('Times', '', 10);
-            $pdf::SetXY(182, $y + 25);
+            $pdf::SetXY(182, $y + 15);
             $pdf::MultiCell(20, 5, $assesper[0]->kondisi);
-            $pdf::Rect(192.5, $y + 25, 12.5, 30);
+            $pdf::Rect(192.5, $y + 15, 12.5, 30);
             $pdf::SetFont('Times', '', 10);
-            $pdf::SetXY(192, $y + 25);
+            $pdf::SetXY(192, $y + 15);
             if ($assesper[0]->kondisi == '1') {
                 $pdf::MultiCell(20, 5, 'YA');
-            } elseif ($assesper[0]->kondisi == '0') {
-                $pdf::MultiCell(20, 5, 'TIDAK');
-            }
-
-
-            $pdf::ln();
+                 $pdf::ln();
             $y = $pdf::GetY();
             $x = $pdf::GetX();
 
@@ -27763,7 +28019,8 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
             $pdf::SetFont('Times', '', 10);
             $pdf::SetXY(93.5, $y - 10);
             $pdf::MultiCell(20, 5, '');
-            $pdf::ln();
+             $pdf::ln();
+            
             // terdapat salah satu kondisi
             $pdf::Rect(110, $y + 20, 10, 15);
             $pdf::SetFont('Times', 'B', 10);
@@ -27787,6 +28044,101 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
             } elseif ($assesper[0]->kondisi == '0') {
                 $pdf::Cell(20, 5, 'TIDAK');
             }
+            
+            
+                
+            } elseif ($assesper[0]->kondisi == '0') {
+                $pdf::MultiCell(20, 5, 'TIDAK');
+                 $pdf::ln();
+            $y = $pdf::GetY();
+            $x = $pdf::GetX();
+
+            $pdf::Rect(20, $y - 10, 60, 5);
+            $pdf::SetFont('Times', '', 8);
+            $pdf::SetXY(21, $y - 10);
+            $pdf::MultiCell(55, 5, 'O 1 - 5 Kg');
+            $pdf::Rect(80, $y - 10, 12.5, 5);
+            $pdf::SetFont('Times', '', 10);
+            $pdf::SetXY(82, $y - 10);
+            $pdf::MultiCell(20, 5, '1');
+            $pdf::Rect(92.5, $y - 10, 12.5, 5);
+            $pdf::SetFont('Times', '', 10);
+            $pdf::SetXY(93.5, $y - 10);
+            $pdf::MultiCell(20, 5, '');
+             $pdf::ln();
+            
+            // terdapat salah satu kondisi
+            $pdf::Rect(110, $y + 25, 10, 15);
+            $pdf::SetFont('Times', 'B', 10);
+            $pdf::SetXY(112, $y + 25);
+            $pdf::MultiCell(20, 5, '4');
+            $pdf::Rect(120, $y + 25, 60, 15);
+            $pdf::SetFont('Times', '', 9);
+            $pdf::SetXY(121, $y + 25);
+            $pdf::MultiCell(55, 5, 'Apakah terdapat penyakit atau keadaan yang mengakibatkan pasien berisiko mengalami malnutrisi ?');
+
+
+            $pdf::Rect(180, $y + 25, 12.5, 15);
+            $pdf::SetFont('Times', '', 10);
+            $pdf::SetXY(182, $y + 25);
+            $pdf::MultiCell(20, 5, $assesper[0]->kondisi);
+            $pdf::Rect(192.5, $y + 25, 12.5, 15);
+            $pdf::SetFont('Times', '', 10);
+            $pdf::SetXY(192, $y + 25);
+            if ($assesper[0]->kondisi == '2') {
+                $pdf::Cell(20, 5, 'YA');
+            } elseif ($assesper[0]->kondisi == '0') {
+                $pdf::Cell(20, 5, 'TIDAK');
+            }
+            
+            }else{
+
+            $pdf::ln();
+            $y = $pdf::GetY();
+            $x = $pdf::GetX();
+
+            $pdf::Rect(20, $y - 5, 60, 5);
+            $pdf::SetFont('Times', '', 8);
+            $pdf::SetXY(21, $y - 5);
+            $pdf::MultiCell(55, 5, 'O 1 - 5 Kg');
+            $pdf::Rect(80, $y - 5, 12.5, 5);
+            $pdf::SetFont('Times', '', 10);
+            $pdf::SetXY(82, $y - 5);
+            $pdf::MultiCell(20, 5, '1');
+            $pdf::Rect(92.5, $y - 5, 12.5, 5);
+            $pdf::SetFont('Times', '', 10);
+            $pdf::SetXY(93.5, $y - 5);
+            $pdf::MultiCell(20, 5, '');
+            $pdf::ln();
+            
+            // terdapat salah satu kondisi
+            $pdf::Rect(110, $y + 25, 10, 15);
+            $pdf::SetFont('Times', 'B', 10);
+            $pdf::SetXY(112, $y + 25);
+            $pdf::MultiCell(20, 5, '4');
+            $pdf::Rect(120, $y + 25, 60, 15);
+            $pdf::SetFont('Times', '', 9);
+            $pdf::SetXY(121, $y + 25);
+            $pdf::MultiCell(55, 5, 'Apakah terdapat penyakit atau keadaan yang mengakibatkan pasien berisiko mengalami malnutrisi ?');
+
+
+            $pdf::Rect(180, $y + 25, 12.5, 15);
+            $pdf::SetFont('Times', '', 10);
+            $pdf::SetXY(182, $y + 25);
+            $pdf::MultiCell(20, 5, $assesper[0]->kondisi);
+            $pdf::Rect(192.5, $y + 25, 12.5, 15);
+            $pdf::SetFont('Times', '', 10);
+            $pdf::SetXY(192, $y + 25);
+            if ($assesper[0]->kondisi == '2') {
+                $pdf::Cell(20, 5, 'YA');
+            } elseif ($assesper[0]->kondisi == '0') {
+                $pdf::Cell(20, 5, 'TIDAK');
+            }
+
+            }
+
+
+          
             $pdf::ln();
             $y = $pdf::GetY();
             $x = $pdf::GetX();
@@ -27883,7 +28235,7 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
             $pdf::Rect(20, $y - 5, 60, 10);
             $pdf::SetFont('Times', '', 8);
             $pdf::SetXY(21, $y - 5);
-            $pdf::MultiCell(55, 3, 'Apakah asuhan makanan pasien buruk akibat nafsu makan yang menurun **? (misalnya asupan makan hanya % dari biasanya)');
+            $pdf::MultiCell(55, 3, 'Apakah asuhan makanan pasien buruk akibat  nafsu makan yang menurun **? (misalnya asupan makan hanya % dari biasanya)');
 
             $pdf::Rect(80, $y - 5, 12.5, 10);
             $pdf::SetFont('Times', '', 10);
@@ -28643,6 +28995,7 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
         $pdf::SetXY(8, $y);
 
         $pdf::Cell(66, 5, 'Tanggal dan Jam selesai Asssesmen', 1, 0, 'C');
+        $pdf::SetXY(74, $y);
 
         $pdf::Cell(66, 5, 'Nama Perawat', 1, 0, 'C');
 
@@ -28651,8 +29004,12 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
         $y = $pdf::GetY();
         $pdf::SetXY(8, $y);
         $pdf::Cell(66, 20, $assesper[0]->tgl_plg, 1, 0, 'C');
+        $y = $pdf::GetY();
+
         $pdf::SetXY(74, $y);
         $pdf::Cell(66, 20, $assesper[0]->nama_perawat . $assesper[0]->nama_perawat1, 1, 0, 'C');
+        $y = $pdf::GetY();
+
         $pdf::SetXY(140, $y);
         $y = $pdf::GetY();
         $x = $pdf::GetX();
@@ -29359,6 +29716,21 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
          WHERE a.kode_unit = ?
          AND a.kode_kunjungan = ?
          ', ['3002', $kj]);
+         $krisitislab =DB::connection('mysql5')->select('SELECT
+        --  a.no_rm,
+        a.`HisNoReg`,
+        b.`LisNama`,
+        b.`LisHasil`,
+        b.`LisSatuan`,
+        a.`DokterValidatorKode`,
+        a.`DokterPenanggungJawab`
+        
+         FROM
+         `listohisheader` a
+         INNER JOIN `listohisdetail` b ON b.`LisToHisHeaderID` = a.`RowId`
+         WHERE b.`LabFlagCritical` = "Y"
+         AND a.`HisNoReg` = "LAB261027000450"'); 
+        //  dd($krisitislab);
         // dd($riwayatorderlab);
 
         $riwayatobat = DB::select('SELECT
@@ -31953,7 +32325,7 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
 
                 $pdf::SetXY(107, 136.5);
                 $pdf::MultiCell(30, 3, 'Trauma tungkai - deformitas laserasi parah, crush');
-                if ($triase[0]->gejala_respirasi10 == NULL) {
+                if ($triase[0]->gejala_respirasi14 == NULL) {
                     $pdf::SetXY(105, 136.5);
 
                     checkbox($pdf, False);
@@ -43591,7 +43963,7 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
 
             $pdf::SetXY(107, 136.5);
             $pdf::MultiCell(30, 3, 'Trauma tungkai - deformitas laserasi parah, crush');
-            if ($triase[0]->gejala_respirasi10 == NULL) {
+            if ($triase[0]->gejala_respirasi14 == NULL) {
                 $pdf::SetXY(105, 136.5);
 
                 checkbox($pdf, False);
@@ -49133,6 +49505,15 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
         FROM mt_pasien  a
         WHERE no_rm = ?', [$norm]);
         $tgllahir = Carbon::parse($pasien[0]->tgl_lahir)->format('d-m-y');
+         $dpjp = DB::select('SELECT 
+        fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,
+        a.id,
+        a.tindakan_kedokteran,
+        a.status_raber
+     FROM erm_tindakan_kedokteran a
+     WHERE a.kode_kunjungan = ?
+       AND a.status = 1
+       AND a.tindakan_kedokteran IS NOT NULL', [$kj]);
 
         $ttb = DB::select('SELECT tekanan_darah, frekuensi_nafas, keadaan_umum, kesadaran, frekuensi_nadi, suhu, berat_badan, GCS, SPO2, umur FROM erm_cppt_kebidanan WHERE kode_kunjungan = ? AND status = 1', [$kj]);
 
@@ -49147,11 +49528,51 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
             ON b.kode_kunjungan = a.kode_kunjungan
         WHERE a.no_rm = ?
         AND a.kode_kunjungan = ?', [$norm, $kj]);
+        $riwayatorderlabb = DB::select('SELECT
+        --  a.no_rm,
+         a.kode_layanan_header,
+         a.id,
+         b.total_tarif,
+         fc_nama_tindakan(LEFT(b.kode_tarif_detail,6)) as nama_tindakan
+         FROM
+         ts_layanan_header a
+         INNER JOIN ts_layanan_detail b ON b.row_id_header = a.id
+         WHERE a.kode_unit = ?
+         AND a.kode_kunjungan = ?
+         ', ['3002', $kj]);
+         if($riwayatorderlabb == NULL){
+            $kode_lab = '';}
+            else{
+         $kode_lab = $riwayatorderlabb[0]->kode_layanan_header;
+         if($kode_lab == NULL){
+            $kode_lab = '';
+         }
+            }
+        //  dd($kode_lab);
+         $kritislab =DB::connection('mysql5')->select('SELECT
+        --  a.no_rm,
+        a.`HisNoReg`,
+        b.`LisNama`,
+        b.`LisHasil`,
+        b.`LisSatuan`,
+        a.`DokterValidatorKode`,
+        a.`DokterPenanggungJawab`,
+        a.`Validasi1`,
+        a.`HisTanggalTerima`,
+        a.`LisTanggalKirim`
+         FROM
+         `listohisheader` a
+         INNER JOIN `listohisdetail` b ON b.`LisToHisHeaderID` = a.`RowId`
+         WHERE b.`LabFlagCritical` = "Y"
+         AND a.`HisNoReg` = ?',[$kode_lab]); 
         $tindakan = DB::select('SELECT * FROM erm_tindakan_kedokteran WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
         $tindakanp = DB::select('SELECT * FROM erm_tindakan_keperawatan WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
 
 
         $assesdok = DB::select('SELECT * FROM erm_cppt_dokter_kebidanan WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
+        
+        if ($assesdok != NULL) {
+        
         if ($assesdok[0]->tgl_asses != NULL) {
             $tglass = Carbon::parse($assesdok[0]->tgl_asses)->format('d-M-Y');
             $jamass = Carbon::parse($assesdok[0]->tgl_asses)->format('H:i:s');
@@ -49179,6 +49600,16 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
             $jamkunjungan = Carbon::parse($assesdok[0]->tgl_kunjungan)->format('H:i:s');
         } else {
             $tglkunjungan = '';
+            $jamkunjungan = '';
+        }
+        }else{
+              $tglass = '';
+            $jamass = '';
+             $tglasssls = '';
+            $jamasssls = '';
+            $tglplg = '';
+            $jamplg = '';
+                     $tglkunjungan = '';
             $jamkunjungan = '';
         }
         // dd($assesdok);
@@ -49535,6 +49966,70 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
 
             $pdf::SetX(8);
             $pdf::MultiCell(198, 5, $assesdok[0]->diagnosis, 0);
+              if($kritislab != NULL){
+             $pdf::SetFont('Times', '', 10);
+            $pdf::SetX(8);
+            $pdf::Cell(35, 5, 'Pelaporan Nilai Kritis Laboratorium');
+            $pdf::Ln();
+            foreach ($kritislab as $l) {
+                $pdf::SetX(8);
+                $pdf::Cell(35, 5, $l->LisTanggalKirim);
+                $pdf::SetX(43);
+
+              
+
+                $pdf::MultiCell(
+                    155,
+                    5,
+                    $l->LisNama  .$l->LisHasil. $l->LisSatuan. ' Validator : ' . $l->Validasi1 ,
+                    0,
+                    'L'
+                );
+                $pdf::SetX(8);
+                $pdf::Cell(35, 5, $l->HisTanggalTerima);
+                $pdf::SetX(43);
+
+                  $pdf::MultiCell(
+                    155,
+                    5,
+                    'Dokter Penanggung Jawab : '. $l->DokterValidatorKode ,
+                    0,
+                    'L'
+                );
+            $pdf::Ln();
+               
+
+            }
+                        // CAP LABORATORIUM KRITIS
+            $pdf::SetDrawColor(255, 0, 0);
+            $pdf::SetTextColor(255, 0, 0);
+            $pdf::SetLineWidth(0.5);
+
+            // Atur posisi cap
+            $y = $pdf::GetY();
+            $x = $pdf::GetX();
+
+            $w = 25;
+            $h = 8;
+
+            // Border cap
+            $pdf::Rect($x + 160, $y -13, $w, $h);
+
+            // Tulisan cap
+            $pdf::SetFont('Arial', 'B', 12);
+            $pdf::SetXY($x+160, $y -13);
+            $pdf::Cell($w, 7, 'KRITIS Lab', 0, 0, 'C');
+
+            // Kembalikan warna teks ke hitam
+            $pdf::SetTextColor(0, 0, 0);
+            $pdf::SetDrawColor(0, 0, 0);
+            $pdf::SetLineWidth(0.2);
+            $pdf::Ln();
+            $pdf::Ln();
+            }else{
+
+            }
+         
 
             $pdf::SetFont('Times', 'B', 10);
 
@@ -49546,6 +50041,26 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
 
             $pdf::SetX(8);
             $pdf::MultiCell(198, 5, $assesdok[0]->planning, 0);
+              $pdf::SetFont('Times', '', 10);
+            $pdf::SetX(8);
+            $pdf::Cell(35, 5, 'Tata Laksana DPJP :');
+            // $pdf::Ln();
+            foreach ($dpjp as $d) {
+                $pdf::SetX(43);
+
+                $penanda = ($d->status_raber == 1)
+                    ? ' (Dokter Raber)'
+                    : ' (Dokter DPJP)';
+
+                $pdf::MultiCell(
+                    155,
+                    5,
+                    $d->nama_dpjp . $penanda . ' : ' . $d->tindakan_kedokteran,
+                    0,
+                    'L'
+                );
+            }
+
 
             $pdf::ln();
             $pdf::SetFont('Times', 'B', 10);

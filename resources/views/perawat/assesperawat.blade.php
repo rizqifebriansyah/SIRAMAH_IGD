@@ -352,35 +352,26 @@
     });
 </script>
 <script>
-    $(document).ready(function() {
-        let idleTimer;
-        const idleLimit = 300000; // 5 menit // 10 detik
+   $(document).ready(function() {
+    let idleTimer;
+    const idleLimit = 300000; // 5 menit
 
-        function resetIdleTimer() {
-            clearTimeout(idleTimer);
+    function resetIdleTimer() {
+        clearTimeout(idleTimer);
 
-            idleTimer = setTimeout(function() {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Sesi Berakhir',
-                    text: 'Anda tidak aktif selama 5 Menit. Anda akan logout.',
-                    allowOutsideClick: false,
-                    allowEscapeKey: false,
-                    confirmButtonText: 'OK'
-                }).then(function() {
-                    window.location.href = "{{ route('logout') }}";
-                });
-            }, idleLimit);
+        idleTimer = setTimeout(function() {
+            window.location.href = "{{ route('logout') }}";
+        }, idleLimit);
+    }
+
+    $(document).on(
+        'mousemove keydown mousedown click scroll touchstart',
+        function() {
+            resetIdleTimer();
         }
+    );
 
-        $(document).on(
-            'mousemove keydown mousedown click scroll touchstart',
-            function() {
-                resetIdleTimer();
-            }
-        );
-
-        resetIdleTimer();
-    });
+    resetIdleTimer();
+});
 </script>
 @endsection

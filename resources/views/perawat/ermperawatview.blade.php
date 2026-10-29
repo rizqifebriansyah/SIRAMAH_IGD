@@ -248,6 +248,14 @@
                                     <i class="fas fa-filter mr-2"></i>Upload Dokumen
                                 </a>
                             </li>
+                            @if ($unit == '1023')
+                            <li class="nav-item" id="pemeriksaan">
+                                <a href="#" class="nav-link orderlabkebidanan">
+                                    <i class="fas fa-filter mr-2"></i>ORDER LAB (PROGRESS)
+                                </a>
+                            </li>
+                            @else
+                            @endif
                             <li class="nav-item" id="pemeriksaan">
                                 <a href="#" class="nav-link resumecpptdokter">
                                     <i class="fas fa-filter mr-2"></i>Resume
@@ -765,6 +773,33 @@
         }
     });
 
+$(".orderlabkebidanan").click(function() {
+        spinner = $('#loader2');
+        spinner.show();
+        kj = $('#kj').val()
+        norm = $('#norm').val()
+
+
+        $.ajax({
+            type: "post",
+            data: {
+                _token: "{{ csrf_token() }}",
+                norm,
+                kj
+
+            },
+            url: '<?= route('orderlabkebidanan') ?>',
+            error: function(data) {
+                spinner.hide();
+                alert('oke!!')
+            },
+            success: function(response) {
+                spinner.hide();
+                $('.formermperawat').html(response);
+
+            }
+        });
+    });
     $(".pemantauan").click(function() {
         spinner = $('#loader2');
         spinner.show();

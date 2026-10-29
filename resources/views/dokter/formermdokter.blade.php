@@ -3173,6 +3173,7 @@
                 </button>
                 <input hidden type="text" class="form-control" id="jenistriase" name="jenistriase" value="dewasa">
 
+
             </h2>
         </div>
 
@@ -7469,9 +7470,12 @@
             <div class="card-body bg-light">
                 <table class="table">
                     <tbody>
+
                         <tr>
                             <td colspan="2">
                                 <h5 class="text-bold"></h5> TATA LAKSANA GP
+
+
                                 <div class="input-group">
                                     <textarea class="form-control" id="talaksana" name="talaksana" placeholder="">{{$assesdok[0]->tata_laksana}}</textarea>
 
@@ -8940,6 +8944,7 @@
                 </button>
                 <input hidden type="text" class="form-control" id="jenistriase" name="jenistriase" value="dewasa">
 
+
             </h2>
         </div>
 
@@ -9958,16 +9963,14 @@
                                 <input type="checkbox" class="form-check-input" checked id="sirkulasi26" name="sirkulasi26" value="Dehidrasi">
                                 <label class="form-check-label" for="exampleCheck1">Dehidrasi</label>
                                 </label>
-                            </div>
+                                @else
+                                <div class="form-group form-check">
+                                    <input type="checkbox" class="form-check-input" id="sirkulasi26" name="sirkulasi26" value="Dehidrasi">
+                                    <label class="form-check-label" for="exampleCheck1">Dehidrasi</label>
+                                    </label>
+                                    @endif
 
-                            @else
-                            <div class="form-group form-check">
-                                <input type="checkbox" class="form-check-input" id="sirkulasi26" name="sirkulasi26" value="Dehidrasi">
-                                <label class="form-check-label" for="exampleCheck1">Dehidrasi</label>
-                                </label>
-                            </div>
-
-                            @endif
+                                </div>
                         </td>
                         <td>
                             <div class="form-group form-check">
@@ -10654,7 +10657,7 @@
             </table>
         </div>
 
-        @else
+        @elseif ($triase[0]->jenis_triase == 'anak')
         <div class="accordion  mt-3 mb-2" id="accordionExample">
 
             <div class="card-header bg-secondary" id="headingOne">
@@ -12761,6 +12764,10 @@
             </div>
 
         </div>
+        @else
+        <h1> belum ada triase</h1>
+
+
         @endif
         @endif
     </div>
@@ -13232,8 +13239,102 @@
 
         <div id="collapseOne95" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample95">
             <div class="card-body bg-light">
+                @if ($kritisrad == NULL)
+
+                @else
+                <table id="tablekrad" class="table tablekrad table-bordered">
+                    <thead>
+                        <th>tgl</th>
+
+                        <th>Nama Tindakan</th>
+                        <th>Nama Dokter</th>
+                        <th>Hasil</th>
+                        <th> Validasi</th>
+                    </thead>
+                    <tbody>
+                        @foreach ($kritisrad as $krad => $krd)
+                        <tr>
+
+                            <td>{{ $krd->tgl_input }}</td>
+                            <td>{{ $krd->pemeriksaan_rad }}</td>
+
+                            <td>{{ $krd->nama_dpjp }}</td>
+                            <td>
+                                {{ $krd->kritis_radiologi }}
+                            </td>
+                            <td>
+                                                        <div style="
+                                display: inline-block;
+                                border: 2px solid #dc3545;
+                                color: #dc3545;
+                                padding: 6px 12px;
+                                font-weight: bold;
+                                font-size: 12px;
+                                text-align: center;
+                                border-radius: 4px;
+                                background-color: #fff5f5;
+                                letter-spacing: 1px;
+                                line-height: 1.4;
+                            ">
+                                    KRITIS RAD
+                                </div>
+                            </td>
+                        </tr>
+                        @endforeach
+
+                    </tbody>
+                </table>
+                @endif
+
+                  @if ($kritislab == NULL)
+
+                @else
+                <table id="tablekrad" class="table tablekrad table-bordered">
+                    <thead>
+                        <th>tgl</th>
+
+                        <th>Nama Tindakan</th>
+                        <th>Nama Dokter</th>
+                        <th>Hasil</th>
+                        <th> Validasi</th>
+                    </thead>
+                    <tbody>
+                        @foreach ($kritislab as $klad => $krl)
+                        <tr>
+
+                            <td>{{ $krl->LisTanggalKirim }}</td>
+                            <td>{{ $krl->LisNama }}</td>
+
+                            <td>{{ $krl->DokterValidatorKode }}</td>
+                            <td>
+                                {{ $krl->LisHasil }}{{ $krl->LisSatuan }}
+                            </td>
+                            <td>
+                                                        <div style="
+                                display: inline-block;
+                                border: 2px solid #dc3545;
+                                color: #dc3545;
+                                padding: 6px 12px;
+                                font-weight: bold;
+                                font-size: 12px;
+                                text-align: center;
+                                border-radius: 4px;
+                                background-color: #fff5f5;
+                                letter-spacing: 1px;
+                                line-height: 1.4;
+                            ">
+                                    KRITIS LAB
+                                </div>
+                            </td>
+                        </tr>
+                        @endforeach
+
+                    </tbody>
+                </table>
+                @endif
                 <table class="table">
                     <tbody>
+
                         <tr>
                             <td colspan="2">
                                 <h5 class="text-bold"></h5> TATA LAKSANA GP
@@ -15779,7 +15880,7 @@
         var ats4lain = $('#ats4lain').val();
         var ats5lain = $('#ats5lain').val();
 
-          //    kardio
+        //    kardio
         var kardio1 = $("#kardio1:checked").val();
         var kardio2 = $("#kardio2:checked").val();
         var kardio3 = $("#kardio3:checked").val();
@@ -16016,7 +16117,7 @@
                         gejala27: $("#gejala27:checked").val(),
                         gejala28: $("#gejala28:checked").val(),
                         gejala29: $("#gejala29:checked").val(),
-                         //    kardio
+                        //    kardio
                         kardio1: $("#kardio1:checked").val(),
                         kardio2: $("#kardio2:checked").val(),
                         kardio3: $("#kardio3:checked").val(),
@@ -16175,7 +16276,7 @@
         var kesadaran_1 = $("#kesadaran_1:checked").val();
         var kesadaran_2 = $("#kesadaran_2:checked").val();
         var kesadaran_3 = $("#kesadaran_3").val();
-        
+
 
         var keluhan_triase = $("#keluhan_triase").val();
         var pemfis_triase = $("#pemfis_triase").val();
@@ -16285,7 +16386,7 @@
         var ats4lain = $('#ats4lain').val()
         var ats5lain = $('#ats5lain').val()
 
-          //    kardio
+        //    kardio
         var kardio1 = $("#kardio1:checked").val();
         var kardio2 = $("#kardio2:checked").val();
         var kardio3 = $("#kardio3:checked").val();
@@ -16501,7 +16602,7 @@
                         sirkulasi23: $("#sirkulasi23:checked").val(),
                         sirkulasi24: $("#sirkulasi24:checked").val(),
                         sirkulasi25: $("#sirkulasi25:checked").val(),
-                        sirkulasi26 : $("#sirkulasi26:checked").val(),
+                        sirkulasi26: $("#sirkulasi26:checked").val(),
 
 
                         //gejalaspesifik
@@ -16535,7 +16636,7 @@
                         gejala28: $("#gejala28:checked").val(),
                         gejala29: $("#gejala29:checked").val(),
 
-                         //    kardio
+                        //    kardio
                         kardio1: $("#kardio1:checked").val(),
                         kardio2: $("#kardio2:checked").val(),
                         kardio3: $("#kardio3:checked").val(),

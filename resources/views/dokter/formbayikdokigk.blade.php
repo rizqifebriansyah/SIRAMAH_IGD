@@ -1785,7 +1785,10 @@
                                 <div class="form-group">
                                     <label for="exampleFormControlSelect1">Indikasi Klinis Pemeriksaan</label>
                                     <select class="form-control select2" name="indikasiklinislab" id="indikasiklinislab">
-                                        <option value=""> {{$riwayatorderlab[0]->indikasi_klinis}}</option>
+                                       @if ($riwayatorderlab != NULL)
+                                        <option value="{{$riwayatorderlab[0]->indikasi_klinis}}"> {{$riwayatorderlab[0]->indikasi_klinis}}</option>
+                                        @else
+                                        @endif
 
                                         <option value="Skrining / Uji Saring (Preventif)">Skrining / Uji Saring (Preventif)
                                         </option>
@@ -1893,8 +1896,8 @@
                                 <div class="form-group">
                                     <label for="exampleFormControlSelect1">Indikasi Klinis Pemeriksaan</label>
                                     <select class="form-control select2" name="indikasiklinisrad" id="indikasiklinisrad">
-                                        @if ($riwayatorderlab != NULL)
-                                        <option value=""> {{$riwayatorderlab[0]->indikasi_klinis}}</option>
+                                     @if ($riwayatorderrad != NULL)
+                                        <option value="{{$riwayatorderrad[0]->indikasi_klinis}}"> {{$riwayatorderrad[0]->indikasi_klinis}}</option>
                                         @else
                                         @endif
                                         <option value="Skrining / Uji Saring (Preventif)">Skrining / Uji Saring (Preventif)

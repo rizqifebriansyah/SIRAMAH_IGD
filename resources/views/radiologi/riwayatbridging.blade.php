@@ -32,6 +32,8 @@
                     <thead class="bg-success">
                         
                         <th>ACC Number</th>
+                        <th hidden>ACC Number</th>
+
                         <th>NORM</th>
                         <th>Nama</th>
                         <th>Pemeriksaan</th>
@@ -44,6 +46,8 @@
                         @foreach ($pasienbridging as $i)
                         <tr>
                             <td class="acc">{{$i->ACCESSIONNUMBER}}</td>
+                            <td hidden class="kj">{{$i->KODE_KUNJUNGAN}}</td>
+
                             <td>{{$i->PID}}</td>
                             <td>{{$i->NAMEALIAS}}</td>
                             <td>{{$i->PROCEDURENAME}}</td>
@@ -126,13 +130,16 @@
         spinner.show();
         var $row = $(this).closest("tr");
         var acc = $row.find(".acc").text();
+        var kj = $row.find(".kj").text();
+
 
 
         $.ajax({
             type: "post",
             data: {
                 _token: "{{ csrf_token() }}",
-                acc
+                acc,
+                kj
 
 
             },

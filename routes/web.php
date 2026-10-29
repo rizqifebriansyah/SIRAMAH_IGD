@@ -278,6 +278,9 @@ Route::group(['middleware' => ['hak_akses:4', 'auth']], function () {
     Route::post('ermperawat', [PerawatController::class, 'ermperawat'])->name('ermperawat');
     Route::post('formermperawat', [PerawatController::class, 'formermperawat'])->name('formermperawat');
     Route::post('pemantauan', [PerawatController::class, 'pemantauan'])->name('pemantauan');
+    Route::post('orderlabkebidanan', [PerawatController::class, 'orderlabkebidanan'])->name('orderlabkebidanan');
+
+    
     Route::post('transferpasien', [PerawatController::class, 'transferpasien'])->name('transferpasien');
 
     Route::post('riwayatcpptperawat', [PerawatController::class, 'riwayatcpptperawat'])->name('riwayatcpptperawat');
@@ -313,6 +316,8 @@ Route::group(['middleware' => ['hak_akses:4', 'auth']], function () {
     Route::post('simpanassesbidan', [PerawatController::class, 'simpanassesbidan'])->name('simpanassesbidan');
     Route::post('simpanassemenperawat', [PerawatController::class, 'simpanassemenperawat'])->name('simpanassemenperawat');
     Route::post('simpanpemantauan', [PerawatController::class, 'simpanpemantauan'])->name('simpanpemantauan');
+      Route::post('orderlabigk', [PerawatController::class, 'orderlabigk'])->name('orderlabigk');
+
 
     Route::post('updateassemenperawat', [PerawatController::class, 'updateassemenperawat'])->name('updateassemenperawat');
     Route::post('updateassesbidan', [PerawatController::class, 'updateassesbidan'])->name('updateassesbidan');
@@ -346,6 +351,10 @@ Route::group(['middleware' => ['hak_akses:4', 'auth']], function () {
     Route::post('returttv', [PerawatController::class, 'returttv'])->name('returttv');
 
     Route::post('returobatplg', [PerawatController::class, 'returobatplg'])->name('returobatplg');
+
+    
+    Route::post('returorderlaboratoriumbidan', [PerawatController::class, 'returorderlaboratoriumbidan'])->name('returorderlaboratoriumbidan');
+
     Route::post('singkronisasitteperawat', [PerawatController::class, 'singkronisasitteperawat'])->name('singkronisasitteperawat');
     Route::post('singkronisasittekebidanan', [PerawatController::class, 'singkronisasittekebidanan'])->name('singkronisasittekebidanan');
     Route::post('singkronisasittekebidananbayi', [PerawatController::class, 'singkronisasittekebidananbayi'])->name('singkronisasittekebidananbayi');
@@ -398,6 +407,8 @@ Route::group(['middleware' => ['hak_akses:3', 'auth']], function () {
 
     //simpan order
     Route::post('/simpanorderradiologi', [RadiologiController::class, 'simpanorderradiologi'])->name('simpanorderradiologi');
+    Route::post('simpankritisradiologi', [RadiologiController::class, 'simpankritisradiologi'])->name('simpankritisradiologi');
+    
     Route::post('/updateradiologi', [RadiologiController::class, 'updateradiologi'])->name('updateradiologi');
 
     //retur order

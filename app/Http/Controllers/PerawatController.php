@@ -12,7 +12,8 @@ use App\Models\erm_cppt_kebidanan_bayi;
 
 use App\Models\erm_cppt_kebidanan_lanjutan;
 use App\Models\riwayat_partus;
-
+use App\Models\ts_layanan_detail_igd;
+use App\Models\ts_layanan_header_igd;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -146,21 +147,21 @@ class PerawatController extends Controller
                         ON db.kode_kunjungan = a.kode_kunjungan
 
                     -- CPPT DOKTER
-                    LEFT JOIN (
-                        SELECT e1.*
-                        FROM erm_cppt_dokter_kebidanan e1
-                        INNER JOIN (
-                            SELECT 
-                                kode_kunjungan, 
-                                MAX(id) AS max_id
-                            FROM erm_cppt_dokter
-                            WHERE STATUS NOT IN (2, 3)
-                            GROUP BY kode_kunjungan
-                        ) e2 
-                            ON e1.kode_kunjungan = e2.kode_kunjungan 
-                            AND e1.id = e2.max_id
-                    ) e 
-                        ON e.kode_kunjungan = a.kode_kunjungan
+                   LEFT JOIN (
+                    SELECT e1.*
+                    FROM erm_cppt_dokter_kebidanan e1
+                    INNER JOIN (
+                        SELECT
+                            kode_kunjungan,
+                            MAX(id) AS max_id
+                        FROM erm_cppt_dokter_kebidanan
+                        WHERE STATUS NOT IN (2, 3)
+                        GROUP BY kode_kunjungan
+                    ) e2
+                        ON e1.kode_kunjungan = e2.kode_kunjungan
+                        AND e1.id = e2.max_id
+                ) e
+                    ON e.kode_kunjungan = a.kode_kunjungan
                     
                     -- CPPT KEBIDANAN LANJUTAN
 			LEFT JOIN (
@@ -733,9 +734,9 @@ class PerawatController extends Controller
         $jk = $request->jk;
         $kj = $request->kj;
         $tglmasuk = $request->tglmasuk;
-        $ttv = DB::select('SELECT tekanan_darah, frekuensi_nafas, frekuensi_nadi, suhu, berat_badan, umur, keadaan_umum, kesadaran, gcs, spo2 FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
-        $ttvb = DB::select('SELECT tekanan_darah, frekuensi_nafas, frekuensi_nadi, suhu, berat_badan, umur, keadaan_umum, kesadaran, gcs, spo2 FROM erm_cppt_kebidanan WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
-        $ttvc = DB::select('SELECT tekanan_darah, skor_afgar_1, frekuensi_nafas, frekuensi_nadi, suhu, berat_badan, umur, keadaan_umum, kesadaran, gcs, spo2 FROM erm_cppt_kebidanan_bayi WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
+        $ttv = DB::select('SELECT tekanan_darah, frekuensi_nafas, frekuensi_nadi, suhu, berat_badan, umur, keadaan_umum, kesadaran, gcs, spo2 FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
+        $ttvb = DB::select('SELECT tekanan_darah, frekuensi_nafas, frekuensi_nadi, suhu, berat_badan, umur, keadaan_umum, kesadaran, gcs, spo2 FROM erm_cppt_kebidanan WHERE no_rm = ? AND kode_kunjungan = ?  AND status = 1', [$norm, $kj]);
+        $ttvc = DB::select('SELECT tekanan_darah, skor_afgar_1, frekuensi_nafas, frekuensi_nadi, suhu, berat_badan, umur, keadaan_umum, kesadaran, gcs, spo2 FROM erm_cppt_kebidanan_bayi WHERE no_rm = ? AND kode_kunjungan = ?  AND status = 1', [$norm, $kj]);
         // dd($ttvc);
         $cek = DB::select('SELECT
       fc_nama_unit1(kode_unit) AS nama_unit
@@ -887,6 +888,347 @@ class PerawatController extends Controller
             ]
         );
     }
+
+    public function orderlabigk(Request $request)
+    {
+        $a = $request->all();
+        $diagnosa = $request->anamnesa;
+        $kj = $request->kj;
+        $norm = $request->norm;
+        $unit = auth()->user()->unit;
+        $name = auth()->user()->nama;
+
+
+        $dt = Carbon::now()->timezone('Asia/Jakarta');
+        $date = $dt->toDateString();
+        $time = $dt->toTimeString();
+        $now = Carbon::now();
+        $sp = 'OPN';
+        $user = auth()->user()->id_simrs;
+        $kp = auth()->user()->kode_paramedis;
+
+        $kunjungan = DB::select('SELECT 
+
+           a.`kode_penjamin`,
+           a.kelas AS kelas_unit
+
+
+
+
+            FROM ts_kunjungan a
+            LEFT OUTER JOIN	 mt_pasien b ON b.no_rm =a.no_rm
+            LEFT OUTER JOIN  mt_penjamin c ON c.kode_penjamin = a.kode_penjamin WHERE a.kode_kunjungan = ?', [$kj]);
+        $ku = $kunjungan[0]->kelas_unit;
+        $kodepenjamin = $kunjungan[0]->kode_penjamin;
+
+
+
+        //laboratorium
+        try {
+            $datalab = json_decode($_POST['datalab'], true);
+            // dd($datalab);
+            if ($datalab == null) {
+            } else {
+                foreach ($datalab as $nama) {
+                    $index = $nama['name'];
+                    $value = $nama['value'];
+                    $dataSet[$index] = $value;
+                    if ($index == 'cyto') {
+                        $arrayindexlab[] = $dataSet;
+                    }
+                }
+                $sum = 0;
+                foreach ($arrayindexlab as $arr) {
+                    $discount = $arr['disc'];
+                    $cyto = $arr['cyto'];
+                    $trf = array($arr['tarif']);
+                    $tarif =
+                        $sum += array_sum($trf);
+                    if ($cyto == 1) {
+                        if ($discount == $discount) {
+                            $a = $tarif + ($tarif * (50 / 100));
+
+                            $gt = $a - ($a * $discount / 100);
+                        } else {
+                            $gt = $tarif + ($tarif * (50 / 100));
+                        }
+                    } elseif ($discount == $discount) {
+                        $gt = $tarif - ($tarif * $discount / 100);
+                    } else {
+                        $gt = $tarif;
+                    }
+                }
+                $kode_header = $this->createOrderHeader();
+                if ($kodepenjamin == 'P01') {
+                    if ($ku == '2') {
+                        $data_layanan_header = [
+                            'kode_layanan_header' => $kode_header,
+                            'tgl_entry' => $now,
+                            'tgl_periksa' => $now,
+                            'no_rm' => $request->norm,
+                            'kode_kunjungan' => $request->kj,
+                            'qty_header' => $dataSet['qty'],
+                            'keterangan' => 'PENDING',
+                            'unit_pengirim' => $unit,
+                            'diagnosa' => $request->diagnosa ,
+                            'dok_kirim' => $request->dokkirim,
+                            'total_layanan' => $gt,
+                            'tagihan_pribadi' => $gt,
+                            'diskon_global' => $dataSet['disc'],
+                            'status_pembayaran' => $sp,
+                            'status_layanan' => 1,
+                            'status_order' => 1,
+                            'kode_unit' => '3002',
+                            'kode_tipe_transaksi' => 2,
+                            'kode_penjaminx' => $kodepenjamin,
+                            'indikasi_klinis' => $request->indikasiklinislab,
+
+                            'pic' => $user,
+                        ];
+                        $head = ts_layanan_header_igd::create($data_layanan_header);
+                        $id_detail = $this->createLayanandetail();
+                        foreach ($arrayindexlab as $arr) {
+                            $savedetail = [
+                                'id_layanan_detail' => $id_detail,
+                                'kode_layanan_header' => $kode_header,
+                                'kode_tarif_detail' =>  $arr['kodelayanan'],
+                                'total_tarif' => $arr['tarif'],
+                                'jumlah_layanan' => $arr['qty'],
+                                'diskon_dokter' => $arr['disc'],
+                                'cyto' => $arr['cyto'],
+                                'total_layanan' => $arr['tarif'],
+                                'grantotal_layanan' => $arr['tarif'] * $arr['qty'],
+                                'status_layanan_detail' => 'OPN',
+                                'tgl_layanan_detail' => $now,
+                                'tagihan_pribadi' => $gt,
+                                'tgl_layanan_detail_2' => $now,
+                                'row_id_header' => $head['id']
+                            ];
+                            $ts_layanan_detail_igd = ts_layanan_detail_igd::create($savedetail);
+                        }
+                    } else {
+
+                        $data_layanan_header = [
+                            'kode_layanan_header' => $kode_header,
+                            'tgl_entry' => $now,
+                            'tgl_periksa' => $now,
+                            'no_rm' => $request->norm,
+                            'kode_kunjungan' => $request->kj,
+                            'qty_header' => $dataSet['qty'],
+                            'keterangan' => 'PENDING',
+                            'unit_pengirim' => $unit,
+                            'diagnosa' => $request->diagnosa ,
+                            'dok_kirim' => $request->dokkirim,
+
+                            'total_layanan' => $gt,
+                            'tagihan_pribadi' => $gt,
+                            'diskon_global' => $dataSet['disc'],
+                            'status_pembayaran' => $sp,
+                            'status_layanan' => 1,
+                            'status_order' => 1,
+                            'kode_unit' => '3002',
+                            'kode_tipe_transaksi' => 1,
+                            'kode_penjaminx' => $kodepenjamin,
+                            'indikasi_klinis' => $request->indikasiklinislab,
+
+                            'pic' => $user,
+                        ];
+                        $head = ts_layanan_header_igd::create($data_layanan_header);
+                        $id_detail = $this->createLayanandetail();
+                        foreach ($arrayindexlab as $arr) {
+                            $savedetail = [
+                                'id_layanan_detail' => $id_detail,
+                                'kode_layanan_header' => $kode_header,
+                                'kode_tarif_detail' =>  $arr['kodelayanan'],
+                                'total_tarif' => $arr['tarif'],
+                                'jumlah_layanan' => $arr['qty'],
+                                'diskon_dokter' => $arr['disc'],
+                                'cyto' => $arr['cyto'],
+                                'total_layanan' => $arr['tarif'],
+                                'grantotal_layanan' => $arr['tarif'] * $arr['qty'],
+                                'status_layanan_detail' => 'OPN',
+                                'tgl_layanan_detail' => $now,
+                                'tagihan_pribadi' => $gt,
+                                'tgl_layanan_detail_2' => $now,
+                                'row_id_header' => $head['id']
+                            ];
+                            $ts_layanan_detail_igd = ts_layanan_detail_igd::create($savedetail);
+                        }
+                    }
+                } else {
+                    $data_layanan_header = [
+                        'kode_layanan_header' => $kode_header,
+                        'tgl_entry' => $now,
+                        'tgl_periksa' => $now,
+                        'no_rm' => $request->norm,
+                        'kode_kunjungan' => $request->kj,
+                        'qty_header' => $dataSet['qty'],
+                        'keterangan' => 'PENDING',
+                        'unit_pengirim' => $unit,
+                        'diagnosa' => $request->diagnosa ,
+                        'dok_kirim' => $kp,
+                        'total_layanan' => $gt,
+                        'tagihan_pribadi' => $gt,
+                        'diskon_global' => $dataSet['disc'],
+                        'status_pembayaran' => $sp,
+                        'status_layanan' => 2,
+                        'status_order' => 1,
+                        'kode_unit' => '3002',
+                        'kode_tipe_transaksi' => 2,
+                        'kode_penjaminx' => $kodepenjamin,
+                        'indikasi_klinis' => $request->indikasiklinislab,
+
+                        'pic' => $user,
+                    ];
+
+                    $head = ts_layanan_header_igd::create($data_layanan_header);
+                    $id_detail = $this->createLayanandetail();
+                    foreach ($arrayindexlab as $arr) {
+                        $savedetail = [
+                            'id_layanan_detail' => $id_detail,
+                            'kode_layanan_header' => $kode_header,
+                            'kode_tarif_detail' =>  $arr['kodelayanan'],
+                            'total_tarif' => $arr['tarif'],
+                            'jumlah_layanan' => $arr['qty'],
+                            'diskon_dokter' => $arr['disc'],
+                            'cyto' => $arr['cyto'],
+                            'total_layanan' => $arr['tarif'],
+                            'grantotal_layanan' => $arr['tarif'] * $arr['qty'],
+                            'status_layanan_detail' => 'OPN',
+                            'tgl_layanan_detail' => $now,
+                            'tagihan_penjamin' => $gt,
+                            'tgl_layanan_detail_2' => $now,
+                            'row_id_header' => $head['id']
+                        ];
+
+                        $ts_layanan_detail = ts_layanan_detail_igd::create($savedetail);
+                    }
+                }
+                $kode_header = $ts_layanan_detail['kode_layanan_header'];
+                $idhed = $ts_layanan_detail['row_id_header'];
+                // $update = DB::select('UPDATE ts_layanan_header_igd SET status_order = 2 WHERE kode_kunjungan = ? AND no_rm = ?', [$request->kode_kunjungan, $request->norm]);
+            }
+        } catch (\Exception $e) {
+            $back = [
+                'kode' => 200,
+                'message' => $e->getMessage()
+            ];
+            echo json_encode($back);
+            die;
+        }
+
+        // $update = DB::select('UPDATE ts_kunjungan
+        //     SET diagx = ?, kode_paramedis = ?
+        //     WHERE no_rm = ? AND kode_kunjungan = ?', [$diagnosa, $kp, $norm, $kj]);
+
+        $back = [
+            'kode' => 200,
+            'message' => 'Berhasil'
+        ];
+        echo json_encode($back);
+        die;
+    }
+     public function returorderlaboratoriumbidan(Request $request)
+    {
+        $kj = $request->kj;
+
+        $header = $request->header;
+        $detail = $request->detail;
+        $iddetail = $request->iddetail;
+
+
+        $update = DB::select('UPDATE  ts_layanan_detail_igd
+        SET satus_order = ?, keterangan = ?
+        
+        WHERE id = ?', ['3', 'RETUR', $iddetail]);
+
+        $hitung = DB::select('SELECT total_tarif AS tarif FROM ts_layanan_detail_igd WHERE id_layanan_detail = ? AND kode_layanan_header = ? ', [$detail, $header]);
+        $hitung1 = DB::select('SELECT tagihan_penjamin as tagpen, tagihan_pribadi as tagpri FROM ts_layanan_header_igd WHERE  kode_layanan_header = ? ', [$header]);
+        $tarrif = $hitung[0]->tarif;
+        $tagpri = $hitung1[0]->tagpri;
+        $tagpen = $hitung1[0]->tagpen;
+        if ($tagpri == 0) {
+            $sisatagpen = $tagpen - $tarrif;
+            $updatehed = DB::select('UPDATE ts_layanan_header_igd	SET total_layanan = ? ,tagihan_penjamin = ?	WHERE kode_layanan_header = ?', [$sisatagpen,  $sisatagpen, $header]);
+        } elseif ($tagpen == 0) {
+            $sisatagpri = $tagpri - $tarrif;
+            $updatehed = DB::select('UPDATE ts_layanan_header_igd	SET total_layanan = ? ,tagihan_pribadi = ?	WHERE kode_layanan_header = ?', [$sisatagpri,  $sisatagpri, $header]);
+        }
+
+
+
+        // $cektag = DB::select('SELECT 
+        //     tagihan_pribadi + tagihan_penjamin AS tagihan
+        //     FROM ts_layanan_header
+        //     WHERE id = ?', [$request->idhed]);
+        // $hasil = $cektag[0]->tagihan;
+        // if ($hasil == NULL) {
+        //     $updatehead = DB::select('UPDATE ts_layanan_header SET status_layanan = 3  WHERE id = ?', array($request->idhed));
+        // }
+
+
+        $back = [
+            'kode' => 200,
+            'message' => 'Berhasil'
+        ];
+        echo json_encode($back);
+        die;
+    }
+    public function orderlabkebidanan(Request $request)
+    {
+        $unit = auth()->user()->unit;
+
+        $kj = $request->kj;
+        $norm = $request->norm;
+        $now = Carbon::now()->format('Y-m-d H:i:s');
+        $dpjp = DB::select('SELECT 
+                    a.kode_paramedis,
+                    a.nama_paramedis
+                    FROM mt_paramedis a
+                    WHERE a.spesialis LIKE "%UMUM%"
+                    AND a.act = 1');
+        $layananlab = DB::select('SELECT b.kode_tarif_detail AS kode, a.nama_tarif AS Tindakan, b.tarif_penunjang AS tarif FROM mt_tarif_header a INNER JOIN mt_tarif_detail b ON b.kode_tarif_header = a.kode_tarif_header WHERE a.USER_INPUT_ID ="1" AND  a.kelompok_tarif_id IN (13) AND b.tarif_penunjang <> 0 AND b.act = 1 AND b.kelas_tarif = 1');
+        $riwayatorderlab = DB::select('SELECT
+         a.no_rm,
+         a.kode_layanan_header,
+         b.id_layanan_detail,
+         b.id as iddetail,
+         a.id,
+         b.total_tarif,
+         a.indikasi_klinis,
+
+         fc_nama_tindakan(LEFT(b.kode_tarif_detail,6)) as nama_tindakan
+         FROM
+         ts_layanan_header_igd a
+         INNER JOIN ts_layanan_detail_igd b ON b.row_id_header = a.id
+         WHERE a.kode_unit = ?
+         AND a.kode_kunjungan = ?
+         AND a.status_order ="1"
+         AND b.satus_order = "1"
+         ', ['3002', $request->kj]);
+        return view(
+            'perawat.orderlabkebidanan',
+            [
+                'title' => 'SiRAMAH KEBIDANAN',
+                'unit' => $unit,
+                'dpjp' => $dpjp,
+                'layananlab' => $layananlab,
+                'riwayatorderlab' => $riwayatorderlab,
+
+
+
+
+                'now' => $now,
+                'norm' => $norm,
+
+                'kj' => $kj
+
+
+
+
+            ]
+        );
+    }
     public function formermperawat(Request $request)
     {
         $unit = auth()->user()->unit;
@@ -905,9 +1247,9 @@ class PerawatController extends Controller
         WHERE a.kode_kunjungan = ?', [$kj]);
         $assesdok = DB::select('SELECT * FROM erm_cppt_dokter
         WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $request->kj]);
-        $assesper = DB::select('SELECT * FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ? AND status IN (1,2)', [$norm, $kj]);
+        $assesper = DB::select('SELECT * FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
         // dd($assesper);
-        $tindakan = DB::select('SELECT * FROM erm_tindakan_keperawatan WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
+        $tindakan = DB::select('SELECT * FROM erm_tindakan_keperawatan WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1 ORDER BY waktu_tindakan ASC;', [$norm, $kj]);
         // dd($tindakan);
         $trp = DB::select('SELECT anamnesa_triase, diagnosa_triase, rekomendasi FROM erm_cppt_kebidanan_lanjutan WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
         $trb = DB::select('SELECT anamnesa_triase, diagnosa_triase FROM erm_cppt_kebidanan_bayi WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
@@ -951,7 +1293,7 @@ class PerawatController extends Controller
         $assesper = DB::select('SELECT * FROM erm_cppt_kebidanan WHERE no_rm = ? AND kode_kunjungan = ? AND status IN (1,2)', [$norm, $kj]);
         $lanjutan = DB::select('SELECT * FROM erm_cppt_kebidanan_lanjutan WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
         // dd($lanjutan);
-        $tindakan = DB::select('SELECT * FROM erm_tindakan_keperawatan WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
+        $tindakan = DB::select('SELECT * FROM erm_tindakan_keperawatan WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1 ORDER BY waktu_tindakan ASC;', [$norm, $kj]);
         $obatplg = DB::select('SELECT * FROM erm_obat_pulang_igd WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
         $partus = DB::select('SELECT * FROM riwayat_partus WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
 
@@ -985,9 +1327,9 @@ class PerawatController extends Controller
         $norm = $request->norm;
 
         $alasanplg  = DB::select('SELECT * FROM mt_alasan_pulang');
-        $assesper = DB::select('SELECT * FROM erm_cppt_kebidanan_bayi WHERE no_rm = ? AND kode_kunjungan = ? AND status IN (1,2)', [$norm, $kj]);
+        $assesper = DB::select('SELECT * FROM erm_cppt_kebidanan_bayi WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
         // dd($assesper);
-        $tindakan = DB::select('SELECT * FROM erm_tindakan_keperawatan WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
+        $tindakan = DB::select('SELECT * FROM erm_tindakan_keperawatan WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1 ORDER BY waktu_tindakan ASC;', [$norm, $kj]);
         // dd($tindakan);
 
         return view(
@@ -1073,7 +1415,7 @@ class PerawatController extends Controller
          WHERE a.kode_layanan_header LIKE "%DP%"
          AND b.kode_tarif_detail NOT LIKE "%tx%"
          AND a.kode_kunjungan = ?', [$request->kj]);
-        $ttv = DB::select('SELECT tekanan_darah, frekuensi_nafas, keadaan_umum, kesadaran, frekuensi_nadi, suhu, berat_badan, umur FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $request->kj]);
+        $ttv = DB::select('SELECT tekanan_darah, frekuensi_nafas, keadaan_umum, kesadaran, frekuensi_nadi, suhu, berat_badan, umur FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ? and status=1', [$request->norm, $request->kj]);
         $riwayatrekonobat = DB::select('SELECT * FROM rekonsiliasi_obat
         WHERE kode_kunjungan = ?', [$kj]);
         $tindakan = DB::select('SELECT * FROM erm_tindakan_kedokteran WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $request->kj]);
@@ -1336,16 +1678,16 @@ class PerawatController extends Controller
                         SELECT e1.*
                         FROM erm_cppt_dokter_kebidanan e1
                         INNER JOIN (
-                            SELECT 
-                                kode_kunjungan, 
+                            SELECT
+                                kode_kunjungan,
                                 MAX(id) AS max_id
-                            FROM erm_cppt_dokter
+                            FROM erm_cppt_dokter_kebidanan
                             WHERE STATUS NOT IN (2, 3)
                             GROUP BY kode_kunjungan
-                        ) e2 
-                            ON e1.kode_kunjungan = e2.kode_kunjungan 
+                        ) e2
+                            ON e1.kode_kunjungan = e2.kode_kunjungan
                             AND e1.id = e2.max_id
-                    ) e 
+                    ) e
                         ON e.kode_kunjungan = a.kode_kunjungan
                     
                     -- CPPT KEBIDANAN LANJUTAN
@@ -5176,7 +5518,7 @@ class PerawatController extends Controller
 
 
 
-     $now = Carbon::now()->format('Y-m-d H:i:s');
+        $now = Carbon::now()->format('Y-m-d H:i:s');
         // $now = Carbon::parse($assesdok[0]->tgl_asses)->format('d-M-Y');
 
         $user = auth()->user()->nama;
@@ -5252,7 +5594,7 @@ class PerawatController extends Controller
         echo json_encode($back);
         die;
     }
-  public function singkronisasittekebidananbayi(Request $request)
+    public function singkronisasittekebidananbayi(Request $request)
     {
         $now = Carbon::now()->format('Y-m-d H:i:s');
         // $now = Carbon::parse($assesdok[0]->tgl_asses)->format('d-M-Y');
@@ -6095,7 +6437,7 @@ class PerawatController extends Controller
             $kd = "000001";
         }
         date_default_timezone_set('Asia/Jakarta');
-        return 'UGK' . date('ymd') . $kd;
+        return 'ORPL' . date('ymd') . $kd;
     }
     public function createLayanandetail()
     {

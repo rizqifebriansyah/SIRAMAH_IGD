@@ -132,7 +132,7 @@
                                     <td class="text-bold font-italic">KELUHAN UTAMA</td>
                                     <td>
                                         <div class="input-group">
-                                            <textarea class="form-control" id="subyek" name="subyek" placeholder=""></textarea>
+                                            <textarea class="form-control" id="subyek" name="subyek" placeholder="">{{$ttb[0]->subyek}}</textarea>
 
                                         </div>
                                     </td>
@@ -2419,7 +2419,6 @@
                 var fieldHTML = '<div class="form-group add"><div class="row">';
                 fieldHTML = fieldHTML + '<div class="col-md-5"><label>PILIH DPJP</label><select class="form-control selectdpjp" name="kode_dpjp[]">@foreach ($dpjp as $i => $p) <option value="{{ $p->kode_paramedis }}">{{ $p->nama_paramedis }}</option> @endforeach</select></div>';
 
-                // fieldHTML = fieldHTML + '<div class="col-md-5"><label for="">PILIH DPJP</label><select class="form-control  select2" name="kode_dpjp" id="kode_dpjp" placeholder="Cari opsi...">@foreach ($dpjp as $i => $p) <option value="{{ $p->kode_paramedis }}">{{ $p->nama_paramedis }} </option> @endforeach</select></div>';
                 fieldHTML = fieldHTML + '<div class="col-md-5"><label for="">Tata Laksana DPJP</label><textarea class="form-control" id="talaksanadpjp" name="talaksanadpjp" placeholder=""></textarea></div>';
                 fieldHTML = fieldHTML + '<div class="col-md-2"><a href="javascript:void(0);" class="remove_button btn btn-danger">HAPUS</a></div>';
                 fieldHTML = fieldHTML + '</div></div>';

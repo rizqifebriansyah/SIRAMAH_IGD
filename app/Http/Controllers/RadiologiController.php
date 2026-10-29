@@ -11,6 +11,8 @@ use App\Models\order_table;
 use App\Models\tb_tampungan_label;
 use App\Models\ts_retur_header;
 use App\Models\ts_retur_detail;
+use App\Models\erm_tindakan_kedokteran;
+
 use App\Models\tb_pemakaian_radiologi;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
@@ -287,6 +289,54 @@ class RadiologiController extends Controller
         $update = DB::connection('mysql3')->select('UPDATE order_table a SET MODALITY = ? WHERE ACCESSIONNUMBER = ?', [$modality, $acc]);
         return response()->json(['success' => 'Data Berhasil Di Update']);
     }
+
+
+    public function simpankritisradiologi(Request $request)
+    {
+        $now = Carbon::now();
+        $a = $request->all();
+        $kj = $request->kj;
+        $norm = $request->norm;
+        $dorad = $request->dorad;
+        $pemeriksaan = $request->pemeriksaan;
+
+        $hasil_konsul = $request->hasil_konsul;
+
+
+
+        try{
+
+        $kritis = erm_tindakan_kedokteran::create([
+            // 'kode_detail_obat' => $id_detail,
+            'no_rm' => $norm,
+            'kode_kunjungan' => $kj,
+            'kode_unit' => '3003',
+            'kode_paramedis' => $dorad,
+            'kritis_radiologi' => $hasil_konsul,
+            'pemeriksaan_rad' => $pemeriksaan,
+
+            'tgl_input' => $now,
+            'status_kritis_radiologi' => 1,
+
+            'status' => 1
+
+        ]);
+        }catch (\Exception $e) {
+            $back = [
+                'kode' => 200,
+                'message' => $e->getMessage()
+            ];
+            echo json_encode($back);
+            die;
+        }
+
+        $back = [
+            'kode' => 200,
+            'message' => 'Berhasil'
+        ];
+        echo json_encode($back);
+        die;
+    }
     public function riwayatbridging()
     {
         $unit = auth()->user()->unit;
@@ -532,13 +582,31 @@ class RadiologiController extends Controller
     public function editriwayatbridging(Request $request)
     {
         $unit = auth()->user()->unit;
+        $kj = $request->kj;
+
         $tglbridging = Carbon::parse($request->tanggal_bridging)->format('Ymd');
         $pb = DB::connection('mysql3')->select('SELECT * from order_table a WHERE ACCESSIONNUMBER = ?', [$request->acc]);
+         $kritisrad = DB::select('SELECT 
+        fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,
+        a.tgl_input,
+        a.pemeriksaan_rad,
+        a.id,
+        a.kritis_radiologi,
+        a.status_raber
+     FROM erm_tindakan_kedokteran a
+     WHERE a.kode_kunjungan = ?
+       AND a.status_kritis_radiologi = 1
+
+       AND a.status = 1
+       AND a.kritis_radiologi IS NOT NULL', [$kj]);
+    //    dd($kritisrad);
 
         return view('radiologi.editbridgingview', [
             'title' => 'SIRAMAH | RADIOLOGI',
 
             'pb' => $pb,
+            'kritisrad' => $kritisrad,
+
 
         ]);
     }
@@ -550,6 +618,10 @@ class RadiologiController extends Controller
         $norm  = $request->norm;
         $kodekunjungan  = $request->kodekunjungan;
         $alamat  = $request->alamat;
+        $indikasiklinis  = $request->indikasi_klinis;
+        $diagnosa  = $request->diagnosa;
+
+
 
 
         $namaunit = $request->namaunit;
@@ -631,8 +703,8 @@ class RadiologiController extends Controller
                     'qty_header' => $dataSet['qty'],
                     'keterangan' => 'PENDING',
                     'unit_pengirim' => $ukirim,
-                    'diagnosa' => $request->diagnosa,
-                    'dok_rujukan' => $request->indikasi_klinis,
+                    'diagnosa' => $diagnosa,
+                    'dok_rujukan' => $indikasiklinis,
 
                     'dok_kirim' => $request->dokter,
                     'total_layanan' => $gt,
@@ -687,8 +759,8 @@ class RadiologiController extends Controller
                     'keterangan' => 'PENDING',
                     'qty_header' => $dataSet['qty'],
                     'unit_pengirim' => $ukirim,
-                    'diagnosa' => $request->diagnosa,
-                    'dok_rujukan' => $request->indikasi_klinis,
+                    'diagnosa' => $diagnosa,
+                    'dok_rujukan' => $indikasiklinis,
 
                     'dok_kirim' => $request->dokter,
                     'total_layanan' => $gt,
@@ -742,8 +814,8 @@ class RadiologiController extends Controller
                 'keterangan' => 'PENDING',
                 'qty_header' => $dataSet['qty'],
                 'unit_pengirim' => $ukirim,
-                'diagnosa' => $request->diagnosa,
-                'dok_rujukan' => $request->indikasi_klinis,
+                'diagnosa' => $diagnosa,
+                'dok_rujukan' => $indikasiklinis,
 
                 'dok_kirim' => $request->dokter,
                 'total_layanan' => $gt,
@@ -832,10 +904,18 @@ class RadiologiController extends Controller
                     'VIPINDICATOR' => 'N',
                     'ADMITDATE' => $tglmasuk,
                     'EFFECTIVEDATE' => $tglmasuk,
-                    'indikasi_klinis' => $request->indikasi_klinis,
-                    
+                    'indikasi_klinis' => $indikasiklinis,
 
-                    'RELEVANTCLINICALINFO' => $request->diagnosa . "||". $request->indikasi_klinis . "||" . $alamat,
+
+                    'RELEVANTCLINICALINFO' => $diagnosa . "
+
+
+
+|||" . "Indikasi Klinis : " . $indikasiklinis . "
+
+
+
+|||" . "Alamat : " . $alamat,
                     // 'PROCEDUREID' => $arr['kodelayanan'],
                     'PROCEDURE' => $arr['kodelayanan'],
                     'SPECIFIEDRADIOLOGISTID' => $request->dorad,
@@ -1147,10 +1227,12 @@ class RadiologiController extends Controller
             a.PROCEDURENAME,
             a.KODE_KUNJUNGAN,
             a.RELEVANTCLINICALINFO,
+            a.indikasi_klinis,
             a.REFERRINGDOCTORNAME
 
             from order_table a
             where a.ACCESSIONNUMBER = ?', [$acc]);
+        // dd($pemeriksaan);
         // $updatestatus = DB::connection('mysql3')->select('UPDATE order_table SET STATUS = "FN" WHERE ACCESSIONNUMBER = ?', [$acc]);
         // dd($pemeriksaan);
         $kj = $pemeriksaan[0]->KODE_KUNJUNGAN;
@@ -1305,6 +1387,15 @@ class RadiologiController extends Controller
             $pdf::SetFont('Times', '', 11);
             $pdf::SetXY(142, 66);
             $pdf::Cell(40, 5, $pasien[0]->diagnosa);
+
+            $pdf::SetFont('Times', '', 11);
+            $pdf::SetXY(120, 68);
+            $pdf::Cell(40, 10, 'Indikasi Klinis :');
+            $pdf::SetXY(139, 68);
+            $pdf::Cell(40, 10, ':');
+            $pdf::SetFont('Times', '', 11);
+            $pdf::SetXY(142, 66);
+            $pdf::MultiCell(60, 5, $pemeriksaan[0]->indikasi_klinis);
 
             $pdf::SetFont('Times', '', 11);
             $pdf::SetXY(10, 63);
@@ -1553,6 +1644,16 @@ class RadiologiController extends Controller
             $pdf::SetFont('Times', '', 11);
             $pdf::SetXY(142, 66);
             $pdf::Cell(60, 5, $pasien[0]->diagnosa);
+            $y = $pdf::GetY();
+
+             $pdf::SetFont('Times', '', 11);
+            $pdf::SetXY(120, $y);
+            $pdf::Cell(40, 10, 'Indikasi Klinis :');
+            $pdf::SetXY(139, $y);
+            $pdf::Cell(40, 10, ':');
+            $pdf::SetFont('Times', '', 11);
+            $pdf::SetXY(142, $y);
+            // $pdf::MultiCell(60, 5, $pemeriksaan[0]->indikasi_klinis);
 
             $pdf::SetFont('Times', '', 11);
             $pdf::SetXY(10, 63);
@@ -1625,6 +1726,7 @@ class RadiologiController extends Controller
             a.PROCEDURENAME,
             a.KODE_KUNJUNGAN,
             a.RELEVANTCLINICALINFO,
+            a.indikasi_klinis,
             a.REFERRINGDOCTORNAME
 
             from order_table a
@@ -1635,6 +1737,20 @@ class RadiologiController extends Controller
         // dd($pemeriksaan);
         $kj = $pemeriksaan[0]->KODE_KUNJUNGAN;
         $norm = $pemeriksaan[0]->PID;
+        $riwayatorderradd = DB::select('SELECT
+        --  a.no_rm,
+         a.kode_layanan_header,
+         a.diagnosa,
+         a.id,
+         b.total_tarif,
+         fc_nama_tindakan(LEFT(b.kode_tarif_detail,6)) as nama_tindakan
+         FROM
+         ts_layanan_header a
+         INNER JOIN ts_layanan_detail b ON b.row_id_header = a.id
+         WHERE a.kode_unit = ?
+         AND a.kode_kunjungan = ?
+         ', ['3003', $kj]);
+        //  dd($riwayatorderradd);
 
         $path = public_path('\qrcoderad\qr' . $kj . time() . '.png');
         // dd($path);
@@ -1784,6 +1900,17 @@ class RadiologiController extends Controller
         $pdf::SetFont('Times', '', 11);
         $pdf::SetXY(142, 66);
         $pdf::MultiCell(60, 5, $pasien[0]->diagnosa);
+            $y = $pdf::GetY();
+
+
+           $pdf::SetFont('Times', '', 11);
+            $pdf::SetXY(120, $y);
+            $pdf::Cell(28, 5, 'Indikasi Klinis :');
+            $pdf::SetXY(139, $y);
+            $pdf::Cell(1, 5, ':');
+            $pdf::SetFont('Times', '', 11);
+            $pdf::SetXY(145, $y );
+            $pdf::MultiCell(60, 5, $pemeriksaan[0]->indikasi_klinis);
 
         $pdf::SetFont('Times', '', 11);
         $pdf::SetXY(10, 63);
