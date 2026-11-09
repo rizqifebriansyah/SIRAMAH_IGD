@@ -103,7 +103,7 @@
                             <td>
                                 <div class="input-group">
                                     <textarea class="form-control" id="anamnesis" name="anamnesis"
-                                        placeholder="">{{$ttv[0]->subyek}}</textarea>
+                                        placeholder=""></textarea>
 
                                 </div>
                             </td>
@@ -1292,7 +1292,7 @@
                 <table class="table">
                     <tbody>
 
-                        <tr>
+                        <!-- <tr>
                             <td class="text-bold font-italic">Rencana Asuhan Kebidanan</td>
                             <td>
                                 <div class="input-group">
@@ -1301,7 +1301,7 @@
 
                                 </div>
                             </td>
-                        </tr>
+                        </tr> -->
                         <!-- <tr>
                                     <td class="text-bold font-italic">Tindakan Kebidanan dan Evaluasi</td>
                                     <td>
@@ -3253,26 +3253,7 @@
                 <table class="table">
                     <tbody>
 
-                        <tr>
-                            <td class="text-bold font-italic">Rencana Asuhan Kebidanan</td>
-                            <td>
-                                <div class="input-group">
-                                    <textarea class="form-control" id="planning" name="planning"
-                                        placeholder="">{{$assesper[0]->rencanaasuhan}}</textarea>
-
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-bold font-italic">Tindakan Kebidanan dan Evaluasi</td>
-                            <td>
-                                <div class="input-group">
-                                    <textarea class="form-control" id="tindakan" name="tindakan"
-                                        placeholder="">{{$assesper[0]->tindakan}}</textarea>
-
-                                </div>
-                            </td>
-                        </tr>
+                    
                         <tr>
                             <td class="text-bold font-italic">KOLABORASI </td>
                             <td>

@@ -381,6 +381,12 @@ Route::get('cetakexpp/{acc}', [RadiologiController::class, 'cetakexpertise1']);
 Route::post('cetakexpertisee', [RadiologiController::class, 'cetakexpertisee'])->name('cetakexpertisee');
 Route::post('carigambarbridgingg', [RadiologiController::class, 'carigambarbridgingg'])->name('carigambarbridgingg');
 
+
+
+    //simpan serah terima radiologi 
+    Route::post('serahterimaradiologi', [RadiologiController::class, 'serahterimaradiologi'])->name('serahterimaradiologi');
+
+
 //petugas radiologi
 Route::group(['middleware' => ['hak_akses:3', 'auth']], function () {
 

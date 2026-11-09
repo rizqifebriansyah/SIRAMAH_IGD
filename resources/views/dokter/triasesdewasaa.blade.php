@@ -1,3 +1,5 @@
+<input hidden type="text" class="form-control" placeholder="" aria-label="Recipient's username" id="jenistriase" name="jenistriase" aria-describedby="basic-addon2" value="dewasa">
+
 @if ($triase == null)
 <div class="accordion  mt-3 mb-2" id="accordionExample">
     <div class="card-header bg-secondary" id="headingOne">
@@ -22,7 +24,6 @@
                     <td>
                         <div class="form-group form-check">
                             <input type="checkbox" class="form-check-input" id="kategoritriase" name="kategoritriase" value="Medikal">
-                            <input hidden type="text" class="form-control" placeholder="" aria-label="Recipient's username" id="jenistriase" name="jenistriase" aria-describedby="basic-addon2" value="dewasa">
 
                             <label class="form-check-label" for="exampleCheck1">Medikal</label>
                         </div>
@@ -1132,7 +1133,6 @@
             <tbody>
                 <tr>
                     <td class="text-bold ">KATEGORI TRIASE </td>
-                    <input hidden type="text" class="form-control" placeholder="" aria-label="Recipient's username" id="jenistriase" name="jenistriase" aria-describedby="basic-addon2" value="dewasa">
 
                     <td>@if ($triase[0]->kategori_triase == 'Medikal')
                         <div class="form-group form-check">

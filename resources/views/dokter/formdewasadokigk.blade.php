@@ -132,7 +132,7 @@
                                     <td class="text-bold font-italic">KELUHAN UTAMA</td>
                                     <td>
                                         <div class="input-group">
-                                            <textarea class="form-control" id="subyek" name="subyek" placeholder="">{{$ttb[0]->subyek}}</textarea>
+                                            <textarea class="form-control" id="subyek" name="subyek" placeholder="">@if ($ttb != NULL){{$ttb[0]->subyek}} @else @endif</textarea>
 
                                         </div>
                                     </td>

@@ -5659,7 +5659,10 @@
                                             <form id="dynamic-form" class="formtindakandjp">
                                                 <div class="field_wrapperr">
                                                     <div class="row">
-                                                        @foreach ($tindakan as $rtd => $td)
+                                                        @if ($dpjp == NULL)
+
+                                                        @else
+                                                        @foreach ($dpjp as $rtd => $td)
                                                         <div class="col-md-5">
                                                             <label for="">NAMA DPJP</label>
 
@@ -5673,6 +5676,8 @@
 
                                                         </div>
                                                         @endforeach
+                                                        @endif
+
                                                     </div>
                                                     <div class="row">
 

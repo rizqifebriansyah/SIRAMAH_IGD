@@ -99,10 +99,14 @@
                         @else
                         @endif
                     </div>
+                    <div class="col-4">
+                        <label for="inputName">Indikasi Klinis Pasien</label>
+                        <textarea class="form-control" id="indikasi_klinis" name="indikasi_klinis" rows="2"></textarea>
+                    </div>
                      <div class="col-4">
-                            <label for="inputName">Indikasi Klinis Pasien</label>
-                            <textarea class="form-control" id="indikasi_klinis" name="indikasi_klinis" rows="2"></textarea>
-                        </div>
+                        <label for="inputName">Informasi Tambahan Pasien</label>
+                        <textarea class="form-control" id="informasi_tambahan" name="informasi_tambahan" rows="2"></textarea>
+                    </div>
                     <div class="col-2">
                         <label for="inputName">RIWAYAT </label><br>
 
@@ -317,10 +321,14 @@
                         <input type="checkbox" name="pacs" id="pacs" value="pacs" checked>
                         <label for="ris">BRIDGING PACS</label>
                     </div>
+                    <div class="col-4">
+                        <label for="inputName">Indikasi Klinis Pasien</label>
+                        <textarea class="form-control" id="indikasi_klinis" name="indikasi_klinis" rows="2">{{ $pasienkunjunganorder[0]->indikasi_klinis }} </textarea>
+                    </div>
                      <div class="col-4">
-                            <label for="inputName">Indikasi Klinis Pasien</label>
-                            <textarea class="form-control" id="indikasi_klinis" name="indikasi_klinis" rows="2">{{ $pasienkunjunganorder[0]->indikasi_klinis }} </textarea>
-                        </div>
+                        <label for="inputName">Informasi Tambahan Pasien</label>
+                        <textarea class="form-control" id="informasi_tambahan" name="informasi_tambahan" rows="2">{{ $pasienkunjunganorder[0]->informasi_tambahan }}</textarea>
+                    </div>
                     <div class="col-2">
                         <label for="inputName">RIWAYAT </label><br>
 

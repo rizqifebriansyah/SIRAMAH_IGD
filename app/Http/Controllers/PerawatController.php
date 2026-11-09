@@ -736,8 +736,9 @@ class PerawatController extends Controller
         $tglmasuk = $request->tglmasuk;
         $ttv = DB::select('SELECT tekanan_darah, frekuensi_nafas, frekuensi_nadi, suhu, berat_badan, umur, keadaan_umum, kesadaran, gcs, spo2 FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
         $ttvb = DB::select('SELECT tekanan_darah, frekuensi_nafas, frekuensi_nadi, suhu, berat_badan, umur, keadaan_umum, kesadaran, gcs, spo2 FROM erm_cppt_kebidanan WHERE no_rm = ? AND kode_kunjungan = ?  AND status = 1', [$norm, $kj]);
+
         $ttvc = DB::select('SELECT tekanan_darah, skor_afgar_1, frekuensi_nafas, frekuensi_nadi, suhu, berat_badan, umur, keadaan_umum, kesadaran, gcs, spo2 FROM erm_cppt_kebidanan_bayi WHERE no_rm = ? AND kode_kunjungan = ?  AND status = 1', [$norm, $kj]);
-        // dd($ttvc);
+        // dd($ttvb);
         $cek = DB::select('SELECT
       fc_nama_unit1(kode_unit) AS nama_unit
       ,a.*
@@ -802,12 +803,15 @@ class PerawatController extends Controller
         $tf = DB::connection('mysql4')->select('SELECT * FROM catatan_transfer_pasien WHERE kode_kunjungan = ? AND status = 1', [$kj]);
         // dd($tf);
         $obatplg = DB::select('SELECT * FROM erm_obat_pulang_igd WHERE no_rm = ? AND kode_kunjungan = ? AND status = 4', [$norm, $kj]);
-        $dpjp = DB::select('SELECT 
-                    a.kode_paramedis,
-                    a.nama_paramedis
-                    FROM mt_paramedis a
-                    WHERE a.spesialis LIKE "%UMUM%"
-                    AND a.act = 1');
+        $dpjp = DB::select('SELECT
+            a.kode_paramedis,
+            a.nama_paramedis
+        FROM mt_paramedis a
+        WHERE (
+            a.spesialis LIKE "%UMUM%"
+            OR a.spesialis LIKE "%SPESIALIS%"
+        )
+        AND a.act = 1');
         // dd($tf);
         return view(
             'perawat.transferpasien',
@@ -892,7 +896,9 @@ class PerawatController extends Controller
     public function orderlabigk(Request $request)
     {
         $a = $request->all();
-        $diagnosa = $request->anamnesa;
+        $diagnosa = $request->diagnosa;
+        $dokkirim = $request->dokkirim;
+
         $kj = $request->kj;
         $norm = $request->norm;
         $unit = auth()->user()->unit;
@@ -970,8 +976,8 @@ class PerawatController extends Controller
                             'qty_header' => $dataSet['qty'],
                             'keterangan' => 'PENDING',
                             'unit_pengirim' => $unit,
-                            'diagnosa' => $request->diagnosa ,
-                            'dok_kirim' => $request->dokkirim,
+                            'diagnosa' => $diagnosa,
+                            'dok_kirim' => $dokkirim,
                             'total_layanan' => $gt,
                             'tagihan_pribadi' => $gt,
                             'diskon_global' => $dataSet['disc'],
@@ -1017,8 +1023,8 @@ class PerawatController extends Controller
                             'qty_header' => $dataSet['qty'],
                             'keterangan' => 'PENDING',
                             'unit_pengirim' => $unit,
-                            'diagnosa' => $request->diagnosa ,
-                            'dok_kirim' => $request->dokkirim,
+                            'diagnosa' => $diagnosa,
+                            'dok_kirim' => $dokkirim,
 
                             'total_layanan' => $gt,
                             'tagihan_pribadi' => $gt,
@@ -1065,8 +1071,8 @@ class PerawatController extends Controller
                         'qty_header' => $dataSet['qty'],
                         'keterangan' => 'PENDING',
                         'unit_pengirim' => $unit,
-                        'diagnosa' => $request->diagnosa ,
-                        'dok_kirim' => $kp,
+                        'diagnosa' => $diagnosa,
+                        'dok_kirim' => $dokkirim,
                         'total_layanan' => $gt,
                         'tagihan_pribadi' => $gt,
                         'diskon_global' => $dataSet['disc'],
@@ -1128,7 +1134,7 @@ class PerawatController extends Controller
         echo json_encode($back);
         die;
     }
-     public function returorderlaboratoriumbidan(Request $request)
+    public function returorderlaboratoriumbidan(Request $request)
     {
         $kj = $request->kj;
 
@@ -2680,6 +2686,8 @@ class PerawatController extends Controller
                 'frekuensi_nafas' => $request->frekuensinafas,
                 'suhu' => $request->suhutubuh,
                 'berat_badan' => $request->beratbadan,
+                'tinggi_badan' => $request->tinggibadan,
+
                 'umur' => $request->usia,
                 'keadaan_umum' => $request->keadaanumum,
                 'kesadaran' => $request->kesadaran,
@@ -4082,6 +4090,8 @@ class PerawatController extends Controller
                     'frekuensi_nafas' => $request->frekuensinafas,
                     'suhu' => $request->suhutubuh,
                     'berat_badan' => $request->beratbadan,
+                    'tinggi_badan' => $request->tinggibadan,
+
                     'umur' => $request->usia,
                     'keadaan_umum' => $request->keadaanumum,
                     'kesadaran' => $request->kesadaran,

@@ -304,24 +304,24 @@ class RadiologiController extends Controller
 
 
 
-        try{
+        try {
 
-        $kritis = erm_tindakan_kedokteran::create([
-            // 'kode_detail_obat' => $id_detail,
-            'no_rm' => $norm,
-            'kode_kunjungan' => $kj,
-            'kode_unit' => '3003',
-            'kode_paramedis' => $dorad,
-            'kritis_radiologi' => $hasil_konsul,
-            'pemeriksaan_rad' => $pemeriksaan,
+            $kritis = erm_tindakan_kedokteran::create([
+                // 'kode_detail_obat' => $id_detail,
+                'no_rm' => $norm,
+                'kode_kunjungan' => $kj,
+                'kode_unit' => '3003',
+                'kode_paramedis' => $dorad,
+                'kritis_radiologi' => $hasil_konsul,
+                'pemeriksaan_rad' => $pemeriksaan,
 
-            'tgl_input' => $now,
-            'status_kritis_radiologi' => 1,
+                'tgl_input' => $now,
+                'status_kritis_radiologi' => 1,
 
-            'status' => 1
+                'status' => 1
 
-        ]);
-        }catch (\Exception $e) {
+            ]);
+        } catch (\Exception $e) {
             $back = [
                 'kode' => 200,
                 'message' => $e->getMessage()
@@ -586,7 +586,7 @@ class RadiologiController extends Controller
 
         $tglbridging = Carbon::parse($request->tanggal_bridging)->format('Ymd');
         $pb = DB::connection('mysql3')->select('SELECT * from order_table a WHERE ACCESSIONNUMBER = ?', [$request->acc]);
-         $kritisrad = DB::select('SELECT 
+        $kritisrad = DB::select('SELECT 
         fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,
         a.tgl_input,
         a.pemeriksaan_rad,
@@ -599,9 +599,40 @@ class RadiologiController extends Controller
 
        AND a.status = 1
        AND a.kritis_radiologi IS NOT NULL', [$kj]);
-    //    dd($kritisrad);
+        //    dd($kritisrad);
 
         return view('radiologi.editbridgingview', [
+            'title' => 'SIRAMAH | RADIOLOGI',
+
+            'pb' => $pb,
+            'kritisrad' => $kritisrad,
+
+
+        ]);
+    }
+    public function serahterimaradiologi(Request $request)
+    {
+        $unit = '3003';
+        $kj = $request->kj;
+
+        $tglbridging = Carbon::parse($request->tanggal_bridging)->format('Ymd');
+        $pb = DB::connection('mysql3')->select('SELECT * from order_table a WHERE ACCESSIONNUMBER = ?', [$request->acc]);
+        $kritisrad = DB::select('SELECT 
+        fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,
+        a.tgl_input,
+        a.pemeriksaan_rad,
+        a.id,
+        a.kritis_radiologi,
+        a.status_raber
+     FROM erm_tindakan_kedokteran a
+     WHERE a.kode_kunjungan = ?
+       AND a.status_kritis_radiologi = 1
+
+       AND a.status = 1
+       AND a.kritis_radiologi IS NOT NULL', [$kj]);
+        //    dd($kritisrad);
+
+        return view('radiologi.serahterimaradiologi', [
             'title' => 'SIRAMAH | RADIOLOGI',
 
             'pb' => $pb,
@@ -1386,16 +1417,20 @@ class RadiologiController extends Controller
             $pdf::Cell(40, 10, ':');
             $pdf::SetFont('Times', '', 11);
             $pdf::SetXY(142, 66);
-            $pdf::Cell(40, 5, $pasien[0]->diagnosa);
+            $pdf::MultiCell(40, 5, $pasien[0]->diagnosa);
+
+            $y = $pdf::GetY();
+
 
             $pdf::SetFont('Times', '', 11);
-            $pdf::SetXY(120, 68);
-            $pdf::Cell(40, 10, 'Indikasi Klinis :');
-            $pdf::SetXY(139, 68);
-            $pdf::Cell(40, 10, ':');
+            $pdf::SetXY(120, $y);
+            $pdf::Cell(28, 5, 'Indikasi Klinis :');
+            $pdf::SetXY(139, $y);
+            $pdf::Cell(1, 5, ':');
             $pdf::SetFont('Times', '', 11);
-            $pdf::SetXY(142, 66);
+            $pdf::SetXY(145, $y);
             $pdf::MultiCell(60, 5, $pemeriksaan[0]->indikasi_klinis);
+
 
             $pdf::SetFont('Times', '', 11);
             $pdf::SetXY(10, 63);
@@ -1646,7 +1681,7 @@ class RadiologiController extends Controller
             $pdf::Cell(60, 5, $pasien[0]->diagnosa);
             $y = $pdf::GetY();
 
-             $pdf::SetFont('Times', '', 11);
+            $pdf::SetFont('Times', '', 11);
             $pdf::SetXY(120, $y);
             $pdf::Cell(40, 10, 'Indikasi Klinis :');
             $pdf::SetXY(139, $y);
@@ -1727,22 +1762,28 @@ class RadiologiController extends Controller
             a.KODE_KUNJUNGAN,
             a.RELEVANTCLINICALINFO,
             a.indikasi_klinis,
+            a.QRLINK,
+            a.tte_link,
             a.REFERRINGDOCTORNAME
 
             from order_table a
             where a.ACCESSIONNUMBER = ?', [$acc]);
+        // dd($pemeriksaan);
+
 
 
         $updatestatus = DB::connection('mysql3')->select('UPDATE order_table SET STATUS = "FN" WHERE ACCESSIONNUMBER = ?', [$acc]);
         // dd($pemeriksaan);
         $kj = $pemeriksaan[0]->KODE_KUNJUNGAN;
+        $qr = $pemeriksaan[0]->QRLINK;
+
         $norm = $pemeriksaan[0]->PID;
-        $riwayatorderradd = DB::select('SELECT
+        $p = DB::select('SELECT
         --  a.no_rm,
          a.kode_layanan_header,
          a.diagnosa,
          a.id,
-         b.total_tarif,
+         a.dok_rujukan,
          fc_nama_tindakan(LEFT(b.kode_tarif_detail,6)) as nama_tindakan
          FROM
          ts_layanan_header a
@@ -1751,10 +1792,33 @@ class RadiologiController extends Controller
          AND a.kode_kunjungan = ?
          ', ['3003', $kj]);
         //  dd($riwayatorderradd);
+        $dook = public_path('\qrcodette\qr' . $kj . time() . '.png');
 
         $path = public_path('\qrcoderad\qr' . $kj . time() . '.png');
+
+        $ttedokter = $pemeriksaan[0]->tte_link ?? null;
+
+        if (!empty($ttedokter)) {
+            $o = QrCode::size(300)
+                ->format('png')
+                ->generate($ttedokter, $dook);
+        } else {
+            $o = null;
+        }
+
+        $qr = $pemeriksaan[0]->QRLINK ?? null;
+        // dd($qr);
+
+        if (!empty($qr)) {
+            $pr = QrCode::size(300)
+                ->format('png')
+                ->generate($qr, $path);
+        } else {
+            $pr = null;
+        }
+
         // dd($path);
-        $d = QrCode::size(300)->format('png')->generate($ex->data->qrLink, $path);
+        $d = QrCode::size(300)->format('png')->generate($qr, $path);
         // $qr = QrCode::PNG($qrCode);
 
         // dd($qrCode);
@@ -1899,18 +1963,18 @@ class RadiologiController extends Controller
         $pdf::Cell(40, 10, ':');
         $pdf::SetFont('Times', '', 11);
         $pdf::SetXY(142, 66);
-        $pdf::MultiCell(60, 5, $pasien[0]->diagnosa);
-            $y = $pdf::GetY();
+        $pdf::MultiCell(60, 5, $p[0]->diagnosa);
+        $y = $pdf::GetY();
 
 
-           $pdf::SetFont('Times', '', 11);
-            $pdf::SetXY(120, $y);
-            $pdf::Cell(28, 5, 'Indikasi Klinis :');
-            $pdf::SetXY(139, $y);
-            $pdf::Cell(1, 5, ':');
-            $pdf::SetFont('Times', '', 11);
-            $pdf::SetXY(145, $y );
-            $pdf::MultiCell(60, 5, $pemeriksaan[0]->indikasi_klinis);
+        $pdf::SetFont('Times', '', 11);
+        $pdf::SetXY(120, $y);
+        $pdf::Cell(28, 5, 'Indikasi Klinis :');
+        $pdf::SetXY(139, $y);
+        $pdf::Cell(1, 5, ':');
+        $pdf::SetFont('Times', '', 11);
+        $pdf::SetXY(145, $y);
+        $pdf::MultiCell(60, 5, $p[0]->dok_rujukan);
 
         $pdf::SetFont('Times', '', 11);
         $pdf::SetXY(10, 63);
@@ -1993,53 +2057,82 @@ class RadiologiController extends Controller
         $pdf::Cell(40, 10, 'Radiologi,');
         $pdf::SetFont('Times', 'B', 12);
         // $pdf::Image('public/img/cap.png', 145, 211, 40, 25);
-        if (str_contains($ex->data->approver, 'Nunik')) {
-            // if ($ex->data->approver == 'dr. Nunik Royyani, Sp.Rad') {
-            $pdf::Image($path, 123, 220, 20, 20, 'PNG');
 
-            $pdf::Image('public/img/ttd_036.png', 150, 211, 40, 25);
-            $pdf::SetXY(145, 232);
-            $pdf::Cell(40, 10, $ex->data->approver);
+        if ($ttedokter != NULL) {
+            if (!empty($ttedokter) && file_exists($dook)) {
+                // $pdf::SetXY(145, 232);
+                $pdf::Image($dook, 160, 215, 20, 20, 'PNG');
+                $pdf::Image($path, 20, 215, 20, 20, 'PNG');
+                $pdf::SetXY(15, 205);
+
+                $pdf::Cell(40, 10, 'Scan Gambar');
+                $pdf::SetFont('Times', '', 10);
+
+                $pdf::SetXY(10, 235);
+
+                $pdf::Cell(10, 10, '-- QR Code ini berlaku 30 hari --');
+                $pdf::SetFont('Times', 'B', 12);
+
+                $pdf::SetXY(145, 232);
+                $pdf::Cell(40, 10, $ex->data->approver);
 
 
-            $pdf::SetLineWidth(0.5);
+                $pdf::SetLineWidth(0.5);
 
-            $pdf::Line(145, 240, 195, 240);
-            $pdf::SetXY(152, 237);
-            $pdf::Cell(40, 10, 'Spesialis Radiologi');
+                $pdf::Line(145, 240, 195, 240);
+                $pdf::SetXY(152, 237);
+                $pdf::Cell(40, 10, 'Spesialis Radiologi');
+            }
+        } else {
+
+
+            if (str_contains($ex->data->approver, 'Nunik')) {
+                // if ($ex->data->approver == 'dr. Nunik Royyani, Sp.Rad') {
+                $pdf::Image($path, 123, 220, 20, 20, 'PNG');
+
+                $pdf::Image('public/img/ttd_036.png', 150, 211, 40, 25);
+                $pdf::SetXY(145, 232);
+                $pdf::Cell(40, 10, $ex->data->approver);
+
+
+                $pdf::SetLineWidth(0.5);
+
+                $pdf::Line(145, 240, 195, 240);
+                $pdf::SetXY(152, 237);
+                $pdf::Cell(40, 10, 'Spesialis Radiologi');
+            }
+            // elseif ($ex->data->approver == 'dr. Nunik Royyani. Sp.Rad') {
+            //     $pdf::Image($path, 123, 220, 20, 20, 'PNG');
+
+            //     $pdf::Image('public/img/ttd_036.png', 150, 211, 40, 25);
+            //     $pdf::SetXY(145, 232);
+            //     $pdf::Cell(40, 10, $ex->data->approver);
+
+
+            //     $pdf::SetLineWidth(0.5);
+
+            //     $pdf::Line(145, 240, 195, 240);
+            //     $pdf::SetXY(152, 237);
+            //     $pdf::Cell(40, 10, 'Spesialis Radiologi');
+            // } 
+            else {
+
+
+
+                $pdf::Image($path, 113, 220, 20, 20, 'PNG');
+
+                $pdf::Image('public/img/ttd_369.png', 150, 211, 40, 25);
+                $pdf::SetXY(140, 232);
+                $pdf::Cell(40, 10, $ex->data->approver);
+
+
+                $pdf::SetLineWidth(0.5);
+
+                $pdf::Line(135, 240, 205, 240);
+                $pdf::SetXY(152, 237);
+                $pdf::Cell(40, 10, 'Spesialis Radiologi');
+            }
         }
-        // elseif ($ex->data->approver == 'dr. Nunik Royyani. Sp.Rad') {
-        //     $pdf::Image($path, 123, 220, 20, 20, 'PNG');
-
-        //     $pdf::Image('public/img/ttd_036.png', 150, 211, 40, 25);
-        //     $pdf::SetXY(145, 232);
-        //     $pdf::Cell(40, 10, $ex->data->approver);
-
-
-        //     $pdf::SetLineWidth(0.5);
-
-        //     $pdf::Line(145, 240, 195, 240);
-        //     $pdf::SetXY(152, 237);
-        //     $pdf::Cell(40, 10, 'Spesialis Radiologi');
-        // } 
-        else {
-
-
-
-            $pdf::Image($path, 113, 220, 20, 20, 'PNG');
-
-            $pdf::Image('public/img/ttd_369.png', 150, 211, 40, 25);
-            $pdf::SetXY(140, 232);
-            $pdf::Cell(40, 10, $ex->data->approver);
-
-
-            $pdf::SetLineWidth(0.5);
-
-            $pdf::Line(135, 240, 205, 240);
-            $pdf::SetXY(152, 237);
-            $pdf::Cell(40, 10, 'Spesialis Radiologi');
-        }
-
 
 
 
@@ -2193,6 +2286,20 @@ class RadiologiController extends Controller
         $nota = DB::select("CALL SP_NOTA_TINDAKAN_NEW('$kode_header','$idhed')");
         $now = Carbon::now();
         $penjamin = $nota[0]->kode_penjamin;
+        $p = DB::select('SELECT
+        --  a.no_rm,
+         a.kode_layanan_header,
+         a.diagnosa,
+         a.id,
+         a.dok_rujukan,
+         fc_nama_tindakan(LEFT(b.kode_tarif_detail,6)) as nama_tindakan
+         FROM
+         ts_layanan_header a
+         INNER JOIN ts_layanan_detail b ON b.row_id_header = a.id
+         WHERE a.kode_unit = ?
+         AND a.kode_layanan_header = ?
+         ', ['3003', $kode_header]);
+        //  dd($p);
 
 
         date_default_timezone_set('Asia/Jakarta');
@@ -2280,7 +2387,7 @@ class RadiologiController extends Controller
             $printer->text("Alamat       : " . $nota[0]->alamat . "\n");
             $printer->text("Unit Asal    : " . $nota[0]->nama_unit . "\n");
             $printer->text("Penjamin     : " . $nota[0]->nama_penjamin . "\n");
-            $printer->text("Diagnosa     : " . $nota[0]->DIAGX . "\n");
+            $printer->text("Diagnosa     : " . $p[0]->diagnosa . "\n");
 
             // Membuat tabel
             $printer->initialize(); // Reset bentuk/jenis teks
@@ -2377,7 +2484,7 @@ class RadiologiController extends Controller
             $printer->text("Alamat       : " . $nota[0]->alamat . "\n");
             $printer->text("Unit Asal    : " . $nota[0]->nama_unit . "\n");
             $printer->text("Penjamin     : " . $nota[0]->nama_penjamin . "\n");
-            $printer->text("Diagnosa     : " . $nota[0]->DIAGX . "\n");
+            $printer->text("Diagnosa     : " . $p[0]->diagnosa . "\n");
 
             // Membuat tabel
             $printer->initialize(); // Reset bentuk/jenis teks

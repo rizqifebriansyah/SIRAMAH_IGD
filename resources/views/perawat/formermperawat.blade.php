@@ -464,12 +464,21 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="text-bold font-italic">Berat Badan / tinggi badan / IMT</td>
+                                                    <td class="text-bold font-italic">Berat Badan </td>
                                                     <td>
                                                         <div class="input-group">
                                                             <input type="text" class="form-control" placeholder="Berat badan Pasien ..." name="beratbadan" id="beratbadan" aria-label="Recipient's username" aria-describedby="basic-addon2" value="">
                                                             <div class="input-group-append">
                                                                 <span class="input-group-text" id="basic-addon2">Kg</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-bold font-italic"> tinggi badan</td>
+                                                    <td>
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" placeholder="Tinggi badan Pasien ..." name="tinggibadan" id="tinggibadan" aria-label="Recipient's username" aria-describedby="basic-addon2" value="">
+                                                            <div class="input-group-append">
+                                                                <span class="input-group-text" id="basic-addon2">CM</span>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -2400,7 +2409,7 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="text-bold font-italic">Berat Badan / tinggi badan / IMT</td>
+                                                    <td class="text-bold font-italic">Berat Badan </td>
                                                     <td>
                                                         <div class="input-group">
                                                             <input type="text" class="form-control" placeholder="" name="beratbadan" id="beratbadan" aria-label="Recipient's username" aria-describedby="basic-addon2" value="{{$assesper[0]->berat_badan}}">
@@ -2409,6 +2418,16 @@
                                                             </div>
                                                         </div>
                                                     </td>
+                                                    <td class="text-bold font-italic"> tinggi badan</td>
+                                                    <td>
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" placeholder="Tinggi badan Pasien ..." name="tinggibadan" id="tinggibadan" aria-label="Recipient's username" aria-describedby="basic-addon2" value="{{$assesper[0]->tinggi_badan}}">
+                                                            <div class="input-group-append">
+                                                                <span class="input-group-text" id="basic-addon2">CM</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+
                                                     <td class="text-bold font-italic">Umur</td>
                                                     <td>
                                                         <div class="input-group">
@@ -5123,12 +5142,21 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="text-bold font-italic">Berat Badan / tinggi badan / IMT</td>
+                                                    <td class="text-bold font-italic">Berat Badan </td>
                                                     <td>
                                                         <div class="input-group">
                                                             <input type="text" class="form-control" placeholder="" name="beratbadan" id="beratbadan" aria-label="Recipient's username" aria-describedby="basic-addon2" value="{{$assesper[0]->berat_badan}}">
                                                             <div class="input-group-append">
                                                                 <span class="input-group-text" id="basic-addon2">Kg</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                      <td class="text-bold font-italic"> tinggi badan</td>
+                                                    <td>
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" placeholder="Tinggi badan Pasien ..." name="tinggibadan" id="tinggibadan" aria-label="Recipient's username" aria-describedby="basic-addon2" value="{{$assesper[0]->tinggi_badan}}">
+                                                            <div class="input-group-append">
+                                                                <span class="input-group-text" id="basic-addon2">CM</span>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -7641,7 +7669,7 @@
             TTE
         </div>
         <div type="button" class="btn float-right btn-info ml-2 singkronisasitteperawat" style="margin-top: 20px;">
-           Sinkronisasi TTE
+            Sinkronisasi TTE
         </div>
         @endif
 
@@ -8081,6 +8109,8 @@
         var frekuensinafas = $('#frekuensinafas').val()
         var suhutubuh = $('#suhutubuh').val()
         var beratbadan = $('#beratbadan').val()
+        var tinggibadan = $('#tinggibadan').val()
+
         var usia = $('#usia').val()
         var keadaanumum = $('#keadaanumum:checked').val()
         var kesadaran = $('#kesadaran:checked').val()
@@ -8273,6 +8303,8 @@
                         frekuensinafas: $('#frekuensinafas').val(),
                         suhutubuh: $('#suhutubuh').val(),
                         beratbadan: $('#beratbadan').val(),
+                        tinggibadan: $('#tinggibadan').val(),
+
                         keadaanumum: $('#keadaanumum:checked').val(),
                         kesadaran: $('#kesadaran:checked').val(),
                         usia: $('#usia').val(),
@@ -8462,7 +8494,7 @@
         })
         return false;
     });
-    
+
     $(".singkronisasitteperawat").click(function() {
         var data = $('.formerm').serializeArray();
 
@@ -8621,6 +8653,8 @@
         var frekuensinafas = $('#frekuensinafas').val()
         var suhutubuh = $('#suhutubuh').val()
         var beratbadan = $('#beratbadan').val()
+        var tinggibadan = $('#tinggibadan').val()
+
         var usia = $('#usia').val()
         var keadaanumum = $('#keadaanumum:checked').val()
         var kesadaran = $('#kesadaran:checked').val()
@@ -8811,6 +8845,8 @@
                         frekuensinafas: $('#frekuensinafas').val(),
                         suhutubuh: $('#suhutubuh').val(),
                         beratbadan: $('#beratbadan').val(),
+                        tinggibadan: $('#tinggibadan').val(),
+
                         keadaanumum: $('#keadaanumum:checked').val(),
                         kesadaran: $('#kesadaran:checked').val(),
                         usia: $('#usia').val(),

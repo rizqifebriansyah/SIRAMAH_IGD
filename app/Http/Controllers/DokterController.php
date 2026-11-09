@@ -914,8 +914,8 @@ class DokterController extends Controller
         $norm = $request->norm;
 
         $triase = DB::select('SELECT * FROM ts_triase
-           WHERE no_rm = ? and status =1', [$norm]);
-           //dd($triase);
+           WHERE no_rm = ? and status = 1', [$norm]);
+        //    dd($triase);
         return view(
             'dokter.triaseanakk',
             [
@@ -1035,7 +1035,7 @@ class DokterController extends Controller
         $diagnosa = DB::select('SELECT * FROM mt_jenis_diagnosa_medis');
         $alasanplg  = DB::select('SELECT * FROM mt_alasan_pulang');
         $ttb = DB::select('SELECT subyek, tekanan_darah, frekuensi_nafas, keadaan_umum, kesadaran, frekuensi_nadi, suhu, berat_badan, GCS, SPO2, umur FROM erm_cppt_kebidanan WHERE kode_kunjungan = ? and status = 1', [$kj]);
-        // dd($ttb);
+    
         $assesdok = DB::select('SELECT * FROM erm_cppt_dokter_kebidanan WHERE  kode_kunjungan = ? AND status IN (1,2)', [$kj]);
         $dpjp = DB::select('SELECT 
         a.kode_paramedis,
@@ -1643,8 +1643,9 @@ class DokterController extends Controller
         $ttb = DB::select('SELECT tekanan_darah, frekuensi_nafas, keadaan_umum, kesadaran, frekuensi_nadi, suhu, berat_badan, GCS, SPO2, umur FROM erm_cppt_kebidanan WHERE kode_kunjungan = ?', [$kj]);
         $riwayatrekonobat = DB::select('SELECT * FROM rekonsiliasi_obat
         WHERE kode_kunjungan = ?', [$kj]);
-        $tindakan = DB::select('SELECT * FROM erm_tindakan_kedokteran WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $request->kj]);
-        $tindakan1 = DB::select('SELECT * FROM erm_tindakan_keperawatan WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $request->kj]);
+        $tindakan = DB::select('SELECT * FROM erm_tindakan_kedokteran WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$request->norm, $request->kj]);
+        // dd($tindakan);
+        $tindakan1 = DB::select('SELECT * FROM erm_tindakan_keperawatan WHERE no_rm = ? AND kode_kunjungan = ?  AND status = 1', [$request->norm, $request->kj]);
         // dd($tindakan1); 
         $assesper = DB::select('SELECT * FROM erm_cppt_perawat
           WHERE no_rm = ? AND kode_kunjungan = ?', [$request->norm, $request->kj]);
@@ -2397,6 +2398,8 @@ class DokterController extends Controller
                             'kode_tipe_transaksi' => 2,
                             'kode_penjaminx' => $request->kp,
                             'indikasi_klinis' => $request->indikasiklinislab,
+                            'informasi_tambahan' => $request->informasi_tambahan_lab,
+
 
                             'pic' => $user,
                         ];
@@ -2444,6 +2447,8 @@ class DokterController extends Controller
                             'kode_tipe_transaksi' => 1,
                             'kode_penjaminx' => $request->kp,
                             'indikasi_klinis' => $request->indikasiklinislab,
+                            'informasi_tambahan' => $request->informasi_tambahan_lab,
+
 
                             'pic' => $user,
                         ];
@@ -2491,6 +2496,8 @@ class DokterController extends Controller
                         'kode_tipe_transaksi' => 2,
                         'kode_penjaminx' => $request->kp,
                         'indikasi_klinis' => $request->indikasiklinislab,
+                        'informasi_tambahan' => $request->informasi_tambahan_lab,
+
 
                         'pic' => $user,
                     ];
@@ -2589,6 +2596,8 @@ class DokterController extends Controller
                             'kode_tipe_transaksi' => 2,
                             'kode_penjaminx' => $request->kp,
                             'indikasi_klinis' => $request->indikasiklinisrad,
+                            'informasi_tambahan' => $request->informasi_tambahan_radiologi,
+
 
                             'pic' => $user,
                         ];
@@ -2635,6 +2644,8 @@ class DokterController extends Controller
                             'kode_tipe_transaksi' => 1,
                             'kode_penjaminx' => $request->kp,
                             'indikasi_klinis' => $request->indikasiklinisrad,
+                            'informasi_tambahan' => $request->informasi_tambahan_radiologi,
+
 
                             'pic' => $user,
                         ];
@@ -2681,6 +2692,8 @@ class DokterController extends Controller
                         'kode_tipe_transaksi' => 2,
                         'kode_penjaminx' => $request->kp,
                         'indikasi_klinis' => $request->indikasiklinisrad,
+                        'informasi_tambahan' => $request->informasi_tambahan_radiologi,
+
 
                         'pic' => $user,
                     ];
@@ -5059,133 +5072,7 @@ class DokterController extends Controller
         try {
             $cekcpp = DB::select('SELECT status FROM ts_triase WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
             //ada
-            // dd($cekcpp);
-
-            // if($cekcpp == NULL){
-            //         $triase = ts_triase::create([
-            //         'no_rm' => $norm,
-            //         'kode_kunjungan' => $kj,
-            //         'keluhan_utama' => $request->keluhan_triase,
-            //         'pemeriksaan_fisik' => $request->pemfis_triase,
-            //         'diagnosa_triase' => $request->diagnosa_triase,
-            //         'tata_laksana' => $request->talak_triase,
-            //         'tindak_lanjut' => $request->tinjut_triase,
-            //         'sumber_informasi' => $request->si_triase,
-            //         'kategori_triase' => $request->kategoritriase,
-            //         'pemeriksaan_triase' => $request->jenisats,
-            //         'kategori_triase' => $request->kategoritriase,
-            //         'pemeriksaan_triase' => $request->jenisats,
-            //         'kesadaran_1' => $request->kesadaran_1,
-            //         'kesadaran_2' => $request->kesadaran_2,
-            //         'kesadaran_3' => $request->kesadaran_3,
-            //         'status_psikologis1' => $request->spsi1,
-            //         'status_psikologis2' => $request->spsi2,
-            //         'status_psikologis3' => $request->spsi3,
-            //         'status_psikologis4' => $request->spsi4,
-            //         'status_psikologis5' => $request->spsi5,
-            //         'status_psikologis6' => $request->spsi6,
-            //         'status_psikologis7' => $request->spsi7,
-            //         'status_psikologis9' => $request->spsi9,
-            //         'status_psikologis' => $request->spsi,
-            //         'kesadaran1' => $request->kesadaran1,
-            //         'kesadaran2' => $request->kesadaran2,
-            //         'kesadaran3' => $request->kesadaran3,
-            //         'kesadaran4' => $request->kesadaran4,
-            //         'kesadaran5' => $request->kesadaran5,
-            //         'kesadaran6' => $request->kesadaran6,
-            //         'kesadaran7' => $request->kesadaran7,
-            //         'kesadaran8' => $request->kesadaran8,
-            //         'kesadaran9' => $request->kesadaran9,
-            //         'kesadaran10' => $request->kesadaran10,
-            //         'kesadaran11' => $request->kesadaran11,
-            //         'kesadaran12' => $request->kesadaran12,
-            //         'jalan_nafas1' => $request->jalannafas1,
-            //         'jalan_nafas2' => $request->jalannafas2,
-            //         'jalan_nafas3' => $request->jalannafas3,
-            //         'jalan_nafas4' => $request->jalannafas4,
-            //         'jalan_nafas5' => $request->jalannafas5,
-            //         'upaya1' => $request->upaya1,
-            //         'upaya2' => $request->upaya2,
-            //         'upaya3' => $request->upaya3,
-            //         'upaya4' => $request->upaya4,
-            //         'upaya5' => $request->upaya5,
-            //         'upaya6' => $request->upaya6,
-            //         'upaya7' => $request->upaya7,
-            //         'upaya8' => $request->upaya8,
-            //         'sirkulasi1' => $request->sirkulasi1,
-            //         'sirkulasi2' => $request->sirkulasi2,
-            //         'sirkulasi3' => $request->sirkulasi3,
-            //         'sirkulasi4' => $request->sirkulasi4,
-            //         'sirkulasi5' => $request->sirkulasi5,
-            //         'sirkulasi6' => $request->sirkulasi6,
-            //         'sirkulasi7' => $request->sirkulasi7,
-            //         'sirkulasi8' => $request->sirkulasi8,
-            //         'sirkulasi9' => $request->sirkulasi9,
-            //         'sirkulasi10' => $request->sirkulasi10,
-            //         'sirkulasi11' => $request->sirkulasi11,
-            //         'sirkulasi12' => $request->sirkulasi12,
-            //         'sirkulasi13' => $request->sirkulasi13,
-            //         'sirkulasi14' => $request->sirkulasi14,
-            //         'sirkulasi15' => $request->sirkulasi15,
-            //         'sirkulasi16' => $request->sirkulasi16,
-            //         'sirkulasi17' => $request->sirkulasi17,
-            //         'sirkulasi18' => $request->sirkulasi18,
-            //         'sirkulasi19' => $request->sirkulasi19,
-            //         'sirkulasi20' => $request->sirkulasi20,
-            //         'sirkulasi21' => $request->sirkulasi21,
-            //         'sirkulasi22' => $request->sirkulasi22,
-            //         'sirkulasi23' => $request->sirkulasi23,
-            //         'sirkulasi24' => $request->sirkulasi24,
-            //         'sirkulasi25' => $request->sirkulasi25,
-            //         'gejala_respirasi1' => $request->gejala1,
-            //         'gejala_respirasi2' => $request->gejala2,
-            //         'gejala_respirasi3' => $request->gejala3,
-            //         'gejala_respirasi4' => $request->gejala4,
-            //         'gejala_respirasi5' => $request->gejala5,
-            //         'gejala_respirasi6' => $request->gejala6,
-            //         'gejala_respirasi7' => $request->gejala7,
-            //         'gejala_respirasi8' => $request->gejala8,
-            //         'gejala_respirasi9' => $request->gejala9,
-            //         'gejala_respirasi10' => $request->gejala10,
-            //         'gejala_respirasi11' => $request->gejala11,
-            //         'gejala_respirasi12' => $request->gejala12,
-            //         'gejala_respirasi13' => $request->gejala13,
-            //         'gejala_respirasi14' => $request->gejala14,
-            //         'gejala_respirasi15' => $request->gejala15,
-            //         'gejala_respirasi16' => $request->gejala16,
-            //         'gejala_respirasi17' => $request->gejala17,
-            //         'gejala_respirasi18' => $request->gejala18,
-            //         'gejala_respirasi19' => $request->gejala19,
-            //         'gejala_respirasi20' => $request->gejala20,
-            //         'gejala_respirasi21' => $request->gejala21,
-            //         'gejala_respirasi22' => $request->gejala22,
-            //         'gejala_respirasi23' => $request->gejala23,
-            //         'gejala_respirasi24' => $request->gejala24,
-            //         'gejala_respirasi25' => $request->gejala25,
-            //         'gejala_respirasi26' => $request->gejala26,
-            //         'gejala_respirasi27' => $request->gejala27,
-            //         'gejala_respirasi28' => $request->gejala28,
-            //         'gejala_respirasi29' => $request->gejala29,
-            //         'ats1lain' => $request->ats1lain,
-            //         'ats2lain' => $request->ats2lain,
-            //         'ats3lain' => $request->ats3lain,
-            //         'ats4lain' => $request->ats4lain,
-            //         'ats5lain' => $request->ats5lain,
-            //         'tg_entri_triase' => $request->tgl_input_triase,
-            //         'tgl_selesai_triase' => $request->tgl_selesai_triase,
-
-            //         'kode_paramedis' => $kp,
-            //         'jenis_triase' => $request->jenistriase,
-            //         'penandaan_gambar' => $request->gambar1,
-            //         'nama_dokter' => $name,
-            //         'status' => 1,
-            //         'tgl_masuk_triase' => $request->tgl_msk_skrining,
-            //         'create_at' => $now
-
-
-            //     ]);
-            //     // dd($triase);
-            // }else
+     
             if ($cekcpp[0]->status == 1) {
                 $cekcpp = DB::select('UPDATE ts_triase SET status = "3"  WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
 
@@ -5434,6 +5321,8 @@ class DokterController extends Controller
                             'kode_tipe_transaksi' => 2,
                             'kode_penjaminx' => $request->kp,
                             'indikasi_klinis' => $request->indikasiklinislab,
+                            'informasi_tambahan' => $request->informasi_tambahan_lab,
+
 
                             'pic' => $user,
                         ];
@@ -5480,6 +5369,8 @@ class DokterController extends Controller
                             'kode_tipe_transaksi' => 1,
                             'kode_penjaminx' => $request->kp,
                             'indikasi_klinis' => $request->indikasiklinislab,
+                            'informasi_tambahan' => $request->informasi_tambahan_lab,
+
 
                             'pic' => $user,
                         ];
@@ -5526,6 +5417,8 @@ class DokterController extends Controller
                         'kode_tipe_transaksi' => 2,
                         'kode_penjaminx' => $request->kp,
                         'indikasi_klinis' => $request->indikasiklinislab,
+                        'informasi_tambahan' => $request->informasi_tambahan_lab,
+
 
                         'pic' => $user,
                     ];
@@ -5632,6 +5525,8 @@ class DokterController extends Controller
                             'kode_tipe_transaksi' => 2,
                             'kode_penjaminx' => $request->kp,
                             'indikasi_klinis' => $request->indikasiklinisrad,
+                            'informasi_tambahan' => $request->informasi_tambahan_radiologi,
+
 
                             'pic' => $user,
                         ];
@@ -5678,6 +5573,8 @@ class DokterController extends Controller
                             'kode_tipe_transaksi' => 1,
                             'kode_penjaminx' => $request->kp,
                             'indikasi_klinis' => $request->indikasiklinisrad,
+                            'informasi_tambahan' => $request->informasi_tambahan_radiologi,
+
 
                             'pic' => $user,
                         ];
@@ -5724,6 +5621,8 @@ class DokterController extends Controller
                         'kode_tipe_transaksi' => 2,
                         'kode_penjaminx' => $request->kp,
                         'indikasi_klinis' => $request->indikasiklinisrad,
+                        'informasi_tambahan' => $request->informasi_tambahan_radiologi,
+
 
                         'pic' => $user,
                     ];
@@ -12490,7 +12389,7 @@ foreach ($kriteriaTransfer as $nilai => $label) {
             $pdf::Cell(89, 5, '     Cek Laboratorium sebelum kontrol', 1, 0, "L");
             $pdf::SetXY(97, $y + 6.5);
             $pdf::MultiCell(109, 5, '     perlu perawatan lanjutan ke puskesmas / Rumah Sakit', 1, 0, "L");
-
+            //cek disini
             if ($triase[0]->upaya2 == NULL) {
                 $pdf::SetXY(9, $y + 8);
 
@@ -14999,7 +14898,7 @@ foreach ($hasilp as $k) {
          WHERE a.kode_layanan_header LIKE "%DP%"
          AND b.kode_tarif_detail NOT LIKE "%tx%"
          AND a.kode_kunjungan = ?', [$kj]);
-        $ttv = DB::select('SELECT tekanan_darah, sumber_data, SPO2, frekuensi_nafas, keadaan_umum, kesadaran, frekuensi_nadi, suhu, berat_badan, umur FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
+        $ttv = DB::select('SELECT tekanan_darah, tinggi_badan, sumber_data, SPO2, frekuensi_nafas, keadaan_umum, kesadaran, frekuensi_nadi, suhu, berat_badan, umur FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
         $riwayatrekonobat = DB::select('SELECT * FROM rekonsiliasi_obat
         WHERE kode_kunjungan = ?', [$kj]);
         // dd($riwayatrekonobat);
@@ -18081,7 +17980,7 @@ foreach ($hasilp as $k) {
                 }
                 $pdf::SetXY(107, 195.5);
                 $pdf::MultiCell(25, 3, 'Kejang');
-                if ($triase[0]->pernafasan16 == NULL) {
+                if ($triase[0]->pernafasan19 == NULL) {
                     $pdf::SetXY(105, 195.5);
 
                     checkbox($pdf, False);
@@ -18284,7 +18183,7 @@ foreach ($hasilp as $k) {
                 }
                 $pdf::SetXY(107, 224.5);
                 $pdf::MultiCell(20, 3, 'Reaksi alergi sedang');
-                if ($triase[0]->lain7 == NULL) {
+                if ($triase[0]->lain10 == NULL) {
                     $pdf::SetXY(105, 224.5);
 
                     checkbox($pdf, False);
@@ -18295,7 +18194,7 @@ foreach ($hasilp as $k) {
                 }
                 $pdf::SetXY(107, 230.5);
                 $pdf::MultiCell(30, 3, 'Kesulitan makan pada bayi');
-                if ($triase[0]->lain7 == NULL) {
+                if ($triase[0]->lain13 == NULL) {
                     $pdf::SetXY(105, 230.5);
 
                     checkbox($pdf, False);
@@ -19007,7 +18906,7 @@ foreach ($hasilp as $k) {
             $pdf::Cell(45, 10, ':');
             $pdf::SetFont('Times', '', 10);
             $pdf::SetXY(149, 53);
-            $pdf::MultiCell(70, 10, $ttv[0]->berat_badan . ' cm');
+            $pdf::MultiCell(70, 10, $ttv[0]->tinggi_badan . ' cm');
 
 
             $pdf::SetFont('Times', '', 11);
@@ -19319,6 +19218,7 @@ foreach ($hasilp as $k) {
             //         'L'
             //     );
             // }
+        $pdf::Rect(8, 9, 198, 260);
 
             $pdf::Ln();
 
@@ -19501,7 +19401,7 @@ foreach ($hasilp as $k) {
             $pdf::SetFont('Times', '', 10);
             $pdf::SetX(8);
 
-            $pdf::MultiCell(198, 5, 'Pasien Keluar dari Instalasi Gawat Darurat,  ' . 'Tanggal :   ' . $tglpindah . '           Jam :   ' . $jampindah . ' WIB', 1, "L", true);
+            $pdf::MultiCell(198, 5, 'Pasien Keluar dari Instalasi Gawat Darurat,  ' . 'Tanggal :   ' . $tglplg . '           Jam :   ' . $jamplg . ' WIB', 1, "L", true);
             //kotak TTD
 
             $pdf::SetFont('Times', 'B', 10);
@@ -19631,7 +19531,7 @@ foreach ($hasilp as $k) {
          AND a.kode_kunjungan = ?
          AND a.status_order ="1"', ['3002', $kj]);
 
-        $ttv = DB::select('SELECT tekanan_darah, sumber_data, SPO2, frekuensi_nafas, keadaan_umum, kesadaran, frekuensi_nadi, suhu, berat_badan, umur FROM erm_cppt_kebidanan WHERE no_rm = ? AND kode_kunjungan = ? AND status IN (1,2)', [$norm, $kj]);
+        $ttv = DB::select('SELECT tekanan_darah, tinggi_badan, sumber_data, SPO2, frekuensi_nafas, keadaan_umum, kesadaran, frekuensi_nadi, suhu, berat_badan, umur FROM erm_cppt_kebidanan WHERE no_rm = ? AND kode_kunjungan = ? AND status = 2', [$norm, $kj]);
         $riwayatrekonobat = DB::select('SELECT * FROM rekonsiliasi_obat
         WHERE kode_kunjungan = ?', [$kj]);
         $tindakanp = DB::select('SELECT * FROM erm_tindakan_keperawatan WHERE no_rm = ? AND kode_kunjungan = ? AND kode_unit = "1023" AND status = 1', [$norm, $kj]);
@@ -24465,7 +24365,7 @@ Aktivitas dikurangi / bertambah ' . $lanjutan[0]->berkurangnyeri, 1);
          AND a.kode_kunjungan = ?
          AND a.status_order ="1"', ['3002', $kj]);
 
-        $ttv = DB::select('SELECT tekanan_darah, sumber_data, SPO2, frekuensi_nafas, keadaan_umum, kesadaran, frekuensi_nadi, suhu, berat_badan, umur FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
+        $ttv = DB::select('SELECT tekanan_darah, tinggi_badan, sumber_data, SPO2, frekuensi_nafas, keadaan_umum, kesadaran, frekuensi_nadi, suhu, berat_badan, umur FROM erm_cppt_perawat WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
         $riwayatrekonobat = DB::select('SELECT * FROM rekonsiliasi_obat
         WHERE kode_kunjungan = ?', [$kj]);
         $tindakanp = DB::select('SELECT * FROM erm_tindakan_keperawatan WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
@@ -24825,7 +24725,7 @@ Aktivitas dikurangi / bertambah ' . $lanjutan[0]->berkurangnyeri, 1);
         $pdf::Cell(45, 5, ':');
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(187, $y);
-        $pdf::MultiCell(70, 5, '' . ' cm');
+        $pdf::MultiCell(70, 5, $ttv[0]->tinggi_badan. ' cm');
 
 
         $pdf::SetFont('Times', '', 11);
@@ -30851,9 +30751,13 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
         $pdf::SetFont('Times', '', 10);
         $pdf::SetX(8);
 
-        $pdf::Cell(66, 20, 'Pasien / Keluarga', 0, 0, "C");
-        $pdf::Cell(66, 20, '', 0, 0, "C");
-        $pdf::Cell(66, 20, 'Dokter yang merawat', 0, 0, "C");
+        $pdf::Cell(66, 5, 'Pasien / Keluarga', 0, 0, "C");
+        $pdf::Cell(66, 5, '', 0, 0, "C");
+        $pdf::Cell(66, 5, 'Dokter yang merawat', 0, 0, "C");
+        $pdf::ln();
+        $pdf::Cell(66, 5, '', 0, 0, "C");
+        $pdf::Cell(66, 5, '', 0, 0, "C");
+        $pdf::Cell(66, 5, '', 0, 0, "C");
         $pdf::ln();
         $pdf::SetX(8);
         $pdf::SetFont('Times', '', 10);
@@ -45470,7 +45374,7 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
             }
             $pdf::SetXY(107, 195.5);
             $pdf::MultiCell(25, 3, 'Kejang');
-            if ($triase[0]->pernafasan16 == NULL) {
+            if ($triase[0]->pernafasan19 == NULL) {
                 $pdf::SetXY(105, 195.5);
 
                 checkbox($pdf, False);

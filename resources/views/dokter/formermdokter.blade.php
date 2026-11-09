@@ -2441,10 +2441,17 @@
                             </select>
                         </div>
                     </div>
+                    <div class="col-md-10">
+                        <label for="exampleFormControlSelect1">Informasi Tambahan</label>
+
+                        <textarea class="form-control" id="informasi_tambahan_lab" name="informasi_tambahan_lab" placeholder="">
+
+                                            </textarea>
+                    </div>
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row mt-2">
                 <div class="col-md-6">
                     <table id="tablelab" class="table table-sm mt-3 table-hover">
                         <thead>
@@ -2525,8 +2532,15 @@
                             </select>
                         </div>
                     </div>
+                    <div class="col-md-10">
+                        <label for="exampleFormControlSelect1">Informasi Tambahan</label>
+
+                        <textarea class="form-control" id="informasi_tambahan_radiologi" name="informasi_tambahan_radiologi" placeholder="">
+
+                                            </textarea>
+                    </div>
                 </div>
-                <div class="row">
+                <div class="row mt-2">
                     <div class="col-md-6">
                         <table id="tableradio" class="table table-sm mt-3 table-hover">
                             <thead>
@@ -6044,7 +6058,7 @@
                             </td>
                             <td>
                                 <div class="form-group form-check">
-                                    @if ($triase[0]->gejala_respirasi15 == 'Batuk berulang dengan distress nafas')
+                                    @if ($triase[0]->gejala_respirasi16 == 'Batuk berulang dengan distress nafas')
                                     <input type="checkbox" class="form-check-input" id="gejala15" name="gejala15" value="Batuk berulang dengan distress nafas" checked>
                                     <label class="form-check-label" for="exampleCheck1">Batuk berulang
                                         dengan distress nafas
@@ -6795,8 +6809,8 @@
                             </td>
                             <td>
                                 <div class="form-group form-check">
-                                    @if ($triase[0]->lain7 == 'Bayi 3 - 36bulan dengan suhu > 38.5°C')
-                                    <input type="checkbox" class="form-check-input" id="lain7" name="lain7" value="Bayi 3 - 36bulan dengan suhu > 38.5°C">
+                                    @if ($triase[0]->lain7 != NULL)
+                                    <input type="checkbox" class="form-check-input" checked id="lain7" name="lain7" value="Bayi 3 - 36bulan dengan suhu > 38.5°C">
                                     <label class="form-check-label" for="exampleCheck1">Bayi 3 -
                                         36bulan dengan suhu > 38.5°C
                                     </label>
@@ -8149,9 +8163,16 @@
                             </select>
                         </div>
                     </div>
+                    <div class="col-md-10">
+                        <label for="exampleFormControlSelect1">Informasi Tambahan</label>
+
+                        <textarea class="form-control" id="informasi_tambahan_lab" name="informasi_tambahan_lab" placeholder="">
+
+                                            </textarea>
+                    </div>
                 </div>
 
-                <div class="row">
+                <div class="row mt-2">
                     <div class="col-md-6">
                         <table id="tablelab" class="table table-sm mt-3 table-hover">
                             <thead>
@@ -8263,9 +8284,16 @@
                             </select>
                         </div>
                     </div>
+                    <div class="col-md-10">
+                        <label for="exampleFormControlSelect1">Informasi Tambahan</label>
+
+                        <textarea class="form-control" id="informasi_tambahan_radiologi" name="informasi_tambahan_radiologi" placeholder="">
+
+                                            </textarea>
+                    </div>
                 </div>
 
-                <div class="row">
+                <div class="row mt-2">
                     <div class="col-md-6">
                         <table id="tableradio" class="table table-sm mt-3 table-hover">
                             <thead>
@@ -10311,7 +10339,7 @@
                         </td>
                         <td>
                             <div class="form-group form-check">
-                                @if ($triase[0]->gejala_respirasi15 == 'Nyeri Sedang')
+                                @if ($triase[0]->gejala_respirasi13 == 'Nyeri Sedang')
                                 <input type="checkbox" class="form-check-input" id="gejala15" name="gejala15" value="Nyeri Sedang" checked>
                                 <label class="form-check-label" for="exampleCheck1">Nyeri Sedang
                                 </label>
@@ -11815,7 +11843,7 @@
                             </td>
                             <td>
                                 <div class="form-group form-check">
-                                    @if ($triase[0]->gejala_respirasi15 == 'Batuk berulang dengan distress nafas')
+                                    @if ($triase[0]->gejala_respirasi16 == 'Batuk berulang dengan distress nafas')
                                     <input type="checkbox" class="form-check-input" id="gejala15" name="gejala15" value="Batuk berulang dengan distress nafas" checked>
                                     <label class="form-check-label" for="exampleCheck1">Batuk berulang
                                         dengan distress nafas
@@ -12566,8 +12594,8 @@
                             </td>
                             <td>
                                 <div class="form-group form-check">
-                                    @if ($triase[0]->lain7 == 'Bayi 3 - 36bulan dengan suhu > 38.5°C')
-                                    <input type="checkbox" class="form-check-input" id="lain7" name="lain7" value="Bayi 3 - 36bulan dengan suhu > 38.5°C">
+                                    @if ($triase[0]->lain7 != NULL)
+                                    <input type="checkbox" class="form-check-input" id="lain7" checked name="lain7" value="Bayi 3 - 36bulan dengan suhu > 38.5°C">
                                     <label class="form-check-label" for="exampleCheck1">Bayi 3 -
                                         36bulan dengan suhu > 38.5°C
                                     </label>
@@ -13263,7 +13291,7 @@
                                 {{ $krd->kritis_radiologi }}
                             </td>
                             <td>
-                                                        <div style="
+                                <div style="
                                 display: inline-block;
                                 border: 2px solid #dc3545;
                                 color: #dc3545;
@@ -13286,7 +13314,7 @@
                 </table>
                 @endif
 
-                  @if ($kritislab == NULL)
+                @if ($kritislab == NULL)
 
                 @else
                 <table id="tablekrad" class="table tablekrad table-bordered">
@@ -13310,7 +13338,7 @@
                                 {{ $krl->LisHasil }}{{ $krl->LisSatuan }}
                             </td>
                             <td>
-                                                        <div style="
+                                <div style="
                                 display: inline-block;
                                 border: 2px solid #dc3545;
                                 color: #dc3545;
@@ -14056,9 +14084,16 @@
                             </select>
                         </div>
                     </div>
+                    <div class="col-md-10">
+                        <label for="exampleFormControlSelect1">Informasi Tambahan</label>
+
+                        <textarea class="form-control" id="informasi_tambahan_lab" name="informasi_tambahan_lab" placeholder="">
+
+                                            </textarea>
+                    </div>
                 </div>
 
-                <div class="row">
+                <div class="row mt-2">
                     <div class="col-md-6">
                         <table id="tablelab" class="table table-sm mt-3 table-hover">
                             <thead>
@@ -14175,9 +14210,16 @@
                             </select>
                         </div>
                     </div>
+                    <div class="col-md-10">
+                        <label for="exampleFormControlSelect1">Informasi Tambahan</label>
+
+                        <textarea class="form-control" id="informasi_tambahan_radiologi" name="informasi_tambahan_radiologi" placeholder="">
+
+                                            </textarea>
+                    </div>
                 </div>
 
-                <div class="row">
+                <div class="row mt-2">
                     <div class="col-md-6">
                         <table id="tableradio" class="table table-sm mt-3 table-hover">
                             <thead>
@@ -15965,6 +16007,9 @@
         var keputusanpulang = $('#keputusanpulang').val()
         var indikasiklinislab = $('#indikasiklinislab').val()
         var indikasiklinisrad = $('#indikasiklinisrad').val()
+        var informasi_tambahan_radiologi = $('#informasi_tambahan_radiologi').val()
+        var informasi_tambahan_lab = $('#informasi_tambahan_lab').val()
+        
         // var sumberdata = $("#sumberdata:checked").val();
         Swal.fire({
             title: "Yakin Edit Assesmen?",
@@ -16206,7 +16251,9 @@
                         keputusankamarjenazah: $('#keputusankamarjenazah').val(),
                         keputusanpulang: $('#keputusanpulang').val(),
                         indikasiklinislab: $('#indikasiklinislab').val(),
-                        indikasiklinisrad: $('#indikasiklinisrad').val()
+                        indikasiklinisrad: $('#indikasiklinisrad').val(),
+                        informasi_tambahan_radiologi: $('#informasi_tambahan_radiologi').val(),
+                        informasi_tambahan_lab: $('#informasi_tambahan_lab').val()
 
                     },
                     url: '<?= route('updateassemen') ?>',
@@ -16472,6 +16519,9 @@
         var keputusanpulang = $('#keputusanpulang').val()
         var indikasiklinislab = $('#indikasiklinislab').val()
         var indikasiklinisrad = $('#indikasiklinisrad').val()
+        var informasi_tambahan_radiologi = $('#informasi_tambahan_radiologi').val()
+        var informasi_tambahan_lab = $('#informasi_tambahan_lab').val()
+
 
 
 
@@ -16726,7 +16776,10 @@
                         keputusankamarjenazah: $('#keputusankamarjenazah').val(),
                         keputusanpulang: $('#keputusanpulang').val(),
                         indikasiklinislab: $('#indikasiklinislab').val(),
-                        indikasiklinisrad: $('#indikasiklinisrad').val()
+                        indikasiklinisrad: $('#indikasiklinisrad').val(),
+                        informasi_tambahan_radiologi: $('#informasi_tambahan_radiologi').val(),
+                        informasi_tambahan_lab: $('#informasi_tambahan_lab').val()
+
                     },
                     url: '<?= route('simpanassesmen') ?>',
 

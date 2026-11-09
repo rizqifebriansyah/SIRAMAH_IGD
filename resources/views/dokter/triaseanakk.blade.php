@@ -1,3 +1,5 @@
+                            <input hidden type="text" class="form-control" placeholder="" aria-label="Recipient's username" id="jenistriase" name="jenistriase" aria-describedby="basic-addon2" value="anak">
+
 @if ($triase == null)
 
 <div class="accordion mt-3 mb-2" id="accordionExample">
@@ -24,7 +26,6 @@
                     <td>
                         <div class="form-group form-check">
                             <input type="checkbox" class="form-check-input" id="kategoritriase" name="kategoritriase" value="Medikal">
-                            <input hidden type="text" class="form-control" placeholder="" aria-label="Recipient's username" id="jenistriase" name="jenistriase" aria-describedby="basic-addon2" value="anak">
 
                             <label class="form-check-label" for="exampleCheck1">Medikal</label>
                         </div>
@@ -1372,7 +1373,6 @@
                         @if ($triase[0]->kategori_triase == 'Medikal')
                         <div class="form-group form-check">
                             <input checked type="checkbox" class="form-check-input" id="kategoritriase" name="kategoritriase" value="Medikal">
-                            <input hidden type="text" class="form-control" placeholder="" aria-label="Recipient's username" id="jenistriase" name="jenistriase" aria-describedby="basic-addon2" value="anak">
 
                             <label class="form-check-label" for="exampleCheck1">Medikal</label>
                         </div>
@@ -2506,13 +2506,13 @@
                     </td>
                     <td>
                         <div class="form-group form-check">
-                            @if ($triase[0]->gejala_respirasi15 == 'Batuk berulang dengan distress nafas')
-                            <input type="checkbox" class="form-check-input" id="gejala15" name="gejala15" value="Batuk berulang dengan distress nafas" checked>
+                            @if ($triase[0]->gejala_respirasi16 == 'Batuk berulang dengan distress nafas')
+                            <input type="checkbox" class="form-check-input" id="gejala16" name="gejala16" value="Batuk berulang dengan distress nafas" checked>
                             <label class="form-check-label" for="exampleCheck1">Batuk berulang
                                 dengan distress nafas
                             </label>
                             @else
-                            <input type="checkbox" class="form-check-input" id="gejala15" name="gejala15" value="Batuk berulang dengan distress nafas">
+                            <input type="checkbox" class="form-check-input" id="gejala16" name="gejala16" value="Batuk berulang dengan distress nafas">
                             <label class="form-check-label" for="exampleCheck1">Batuk berulang
                                 dengan distress nafas
                             </label>
@@ -3257,9 +3257,9 @@
                     </td>
                     <td>
                         <div class="form-group form-check">
-                            @if ($triase[0]->lain7 == 'Bayi 3 - 36bulan dengan suhu > 38.5°C')
-                            <input type="checkbox" class="form-check-input" id="lain7" name="lain7" value="Bayi 3 - 36bulan dengan suhu > 38.5°C">
-                            <label class="form-check-label" for="exampleCheck1">Bayi 3 -
+                            @if ($triase[0]->lain7 != NULL)
+                            <input type="checkbox" class="form-check-input" checked id="lain7" name="lain7" value="Bayi 3 - 36bulan dengan suhu > 38.5°C">
+                            <label class="form-check-label" for="exampleCheck1" >Bayi 3 -
                                 36bulan dengan suhu > 38.5°C
                             </label>
                             @else
