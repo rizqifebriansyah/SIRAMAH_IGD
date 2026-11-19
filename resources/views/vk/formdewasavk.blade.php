@@ -3394,7 +3394,7 @@
                     <tbody>
 
                         <tr>
-                            <td class="text-bold font-italic">TINDAKAN KEPERAWATAN</td>
+                            <td class="text-bold font-italic">TINDAKAN KEBIDANAN</td>
                             <td>
                                 <form id="dynamic-form" class="formtindakankebidanan">
                                     <h5>Klik Tombol Tambah untuk menambahkan Tindakan
@@ -3407,6 +3407,28 @@
                                             <div class="col-md-2">
                                                 <a class="btn btn-success" href="javascript:void(0);" id="add_buttonnn"
                                                     title="Add field">TAMBAH</a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </form>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td class="text-bold font-italic">PERSALINAN </td>
+                            <td>
+                                <form id="dynamic-form" class="formkala1">
+                                    <h5>Klik Tombol PERSALINAN
+                                    </h5>
+
+                                    <div class="field_kala1">
+                                        <div class="row mt-2">
+
+
+                                            <div class="col-md-2">
+                                                <a class="btn btn-info" href="javascript:void(0);" id="add_kala1"
+                                                    title="Add field">KALA 1</a>
                                             </div>
                                         </div>
 
@@ -8593,6 +8615,88 @@
         var fieldHTML = '<div class="row mt-2">';
         fieldHTML = fieldHTML + '   <div class="col-4"><div class="form-group"><label for="name">Jam Tindakan:</label><input type="time" name="jam_tindakan" id="jam_tindakan" value="" class="obat form-control"></div></div>';
         fieldHTML = fieldHTML + ' <div class="col-4"><div class="form-group"><label for="name">Tindakan :</label><input type="text" name="tindakan_kebidanan" id="tindakan_kebidanan" value="" class="dss form-control"></div></div>';
+
+        fieldHTML = fieldHTML + '<div class="col-md-2"><a href="javascript:void(0);" class="remove_button btn btn-danger">HAPUS</a></div>';
+        fieldHTML = fieldHTML + '</div></div>';
+        var x = 1; //Initial field counter is 1
+
+        //Once add button is clicked
+        $(addButton).click(function() {
+            //Check maximum number of input fields
+            if (x < maxField) {
+                x++; //Increment field counter
+                $(wrapper).append(fieldHTML); //Add field html
+            }
+        });
+
+        //Once remove button is clicked
+        $(wrapper).on('click', '.remove_button', function(e) {
+            e.preventDefault();
+            $(this).parent('').parent('').remove(); //Remove field html
+            x--; //Decrement field counter
+        });
+    });
+
+    $(document).ready(function() {
+        var maxField = 100; //Input fields increment limitation
+        var addButton = $('#add_kala1'); //Add button selector
+        var wrapper = $('.field_kala1'); //Input field wrapper
+        var fieldHTML = '<div class="row mt-2">';
+        fieldHTML = fieldHTML = ' <div class="card-header mt-2" style="background-color: rgba(110, 245, 137, 0.745)" > <i class="bi bi-book mr-1 ml-1"></i> (S) SUBYEKTIF </div>';
+        fieldHTML = fieldHTML + ' <div class="form-group"><label for="name">Keluhan Utama :</label><textarea class="form-control keluhan_kala1" id="keluhan_kala1" name="keluhan_kala1" placeholder=""></textarea></div>';
+        fieldHTML = fieldHTML + '<div class="row"><div class="col-2"> <div class="form-group"><label for="name">Kontraksi</label><input type="text" name="kontraksi_kala1" id="kontraksi_kala1" value="" class="kontraksi_kala1 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Frekuensi</label><input type="text" name="frek_kala1" id="frek_kala1" value="" class="frek_kala1 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Durasi</label><input type="text" name="durasi_kala1" id="durasi_kala1" value="" class="durasi_kala1 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Lendir Darah</label><input type="text" name="lendir_kala1" id="lendir_kala1" value="" class="lendir_kala1 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Ketuban</label><select class="form-control select2 ketuban_kala1" name="ketuban_kala1" id="ketuban_kala1"><option value="Utuh">Utuh</option><option value="Pecah">Pecah</option></select></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Waktu</label><input type="text" name="waktu_kala1" id="waktu_kala1" value="" class="waktu_kala1 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Warna</label><input type="text" name="warna_kala1" id="warna_kala1" value="" class="warna_kala1 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Gerak Janin</label><input type="text" name="gj_kala1" id="gj_kala1" value="" class="gj_kala1 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Pendarahan</label><input type="text" name="pj_kala1" id="pj_kala1" value="" class="pj_kala1 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Keluhan Lain</label><input type="text" name="kl_kala1" id="kl_kala1" value="" class="kl_kala1 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">HPHT</label><input type="text" name="hpht_kala1" id="hpht_kala1" value="" class="hpht_kala1 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">HPL</label><input type="text" name="hpl_kala1" id="hpl_kala1" value="" class="hpl_kala1 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">UK</label><input type="text" name="uk_kala1" id="uk_kala1" value="" class="uk_kala1 form-control"></div></div></div>';
+        fieldHTML = fieldHTML + ' <div class="form-group"><label for="name">Riwayat ANC/kehamilan :</label><textarea class="form-control anc_kala1" id="anc_kala1" name="anc_kala1" placeholder=""></textarea></div>';
+        fieldHTML = fieldHTML + ' <div class="form-group"><label for="name">Riwayat Obstetri terdahulu:</label><textarea class="form-control obstetri_kala1" id="obstetri_kala1" name="obstetri_kala1" placeholder=""></textarea></div>';
+        fieldHTML = fieldHTML + ' <div class="form-group"><label for="name">Riwayat penyakit/alergi/obat:</label><textarea class="form-control obat_kala1" id="obat_kala1" name="obat_kala1" placeholder=""></textarea></div>';
+        fieldHTML = fieldHTML + ' <div class="form-group"><label for="name">Makan/minum/BAK/BAB/istirahat:</label><textarea class="form-control makan_kala1" id="makan_kala1" name="makan_kala1" placeholder=""></textarea></div>';
+        fieldHTML = fieldHTML + ' <div class="form-group"><label for="name">Psikologis/pendamping:</label><textarea class="form-control psi_kala1" id="psi_kala1" name="psi_kala1" placeholder=""></textarea></div>';
+
+        fieldHTML = fieldHTML + ' <div class="card-header mt-2" style="background-color: rgba(110, 245, 137, 0.745)" > <i class="bi bi-book mr-1 ml-1"></i> (O) OBYEKTIF </div>';
+
+        fieldHTML = fieldHTML + '<div class="row"><div class="col-2"> <div class="form-group"><label for="name">KU</label><input type="text" name="ku_kala1" id="ku_kala1" value="" class="ku_kala1 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Kesadaran</label><input type="text" name="kesadaran_kala1" id="kesadaran_kala1" value="" class="kesadaran_kala1 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">TD</label><input type="text" name="td_kala1" id="td_kala1" value="" class="td_kala1 form-control"></div></div>';
+
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Nadi</label><input type="text" name="nadi_kala1" id="nadi_kala1" value="" class="nadi_kala1 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">RR</label><input type="text" name="rr_kala1" id="rr_kala1" value="" class="rr_kala1 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">SUHU</label><input type="text" name="suhu_kala1" id="suhu_kala1" value="" class="suhu_kala1 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">SpO2</label><input type="text" name="spo2_kala1" id="spo2_kala1" value="" class="spo2_kala1 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Pemeriksaan Fisik</label><input type="text" name="pemfis_kala1" id="pemfis_kala1" value="" class="pemfis_kala1 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">TFU</label><input type="text" name="tfu_kala1" id="tfu_kala1" value="" class="tfu_kala1 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Leopold I</label><input type="text" name="lpd1_kala1" id="lpd1_kala1" value="" class="lpd1_kala1 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">II</label><input type="text" name="lpd2_kala1" id="lpd2_kala1" value="" class="lpd2_kala1 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">III</label><input type="text" name="lpd3_kala1" id="lpd3_kala1" value="" class="lpd3_kala1 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">IV</label><input type="text" name="lpd4_kala1" id="lpd4_kala1" value="" class="lpd4_kala1 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">DJJ</label><input type="text" name="djj_kala1" id="djj_kala1" value="" class="djj_kala1 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">His</label><input type="text" name="his_kala1" id="his_kala1" value="" class="his_kala1 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Durasi</label><input type="text" name="durasi_kala1" id="durasi_kala1" value="" class="durasi_kala1 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Kekuatan</label><input type="text" name="kekuatan_kala1" id="kekuatan_kala1" value="" class="kekuatan_kala1 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">VT Jam</label><input type="text" name="vtjam_kala1" id="vtjam_kala1" value="" class="vtjam_kala1 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Vulva/Vagina</label><input type="text" name="vulva_kala1" id="vulva_kala1" value="" class="vulva_kala1 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Portio</label><input type="text" name="portio_kala1" id="portio_kala1" value="" class="portio_kala1 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Pembukaan</label><input type="text" name="pembukaan_kala1" id="pembukaan_kala1" value="" class="pembukaan_kala1 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Effacement</label><input type="text" name="effacement_kala1" id="effacement_kala1" value="" class="effacement_kala1 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Ketuban</label><input type="text" name="ketubann_kala1" id="ketubann_kala1" value="" class="ketubann_kala1 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Peresentasi</label><input type="text" name="presentasi_kala1" id="presentasi_kala1" value="" class="presentasi_kala1 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Posisi</label><input type="text" name="posisi_kala1" id="posisi_kala1" value="" class="posisi_kala1 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Penurunan</label><input type="text" name="penurunan_kala1" id="penurunan_kala1" value="" class="penurunan_kala1 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Molase</label><input type="text" name="molase_kala1" id="molase_kala1" value="" class="molase_kala1 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Patograf</label><input type="text" name="pato_kala1" id="pato_kala1" value="" class="pato_kala1 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">SUHU</label><select class="form-control select2 suhu_kala1" name="suhu_kala1" id="suhu_kala1"><option value="Utuh">Utuh</option><option value="Pecah">Pecah</option></select></div></div>';
+        
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">UK</label><input type="text" name="uk_kala1" id="uk_kala1" value="" class="uk_kala1 form-control"></div></div></div>';
 
         fieldHTML = fieldHTML + '<div class="col-md-2"><a href="javascript:void(0);" class="remove_button btn btn-danger">HAPUS</a></div>';
         fieldHTML = fieldHTML + '</div></div>';

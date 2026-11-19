@@ -139,6 +139,8 @@ Route::group(['middleware' => ['hak_akses:5', 'auth']], function () {
     Route::get('triase', [DokterController::class, 'triase'])->name('triase');
     Route::get('asses', [DokterController::class, 'asses'])->name('asses');
     Route::get('assesigk', [DokterController::class, 'assesigk'])->name('assesigk');
+    Route::get('assesvk', [DokterController::class, 'assesvk'])->name('assesvk');
+
 
     Route::get('kpo', [DokterController::class, 'kpo'])->name('kpo');
 
@@ -380,6 +382,9 @@ Route::get('/expertisi_view1', [RadiologiController::class, 'expertisi_view1'])-
 Route::get('cetakexpp/{acc}', [RadiologiController::class, 'cetakexpertise1']);
 Route::post('cetakexpertisee', [RadiologiController::class, 'cetakexpertisee'])->name('cetakexpertisee');
 Route::post('carigambarbridgingg', [RadiologiController::class, 'carigambarbridgingg'])->name('carigambarbridgingg');
+Route::post('simpanserahterima', [RadiologiController::class, 'simpanserahterima'])->name('simpanserahterima');
+
+
 
 
 

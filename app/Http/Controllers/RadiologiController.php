@@ -12,6 +12,8 @@ use App\Models\tb_tampungan_label;
 use App\Models\ts_retur_header;
 use App\Models\ts_retur_detail;
 use App\Models\erm_tindakan_kedokteran;
+use App\Models\serah_terima_penunjang;
+
 
 use App\Models\tb_pemakaian_radiologi;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
@@ -237,7 +239,15 @@ class RadiologiController extends Controller
         $tgl_masuk_x = date('Ymd', strtotime('-14 days', strtotime($now)));
 
         // $pasienbridging = DB::connection('mysql3')->select('SELECT * from order_table a WHERE DATE(a.ADMITDATE) BETWEEN ? AND ?', [$tgl_masuk_x,$now]);
-        $pasienbridging = DB::connection('mysql3')->select('SELECT * from order_table a WHERE DATE(a.ADMITDATE) BETWEEN ? AND ?   AND a.STATUS IN ("AP" ,"FN")', [$tgl_masuk_x, $now]);
+        $pasienbridging = DB::connection('mysql3')->select('SELECT
+            a.*,
+            b.nama_keluarga,
+            b.tgl_input AS tgl_ambil
+        FROM historis.order_table a
+        LEFT OUTER JOIN simrs_waled.serah_terima_penunjang b
+            ON a.ACCESSIONNUMBER = b.acc
+        WHERE DATE(a.ADMITDATE) BETWEEN ? AND ?
+            AND a.STATUS IN ("CM", "AP", "FN")', [$tgl_masuk_x, $now]);
 
 
 
@@ -291,6 +301,66 @@ class RadiologiController extends Controller
     }
 
 
+    public function simpanserahterima(Request $request)
+    {
+        $now = Carbon::now();
+        $a = $request->all();
+        $kj = $request->kj;
+        $norm = $request->norm;
+        $dorad = $request->dorad;
+        $pemeriksaan = $request->pemeriksaan;
+
+        $namapx = $request->namapx;
+        $acc = $request->acc;
+        $hubungan = $request->hubungan;
+        $nama_keluarga = $request->nama_keluarga;
+        $nomor_wa = $request->nomor_wa;
+        $nama_petugas = $request->nama_petugas;
+        $email = $request->email;
+
+
+
+
+
+
+        try {
+
+            $kritis = serah_terima_penunjang::create([
+                // 'kode_detail_obat' => $id_detail,
+                'acc' => $acc,
+
+                'no_rm' => $norm,
+                'kode_kunjungan' => $kj,
+                'kode_paramedis' => $dorad,
+                'pemeriksaan_rad' => $pemeriksaan,
+                'nama_pasien' => $namapx,
+                'email' => $email,
+                'no_wa' => $nomor_wa,
+                'nama_keluarga' => $nama_keluarga,
+                'hubungan_pasien' => $hubungan,
+                'petugas' => $nama_petugas,
+                'dokter_radiologi' => $dorad,
+
+                'tgl_input' => $now,
+               
+
+            ]);
+        } catch (\Exception $e) {
+            $back = [
+                'kode' => 200,
+                'message' => $e->getMessage()
+            ];
+            echo json_encode($back);
+            die;
+        }
+
+        $back = [
+            'kode' => 200,
+            'message' => 'Berhasil'
+        ];
+        echo json_encode($back);
+        die;
+    }
     public function simpankritisradiologi(Request $request)
     {
         $now = Carbon::now();
@@ -495,7 +565,16 @@ class RadiologiController extends Controller
         $tglbridging = Carbon::parse($request->tanggal_bridging)->format('Ymd');
         $tglbridging1 = Carbon::parse($request->tanggal_bridging1)->format('Ymd');
 
-        $pasienbridging = DB::connection('mysql3')->select('SELECT * from order_table a WHERE DATE(a.ADMITDATE) BETWEEN ? AND ? AND a.STATUS IN ("AP" ,"FN")', [$tglbridging, $tglbridging1]);
+        // $pasienbridging = DB::connection('mysql3')->select('SELECT * from order_table a WHERE DATE(a.ADMITDATE) BETWEEN ? AND ? AND a.STATUS IN ("CM","AP" ,"FN")', [$tglbridging, $tglbridging1]);
+        $pasienbridging = DB::connection('mysql3')->select('SELECT
+            a.*,
+            b.nama_keluarga,
+            b.tgl_input AS tgl_ambil
+        FROM historis.order_table a
+        LEFT OUTER JOIN simrs_waled.serah_terima_penunjang b
+            ON a.ACCESSIONNUMBER = b.acc
+        WHERE DATE(a.ADMITDATE) BETWEEN ? AND ?
+            AND a.STATUS IN ("CM", "AP", "FN")', [$tglbridging, $tglbridging1]);
 
         // dd($pasienbridging);
         return view('radiologi.tablebridgingexx', [
@@ -617,26 +696,16 @@ class RadiologiController extends Controller
 
         $tglbridging = Carbon::parse($request->tanggal_bridging)->format('Ymd');
         $pb = DB::connection('mysql3')->select('SELECT * from order_table a WHERE ACCESSIONNUMBER = ?', [$request->acc]);
-        $kritisrad = DB::select('SELECT 
-        fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,
-        a.tgl_input,
-        a.pemeriksaan_rad,
-        a.id,
-        a.kritis_radiologi,
-        a.status_raber
-     FROM erm_tindakan_kedokteran a
-     WHERE a.kode_kunjungan = ?
-       AND a.status_kritis_radiologi = 1
-
-       AND a.status = 1
-       AND a.kritis_radiologi IS NOT NULL', [$kj]);
-        //    dd($kritisrad);
+      
+        $serah = DB::select('SELECT * FROM serah_terima_penunjang   WHERE   acc = ?', [$request->acc]);
+       
 
         return view('radiologi.serahterimaradiologi', [
             'title' => 'SIRAMAH | RADIOLOGI',
 
             'pb' => $pb,
-            'kritisrad' => $kritisrad,
+            'serah' => $serah,
+
 
 
         ]);
@@ -1818,13 +1887,13 @@ class RadiologiController extends Controller
         }
 
         // dd($path);
-        $d = QrCode::size(300)->format('png')->generate($qr, $path);
+        // $d = QrCode::size(300)->format('png')->generate($qr, $path);
         // $qr = QrCode::PNG($qrCode);
 
         // dd($qrCode);
         $pasien = DB::select('SELECT 
 
-           fc_alamat(a.no_rm) AS alamat,
+           fc_alamat4(a.no_rm) AS alamat,
            
             c.nama_penjamin,
             a.no_rm,
@@ -1836,8 +1905,8 @@ class RadiologiController extends Controller
 
 
             FROM ts_kunjungan a
-            LEFT OUTER JOIN	 mt_pasien b ON b.no_rm =a.no_rm
-            LEFT OUTER JOIN  mt_penjamin c ON c.kode_penjamin = a.kode_penjamin
+            INNER JOIN	 mt_pasien b ON b.no_rm =a.no_rm
+            INNER JOIN  mt_penjamin c ON c.kode_penjamin = a.kode_penjamin
             LEFT OUTER JOIN di_pasien_diagnosa_frunit d ON d.kode_kunjungan = a.kode_kunjungan
             WHERE a.kode_kunjungan LIKE ? AND a.no_rm = ?
             ', [$kj, $norm]);
@@ -2292,10 +2361,12 @@ class RadiologiController extends Controller
          a.diagnosa,
          a.id,
          a.dok_rujukan,
-         fc_nama_tindakan(LEFT(b.kode_tarif_detail,6)) as nama_tindakan
+         d.NAMA_TARIF as nama_tindakan
          FROM
          ts_layanan_header a
          INNER JOIN ts_layanan_detail b ON b.row_id_header = a.id
+         INNER JOIN mt_tarif_detail c on c.kode_tarif_detail = b.kode_tarif_detail
+         INNER JOIN mt_tarif_header d on d.kode_tarif_header = c.kode_tarif_header
          WHERE a.kode_unit = ?
          AND a.kode_layanan_header = ?
          ', ['3003', $kode_header]);

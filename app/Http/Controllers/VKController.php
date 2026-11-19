@@ -46,7 +46,7 @@ class VKController extends Controller
 
 
         $now = Carbon::now()->format('Y-m-d');
-        $tgl_masuk_1 = date('Ymd', strtotime('+1 days', strtotime($now)));
+        $tgl_masuk_1 = date('Ymd', strtotime('-2 days', strtotime($now)));
         $pasienigd = DB::select('SELECT 
             e.diagnosis AS DIAGX,
             d.no_rm,
@@ -92,9 +92,9 @@ class VKController extends Controller
         ) e 
             ON e.kode_kunjungan = d.kode_kunjungan
 
-        WHERE d.tgl_input >= "2026-09-01"
-        AND d.tgl_input < "2026-09-31"
-        AND d.kode_unit = ?', [$unit]);
+        WHERE d.tgl_input >= ?
+        AND d.tgl_input < ?
+        AND d.kode_unit = ?', [$tgl_masuk_1, $now, $unit]);
 
         //  [$now, $tgl_masuk_1, $unit]);
 

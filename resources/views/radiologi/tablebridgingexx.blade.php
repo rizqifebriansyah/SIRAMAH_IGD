@@ -22,17 +22,24 @@
             <td>{{$i->NAMEALIAS}}</td>
             <td>{{$i->PROCEDURENAME}}</td>
             <td>{{$i->ASSIGNEDPATIENTLOCATION}}</td>
-                            <td>{{$i->ENTERINGOGANIZATION}}</td>
+            <td>{{$i->ENTERINGOGANIZATION}}</td>
 
             <td>{{$i->APPROVER}}</td>
             <td>
-           
+
                 @if ($i->STATUS == 'AP')
                 <span class="badge badge-primary">READ</span>
                 @elseif ($i->STATUS == 'FN')
+
                 <span class="badge badge-primary">SUDAH DICETAK</span>
+                @elseif ($i->STATUS == 'CM')
+                <span class="badge badge-danger">BELUM DI BACA</span>
+
+                @endif
+                @if ($i->nama_keluarga != NULL)
+                <span class="badge badge-success">Di ambil oleh {{$i->nama_keluarga}} {{$i->tgl_ambil}}</span>
                 @else
-                <span class="badge badge-success">On Schedule</span>
+                <span class="badge badge-danger">Belum Di ambil</span>
 
                 @endif
 
@@ -54,6 +61,12 @@
                     | <a class="btn btn-primary btn-sm cetakexpertisee" href="#">
                         <i class="fa fa-print" aria-hidden="true"> </i> </a>
                     @endif
+                    |
+
+                    <a class=" btn btn-warning btn-sm serahterimaradiologi" href="#">
+                        <i class="" aria-hidden="true">S</i>
+
+                    </a>
 
                 </div>
 
@@ -85,7 +98,33 @@
         });
     });
 
+    $(".serahterimaradiologi").click(function() {
+        spinner = $('#loader2');
+        spinner.show();
+        var $row = $(this).closest("tr");
+        var acc = $row.find(".acc").text();
 
+
+        $.ajax({
+            type: "post",
+            data: {
+                _token: "{{ csrf_token() }}",
+                acc
+
+
+            },
+            url: " {{ route('serahterimaradiologi') }}",
+
+            error: function(data) {
+                spinner.hide();
+                alert('error!!')
+            },
+            success: function(response) {
+                spinner.hide();
+                $('.serahterima').html(response);
+            }
+        });
+    });
 
     $(".editriwayatbridging").click(function() {
         spinner = $('#loader2');
@@ -170,6 +209,7 @@
         })
         return false;
     });
+
 
 
     function cetakexx(acc) {

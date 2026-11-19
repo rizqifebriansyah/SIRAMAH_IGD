@@ -719,6 +719,186 @@ class DokterController extends Controller
             ]
         );
     }
+
+     public function assesvk()
+    {
+        $menu = 'assesvk';
+        $user = auth()->user()->nama;
+        $unit = '3005';
+        // dd($unit);
+
+
+        $now = Carbon::now()->format('Y-m-d');
+        // $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','$unit','$now')");
+        // $pasienigd = DB::select("CALL WSP_PANGGIL_PASIEN_RAWAT_JALAN_NONIGD_PLUS_SEP('','','','$unit','$now')");
+        $tgl_masuk_1 = date('Ymd', strtotime('+1 days', strtotime($now)));
+        $pasienigd = DB::select('SELECT 
+                        e.diagnosis AS DIAGX,
+                        a.no_rm,
+                        IFNULL(d.nama_bidan, "") AS nama_perawat,
+                        IFNULL(db.nama_bidan , "") AS nama_perawat1,
+                        d.status,
+                        db.status AS status_bayi,
+                        e.status AS status_dokter,
+                        db.link_tte AS tte_bidan_bayi,
+                        IFNULL(el.link_tte, "") AS tte_bidan,
+			
+                        IFNULL(e.nama_paramedis2, IFNULL(e.nama_paramedis, "")) AS nama_paramedis,
+                        fc_nama_px(a.no_rm) AS nama_px,
+                        a.tgl_masuk,
+                        a.kode_penjamin,
+                        a.kode_kunjungan,
+                        a.kelas,
+                        a.kelas AS KELAS_UNIT,
+                        a.counter,
+                        e.tgl_asses,
+                        e.tgl_selesai_asses,
+                        IFNULL (e.link_tte, "") AS tte_dokter,
+                        b.jenis_kelamin
+
+                    FROM ts_kunjungan a
+
+                    INNER JOIN mt_pasien b 
+                        ON b.no_rm = a.no_rm
+
+                    -- CPPT KEBIDANAN
+                    LEFT JOIN (
+                        SELECT d1.*
+                        FROM erm_cppt_kebidanan d1
+                        INNER JOIN (
+                            SELECT 
+                                kode_kunjungan, 
+                                MAX(id) AS max_id
+                            FROM erm_cppt_kebidanan
+                            WHERE STATUS NOT IN (2, 3)
+                            GROUP BY kode_kunjungan
+                        ) d2 
+                            ON d1.kode_kunjungan = d2.kode_kunjungan 
+                            AND d1.id = d2.max_id
+                    ) d 
+                        ON d.kode_kunjungan = a.kode_kunjungan
+
+                    -- CPPT BAYI
+                    LEFT JOIN (
+                        SELECT db1.*
+                        FROM erm_cppt_kebidanan_bayi db1
+                        INNER JOIN (
+                            SELECT 
+                                kode_kunjungan, 
+                                MAX(id) AS max_id
+                            FROM erm_cppt_kebidanan_bayi
+                            WHERE STATUS NOT IN (2, 3)
+                            GROUP BY kode_kunjungan
+                        ) db2 
+                            ON db1.kode_kunjungan = db2.kode_kunjungan 
+                            AND db1.id = db2.max_id
+                    ) db 
+                        ON db.kode_kunjungan = a.kode_kunjungan
+
+                    -- CPPT DOKTER
+                    LEFT JOIN (
+                    SELECT e1.*
+                    FROM erm_cppt_dokter_kebidanan e1
+                    INNER JOIN (
+                        SELECT
+                            kode_kunjungan,
+                            MAX(id) AS max_id
+                        FROM erm_cppt_dokter_kebidanan
+                        WHERE STATUS NOT IN (2, 3)
+                        GROUP BY kode_kunjungan
+                    ) e2
+                        ON e1.kode_kunjungan = e2.kode_kunjungan
+                        AND e1.id = e2.max_id
+                ) e
+                    ON e.kode_kunjungan = a.kode_kunjungan
+                    
+                    -- CPPT KEBIDANAN LANJUTAN
+			LEFT JOIN (
+			    SELECT el1.*
+			    FROM erm_cppt_kebidanan_lanjutan el1
+			    INNER JOIN (
+				SELECT
+				    kode_kunjungan,
+				    MAX(id) AS max_id
+				FROM erm_cppt_kebidanan_lanjutan
+                WHERE status = 1
+				GROUP BY kode_kunjungan
+			    ) el2
+				ON el1.kode_kunjungan = el2.kode_kunjungan
+				AND el1.id = el2.max_id
+			) el
+			    ON el.kode_kunjungan = a.kode_kunjungan 
+                    WHERE a.tgl_masuk >= ?
+                    AND a.tgl_masuk < ?
+                    AND a.kode_unit = "3005"
+                    AND a.status_kunjungan NOT IN (8, 11)', [$now,$tgl_masuk_1]);
+        // dd($pasienigd);
+        // $pasienigd = DB::select('SELECT 
+        //         e.diagnosis AS DIAGX,
+        //         a.no_rm,
+        //         "" AS nama_perawat,
+        //         IFNULL(d.nama_bidan, IFNULL(d.nama_bidan,"")) AS nama_perawat1,
+        //         IFNULL(e.nama_paramedis2, IFNULL(e.nama_paramedis,"")) AS nama_paramedis,
+        //         fc_nama_px(a.no_rm) AS nama_px,
+        //         a.tgl_masuk,
+        //           d.status,
+        //         e.status as status_dokter,
+        //         fc_NAMA_PARAMEDIS1(a.kode_paramedis) AS nama_dpjp,
+        //         a.kode_penjamin,
+        //         a.kode_kunjungan,
+        //         a.kelas,
+        //         a.kelas AS KELAS_UNIT,
+        //         a.counter,
+        //         b.jenis_kelamin
+
+        //     FROM ts_kunjungan a
+        //     INNER JOIN mt_pasien b ON b.no_rm = a.no_rm
+
+        //     -- FIX PERAWAT (optional tapi disarankan)
+        //     LEFT JOIN (
+        //         SELECT d1.*
+        //         FROM erm_cppt_kebidanan d1
+        //         INNER JOIN (
+        //             SELECT kode_kunjungan, MAX(id) AS max_id
+        //             FROM erm_cppt_kebidanan
+        //             WHERE STATUS NOT IN (2,3)
+        //             GROUP BY kode_kunjungan
+        //         ) d2 
+        //         ON d1.kode_kunjungan = d2.kode_kunjungan 
+        //         AND d1.id = d2.max_id
+        //     ) d ON d.kode_kunjungan = a.kode_kunjungan
+
+        //     -- FIX DOKTER (INI KUNCI)
+        //     LEFT JOIN (
+        //         SELECT e1.*
+        //         FROM erm_cppt_dokter_kebidanan e1
+        //         INNER JOIN (
+        //             SELECT kode_kunjungan, MAX(id) AS max_id
+        //             FROM erm_cppt_dokter_kebidanan
+        //             WHERE STATUS NOT IN (2,3)
+
+        //             GROUP BY kode_kunjungan
+        //         ) e2 
+        //         ON e1.kode_kunjungan = e2.kode_kunjungan 
+        //         AND e1.id = e2.max_id
+        //     ) e ON e.kode_kunjungan = a.kode_kunjungan
+
+        //     WHERE a.tgl_masuk >= ?
+        //     AND a.tgl_masuk < ?
+        //     AND a.status_kunjungan NOT IN (8,11)
+        //     AND a.kode_unit = "1023"', [$tgl_masuk_1, $now]);
+
+        return view(
+            'dokter.asses',
+            [
+                'title' => 'ERM DOKTER',
+                'menu' => $menu,
+                'pasienigd' => $pasienigd,
+                'user' => $user,
+                'unit' => $unit
+            ]
+        );
+    }
     public function assesmentdokter(Request $request)
     {
 
@@ -7627,6 +7807,7 @@ class DokterController extends Controller
         fc_alamat(a.no_rm) AS alamat,
         a.jenis_kelamin AS jk,
         fc_umur(a.no_rm) AS umur,
+        a.nik_bpjs,
         a.tgl_lahir
         FROM mt_pasien  a
         WHERE no_rm = ?', [$norm]);
@@ -7736,41 +7917,50 @@ class DokterController extends Controller
         $pdf::Cell(40, 5, 'Telp. 0231 - 661126 Fax. 0231 - 664091 Cirebon ');
 
         $pdf::Rect(109, 9, 97, 25);
-        $pdf::SetFont('Times', '', 10);
-        $pdf::SetXY(110, 9);
-        $pdf::Cell(40, 10, 'NO. RM');
-        $pdf::SetXY(131, 9);
+      $pdf::SetFont('Times', '', 10);
+        $pdf::SetXY(110, 8);
+        $pdf::Cell(40, 10, 'Nama');
+        $pdf::SetXY(131, 8);
         $pdf::Cell(45, 10, ':');
         $pdf::SetFont('Times', '', 10);
-        $pdf::SetXY(133, 9);
+        $pdf::SetXY(133, 8);
+        $pdf::MultiCell(70, 10, $pasien[0]->nama_px);
+        $pdf::SetFont('Times', '', 10);
+        $pdf::SetXY(110, 11);
+        $pdf::MultiCell(40, 10, 'Tgl. Lahir ');
+        $pdf::SetXY(131, 11);
+        $pdf::Cell(40, 10, ':');
+        $pdf::SetFont('Times', '', 10);
+        $pdf::SetXY(133, 11);
+        $pdf::Cell(50, 10, $tgllahir);
+
+        $pdf::SetFont('Times', '', 10);
+        $pdf::SetXY(110, 15);
+        $pdf::Cell(40, 10, 'No.RM');
+        $pdf::SetXY(131, 15);
+        $pdf::Cell(40, 10, ':');
+        $pdf::SetFont('Times', '', 10);
+        $pdf::SetXY(133, 15);
         $pdf::MultiCell(70, 10, $pasien[0]->no_rm);
-        $pdf::SetFont('Times', '', 10);
-        $pdf::SetXY(110, 14);
-        $pdf::MultiCell(40, 10, 'Nama ');
-        $pdf::SetXY(131, 14);
-        $pdf::Cell(40, 10, ':');
-        $pdf::SetFont('Times', '', 10);
-        $pdf::SetXY(133, 14);
-        $pdf::Cell(50, 10, $pasien[0]->nama_px);
-
-        $pdf::SetFont('Times', '', 10);
-        $pdf::SetXY(110, 20);
-        $pdf::Cell(40, 10, 'Tgl. Lahir');
-        $pdf::SetXY(131, 20);
-        $pdf::Cell(40, 10, ':');
-        $pdf::SetFont('Times', '', 10);
-        $pdf::SetXY(133, 20);
-        $pdf::MultiCell(70, 10, $tgllahir);
 
 
         $pdf::SetFont('Times', '', 10);
-        $pdf::SetXY(110, 25);
+        $pdf::SetXY(110, 19);
         $pdf::Cell(40, 10, 'Jenis Kelamin');
-        $pdf::SetXY(131, 25);
+        $pdf::SetXY(131, 19);
         $pdf::Cell(40, 10, ':');
         $pdf::SetFont('Times', '', 10);
-        $pdf::SetXY(133, 25);
+        $pdf::SetXY(133, 19);
         $pdf::MultiCell(70, 10, $pasien[0]->jk);
+        //nik
+        $pdf::SetFont('Times', '', 10);
+        $pdf::SetXY(110, 22);
+        $pdf::Cell(40, 10, 'NIK');
+        $pdf::SetXY(131, 22);
+        $pdf::Cell(40, 10, ':');
+        $pdf::SetFont('Times', '', 10);
+        $pdf::SetXY(133, 22);
+        $pdf::MultiCell(70, 10, $pasien[0]->nik_bpjs);
         //Skrining Pasien
 
         $pdf::Rect(8, 29, 101, 5);
@@ -7781,7 +7971,7 @@ class DokterController extends Controller
         if ($tf != NULL) {
 
 
-            $pdf::SetFont('Times', '', 10);
+            $pdf::SetFont('Times', '', 9);
             $pdf::SetXY(8, 34);
             $pdf::Cell(198, 5, 'Ruang Asal : ' . $tf[0]->ruangan_asal, 1);
             $pdf::ln();
@@ -7878,6 +8068,8 @@ class DokterController extends Controller
             $pdf::MultiCell(198, 5, "Penggunaan Oksigen : " . $tf[0]->penggunaan_oksigen . " L/menit," . " Cairan Parental : " . $tf[0]->cairan_perenteral . " ml/24jam" . "   Transfusi : " . $tf[0]->transfusi . " ml,", 1);
             $pdf::SetX(8);
             $pdf::MultiCell(198, 5, "Penggunaan Cateter : " . $tf[0]->penggunaan_cateter  . " Pemakaian Ke : " . $tf[0]->tgl_pemakaian, 1);
+            $pdf::SetFont('Times', '', 9);
+
             $pdf::SetX(8);
             $pdf::Cell(198, 5, "Hasil Pemeriksaan Selama dirawat (Pemeriksaan Fisik & Penunjang yang mendukung diagnosis) ");
             $pdf::SetX(8);
@@ -7886,24 +8078,24 @@ class DokterController extends Controller
             $pdf::MultiCell(198, 5, "Prosedur / Tindakan yang sudah di lakukan ");
             $pdf::SetX(8);
             $pdf::MultiCell(198, 5, $tf[0]->tindakan_yang_sudah_dilakukan);
-            $pdf::SetFont('Times', 'B', 10);
+            $pdf::SetFont('Times', 'B', 9);
 
             $pdf::SetX(8);
             $pdf::MultiCell(198, 5, "A (Assesment) : \n Diagnosa Medis : " . $tf[0]->diagnosa_medis);
-            $pdf::SetFont('Times', '', 10);
+            $pdf::SetFont('Times', '', 9);
 
             $pdf::SetX(8);
             $pdf::MultiCell(198, 5, " Diagnosa Keperawatan : " . $tf[0]->diagnosa_keperawatan);
             // $pdf::SetX(8);
             // $pdf::MultiCell(198, 5, "\n\n\n");
-            $pdf::SetFont('Times', 'B', 10);
+            $pdf::SetFont('Times', 'B', 9);
 
             $pdf::SetX(8);
             $pdf::MultiCell(198, 5, "R (Recomendaation) : \n Prosedur / Tindakan yang belum dilakukan / saran untuk mengatasi masalah Pasien : ");
-            $pdf::SetFont('Times', '', 10);
+            $pdf::SetFont('Times', '', 9);
             $pdf::SetX(8);
             $pdf::MultiCell(198, 5, $tf[0]->tindakan_belum_dilakukan);
-            $pdf::SetFont('Times', '', 10);
+            $pdf::SetFont('Times', '', 9);
 
             $pdf::SetX(8);
             $pdf::MultiCell(198, 5, "Diet : " . $tf[0]->diet, 1);
@@ -12718,7 +12910,7 @@ foreach ($kriteriaTransfer as $nilai => $label) {
         ,a.waktu_jaga_perawat_siang
         ,a.waktu_jaga_perawat_malam
 
-        FROM pemantauan_ttv a WHERE kj = ? AND norm = ?', [$kj, $norm]);
+        FROM pemantauan_ttv a WHERE kj = ? AND norm = ? AND status = 1', [$kj, $norm]);
 
         $pasien = DB::select('SELECT 
         a.nama_px,
@@ -15028,29 +15220,29 @@ foreach ($hasilp as $k) {
         $pdf::Rect(109, 10, 97, 30);
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(110, 11);
-        $pdf::Cell(40, 10, 'NO. RM');
+        $pdf::Cell(40, 10, 'Nama');
         $pdf::SetXY(131, 11);
         $pdf::Cell(45, 10, ':');
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(133, 11);
-        $pdf::MultiCell(70, 10, $pasien[0]->no_rm);
+        $pdf::MultiCell(70, 10, $pasien[0]->nama_px);
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(110, 16);
-        $pdf::MultiCell(40, 10, 'Nama ');
+        $pdf::MultiCell(40, 10, 'Tgl. Lahir ');
         $pdf::SetXY(131, 16);
         $pdf::Cell(40, 10, ':');
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(133, 16);
-        $pdf::Cell(50, 10, $pasien[0]->nama_px);
+        $pdf::Cell(50, 10, $tgllahir);
 
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(110, 20);
-        $pdf::Cell(40, 10, 'Tgl. Lahir');
+        $pdf::Cell(40, 10, 'No.RM');
         $pdf::SetXY(131, 20);
         $pdf::Cell(40, 10, ':');
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(133, 20);
-        $pdf::MultiCell(70, 10, $tgllahir);
+        $pdf::MultiCell(70, 10, $pasien[0]->no_rm);
 
 
         $pdf::SetFont('Times', '', 10);
@@ -15323,29 +15515,29 @@ foreach ($hasilp as $k) {
         $pdf::Rect(109, 9, 97, 25);
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(110, 7);
-        $pdf::Cell(40, 10, 'NO. RM');
+        $pdf::Cell(40, 10, 'Nama');
         $pdf::SetXY(131, 7);
         $pdf::Cell(45, 10, ':');
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(133, 7);
-        $pdf::MultiCell(70, 10, $pasien[0]->no_rm);
+        $pdf::MultiCell(70, 10, $pasien[0]->nama_px);
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(110, 11);
-        $pdf::MultiCell(40, 10, 'Nama ');
+        $pdf::MultiCell(40, 10, 'Tgl. Lahir ');
         $pdf::SetXY(131, 11);
         $pdf::Cell(40, 10, ':');
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(133, 11);
-        $pdf::Cell(50, 10, $pasien[0]->nama_px);
+        $pdf::Cell(50, 10, $tgllahir);
 
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(110, 15);
-        $pdf::Cell(40, 10, 'Tgl. Lahir');
+        $pdf::Cell(40, 10, 'No.RM');
         $pdf::SetXY(131, 15);
         $pdf::Cell(40, 10, ':');
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(133, 15);
-        $pdf::MultiCell(70, 10, $tgllahir);
+        $pdf::MultiCell(70, 10, $pasien[0]->no_rm);
 
 
         $pdf::SetFont('Times', '', 10);
@@ -18328,29 +18520,29 @@ foreach ($hasilp as $k) {
         $pdf::Rect(109, 9, 97, 25);
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(110, 7);
-        $pdf::Cell(40, 10, 'NO. RM');
+        $pdf::Cell(40, 10, 'Nama');
         $pdf::SetXY(131, 7);
         $pdf::Cell(45, 10, ':');
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(133, 7);
-        $pdf::MultiCell(70, 10, $pasien[0]->no_rm);
+        $pdf::MultiCell(70, 10, $pasien[0]->nama_px);
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(110, 11);
-        $pdf::MultiCell(40, 10, 'Nama ');
+        $pdf::MultiCell(40, 10, 'Tgl. Lahir  ');
         $pdf::SetXY(131, 11);
         $pdf::Cell(40, 10, ':');
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(133, 11);
-        $pdf::Cell(50, 10, $pasien[0]->nama_px);
+        $pdf::Cell(50, 10,  $tgllahir );
 
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(110, 15);
-        $pdf::Cell(40, 10, 'Tgl. Lahir');
+        $pdf::Cell(40, 10, 'No.RM');
         $pdf::SetXY(131, 15);
         $pdf::Cell(40, 10, ':');
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(133, 15);
-        $pdf::MultiCell(70, 10, $tgllahir);
+        $pdf::MultiCell(70, 10,$pasien[0]->no_rm);
 
 
         $pdf::SetFont('Times', '', 10);
@@ -18747,29 +18939,29 @@ foreach ($hasilp as $k) {
          $pdf::Rect(109, 9, 97, 25);
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(110, 7);
-        $pdf::Cell(40, 10, 'NO. RM');
+        $pdf::Cell(40, 10, 'Nama');
         $pdf::SetXY(131, 7);
         $pdf::Cell(45, 10, ':');
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(133, 7);
-        $pdf::MultiCell(70, 10, $pasien[0]->no_rm);
+        $pdf::MultiCell(70, 10, $pasien[0]->nama_px);
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(110, 11);
-        $pdf::MultiCell(40, 10, 'Nama ');
+        $pdf::MultiCell(40, 10, 'Tgl. Lahir ');
         $pdf::SetXY(131, 11);
         $pdf::Cell(40, 10, ':');
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(133, 11);
-        $pdf::Cell(50, 10, $pasien[0]->nama_px);
+        $pdf::Cell(50, 10, $tgllahir);
 
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(110, 15);
-        $pdf::Cell(40, 10, 'Tgl. Lahir');
+        $pdf::Cell(40, 10, 'No. RM');
         $pdf::SetXY(131, 15);
         $pdf::Cell(40, 10, ':');
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(133, 15);
-        $pdf::MultiCell(70, 10, $tgllahir);
+        $pdf::MultiCell(70, 10,$pasien[0]->nama_px );
 
 
         $pdf::SetFont('Times', '', 10);
@@ -24417,20 +24609,20 @@ Aktivitas dikurangi / bertambah ' . $lanjutan[0]->berkurangnyeri, 1);
         $pdf::Rect(109, 10, 97, 30);
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(110, 11);
-        $pdf::Cell(40, 10, 'NO. RM');
+        $pdf::Cell(40, 10, 'Nama');
         $pdf::SetXY(131, 11);
         $pdf::Cell(45, 10, ':');
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(133, 11);
-        $pdf::MultiCell(70, 10, $pasien[0]->no_rm);
+        $pdf::MultiCell(70, 10, $pasien[0]->nama_px);
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(110, 16);
-        $pdf::MultiCell(40, 10, 'Nama ');
+        $pdf::MultiCell(40, 10, 'Tgl Lahir ');
         $pdf::SetXY(131, 16);
         $pdf::Cell(40, 10, ':');
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(133, 16);
-        $pdf::Cell(50, 10, $pasien[0]->nama_px);
+        $pdf::Cell(50, 10, $tgllahir );
 
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(110, 20);
@@ -24439,7 +24631,7 @@ Aktivitas dikurangi / bertambah ' . $lanjutan[0]->berkurangnyeri, 1);
         $pdf::Cell(40, 10, ':');
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(133, 20);
-        $pdf::MultiCell(70, 10, $tgllahir);
+        $pdf::MultiCell(70, 10, $pasien[0]->no_rm);
 
 
         $pdf::SetFont('Times', '', 10);
@@ -26513,29 +26705,29 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
             $pdf::Rect(109, 10, 97, 25);
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(110, 7);
-        $pdf::Cell(40, 10, 'NO. RM');
+        $pdf::Cell(40, 10, 'Nama');
         $pdf::SetXY(131, 7);
         $pdf::Cell(45, 10, ':');
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(133, 7);
-        $pdf::MultiCell(70, 10, $pasien[0]->no_rm);
+        $pdf::MultiCell(70, 10, $pasien[0]->nama_px);
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(110, 11);
-        $pdf::MultiCell(40, 10, 'Nama ');
+        $pdf::MultiCell(40, 10, 'Tgl. Lahir ');
         $pdf::SetXY(131, 11);
         $pdf::Cell(40, 10, ':');
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(133, 11);
-        $pdf::Cell(50, 10, $pasien[0]->nama_px);
+        $pdf::Cell(50, 10, $tgllahir );
 
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(110, 15);
-        $pdf::Cell(40, 10, 'Tgl. Lahir');
+        $pdf::Cell(40, 10, 'No. RM');
         $pdf::SetXY(131, 15);
         $pdf::Cell(40, 10, ':');
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(133, 15);
-        $pdf::MultiCell(70, 10, $tgllahir);
+        $pdf::MultiCell(70, 10, $pasien[0]->no_rm);
 
 
         $pdf::SetFont('Times', '', 10);
@@ -34049,29 +34241,29 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
         $pdf::Rect(109, 9, 97, 25);
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(110, 9);
-        $pdf::Cell(40, 10, 'NO. RM');
+        $pdf::Cell(40, 10, 'Nama');
         $pdf::SetXY(131, 9);
         $pdf::Cell(45, 10, ':');
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(133, 9);
-        $pdf::MultiCell(70, 10, $pasien[0]->no_rm);
+        $pdf::MultiCell(70, 10, $pasien[0]->nama_px);
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(110, 14);
-        $pdf::MultiCell(40, 10, 'Nama ');
+        $pdf::MultiCell(40, 10, 'Tgl. Lahir ');
         $pdf::SetXY(131, 14);
         $pdf::Cell(40, 10, ':');
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(133, 14);
-        $pdf::Cell(50, 10, $pasien[0]->nama_px);
+        $pdf::Cell(50, 10, $tgllahir);
 
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(110, 20);
-        $pdf::Cell(40, 10, 'Tgl. Lahir');
+        $pdf::Cell(40, 10, 'No. RM');
         $pdf::SetXY(131, 20);
         $pdf::Cell(40, 10, ':');
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(133, 20);
-        $pdf::MultiCell(70, 10, $tgllahir);
+        $pdf::MultiCell(70, 10, $pasien[0]->no_rm);
 
 
         $pdf::SetFont('Times', '', 10);
@@ -34443,29 +34635,29 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
         $pdf::Rect(109, 9, 97, 25);
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(110, 9);
-        $pdf::Cell(40, 10, 'NO. RM');
+        $pdf::Cell(40, 10, 'Nama');
         $pdf::SetXY(131, 9);
         $pdf::Cell(45, 10, ':');
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(133, 9);
-        $pdf::MultiCell(70, 10, $pasien[0]->no_rm);
+        $pdf::MultiCell(70, 10, $pasien[0]->nama_px);
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(110, 14);
-        $pdf::MultiCell(40, 10, 'Nama ');
+        $pdf::MultiCell(40, 10, 'Tgl. Lahir');
         $pdf::SetXY(131, 14);
         $pdf::Cell(40, 10, ':');
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(133, 14);
-        $pdf::Cell(50, 10, $pasien[0]->nama_px);
+        $pdf::Cell(50, 10, $tgllahir );
 
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(110, 20);
-        $pdf::Cell(40, 10, 'Tgl. Lahir');
+        $pdf::Cell(40, 10, 'No. RM');
         $pdf::SetXY(131, 20);
         $pdf::Cell(40, 10, ':');
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(133, 20);
-        $pdf::MultiCell(70, 10, $tgllahir);
+        $pdf::MultiCell(70, 10, $pasien[0]->no_rm);
 
 
         $pdf::SetFont('Times', '', 10);

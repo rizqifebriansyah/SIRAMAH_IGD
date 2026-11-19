@@ -18,9 +18,44 @@
         height: 900px;
         overflow: auto;
     }
+
+    .marquee-container {
+        width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+        box-sizing: border-box;
+        background: #f0f0f0;
+        padding: 10px 0;
+    }
+
+    .marquee-text {
+        display: inline-block;
+        padding-left: 100%;
+        animation: marquee 20s linear infinite;
+    }
+
+    .marquee-text:hover {
+        animation-play-state: paused;
+        /* Berhenti saat di-hover */
+    }
+
+    @keyframes marquee {
+        0% {
+            transform: translate(0, 0);
+        }
+
+        100% {
+            transform: translate(-100%, 0);
+        }
+    }
 </style>
 <div class="card-body ermperawatview">
     <div class="row" style="align-content: 10px;">
+        <div class="marquee-container">
+            <div class="marquee-text">
+                Selamat datang {{$user}} di aplikasi SIRAMAH
+            </div>
+        </div>
         <h4 class="col-md-12">Cari Pasien VK</h4>
 
 
@@ -260,42 +295,42 @@
         })
 
     }
-     $(".ermvk").click(function() {
-         spinner = $('#loader2');
-         spinner.show();
-         var $row = $(this).closest("tr");
-         var norm = $row.find(".norm").text();
-         var namapx = $row.find(".namapx").text();
-         var namaunit = $row.find(".namaunit").text();
+    $(".ermvk").click(function() {
+        spinner = $('#loader2');
+        spinner.show();
+        var $row = $(this).closest("tr");
+        var norm = $row.find(".norm").text();
+        var namapx = $row.find(".namapx").text();
+        var namaunit = $row.find(".namaunit").text();
 
-         var jk = $row.find(".jk").text();
-         var kj = $row.find(".kj").text();
-         var tglmasuk = $row.find(".tglmasuk").text();
-         $.ajax({
-             type: "post",
-             data: {
-                 _token: "{{ csrf_token() }}",
-                 norm,
-                 namapx,
-                 namaunit,
+        var jk = $row.find(".jk").text();
+        var kj = $row.find(".kj").text();
+        var tglmasuk = $row.find(".tglmasuk").text();
+        $.ajax({
+            type: "post",
+            data: {
+                _token: "{{ csrf_token() }}",
+                norm,
+                namapx,
+                namaunit,
 
-                 jk,
-                 kj,
+                jk,
+                kj,
 
-                 tglmasuk
+                tglmasuk
 
-             },
-             url: '<?= route('ermvk') ?>',
-             error: function(data) {
-                 spinner.hide();
-                 alert('oke!!')
-             },
-             success: function(response) {
-                 spinner.hide();
-                 $('.ermperawatview').html(response);
+            },
+            url: '<?= route('ermvk') ?>',
+            error: function(data) {
+                spinner.hide();
+                alert('oke!!')
+            },
+            success: function(response) {
+                spinner.hide();
+                $('.ermperawatview').html(response);
 
-             }
-         });
-     });
+            }
+        });
+    });
 </script>
 @endsection

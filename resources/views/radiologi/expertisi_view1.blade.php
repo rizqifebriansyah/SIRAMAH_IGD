@@ -26,7 +26,7 @@
     </div>
     <div class="row">
 
-        <div class="col-md-6 mt-3 ">
+        <div class="col-md-11 mt-3 ">
             <div class="tablebridging">
                 <table id="databridging" class="table  table-sm text-sm table-bordered table-hover">
                     <thead class="bg-success">
@@ -60,9 +60,18 @@
                                 @if ($i->STATUS == 'AP')
                                 <span class="badge badge-primary">READ</span>
                                 @elseif ($i->STATUS == 'FN')
+
                                 <span class="badge badge-primary">SUDAH DICETAK</span>
+                                @elseif ($i->STATUS == 'CM')
+                                <span class="badge badge-danger">BELUM DI BACA</span>
 
+                                @endif
 
+                                @if ($i->nama_keluarga != NULL)
+                                <span class="badge badge-success">Di ambil oleh {{$i->nama_keluarga}} {{$i->tgl_ambil}}</span>
+                                @else
+                                <span class="badge badge-danger">Belum Di ambil</span>
+                                
                                 @endif
 
 
@@ -103,7 +112,7 @@
                 </table>
             </div>
         </div>
-        <div class="col-md-5 mt-3">
+        <div class="col-md-11 mt-3">
             <div class="serahterima">
 
             </div>

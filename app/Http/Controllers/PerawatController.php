@@ -3758,8 +3758,8 @@ class PerawatController extends Controller
         } catch (\Exception $e) {
             $back = [
                 'kode' => 200,
-                'message' => 'error input riwayat partus'
-                // 'error' => $e->getMessage()
+                // 'message' => 'error input riwayat partus'
+                'error' => $e->getMessage()
             ];
             echo json_encode($back);
             die;
@@ -4262,34 +4262,7 @@ class PerawatController extends Controller
             echo json_encode($back);
             die;
         }
-        try {
-            $cekcpp = DB::select(
-                'SELECT status, link_tte, no_berkas
-            FROM erm_cppt_perawat
-            WHERE no_rm = ?
-            AND kode_kunjungan = ?
-            AND status = 3
-            AND link_tte IS NOT NULL
-            AND link_tte != ""
-            AND no_berkas IS NOT NULL
-            AND no_berkas != ""',
-                [$norm, $kj]
-            );
-            // dd($cekcpp);
-            $tte = $cekcpp[0]->link_tte;
-            $iddokumen = $cekcpp[0]->no_berkas;
 
-            DB::update(
-                'UPDATE erm_cppt_perawat
-                 SET no_berkas = ?, link_tte = ?
-                 WHERE no_rm = ?
-                 AND kode_kunjungan = ?
-                 AND status = 1',
-                [$iddokumen, $tte, $norm, $kj]
-            );
-        } catch (\Throwable $e) {
-            dd($e->getMessage());
-        }
         try {
             $rekon = json_decode($_POST['tindakan'], true);
             if ($rekon == null) {
@@ -4757,8 +4730,8 @@ class PerawatController extends Controller
         } catch (\Exception $e) {
             $back = [
                 'kode' => 200,
-                'message' => 'error input riwayat partus'
-                // 'error' => $e->getMessage()
+                // 'message' => 'error input riwayat partus'
+                'error' => $e->getMessage()
             ];
             echo json_encode($back);
             die;

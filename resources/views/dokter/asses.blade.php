@@ -20,12 +20,51 @@
         height: 900px;
         overflow: auto;
     }
+
+    .marquee-container {
+        width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+        box-sizing: border-box;
+        background: #f0f0f0;
+        padding: 10px 0;
+    }
+
+    .marquee-text {
+        display: inline-block;
+        padding-left: 100%;
+        animation: marquee 20s linear infinite;
+    }
+
+    .marquee-text:hover {
+        animation-play-state: paused;
+        /* Berhenti saat di-hover */
+    }
+
+    @keyframes marquee {
+        0% {
+            transform: translate(0, 0);
+        }
+
+        100% {
+            transform: translate(-100%, 0);
+        }
+    }
 </style>
 <div class="card-body ermdokterview">
     <div class="row " style="align-content: 10px;">
+        <div class="marquee-container">
+            <div class="marquee-text">
+                Selamat datang {{$user}} di aplikasi SIRAMAH
+            </div>
+        </div>
+
         @if ($unit == '1002')
 
         <h4 class="col-md-5">Data Pasien IGD UMUM</h4>
+         @elseif ($unit == '3005')
+        <h4 class="col-md-5">Data Pasien VK</h4>
+
         @else
         <h4 class="col-md-5">Data Pasien IGD KEBIDANAN</h4>
 
@@ -158,7 +197,7 @@
                             {{ $a->DIAGX }}
                         </td>
                         <td class="status1" style="text-align: center;">
-                             @if ($unit == '1002')
+                            @if ($unit == '1002')
 
                             @if ($a->nama_perawat == null && $a->nama_perawat1 == null && $a->status == null)
                             <button class="badge badge-danger ermperawat"> belum diisi </button>
@@ -174,9 +213,9 @@
                             <button class="badge badge-danger ermperawat"> belum diisi </button>
                             @elseif ($a->tte_bidan != NULL )
                             <button class="badge badge-success ermperawat"> Sudah validasi </button> | {{ $a->nama_perawat }} {{ $a->nama_perawat1 }}
-                             @elseif ($a->tte_bidan_bayi != NULL )
+                            @elseif ($a->tte_bidan_bayi != NULL )
                             <button class="badge badge-success ermperawat"> Sudah validasi </button> | {{ $a->nama_perawat }} {{ $a->nama_perawat1 }}
-                           
+
                             @else
                             <button class="badge badge-warning ermperawat"> belum validasi </button> | {{ $a->nama_perawat }} {{ $a->nama_perawat1 }}
 
@@ -232,7 +271,7 @@
                         </td>
                         <td class="status2" style="text-align: center;">
 
-                             @if ($a->tgl_asses == null)
+                            @if ($a->tgl_asses == null)
                             <button class="badge badge-danger ermdokter"> belum lengkap </button> {{ $a->nama_paramedis }}
                             @elseif($a->tgl_selesai_asses == NULL)
                             <button class="badge badge-warning ermdokter"> Belum Validasi </button> | {{ $a->nama_paramedis }}
@@ -401,26 +440,26 @@
     });
 </script>
 <script>
-   $(document).ready(function() {
-    let idleTimer;
-    const idleLimit = 300000; // 5 menit
+    $(document).ready(function() {
+        let idleTimer;
+        const idleLimit = 300000; // 5 menit
 
-    function resetIdleTimer() {
-        clearTimeout(idleTimer);
+        function resetIdleTimer() {
+            clearTimeout(idleTimer);
 
-        idleTimer = setTimeout(function() {
-            window.location.href = "{{ route('logout') }}";
-        }, idleLimit);
-    }
-
-    $(document).on(
-        'mousemove keydown mousedown click scroll touchstart',
-        function() {
-            resetIdleTimer();
+            idleTimer = setTimeout(function() {
+                window.location.href = "{{ route('logout') }}";
+            }, idleLimit);
         }
-    );
 
-    resetIdleTimer();
-});
+        $(document).on(
+            'mousemove keydown mousedown click scroll touchstart',
+            function() {
+                resetIdleTimer();
+            }
+        );
+
+        resetIdleTimer();
+    });
 </script>
 @endsection

@@ -66,6 +66,15 @@
                         </p>
                     </a>
                 </li>
+                 <li class="nav-item">
+                    <a href="{{ route('assesvk') }}" class="nav-link @if($menu == 'assesvk' ) active @endif">
+
+                        <i class="nav-icon fas fa-archive"></i>
+                        <p>
+                            VK
+                        </p>
+                    </a>
+                </li>
                 <li class="nav-header">KPO</li>
                 <li class="nav-item">
                     <a href="{{ route('kpo') }}" class="nav-link @if($menu == 'kpo' ) active @endif">
