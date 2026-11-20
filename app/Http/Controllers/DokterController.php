@@ -1526,20 +1526,15 @@ class DokterController extends Controller
         //  dd($kode_lab);
          $kritislab =DB::connection('mysql5')->select('SELECT
         --  a.no_rm,
-        a.`HisNoReg`,
-        b.`LisNama`,
-        b.`LisHasil`,
-        b.`LisSatuan`,
-        a.`DokterValidatorKode`,
-        a.`DokterPenanggungJawab`,
-        a.`Validasi1`,
-        a.`HisTanggalTerima`,
-        a.`LisTanggalKirim`
+     *
          FROM
          `listohisheader` a
          INNER JOIN `listohisdetail` b ON b.`LisToHisHeaderID` = a.`RowId`
          WHERE b.`LabFlagCritical` = "Y"
-         AND a.`HisNoReg` = ?',[$kode_lab]); 
+         AND b.Status=  "A"
+         AND a.`HisNoReg` = ?
+         ORDER BY
+        a.`RowId` DESC;',[$kode_lab]); 
         //  AND b.satus_order = "1"
         // $layananlab = DB::select("CALL SP_PANGGIL_TARIF_LAB('$kelas','')");
         // $layananlab = DB::select("CALL SP_PANGGIL_TARIF_LAB('1','')");
@@ -12912,6 +12907,18 @@ foreach ($kriteriaTransfer as $nilai => $label) {
         ,a.link_tte
 
         FROM pemantauan_ttv a WHERE kj = ? AND norm = ? AND status = 1', [$kj, $norm]);
+        $path = public_path('\qrcoderad\qr' . $kj . time() . '.png');
+
+        
+        $tteperawat = $hasilp[0]->link_tte ?? null;
+
+        if (!empty($tteperawat)) {
+            $o = QrCode::size(300)
+                ->format('png')
+                ->generate($tteperawat, $path);
+        } else {
+            $o = null;
+        }
 
         $pasien = DB::select('SELECT 
         a.nama_px,
@@ -13253,7 +13260,9 @@ foreach ($hasilp as $k) {
                 $pdf::Cell(10, $rowHeight, $k->pupil, 1, 0, "C");
                 $pdf::Cell(10, $rowHeight, $k->urine, 1, 0, "C");
                 $pdf::Cell(25, $rowHeight, $k->nyeri, 1, 0, "C");
-
+                // if (!empty($tteperawat) && file_exists($path)) {
+                //     $pdf::Image($path, $startX + 155, $startY, 15, 15, 'PNG');
+                // }
                 /*
     |--------------------------------------------------------------------------
     | KETERANGAN
@@ -15073,11 +15082,15 @@ foreach ($hasilp as $k) {
         a.`DokterPenanggungJawab`,
         a.`Validasi1`,
         a.`HisTanggalTerima`,
+        b.LabHasil,
+
         a.`LisTanggalKirim`
          FROM
          `listohisheader` a
          INNER JOIN `listohisdetail` b ON b.`LisToHisHeaderID` = a.`RowId`
          WHERE b.`LabFlagCritical` = "Y"
+         AND b.Status=  "A"
+
          AND a.`HisNoReg` = ?',[$kode_lab]); 
         $riwayatobat = DB::select('SELECT
         a.kode_layanan_header,
@@ -49665,6 +49678,8 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
          `listohisheader` a
          INNER JOIN `listohisdetail` b ON b.`LisToHisHeaderID` = a.`RowId`
          WHERE b.`LabFlagCritical` = "Y"
+         AND b.Status=  "A"
+
          AND a.`HisNoReg` = ?',[$kode_lab]); 
         $tindakan = DB::select('SELECT * FROM erm_tindakan_kedokteran WHERE no_rm = ? AND kode_kunjungan = ?', [$norm, $kj]);
         $tindakanp = DB::select('SELECT * FROM erm_tindakan_keperawatan WHERE no_rm = ? AND kode_kunjungan = ? AND status = 1', [$norm, $kj]);
@@ -50082,7 +50097,7 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
                 $pdf::MultiCell(
                     155,
                     5,
-                    $l->LisNama  .$l->LisHasil. $l->LisSatuan. ' Validator : ' . $l->Validasi1 ,
+                    $l->LisNama  .$l->LisNilaiNormal. $l->LisSatuan. ' Validator : ' . $l->Validasi1 ,
                     0,
                     'L'
                 );

@@ -13335,7 +13335,7 @@
 
                             <td>{{ $krl->DokterValidatorKode }}</td>
                             <td>
-                                {{ $krl->LisHasil }}{{ $krl->LisSatuan }}
+                                {{ $krl->LisNilaiNormal }}{{ $krl->LisSatuan }}
                             </td>
                             <td>
                                 <div style="

@@ -1830,7 +1830,7 @@
                                                             <td>Total score</td>
                                                             <td>
                                                                 <div class="form-group">
-                                                                    <input readonly type="number" name="totalnutrisi" id="totalnutrisi" class="form-control" min="0" placeholder="Enter first value" required />
+                                                                    <input readonly type="number" name="totalnutrisi" id="totalnutrisi" class="form-control" min="0" required />
                                                                 </div>
                                                             </td>
 
@@ -7079,7 +7079,8 @@
 
                                                             <td>
                                                                 <div class="form-group">
-                                                                    <input type="number" name="rjvalue" id="rjvalue" class="form-control" min="0" value="{{$assesper[0]->penurunan_bb}}" required />
+                                                                    <input type="number" name="pnvalue" id="pnvalue" class="form-control" min="0" value="{{$assesper[0]->penurunan_bb}}"placeholder="Enter first value" required />
+
                                                                 </div>
                                                             </td>
 
@@ -7091,7 +7092,8 @@
                                                             <td><br><br>1 <br>2 <br>3 <br>4 <br>2 </td>
                                                             <td>
                                                                 <div class="form-group">
-                                                                    <input type="number" name="rjvalue" id="rjvalue" class="form-control" min="0" value="{{$assesper[0]->asupan}}" required />
+                                                                    <input type="number" name="pbbvalue" id="pbbvalue" class="form-control" min="0" value="{{$assesper[0]->asupan}}" placeholder="Enter first value" required />
+
                                                                 </div>
                                                             </td>
 
@@ -7102,7 +7104,8 @@
                                                             <td>0 <br><br>1</td>
                                                             <td>
                                                                 <div class="form-group">
-                                                                    <input type="number" name="rjvalue" id="rjvalue" class="form-control" min="0" placeholder="" value="{{$assesper[0]->asupan}}" required />
+                                                                    <input type="number" name="nmvalue" id="nmvalue" class="form-control" min="0"  value="{{$assesper[0]->asupan}}" placeholder="Enter first value" required />
+
                                                                 </div>
                                                             </td>
 
@@ -7121,7 +7124,7 @@
                                                             <td>Total score</td>
                                                             <td>
                                                                 <div class="form-group">
-                                                                    <input readonly type="number" name="totalnutrisi" id="totalnutrisi" class="form-control" min="0" value="{{$assesper[0]->total_nutrisi_dws}}" placeholder="" required />
+                                                                    <input readonly type="number" name="totalnutrisi" id="totalnutrisi" class="form-control" min="0" value="{{$assesper[0]->total_nutrisi_dws}}"  required />
                                                                 </div>
                                                             </td>
 
@@ -7186,7 +7189,7 @@
                                                             <td>Total score</td>
                                                             <td>
                                                                 <div class="form-group">
-                                                                    <input readonly type="number" name="totalnutrisi1" id="totalnutrisi1" class="form-control" min="0" value="{{$assesper[0]->total_nutrisi_ank}}" placeholder="" required />
+                                                                    <input readonly type="number" name="totalnutrisi1" id="totalnutrisi1" class="form-control" min="0" value="{{$assesper[0]->total_nutrisi_ank}}"  required />
                                                                 </div>
                                                             </td>
 
@@ -7824,13 +7827,8 @@
 </div>
 </div>
 @endif
-<script src="{{ asset('public/marker/markerjs2.js') }}"></script>
 <script>
-    function showMarkerArea(target) {
-        const markerArea = new markerjs2.MarkerArea(target);
-        markerArea.addEventListener("render", (event) => (target.src = event.dataUrl));
-        markerArea.show();
-    }
+ 
 
     // function batalgambar1() {
     //     ambilgambar1()
