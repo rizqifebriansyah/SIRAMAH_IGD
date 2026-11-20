@@ -12876,8 +12876,8 @@ foreach ($kriteriaTransfer as $nilai => $label) {
 
 
 
-        $unit = auth()->user()->unit;
-        // $unit = '1002';
+        // $unit = auth()->user()->unit;
+        $unit = '1002';
 
         $now = Carbon::now()->format('Y-m-d H:i:s');
         $hasilp = DB::select('SELECT 
@@ -12907,18 +12907,8 @@ foreach ($kriteriaTransfer as $nilai => $label) {
         ,a.link_tte
 
         FROM pemantauan_ttv a WHERE kj = ? AND norm = ? AND status = 1', [$kj, $norm]);
-        $path = public_path('\qrcoderad\qr' . $kj . time() . '.png');
-
-        
-        $tteperawat = $hasilp[0]->link_tte ?? null;
-
-        if (!empty($tteperawat)) {
-            $o = QrCode::size(300)
-                ->format('png')
-                ->generate($tteperawat, $path);
-        } else {
-            $o = null;
-        }
+        // dd($hasilp);
+       
 
         $pasien = DB::select('SELECT 
         a.nama_px,
@@ -12978,29 +12968,29 @@ foreach ($kriteriaTransfer as $nilai => $label) {
         $pdf::Rect(109, 9, 97, 25);
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(110, 7);
-        $pdf::Cell(40, 10, 'NO. RM');
+        $pdf::Cell(40, 10, 'Nama');
         $pdf::SetXY(131, 7);
         $pdf::Cell(45, 10, ':');
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(133, 7);
-        $pdf::MultiCell(70, 10, $pasien[0]->no_rm);
+        $pdf::MultiCell(70, 10, $pasien[0]->nama_px);
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(110, 11);
-        $pdf::MultiCell(40, 10, 'Nama ');
+        $pdf::MultiCell(40, 10, 'TGL. Lahir ');
         $pdf::SetXY(131, 11);
         $pdf::Cell(40, 10, ':');
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(133, 11);
-        $pdf::Cell(50, 10, $pasien[0]->nama_px);
+        $pdf::Cell(50, 10, $tgllahir);
 
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(110, 15);
-        $pdf::Cell(40, 10, 'Tgl. Lahir');
+        $pdf::Cell(40, 10, 'Norm');
         $pdf::SetXY(131, 15);
         $pdf::Cell(40, 10, ':');
         $pdf::SetFont('Times', '', 10);
         $pdf::SetXY(133, 15);
-        $pdf::MultiCell(70, 10, $tgllahir);
+        $pdf::MultiCell(70, 10, $pasien[0]->no_rm );
 
 
         $pdf::SetFont('Times', '', 10);
@@ -13126,69 +13116,149 @@ foreach ($hasilp as $k) {
             $y = $pdf::GetY();
 
             //dokter jaga
-            $pdf::Rect(8, $y, 25, 10);
+            $pdf::Rect(8, $y, 25, 5);
             $pdf::SetXY(10, $y);
-            $pdf::Cell(240, 10, 'Dokter Jaga');
-            $pdf::Rect(33, $y, 57, 10);
+            $pdf::Cell(240, 5, 'Dokter Jaga');
 
-            $pdf::SetXY(33, $y);
+            
             $pdf::SetFont('Times', '', 8);
 
-            if ($hasilp[0]->waktu_jaga_dokter_pagi == 'Pagi') {
-                $pdf::MultiCell(50, 3, 'Pagi : ' . $hasilp[0]->dokter_jaga);
-            } else {
-                $pdf::MultiCell(50, 10, 'Pagi : ');
-            }
-            $pdf::Rect(90, $y, 57, 10);
+            // if ($hasilp[0]->waktu_jaga_dokter_pagi == 'Pagi') {
+            //     $pdf::MultiCell(50, 3, 'Pagi : ' . $hasilp[0]->dokter_jaga);
+            // } else {
+            //     $pdf::MultiCell(50, 10, 'Pagi : ');
+            // }
+            // $pdf::Rect(90, $y, 57, 10);
 
-            $pdf::SetXY(90, $y);
+            // $pdf::SetXY(90, $y);
 
-            if ($hasilp[0]->waktu_jaga_dokter_siang == 'Siang') {
-                $pdf::MultiCell(50, 3, 'Siang : ' . $hasilp[0]->dokter_jaga);
-            } else {
-                $pdf::MultiCell(50, 10, 'Siang : ');
-            }
-            $pdf::Rect(147, $y, 59, 10);
+            // if ($hasilp[0]->waktu_jaga_dokter_siang == 'Siang') {
+            //     $pdf::MultiCell(50, 3, 'Siang : ' . $hasilp[0]->dokter_jaga);
+            // } else {
+            //     $pdf::MultiCell(50, 10, 'Siang : ');
+            // }
+            // $pdf::Rect(147, $y, 59, 10);
 
-            $pdf::SetXY(147, $y);
+            // $pdf::SetXY(147, $y);
 
-            if ($hasilp[0]->waktu_jaga_dokter_malam == 'Malam') {
-                $pdf::MultiCell(50, 3, 'Malam : ' . $hasilp[0]->dokter_jaga);
-            } else {
-                $pdf::MultiCell(50, 10, 'Malam : ');
-            }
+            // if ($hasilp[0]->waktu_jaga_dokter_malam == 'Malam') {
+            //     $pdf::MultiCell(50, 3, 'Malam : ' . $hasilp[0]->dokter_jaga);
+            // } else {
+            //     $pdf::MultiCell(50, 10, 'Malam : ');
+            // }
+          // DOKTER JAGA
+$dokterPagi = '';
+$dokterSiang = '';
+$dokterMalam = '';
+
+foreach ($hasilp as $row) {
+
+    if ($dokterPagi == '' && $row->waktu_jaga_dokter_pagi == 'Pagi') {
+        $dokterPagi = $row->dokter_jaga;
+    }
+
+    if ($dokterSiang == '' && $row->waktu_jaga_dokter_siang == 'Siang') {
+        $dokterSiang = $row->dokter_jaga;
+    }
+
+    if ($dokterMalam == '' && $row->waktu_jaga_dokter_malam == 'Malam') {
+        $dokterMalam = $row->dokter_jaga;
+    }
+}
+            $pdf::SetXY(33, $y);
+            $pdf::Rect(33, $y, 55, 10);
+
+$pdf::Cell(55, 5, 'Pagi : ' . $dokterPagi, 0, 0, 'L', false, '', 1);
+            $pdf::Rect(88, $y, 55, 5);
+
+
+$pdf::Cell(55, 5, 'Siang : ' . $dokterSiang, 0, 0, 'L', false, '', 1);
+            $pdf::Rect(143, $y, 63, 5);
+
+
+$pdf::Cell(57, 5, 'Malam : ' . $dokterMalam, 0, 0, 'L', false, '', 1);
+
+            // $y = $pdf::GetY();
+            // //perawat jaga
+            // $pdf::Rect(8, $y, 25, 10);
+            // $pdf::SetXY(10, $y);
+            // $pdf::Cell(240, 10, 'Perawat Jaga');
+            // $pdf::Rect(33, $y, 57, 10);
+            // $pdf::SetFont('Times', '', 8);
+
+            // $pdf::SetXY(33, $y);
+            // if ($hasilp[0]->waktu_jaga_perawat_pagi == 'Pagi') {
+            //     $pdf::MultiCell(50, 3, 'Pagi : ' . $hasilp[0]->perawat_jaga);
+            // } else {
+            //     $pdf::MultiCell(50, 10, 'Pagi : ');
+            // }
+            // $pdf::Rect(90, $y, 57, 10);
+
+            // $pdf::SetXY(90, $y);
+
+            // if ($hasilp[0]->waktu_jaga_perawat_siang == 'Siang') {
+            //     $pdf::MultiCell(50, 3, 'Siang : ' . $hasilp[0]->perawat_jaga);
+            // } else {
+            //     $pdf::MultiCell(50, 10, 'Siang : ');
+            // }
+            // $pdf::Rect(147, $y, 59, 10);
+
+            // $pdf::SetXY(147, $y);
+
+            // if ($hasilp[0]->waktu_jaga_perawat_malam == 'Malam') {
+            //     $pdf::MultiCell(50, 3, 'Malam : ' . $hasilp[0]->perawat_jaga);
+            // } else {
+            //     $pdf::MultiCell(50, 10, 'Malam : ');
+            // }
+
+            // PERAWAT JAGA
+// AMBIL SATU PERAWAT PERTAMA SETIAP SHIFT
+
+$perawatPagi = '';
+$perawatSiang = '';
+$perawatMalam = '';
+
+foreach ($hasilp as $row) {
+
+    if ($perawatPagi == '' && $row->waktu_jaga_perawat_pagi == 'Pagi') {
+        $perawatPagi = $row->perawat_jaga;
+    }
+
+    if ($perawatSiang == '' && $row->waktu_jaga_perawat_siang == 'Siang') {
+        $perawatSiang = $row->perawat_jaga;
+    }
+
+    if ($perawatMalam == '' && $row->waktu_jaga_perawat_malam == 'Malam') {
+        $perawatMalam = $row->perawat_jaga;
+    }
+}
+// // PERAWAT JAGA
+  $pdf::ln();
             $y = $pdf::GetY();
-            //perawat jaga
-            $pdf::Rect(8, $y, 25, 10);
-            $pdf::SetXY(10, $y);
-            $pdf::Cell(240, 10, 'Perawat Jaga');
-            $pdf::Rect(33, $y, 57, 10);
-            $pdf::SetFont('Times', '', 8);
 
-            $pdf::SetXY(33, $y);
-            if ($hasilp[0]->waktu_jaga_perawat_pagi == 'Pagi') {
-                $pdf::MultiCell(50, 3, 'Pagi : ' . $hasilp[0]->perawat_jaga);
-            } else {
-                $pdf::MultiCell(50, 10, 'Pagi : ');
-            }
-            $pdf::Rect(90, $y, 57, 10);
+$pdf::SetFont('Times', '', 8);
 
-            $pdf::SetXY(90, $y);
+$pdf::Rect(8, $y, 25, 5);
+$pdf::SetXY(10, $y);
+$pdf::Cell(23, 5, 'Perawat Jaga');
 
-            if ($hasilp[0]->waktu_jaga_perawat_siang == 'Siang') {
-                $pdf::MultiCell(50, 3, 'Siang : ' . $hasilp[0]->perawat_jaga);
-            } else {
-                $pdf::MultiCell(50, 10, 'Siang : ');
-            }
-            $pdf::Rect(147, $y, 59, 10);
+// PAGI
+$pdf::Rect(33, $y, 55, 5);
+$pdf::SetXY(33, $y);
+$pdf::Cell(55, 5, 'Pagi : ' . $perawatPagi, 0, 0, 'L', false, '', 1);
 
-            $pdf::SetXY(147, $y);
+// SIANG
+$pdf::Rect(88, $y, 55, 5);
+$pdf::SetXY(88, $y);
+$pdf::Cell(55, 5, 'Siang : ' . $perawatSiang, 0, 0, 'L', false, '', 1);
 
-            if ($hasilp[0]->waktu_jaga_perawat_malam == 'Malam') {
-                $pdf::MultiCell(50, 3, 'Malam : ' . $hasilp[0]->perawat_jaga);
-            } else {
-                $pdf::MultiCell(50, 10, 'Malam : ');
-            }
+// MALAM
+$pdf::Rect(143, $y, 63, 5);
+$pdf::SetXY(143, $y);
+$pdf::Cell(57, 5, 'Malam : ' . $perawatMalam, 0, 0, 'L', false, '', 1);
+
+$y += 10;
+$pdf::ln(5);
             $y = $pdf::GetY();
 
             $pdf::SetXY(8, $y);
@@ -13227,7 +13297,7 @@ foreach ($hasilp as $k) {
                 $ket = trim($k->keterangan);
 
                 $lineHeight = 5;
-                $maxChar = 18; // sesuaikan dengan lebar kolom
+                $maxChar = 20; // sesuaikan dengan lebar kolom
 
                 // hitung jumlah baris TANPA multicell dummy
                 $lines = ceil(strlen($ket) / $maxChar);
@@ -13249,17 +13319,38 @@ foreach ($hasilp as $k) {
     | CELL BIASA
     |--------------------------------------------------------------------------
     */
+                $pdf::Rect($startX, $startY, 15, 25);
 
-                $pdf::Cell(15, $rowHeight, $k->tgl_obs, 1, 0, "C");
-                $pdf::Cell(10, $rowHeight, $k->jam_obs, 1, 0, "C");
-                $pdf::Cell(15, $rowHeight, $k->td, 1, 0, "C");
-                $pdf::Cell(18, $rowHeight, $k->nadi, 1, 0, "C");
-                $pdf::Cell(18, $rowHeight, $k->rr, 1, 0, "C");
-                $pdf::Cell(15, $rowHeight, $k->suhu, 1, 0, "C");
-                $pdf::Cell(13, $rowHeight, $k->gcs, 1, 0, "C");
-                $pdf::Cell(10, $rowHeight, $k->pupil, 1, 0, "C");
-                $pdf::Cell(10, $rowHeight, $k->urine, 1, 0, "C");
-                $pdf::Cell(25, $rowHeight, $k->nyeri, 1, 0, "C");
+                $pdf::MultiCell(15, 5, $k->tgl_obs, 0, 0);
+                $pdf::Rect($startX + 15, $startY, 10, 25);
+                $pdf::SetXY($startX + 15, $startY);
+
+
+                $pdf::MultiCell(10, 5, $k->jam_obs, 0, 0);
+                $pdf::Rect($startX + 25, $startY, 15, 25);
+                $pdf::SetXY($startX + 25, $startY);
+                $pdf::MultiCell(15, 5, $k->td, 0, 0);
+                 $pdf::Rect($startX + 40, $startY, 18, 25);
+                $pdf::SetXY($startX + 40, $startY);
+                $pdf::MultiCell(18, 5, $k->nadi, 0, 0);
+                $pdf::Rect($startX + 58, $startY, 18, 25);
+                $pdf::SetXY($startX + 58, $startY);
+                $pdf::MultiCell(18, 5, $k->rr, 0, 0);
+                $pdf::Rect($startX + 76, $startY, 15, 25);
+                $pdf::SetXY($startX + 76, $startY);
+                $pdf::MultiCell(15, 5, $k->suhu, 0, 0);
+                $pdf::Rect($startX + 91, $startY, 13, 25);
+                $pdf::SetXY($startX + 91, $startY);
+                $pdf::MultiCell(13, 5, $k->gcs, 0, 0);
+                $pdf::Rect($startX + 104, $startY, 10, 25);
+                $pdf::SetXY($startX + 104, $startY);
+                $pdf::MultiCell(10, 5, $k->pupil, 0, 0);
+                $pdf::Rect($startX + 114, $startY, 10, 25);
+                $pdf::SetXY($startX + 114, $startY);
+                $pdf::MultiCell(10, 5, $k->urine, 0, 0);
+                $pdf::Rect($startX + 124, $startY, 25, 25);
+                $pdf::SetXY($startX + 124, $startY);
+                $pdf::MultiCell(25, 5, $k->nyeri, 0, 0);
                 // if (!empty($tteperawat) && file_exists($path)) {
                 //     $pdf::Image($path, $startX + 155, $startY, 15, 15, 'PNG');
                 // }
@@ -13271,26 +13362,56 @@ foreach ($hasilp as $k) {
 
                 $xKet = $pdf::GetX();
                 $yKet = $pdf::GetY();
+                $pdf::Rect($startX + 149, $startY, 28, 25);
+                $pdf::SetXY($startX + 149, $startY);
+                $pdf::MultiCell(28, 5, $ket, 0, "L");
 
-                $pdf::MultiCell(28, $lineHeight, $ket, 1, "L");
+            /*
+|--------------------------------------------------------------------------
+| NAMA & PARAF
+|--------------------------------------------------------------------------
+*/
 
-                /*
-    |--------------------------------------------------------------------------
-    | NAMA & PARAF
-    |--------------------------------------------------------------------------
-    */
+$pdf::SetXY($xKet + 28, $yKet);
 
-                $pdf::SetXY($xKet + 28, $yKet);
+// Ambil link TTE
+$tteperawat = trim($k->link_tte ?? '');
 
-                $pdf::Cell(21, $rowHeight, "", 1, 0, "C");
+if (!empty($tteperawat)) {
 
-                /*
+    // Nama file QR unik setiap ROW
+    $path = public_path(
+        'qrcoderad/qr_' . uniqid() . '.png'
+    );
+
+    // Generate QR Code
+    QrCode::size(300)
+        ->format('png')
+        ->generate($tteperawat, $path);
+
+    // Tampilkan QR Code jika berhasil dibuat
+    if (file_exists($path)) {
+        $pdf::Image(
+            $path,
+            $startX + 182,
+            $startY + 1 ,
+            10,
+            10,
+            'PNG'
+        );
+    }
+}
+
+// Tetap tampilkan kotak Nama & Paraf
+      $pdf::Rect($startX + 177, $startY, 21, 25);
+                $pdf::SetXY($startX + 177, $startY + 12);
+$pdf::MultiCell(20, 3, $k->perawat_jaga, 0, 0);                /*
     |--------------------------------------------------------------------------
     | NEXT ROW
     |--------------------------------------------------------------------------
     */
 
-                $pdf::SetXY($startX, $startY + $rowHeight);
+                $pdf::SetXY($startX, $startY + 25);
             }
             }
      
@@ -15082,7 +15203,6 @@ foreach ($hasilp as $k) {
         a.`DokterPenanggungJawab`,
         a.`Validasi1`,
         a.`HisTanggalTerima`,
-        b.LabHasil,
 
         a.`LisTanggalKirim`
          FROM
