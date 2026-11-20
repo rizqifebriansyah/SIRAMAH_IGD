@@ -12909,6 +12909,7 @@ foreach ($kriteriaTransfer as $nilai => $label) {
         ,a.waktu_jaga_perawat_pagi
         ,a.waktu_jaga_perawat_siang
         ,a.waktu_jaga_perawat_malam
+        ,a.link_tte
 
         FROM pemantauan_ttv a WHERE kj = ? AND norm = ? AND status = 1', [$kj, $norm]);
 
@@ -13124,8 +13125,10 @@ foreach ($hasilp as $k) {
             $pdf::Rect(33, $y, 57, 10);
 
             $pdf::SetXY(33, $y);
+            $pdf::SetFont('Times', '', 8);
+
             if ($hasilp[0]->waktu_jaga_dokter_pagi == 'Pagi') {
-                $pdf::MultiCell(50, 10, 'Pagi : ' . $hasilp[0]->dokter_jaga);
+                $pdf::MultiCell(50, 3, 'Pagi : ' . $hasilp[0]->dokter_jaga);
             } else {
                 $pdf::MultiCell(50, 10, 'Pagi : ');
             }
@@ -13134,7 +13137,7 @@ foreach ($hasilp as $k) {
             $pdf::SetXY(90, $y);
 
             if ($hasilp[0]->waktu_jaga_dokter_siang == 'Siang') {
-                $pdf::MultiCell(50, 10, 'Siang : ' . $hasilp[0]->dokter_jaga);
+                $pdf::MultiCell(50, 3, 'Siang : ' . $hasilp[0]->dokter_jaga);
             } else {
                 $pdf::MultiCell(50, 10, 'Siang : ');
             }
@@ -13143,7 +13146,7 @@ foreach ($hasilp as $k) {
             $pdf::SetXY(147, $y);
 
             if ($hasilp[0]->waktu_jaga_dokter_malam == 'Malam') {
-                $pdf::MultiCell(50, 10, 'Malam : ' . $hasilp[0]->dokter_jaga);
+                $pdf::MultiCell(50, 3, 'Malam : ' . $hasilp[0]->dokter_jaga);
             } else {
                 $pdf::MultiCell(50, 10, 'Malam : ');
             }
@@ -13153,10 +13156,11 @@ foreach ($hasilp as $k) {
             $pdf::SetXY(10, $y);
             $pdf::Cell(240, 10, 'Perawat Jaga');
             $pdf::Rect(33, $y, 57, 10);
+            $pdf::SetFont('Times', '', 8);
 
             $pdf::SetXY(33, $y);
             if ($hasilp[0]->waktu_jaga_perawat_pagi == 'Pagi') {
-                $pdf::MultiCell(50, 10, 'Pagi : ' . $hasilp[0]->perawat_jaga);
+                $pdf::MultiCell(50, 3, 'Pagi : ' . $hasilp[0]->perawat_jaga);
             } else {
                 $pdf::MultiCell(50, 10, 'Pagi : ');
             }
@@ -13165,7 +13169,7 @@ foreach ($hasilp as $k) {
             $pdf::SetXY(90, $y);
 
             if ($hasilp[0]->waktu_jaga_perawat_siang == 'Siang') {
-                $pdf::MultiCell(50, 10, 'Siang : ' . $hasilp[0]->perawat_jaga);
+                $pdf::MultiCell(50, 3, 'Siang : ' . $hasilp[0]->perawat_jaga);
             } else {
                 $pdf::MultiCell(50, 10, 'Siang : ');
             }
@@ -13174,7 +13178,7 @@ foreach ($hasilp as $k) {
             $pdf::SetXY(147, $y);
 
             if ($hasilp[0]->waktu_jaga_perawat_malam == 'Malam') {
-                $pdf::MultiCell(50, 10, 'Malam : ' . $hasilp[0]->perawat_jaga);
+                $pdf::MultiCell(50, 3, 'Malam : ' . $hasilp[0]->perawat_jaga);
             } else {
                 $pdf::MultiCell(50, 10, 'Malam : ');
             }
@@ -13182,6 +13186,7 @@ foreach ($hasilp as $k) {
 
             $pdf::SetXY(8, $y);
             $pdf::Cell(198, 5, 'Diagnosa Kerja: (Assessmen) : ' . $hasilp[0]->diagnosa_kerja, 1);
+            
 
             $pdf::ln();
             $y = $pdf::GetY();
@@ -50893,7 +50898,7 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
 
         $pdf::SetXY(33, 83);
         if ($hasilp[0]->waktu_jaga_dokter_pagi == 'Pagi') {
-            $pdf::MultiCell(50, 10, 'Pagi : ' . $hasilp[0]->dokter_jaga);
+            $pdf::MultiCell(50, 5, 'Pagi : ' . $hasilp[0]->dokter_jaga);
         } else {
             $pdf::MultiCell(50, 10, 'Pagi : ');
         }
@@ -50902,7 +50907,7 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
         $pdf::SetXY(90, 83);
 
         if ($hasilp[0]->waktu_jaga_dokter_siang == 'Siang') {
-            $pdf::MultiCell(50, 10, 'Siang : ' . $hasilp[0]->dokter_jaga);
+            $pdf::MultiCell(50, 5, 'Siang : ' . $hasilp[0]->dokter_jaga);
         } else {
             $pdf::MultiCell(50, 10, 'Siang : ');
         }
@@ -50911,7 +50916,7 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
         $pdf::SetXY(147, 83);
 
         if ($hasilp[0]->waktu_jaga_dokter_malam == 'Malam') {
-            $pdf::MultiCell(50, 10, 'Malam : ' . $hasilp[0]->dokter_jaga);
+            $pdf::MultiCell(50, 5, 'Malam : ' . $hasilp[0]->dokter_jaga);
         } else {
             $pdf::MultiCell(50, 10, 'Malam : ');
         }
@@ -50925,7 +50930,7 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
 
         $pdf::SetXY(33, 93);
         if ($hasilp[0]->waktu_jaga_perawat_pagi == 'Pagi') {
-            $pdf::MultiCell(50, 10, 'Pagi : ' . $hasilp[0]->perawat_jaga);
+            $pdf::MultiCell(50, 5, 'Pagi : ' . $hasilp[0]->perawat_jaga);
         } else {
             $pdf::MultiCell(50, 10, 'Pagi : ');
         }
@@ -50934,7 +50939,7 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
         $pdf::SetXY(90, 93);
 
         if ($hasilp[0]->waktu_jaga_perawat_siang == 'Siang') {
-            $pdf::MultiCell(50, 10, 'Siang : ' . $hasilp[0]->perawat_jaga);
+            $pdf::MultiCell(50, 5, 'Siang : ' . $hasilp[0]->perawat_jaga);
         } else {
             $pdf::MultiCell(50, 10, 'Siang : ');
         }
@@ -50943,7 +50948,7 @@ Aktivitas dikurangi / bertambah ' . $assesper[0]->berkurang_nyeri, 1);
         $pdf::SetXY(147, 93);
 
         if ($hasilp[0]->waktu_jaga_perawat_malam == 'Malam') {
-            $pdf::MultiCell(50, 10, 'Malam : ' . $hasilp[0]->perawat_jaga);
+            $pdf::MultiCell(50, 5, 'Malam : ' . $hasilp[0]->perawat_jaga);
         } else {
             $pdf::MultiCell(50, 10, 'Malam : ');
         }

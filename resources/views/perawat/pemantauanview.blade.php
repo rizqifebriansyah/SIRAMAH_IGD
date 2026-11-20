@@ -23,6 +23,10 @@
 
         <!-- <th>PU</th> -->
         <th>NYERI</th>
+        <th>KET</th>
+        <th>TTE</th>
+
+
 
 
 
@@ -49,9 +53,28 @@
             <td>{{$l->gcs}}</td>
             <td>{{$l->pupil}}</td>
             <td>{{$l->nyeri}}</td>
+            <td>{{$l->keterangan}}</td>
+            <td>@if ($l->link_tte != NULL)
+                 <a class=" btn btn-info btn-sm " href="#">
+                    TTE
+                </a>
+                @else
+                <a class=" btn btn-danger btn-sm " href="#">
+                  Belum
+                </a>
+                @endif
+            </td>
+
+
             <td>
                 <a class=" btn btn-danger btn-sm returttv" href="#">
                     batal
+                </a>
+                <a class=" btn btn-warning btn-sm returttv" href="#">
+                    Edit
+                </a>
+                <a class=" btn btn-info btn-sm ttettv" href="#">
+                    TTE
                 </a>
             </td>
         </tr>
@@ -147,7 +170,71 @@
     //     });
     // });
 
+    $(".ttettv").click(function() {
+        var $row = $(this).closest("tr");
+        var idttv = $row.find(".idttv").text();
 
+
+        // var sumberdata = $("#sumberdata:checked").val();
+        Swal.fire({
+            title: "Yakin Validasi Assesmen?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Ya',
+            cancelButtonColor: '#d33',
+            cancelButtonText: "Batal"
+
+        }).then(result => {
+            //jika klik ya maka arahkan ke proses.php
+            if (result.isConfirmed) {
+                $.ajax({
+                    async: true,
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        idttv
+
+
+
+                    },
+                    url: '<?= route('ttettv') ?>',
+
+                    error: function(data) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Sepertinya ada masalah ...',
+                            footer: ''
+                        })
+                    },
+                    success: function(data) {
+                        console.log(data)
+                        if (data.kode == 500) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: data.message,
+                                footer: ''
+                            })
+                        } else {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'OK',
+                                text: 'data berhasil disimpan',
+                                footer: ''
+                            })
+                            // cpptperawat()
+                            pemantauanview()
+
+                        }
+                    }
+                });
+            }
+        })
+        return false;
+    });
     $(".returttv").click(function() {
         var $row = $(this).closest("tr");
         var idttv = $row.find(".idttv").text();

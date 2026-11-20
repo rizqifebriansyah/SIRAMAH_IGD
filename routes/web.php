@@ -357,6 +357,10 @@ Route::group(['middleware' => ['hak_akses:4', 'auth']], function () {
     
     Route::post('returorderlaboratoriumbidan', [PerawatController::class, 'returorderlaboratoriumbidan'])->name('returorderlaboratoriumbidan');
 
+    
+    Route::post('ttettv', [PerawatController::class, 'ttettv'])->name('ttettv');
+
+
     Route::post('singkronisasitteperawat', [PerawatController::class, 'singkronisasitteperawat'])->name('singkronisasitteperawat');
     Route::post('singkronisasittekebidanan', [PerawatController::class, 'singkronisasittekebidanan'])->name('singkronisasittekebidanan');
     Route::post('singkronisasittekebidananbayi', [PerawatController::class, 'singkronisasittekebidananbayi'])->name('singkronisasittekebidananbayi');

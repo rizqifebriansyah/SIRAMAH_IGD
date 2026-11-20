@@ -3418,18 +3418,30 @@
                         <tr>
                             <td class="text-bold font-italic">PERSALINAN </td>
                             <td>
+                                <a class="btn btn-info" href="javascript:void(0);" id="add_kala1"
+                                    title="Add field">KALA 1</a>
+                                <a class="btn btn-info" href="javascript:void(0);" id="add_kala2"
+                                    title="Add field">KALA 2</a>
                                 <form id="dynamic-form" class="formkala1">
-                                    <h5>Klik Tombol PERSALINAN
-                                    </h5>
+
 
                                     <div class="field_kala1">
                                         <div class="row mt-2">
 
 
-                                            <div class="col-md-2">
-                                                <a class="btn btn-info" href="javascript:void(0);" id="add_kala1"
-                                                    title="Add field">KALA 1</a>
-                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </form>
+                                <form id="dynamic-form" class="formkala2">
+
+
+                                    <div class="field_kala2">
+                                        <div class="row mt-2">
+
+
+
                                         </div>
 
                                     </div>
@@ -8693,10 +8705,85 @@
         fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Posisi</label><input type="text" name="posisi_kala1" id="posisi_kala1" value="" class="posisi_kala1 form-control"></div></div>';
         fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Penurunan</label><input type="text" name="penurunan_kala1" id="penurunan_kala1" value="" class="penurunan_kala1 form-control"></div></div>';
         fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Molase</label><input type="text" name="molase_kala1" id="molase_kala1" value="" class="molase_kala1 form-control"></div></div>';
-        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Patograf</label><input type="text" name="pato_kala1" id="pato_kala1" value="" class="pato_kala1 form-control"></div></div>';
-        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">SUHU</label><select class="form-control select2 suhu_kala1" name="suhu_kala1" id="suhu_kala1"><option value="Utuh">Utuh</option><option value="Pecah">Pecah</option></select></div></div>';
-        
-        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">UK</label><input type="text" name="uk_kala1" id="uk_kala1" value="" class="uk_kala1 form-control"></div></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Patograf</label><input type="text" name="pato_kala1" id="pato_kala1" value="" class="pato_kala1 form-control"></div></div></div>';
+
+        fieldHTML = fieldHTML + ' <div class="card-header mt-2" style="background-color: rgba(110, 245, 137, 0.745)" > <i class="bi bi-book mr-1 ml-1"></i> (A) ASESMEN </div>';
+        fieldHTML = fieldHTML + ' <div class="form-group"><label for="name">Asesmen :</label><textarea class="form-control asesmen_kala1" id="asesmen_kala1" name="asesmen_kala1" placeholder=""></textarea></div>';
+
+        fieldHTML = fieldHTML + ' <div class="card-header mt-2" style="background-color: rgba(110, 245, 137, 0.745)" > <i class="bi bi-book mr-1 ml-1"></i> (P) PLANNING </div>';
+        fieldHTML = fieldHTML + ' <div class="form-group"><label for="name">PLANNING :</label><textarea class="form-control planning_kala1" id="planning_kala1" name="planning_kala1" placeholder=""></textarea></div>';
+
+        fieldHTML = fieldHTML + '<div class="col-md-2"><a href="javascript:void(0);" class="remove_button btn btn-danger">HAPUS</a></div>';
+        fieldHTML = fieldHTML + '</div></div>';
+        var x = 1; //Initial field counter is 1
+
+        //Once add button is clicked
+        $(addButton).click(function() {
+            //Check maximum number of input fields
+            if (x < maxField) {
+                x++; //Increment field counter
+                $(wrapper).append(fieldHTML); //Add field html
+            }
+        });
+
+        //Once remove button is clicked
+        $(wrapper).on('click', '.remove_button', function(e) {
+            e.preventDefault();
+            $(this).parent('').parent('').remove(); //Remove field html
+            x--; //Decrement field counter
+        });
+    });
+    $(document).ready(function() {
+        var maxField = 100; //Input fields increment limitation
+        var addButton = $('#add_kala2'); //Add button selector
+        var wrapper = $('.field_kala2'); //Input field wrapper
+        var fieldHTML = '<div class="row mt-2">';
+        fieldHTML = fieldHTML = ' <div class="card-header mt-2" style="background-color: rgba(110, 245, 137, 0.745)" > <i class="bi bi-book mr-1 ml-1"></i> (S) SUBYEKTIF </div>';
+        fieldHTML = fieldHTML + ' <div class="form-group"><label for="name">Ibu Mengatakan :</label><textarea class="form-control ibu_kala2" id="ibu_kala2" name="ibu_kala2" placeholder=""></textarea></div>';
+        fieldHTML = fieldHTML + ' <div class="form-group"><label for="name">Mules / Kontraksi :</label><textarea class="form-control mules_kala2" id="mules_kala2" name="mules_kala2" placeholder=""></textarea></div>';
+        fieldHTML = fieldHTML + ' <div class="form-group"><label for="name">Dorongan meneran/tekanan anus:</label><textarea class="form-control dorongan_kala2" id="dorongan_kala2" name="dorongan_kala2" placeholder=""></textarea></div>';
+        fieldHTML = fieldHTML + '<div class="row"><div class="col-2"> <div class="form-group"><label for="name">Ketuban keluar: Jam</label><input type="text" name="ketuban_jam_kala2" id="ketuban_jam_kala2" value="" class="ketuban_jam_kala2 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Warna</label><input type="text" name="ketuban_warna_kala2" id="ketuban_warna_kala2" value="" class="ketuban_warna_kala2 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Bau</label><input type="text" name="ketuban_bau_kala2" id="ketuban_bau_kala2" value="" class="ketuban_bau_kala2 form-control"></div></div></div>';
+        fieldHTML = fieldHTML + ' <div class="form-group"><label for="name">Keluhan Lain :</label><textarea class="form-control keluhan_lain_kala2" id="keluhan_lain_kala2" name="keluhan_lain_kala2" placeholder=""></textarea></div>';
+
+        fieldHTML = fieldHTML + ' <div class="card-header mt-2" style="background-color: rgba(110, 245, 137, 0.745)" > <i class="bi bi-book mr-1 ml-1"></i> (O) OBYEKTIF </div>';
+
+        fieldHTML = fieldHTML + '<div class="row"><div class="col-2"> <div class="form-group"><label for="name">KU</label><input type="text" name="ku_kala2" id="ku_kala2" value="" class="ku_kala2 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Kesadaran</label><input type="text" name="kesadaran_kala2" id="kesadaran_kala2" value="" class="kesadaran_kala2 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">TD</label><input type="text" name="td_kala2" id="td_kala2" value="" class="td_kala2 form-control"></div></div>';
+
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Nadi</label><input type="text" name="nadi_kala2" id="nadi_kala2" value="" class="nadi_kala2 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">RR</label><input type="text" name="rr_kala2" id="rr_kala2" value="" class="rr_kala2 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">SUHU</label><input type="text" name="suhu_kala2" id="suhu_kala2" value="" class="suhu_kala2 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">SpO2</label><input type="text" name="spo2_kala2" id="spo2_kala2" value="" class="spo2_kala2 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Pemeriksaan Fisik</label><input type="text" name="pemfis_kala2" id="pemfis_kala2" value="" class="pemfis_kala2 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">TFU</label><input type="text" name="tfu_kala2" id="tfu_kala2" value="" class="tfu_kala2 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Leopold I</label><input type="text" name="lpd1_kala2" id="lpd1_kala2" value="" class="lpd1_kala2 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">II</label><input type="text" name="lpd2_kala2" id="lpd2_kala2" value="" class="lpd2_kala2 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">III</label><input type="text" name="lpd3_kala2" id="lpd3_kala2" value="" class="lpd3_kala2 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">IV</label><input type="text" name="lpd4_kala2" id="lpd4_kala2" value="" class="lpd4_kala2 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">DJJ</label><input type="text" name="djj_kala2" id="djj_kala2" value="" class="djj_kala2 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">His</label><input type="text" name="his_kala2" id="his_kala2" value="" class="his_kala2 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Durasi</label><input type="text" name="durasi_kala2" id="durasi_kala2" value="" class="durasi_kala2 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Kekuatan</label><input type="text" name="kekuatan_kala2" id="kekuatan_kala2" value="" class="kekuatan_kala2 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">VT Jam</label><input type="text" name="vtjam_kala2" id="vtjam_kala2" value="" class="vtjam_kala2 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Vulva/Vagina</label><input type="text" name="vulva_kala2" id="vulva_kala2" value="" class="vulva_kala2 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Portio</label><input type="text" name="portio_kala2" id="portio_kala2" value="" class="portio_kala2 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Pembukaan</label><input type="text" name="pembukaan_kala2" id="pembukaan_kala2" value="" class="pembukaan_kala2 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Effacement</label><input type="text" name="effacement_kala2" id="effacement_kala2" value="" class="effacement_kala2 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Ketuban</label><input type="text" name="ketubann_kala2" id="ketubann_kala2" value="" class="ketubann_kala2 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Peresentasi</label><input type="text" name="presentasi_kala2" id="presentasi_kala2" value="" class="presentasi_kala2 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Posisi</label><input type="text" name="posisi_kala2" id="posisi_kala2" value="" class="posisi_kala2 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Penurunan</label><input type="text" name="penurunan_kala2" id="penurunan_kala2" value="" class="penurunan_kala2 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Molase</label><input type="text" name="molase_kala2" id="molase_kala2" value="" class="molase_kala2 form-control"></div></div>';
+        fieldHTML = fieldHTML + '<div class="col-2"> <div class="form-group"><label for="name">Patograf</label><input type="text" name="pato_kala2" id="pato_kala2" value="" class="pato_kala2 form-control"></div></div></div>';
+
+        fieldHTML = fieldHTML + ' <div class="card-header mt-2" style="background-color: rgba(110, 245, 137, 0.745)" > <i class="bi bi-book mr-1 ml-1"></i> (A) ASESMEN </div>';
+        fieldHTML = fieldHTML + ' <div class="form-group"><label for="name">Asesmen :</label><textarea class="form-control asesmen_kala1" id="asesmen_kala1" name="asesmen_kala1" placeholder=""></textarea></div>';
+
+        fieldHTML = fieldHTML + ' <div class="card-header mt-2" style="background-color: rgba(110, 245, 137, 0.745)" > <i class="bi bi-book mr-1 ml-1"></i> (P) PLANNING </div>';
+        fieldHTML = fieldHTML + ' <div class="form-group"><label for="name">PLANNING :</label><textarea class="form-control planning_kala1" id="planning_kala1" name="planning_kala1" placeholder=""></textarea></div>';
 
         fieldHTML = fieldHTML + '<div class="col-md-2"><a href="javascript:void(0);" class="remove_button btn btn-danger">HAPUS</a></div>';
         fieldHTML = fieldHTML + '</div></div>';
