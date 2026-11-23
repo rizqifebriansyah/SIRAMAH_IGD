@@ -12876,8 +12876,8 @@ foreach ($kriteriaTransfer as $nilai => $label) {
 
 
 
-        // $unit = auth()->user()->unit;
-        $unit = '1002';
+        $unit = auth()->user()->unit;
+        // $unit = '1002';
 
         $now = Carbon::now()->format('Y-m-d H:i:s');
         $hasilp = DB::select('SELECT 
@@ -12940,11 +12940,12 @@ foreach ($kriteriaTransfer as $nilai => $label) {
         $tglklr = Carbon::parse($kunjungan[0]->tgl_keluar)->format('d-M-Y');
         $jamklr = Carbon::parse($kunjungan[0]->tgl_keluar)->format('H:i:s');
 
-        $pdf = new FPDF('P', 'mm', 'F4');
-        //pemantauan tttv
-        $pdf::AddPage('P', 'letter');
+      $pdf = new FPDF('P', 'mm', array(210, 330));
+
+            // Pemantauan TTTV
+        $pdf::AddPage();
         //Awal Header kertas
-        $pdf::Rect(8, 9, 198, 260);
+        $pdf::Rect(8, 9, 198, 280);
 
         $pdf::Rect(8, 9, 101, 25);
 
@@ -13271,22 +13272,24 @@ $pdf::ln(5);
             //tabel pemantauan
             $pdf::SetXY(8, $y);
 
-            $pdf::SetFont('Times', 'B', 8);
+            $pdf::SetFont('Times', 'B', 7);
             $pdf::cell(15, 5, "Tgl", 1, "", "C");
             $pdf::cell(10, 5, "Jam", 1, "", "C");
             $pdf::cell(15, 5, "TD (mmhg)", 1, "", "C");
-            $pdf::cell(18, 5, "Nadi X/menit", 1, "", "C");
-            $pdf::cell(18, 5, "RR X/menit", 1, "", "C");
+            $pdf::cell(16, 5, "Nadi X/menit", 1, "", "C");
+            $pdf::cell(15, 5, "RR X/menit", 1, "", "C");
             $cel = iconv('UTF-8', 'ISO-8859-1//TRANSLIT', '°C');
 
             $pdf::cell(15, 5, "Suhu (" . $cel . ")", 1, "", "C");
-            $pdf::cell(13, 5, "GCS", 1, "", "C");
+            $pdf::cell(9, 5, "GCS", 1, "", "C");
+            $pdf::cell(9, 5, "SPO2", 1, "", "C");
+
             $pdf::cell(10, 5, "PUPIL", 1, "", "C");
             $pdf::cell(10, 5, "Urine", 1, "", "C");
-            $pdf::cell(25, 5, "Nyeri", 1, "", "C");
-            $pdf::cell(28, 5, "Keterangan", 1, "", "C");
+            $pdf::cell(10, 5, "Nyeri", 1, "", "C");
+            $pdf::cell(33, 5, "Keterangan", 1, "", "C");
 
-            $pdf::cell(21, 5, "Nama & Paraf", 1, "", "C");
+            $pdf::cell(31, 5, "Nama & Paraf", 1, "", "C");
             $pdf::Ln();
 
             //hasil observasi
@@ -13319,38 +13322,45 @@ $pdf::ln(5);
     | CELL BIASA
     |--------------------------------------------------------------------------
     */
-                $pdf::Rect($startX, $startY, 15, 25);
+$pdf::SetFont('Times', '', 7);
+
+                $pdf::Rect($startX, $startY, 15, 15);
 
                 $pdf::MultiCell(15, 5, $k->tgl_obs, 0, 0);
-                $pdf::Rect($startX + 15, $startY, 10, 25);
+$pdf::SetFont('Times', '', 8);
+
+                $pdf::Rect($startX + 15, $startY, 10, 15);
                 $pdf::SetXY($startX + 15, $startY);
 
 
                 $pdf::MultiCell(10, 5, $k->jam_obs, 0, 0);
-                $pdf::Rect($startX + 25, $startY, 15, 25);
+                $pdf::Rect($startX + 25, $startY, 15, 15);
                 $pdf::SetXY($startX + 25, $startY);
                 $pdf::MultiCell(15, 5, $k->td, 0, 0);
-                 $pdf::Rect($startX + 40, $startY, 18, 25);
+                 $pdf::Rect($startX + 40, $startY, 16, 15);
                 $pdf::SetXY($startX + 40, $startY);
-                $pdf::MultiCell(18, 5, $k->nadi, 0, 0);
-                $pdf::Rect($startX + 58, $startY, 18, 25);
-                $pdf::SetXY($startX + 58, $startY);
-                $pdf::MultiCell(18, 5, $k->rr, 0, 0);
-                $pdf::Rect($startX + 76, $startY, 15, 25);
-                $pdf::SetXY($startX + 76, $startY);
+                $pdf::MultiCell(15, 5, $k->nadi, 0, 0);
+                $pdf::Rect($startX + 56, $startY, 15, 15);
+                $pdf::SetXY($startX + 56, $startY);
+                $pdf::MultiCell(15, 5, $k->rr, 0, 0);
+                $pdf::Rect($startX + 71, $startY, 15, 15);
+                $pdf::SetXY($startX + 71, $startY);
                 $pdf::MultiCell(15, 5, $k->suhu, 0, 0);
-                $pdf::Rect($startX + 91, $startY, 13, 25);
-                $pdf::SetXY($startX + 91, $startY);
-                $pdf::MultiCell(13, 5, $k->gcs, 0, 0);
-                $pdf::Rect($startX + 104, $startY, 10, 25);
+                $pdf::Rect($startX + 86, $startY, 9, 15);
+                $pdf::SetXY($startX + 86, $startY);
+                $pdf::MultiCell(9, 5, $k->gcs, 0, 0);
+                  $pdf::Rect($startX + 95, $startY, 9, 15);
+                $pdf::SetXY($startX + 95, $startY);
+                $pdf::MultiCell(9, 5, $k->spo2, 0, 0);
+                $pdf::Rect($startX + 104, $startY, 10, 15);
                 $pdf::SetXY($startX + 104, $startY);
                 $pdf::MultiCell(10, 5, $k->pupil, 0, 0);
-                $pdf::Rect($startX + 114, $startY, 10, 25);
+                $pdf::Rect($startX + 114, $startY, 10, 15);
                 $pdf::SetXY($startX + 114, $startY);
                 $pdf::MultiCell(10, 5, $k->urine, 0, 0);
-                $pdf::Rect($startX + 124, $startY, 25, 25);
+                $pdf::Rect($startX + 124, $startY, 10, 15);
                 $pdf::SetXY($startX + 124, $startY);
-                $pdf::MultiCell(25, 5, $k->nyeri, 0, 0);
+                $pdf::MultiCell(10, 5, $k->nyeri, 0, 0);
                 // if (!empty($tteperawat) && file_exists($path)) {
                 //     $pdf::Image($path, $startX + 155, $startY, 15, 15, 'PNG');
                 // }
@@ -13362,9 +13372,11 @@ $pdf::ln(5);
 
                 $xKet = $pdf::GetX();
                 $yKet = $pdf::GetY();
-                $pdf::Rect($startX + 149, $startY, 28, 25);
-                $pdf::SetXY($startX + 149, $startY);
-                $pdf::MultiCell(28, 5, $ket, 0, "L");
+            $pdf::SetFont('Times', '', 8);
+
+                $pdf::Rect($startX + 134, $startY, 33, 15);
+                $pdf::SetXY($startX + 134, $startY +1);
+                $pdf::MultiCell(33, 2.5, $ket, 0, "L");
 
             /*
 |--------------------------------------------------------------------------
@@ -13395,23 +13407,59 @@ if (!empty($tteperawat)) {
             $path,
             $startX + 182,
             $startY + 1 ,
-            10,
-            10,
+            7,
+            7,
             'PNG'
         );
     }
 }
 
-// Tetap tampilkan kotak Nama & Paraf
-      $pdf::Rect($startX + 177, $startY, 21, 25);
-                $pdf::SetXY($startX + 177, $startY + 12);
-$pdf::MultiCell(20, 3, $k->perawat_jaga, 0, 0);                /*
-    |--------------------------------------------------------------------------
-    | NEXT ROW
-    |--------------------------------------------------------------------------
-    */
+// / Tetap tampilkan kotak Nama & Paraf
+$pdf::SetFont('Times', '', 7);
 
-                $pdf::SetXY($startX, $startY + 25);
+// Ukuran kertas F4: 210 x 330 mm
+$pageHeight = 330;
+$bottomMargin = 10;
+
+// Posisi kotak
+$boxWidth  = 31;
+$boxHeight = 15;
+$boxX = $startX + 167;
+
+// Pastikan kotak tidak terpotong halaman
+if ($startY + $boxHeight > ($pageHeight - $bottomMargin)) {
+    $pdf::AddPage('P');
+    $startY = 15;
+}
+
+// Gambar kotak
+$pdf::Rect($boxX, $startY, $boxWidth, $boxHeight);
+
+// Tampilkan nama perawat
+$pdf::SetXY($boxX + 1, $startY + 9);
+$pdf::MultiCell(
+    $boxWidth - 2,
+    3,
+    $k->perawat_jaga,
+    0,
+    'L'
+);
+
+// NEXT ROW
+$pdf::SetXY($startX, $startY + 15);
+// // Tetap tampilkan kotak Nama & Paraf
+//     $pdf::SetFont('Times', '', 7);
+
+//       $pdf::Rect($startX + 167, $startY, 31, 17);
+//                 $pdf::SetXY($startX + 167, $startY +9);
+//     $pdf::MultiCell(28,2, $k->perawat_jaga, 0, 0);                /*
+//     |--------------------------------------------------------------------------
+//     | NEXT ROW
+//     |--------------------------------------------------------------------------
+//     */
+
+//                 // $pdf::SetXY($startX, $startY + 17);
+//                 $pdf::ln(4);
             }
             }
      

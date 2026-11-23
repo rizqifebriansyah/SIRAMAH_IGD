@@ -61,9 +61,21 @@ class PerawatController extends Controller
 
         $hasilp = DB::select('SELECT * FROM pemantauan_ttv WHERE kj = ? AND norm = ? AND status = 1', [$kj, $norm]);
         // dd($hasilp);
+        $dpjp = DB::select('SELECT 
+                    a.kode_paramedis,
+                    a.nama_paramedis
+                    FROM mt_paramedis a
+                    WHERE a.spesialis LIKE "%UMUM%"
+                    AND a.act = 1');
+        $perawat = DB::select('SELECT * FROM USER WHERE unit = "1002" AND hak_akses = "4"');
+
 
         return view('perawat.pemantauanview', [
             'hasilp' => $hasilp,
+            'dpjp' => $dpjp,
+            'perawat' => $perawat,
+
+
             'unit' => $unit
 
 
@@ -3238,6 +3250,60 @@ class PerawatController extends Controller
     //     echo json_encode($back);
     //     die;
     // }
+    public function editpemantauan(Request $request)
+    {
+        $now = Carbon::now();
+        $user = auth()->user()->id_simrs;
+        $kp = auth()->user()->kode_paramedis;
+        $name = auth()->user()->nama;
+        $unit = auth()->user()->unit;
+        $idttv = $request->idttv;
+
+
+        $norm = $request->norm;
+        $dk = $request->dk;
+
+        $kj = $request->kj;
+        $a = $request->all();
+        dd($a);
+
+
+        $input = pemantauan_ttv::findOrFail($idttv);
+
+        $input->update([
+            'dokter_jaga' => $request->dj,
+
+            'perawat_jaga' => $request->pj,
+            'kategori_pasien' => $request->kapa,
+            'diagnosa_kerja' => $request->dk,
+            'td' => $request->ttd,
+            'nadi' => $request->nadi,
+            'rr' => $request->rr,
+            'suhu' => $request->suhu,
+            'gcs' => $request->gcs,
+            'pupil' => $request->pupil,
+            'urine' => $request->urine,
+            'spo2' => $request->spo2,
+            'nyeri' => $request->nyeri,
+            'keterangan' => $request->keterangan,
+
+
+        ]);
+        dd($input);
+
+
+
+
+
+
+
+        $back = [
+            'kode' => 200,
+            'message' => 'Berhasil'
+        ];
+        echo json_encode($back);
+        die;
+    }
     public function simpanpemantauan(Request $request)
     {
         $now = Carbon::now();
@@ -5415,7 +5481,7 @@ class PerawatController extends Controller
     }
 
 
-  public function ttettv(Request $request)
+    public function ttettv(Request $request)
     {
 
         $now = Carbon::now()->format('Y-m-d H:i:s');
@@ -5424,8 +5490,8 @@ class PerawatController extends Controller
 
         $user = auth()->user()->nama;
         $kp = auth()->user()->kode_paramedis;
-   
-        $iddokumen = 'IGDOBS-' . $idttv ;
+
+        $iddokumen = 'IGDOBS-' . $idttv;
         // dd($iddokumen);
 
         $url = 'https://siramah.rsudwaled.com/api/simpanfilette';

@@ -138,7 +138,9 @@
                 <div class="col-3">
                     <div class="form-group">
                         <label for="name">Keterangan</label>
-                        <input type="text" name="keterangan" id="keterangan" value="" class=" form-control">
+                        <!-- <input type="text" name="keterangan" id="keterangan" value="" class=" form-control"> -->
+                <textarea class="form-control" rows="3" id="keterangan" name="keterangan" placeholder=""></textarea>
+                    
                     </div>
                 </div>
                 <div class="col-3">

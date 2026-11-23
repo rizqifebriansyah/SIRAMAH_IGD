@@ -318,7 +318,9 @@ Route::group(['middleware' => ['hak_akses:4', 'auth']], function () {
     Route::post('simpanassesbidan', [PerawatController::class, 'simpanassesbidan'])->name('simpanassesbidan');
     Route::post('simpanassemenperawat', [PerawatController::class, 'simpanassemenperawat'])->name('simpanassemenperawat');
     Route::post('simpanpemantauan', [PerawatController::class, 'simpanpemantauan'])->name('simpanpemantauan');
-      Route::post('orderlabigk', [PerawatController::class, 'orderlabigk'])->name('orderlabigk');
+    Route::post('editpemantauan', [PerawatController::class, 'editpemantauan'])->name('editpemantauan');
+      
+    Route::post('orderlabigk', [PerawatController::class, 'orderlabigk'])->name('orderlabigk');
 
 
     Route::post('updateassemenperawat', [PerawatController::class, 'updateassemenperawat'])->name('updateassemenperawat');
